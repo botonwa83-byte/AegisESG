@@ -1,0 +1,32 @@
+{
+  "source_file": "2024中国能源上市公司可持续发展（ESG）客户名单(1).xlsx",
+  "source_sha256": "7823fe95a5fdd948a11490dd4de4a91c0cf177fbbc12bb2f7d1a221711484842",
+  "sheet_name": "Sheet1",
+  "evaluation_year": 2024,
+  "report_year": 2023,
+  "company_count": 636,
+  "observation_count": 6360,
+  "exchange_counts": {
+    "BSE": 26,
+    "HKEX": 94,
+    "SSE": 243,
+    "SZSE": 272,
+    "UNKNOWN": 1
+  },
+  "st_company_count": 14,
+  "malformed_code_count": 1,
+  "mainland_snapshot_matched": 508,
+  "mainland_snapshot_unmatched": 7,
+  "nonmissing_observations": {
+    "H_ENV_SAFETY_INVEST_RATE": 635,
+    "Q_E_ENERGY_INTENSITY": 635,
+    "Q_E_GENERAL_WASTE_INTENSITY": 633,
+    "Q_E_GHG_INTENSITY": 635,
+    "Q_E_NOX_INTENSITY": 633,
+    "Q_E_SO2_INTENSITY": 633,
+    "Q_E_WATER_INTENSITY": 635,
+    "Q_G_DEBT_ASSET_RATE": 636,
+    "Q_S_DIVIDEND_PER_SHARE": 635,
+    "Q_S_RD_RATE": 635
+  }
+}

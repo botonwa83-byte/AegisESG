@@ -1,0 +1,12 @@
+{
+  "exchange": "SZSE",
+  "as_of_date": "2026-07-28",
+  "official_page": "https://www.szse.cn/market/stock/company/",
+  "official_download": "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=XLSX&CATALOGID=1110x&TABKEY=tab1",
+  "reported_company_count": 2896,
+  "normalized_company_count": 2896,
+  "raw_file": "data/snapshots/raw/szse_listed_companies_2026-07-28.xlsx",
+  "raw_sha256": "1bdd1004c89afc6894c294f40da64476a3340905f873eadd48a7c1ec8fb4d454",
+  "normalized_file": "data/snapshots/szse_2026-07-28.csv",
+  "normalized_sha256": "f4e497a6e9ea37a196b9c54825c0d3091710e95b6c8dfe8860d6e18a45ff25d2"
+}

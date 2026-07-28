@@ -1,0 +1,15 @@
+{
+  "company_count": 493,
+  "annual_collected": 24,
+  "esg_collected": 15,
+  "ready_for_extraction": 15,
+  "actions": {
+    "discover_annual_and_esg": 469,
+    "discover_esg_or_scan_annual": 9,
+    "ready_for_extraction": 15
+  },
+  "exchanges": {
+    "SSE": 236,
+    "SZSE": 257
+  }
+}

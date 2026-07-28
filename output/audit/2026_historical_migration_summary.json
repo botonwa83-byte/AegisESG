@@ -1,0 +1,13 @@
+{
+  "historical_company_count": 636,
+  "decision_counts": {
+    "exclude": 20,
+    "manual_review": 3,
+    "pending_snapshot": 120,
+    "provisional_include": 493
+  },
+  "provisional_company_count": 493,
+  "excluded_company_count": 20,
+  "requires_review_count": 123,
+  "warning": "迁移结果是候选计划；行业口径、A/H主体关系及北交所/港交所快照完成前不得冻结正式样本。"
+}

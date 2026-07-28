@@ -1,0 +1,14 @@
+{
+  "row_count": 2310,
+  "exchanges": {
+    "SSE": 2310
+  },
+  "missing_source_count": 0,
+  "missing_date_count": 0,
+  "missing_entity_count": 0,
+  "unknown_exchange_count": 0,
+  "duplicate_code_count": 0,
+  "invalid_source_count": 0,
+  "invalid_date_count": 0,
+  "valid": true
+}

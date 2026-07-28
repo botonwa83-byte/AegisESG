@@ -1,0 +1,15 @@
+{
+  "exchange": "SSE",
+  "as_of_date": "2026-07-28",
+  "official_page": "https://www.sse.com.cn/assortment/stock/home/",
+  "official_api": "https://query.sse.com.cn/sseQuery/commonQuery.do",
+  "main_board_count": 1698,
+  "star_market_count": 612,
+  "normalized_company_count": 2310,
+  "raw_main_file": "data/snapshots/raw/sse_main_2026-07-28.json",
+  "raw_main_sha256": "be602fb722e9521f0d2dcce6fc2fb78982e86aa4c4760028a5dded90ae5c5972",
+  "raw_star_file": "data/snapshots/raw/sse_star_2026-07-28.json",
+  "raw_star_sha256": "61c5885ba6cd1b65e0ff654b4e3dfd83179fa0072606bebe9e1d39aa6150c4b4",
+  "normalized_file": "data/snapshots/sse_2026-07-28.csv",
+  "normalized_sha256": "01ec26cedffc25b57788da5cb4e4ca7ab337d8bb2d795fd6052727eb61c5ec3b"
+}

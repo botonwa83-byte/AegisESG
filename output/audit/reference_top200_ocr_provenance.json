@@ -1,0 +1,16 @@
+{
+  "source_pdf": "2025中国能源上市公司可持续发展（ESG）评价报告.pdf",
+  "physical_pages": "67-72",
+  "ocr_file": "data/reference/2025_top200_ocr.txt",
+  "ocr_sha256": "d390271e60e2f0684769aa65d23a3bf8d61331447393011eac12d8a600920906",
+  "security_file": "data/reference/2025_top200_securities_ocr.csv",
+  "security_sha256": "c639ea4e0be89f4a771081219afd0730af5d5da0cdde93da17fc343255692d7f",
+  "unique_security_count": 227,
+  "sse_count": 104,
+  "szse_count": 71,
+  "bse_count": 3,
+  "hkex_count": 49,
+  "mainland_snapshot_matched": 175,
+  "mainland_snapshot_unmatched": 0,
+  "note": "227个证券代码包含同一公司A/H多地上市，对应榜单前200家公司；主体映射仍需复核。"
+}

@@ -1,0 +1,19 @@
+{
+  "security_count": 40,
+  "included_security_count": 38,
+  "included_company_count": 38,
+  "completed_company_count": 25,
+  "expected_company_count": 632,
+  "universe_coverage_rate": 0.060126582278481014,
+  "completed_coverage_rate": 0.03955696202531646,
+  "exchanges": {
+    "HKEX": 6,
+    "SSE": 25,
+    "SZSE": 7
+  },
+  "missing_exchanges": [
+    "BSE"
+  ],
+  "unclassified_count": 0,
+  "publishable": false
+}

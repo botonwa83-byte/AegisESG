@@ -1,0 +1,2 @@
+stock_code,company_name,exchange,industry,entity_id,st_status,listing_status,energy_eligible,source_url,as_of_date
+600900.SH,长江电力,SSE,电力,CN-YANGTZE-POWER,,上市,true,https://www.sse.com.cn/,2026-07-28
