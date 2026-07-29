@@ -7,6 +7,7 @@ import re
 import time
 import urllib.parse
 import urllib.request
+from collections import Counter
 from dataclasses import asdict, dataclass
 from datetime import date, timedelta
 from html.parser import HTMLParser
@@ -206,6 +207,56 @@ def write_hkex_disclosures(path: str | Path, rows: Iterable[HKEXDisclosure]) -> 
         writer = csv.DictWriter(stream, fieldnames=tuple(HKEXDisclosure.__annotations__))
         writer.writeheader()
         writer.writerows(asdict(item) for item in rows)
+
+
+def read_hkex_disclosures(path: str | Path) -> list[HKEXDisclosure]:
+    result = []
+    with Path(path).open(encoding="utf-8-sig", newline="") as stream:
+        for line, row in enumerate(csv.DictReader(stream), 2):
+            try:
+                result.append(HKEXDisclosure(
+                    row["company_code"].strip().upper(), row["company_name"].strip(),
+                    int(row["report_year"]), row["document_type"].strip(), row["source_url"].strip(),
+                    row["published_date"].strip(), row["title"].strip(), row["headline"].strip(),
+                    row["stock_id"].strip(),
+                ))
+            except (KeyError, TypeError, ValueError) as error:
+                raise ValueError(f"HKEXnews文件清单第{line}行格式错误") from error
+    return result
+
+
+def select_continuity_downloads(rows: Iterable[HKEXDisclosure]) -> tuple[list[HKEXDisclosure], dict]:
+    allowed = {"annual_report", "esg_report", "listing_document", "name_change_announcement"}
+    grouped: dict[tuple[str, str], list[HKEXDisclosure]] = {}
+    seen_urls = set()
+    for item in rows:
+        if item.document_type not in allowed or not item.source_url.lower().endswith(".pdf"):
+            continue
+        if item.source_url in seen_urls:
+            raise ValueError(f"HKEXnews文件清单URL重复: {item.source_url}")
+        seen_urls.add(item.source_url)
+        grouped.setdefault((item.company_code, item.document_type), []).append(item)
+
+    def rank(item: HKEXDisclosure) -> tuple[int, int, str, str]:
+        formal_listing = int("listing documents" in item.headline.lower())
+        return item.report_year, formal_listing, item.published_date, item.source_url
+
+    selected = [max(items, key=rank) for items in grouped.values()]
+    selected.sort(key=lambda item: (item.company_code, item.document_type))
+    by_type = Counter(item.document_type for item in selected)
+    summary = {
+        "candidate_count": len(seen_urls),
+        "selected_count": len(selected),
+        "company_count": len({item.company_code for item in selected}),
+        "document_type_counts": dict(sorted(by_type.items())),
+        "duplicate_target_count": len(selected) - len({
+            (item.company_code, item.report_year, item.document_type) for item in selected
+        }),
+        "complete": bool(selected),
+    }
+    if summary["duplicate_target_count"]:
+        raise ValueError("HKEXnews下载清单存在目标路径冲突")
+    return selected, summary
 
 
 def _headers() -> dict[str, str]:

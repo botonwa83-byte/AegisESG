@@ -1,0 +1,12 @@
+{
+  "candidate_count": 12,
+  "selected_count": 7,
+  "company_count": 4,
+  "document_type_counts": {
+    "annual_report": 4,
+    "esg_report": 2,
+    "listing_document": 1
+  },
+  "duplicate_target_count": 0,
+  "complete": true
+}

@@ -226,6 +226,25 @@ PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-continuity-documents \
 只保留年报、ESG报告、上市文件及更名公告；年报发布通知函不会误作年报。首批4个高优先案例
 已发现12份候选文件并保存原始响应，其中00600.HK包含2025年报和新发行人的上市文件。
 
+发现结果先收敛为不会覆盖的下载清单，再使用通用断点下载器：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-continuity-downloads \
+  data/manifests/hkex_continuity_priority_2026-07-29.csv \
+  --output data/manifests/hkex_continuity_priority_downloads_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_priority_download_summary_2026-07-29.json
+
+PYTHONPATH=src python3 -m aegis_esg.cli extract-hkex-continuity-evidence \
+  data/raw/hkex_continuity_document_index.csv --text-root data/text \
+  --output data/review/hkex_continuity_priority_evidence_candidates_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_priority_evidence_summary_2026-07-29.json
+```
+
+收敛器按公司和文件类型选择最新文件，正式上市文件优先于形式通知，并拒绝目标路径冲突。
+首批选择7份文件（4份年报、2份ESG报告、1份上市文件），全部下载成功且保存SHA-256。
+1,655页文本生成44条待复核证据：发行人沿革2条、主营业务26条、A/H身份线索16条；主营业务和
+A/H线索覆盖4/4家公司。候选均保留文件、URL、页码和片段，`applicable=false`，不能替代审核签名。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

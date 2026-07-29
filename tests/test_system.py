@@ -20,9 +20,10 @@ from aegis_esg.sources.sse import classify_title, discover_reports, parse_respon
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
-from aegis_esg.sources.hkex_disclosure import classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search
+from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
+from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
@@ -579,6 +580,44 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(2, len(rows))
         self.assertEqual(3, len(calls))
         self.assertEqual(3, len(raw["title_search_ranges"]))
+
+    def test_hkex_continuity_download_selection_avoids_overwrite(self):
+        def row(year, kind, url, date="2026-01-01", headline="Financial Statements"):
+            return HKEXDisclosure("00600.HK", "AXERA", year, kind, url, date, "title", headline, "1")
+
+        selected, summary = select_continuity_downloads([
+            row(2024, "annual_report", "https://hkex/old.pdf", "2025-04-01"),
+            row(2025, "annual_report", "https://hkex/new.pdf", "2026-04-01"),
+            row(0, "listing_document", "https://hkex/notice.pdf", headline="Formal Notice"),
+            row(0, "listing_document", "https://hkex/prospectus.pdf", headline="Listing Documents"),
+        ])
+        self.assertEqual(["annual_report", "listing_document"], [item.document_type for item in selected])
+        self.assertEqual("https://hkex/new.pdf", selected[0].source_url)
+        self.assertEqual("https://hkex/prospectus.pdf", selected[1].source_url)
+        self.assertEqual(0, summary["duplicate_target_count"])
+
+    def test_extract_hkex_continuity_evidence_keeps_page_and_pending_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            index = root / "index.csv"
+            text_root = root / "text"
+            text_path = text_root / "00042.HK/2025/annual_report.txt"
+            text_path.parent.mkdir(parents=True)
+            index.write_text(
+                "company_code,company_name,report_year,document_type,source_url,local_path\n"
+                "00042.HK,NEE,2025,annual_report,https://hkex/report.pdf,data/raw/00042.HK/2025/annual_report.pdf\n",
+                encoding="utf-8",
+            )
+            text_path.write_text(
+                "\n=== PAGE 1 ===\nThe Company was formerly known as Old Name Limited.\n"
+                "\n=== PAGE 2 ===\nPrincipal activities include energy equipment. The H shares are listed in Hong Kong.\n",
+                encoding="utf-8",
+            )
+            rows, summary = extract_continuity_evidence_candidates(index, text_root)
+            self.assertEqual({"issuer_history", "principal_business", "ah_identity"}, {item.evidence_category for item in rows})
+            self.assertTrue(all(item.review_status == "pending" for item in rows))
+            self.assertEqual({1, 2}, {item.source_page for item in rows})
+            self.assertFalse(summary["applicable"])
 
     def test_prepare_hkex_evidence_drafts_uses_exact_mapping_and_stays_unsigned(self):
         header = (

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, write_document_index
+from .continuity_evidence import extract_continuity_evidence_candidates, write_continuity_evidence_candidates
 from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
@@ -26,7 +27,7 @@ from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
 from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
-from .sources.hkex_disclosure import discover_hkex_continuity_documents, write_hkex_disclosures
+from .sources.hkex_disclosure import discover_hkex_continuity_documents, read_hkex_disclosures, select_continuity_downloads, write_hkex_disclosures
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
@@ -119,6 +120,16 @@ def main() -> None:
     hkex_documents.add_argument("--limit", type=int, default=0)
     hkex_documents.add_argument("--output", required=True)
     hkex_documents.add_argument("--raw-output", required=True)
+    hkex_downloads = sub.add_parser("prepare-hkex-continuity-downloads", help="从发现结果选择无覆盖冲突的连续性文件下载清单")
+    hkex_downloads.add_argument("discoveries")
+    hkex_downloads.add_argument("--output", required=True)
+    hkex_downloads.add_argument("--summary", required=True)
+    continuity_extract = sub.add_parser("extract-hkex-continuity-evidence", help="从带页码文本提取发行人沿革、主营业务和A/H身份候选")
+    continuity_extract.add_argument("document_index")
+    continuity_extract.add_argument("--text-root", default="data/text")
+    continuity_extract.add_argument("--max-per-category", type=int, default=5)
+    continuity_extract.add_argument("--output", required=True)
+    continuity_extract.add_argument("--summary", required=True)
     apply_continuity = sub.add_parser("apply-hkex-continuity-decisions", help="应用签名发行人连续性及A/H主体决定")
     apply_continuity.add_argument("universe")
     apply_continuity.add_argument("decisions")
@@ -380,6 +391,21 @@ def main() -> None:
             "requested_count": len(task_rows), "document_count": len(disclosures),
             "codes_with_documents": len({item.company_code for item in disclosures}),
         }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-hkex-continuity-downloads":
+        rows, summary = select_continuity_downloads(read_hkex_disclosures(args.discoveries))
+        write_hkex_disclosures(args.output, rows)
+        summary_output = Path(args.summary)
+        summary_output.parent.mkdir(parents=True, exist_ok=True)
+        summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "extract-hkex-continuity-evidence":
+        rows, summary = extract_continuity_evidence_candidates(
+            args.document_index, args.text_root, args.max_per_category,
+        )
+        write_continuity_evidence_candidates(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-hkex-continuity-decisions":
         rows, decisions, summary = apply_issuer_continuity_decisions(
