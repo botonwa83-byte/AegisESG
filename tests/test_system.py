@@ -20,6 +20,7 @@ from aegis_esg.sources.sse import classify_title, discover_reports, parse_respon
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
+from aegis_esg.sources.hkex_disclosure import classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
 from aegis_esg.universe import UniverseCompany, audit_universe
@@ -524,6 +525,60 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(["02688.HK", "00135.HK"], [item.stock_code for item in profiles])
         self.assertEqual(3, len(calls))
         self.assertEqual({"02688.HK", "00135.HK"}, set(raw))
+
+    def test_hkex_disclosure_parses_exact_stock_and_relevant_documents(self):
+        lookup = 'callback({"stockInfo":[{"stockId":42,"code":"00042","name":"NEE"}]});'
+        self.assertEqual(("42", "NEE"), parse_stock_lookup(lookup, "00042.HK"))
+        page = """<html><title>Listed Company Information Title Search</title>
+        <div>Total records found: 2</div><table><tbody>
+        <tr><td class='release-time'>Release Time: 30/04/2026 18:01</td>
+        <td class='stock-short-code'>Stock Code: 00042</td><td class='stock-short-name'>NEE</td>
+        <td><div class='headline'>Financial Statements/ESG Information</div><div class='doc-link'>
+        <a href='/listedco/annual.pdf'>2025 ANNUAL REPORT</a></div></td></tr>
+        <tr><td class='release-time'>Release Time: 01/03/2026 09:00</td>
+        <td class='stock-short-code'>00042</td><td class='stock-short-name'>NEE</td>
+        <td><div class='headline'>Monthly Returns</div><div class='doc-link'>
+        <a href='/listedco/monthly.pdf'>MONTHLY RETURN</a></div></td></tr>
+        </tbody></table></html>"""
+        rows = parse_title_search(page, "00042.HK", "42")
+        self.assertEqual(1, len(rows))
+        self.assertEqual("annual_report", rows[0].document_type)
+        self.assertEqual(2025, rows[0].report_year)
+        self.assertEqual("2026-04-30", rows[0].published_date)
+
+    def test_hkex_disclosure_rejects_incomplete_page_and_classifies_listing(self):
+        page = "<html><title>Listed Company Information Title Search</title><div>Total records found: 1</div></html>"
+        with self.assertRaisesRegex(ValueError, "分页不完整"):
+            parse_title_search(page, "00600.HK", "1")
+        self.assertEqual(("listing_document", 0), classify_continuity_document("GLOBAL OFFERING", "Listing Documents"))
+        self.assertEqual((None, 0), classify_continuity_document(
+            "Letter to shareholders - publication of Annual Report 2025", "Circulars - [Other]",
+        ))
+
+    def test_hkex_disclosure_bisects_incomplete_date_range(self):
+        lookup = b'callback({"stockInfo":[{"stockId":42,"code":"00042","name":"NEE"}]});'
+
+        def page(total, suffix):
+            row = "" if total == 101 else f"""<tr><td class='release-time'>01/01/2026</td>
+            <td class='stock-short-code'>00042</td><td class='stock-short-name'>NEE</td>
+            <td><div class='headline'>Listing Documents</div><div class='doc-link'>
+            <a href='/listedco/{suffix}.pdf'>GLOBAL OFFERING</a></div></td></tr>"""
+            return f"<html><title>Listed Company Information Title Search</title><div>Total records found: {total}</div><table>{row}</table></html>".encode()
+
+        calls = []
+
+        def fetch(request):
+            if request.data is None:
+                return lookup
+            calls.append(urllib.parse.parse_qs(request.data.decode()))
+            if len(calls) == 1:
+                return page(101, "full")
+            return page(1, str(len(calls)))
+
+        rows, raw = discover_hkex_continuity_documents("00042.HK", "2026-01-01", "2026-01-10", fetch)
+        self.assertEqual(2, len(rows))
+        self.assertEqual(3, len(calls))
+        self.assertEqual(3, len(raw["title_search_ranges"]))
 
     def test_prepare_hkex_evidence_drafts_uses_exact_mapping_and_stays_unsigned(self):
         header = (

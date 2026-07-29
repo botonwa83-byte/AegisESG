@@ -26,6 +26,7 @@ from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
 from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
+from .sources.hkex_disclosure import discover_hkex_continuity_documents, write_hkex_disclosures
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
@@ -111,6 +112,13 @@ def main() -> None:
     continuity_tasks.add_argument("continuity_audit")
     continuity_tasks.add_argument("--output", required=True)
     continuity_tasks.add_argument("--summary", required=True)
+    hkex_documents = sub.add_parser("discover-hkex-continuity-documents", help="从HKEXnews发现发行人连续性官方文件")
+    hkex_documents.add_argument("tasks")
+    hkex_documents.add_argument("--from-date", required=True)
+    hkex_documents.add_argument("--to-date", required=True)
+    hkex_documents.add_argument("--limit", type=int, default=0)
+    hkex_documents.add_argument("--output", required=True)
+    hkex_documents.add_argument("--raw-output", required=True)
     apply_continuity = sub.add_parser("apply-hkex-continuity-decisions", help="应用签名发行人连续性及A/H主体决定")
     apply_continuity.add_argument("universe")
     apply_continuity.add_argument("decisions")
@@ -351,6 +359,27 @@ def main() -> None:
         tasks, summary = plan_continuity_evidence_tasks(args.continuity_audit)
         write_continuity_evidence_tasks(args.output, args.summary, tasks, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "discover-hkex-continuity-documents":
+        with Path(args.tasks).open(encoding="utf-8-sig", newline="") as stream:
+            task_rows = list(csv.DictReader(stream))
+        if args.limit > 0:
+            task_rows = task_rows[:args.limit]
+        disclosures = []
+        raw = {}
+        for task in task_rows:
+            code = task["stock_code"].strip().upper()
+            rows, payloads = discover_hkex_continuity_documents(code, args.from_date, args.to_date)
+            disclosures.extend(rows)
+            raw[code] = payloads
+        write_hkex_disclosures(args.output, disclosures)
+        raw_output = Path(args.raw_output)
+        raw_output.parent.mkdir(parents=True, exist_ok=True)
+        raw_output.write_text(json.dumps(raw, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(json.dumps({
+            "requested_count": len(task_rows), "document_count": len(disclosures),
+            "codes_with_documents": len({item.company_code for item in disclosures}),
+        }, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-hkex-continuity-decisions":
         rows, decisions, summary = apply_issuer_continuity_decisions(

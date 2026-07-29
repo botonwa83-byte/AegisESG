@@ -211,6 +211,21 @@ A/H关系顺序保留审计优先级。当前92条审计生成70项待采集任�
 连续性核验、2项A/H关系核验；每项明确所需官方文件、历史与当前名称检索词及已有港交所资料URL。
 任务始终保持`pending`，不会把检索建议冒充证据或审核结论。
 
+高优先任务可从HKEXnews公开标题检索发现官方文件：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-continuity-documents \
+  output/audit/hkex_continuity_evidence_tasks_2026-07-29.csv \
+  --from-date 2025-01-01 --to-date 2026-07-29 --limit 4 \
+  --output data/manifests/hkex_continuity_priority_2026-07-29.csv \
+  --raw-output data/snapshots/raw/hkex_continuity_priority_2026-07-29.json
+```
+
+适配器先按证券代码精确解析HKEXnews `stockId`，再查询公告标题；逐行校验返回证券代码，并核对
+页面总记录数。单次结果超过页面上限时自动二分日期区间，直到每段完整，再按官方文件URL去重。
+只保留年报、ESG报告、上市文件及更名公告；年报发布通知函不会误作年报。首批4个高优先案例
+已发现12份候选文件并保存原始响应，其中00600.HK包含2025年报和新发行人的上市文件。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
