@@ -294,6 +294,36 @@ PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-continuity-documents \
 失败0，共发现252份相关文件，68家公司有候选、2家公司在该时间窗内无匹配文件。无冲突收敛后
 得到118份下载目标：68份年报、45份ESG报告、3份上市文件和2份更名公告。
 
+下载清单支持断点续传、PDF签名校验、SHA-256索引和独立失败表：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli collect \
+  data/manifests/hkex_continuity_all_downloads_2026-07-29.csv \
+  --output-root data/raw \
+  --index data/raw/hkex_continuity_all_document_index.csv \
+  --failures data/raw/hkex_continuity_all_collection_failures.csv \
+  --delay 0.2 --resume
+```
+
+本批118份文件已全部下载且失败0。PDFKit文本化后，以下载索引生成带页码证据候选和审阅包：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli extract-hkex-continuity-evidence \
+  data/raw/hkex_continuity_all_document_index.csv --text-root data/text \
+  --max-per-category 5 \
+  --output data/review/hkex_continuity_all_evidence_candidates_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_all_evidence_summary_2026-07-29.json
+
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-continuity-review \
+  output/audit/hkex_continuity_evidence_tasks_2026-07-29.csv \
+  data/review/hkex_continuity_all_evidence_candidates_2026-07-29.csv \
+  --output data/review/hkex_continuity_all_review_packet_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_all_review_packet_summary_2026-07-29.json
+```
+
+结果为431条候选：主营业务348条、A/H身份72条、发行人历史11条；68家公司形成未签名审阅包，
+`00702.HK`和`01101.HK`在时间窗内无文件候选。候选只用于人工审核，不能直接应用到公司池。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

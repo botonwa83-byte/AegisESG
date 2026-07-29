@@ -1,0 +1,11 @@
+{
+  "task_count": 70,
+  "candidate_count": 431,
+  "packet_count": 68,
+  "unsigned_count": 68,
+  "codes_without_candidates": [
+    "00702.HK",
+    "01101.HK"
+  ],
+  "applicable": false
+}
