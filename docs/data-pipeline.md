@@ -181,6 +181,22 @@ PYTHONPATH=src python3 -m aegis_esg.cli audit-hkex-issuer-continuity \
 全称一致、8家公司简称一致、1家公司由官方签名代码解析确认，另68家公司需要名称连续性证据；
 9条名称带H股线索进入A/H复核。名称差异不等同发行人变化，必须结合公告或年报判断。
 
+发行人连续性和A/H关系由审核人按`data/templates/hkex_issuer_continuity_decisions.csv`签名后应用：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli apply-hkex-continuity-decisions \
+  data/universe/energy_historical_candidates_2026.csv signed-continuity.csv \
+  --continuity-audit output/audit/hkex_issuer_continuity_review_2026-07-29.csv \
+  --output data/universe/energy_after_hkex_continuity_2026.csv \
+  --audit output/audit/hkex_continuity_applied.csv \
+  --summary output/audit/hkex_continuity_applied.json
+```
+
+`outcome`只接受`same_issuer`、`new_issuer`和`ah_same_entity`。`new_issuer`会排除仅依赖历史样本
+沿用的当前证券；若当前发行人仍应按能源范围纳入，必须作为新候选重新提供行业证据。
+`ah_same_entity`必须提供当前已纳入的沪深北证券代码和独立主体标识，系统固定保留A股并排除H股。
+未覆盖的复核项保留在摘要中，只有全部必审项签名后`complete`才为true。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

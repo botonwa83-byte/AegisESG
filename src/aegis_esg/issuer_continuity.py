@@ -5,10 +5,12 @@ import json
 import re
 from collections import Counter
 from dataclasses import asdict, dataclass
+from datetime import date, datetime
 from pathlib import Path
 from typing import Iterable
 
 from .registry import normalize_company_name
+from .universe import UniverseCompany
 
 
 @dataclass(frozen=True)
@@ -28,6 +30,22 @@ class IssuerContinuityReview:
     evidence_url: str
     resolution_evidence_url: str
     reason: str
+
+
+@dataclass(frozen=True)
+class AppliedContinuityDecision:
+    decision_id: str
+    stock_code: str
+    outcome: str
+    related_a_code: str
+    final_entity_id: str
+    final_included: bool
+    action: str
+    evidence_url: str
+    evidence_date: str
+    reviewer: str
+    reviewed_at: str
+    rationale: str
 
 
 def audit_hkex_issuer_continuity(
@@ -128,6 +146,137 @@ def write_issuer_continuity_audit(
     summary_output = Path(summary_path)
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def apply_issuer_continuity_decisions(
+    universe: Iterable[UniverseCompany], continuity_audit_path: str | Path,
+    decisions_path: str | Path,
+) -> tuple[list[UniverseCompany], list[AppliedContinuityDecision], dict]:
+    companies = list(universe)
+    by_code = {item.stock_code: item for item in companies}
+    if len(by_code) != len(companies):
+        raise ValueError("公司池存在重复证券代码")
+    review_rows = _read_csv(continuity_audit_path)
+    review_by_code = {row["stock_code"].strip().upper(): row for row in review_rows}
+    if len(review_by_code) != len(review_rows):
+        raise ValueError("发行人连续性审计证券代码重复")
+    decisions = _read_csv(decisions_path)
+    required = {
+        "decision_id", "stock_code", "outcome", "related_a_code", "entity_id",
+        "evidence_url", "evidence_date", "reviewer", "reviewed_at", "rationale",
+    }
+    if not decisions or not required.issubset(decisions[0]):
+        raise ValueError("发行人连续性决定字段不完整")
+    normalized = {}
+    decision_ids = set()
+    for line, raw in enumerate(decisions, 2):
+        item = {key: (raw.get(key) or "").strip() for key in required}
+        item["stock_code"] = item["stock_code"].upper()
+        item["related_a_code"] = item["related_a_code"].upper()
+        item["entity_id"] = item["entity_id"].upper()
+        item["outcome"] = item["outcome"].lower()
+        _validate_continuity_decision(item, line, review_by_code, by_code)
+        if item["decision_id"] in decision_ids:
+            raise ValueError(f"发行人连续性决定ID重复: {item['decision_id']}")
+        if item["stock_code"] in normalized:
+            raise ValueError(f"发行人连续性决定证券代码重复: {item['stock_code']}")
+        decision_ids.add(item["decision_id"])
+        normalized[item["stock_code"]] = item
+    updated = dict(by_code)
+    applied = []
+    for code, item in normalized.items():
+        company = updated[code]
+        outcome = item["outcome"]
+        action = "continuity_confirmed"
+        if outcome == "new_issuer":
+            company = UniverseCompany(
+                company.stock_code, company.company_name, company.exchange, company.sub_industry,
+                False, f"发行人变更，历史纳入依据失效:{item['rationale']}", company.entity_id,
+                company.source_url, company.as_of_date,
+            )
+            updated[code] = company
+            action = "exclude_historical_carryover"
+        elif outcome == "ah_same_entity":
+            related = updated[item["related_a_code"]]
+            entity_id = item["entity_id"]
+            updated[item["related_a_code"]] = UniverseCompany(
+                related.stock_code, related.company_name, related.exchange, related.sub_industry,
+                related.included, related.exclusion_reason, entity_id, related.source_url, related.as_of_date,
+            )
+            company = UniverseCompany(
+                company.stock_code, company.company_name, company.exchange, company.sub_industry,
+                False, f"同一主体重复上市，保留{related.stock_code}", entity_id,
+                company.source_url, company.as_of_date,
+            )
+            updated[code] = company
+            action = "exclude_h_share_keep_a_share"
+        applied.append(AppliedContinuityDecision(
+            item["decision_id"], code, outcome, item["related_a_code"],
+            updated[code].entity_id, updated[code].included, action,
+            item["evidence_url"], item["evidence_date"], item["reviewer"],
+            item["reviewed_at"], item["rationale"],
+        ))
+    required_review_codes = {
+        code for code, row in review_by_code.items()
+        if row.get("next_action") != "continuity_name_check_complete"
+    }
+    unresolved = required_review_codes.difference(normalized)
+    actions = Counter(item.action for item in applied)
+    result = [updated[item.stock_code] for item in companies]
+    summary = {
+        "decision_count": len(applied),
+        "action_counts": dict(sorted(actions.items())),
+        "required_review_count": len(required_review_codes),
+        "unresolved_review_count": len(unresolved),
+        "unresolved_stock_codes": sorted(unresolved),
+        "included_security_count": sum(item.included for item in result),
+        "complete": not unresolved,
+    }
+    return result, sorted(applied, key=lambda item: item.stock_code), summary
+
+
+def write_applied_continuity_decisions(
+    universe_path: str | Path, audit_path: str | Path, summary_path: str | Path,
+    universe: Iterable[UniverseCompany], decisions: Iterable[AppliedContinuityDecision], summary: dict,
+) -> None:
+    from .migration import write_augmented_universe
+
+    write_augmented_universe(universe_path, universe)
+    audit_output = Path(audit_path)
+    audit_output.parent.mkdir(parents=True, exist_ok=True)
+    with audit_output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(AppliedContinuityDecision.__annotations__))
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in decisions)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def _validate_continuity_decision(item, line, review_by_code, company_by_code) -> None:
+    if not item["decision_id"] or not item["reviewer"] or not item["rationale"] or not item["evidence_url"]:
+        raise ValueError(f"连续性决定第{line}行缺少决定ID、证据、审核人或理由")
+    if item["stock_code"] not in review_by_code or item["stock_code"] not in company_by_code:
+        raise ValueError(f"连续性决定第{line}行证券未匹配审计和公司池")
+    if item["outcome"] not in {"same_issuer", "new_issuer", "ah_same_entity"}:
+        raise ValueError(f"连续性决定第{line}行outcome无效")
+    if not re.match(r"^(https?://|data/|output/)", item["evidence_url"], re.I):
+        raise ValueError(f"连续性决定第{line}行证据地址无效")
+    try:
+        date.fromisoformat(item["evidence_date"])
+        reviewed_at = datetime.fromisoformat(item["reviewed_at"])
+    except ValueError as error:
+        raise ValueError(f"连续性决定第{line}行日期无效") from error
+    if reviewed_at.tzinfo is None:
+        raise ValueError(f"连续性决定第{line}行审核时间必须含时区")
+    if item["outcome"] == "ah_same_entity":
+        related = company_by_code.get(item["related_a_code"])
+        if related is None or related.exchange not in {"SSE", "SZSE", "BSE"} or not related.included:
+            raise ValueError(f"连续性决定第{line}行A股代码未匹配当前纳入证券")
+        if not item["entity_id"] or item["entity_id"] in {item["stock_code"], item["related_a_code"]}:
+            raise ValueError(f"连续性决定第{line}行A/H映射必须提供独立主体标识")
+    elif item["related_a_code"] or item["entity_id"]:
+        raise ValueError(f"连续性决定第{line}行非A/H结论不能填写A股代码或主体标识")
 
 
 def _continuity_name(value: str) -> str:

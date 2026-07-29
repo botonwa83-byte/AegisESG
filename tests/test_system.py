@@ -30,7 +30,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
-from aegis_esg.issuer_continuity import audit_hkex_issuer_continuity
+from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
 
@@ -601,6 +601,54 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("https://hkexnews/signed.pdf", by_code["00931.HK"].resolution_evidence_url)
             self.assertEqual(0, summary["auto_merged_count"])
             self.assertFalse(summary["complete"])
+
+    def test_apply_continuity_decisions_excludes_new_issuer_and_deduplicates_ah(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit = Path(directory) / "audit.csv"
+            decisions = Path(directory) / "decisions.csv"
+            audit.write_text(
+                "stock_code,next_action\n00600.HK,review_issuer_identity_and_industry\n"
+                "00042.HK,review_ah_relationship\n",
+                encoding="utf-8",
+            )
+            decisions.write_text(
+                "decision_id,stock_code,outcome,related_a_code,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+                "C1,00600.HK,new_issuer,,,https://hkex/600,2026-07-29,alice,2026-07-29T10:00:00+08:00,当前发行人已经变更\n"
+                "C2,00042.HK,ah_same_entity,000585.SZ,ENTITY-NEE,https://hkex/42,2026-07-29,bob,2026-07-29T10:01:00+08:00,官方年报确认A/H同主体\n",
+                encoding="utf-8",
+            )
+            companies = [
+                UniverseCompany("00600.HK", "旧候选", "HKEX", "待分类", entity_id="00600.HK"),
+                UniverseCompany("00042.HK", "东北电气H", "HKEX", "能源设备", entity_id="00042.HK"),
+                UniverseCompany("000585.SZ", "东北电气", "SZSE", "能源设备", entity_id="000585.SZ"),
+            ]
+            rows, applied, summary = apply_issuer_continuity_decisions(companies, audit, decisions)
+            by_code = {item.stock_code: item for item in rows}
+            self.assertFalse(by_code["00600.HK"].included)
+            self.assertIn("发行人变更", by_code["00600.HK"].exclusion_reason)
+            self.assertFalse(by_code["00042.HK"].included)
+            self.assertEqual("ENTITY-NEE", by_code["000585.SZ"].entity_id)
+            self.assertEqual(0, summary["unresolved_review_count"])
+            self.assertTrue(summary["complete"])
+            self.assertEqual(2, len(applied))
+
+    def test_apply_continuity_decision_rejects_unsigned_ah_mapping(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit = Path(directory) / "audit.csv"
+            decisions = Path(directory) / "decisions.csv"
+            audit.write_text("stock_code,next_action\n00042.HK,review_ah_relationship\n", encoding="utf-8")
+            decisions.write_text(
+                "decision_id,stock_code,outcome,related_a_code,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+                "C1,00042.HK,ah_same_entity,000585.SZ,,https://hkex,2026-07-29,,2026-07-29T10:00:00,\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                apply_issuer_continuity_decisions(
+                    [
+                        UniverseCompany("00042.HK", "H", "HKEX", "待分类"),
+                        UniverseCompany("000585.SZ", "A", "SZSE", "能源设备"),
+                    ], audit, decisions,
+                )
 
     def test_bse_jsonp_zero_based_pagination(self):
         def payload(page, code):
