@@ -384,6 +384,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli audit-document-coverage \
 当前年报覆盖92/92，独立ESG报告覆盖59/92；其余33家公司标记为`scan_annual_for_esg`，必须扫描
 年报相关章节并明确记录独立报告缺失，不能把“无独立ESG报告”误记为“无ESG披露”。
 
+PDF按页文本化后，可只扫描覆盖审计标记的33家公司：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli scan-annual-esg-disclosure \
+  output/audit/hkex_reports_complete_coverage_2026-07-29.csv \
+  data/raw/hkex_reports_complete_document_index.csv \
+  --text-root data/text --max-per-company 5 \
+  --output data/review/hkex_annual_esg_disclosure_candidates_2026-07-29.csv \
+  --summary output/audit/hkex_annual_esg_disclosure_summary_2026-07-29.json
+```
+
+当前生成165条带页码候选，33/33家公司有命中且文本缺失0。命中只用于定位年报中的ESG相关
+章节，状态固定为`pending`、`applicable=false`；不得据此自动认定披露完整或直接产生指标得分。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

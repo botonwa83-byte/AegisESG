@@ -8,6 +8,7 @@ from pathlib import Path
 from .collector import collect_batch, collect_from_manifest, write_document_index
 from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates, write_continuity_review_batch, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
+from .esg_disclosure import scan_annual_esg_disclosure, write_annual_esg_evidence
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_indicator_tasks, write_indicator_plan
@@ -261,6 +262,13 @@ def main() -> None:
     coverage.add_argument("document_index")
     coverage.add_argument("--output", required=True)
     coverage.add_argument("--summary", required=True)
+    esg_scan = sub.add_parser("scan-annual-esg-disclosure", help="从无独立ESG报告公司的年报提取待复核披露候选")
+    esg_scan.add_argument("coverage")
+    esg_scan.add_argument("document_index")
+    esg_scan.add_argument("--text-root", default="data/text")
+    esg_scan.add_argument("--max-per-company", type=int, default=5)
+    esg_scan.add_argument("--output", required=True)
+    esg_scan.add_argument("--summary", required=True)
     derive = sub.add_parser("derive-financial", help="从标准财务事实自动派生治理指标")
     derive.add_argument("input")
     derive.add_argument("--output", required=True)
@@ -629,6 +637,13 @@ def main() -> None:
     if args.command == "audit-document-coverage":
         rows, summary = audit_document_coverage(args.companies, args.document_index)
         write_document_coverage(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "scan-annual-esg-disclosure":
+        rows, summary = scan_annual_esg_disclosure(
+            args.coverage, args.document_index, args.text_root, args.max_per_company,
+        )
+        write_annual_esg_evidence(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "derive-financial":

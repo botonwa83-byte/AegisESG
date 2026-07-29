@@ -15,6 +15,7 @@ from aegis_esg.scoring import PopulationStats, ScoringEngine
 from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
 from aegis_esg.financial import FinancialFact, derive_financial_observations
+from aegis_esg.esg_disclosure import scan_annual_esg_disclosure
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import resolve_pending_candidates
 from aegis_esg.review import ReviewInstruction, apply_review_instructions
@@ -1382,6 +1383,32 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("discover_annual_report", by_code["C"].next_action)
             self.assertEqual(["C"], summary["missing_annual_codes"])
             self.assertFalse(summary["complete"])
+
+    def test_annual_esg_scan_preserves_page_and_pending_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coverage, index = root / "coverage.csv", root / "index.csv"
+            coverage.write_text(
+                "stock_code,company_name,next_action\nA,甲,scan_annual_for_esg\nB,乙,ready_for_extraction\n",
+                encoding="utf-8",
+            )
+            write_document_index(index, [DocumentRecord(
+                "A", "甲", 2025, "annual_report", "https://official/a.pdf",
+                "https://official/a.pdf", "data/raw/A/2025/annual_report.pdf", "abc", 12,
+            )])
+            text = root / "text/A/2025/annual_report.txt"
+            text.parent.mkdir(parents=True)
+            text.write_text(
+                "\n=== PAGE 1 ===\nFinancial statements.\n"
+                "\n=== PAGE 12 ===\nEnvironmental, Social and Governance information is set out below.\n",
+                encoding="utf-8",
+            )
+            rows, summary = scan_annual_esg_disclosure(coverage, index, root / "text")
+            self.assertEqual(1, len(rows))
+            self.assertEqual(12, rows[0].source_page)
+            self.assertEqual("pending", rows[0].review_status)
+            self.assertEqual(1, summary["candidate_company_count"])
+            self.assertFalse(summary["applicable"])
 
 
 if __name__ == "__main__":
