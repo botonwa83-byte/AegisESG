@@ -24,7 +24,7 @@ from .scoring import ScoringEngine
 from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
-from .sources.hkex_profile import collect_hkex_issuer_profiles, write_hkex_issuer_profiles
+from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
@@ -92,6 +92,13 @@ def main() -> None:
     hkex_profiles.add_argument("--output", required=True)
     hkex_profiles.add_argument("--raw-output", required=True)
     hkex_profiles.add_argument("--limit", type=int, default=0, help="仅处理前N家，0表示全部港股")
+    hkex_drafts = sub.add_parser("prepare-hkex-evidence-review", help="按版本化精确映射生成未签名港股行业审核草案")
+    hkex_drafts.add_argument("profiles")
+    hkex_drafts.add_argument("--universe", required=True)
+    hkex_drafts.add_argument("--mapping", default="data/methodologies/hkex_energy_industry_mapping_2026.json")
+    hkex_drafts.add_argument("--evidence-date", required=True)
+    hkex_drafts.add_argument("--output", required=True)
+    hkex_drafts.add_argument("--summary", required=True)
     discover_bse = sub.add_parser("discover-bse-listings", help="采集北交所全部正常上市公司快照")
     discover_bse.add_argument("--as-of-date", default="", help="可选：要求接口报告日期与此日期一致")
     discover_bse.add_argument("--output", required=True)
@@ -306,6 +313,13 @@ def main() -> None:
             "candidate_evidence_count": candidate_count,
             "incomplete_count": len(profiles) - candidate_count,
         }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-hkex-evidence-review":
+        drafts, summary = prepare_hkex_evidence_drafts(
+            args.profiles, read_universe(args.universe), args.mapping, args.evidence_date,
+        )
+        write_hkex_evidence_drafts(args.output, args.summary, drafts, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "discover-bse-listings":
         securities, as_of_date, raw_pages = collect_bse_listings(

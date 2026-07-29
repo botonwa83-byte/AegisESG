@@ -1,0 +1,13 @@
+{
+  "profile_count": 92,
+  "draft_count": 92,
+  "mapping_version": "HKEX-HSIC-ENERGY-2026-v1",
+  "review_status_counts": {
+    "manual_review": 4,
+    "proposed": 88
+  },
+  "proposed_count": 88,
+  "manual_review_count": 4,
+  "signed_count": 0,
+  "applicable": false
+}

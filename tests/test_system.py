@@ -19,7 +19,7 @@ from aegis_esg.review import ReviewInstruction, apply_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
-from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload
+from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
 from aegis_esg.universe import UniverseCompany, audit_universe
@@ -523,6 +523,41 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(["02688.HK", "00135.HK"], [item.stock_code for item in profiles])
         self.assertEqual(3, len(calls))
         self.assertEqual({"02688.HK", "00135.HK"}, set(raw))
+
+    def test_prepare_hkex_evidence_drafts_uses_exact_mapping_and_stays_unsigned(self):
+        header = (
+            "stock_code,chinese_name,chinese_short_name,company_summary,hsic_industry,hsic_sub_sector,"
+            "csic_classification,listing_category,primary_market,incorporation_place,profile_updated_at,"
+            "source_url,evidence_status\n"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            profiles = Path(directory) / "profiles.csv"
+            mapping = Path(directory) / "mapping.json"
+            profiles.write_text(
+                header
+                + "02688.HK,新奧能源控股有限公司,新奧能源,燃气业务,公用事業,燃氣供應,,主要上市,,开曼,2026年7月29日,https://hkex/2688,candidate\n"
+                + "00001.HK,甲公司,甲,工业设备,工業,工業零件及器材,,主要上市,,香港,2026年7月29日,https://hkex/1,candidate\n",
+                encoding="utf-8",
+            )
+            mapping.write_text(
+                '{"version":"v1","exact_sub_sector_mappings":{"燃氣供應":"燃气"}}', encoding="utf-8",
+            )
+            companies = [
+                UniverseCompany("02688.HK", "ENN ENERGY", "HKEX", "待分类", entity_id="02688.HK"),
+                UniverseCompany("00001.HK", "甲", "HKEX", "待分类", entity_id="00001.HK"),
+            ]
+            drafts, summary = prepare_hkex_evidence_drafts(
+                profiles, companies, mapping, "2026-07-29",
+            )
+            by_code = {item.stock_code: item for item in drafts}
+            self.assertEqual("燃气", by_code["02688.HK"].sub_industry)
+            self.assertEqual("include", by_code["02688.HK"].decision)
+            self.assertEqual("", by_code["02688.HK"].reviewer)
+            self.assertEqual("manual_review", by_code["00001.HK"].review_status)
+            self.assertEqual("", by_code["00001.HK"].decision)
+            self.assertEqual(1, summary["proposed_count"])
+            self.assertEqual(1, summary["manual_review_count"])
+            self.assertFalse(summary["applicable"])
 
     def test_bse_jsonp_zero_based_pagination(self):
         def payload(page, code):

@@ -149,6 +149,22 @@ PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-profiles \
 子行业、上市类别、资料更新时间及原始响应。网络客户端遇到港交所对Python请求的403时使用无shell
 参数的`curl`回退。上述92条资料全部完整，但仍只是审核候选，不会自动生成审核人签名或修改公司池。
 
+使用版本化精确行业映射生成未签名审核草案：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-evidence-review \
+  data/reference/hkex_issuer_profiles_2026-07-29.csv \
+  --universe data/universe/energy_historical_candidates_2026.csv \
+  --evidence-date 2026-07-29 \
+  --output data/review/hkex_universe_evidence_draft_2026-07-29.csv \
+  --summary output/audit/hkex_universe_evidence_draft_summary_2026-07-29.json
+```
+
+映射由`data/methodologies/hkex_energy_industry_mapping_2026.json`版本控制，只接受恒生子行业完全
+一致匹配。当前88家生成行业建议，4家进入人工复核；草案故意保留审核人和审核时间为空，不能
+直接进入证据账本。人工复核项包括东北电气H股，以及当前行业为半导体、环保工程或半导体设备
+的3家公司；证券代码可能跨年度对应不同发行人，因此不得仅凭历史代码沿用纳入结论。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

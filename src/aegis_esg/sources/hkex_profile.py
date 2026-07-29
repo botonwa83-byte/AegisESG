@@ -7,6 +7,7 @@ import subprocess
 import urllib.parse
 import urllib.error
 import urllib.request
+from collections import Counter
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
@@ -32,6 +33,30 @@ class HKEXIssuerProfile:
     profile_updated_at: str
     source_url: str
     evidence_status: str
+
+
+@dataclass(frozen=True)
+class HKEXEvidenceDraft:
+    decision_id: str
+    batch_id: str
+    operation: str
+    supersedes: str
+    stock_code: str
+    decision: str
+    sub_industry: str
+    entity_id: str
+    evidence_url: str
+    evidence_date: str
+    reviewer: str
+    reviewed_at: str
+    rationale: str
+    review_status: str
+    chinese_name: str
+    chinese_short_name: str
+    hsic_industry: str
+    hsic_sub_sector: str
+    company_summary: str
+    mapping_version: str
 
 
 def parse_hkex_access_token(page_html: str) -> str:
@@ -114,6 +139,80 @@ def write_hkex_issuer_profiles(
         "api_url": HKEX_QUOTE_API,
         "payloads": raw_payloads,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def prepare_hkex_evidence_drafts(
+    profiles_path: str | Path, universe: Iterable[object], mapping_path: str | Path,
+    evidence_date: str,
+) -> tuple[list[HKEXEvidenceDraft], dict]:
+    with Path(profiles_path).open(encoding="utf-8-sig", newline="") as stream:
+        profile_rows = list(csv.DictReader(stream))
+    if not profile_rows or not set(HKEXIssuerProfile.__annotations__).issubset(profile_rows[0]):
+        raise ValueError("港交所发行人资料字段不完整")
+    mapping_config = json.loads(Path(mapping_path).read_text(encoding="utf-8"))
+    version = str(mapping_config.get("version") or "").strip()
+    mappings = mapping_config.get("exact_sub_sector_mappings")
+    if not version or not isinstance(mappings, dict):
+        raise ValueError("港股行业映射配置缺少版本或精确映射")
+    try:
+        datetime.strptime(evidence_date, "%Y-%m-%d")
+    except ValueError as error:
+        raise ValueError("证据日期必须为YYYY-MM-DD") from error
+    companies = {getattr(item, "stock_code"): item for item in universe}
+    seen: set[str] = set()
+    drafts = []
+    date_token = evidence_date.replace("-", "")
+    for row in profile_rows:
+        code = normalize_hkex_profile_code(row["stock_code"])
+        if code in seen:
+            raise ValueError(f"港交所发行人资料证券代码重复: {code}")
+        seen.add(code)
+        company = companies.get(code)
+        if company is None or not getattr(company, "included"):
+            raise ValueError(f"港交所发行人资料未匹配纳入候选: {code}")
+        subsector = row["hsic_sub_sector"].strip()
+        proposed = str(mappings.get(subsector) or "").strip()
+        mapped = bool(proposed)
+        rationale = (
+            f"港交所官方公司简介及恒生子行业“{subsector}”精确映射至“{proposed}”，待审核人核验并签名"
+            if mapped else f"港交所恒生子行业“{subsector or '空'}”无精确能源映射，必须人工复核公司简介"
+        )
+        drafts.append(HKEXEvidenceDraft(
+            f"DRAFT-HKEX-{date_token}-{code[:5]}", f"DRAFT-HKEX-{date_token}",
+            "upsert", "", code, "include" if mapped else "", proposed,
+            getattr(company, "entity_id"), row["source_url"].strip(), evidence_date,
+            "", "", rationale, "proposed" if mapped else "manual_review",
+            row["chinese_name"].strip(), row["chinese_short_name"].strip(),
+            row["hsic_industry"].strip(), subsector, row["company_summary"].strip(), version,
+        ))
+    drafts.sort(key=lambda item: (item.review_status != "manual_review", item.stock_code))
+    counts = Counter(item.review_status for item in drafts)
+    summary = {
+        "profile_count": len(profile_rows),
+        "draft_count": len(drafts),
+        "mapping_version": version,
+        "review_status_counts": dict(sorted(counts.items())),
+        "proposed_count": counts["proposed"],
+        "manual_review_count": counts["manual_review"],
+        "signed_count": 0,
+        "applicable": False,
+    }
+    return drafts, summary
+
+
+def write_hkex_evidence_drafts(
+    output_path: str | Path, summary_path: str | Path,
+    drafts: Iterable[HKEXEvidenceDraft], summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(HKEXEvidenceDraft.__annotations__))
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in drafts)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def make_hkex_quote_page_url(stock_code: str, language: str) -> str:
