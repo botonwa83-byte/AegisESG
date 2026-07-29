@@ -11,7 +11,7 @@ from .extraction import ReviewSummary, extract_batch_text_exports, extract_indic
 from .esg_disclosure import scan_annual_esg_disclosure, write_annual_esg_evidence
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
-from .indicator_plan import plan_indicator_tasks, write_indicator_plan
+from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write_candidate_coverage, write_indicator_plan
 from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
@@ -240,6 +240,11 @@ def main() -> None:
     indicator_plan.add_argument("--report-year", required=True, type=int)
     indicator_plan.add_argument("--output", required=True)
     indicator_plan.add_argument("--summary", required=True)
+    candidate_plan = sub.add_parser("plan-candidate-coverage", help="生成公司×37项定量指标候选覆盖矩阵")
+    candidate_plan.add_argument("companies")
+    candidate_plan.add_argument("candidates")
+    candidate_plan.add_argument("--output", required=True)
+    candidate_plan.add_argument("--summary", required=True)
     database = sub.add_parser("init-db", help="初始化本地审计数据库")
     database.add_argument("path", default="var/aegis.db", nargs="?")
     discover = sub.add_parser("discover-sse", help="从上交所官方接口发现年报和ESG报告")
@@ -588,6 +593,13 @@ def main() -> None:
             methodology, args.report_year,
         )
         write_indicator_plan(args.output, args.summary, tasks, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "plan-candidate-coverage":
+        rows, summary = plan_candidate_coverage(
+            args.companies, read_observations(args.candidates, methodology), methodology,
+        )
+        write_candidate_coverage(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "init-db":

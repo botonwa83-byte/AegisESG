@@ -34,7 +34,7 @@ from aegis_esg.registry import normalize_company_name, reconcile_registry
 from aegis_esg.planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
-from aegis_esg.indicator_plan import plan_indicator_tasks
+from aegis_esg.indicator_plan import plan_candidate_coverage, plan_indicator_tasks
 from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
@@ -247,6 +247,126 @@ class MethodologyTests(unittest.TestCase):
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(20, values["Q_G_OPERATING_MARGIN"])
         self.assertAlmostEqual(20, values["Q_G_OPERATING_PROFIT_GROWTH"])
+
+    def test_english_revenue_intensities_convert_to_methodology_units(self):
+        pages = [PageText(
+            20,
+            "Comprehensive energy consumption intensity\n"
+            "tonnes of coal equivalent / RMB million of revenue 0.60\n"
+            "Water consumption intensity tonnes / RMB million of revenue 34.95",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(6, values["Q_E_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(349.5, values["Q_E_WATER_INTENSITY"])
+
+    def test_english_revenue_intensities_reject_non_revenue_denominators(self):
+        pages = [PageText(
+            20,
+            "Total Energy Consumption Intensity MWh/employee 1.31\n"
+            "Water consumption intensity m3/m2 total area 0.005",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY",
+        }])
+
+    def test_english_revenue_intensity_does_not_consume_later_percentage(self):
+        pages = [PageText(
+            20,
+            "Comprehensive energy consumption intensity: 0.6 tonnes of coal equivalent "
+            "per RMB million of revenue 100% of employees received training",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_ENERGY_INTENSITY"]
+        self.assertEqual([6], values)
+
+    def test_english_ghg_revenue_intensity_converts_rmb_scales(self):
+        pages = [
+            PageText(20, "GHG emissions intensity tCO2e/RMB million of revenue 1.24"),
+            PageText(21, "Greenhouse gas emissions intensity Tonne CO2e/100 million RMB 198.48"),
+            PageText(22, "Total GHG emission intensity tCO2e/CNY 10k revenue 0.06"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"]
+        self.assertEqual([12.4, 19.848, 60], values)
+
+    def test_english_ghg_intensity_rejects_non_rmb_denominators(self):
+        pages = [PageText(
+            20,
+            "GHG emissions intensity 0.50 kg CO2e/kWh. "
+            "Total GHG emissions intensity tCO2e / USD million revenue 3,130.41",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"])
+
+    def test_english_nox_and_solid_waste_intensities_convert_units(self):
+        pages = [
+            PageText(20, "Intensity of NOx emissions Tonnes/RMB billion in revenue 0.09"),
+            PageText(21, "Non-hazardous waste intensity Tonnes/CNY 10k revenue 0.03"),
+            PageText(22, "Non-hazardous waste intensity Tons per Million Yuan of Revenue 0.05"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [(item.indicator_code, item.value) for item in items]
+        self.assertEqual([
+            ("Q_E_NOX_INTENSITY", .9),
+            ("Q_E_SOLID_WASTE_INTENSITY", 30),
+            ("Q_E_SOLID_WASTE_INTENSITY", .5),
+        ], values)
+
+    def test_english_pollutant_and_waste_intensities_reject_production_and_usd(self):
+        pages = [PageText(
+            20,
+            "NOx emission intensity 2.13 kg/MW of wafers. "
+            "Non-hazardous waste generation intensity tonnes/USD million revenue 1.21",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_E_NOX_INTENSITY", "Q_E_SOLID_WASTE_INTENSITY",
+        }])
+
+    def test_english_rd_intensity_direct_disclosure(self):
+        pages = [PageText(
+            20,
+            "R&D investment intensity was 5.2%, a year-on-year increase of 0.64 percentage point. "
+            "The annual R&D investment intensity will be no less than 3% from 2026 to 2030.",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_RD_RATE"]
+        self.assertEqual([5.2], values)
+
+    def test_english_income_statement_derives_rd_rate(self):
+        pages = [PageText(
+            30,
+            "Consolidated Statement of Profit or Loss\n"
+            "Revenue 10,000 8,000\n"
+            "Research and development expenses (800) (600)\n"
+            "Operating profit 1,000 900",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_RD_RATE"]
+        self.assertEqual([8], values)
+
+    def test_english_full_year_rmb_dividend_per_share(self):
+        pages = [
+            PageText(20, "Dividend per share (RMB cent) 31.58 31.58"),
+            PageText(21, "Dividend per share (RMB) 0.168 0.212 0.132"),
+            PageText(22, "The total dividend per share for the whole year amounts to RMB0.358."),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_DIVIDEND_PER_SHARE"]
+        self.assertEqual(3, len(values))
+        for actual, expected in zip(values, [.3158, .168, .358]):
+            self.assertAlmostEqual(expected, actual)
+
+    def test_english_dividend_rejects_hkd_and_final_only(self):
+        pages = [PageText(
+            20,
+            "Dividend per share (HK$) 3.20. Proposed final dividend per share (RMB) 0.12. "
+            "A final dividend of RMB0.12 per share was proposed.",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_S_DIVIDEND_PER_SHARE"])
 
     def test_english_income_rejects_missing_period_and_contaminated_extra_columns(self):
         for text in (
@@ -1332,6 +1452,34 @@ class MethodologyTests(unittest.TestCase):
         self.assertFalse(summary["publishable"])
         confirmed = next(item for item in tasks if item.company_code == "A" and item.indicator_code == first.code)
         self.assertEqual("complete", confirmed.next_action)
+
+    def test_candidate_coverage_builds_quantitative_company_matrix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            companies = Path(directory) / "companies.csv"
+            companies.write_text("stock_code,chinese_name\nA,甲\nB,乙\n", encoding="utf-8")
+            indicator = self.methodology.quantitative[0]
+            observations = [
+                Observation("A", "甲", 2025, indicator.code, 1, ValueStatus.PENDING,
+                            source_page=8, confidence=.91),
+            ]
+            tasks, summary = plan_candidate_coverage(companies, observations, self.methodology)
+        self.assertEqual(2 * len(self.methodology.quantitative), len(tasks))
+        self.assertEqual(37, summary["quantitative_indicator_count"])
+        self.assertEqual(1, summary["candidate_task_count"])
+        self.assertEqual(1, summary["candidate_observation_count"])
+        self.assertEqual(73, summary["missing_task_count"])
+        self.assertFalse(summary["complete"])
+        self.assertFalse(summary["applicable"])
+        available = next(
+            item for item in tasks if item.company_code == "A" and item.indicator_code == indicator.code
+        )
+        missing = next(
+            item for item in tasks if item.company_code == "B" and item.indicator_code == indicator.code
+        )
+        self.assertEqual(("candidate_available", "review_candidates", "8"),
+                         (available.status, available.next_action, available.source_pages))
+        self.assertEqual(("missing_candidate", "extend_extraction_rules"),
+                         (missing.status, missing.next_action))
 
     def test_download_validation_decompresses_and_rejects_html(self):
         pdf = b"%PDF-1.7\n" + b"x" * 10_000

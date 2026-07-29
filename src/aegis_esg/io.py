@@ -109,14 +109,14 @@ tr:nth-child(even){{background:#eef8f6}} td small{{color:#557d7c}} .score{{color
 
 def write_observation_template(path: str | Path) -> None:
     with Path(path).open("w", encoding="utf-8-sig", newline="") as stream:
-        csv.writer(stream).writerow(OBSERVATION_COLUMNS)
+        csv.writer(stream, lineterminator="\n").writerow(OBSERVATION_COLUMNS)
 
 
 def write_observations(path: str | Path, observations: list[Observation]) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=OBSERVATION_COLUMNS)
+        writer = csv.DictWriter(stream, fieldnames=OBSERVATION_COLUMNS, lineterminator="\n")
         writer.writeheader()
         for item in observations:
             writer.writerow({

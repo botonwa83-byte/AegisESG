@@ -31,6 +31,23 @@ class IndicatorTask:
     source_page: str
 
 
+@dataclass(frozen=True)
+class CandidateCoverageTask:
+    company_code: str
+    company_name: str
+    indicator_code: str
+    indicator_name: str
+    dimension: str
+    key_indicator: bool
+    candidate_count: int
+    report_years: str
+    source_pages: str
+    max_confidence: float
+    status: str
+    next_action: str
+    priority: int
+
+
 def plan_indicator_tasks(
     companies: Iterable[UniverseCompany], observations: Iterable[Observation],
     methodology: Methodology, report_year: int,
@@ -92,6 +109,79 @@ def write_indicator_plan(path: str | Path, summary_path: str | Path, tasks, summ
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=tuple(IndicatorTask.__annotations__))
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in tasks)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def plan_candidate_coverage(
+    companies_path: str | Path, observations: Iterable[Observation], methodology: Methodology,
+) -> tuple[list[CandidateCoverageTask], dict]:
+    with Path(companies_path).open(encoding="utf-8-sig", newline="") as stream:
+        companies = list(csv.DictReader(stream))
+    if not companies:
+        raise ValueError("候选覆盖公司清单为空")
+    code_field = "stock_code" if "stock_code" in companies[0] else "company_code"
+    if code_field not in companies[0]:
+        raise ValueError("候选覆盖公司清单缺少证券代码")
+    expected = {}
+    for line, row in enumerate(companies, 2):
+        code = row[code_field].strip().upper()
+        if not code or code in expected:
+            raise ValueError(f"候选覆盖公司清单第{line}行证券代码为空或重复")
+        expected[code] = (row.get("chinese_name") or row.get("company_name") or "").strip()
+    quantitative = methodology.quantitative
+    valid_indicators = {item.code for item in quantitative}
+    grouped: dict[tuple[str, str], list[Observation]] = defaultdict(list)
+    for item in observations:
+        if item.company_code not in expected:
+            raise ValueError(f"候选观测证券代码不在公司清单: {item.company_code}")
+        if item.indicator_code in valid_indicators:
+            grouped[(item.company_code, item.indicator_code)].append(item)
+    tasks = []
+    for code, name in expected.items():
+        for indicator in quantitative:
+            rows = grouped.get((code, indicator.code), [])
+            available = bool(rows)
+            tasks.append(CandidateCoverageTask(
+                code, name, indicator.code, indicator.name, indicator.dimension,
+                indicator.key_indicator, len(rows),
+                "|".join(str(year) for year in sorted({item.report_year for item in rows})),
+                "|".join(str(page) for page in sorted({item.source_page for item in rows if item.source_page})),
+                max((item.confidence for item in rows), default=0),
+                "candidate_available" if available else "missing_candidate",
+                "review_candidates" if available else "extend_extraction_rules",
+                1 if available and indicator.key_indicator else 3 if available else 0 if indicator.key_indicator else 2,
+            ))
+    population = Counter(task.indicator_code for task in tasks if task.candidate_count)
+    summary = {
+        "company_count": len(expected),
+        "quantitative_indicator_count": len(quantitative),
+        "task_count": len(tasks),
+        "candidate_task_count": sum(task.candidate_count > 0 for task in tasks),
+        "missing_task_count": sum(task.candidate_count == 0 for task in tasks),
+        "candidate_observation_count": sum(task.candidate_count for task in tasks),
+        "key_indicator_missing_task_count": sum(
+            task.candidate_count == 0 and task.key_indicator for task in tasks
+        ),
+        "indicator_population": {item.code: population[item.code] for item in quantitative},
+        "complete": all(task.candidate_count > 0 for task in tasks),
+        "applicable": False,
+    }
+    tasks.sort(key=lambda item: (item.priority, item.company_code, item.indicator_code))
+    return tasks, summary
+
+
+def write_candidate_coverage(
+    output_path: str | Path, summary_path: str | Path,
+    tasks: list[CandidateCoverageTask], summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(CandidateCoverageTask.__annotations__), lineterminator="\n")
         writer.writeheader()
         writer.writerows(asdict(item) for item in tasks)
     summary_output = Path(summary_path)

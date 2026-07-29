@@ -32,6 +32,13 @@ class DirectRule:
 
 
 @dataclass(frozen=True)
+class EnglishRevenueIntensityRule:
+    indicator_code: str
+    pattern: re.Pattern[str]
+    confidence: float = .9
+
+
+@dataclass(frozen=True)
 class ReviewSummary:
     company_code: str
     company_name: str
@@ -78,6 +85,45 @@ RULES = (
 
 DIRECT_RULES = (
     DirectRule(
+        "Q_S_DIVIDEND_PER_SHARE",
+        re.compile(r"(?<!final )(?<!interim )(?<!proposed )Dividend\s+per\s+share\s*\(\s*RMB\s+cents?\s*\)[^\d]{0,20}" + NUMBER, re.I),
+        .01,
+        .95,
+    ),
+    DirectRule(
+        "Q_S_DIVIDEND_PER_SHARE",
+        re.compile(r"(?<!final )(?<!interim )(?<!proposed )Dividend\s+per\s+share\s*\(\s*RMB\s*\)[^\d]{0,20}" + NUMBER, re.I),
+        1.0,
+        .95,
+    ),
+    DirectRule(
+        "Q_S_DIVIDEND_PER_SHARE",
+        re.compile(
+            r"total\s+dividend\s+per\s+share\s+for\s+the\s+whole\s+year\s+"
+            r"(?:amounts?|amounting)\s+to\s+RMB\s*" + NUMBER, re.I,
+        ),
+        1.0,
+        .96,
+    ),
+    DirectRule(
+        "Q_S_DIVIDEND_PER_SHARE",
+        re.compile(
+            r"Cash\s+Dividend\s+per\s+Share(?:\s*\([^)]*\))?\s+RMB\s*/\s*share\s*" + NUMBER,
+            re.I,
+        ),
+        1.0,
+        .95,
+    ),
+    DirectRule(
+        "Q_S_RD_RATE",
+        re.compile(
+            r"(?:proportion\s+of\s+)?R&D(?:\s+investment)?\s+intensity\s+"
+            r"(?:was|reached|to)\s*" + NUMBER + r"\s*%", re.I,
+        ),
+        1.0,
+        .93,
+    ),
+    DirectRule(
         "Q_S_RD_RATE",
         re.compile(r"研发投入总额占营业收入比例\s*\(\s*%\s*\)\s*" + NUMBER, re.I),
         1.0,
@@ -100,6 +146,140 @@ DIRECT_RULES = (
         re.compile(r"每\s*10\s*股\s*派息数(?:\s*\(元\))?(?:\s*\(含税\))?[^\d]{0,15}" + NUMBER, re.I),
         .1,
         .94,
+    ),
+)
+
+
+_REVENUE_DENOMINATOR = (
+    r"(?:/|per)\s*(?:RMB|CNY)\s*"
+    r"(?P<scale>thousand|million|billion|100\s+million|10[,.]?000|1[,.]?000|10k|’000|'000)"
+    r"(?:\s+(?:(?:of|in)\s+)?revenue)?"
+)
+_GHG_LABEL = (
+    r"(?:total\s+)?(?:GHG|greenhouse\s+gas)\s+emissions?\s+(?:intensity|density)"
+    r"(?:\s*\(\s*Scopes?\s*1\s*(?:and|&|\+)\s*(?:Scopes?\s*)?2\s*\))?"
+)
+_GHG_NUMERATOR = r"(?P<numerator>kg\s*CO2-?e|tCO2-?e|tonnes?(?:\s+of)?\s+CO2(?:\s+equivalents?|-?e)?)"
+_MASS_NUMERATOR = r"(?P<numerator>kg|kilograms?|tonnes?|tons?)"
+_SOLID_WASTE_LABEL = r"(?:total\s+)?non-hazardous\s+waste(?:\s+(?:generation|production|disposal|emission))?\s+intensity(?:Note\d+)?"
+ENGLISH_REVENUE_INTENSITY_RULES = (
+    EnglishRevenueIntensityRule(
+        "Q_E_GHG_INTENSITY",
+        re.compile(
+            _GHG_LABEL + r"[^\d]{0,100}?" + _GHG_NUMERATOR + r"\s*" +
+            _REVENUE_DENOMINATOR + r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .92,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_NOX_INTENSITY",
+        re.compile(
+            r"(?:intensity\s+of\s+NOx\s+emissions|NOx\s+emissions?\s+intensity)"
+            r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR +
+            r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_NOX_INTENSITY",
+        re.compile(
+            r"(?:intensity\s+of\s+NOx\s+emissions|NOx\s+emissions?\s+intensity)"
+            r"[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY)(?:\s+(?:in\s+)?revenue|\s+revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_SO2_INTENSITY",
+        re.compile(
+            r"(?:(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))"
+            r"\s+emissions?\s+intensity)"
+            r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR +
+            r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_SOLID_WASTE_INTENSITY",
+        re.compile(
+            _SOLID_WASTE_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" +
+            _REVENUE_DENOMINATOR + r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_SOLID_WASTE_INTENSITY",
+        re.compile(
+            _SOLID_WASTE_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_GHG_INTENSITY",
+        re.compile(
+            _GHG_LABEL + r"[^\d]{0,100}?" + _GHG_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY)(?:\s+(?:of\s+)?revenue|\s+revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .92,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_GHG_INTENSITY",
+        re.compile(
+            _GHG_LABEL + r"[^\d]{0,100}?" + _GHG_NUMERATOR +
+            r"\s*(?:/|per)\s*revenue\s+of\s+(?:RMB|CNY)\s+(?:in\s+)?"
+            r"(?P<scale>thousand|million|billion)\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .92,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_ENERGY_INTENSITY",
+        re.compile(
+            r"(?:comprehensive|total)\s+energy\s+consumption\s+intensity"
+            r"[^\d]{0,100}?(?P<numerator>kg|kilograms?|tonnes?)\s+(?:of\s+)?"
+            r"(?:standard\s+)?coal\s+equivalent\s*" + _REVENUE_DENOMINATOR +
+            r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_WATER_INTENSITY",
+        re.compile(
+            r"(?:total\s+)?water\s+consumption\s+intensity"
+            r"[^\d]{0,100}?(?P<numerator>kg|kilograms?|tonnes?|cubic\s+metres?|m3)\s*" +
+            _REVENUE_DENOMINATOR + r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_ENERGY_INTENSITY",
+        re.compile(
+            r"(?:comprehensive|total)\s+energy\s+consumption\s+intensity[^\d]{0,30}"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\s*"
+            r"(?P<numerator>kg|kilograms?|tonnes?)\s+(?:of\s+)?(?:standard\s+)?"
+            r"coal\s+equivalent\s*" + _REVENUE_DENOMINATOR, re.I,
+        ),
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_WATER_INTENSITY",
+        re.compile(
+            r"(?:total\s+)?water\s+consumption\s+intensity[^\d]{0,30}"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\s*"
+            r"(?P<numerator>kg|kilograms?|tonnes?|cubic\s+metres?|m3)\s*" +
+            _REVENUE_DENOMINATOR, re.I,
+        ),
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_GHG_INTENSITY",
+        re.compile(
+            _GHG_LABEL + r"[^\d]{0,30}(?P<value>[\d,]+(?:\.\d+)?)\s*" +
+            _GHG_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR, re.I,
+        ),
+        .92,
     ),
 )
 
@@ -246,6 +426,17 @@ def extract_indicator_candidates(
                     source_url=source_url, source_file=source_file, source_page=page.page,
                     evidence_text=text[start:end], confidence=rule.confidence,
                 ))
+        for code, value, evidence, confidence in _extract_english_revenue_intensities(text):
+            identity = (code, page.page, value)
+            if identity in seen:
+                continue
+            seen.add(identity)
+            candidates.append(Observation(
+                company_code=company_code, company_name=company_name, report_year=report_year,
+                indicator_code=code, value=value, status=ValueStatus.PENDING,
+                source_url=source_url, source_file=source_file, source_page=page.page,
+                evidence_text=evidence, confidence=confidence,
+            ))
     for code, value, source_page, evidence in _extract_balance_sheet_indicators(pages):
         identity = (code, source_page, round(value, 8))
         if identity in seen:
@@ -302,6 +493,33 @@ def _canonical_unit(unit: str) -> str:
     return compact
 
 
+def _extract_english_revenue_intensities(text: str) -> list[tuple[str, float, str, float]]:
+    result = []
+    scale_amounts = {
+        "thousand": 1_000, "1,000": 1_000, "1000": 1_000, "’000": 1_000, "'000": 1_000,
+        "10,000": 10_000, "10000": 10_000, "million": 1_000_000,
+        "10k": 10_000, "100 million": 100_000_000, "billion": 1_000_000_000,
+    }
+    for rule in ENGLISH_REVENUE_INTENSITY_RULES:
+        for match in rule.pattern.finditer(text):
+            numerator = match.group("numerator").lower()
+            compact_numerator = re.sub(r"\s+", "", numerator)
+            scale = re.sub(r"\s+", " ", match.group("scale").lower())
+            amount = scale_amounts.get(scale)
+            if amount is None:
+                continue
+            mass_kg = 1 if compact_numerator in {"kg", "kilogram", "kilograms", "kgco2e", "kgco2-e"} else 1_000
+            raw_value = float(match.group("value").replace(",", ""))
+            value = raw_value * mass_kg * 10_000 / amount
+            if rule.indicator_code in {"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY"}:
+                value *= 1_000
+            if not _plausible_value(rule.indicator_code, value):
+                continue
+            evidence = re.sub(r"\s+", " ", match.group(0)).strip()[:300]
+            result.append((rule.indicator_code, value, "English revenue intensity: " + evidence, rule.confidence))
+    return result
+
+
 def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) -> bool:
     matched = match.group(0)
     if code in {"Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY"}:
@@ -327,6 +545,8 @@ def _plausible_value(code: str, value: float) -> bool:
         return False
     percentage_codes = {"Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE", "Q_G_DEBT_ASSET_RATE", "Q_G_ROE"}
     if code in percentage_codes and value > 100:
+        return False
+    if code == "Q_S_DIVIDEND_PER_SHARE" and value > 100:
         return False
     return True
 
@@ -584,6 +804,17 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                         "Q_G_OPERATING_PROFIT_GROWTH", operating_growth, operating.page,
                         "English consolidated income statement derived: " + operating.evidence,
                     ))
+        research = _find_english_statement_fact(
+            statement_pages, r"(?:Research and development|R&D) (?:expenses?|expenditure|costs?)",
+        )
+        if research:
+            rd_rate = abs(research.values[0]) / abs(revenue.values[0]) * 100
+            if 0 <= rd_rate <= 100:
+                result.append((
+                    "Q_S_RD_RATE", rd_rate, max(revenue.page, research.page),
+                    "English consolidated income statement derived: " +
+                    research.evidence + " | " + revenue.evidence,
+                ))
         if result:
             return result
     return []

@@ -1,4 +1,24 @@
 {
+  "Q_E_ENERGY_INTENSITY": {
+    "candidate_count": 3,
+    "company_count": 1
+  },
+  "Q_E_GHG_INTENSITY": {
+    "candidate_count": 7,
+    "company_count": 5
+  },
+  "Q_E_NOX_INTENSITY": {
+    "candidate_count": 2,
+    "company_count": 2
+  },
+  "Q_E_SOLID_WASTE_INTENSITY": {
+    "candidate_count": 4,
+    "company_count": 3
+  },
+  "Q_E_WATER_INTENSITY": {
+    "candidate_count": 5,
+    "company_count": 3
+  },
   "Q_G_ASSET_TURNOVER": {
     "candidate_count": 15,
     "company_count": 15
@@ -26,5 +46,13 @@
   "Q_G_REVENUE_GROWTH": {
     "candidate_count": 52,
     "company_count": 52
+  },
+  "Q_S_DIVIDEND_PER_SHARE": {
+    "candidate_count": 3,
+    "company_count": 3
+  },
+  "Q_S_RD_RATE": {
+    "candidate_count": 12,
+    "company_count": 9
   }
 }
