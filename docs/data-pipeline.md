@@ -261,6 +261,23 @@ PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-continuity-review \
 补齐签名信息后，才能转换为连续性决定。当前生成4个高优先复核包，其余66项仍在采集队列。
 签名决定模板已移除示例数据，只保留表头，避免示例被误当真实审核决定。
 
+审核人填完复核包后，必须先通过严格转换器：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli finalize-hkex-continuity-review \
+  signed-review-packet.csv \
+  data/review/hkex_continuity_priority_evidence_candidates_2026-07-29.csv \
+  --output signed-continuity-decisions.csv \
+  --audit output/audit/hkex_continuity_finalized_audit.csv \
+  --summary output/audit/hkex_continuity_finalized_summary.json
+```
+
+转换器要求`review_status=signed`，并校验决定ID、结论、审核人、理由、ISO证据日期和带时区审核时间。
+`selected_candidate_ids`必须全部属于同一证券，`evidence_url`必须来自所选候选；A/H同主体结论还
+必须选择A/H身份候选并填写A股代码和独立主体标识。非A/H结论禁止携带主体映射字段。输出格式
+可直接交给`apply-hkex-continuity-decisions`，同时生成候选选择审计。当前真实复核包仍未签名，
+转换命令会在第一个未签名行立即拒绝，不产生可应用决定。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

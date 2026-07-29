@@ -5,6 +5,7 @@ import json
 import re
 from collections import Counter
 from dataclasses import asdict, dataclass
+from datetime import date, datetime
 from pathlib import Path
 
 from .extraction import read_page_text_export
@@ -29,6 +30,7 @@ class ContinuityEvidenceCandidate:
 @dataclass(frozen=True)
 class ContinuityReviewPacket:
     task_id: str
+    decision_id: str
     stock_code: str
     priority: int
     next_action: str
@@ -53,6 +55,33 @@ class ContinuityReviewPacket:
     reviewed_at: str
     rationale: str
     review_status: str
+
+
+@dataclass(frozen=True)
+class SignedContinuityDecision:
+    decision_id: str
+    stock_code: str
+    outcome: str
+    related_a_code: str
+    entity_id: str
+    evidence_url: str
+    evidence_date: str
+    reviewer: str
+    reviewed_at: str
+    rationale: str
+
+
+@dataclass(frozen=True)
+class FinalizedContinuityReview:
+    decision_id: str
+    stock_code: str
+    outcome: str
+    selected_candidate_ids: str
+    selected_categories: str
+    selected_candidate_count: int
+    evidence_url: str
+    reviewer: str
+    reviewed_at: str
 
 
 PATTERNS = {
@@ -211,7 +240,7 @@ def prepare_continuity_review_packets(
 
         categories_present = sum(bool(grouped[category]) for category in PATTERNS)
         packets.append(ContinuityReviewPacket(
-            task["task_id"].strip(), code, int(task["priority"]), task["next_action"].strip(),
+            task["task_id"].strip(), "", code, int(task["priority"]), task["next_action"].strip(),
             task["historical_name"].strip(), task["current_chinese_name"].strip(),
             values("issuer_history", "candidate_id"), values("issuer_history", "source_page"),
             values("principal_business", "candidate_id"), values("principal_business", "source_page"),
@@ -244,6 +273,113 @@ def write_continuity_review_packets(
         )
         writer.writeheader()
         writer.writerows(asdict(item) for item in packets)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def finalize_continuity_reviews(
+    packets_path: str | Path, candidates_path: str | Path,
+) -> tuple[list[SignedContinuityDecision], list[FinalizedContinuityReview], dict]:
+    packets = _read_csv(packets_path)
+    candidates = _read_csv(candidates_path)
+    required_packet = {
+        "decision_id", "stock_code", "outcome", "related_a_code", "entity_id",
+        "selected_candidate_ids", "evidence_url", "evidence_date", "reviewer",
+        "reviewed_at", "rationale", "review_status",
+    }
+    required_candidate = {"candidate_id", "company_code", "evidence_category", "source_url"}
+    if not packets or not required_packet.issubset(packets[0]):
+        raise ValueError("连续性人工复核包字段不完整")
+    if not candidates or not required_candidate.issubset(candidates[0]):
+        raise ValueError("连续性证据候选字段不完整")
+    candidate_by_id = {}
+    for row in candidates:
+        candidate_id = row["candidate_id"].strip()
+        if not candidate_id or candidate_id in candidate_by_id:
+            raise ValueError("连续性证据候选ID为空或重复")
+        candidate_by_id[candidate_id] = row
+    decisions = []
+    audits = []
+    decision_ids = set()
+    stock_codes = set()
+    for line, raw in enumerate(packets, 2):
+        item = {key: (raw.get(key) or "").strip() for key in required_packet}
+        item["stock_code"] = item["stock_code"].upper()
+        item["related_a_code"] = item["related_a_code"].upper()
+        item["entity_id"] = item["entity_id"].upper()
+        item["outcome"] = item["outcome"].lower()
+        if item["review_status"].lower() != "signed":
+            raise ValueError(f"连续性复核包第{line}行尚未签名")
+        if not all(item[key] for key in (
+            "decision_id", "stock_code", "outcome", "selected_candidate_ids",
+            "evidence_url", "evidence_date", "reviewer", "reviewed_at", "rationale",
+        )):
+            raise ValueError(f"连续性复核包第{line}行签名字段不完整")
+        if item["decision_id"] in decision_ids or item["stock_code"] in stock_codes:
+            raise ValueError(f"连续性复核包第{line}行决定ID或证券代码重复")
+        if item["outcome"] not in {"same_issuer", "new_issuer", "ah_same_entity"}:
+            raise ValueError(f"连续性复核包第{line}行outcome无效")
+        try:
+            date.fromisoformat(item["evidence_date"])
+            reviewed_at = datetime.fromisoformat(item["reviewed_at"])
+        except ValueError as error:
+            raise ValueError(f"连续性复核包第{line}行日期无效") from error
+        if reviewed_at.tzinfo is None:
+            raise ValueError(f"连续性复核包第{line}行审核时间必须含时区")
+        selected_ids = [value.strip() for value in item["selected_candidate_ids"].split("|") if value.strip()]
+        if len(set(selected_ids)) != len(selected_ids):
+            raise ValueError(f"连续性复核包第{line}行候选ID重复")
+        selected = []
+        for candidate_id in selected_ids:
+            candidate = candidate_by_id.get(candidate_id)
+            if candidate is None or candidate["company_code"].strip().upper() != item["stock_code"]:
+                raise ValueError(f"连续性复核包第{line}行候选ID未匹配本证券")
+            selected.append(candidate)
+        selected_urls = {row["source_url"].strip() for row in selected}
+        if item["evidence_url"] not in selected_urls:
+            raise ValueError(f"连续性复核包第{line}行证据URL不属于所选候选")
+        categories = sorted({row["evidence_category"].strip() for row in selected})
+        if item["outcome"] == "ah_same_entity":
+            if "ah_identity" not in categories or not item["related_a_code"] or not item["entity_id"]:
+                raise ValueError(f"连续性复核包第{line}行A/H结论缺少身份候选或主体字段")
+        elif item["related_a_code"] or item["entity_id"]:
+            raise ValueError(f"连续性复核包第{line}行非A/H结论不能填写主体映射")
+        decision_ids.add(item["decision_id"])
+        stock_codes.add(item["stock_code"])
+        decisions.append(SignedContinuityDecision(
+            item["decision_id"], item["stock_code"], item["outcome"], item["related_a_code"],
+            item["entity_id"], item["evidence_url"], item["evidence_date"], item["reviewer"],
+            item["reviewed_at"], item["rationale"],
+        ))
+        audits.append(FinalizedContinuityReview(
+            item["decision_id"], item["stock_code"], item["outcome"], "|".join(selected_ids),
+            "|".join(categories), len(selected), item["evidence_url"], item["reviewer"], item["reviewed_at"],
+        ))
+    summary = {
+        "packet_count": len(packets),
+        "signed_decision_count": len(decisions),
+        "selected_candidate_count": sum(item.selected_candidate_count for item in audits),
+        "outcome_counts": dict(sorted(Counter(item.outcome for item in decisions).items())),
+        "complete": len(decisions) == len(packets),
+    }
+    return decisions, audits, summary
+
+
+def write_finalized_continuity_reviews(
+    decisions_path: str | Path, audit_path: str | Path, summary_path: str | Path,
+    decisions: list[SignedContinuityDecision], audits: list[FinalizedContinuityReview], summary: dict,
+) -> None:
+    for path, rows, row_type in (
+        (decisions_path, decisions, SignedContinuityDecision),
+        (audit_path, audits, FinalizedContinuityReview),
+    ):
+        output = Path(path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=tuple(row_type.__annotations__), lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(asdict(item) for item in rows)
     summary_output = Path(summary_path)
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

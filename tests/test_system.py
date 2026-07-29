@@ -23,7 +23,7 @@ from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_h
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
-from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, prepare_continuity_review_packets, write_continuity_evidence_candidates
+from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
@@ -641,6 +641,38 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("", packets[0].outcome)
             self.assertEqual("unsigned", packets[0].review_status)
             self.assertFalse(summary["applicable"])
+
+    def test_finalize_continuity_review_validates_candidate_ownership_and_signature(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packets = root / "packets.csv"
+            candidates = root / "candidates.csv"
+            header = (
+                "decision_id,stock_code,outcome,related_a_code,entity_id,selected_candidate_ids,"
+                "evidence_url,evidence_date,reviewer,reviewed_at,rationale,review_status\n"
+            )
+            packets.write_text(
+                header + "D1,00042.HK,same_issuer,,,C1,https://hkex/report.pdf,2026-04-29,alice,"
+                "2026-07-29T10:00:00+08:00,官方年报确认,signed\n",
+                encoding="utf-8",
+            )
+            candidates.write_text(
+                "candidate_id,company_code,evidence_category,source_url\n"
+                "C1,00042.HK,issuer_history,https://hkex/report.pdf\n"
+                "C2,00600.HK,issuer_history,https://hkex/other.pdf\n",
+                encoding="utf-8",
+            )
+            decisions, audits, summary = finalize_continuity_reviews(packets, candidates)
+            self.assertEqual("same_issuer", decisions[0].outcome)
+            self.assertEqual("issuer_history", audits[0].selected_categories)
+            self.assertTrue(summary["complete"])
+            packets.write_text(
+                header + "D1,00042.HK,same_issuer,,,C2,https://hkex/other.pdf,2026-04-29,alice,"
+                "2026-07-29T10:00:00+08:00,跨证券候选,signed\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "候选ID未匹配本证券"):
+                finalize_continuity_reviews(packets, candidates)
 
     def test_prepare_hkex_evidence_drafts_uses_exact_mapping_and_stays_unsigned(self):
         header = (

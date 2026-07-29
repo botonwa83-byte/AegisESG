@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, write_document_index
-from .continuity_evidence import extract_continuity_evidence_candidates, prepare_continuity_review_packets, write_continuity_evidence_candidates, write_continuity_review_packets
+from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, write_continuity_evidence_candidates, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
@@ -135,6 +135,12 @@ def main() -> None:
     continuity_packets.add_argument("candidates")
     continuity_packets.add_argument("--output", required=True)
     continuity_packets.add_argument("--summary", required=True)
+    finalize_continuity = sub.add_parser("finalize-hkex-continuity-review", help="严格校验已签名复核包并生成可应用决定")
+    finalize_continuity.add_argument("packets")
+    finalize_continuity.add_argument("candidates")
+    finalize_continuity.add_argument("--output", required=True)
+    finalize_continuity.add_argument("--audit", required=True)
+    finalize_continuity.add_argument("--summary", required=True)
     apply_continuity = sub.add_parser("apply-hkex-continuity-decisions", help="应用签名发行人连续性及A/H主体决定")
     apply_continuity.add_argument("universe")
     apply_continuity.add_argument("decisions")
@@ -415,6 +421,13 @@ def main() -> None:
     if args.command == "prepare-hkex-continuity-review":
         rows, summary = prepare_continuity_review_packets(args.tasks, args.candidates)
         write_continuity_review_packets(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "finalize-hkex-continuity-review":
+        decisions, audits, summary = finalize_continuity_reviews(args.packets, args.candidates)
+        write_finalized_continuity_reviews(
+            args.output, args.audit, args.summary, decisions, audits, summary,
+        )
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-hkex-continuity-decisions":
