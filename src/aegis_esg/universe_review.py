@@ -46,14 +46,18 @@ class AppliedEvidenceDecision:
 
 def plan_universe_evidence(
     universe: Iterable[UniverseCompany], snapshot_path: str | Path,
+    exchanges: Iterable[str] = (),
 ) -> tuple[list[UniverseEvidenceTask], dict]:
     snapshot_rows = read_exchange_snapshot(snapshot_path)
     snapshot = {item.stock_code: item for item in snapshot_rows}
     if len(snapshot) != len(snapshot_rows):
         raise ValueError("官方快照存在重复证券代码")
+    exchange_filter = {item.strip().upper() for item in exchanges if item.strip()}
     tasks = []
     for company in universe:
         if not company.included:
+            continue
+        if exchange_filter and company.exchange not in exchange_filter:
             continue
         security = snapshot.get(company.stock_code)
         if security is None:
@@ -88,6 +92,7 @@ def plan_universe_evidence(
     action_counts = Counter(item.next_action for item in tasks)
     summary = {
         "included_company_count": len(tasks),
+        "exchange_filter": sorted(exchange_filter),
         "industry_status_counts": dict(sorted(industry_counts.items())),
         "entity_status_counts": dict(sorted(entity_counts.items())),
         "next_action_counts": dict(sorted(action_counts.items())),
@@ -96,6 +101,107 @@ def plan_universe_evidence(
         "publishable": not industry_counts["pending_evidence"] and not industry_counts["snapshot_unmatched"],
     }
     return tasks, summary
+
+
+LEDGER_FIELDS = (
+    "decision_id", "batch_id", "operation", "supersedes", "stock_code",
+    "decision", "sub_industry", "entity_id", "evidence_url", "evidence_date",
+    "reviewer", "reviewed_at", "rationale",
+)
+
+
+def merge_universe_evidence_batches(
+    batch_paths: Iterable[str | Path],
+) -> tuple[list[dict[str, str]], list[dict[str, str]], dict]:
+    """Build an append-only decision ledger and its current active projection."""
+    ledger: list[dict[str, str]] = []
+    by_id: dict[str, dict[str, str]] = {}
+    current_by_code: dict[str, str] = {}
+    seen_batches: set[str] = set()
+    for batch_path in batch_paths:
+        with Path(batch_path).open(encoding="utf-8-sig", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        if not rows or not set(LEDGER_FIELDS).issubset(rows[0]):
+            raise ValueError(f"证据批次字段不完整: {batch_path}")
+        file_batch_ids = {(row.get("batch_id") or "").strip() for row in rows}
+        if "" in file_batch_ids or len(file_batch_ids) != 1:
+            raise ValueError(f"单个证据批次必须使用唯一非空batch_id: {batch_path}")
+        batch_id = next(iter(file_batch_ids))
+        if batch_id in seen_batches:
+            raise ValueError(f"证据批次ID重复: {batch_id}")
+        seen_batches.add(batch_id)
+        for line, raw in enumerate(rows, 2):
+            item = {key: (raw.get(key) or "").strip() for key in LEDGER_FIELDS}
+            item["stock_code"] = item["stock_code"].upper()
+            item["operation"] = item["operation"].lower()
+            item["decision"] = item["decision"].lower()
+            decision_id = item["decision_id"]
+            if not decision_id or decision_id in by_id:
+                raise ValueError(f"证据决定ID为空或重复: {decision_id or f'{batch_path}:{line}'}")
+            if item["operation"] not in {"upsert", "revoke"}:
+                raise ValueError(f"证据批次第{line}行operation必须为upsert或revoke")
+            current_id = current_by_code.get(item["stock_code"], "")
+            if item["operation"] == "upsert":
+                _validate_evidence_decision(item, line)
+                if current_id and item["supersedes"] != current_id:
+                    raise ValueError(f"证券{item['stock_code']}的新版本必须supersede当前决定{current_id}")
+                if not current_id and item["supersedes"]:
+                    raise ValueError(f"证券{item['stock_code']}首个决定不能声明supersedes")
+                current_by_code[item["stock_code"]] = decision_id
+            else:
+                _validate_ledger_signature(item, line)
+                if not current_id or item["supersedes"] != current_id:
+                    raise ValueError(f"证券{item['stock_code']}撤销必须指向当前决定")
+                current_by_code.pop(item["stock_code"])
+            item["ledger_state"] = "active" if item["operation"] == "upsert" else "revoked"
+            if item["supersedes"]:
+                previous = by_id.get(item["supersedes"])
+                if previous is None or previous["stock_code"] != item["stock_code"]:
+                    raise ValueError(f"supersedes未指向同证券的既有决定: {item['supersedes']}")
+                previous["ledger_state"] = "superseded" if item["operation"] == "upsert" else "revoked"
+            ledger.append(item)
+            by_id[decision_id] = item
+    active_rows = []
+    for code, decision_id in sorted(current_by_code.items()):
+        item = by_id[decision_id]
+        active_rows.append({key: item[key] for key in (
+            "stock_code", "decision", "sub_industry", "entity_id", "evidence_url",
+            "evidence_date", "reviewer", "reviewed_at", "rationale",
+        )})
+    states = Counter(item["ledger_state"] for item in ledger)
+    summary = {
+        "batch_count": len(seen_batches),
+        "ledger_decision_count": len(ledger),
+        "active_decision_count": len(active_rows),
+        "ledger_state_counts": dict(sorted(states.items())),
+        "complete": True,
+    }
+    return active_rows, ledger, summary
+
+
+def write_universe_evidence_ledger(
+    active_path: str | Path, ledger_path: str | Path, summary_path: str | Path,
+    active_rows: Iterable[dict[str, str]], ledger: Iterable[dict[str, str]], summary: dict,
+) -> None:
+    active_output = Path(active_path)
+    active_output.parent.mkdir(parents=True, exist_ok=True)
+    active_fields = (
+        "stock_code", "decision", "sub_industry", "entity_id", "evidence_url",
+        "evidence_date", "reviewer", "reviewed_at", "rationale",
+    )
+    with active_output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=active_fields)
+        writer.writeheader()
+        writer.writerows(active_rows)
+    ledger_output = Path(ledger_path)
+    ledger_output.parent.mkdir(parents=True, exist_ok=True)
+    with ledger_output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=(*LEDGER_FIELDS, "ledger_state"))
+        writer.writeheader()
+        writer.writerows(ledger)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def write_universe_evidence_plan(
@@ -219,6 +325,20 @@ def _validate_evidence_decision(item: dict[str, str], line: int) -> None:
         raise ValueError(f"证据决定表第{line}行纳入决定必须给出明确细分行业")
     if item["entity_id"] and re.search(r"\s", item["entity_id"]):
         raise ValueError(f"证据决定表第{line}行主体标识不能含空格")
+
+
+def _validate_ledger_signature(item: dict[str, str], line: int) -> None:
+    if not item["evidence_url"] or not item["reviewer"] or not item["rationale"]:
+        raise ValueError(f"证据批次第{line}行撤销缺少证据、审核人或理由")
+    if not re.match(r"^(https?://|data/|output/)", item["evidence_url"], re.I):
+        raise ValueError(f"证据批次第{line}行证据地址格式无效")
+    try:
+        date.fromisoformat(item["evidence_date"])
+        reviewed = datetime.fromisoformat(item["reviewed_at"])
+    except ValueError as error:
+        raise ValueError(f"证据批次第{line}行日期或审核时间无效") from error
+    if reviewed.tzinfo is None:
+        raise ValueError(f"证据批次第{line}行审核时间必须含时区")
 
 
 def _deduplicate_explicit_ah_entities(

@@ -1,0 +1,18 @@
+{
+  "included_company_count": 92,
+  "exchange_filter": [
+    "HKEX"
+  ],
+  "industry_status_counts": {
+    "pending_evidence": 92
+  },
+  "entity_status_counts": {
+    "security_id_only": 92
+  },
+  "next_action_counts": {
+    "collect_hkex_industry_and_chinese_name_evidence": 92
+  },
+  "pending_industry_count": 92,
+  "snapshot_unmatched_count": 0,
+  "publishable": false
+}

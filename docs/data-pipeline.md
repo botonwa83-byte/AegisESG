@@ -122,6 +122,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli apply-universe-evidence \
 和理由。主体映射只有在同一A/H组合的全部证券同时签名时才生效，并固定优先保留A股；非A/H
 重复主体、只审核组合中的一只证券或任何字段缺失都会使整批失败，不产生部分写入。
 
+多人或多轮审核使用`data/templates/universe_evidence_batch.csv`形成不可变批次，再生成当前有效决定：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli merge-universe-evidence batch-01.csv batch-02.csv \
+  --active-output output/review/universe_evidence_active.csv \
+  --ledger-output output/audit/universe_evidence_ledger.csv \
+  --summary output/audit/universe_evidence_ledger.json
+```
+
+每个决定和批次必须有唯一ID。首次决定使用`operation=upsert`且`supersedes`为空；更正决定必须
+准确指向同证券当前决定；撤销使用`operation=revoke`并指向当前决定。版本分叉、重复批次、跨证券
+替换和撤销旧版本都会整批失败。账本保留`active/superseded/revoked`状态，活动投影可直接交给
+`apply-universe-evidence`。港股首批任务已生成在`output/audit/hkex_universe_evidence_tasks.csv`。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

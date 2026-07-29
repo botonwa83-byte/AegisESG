@@ -1,0 +1,2 @@
+decision_id,batch_id,operation,supersedes,stock_code,decision,sub_industry,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale
+DEC-2026-0001,BATCH-2026-01,upsert,,600900.SH,include,电力,ENTITY-CYPC,https://example.com/official-evidence,2026-07-29,reviewer,2026-07-29T12:00:00+08:00,官方证据确认能源细分行业及主体

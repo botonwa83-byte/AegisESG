@@ -28,7 +28,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
-from aegis_esg.universe_review import apply_universe_evidence, plan_universe_evidence
+from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -756,6 +756,9 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("制造业", tasks[1].snapshot_industry)
             self.assertEqual(2, summary["pending_industry_count"])
             self.assertFalse(summary["publishable"])
+            hk_tasks, hk_summary = plan_universe_evidence(companies, snapshot, ("HKEX",))
+            self.assertEqual(["00001.HK"], [item.stock_code for item in hk_tasks])
+            self.assertEqual(["HKEX"], hk_summary["exchange_filter"])
 
     def test_apply_signed_universe_evidence_classifies_and_deduplicates_ah(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -791,6 +794,55 @@ class MethodologyTests(unittest.TestCase):
                 apply_universe_evidence(
                     [UniverseCompany("600001.SH", "甲", "SSE", "待分类")], decisions,
                 )
+
+    def test_merge_universe_evidence_batches_tracks_supersede_and_revoke(self):
+        header = (
+            "decision_id,batch_id,operation,supersedes,stock_code,decision,sub_industry,entity_id,"
+            "evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            first = Path(directory) / "first.csv"
+            second = Path(directory) / "second.csv"
+            third = Path(directory) / "third.csv"
+            first.write_text(
+                header + "D1,B1,upsert,,600001.SH,include,电力,A,https://official/1,2026-07-29,alice,2026-07-29T10:00:00+08:00,初审\n",
+                encoding="utf-8",
+            )
+            second.write_text(
+                header + "D2,B2,upsert,D1,600001.SH,include,新能源,A,https://official/2,2026-07-30,bob,2026-07-30T10:00:00+08:00,更正行业\n",
+                encoding="utf-8",
+            )
+            third.write_text(
+                header + "D3,B3,revoke,D2,600001.SH,,,,https://official/3,2026-07-31,carol,2026-07-31T10:00:00+08:00,撤销待重审\n",
+                encoding="utf-8",
+            )
+            active, ledger, summary = merge_universe_evidence_batches([first, second])
+            self.assertEqual("新能源", active[0]["sub_industry"])
+            self.assertEqual(["superseded", "active"], [item["ledger_state"] for item in ledger])
+            self.assertEqual(1, summary["active_decision_count"])
+            active, ledger, summary = merge_universe_evidence_batches([first, second, third])
+            self.assertFalse(active)
+            self.assertEqual(0, summary["active_decision_count"])
+            self.assertEqual("revoked", ledger[1]["ledger_state"])
+
+    def test_merge_universe_evidence_rejects_version_fork(self):
+        header = (
+            "decision_id,batch_id,operation,supersedes,stock_code,decision,sub_industry,entity_id,"
+            "evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            first = Path(directory) / "first.csv"
+            fork = Path(directory) / "fork.csv"
+            first.write_text(
+                header + "D1,B1,upsert,,600001.SH,include,电力,A,https://official/1,2026-07-29,alice,2026-07-29T10:00:00+08:00,初审\n",
+                encoding="utf-8",
+            )
+            fork.write_text(
+                header + "D2,B2,upsert,WRONG,600001.SH,include,新能源,A,https://official/2,2026-07-30,bob,2026-07-30T10:00:00+08:00,冲突版本\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                merge_universe_evidence_batches([first, fork])
 
     def test_indicator_plan_builds_complete_company_indicator_matrix(self):
         companies = [

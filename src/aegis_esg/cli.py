@@ -27,7 +27,7 @@ from .sources.hkex import import_hkex_securities
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
-from .universe_review import apply_universe_evidence, plan_universe_evidence, write_applied_universe_evidence, write_universe_evidence_plan
+from .universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence, write_applied_universe_evidence, write_universe_evidence_ledger, write_universe_evidence_plan
 
 
 DEFAULT_METHODOLOGY = Path("data/methodologies/energy_esg_2025.json")
@@ -138,6 +138,12 @@ def main() -> None:
     evidence_plan.add_argument("--snapshot", required=True)
     evidence_plan.add_argument("--output", required=True)
     evidence_plan.add_argument("--summary", required=True)
+    evidence_plan.add_argument("--exchange", action="append", choices=("SSE", "SZSE", "BSE", "HKEX"), help="仅生成指定交易所任务，可重复")
+    merge_evidence = sub.add_parser("merge-universe-evidence", help="合并带版本链的证据审核批次")
+    merge_evidence.add_argument("batches", nargs="+")
+    merge_evidence.add_argument("--active-output", required=True)
+    merge_evidence.add_argument("--ledger-output", required=True)
+    merge_evidence.add_argument("--summary", required=True)
     apply_evidence = sub.add_parser("apply-universe-evidence", help="应用带审核签名的行业及A/H主体决定")
     apply_evidence.add_argument("universe")
     apply_evidence.add_argument("decisions")
@@ -355,8 +361,17 @@ def main() -> None:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         raise SystemExit(0 if summary["complete"] else 2)
     if args.command == "plan-universe-evidence":
-        tasks, summary = plan_universe_evidence(read_universe(args.universe), args.snapshot)
+        tasks, summary = plan_universe_evidence(
+            read_universe(args.universe), args.snapshot, args.exchange or (),
+        )
         write_universe_evidence_plan(args.output, args.summary, tasks, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "merge-universe-evidence":
+        active_rows, ledger, summary = merge_universe_evidence_batches(args.batches)
+        write_universe_evidence_ledger(
+            args.active_output, args.ledger_output, args.summary, active_rows, ledger, summary,
+        )
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-universe-evidence":
