@@ -278,6 +278,98 @@ def write_continuity_review_packets(
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def render_continuity_review_guide(
+    packets_path: str | Path, candidates_path: str | Path,
+) -> tuple[str, dict]:
+    packets = _read_csv(packets_path)
+    candidates = _read_csv(candidates_path)
+    required_packet = {
+        "task_id", "stock_code", "priority", "next_action", "historical_name",
+        "current_chinese_name", "profile_evidence_url", "review_status",
+    }
+    required_candidate = {
+        "candidate_id", "company_code", "evidence_category", "document_type",
+        "report_year", "source_url", "source_page", "evidence_text", "confidence",
+    }
+    if not packets or not required_packet.issubset(packets[0]):
+        raise ValueError("连续性人工复核包字段不完整")
+    if not candidates or not required_candidate.issubset(candidates[0]):
+        raise ValueError("连续性证据候选字段不完整")
+    by_code: dict[str, list[dict[str, str]]] = {}
+    candidate_ids = set()
+    for line, row in enumerate(candidates, 2):
+        candidate_id = row["candidate_id"].strip()
+        code = row["company_code"].strip().upper()
+        if not candidate_id or candidate_id in candidate_ids:
+            raise ValueError(f"连续性证据候选第{line}行ID为空或重复")
+        candidate_ids.add(candidate_id)
+        by_code.setdefault(code, []).append(row)
+    ordered = sorted(packets, key=lambda row: (int(row["priority"]), row["stock_code"].strip().upper()))
+    lines = [
+        "# HKEX发行人连续性人工审阅手册", "",
+        "> 本手册只汇总官方证据候选，不提供或暗示审核结论。审核完成后仍须在CSV复核包中签名。", "",
+        f"共{len(ordered)}个审阅包、{len(candidates)}条候选。", "", "## 目录", "",
+    ]
+    for packet in ordered:
+        code = packet["stock_code"].strip().upper()
+        lines.append(f"- [P{packet['priority']} · {code}](#{code.lower().replace('.', '')})")
+    category_counts = Counter()
+    codes_without_candidates = []
+    for packet in ordered:
+        code = packet["stock_code"].strip().upper()
+        rows = by_code.get(code, [])
+        if not rows:
+            codes_without_candidates.append(code)
+        lines.extend([
+            "", f"## {code}", "",
+            f"- 优先级：P{packet['priority']}",
+            f"- 待办：`{packet['next_action'].strip()}`",
+            f"- 历史名称：{packet['historical_name'].strip() or '—'}",
+            f"- 当前中文名称：{packet['current_chinese_name'].strip() or '—'}",
+            f"- HKEX资料页：{packet['profile_evidence_url'].strip() or '—'}",
+            f"- 审核状态：`{packet['review_status'].strip()}`", "",
+        ])
+        for category in PATTERNS:
+            category_rows = sorted(
+                (row for row in rows if row["evidence_category"].strip() == category),
+                key=lambda row: (row["document_type"], int(row["report_year"]), int(row["source_page"]), row["candidate_id"]),
+            )
+            category_counts[category] += len(category_rows)
+            lines.extend([f"### {category}", ""])
+            if not category_rows:
+                lines.extend(["无候选。", ""])
+                continue
+            for row in category_rows:
+                evidence = re.sub(r"\s+", " ", row["evidence_text"]).strip()
+                lines.extend([
+                    f"#### `{row['candidate_id'].strip()}`", "",
+                    f"- 文件：`{row['document_type'].strip()}` / {row['report_year'].strip()} / 第{row['source_page'].strip()}页",
+                    f"- 置信度：{row['confidence'].strip()}",
+                    f"- 官方文件：{row['source_url'].strip()}", "",
+                    f"> {evidence.replace(chr(10), ' ')}", "",
+                ])
+    summary = {
+        "packet_count": len(ordered),
+        "candidate_count": len(candidates),
+        "category_counts": dict(sorted(category_counts.items())),
+        "codes_without_candidates": codes_without_candidates,
+        "signed_count": sum(row["review_status"].strip().lower() == "signed" for row in ordered),
+        "applicable": False,
+    }
+    return "\n".join(lines).rstrip() + "\n", summary
+
+
+def write_continuity_review_guide(
+    output_path: str | Path, summary_path: str | Path, guide: str, summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(guide, encoding="utf-8")
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def finalize_continuity_reviews(
     packets_path: str | Path, candidates_path: str | Path,
 ) -> tuple[list[SignedContinuityDecision], list[FinalizedContinuityReview], dict]:

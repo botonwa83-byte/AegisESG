@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, write_document_index
-from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, write_continuity_evidence_candidates, write_continuity_review_packets, write_finalized_continuity_reviews
+from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, write_continuity_evidence_candidates, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
@@ -138,6 +138,11 @@ def main() -> None:
     continuity_packets.add_argument("candidates")
     continuity_packets.add_argument("--output", required=True)
     continuity_packets.add_argument("--summary", required=True)
+    continuity_guide = sub.add_parser("render-hkex-continuity-review", help="将候选证据渲染为人类可读的未签名审阅手册")
+    continuity_guide.add_argument("packets")
+    continuity_guide.add_argument("candidates")
+    continuity_guide.add_argument("--output", required=True)
+    continuity_guide.add_argument("--summary", required=True)
     finalize_continuity = sub.add_parser("finalize-hkex-continuity-review", help="严格校验已签名复核包并生成可应用决定")
     finalize_continuity.add_argument("packets")
     finalize_continuity.add_argument("candidates")
@@ -415,6 +420,11 @@ def main() -> None:
     if args.command == "prepare-hkex-continuity-review":
         rows, summary = prepare_continuity_review_packets(args.tasks, args.candidates)
         write_continuity_review_packets(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "render-hkex-continuity-review":
+        guide, summary = render_continuity_review_guide(args.packets, args.candidates)
+        write_continuity_review_guide(args.output, args.summary, guide, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "finalize-hkex-continuity-review":

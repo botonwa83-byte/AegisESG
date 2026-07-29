@@ -324,6 +324,19 @@ PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-continuity-review \
 结果为431条候选：主营业务348条、A/H身份72条、发行人历史11条；68家公司形成未签名审阅包，
 `00702.HK`和`01101.HK`在时间窗内无文件候选。候选只用于人工审核，不能直接应用到公司池。
 
+为避免审核人反复在复核包与候选表之间查找，可生成只读Markdown审阅手册：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli render-hkex-continuity-review \
+  data/review/hkex_continuity_all_review_packet_2026-07-29.csv \
+  data/review/hkex_continuity_all_evidence_candidates_2026-07-29.csv \
+  --output data/review/hkex_continuity_all_review_guide_2026-07-29.md \
+  --summary output/audit/hkex_continuity_all_review_guide_summary_2026-07-29.json
+```
+
+手册按优先级和证券代码排列，逐候选展示官方文件、报告期、页码、置信度及证据原文。它不会填写
+`outcome`、选择候选或生成签名；审核结果仍必须回填CSV复核包并通过严格转换器校验。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
