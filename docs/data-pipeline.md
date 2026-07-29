@@ -108,6 +108,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli plan-universe-evidence \
 任何包含“待分类”或“待…复核”的细分行业均计入`unclassified_count`并阻止发布。任务队列优先
 处理港股中文全称及行业证据，再处理内地能源细分行业，已明确行业的证券继续核验主体关系。
 
+复核人员按`data/templates/universe_evidence_decisions.csv`填写签名决定后应用：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli apply-universe-evidence \
+  data/universe/energy_historical_candidates_2026.csv signed-decisions.csv \
+  --output data/universe/energy_reviewed_2026.csv \
+  --audit output/audit/energy_reviewed_decisions.csv \
+  --summary output/audit/energy_reviewed_summary.json
+```
+
+纳入决定必须提供非占位细分行业、证据URL或仓库证据路径、证据日期、审核人、带时区审核时间
+和理由。主体映射只有在同一A/H组合的全部证券同时签名时才生效，并固定优先保留A股；非A/H
+重复主体、只审核组合中的一只证券或任何字段缺失都会使整批失败，不产生部分写入。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

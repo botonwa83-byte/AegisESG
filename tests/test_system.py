@@ -28,7 +28,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
-from aegis_esg.universe_review import plan_universe_evidence
+from aegis_esg.universe_review import apply_universe_evidence, plan_universe_evidence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -756,6 +756,41 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("制造业", tasks[1].snapshot_industry)
             self.assertEqual(2, summary["pending_industry_count"])
             self.assertFalse(summary["publishable"])
+
+    def test_apply_signed_universe_evidence_classifies_and_deduplicates_ah(self):
+        with tempfile.TemporaryDirectory() as directory:
+            decisions = Path(directory) / "decisions.csv"
+            decisions.write_text(
+                "stock_code,decision,sub_industry,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+                "600001.SH,include,电力,ENTITY-A,https://official/a,2026-07-29,alice,2026-07-29T10:00:00+08:00,发行人年报确认\n"
+                "00001.HK,include,电力,ENTITY-A,https://official/h,2026-07-29,bob,2026-07-29T10:01:00+08:00,港交所披露确认\n",
+                encoding="utf-8",
+            )
+            companies = [
+                UniverseCompany("00001.HK", "甲H", "HKEX", "待分类", entity_id="00001.HK", source_url="https://hkex", as_of_date="2026-07-29"),
+                UniverseCompany("600001.SH", "甲", "SSE", "待分类", entity_id="600001.SH", source_url="https://sse", as_of_date="2026-07-29"),
+            ]
+            rows, audit_rows, summary = apply_universe_evidence(companies, decisions)
+            by_code = {item.stock_code: item for item in rows}
+            self.assertTrue(by_code["600001.SH"].included)
+            self.assertFalse(by_code["00001.HK"].included)
+            self.assertIn("保留600001.SH", by_code["00001.HK"].exclusion_reason)
+            self.assertEqual("https://hkex", by_code["00001.HK"].source_url)
+            self.assertEqual(1, summary["ah_duplicate_excluded_count"])
+            self.assertEqual("ah_duplicate_exclude", next(item for item in audit_rows if item.stock_code == "00001.HK").action)
+
+    def test_apply_universe_evidence_rejects_unsigned_or_placeholder_decision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            decisions = Path(directory) / "decisions.csv"
+            decisions.write_text(
+                "stock_code,decision,sub_industry,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale\n"
+                "600001.SH,include,仍待复核,600001.SH,https://official,2026-07-29,,2026-07-29T10:00:00,\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                apply_universe_evidence(
+                    [UniverseCompany("600001.SH", "甲", "SSE", "待分类")], decisions,
+                )
 
     def test_indicator_plan_builds_complete_company_indicator_matrix(self):
         companies = [
