@@ -14,5 +14,11 @@
   },
   "missing_exchanges": [],
   "unclassified_count": 0,
+  "missing_source_count": 611,
+  "missing_date_count": 611,
+  "missing_entity_count": 0,
+  "duplicate_included_entity_count": 0,
+  "excluded_without_reason_count": 0,
+  "included_with_exclusion_reason_count": 0,
   "publishable": false
 }

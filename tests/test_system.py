@@ -307,7 +307,50 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(1, report.completed_company_count)
         self.assertAlmostEqual(1 / 632, report.completed_coverage_rate)
         self.assertEqual(("BSE", "HKEX"), report.missing_exchanges)
+        self.assertEqual(2, report.missing_source_count)
+        self.assertEqual(2, report.missing_date_count)
         self.assertFalse(report.publishable)
+
+    def test_universe_audit_requires_provenance_and_consistent_decisions(self):
+        companies = [
+            UniverseCompany(
+                "600001.SH", "甲", "SSE", "电力", entity_id="ENTITY-A",
+                source_url="https://official/sse", as_of_date="2026-07-29",
+            ),
+            UniverseCompany(
+                "00001.HK", "甲H", "HKEX", "电力", entity_id="ENTITY-A",
+                source_url="https://official/hkex", as_of_date="2026-07-29",
+            ),
+            UniverseCompany("000002.SZ", "乙", "SZSE", "电力", exclusion_reason="不应存在"),
+            UniverseCompany("920001.BJ", "丙", "BSE", "电力", False),
+        ]
+        report = audit_universe(companies, 2, ["600001.SH", "00001.HK"])
+        self.assertEqual(1, report.duplicate_included_entity_count)
+        self.assertEqual(1, report.included_with_exclusion_reason_count)
+        self.assertEqual(1, report.excluded_without_reason_count)
+        self.assertFalse(report.publishable)
+
+    def test_universe_audit_allows_complete_evidenced_release(self):
+        companies = [
+            UniverseCompany(
+                "600001.SH", "甲", "SSE", "电力", entity_id="A",
+                source_url="https://official/sse", as_of_date="2026-07-29",
+            ),
+            UniverseCompany(
+                "000002.SZ", "乙", "SZSE", "电力", entity_id="B",
+                source_url="https://official/szse", as_of_date="2026-07-29",
+            ),
+            UniverseCompany(
+                "920001.BJ", "丙", "BSE", "电力", entity_id="C",
+                source_url="https://official/bse", as_of_date="2026-07-29",
+            ),
+            UniverseCompany(
+                "00001.HK", "丁", "HKEX", "电力", entity_id="D",
+                source_url="https://official/hkex", as_of_date="2026-07-29",
+            ),
+        ]
+        report = audit_universe(companies, 4, [item.stock_code for item in companies])
+        self.assertTrue(report.publishable)
 
     def test_universe_builder_filters_st_non_energy_and_ah_duplicates(self):
         rows = [

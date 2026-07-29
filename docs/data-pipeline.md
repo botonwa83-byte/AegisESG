@@ -77,6 +77,9 @@ PYTHONPATH=src python3 -m aegis_esg.cli build-universe \
 
 正式底表的每一行必须保留交易所来源URL和快照日期，行业人工调整通过更新标准快照中的
 `energy_eligible`完成，不能直接修改最终公司池而绕过审计。
+`universe-audit`还会阻止以下情况进入正式发布：纳入行缺失`entity_id`、来源URL或快照日期，
+同一主体被重复纳入，排除行没有理由，以及纳入行仍带有排除理由。上述问题均在审计JSON中
+输出独立计数，不能仅靠主体总数达到632而绕过证据质量门槛。
 
 ## 外部企业名录对账
 

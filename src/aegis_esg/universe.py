@@ -33,6 +33,12 @@ class UniverseAudit:
     exchanges: dict[str, int]
     missing_exchanges: tuple[str, ...]
     unclassified_count: int
+    missing_source_count: int
+    missing_date_count: int
+    missing_entity_count: int
+    duplicate_included_entity_count: int
+    excluded_without_reason_count: int
+    included_with_exclusion_reason_count: int
     publishable: bool
 
     def as_dict(self) -> dict:
@@ -47,6 +53,12 @@ class UniverseAudit:
             "exchanges": self.exchanges,
             "missing_exchanges": list(self.missing_exchanges),
             "unclassified_count": self.unclassified_count,
+            "missing_source_count": self.missing_source_count,
+            "missing_date_count": self.missing_date_count,
+            "missing_entity_count": self.missing_entity_count,
+            "duplicate_included_entity_count": self.duplicate_included_entity_count,
+            "excluded_without_reason_count": self.excluded_without_reason_count,
+            "included_with_exclusion_reason_count": self.included_with_exclusion_reason_count,
             "publishable": self.publishable,
         }
 
@@ -83,12 +95,23 @@ def audit_universe(
 ) -> UniverseAudit:
     rows = list(companies)
     included = [item for item in rows if item.included]
-    entities = {item.entity_id or item.stock_code for item in included}
+    entity_keys = [item.entity_id or item.stock_code for item in included]
+    entities = set(entity_keys)
     included_codes = {item.stock_code for item in included}
     completed = included_codes.intersection(code.strip().upper() for code in completed_codes)
     exchange_counts = dict(sorted(Counter(item.exchange for item in included).items()))
     missing = tuple(exchange for exchange in required_exchanges if exchange not in exchange_counts)
     unclassified = sum(item.sub_industry in ("", "待分类") for item in included)
+    missing_source = sum(not item.source_url for item in included)
+    missing_date = sum(not item.as_of_date for item in included)
+    missing_entity = sum(not item.entity_id for item in included)
+    duplicate_entities = len(entity_keys) - len(entities)
+    excluded_without_reason = sum(not item.included and not item.exclusion_reason for item in rows)
+    included_with_reason = sum(item.included and bool(item.exclusion_reason) for item in rows)
+    evidence_issues = (
+        missing_source, missing_date, missing_entity, duplicate_entities,
+        excluded_without_reason, included_with_reason,
+    )
     expected = max(expected_company_count, 0)
     universe_rate = len(entities) / expected if expected else 0.0
     completed_rate = len(completed) / expected if expected else 0.0
@@ -98,7 +121,15 @@ def audit_universe(
         expected_company_count=expected, universe_coverage_rate=universe_rate,
         completed_coverage_rate=completed_rate, exchanges=exchange_counts,
         missing_exchanges=missing, unclassified_count=unclassified,
-        publishable=(len(entities) == expected and len(completed) == expected and not missing and not unclassified),
+        missing_source_count=missing_source, missing_date_count=missing_date,
+        missing_entity_count=missing_entity,
+        duplicate_included_entity_count=duplicate_entities,
+        excluded_without_reason_count=excluded_without_reason,
+        included_with_exclusion_reason_count=included_with_reason,
+        publishable=(
+            len(entities) == expected and len(completed) == expected
+            and not missing and not unclassified and not any(evidence_issues)
+        ),
     )
 
 
