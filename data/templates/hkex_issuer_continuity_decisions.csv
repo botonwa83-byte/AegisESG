@@ -1,2 +1,1 @@
 decision_id,stock_code,outcome,related_a_code,entity_id,evidence_url,evidence_date,reviewer,reviewed_at,rationale
-CONT-2026-0001,00042.HK,same_issuer,,,https://example.com/official-evidence,2026-07-29,reviewer,2026-07-29T12:00:00+08:00,官方披露确认历史与当前为同一发行人

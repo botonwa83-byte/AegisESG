@@ -23,7 +23,7 @@ from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_h
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
-from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates
+from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, prepare_continuity_review_packets, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
@@ -617,6 +617,29 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual({"issuer_history", "principal_business", "ah_identity"}, {item.evidence_category for item in rows})
             self.assertTrue(all(item.review_status == "pending" for item in rows))
             self.assertEqual({1, 2}, {item.source_page for item in rows})
+            self.assertFalse(summary["applicable"])
+            self.assertTrue(all(item.candidate_id.startswith("HKCE-00042-HK-") for item in rows))
+
+    def test_prepare_continuity_review_packets_stays_unsigned(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tasks = root / "tasks.csv"
+            candidates = root / "candidates.csv"
+            tasks.write_text(
+                "task_id,stock_code,priority,next_action,historical_name,current_chinese_name,profile_evidence_url\n"
+                "T1,00042.HK,0,review_issuer_identity_and_industry,旧名,新名,https://hkex/profile\n",
+                encoding="utf-8",
+            )
+            candidates.write_text(
+                "candidate_id,company_code,evidence_category,source_page\n"
+                "C1,00042.HK,issuer_history,143\nC2,00042.HK,principal_business,18\n",
+                encoding="utf-8",
+            )
+            packets, summary = prepare_continuity_review_packets(tasks, candidates)
+            self.assertEqual("C1", packets[0].issuer_history_candidate_ids)
+            self.assertEqual("143", packets[0].issuer_history_pages)
+            self.assertEqual("", packets[0].outcome)
+            self.assertEqual("unsigned", packets[0].review_status)
             self.assertFalse(summary["applicable"])
 
     def test_prepare_hkex_evidence_drafts_uses_exact_mapping_and_stays_unsigned(self):

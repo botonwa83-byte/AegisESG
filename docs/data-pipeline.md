@@ -242,8 +242,24 @@ PYTHONPATH=src python3 -m aegis_esg.cli extract-hkex-continuity-evidence \
 
 收敛器按公司和文件类型选择最新文件，正式上市文件优先于形式通知，并拒绝目标路径冲突。
 首批选择7份文件（4份年报、2份ESG报告、1份上市文件），全部下载成功且保存SHA-256。
-1,655页文本生成44条待复核证据：发行人沿革2条、主营业务26条、A/H身份线索16条；主营业务和
-A/H线索覆盖4/4家公司。候选均保留文件、URL、页码和片段，`applicable=false`，不能替代审核签名。
+1,655页文本生成40条待复核证据：发行人沿革2条、主营业务26条、A/H身份线索12条；主营业务
+覆盖4/4，明确A/H术语覆盖2/4家公司。候选均保留文件、URL、页码和片段，`applicable=false`，
+不能替代审核签名。A/H规则区分大写证券术语，避免把英文冠词`a share`误作A股。
+
+候选证据使用稳定`candidate_id`汇总为未签名人工复核包：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-continuity-review \
+  output/audit/hkex_continuity_evidence_tasks_2026-07-29.csv \
+  data/review/hkex_continuity_priority_evidence_candidates_2026-07-29.csv \
+  --output data/review/hkex_continuity_priority_review_packet_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_priority_review_packet_summary_2026-07-29.json
+```
+
+每家公司一行，分别列出发行人沿革、主营业务和A/H身份候选ID及页码。`outcome`、关联A股代码、
+主体标识、证据URL、审核人和审核时间均为空，`review_status=unsigned`；审核人必须选择候选ID并
+补齐签名信息后，才能转换为连续性决定。当前生成4个高优先复核包，其余66项仍在采集队列。
+签名决定模板已移除示例数据，只保留表头，避免示例被误当真实审核决定。
 
 ## 外部企业名录对账
 

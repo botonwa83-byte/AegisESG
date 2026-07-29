@@ -1,15 +1,15 @@
 {
   "document_count": 7,
-  "candidate_count": 44,
+  "candidate_count": 40,
   "category_counts": {
-    "ah_identity": 16,
+    "ah_identity": 12,
     "issuer_history": 2,
     "principal_business": 26
   },
   "company_coverage": {
     "issuer_history": 2,
     "principal_business": 4,
-    "ah_identity": 4
+    "ah_identity": 2
   },
   "missing_text_count": 0,
   "missing_text_files": [],

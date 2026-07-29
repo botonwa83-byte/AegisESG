@@ -12,6 +12,7 @@ from .extraction import read_page_text_export
 
 @dataclass(frozen=True)
 class ContinuityEvidenceCandidate:
+    candidate_id: str
     company_code: str
     company_name: str
     evidence_category: str
@@ -23,6 +24,35 @@ class ContinuityEvidenceCandidate:
     evidence_text: str
     confidence: float
     review_status: str = "pending"
+
+
+@dataclass(frozen=True)
+class ContinuityReviewPacket:
+    task_id: str
+    stock_code: str
+    priority: int
+    next_action: str
+    historical_name: str
+    current_chinese_name: str
+    issuer_history_candidate_ids: str
+    issuer_history_pages: str
+    principal_business_candidate_ids: str
+    principal_business_pages: str
+    ah_identity_candidate_ids: str
+    ah_identity_pages: str
+    profile_evidence_url: str
+    candidate_count: int
+    review_readiness: str
+    outcome: str
+    related_a_code: str
+    entity_id: str
+    selected_candidate_ids: str
+    evidence_url: str
+    evidence_date: str
+    reviewer: str
+    reviewed_at: str
+    rationale: str
+    review_status: str
 
 
 PATTERNS = {
@@ -37,8 +67,8 @@ PATTERNS = {
         re.compile(r"\bprincipally engaged in\b", re.I),
     ),
     "ah_identity": (
-        re.compile(r"\bA shares?\b", re.I),
-        re.compile(r"\bH shares?\b", re.I),
+        re.compile(r"\bA [Ss]hares?\b"),
+        re.compile(r"\bH [Ss]hares?\b"),
         re.compile(r"\bjoint stock company incorporated in the People['’]s Republic of China\b", re.I),
         re.compile(r"\bunified social credit (?:identifier|code)\b", re.I),
     ),
@@ -54,6 +84,7 @@ def extract_continuity_evidence_candidates(
         records = list(csv.DictReader(stream))
     text_root = Path(text_root)
     candidates = []
+    candidate_sequence: Counter[tuple] = Counter()
     missing_text = []
     for line, row in enumerate(records, 2):
         try:
@@ -84,8 +115,18 @@ def extract_continuity_evidence_candidates(
                         break
                     seen.add(identity)
                     counts[category] += 1
+                    sequence_key = (
+                        row["company_code"].strip().upper(), category,
+                        row["document_type"].strip(), year, page.page,
+                    )
+                    candidate_sequence[sequence_key] += 1
+                    candidate_id = "HKCE-{}-{}-{}-{}-P{}-{}".format(
+                        row["company_code"].strip().upper().replace(".", "-"),
+                        category.upper(), row["document_type"].strip().upper(), year,
+                        page.page, candidate_sequence[sequence_key],
+                    )
                     candidates.append(ContinuityEvidenceCandidate(
-                        row["company_code"].strip().upper(), row["company_name"].strip(), category,
+                        candidate_id, row["company_code"].strip().upper(), row["company_name"].strip(), category,
                         row["document_type"].strip(), year, row["source_url"].strip(),
                         row["local_path"].strip(), page.page, evidence,
                         .94 if category == "issuer_history" else .88,
@@ -115,9 +156,99 @@ def write_continuity_evidence_candidates(
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=tuple(ContinuityEvidenceCandidate.__annotations__))
+        writer = csv.DictWriter(
+            stream, fieldnames=tuple(ContinuityEvidenceCandidate.__annotations__), lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(asdict(item) for item in candidates)
     summary_output = Path(summary_path)
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def prepare_continuity_review_packets(
+    tasks_path: str | Path, candidates_path: str | Path,
+) -> tuple[list[ContinuityReviewPacket], dict]:
+    tasks = _read_csv(tasks_path)
+    candidates = _read_csv(candidates_path)
+    required_task = {
+        "task_id", "stock_code", "priority", "next_action", "historical_name",
+        "current_chinese_name", "profile_evidence_url",
+    }
+    required_candidate = {"candidate_id", "company_code", "evidence_category", "source_page"}
+    if not tasks or not required_task.issubset(tasks[0]):
+        raise ValueError("连续性证据任务字段不完整")
+    if not candidates or not required_candidate.issubset(candidates[0]):
+        raise ValueError("连续性证据候选字段不完整")
+    candidate_ids = [row["candidate_id"].strip() for row in candidates]
+    if any(not item for item in candidate_ids) or len(set(candidate_ids)) != len(candidate_ids):
+        raise ValueError("连续性证据候选ID为空或重复")
+    by_code: dict[str, list[dict]] = {}
+    for row in candidates:
+        by_code.setdefault(row["company_code"].strip().upper(), []).append(row)
+    packets = []
+    seen_codes = set()
+    for line, task in enumerate(tasks, 2):
+        code = task["stock_code"].strip().upper()
+        if code in seen_codes:
+            raise ValueError(f"连续性证据任务第{line}行证券代码重复")
+        seen_codes.add(code)
+        rows = by_code.get(code)
+        if not rows:
+            continue
+        grouped = {category: [] for category in PATTERNS}
+        for row in rows:
+            category = row["evidence_category"].strip()
+            if category not in grouped:
+                raise ValueError(f"连续性证据候选类别无效: {category}")
+            grouped[category].append(row)
+
+        def values(category, field):
+            items = grouped[category]
+            if field == "source_page":
+                return "|".join(str(item) for item in sorted({int(row[field]) for row in items}))
+            return "|".join(row[field].strip() for row in items)
+
+        categories_present = sum(bool(grouped[category]) for category in PATTERNS)
+        packets.append(ContinuityReviewPacket(
+            task["task_id"].strip(), code, int(task["priority"]), task["next_action"].strip(),
+            task["historical_name"].strip(), task["current_chinese_name"].strip(),
+            values("issuer_history", "candidate_id"), values("issuer_history", "source_page"),
+            values("principal_business", "candidate_id"), values("principal_business", "source_page"),
+            values("ah_identity", "candidate_id"), values("ah_identity", "source_page"),
+            task["profile_evidence_url"].strip(), len(rows),
+            "evidence_candidates_available" if categories_present else "missing_evidence_candidates",
+            "", "", "", "", "", "", "", "", "", "unsigned",
+        ))
+    packets.sort(key=lambda item: (item.priority, item.stock_code))
+    summary = {
+        "task_count": len(tasks),
+        "candidate_count": len(candidates),
+        "packet_count": len(packets),
+        "unsigned_count": sum(item.review_status == "unsigned" for item in packets),
+        "codes_without_candidates": sorted(seen_codes.difference(by_code)),
+        "applicable": False,
+    }
+    return packets, summary
+
+
+def write_continuity_review_packets(
+    output_path: str | Path, summary_path: str | Path,
+    packets: list[ContinuityReviewPacket], summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(
+            stream, fieldnames=tuple(ContinuityReviewPacket.__annotations__), lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in packets)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def _read_csv(path: str | Path) -> list[dict[str, str]]:
+    with Path(path).open(encoding="utf-8-sig", newline="") as stream:
+        return list(csv.DictReader(stream))

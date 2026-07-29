@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, write_document_index
-from .continuity_evidence import extract_continuity_evidence_candidates, write_continuity_evidence_candidates
+from .continuity_evidence import extract_continuity_evidence_candidates, prepare_continuity_review_packets, write_continuity_evidence_candidates, write_continuity_review_packets
 from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
@@ -130,6 +130,11 @@ def main() -> None:
     continuity_extract.add_argument("--max-per-category", type=int, default=5)
     continuity_extract.add_argument("--output", required=True)
     continuity_extract.add_argument("--summary", required=True)
+    continuity_packets = sub.add_parser("prepare-hkex-continuity-review", help="生成未签名发行人连续性人工复核包")
+    continuity_packets.add_argument("tasks")
+    continuity_packets.add_argument("candidates")
+    continuity_packets.add_argument("--output", required=True)
+    continuity_packets.add_argument("--summary", required=True)
     apply_continuity = sub.add_parser("apply-hkex-continuity-decisions", help="应用签名发行人连续性及A/H主体决定")
     apply_continuity.add_argument("universe")
     apply_continuity.add_argument("decisions")
@@ -405,6 +410,11 @@ def main() -> None:
             args.document_index, args.text_root, args.max_per_category,
         )
         write_continuity_evidence_candidates(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-hkex-continuity-review":
+        rows, summary = prepare_continuity_review_packets(args.tasks, args.candidates)
+        write_continuity_review_packets(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-hkex-continuity-decisions":
