@@ -229,6 +229,26 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(100, debt[0].source_page)
         self.assertEqual(ValueStatus.PENDING, debt[0].status)
 
+    def test_english_consolidated_income_derives_revenue_growth_and_skips_note_column(self):
+        pages = [
+            PageText(120, "Consolidated Statement of Profit or Loss\nfor the year ended 31 December 2025\nRevenue 5 1,200,000 1,000,000\nCost of sales (800,000) (700,000)"),
+            PageText(121, "Consolidated Statement of Changes in Equity"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        growth = [item for item in items if item.indicator_code == "Q_G_REVENUE_GROWTH"]
+        self.assertEqual(1, len(growth))
+        self.assertAlmostEqual(20, growth[0].value)
+        self.assertEqual(120, growth[0].source_page)
+        self.assertEqual(ValueStatus.PENDING, growth[0].status)
+
+    def test_english_income_rejects_missing_period_and_contaminated_extra_columns(self):
+        for text in (
+            "Consolidated Statement of Profit or Loss\nRevenue 19 - 29,317",
+            "Consolidated Statement of Profit or Loss\nRevenue 5 135,362 104,024 125,294",
+        ):
+            items = extract_indicator_candidates([PageText(120, text)], "A", "甲", 2025, "url", "annual.pdf")
+            self.assertFalse([item for item in items if item.indicator_code == "Q_G_REVENUE_GROWTH"])
+
     def test_income_and_cashflow_statements_derive_governance_metrics(self):
         pages = [
             PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 120.00 100.00\n利润总额 20.00"),

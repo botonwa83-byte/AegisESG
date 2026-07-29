@@ -279,6 +279,17 @@ def extract_indicator_candidates(
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.94,
         ))
+    for code, value, source_page, evidence in _extract_english_income_indicators(pages):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.93,
+        ))
     return candidates
 
 
@@ -471,10 +482,39 @@ def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> S
                 negative = raw.startswith("(") and raw.endswith(")")
                 value = float(raw.strip("()").replace(",", ""))
                 values.append(-value if negative else value)
-            if values:
+            original_count = len(values)
+            if len(values) == 3 and abs(values[0]) <= 999:
+                values = values[1:]
+            elif len(values) != 2:
+                continue
+            if original_count == 2 and abs(values[0]) <= 100 and abs(values[1]) > 1000:
+                continue
+            if len(values) == 2:
                 evidence = re.sub(r"\s+", " ", match.group(0)).strip()
                 return StatementFact(tuple(values[:2]), page.page, evidence[:220])
     return None
+
+
+def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
+    title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit or loss|profit and loss|income)(?:\s|$)",
+    )
+    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:financial position|changes|cash flows?)")
+    for start in (index for index, page in enumerate(pages) if title.search(page.text)):
+        statement_pages = []
+        for page in pages[start:start + 5]:
+            if statement_pages and end.search(page.text):
+                break
+            statement_pages.append(page)
+        revenue = _find_english_statement_fact(statement_pages, r"Revenue")
+        if revenue and len(revenue.values) >= 2 and revenue.values[1] != 0:
+            growth = (revenue.values[0] - revenue.values[1]) / abs(revenue.values[1]) * 100
+            if -100 <= growth <= 1000:
+                return [(
+                    "Q_G_REVENUE_GROWTH", growth, revenue.page,
+                    "English consolidated income statement derived: " + revenue.evidence,
+                )]
+    return []
 
 
 def _statement_page_range(

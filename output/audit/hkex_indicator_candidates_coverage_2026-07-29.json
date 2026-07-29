@@ -1,6 +1,10 @@
 {
   "Q_G_DEBT_ASSET_RATE": {
-    "candidate_count": 33,
-    "company_count": 33
+    "candidate_count": 30,
+    "company_count": 30
+  },
+  "Q_G_REVENUE_GROWTH": {
+    "candidate_count": 52,
+    "company_count": 52
   }
 }
