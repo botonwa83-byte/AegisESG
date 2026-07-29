@@ -30,6 +30,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
+from aegis_esg.issuer_continuity import audit_hkex_issuer_continuity
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
 
@@ -558,6 +559,48 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual(1, summary["proposed_count"])
             self.assertEqual(1, summary["manual_review_count"])
             self.assertFalse(summary["applicable"])
+
+    def test_hkex_issuer_continuity_never_fuzzy_merges_and_uses_signed_alias(self):
+        with tempfile.TemporaryDirectory() as directory:
+            historical = Path(directory) / "historical.csv"
+            profiles = Path(directory) / "profiles.csv"
+            drafts = Path(directory) / "drafts.csv"
+            aliases = Path(directory) / "aliases.csv"
+            historical.write_text(
+                "stock_code,company_name,company_abbr,exchange\n"
+                "00001.HK,甲能源有限公司,甲能源,HKEX\n"
+                "00002.HK,乙能源有限公司,乙能源,HKEX\n"
+                "#N/A,中国港能智慧能源集团有限公司,中国港能,HKEX\n",
+                encoding="utf-8",
+            )
+            profiles.write_text(
+                "stock_code,chinese_name,chinese_short_name,hsic_sub_sector,source_url\n"
+                "00001.HK,甲能源有限公司 - H股,甲能源,燃氣供應,https://hkex/1\n"
+                "00002.HK,全新发行人有限公司,全新发行人,半導體,https://hkex/2\n"
+                "00931.HK,中國港能智慧能源集團有限公司,中國港能,常規電力,https://hkex/931\n",
+                encoding="utf-8",
+            )
+            drafts.write_text(
+                "stock_code,review_status\n00001.HK,proposed\n00002.HK,manual_review\n00931.HK,proposed\n",
+                encoding="utf-8",
+            )
+            aliases.write_text(
+                "old_code,new_code,evidence_url\n#N/A,00931.HK,https://hkexnews/signed.pdf\n",
+                encoding="utf-8",
+            )
+            rows, summary = audit_hkex_issuer_continuity(
+                historical, profiles, drafts, [aliases],
+            )
+            by_code = {item.stock_code: item for item in rows}
+            self.assertEqual("exact_name", by_code["00001.HK"].continuity_status)
+            self.assertTrue(by_code["00001.HK"].h_share_clue)
+            self.assertEqual("name_difference", by_code["00002.HK"].continuity_status)
+            self.assertEqual(0, by_code["00002.HK"].priority)
+            self.assertEqual("#N/A", by_code["00931.HK"].historical_stock_code)
+            self.assertEqual("signed_code_resolution", by_code["00931.HK"].continuity_status)
+            self.assertEqual("https://hkexnews/signed.pdf", by_code["00931.HK"].resolution_evidence_url)
+            self.assertEqual(0, summary["auto_merged_count"])
+            self.assertFalse(summary["complete"])
 
     def test_bse_jsonp_zero_based_pagination(self):
         def payload(page, code):

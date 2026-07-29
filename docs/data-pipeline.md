@@ -165,6 +165,22 @@ PYTHONPATH=src python3 -m aegis_esg.cli prepare-hkex-evidence-review \
 直接进入证据账本。人工复核项包括东北电气H股，以及当前行业为半导体、环保工程或半导体设备
 的3家公司；证券代码可能跨年度对应不同发行人，因此不得仅凭历史代码沿用纳入结论。
 
+历史港股与当前发行人身份使用独立连续性审计：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli audit-hkex-issuer-continuity \
+  data/reference/2024_energy_company_registry.csv \
+  --profiles data/reference/hkex_issuer_profiles_2026-07-29.csv \
+  --drafts data/review/hkex_universe_evidence_draft_2026-07-29.csv \
+  --code-map data/reference/historical_stock_code_resolutions.csv \
+  --output output/audit/hkex_issuer_continuity_review_2026-07-29.csv \
+  --summary output/audit/hkex_issuer_continuity_summary_2026-07-29.json
+```
+
+审计仅进行组织形式和H股后缀清理后的字符级比较，不执行简繁转换或相似度归并。当前15家公司
+全称一致、8家公司简称一致、1家公司由官方签名代码解析确认，另68家公司需要名称连续性证据；
+9条名称带H股线索进入A/H复核。名称差异不等同发行人变化，必须结合公告或年报判断。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

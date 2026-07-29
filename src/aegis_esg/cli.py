@@ -10,6 +10,7 @@ from .extraction import extract_batch_text_exports, extract_indicator_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_indicator_tasks, write_indicator_plan
+from .issuer_continuity import audit_hkex_issuer_continuity, write_issuer_continuity_audit
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
@@ -99,6 +100,13 @@ def main() -> None:
     hkex_drafts.add_argument("--evidence-date", required=True)
     hkex_drafts.add_argument("--output", required=True)
     hkex_drafts.add_argument("--summary", required=True)
+    issuer_continuity = sub.add_parser("audit-hkex-issuer-continuity", help="对账历史与当前港股发行人身份及A/H线索")
+    issuer_continuity.add_argument("historical_registry")
+    issuer_continuity.add_argument("--profiles", required=True)
+    issuer_continuity.add_argument("--drafts", required=True)
+    issuer_continuity.add_argument("--code-map", action="append")
+    issuer_continuity.add_argument("--output", required=True)
+    issuer_continuity.add_argument("--summary", required=True)
     discover_bse = sub.add_parser("discover-bse-listings", help="采集北交所全部正常上市公司快照")
     discover_bse.add_argument("--as-of-date", default="", help="可选：要求接口报告日期与此日期一致")
     discover_bse.add_argument("--output", required=True)
@@ -319,6 +327,13 @@ def main() -> None:
             args.profiles, read_universe(args.universe), args.mapping, args.evidence_date,
         )
         write_hkex_evidence_drafts(args.output, args.summary, drafts, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-hkex-issuer-continuity":
+        rows, summary = audit_hkex_issuer_continuity(
+            args.historical_registry, args.profiles, args.drafts, args.code_map or (),
+        )
+        write_issuer_continuity_audit(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "discover-bse-listings":

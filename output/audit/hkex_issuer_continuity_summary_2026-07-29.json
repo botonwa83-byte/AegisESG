@@ -1,0 +1,21 @@
+{
+  "profile_count": 92,
+  "review_count": 92,
+  "continuity_status_counts": {
+    "exact_name": 15,
+    "exact_short_name": 8,
+    "name_difference": 68,
+    "signed_code_resolution": 1
+  },
+  "next_action_counts": {
+    "continuity_name_check_complete": 22,
+    "review_ah_relationship": 2,
+    "review_issuer_identity_and_industry": 4,
+    "verify_name_continuity": 64
+  },
+  "h_share_clue_count": 9,
+  "manual_industry_review_count": 4,
+  "unresolved_continuity_count": 68,
+  "auto_merged_count": 0,
+  "complete": false
+}
