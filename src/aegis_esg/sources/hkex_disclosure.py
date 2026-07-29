@@ -19,6 +19,7 @@ from typing import Callable, Iterable
 HKEXNEWS_ORIGIN = "https://www1.hkexnews.hk"
 HKEX_STOCK_LOOKUP = HKEXNEWS_ORIGIN + "/search/prefix.do"
 HKEX_TITLE_SEARCH = HKEXNEWS_ORIGIN + "/search/titlesearch.xhtml?lang=en"
+HKEX_FETCH_TIMEOUT_SECONDS = 20
 
 
 @dataclass(frozen=True)
@@ -359,13 +360,14 @@ def _fetch(request: urllib.request.Request) -> bytes:
     last_error = None
     for attempt in range(3):
         try:
-            with urllib.request.urlopen(request, timeout=60) as response:
+            with urllib.request.urlopen(request, timeout=HKEX_FETCH_TIMEOUT_SECONDS) as response:
                 return response.read()
         except Exception as error:
             last_error = error
             if attempt < 2:
                 time.sleep(1.5 * (attempt + 1))
-    raise RuntimeError("HKEXnews公开检索失败") from last_error
+    detail = f"{type(last_error).__name__}: {last_error}" if last_error else "unknown error"
+    raise RuntimeError(f"HKEXnews公开检索失败: {detail}") from last_error
 
 
 def _clean(value: str) -> str:

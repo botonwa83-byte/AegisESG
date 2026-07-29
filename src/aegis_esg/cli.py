@@ -15,7 +15,7 @@ from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_iss
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
-from .planning import collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary
+from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
 from .resolution import resolve_pending_candidates
@@ -256,6 +256,11 @@ def main() -> None:
     merge_indexes.add_argument("indexes", nargs="+")
     merge_indexes.add_argument("--output", required=True)
     merge_indexes.add_argument("--summary", required=True)
+    coverage = sub.add_parser("audit-document-coverage", help="审计公司清单的年报和ESG文件覆盖")
+    coverage.add_argument("companies")
+    coverage.add_argument("document_index")
+    coverage.add_argument("--output", required=True)
+    coverage.add_argument("--summary", required=True)
     derive = sub.add_parser("derive-financial", help="从标准财务事实自动派生治理指标")
     derive.add_argument("input")
     derive.add_argument("--output", required=True)
@@ -619,6 +624,11 @@ def main() -> None:
         summary_output = Path(args.summary)
         summary_output.parent.mkdir(parents=True, exist_ok=True)
         summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-document-coverage":
+        rows, summary = audit_document_coverage(args.companies, args.document_index)
+        write_document_coverage(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "derive-financial":

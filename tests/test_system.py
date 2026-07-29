@@ -3,6 +3,8 @@ import tempfile
 import unittest
 import gzip
 import urllib.parse
+import urllib.request
+from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
 
@@ -20,15 +22,15 @@ from aegis_esg.sources.sse import classify_title, discover_reports, parse_respon
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
-from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
+from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, _fetch, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
-from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
+from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, write_document_index
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
 from aegis_esg.registry import normalize_company_name, reconcile_registry
-from aegis_esg.planning import collection_summary, merge_document_indexes, plan_collection
+from aegis_esg.planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
@@ -623,6 +625,14 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual(2, len(rows))
             self.assertFalse(second_failures)
             self.assertTrue(second_summary["complete"])
+
+    def test_hkex_fetch_failure_preserves_underlying_error(self):
+        request = urllib.request.Request("https://www1.hkexnews.hk/search/prefix.do")
+        with patch("aegis_esg.sources.hkex_disclosure.urllib.request.urlopen", side_effect=TimeoutError("TLS timeout")), patch(
+            "aegis_esg.sources.hkex_disclosure.time.sleep",
+        ):
+            with self.assertRaisesRegex(RuntimeError, "TimeoutError: TLS timeout"):
+                _fetch(request)
 
     def test_extract_hkex_continuity_evidence_keeps_page_and_pending_status(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1310,6 +1320,32 @@ class MethodologyTests(unittest.TestCase):
             write_document_index(path, [record])
             self.assertEqual(record, _read_document_index(path)[record.source_url])
 
+    def test_resumable_collection_never_rebinds_existing_path_to_new_url(self):
+        old_body = b"%PDF-1.7\n" + b"o" * 10_000
+        new_body = b"%PDF-1.7\n" + b"n" * 10_000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "raw/A/2025/annual_report.pdf"
+            target.parent.mkdir(parents=True)
+            target.write_bytes(old_body)
+            manifest = root / "manifest.csv"
+            manifest.write_text(
+                "company_code,company_name,report_year,document_type,source_url\n"
+                "A,甲,2025,annual_report,https://official/new.pdf\n",
+                encoding="utf-8",
+            )
+            index, failures = root / "index.csv", root / "failures.csv"
+            write_document_index(index, [DocumentRecord(
+                "A", "甲", 2025, "annual_report", "https://official/old.pdf",
+                "https://official/old.pdf", str(target), "unused", len(old_body),
+            )])
+            with patch("aegis_esg.collector._download_pdf", return_value=(new_body, "https://official/new.pdf")) as download:
+                rows, errors = collect_batch(manifest, root / "raw", index, failures, 0, True)
+            self.assertFalse(errors)
+            self.assertEqual(new_body, target.read_bytes())
+            self.assertEqual("https://official/new.pdf", rows[0].source_url)
+            download.assert_called_once_with("https://official/new.pdf")
+
     def test_merge_document_indexes_deduplicates_exact_and_rejects_path_conflicts(self):
         first = DocumentRecord("A", "甲", 2025, "annual_report", "https://one", "https://one", "a.pdf", "abc", 12)
         second = DocumentRecord("B", "乙", 2025, "annual_report", "https://two", "https://two", "b.pdf", "def", 13)
@@ -1326,6 +1362,26 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual(2, summary["company_count"])
             with self.assertRaisesRegex(ValueError, "本地路径冲突"):
                 merge_document_indexes([one, bad])
+
+    def test_document_coverage_distinguishes_missing_esg_and_annual(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            companies, index = root / "companies.csv", root / "index.csv"
+            companies.write_text(
+                "stock_code,chinese_name\nA,甲\nB,乙\nC,丙\n", encoding="utf-8",
+            )
+            write_document_index(index, [
+                DocumentRecord("A", "甲", 2025, "annual_report", "https://a/annual", "https://a/annual", "a.pdf", "a", 1),
+                DocumentRecord("A", "甲", 2025, "esg_report", "https://a/esg", "https://a/esg", "e.pdf", "e", 1),
+                DocumentRecord("B", "乙", 2025, "annual_report", "https://b/annual", "https://b/annual", "b.pdf", "b", 1),
+            ])
+            rows, summary = audit_document_coverage(companies, index)
+            by_code = {row.stock_code: row for row in rows}
+            self.assertEqual("ready_for_extraction", by_code["A"].next_action)
+            self.assertEqual("scan_annual_for_esg", by_code["B"].next_action)
+            self.assertEqual("discover_annual_report", by_code["C"].next_action)
+            self.assertEqual(["C"], summary["missing_annual_codes"])
+            self.assertFalse(summary["complete"])
 
 
 if __name__ == "__main__":

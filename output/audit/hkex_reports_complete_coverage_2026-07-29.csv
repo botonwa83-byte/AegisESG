@@ -1,0 +1,93 @@
+﻿stock_code,company_name,document_count,annual_report_count,esg_report_count,report_years,document_types,annual_status,esg_status,next_action
+00002.HK,中電控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00065.HK,弘海高新資源有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00206.HK,華商能源科技股份有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00295.HK,江山控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00600.HK,愛芯元智半導體股份有限公司 - H股,2,1,0,0|2025,annual_report|listing_document,collected,missing,scan_annual_for_esg
+00632.HK,中港石油有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00639.HK,首鋼福山資源集團有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00645.HK,安域亞洲有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00650.HK,普達特科技有限公司,1,1,0,2024,annual_report,collected,missing,scan_annual_for_esg
+00689.HK,長盈集團(控股)有限公司,2,1,0,0|2025,annual_report|listing_document,collected,missing,scan_annual_for_esg
+00704.HK,和嘉控股有限公司,1,1,0,2024,annual_report,collected,missing,scan_annual_for_esg
+00866.HK,中國秦發集團有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00931.HK,中國港能智慧能源集團有限公司,1,1,0,2026,annual_report,collected,missing,scan_annual_for_esg
+01080.HK,勝利油氣管道控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01101.HK,中國華榮能源股份有限公司,1,1,0,2023,annual_report,collected,missing,scan_annual_for_esg
+01251.HK,華油能源集團有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01277.HK,力量發展集團有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01393.HK,恒鼎實業國際發展有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01555.HK,ＭＩ能源控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01621.HK,域高國際控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01798.HK,中國大唐集團新能源股份有限公司 - H股,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01878.HK,南戈壁資源有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01921.HK,達力普控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+01938.HK,珠江石油天然氣鋼管控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+02178.HK,百勤油田服務有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+02798.HK,久泰邦達能源控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+03395.HK,吉星新能源有限責任公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+06885.HK,河南金馬能源股份有限公司 - H股,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+08132.HK,百能國際能源控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+08347.HK,F8企業(控股)集團有限公司,1,1,0,2026,annual_report,collected,missing,scan_annual_for_esg
+08536.HK,TL Natural Gas Holdings Ltd.,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+08631.HK,申港控股有限公司,2,1,0,0|2024,annual_report|name_change_announcement,collected,missing,scan_annual_for_esg
+09689.HK,金泰豐國際控股有限公司,1,1,0,2025,annual_report,collected,missing,scan_annual_for_esg
+00003.HK,香港中華煤氣有限公司,2,1,1,0|2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00006.HK,電能實業有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00042.HK,東北電氣發展股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00061.HK,綠領控股集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00135.HK,昆侖能源有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00182.HK,協合新能源集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00196.HK,宏華集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00228.HK,中國能源開發控股有限公司,3,1,1,0|2025,annual_report|esg_report|listing_document,collected,collected,ready_for_extraction
+00276.HK,蒙古能源有限公司,2,1,1,2026,annual_report|esg_report,collected,collected,ready_for_extraction
+00332.HK,元亨燃氣控股有限公司,2,1,1,2025|2026,annual_report|esg_report,collected,collected,ready_for_extraction
+00346.HK,延長石油國際有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00353.HK,能源國際投資控股有限公司,2,1,1,2024,annual_report|esg_report,collected,collected,ready_for_extraction
+00384.HK,中國燃氣控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00392.HK,北京控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00451.HK,時代數字控股有限公司,3,1,1,0|2025,annual_report|esg_report|name_change_announcement,collected,collected,ready_for_extraction
+00467.HK,聯合能源集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00554.HK,漢思集團控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00579.HK,北京京能清潔能源電力股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00607.HK,豐盛控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00686.HK,北京能源國際控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00702.HK,中國油氣控股有限公司,2,1,1,2023,annual_report|esg_report,collected,collected,ready_for_extraction
+00819.HK,天能動力國際有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00836.HK,華潤電力控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00934.HK,中石化冠德控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00951.HK,超威動力控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00968.HK,信義光能控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00975.HK,Mongolian Mining Corporation,2,1,1,0|2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01083.HK,港華智慧能源有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01193.HK,華潤燃氣控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01205.HK,中信資源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01229.HK,南南資源實業有限公司,2,1,1,2025|2026,annual_report|esg_report,collected,collected,ready_for_extraction
+01250.HK,山高新能源集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01303.HK,滙力資源(集團)有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01407.HK,交運燃氣有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01600.HK,天倫燃氣控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01608.HK,偉能集團國際控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01623.HK,海隆控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01713.HK,四川能投發展股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01733.HK,易大宗控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01738.HK,飛尚無煙煤資源有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01799.HK,新特能源股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01811.HK,中國廣核新能源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01940.HK,China Gas Industry Investment Holdings Co. Ltd.,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02012.HK,陽光油砂有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02236.HK,惠生工程技術服務有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02380.HK,中國電力國際發展有限公司,3,1,1,0|2025,annual_report|esg_report|name_change_announcement,collected,collected,ready_for_extraction
+02386.HK,中石化煉化工程(集團)股份有限公司 - H股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02688.HK,新奧能源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02728.HK,金泰能源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03303.HK,巨濤海洋石油服務有限公司,3,1,1,0|2025,annual_report|esg_report|listing_document,collected,collected,ready_for_extraction
+03337.HK,安東油田服務集團,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03633.HK,中裕能源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03668.HK,兗煤澳大利亞有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03800.HK,協鑫科技控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03868.HK,信義能源控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03899.HK,中集安瑞科控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+06828.HK,北京燃氣藍天控股有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+08270.HK,中國煤層氣集團有限公司,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction

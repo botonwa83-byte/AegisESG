@@ -99,9 +99,16 @@ def collect_batch(
         target.parent.mkdir(parents=True, exist_ok=True)
         try:
             old = previous.get(url)
-            if reuse_existing and target.exists():
+            can_reuse = (
+                reuse_existing and target.exists() and old is not None
+                and Path(old.local_path) == target
+            )
+            if can_reuse:
                 body = _decode_document(target.read_bytes(), "", str(target))
-                retrieval_url = old.retrieval_url if old else url
+                digest = hashlib.sha256(body).hexdigest()
+                if digest != old.sha256 or len(body) != old.size:
+                    raise ValueError(f"本地PDF与断点索引不一致: {target}")
+                retrieval_url = old.retrieval_url
             else:
                 body, retrieval_url = _download_pdf(url)
                 target.write_bytes(body)

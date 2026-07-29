@@ -23,6 +23,20 @@ class CollectionTask:
     priority: int
 
 
+@dataclass(frozen=True)
+class DocumentCoverage:
+    stock_code: str
+    company_name: str
+    document_count: int
+    annual_report_count: int
+    esg_report_count: int
+    report_years: str
+    document_types: str
+    annual_status: str
+    esg_status: str
+    next_action: str
+
+
 def read_document_records(path: str | Path) -> list[DocumentRecord]:
     source = Path(path)
     if not source.exists():
@@ -72,6 +86,70 @@ def merge_document_indexes(paths: Iterable[str | Path]) -> tuple[list[DocumentRe
         "complete": True,
     }
     return records, summary
+
+
+def audit_document_coverage(
+    companies_path: str | Path, document_index: str | Path,
+) -> tuple[list[DocumentCoverage], dict]:
+    with Path(companies_path).open(encoding="utf-8-sig", newline="") as stream:
+        companies = list(csv.DictReader(stream))
+    if not companies:
+        raise ValueError("文档覆盖公司清单为空")
+    code_field = "stock_code" if "stock_code" in companies[0] else "company_code"
+    if code_field not in companies[0]:
+        raise ValueError("文档覆盖公司清单缺少证券代码")
+    expected = {}
+    for line, row in enumerate(companies, 2):
+        code = row[code_field].strip().upper()
+        if not code or code in expected:
+            raise ValueError(f"文档覆盖公司清单第{line}行证券代码为空或重复")
+        expected[code] = (row.get("chinese_name") or row.get("company_name") or "").strip()
+    by_code: dict[str, list[DocumentRecord]] = {}
+    for record in read_document_records(document_index):
+        by_code.setdefault(record.company_code, []).append(record)
+    rows = []
+    for code, name in expected.items():
+        documents = by_code.get(code, [])
+        annual = sum(item.document_type == "annual_report" for item in documents)
+        esg = sum(item.document_type == "esg_report" for item in documents)
+        if not annual:
+            action = "discover_annual_report"
+        elif not esg:
+            action = "scan_annual_for_esg"
+        else:
+            action = "ready_for_extraction"
+        rows.append(DocumentCoverage(
+            code, name, len(documents), annual, esg,
+            "|".join(str(year) for year in sorted({item.report_year for item in documents})),
+            "|".join(sorted({item.document_type for item in documents})),
+            "collected" if annual else "missing", "collected" if esg else "missing", action,
+        ))
+    rows.sort(key=lambda item: (item.annual_status != "missing", item.esg_status != "missing", item.stock_code))
+    summary = {
+        "company_count": len(rows),
+        "document_count": sum(item.document_count for item in rows),
+        "annual_coverage_count": sum(item.annual_status == "collected" for item in rows),
+        "esg_coverage_count": sum(item.esg_status == "collected" for item in rows),
+        "missing_annual_codes": [item.stock_code for item in rows if item.annual_status == "missing"],
+        "scan_annual_codes": [item.stock_code for item in rows if item.next_action == "scan_annual_for_esg"],
+        "complete": all(item.annual_status == "collected" for item in rows),
+    }
+    return rows, summary
+
+
+def write_document_coverage(
+    output_path: str | Path, summary_path: str | Path,
+    rows: list[DocumentCoverage], summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(DocumentCoverage.__annotations__), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(vars(item) for item in rows)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def plan_collection(

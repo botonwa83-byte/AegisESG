@@ -366,6 +366,24 @@ PYTHONPATH=src python3 -m aegis_esg.cli merge-document-indexes \
 合并器按官方URL去除完全一致的重复项，并拒绝URL元数据冲突或本地路径冲突。统一索引包含121份
 文件和70家公司；重新抽取后形成440条候选及70个审阅包，`codes_without_candidates=[]`。
 
+全部92家港股候选可直接使用发行人资料表执行同一官方发现适配器。2025-01-01至2026-07-29
+时间窗共发现332份文件，收敛为155份目标并全部下载；原始PDF保存在隔离目录
+`data/raw/hkex_reports/`，避免覆盖连续性审计所引用的文件。采集器只有在来源URL、本地路径、
+SHA-256和文件大小均与断点索引一致时才复用文件，禁止把旧路径静默绑定到新URL。
+
+合并扩展时间窗的3份文件后，使用覆盖审计命令生成逐公司状态：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli audit-document-coverage \
+  data/reference/hkex_issuer_profiles_2026-07-29.csv \
+  data/raw/hkex_reports_complete_document_index.csv \
+  --output output/audit/hkex_reports_complete_coverage_2026-07-29.csv \
+  --summary output/audit/hkex_reports_complete_coverage_summary_2026-07-29.json
+```
+
+当前年报覆盖92/92，独立ESG报告覆盖59/92；其余33家公司标记为`scan_annual_for_esg`，必须扫描
+年报相关章节并明确记录独立报告缺失，不能把“无独立ESG报告”误记为“无ESG披露”。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

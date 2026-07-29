@@ -1,0 +1,13 @@
+{
+  "candidate_count": 332,
+  "selected_count": 155,
+  "company_count": 90,
+  "document_type_counts": {
+    "annual_report": 90,
+    "esg_report": 58,
+    "listing_document": 4,
+    "name_change_announcement": 3
+  },
+  "duplicate_target_count": 0,
+  "complete": true
+}
