@@ -398,6 +398,21 @@ PYTHONPATH=src python3 -m aegis_esg.cli scan-annual-esg-disclosure \
 当前生成165条带页码候选，33/33家公司有命中且文本缺失0。命中只用于定位年报中的ESG相关
 章节，状态固定为`pending`、`applicable=false`；不得据此自动认定披露完整或直接产生指标得分。
 
+港股文本使用现有中文定量规则的基线结果为0。英文规则首批仅支持合并资产负债表资产负债率：
+必须在`Consolidated Statement of Financial Position`或`Consolidated Balance Sheet`页面范围内同时
+找到`Total assets`和`Total liabilities`，按负债/资产派生；`gearing ratio`等不同口径不得替代。
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli extract-batch-text \
+  data/raw/hkex_reports_complete_document_index.csv data/text \
+  --output data/review/hkex_indicator_candidates_2026-07-29.csv \
+  --coverage output/audit/hkex_indicator_candidates_coverage_2026-07-29.json \
+  --review-summary data/review/hkex_indicator_candidates_review_2026-07-29.csv
+```
+
+当前生成33家公司各1条资产负债率候选，无重复或冲突；所有观测保持`pending`，须经现有解析器或
+签名复核确认后才可进入评分数据。高于100%的负净资产案例不自动截断或拒绝，保留主表证据复核。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

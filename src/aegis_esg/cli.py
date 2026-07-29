@@ -7,7 +7,7 @@ from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, write_document_index
 from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates, write_continuity_review_batch, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
-from .extraction import extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
+from .extraction import ReviewSummary, extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .esg_disclosure import scan_annual_esg_disclosure, write_annual_esg_evidence
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
@@ -678,9 +678,9 @@ def main() -> None:
             summary_path = Path(args.review_summary)
             summary_path.parent.mkdir(parents=True, exist_ok=True)
             with summary_path.open("w", encoding="utf-8-sig", newline="") as stream:
-                writer = csv.DictWriter(stream, fieldnames=list(type(summaries[0]).__annotations__) if summaries else [])
-                if summaries:
-                    writer.writeheader(); writer.writerows(vars(item) for item in summaries)
+                writer = csv.DictWriter(stream, fieldnames=list(ReviewSummary.__annotations__), lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(vars(item) for item in summaries)
         print(f"extracted {len(candidates)} pending candidates across {len(coverage)} indicators")
         return
     if args.command == "quality":

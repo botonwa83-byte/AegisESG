@@ -217,6 +217,18 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(37.5, values["Q_G_TWO_FUNDS_RATE"])
         self.assertAlmostEqual(100 / 11, values["Q_G_CAPITAL_ACCUMULATION"])
 
+    def test_english_consolidated_statement_derives_debt_asset_rate(self):
+        pages = [
+            PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nTotal assets 2,000 1,800\nTotal liabilities 800 700"),
+            PageText(101, "Consolidated Statement of Profit or Loss"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
+        self.assertEqual(1, len(debt))
+        self.assertAlmostEqual(40, debt[0].value)
+        self.assertEqual(100, debt[0].source_page)
+        self.assertEqual(ValueStatus.PENDING, debt[0].status)
+
     def test_income_and_cashflow_statements_derive_governance_metrics(self):
         pages = [
             PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 120.00 100.00\n利润总额 20.00"),

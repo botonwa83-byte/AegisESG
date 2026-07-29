@@ -257,6 +257,17 @@ def extract_indicator_candidates(
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.94,
         ))
+    for code, value, source_page, evidence in _extract_english_balance_sheet_indicators(pages):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.94,
+        ))
     for code, value, source_page, evidence in _extract_income_cash_indicators(pages):
         identity = (code, source_page, round(value, 8))
         if identity in seen:
@@ -424,6 +435,45 @@ def _find_statement_fact(pages: list[PageText], label_pattern: str) -> Statement
             values = tuple(float(item.replace(",", "")) for item in money.findall(fragment))
             if values:
                 return StatementFact(values[:2], page.page, re.sub(r"\s+", " ", fragment)[:220])
+    return None
+
+
+def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
+    title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement of financial position(?:\s|$)|^\s*consolidated balance sheet\s*$",
+    )
+    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit|income|changes|cash flows?)")
+    starts = [index for index, page in enumerate(pages) if title.search(page.text)]
+    for start in starts:
+        statement_pages = []
+        for page in pages[start:start + 6]:
+            if statement_pages and end.search(page.text):
+                break
+            statement_pages.append(page)
+        assets = _find_english_statement_fact(statement_pages, r"Total assets(?!\s+less)")
+        liabilities = _find_english_statement_fact(statement_pages, r"Total liabilities(?!\s+and)")
+        if assets and liabilities and assets.values[0] > 0:
+            value = liabilities.values[0] / assets.values[0] * 100
+            if 0 <= value <= 1000:
+                evidence = "English consolidated statement derived: " + liabilities.evidence + " | " + assets.evidence
+                return [("Q_G_DEBT_ASSET_RATE", value, max(assets.page, liabilities.page), evidence)]
+    return []
+
+
+def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
+    label = re.compile(rf"(?mi)^\s*{label_pattern}\b(?P<body>[^\n]*)$")
+    number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
+    for page in pages:
+        for match in label.finditer(_repair_wrapped_numbers(page.text)):
+            raw_values = number.findall(match.group("body"))
+            values = []
+            for raw in raw_values:
+                negative = raw.startswith("(") and raw.endswith(")")
+                value = float(raw.strip("()").replace(",", ""))
+                values.append(-value if negative else value)
+            if values:
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                return StatementFact(tuple(values[:2]), page.page, evidence[:220])
     return None
 
 
