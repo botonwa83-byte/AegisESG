@@ -20,7 +20,7 @@ from aegis_esg.sources.sse import classify_title, discover_reports, parse_respon
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
-from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
+from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, write_continuity_evidence_candidates
@@ -595,6 +595,34 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual("https://hkex/new.pdf", selected[0].source_url)
         self.assertEqual("https://hkex/prospectus.pdf", selected[1].source_url)
         self.assertEqual(0, summary["duplicate_target_count"])
+
+    def test_hkex_discovery_batch_checkpoints_and_resumes_failures(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output, raw, failures = root / "found.csv", root / "raw.json.gz", root / "failures.csv"
+            calls = []
+
+            def discover(code, start, end):
+                calls.append(code)
+                if code == "00002.HK" and calls.count(code) == 1:
+                    raise RuntimeError("temporary")
+                row = HKEXDisclosure(code, code, 2025, "annual_report", f"https://hkex/{code}.pdf", "2026-04-01", "Annual Report 2025", "Financial Statements", code)
+                return [row], {"stock_lookup": code, "title_search_ranges": ["html"]}
+
+            _, first_failures, first_summary = discover_hkex_continuity_batch(
+                ["00001.HK", "00002.HK"], "2025-01-01", "2026-07-29",
+                output, raw, failures, 0, False, discover,
+            )
+            self.assertEqual(1, len(first_failures))
+            self.assertEqual(1, first_summary["completed_count"])
+            rows, second_failures, second_summary = discover_hkex_continuity_batch(
+                ["00001.HK", "00002.HK"], "2025-01-01", "2026-07-29",
+                output, raw, failures, 0, True, discover,
+            )
+            self.assertEqual(["00001.HK", "00002.HK", "00002.HK"], calls)
+            self.assertEqual(2, len(rows))
+            self.assertFalse(second_failures)
+            self.assertTrue(second_summary["complete"])
 
     def test_extract_hkex_continuity_evidence_keeps_page_and_pending_status(self):
         with tempfile.TemporaryDirectory() as directory:

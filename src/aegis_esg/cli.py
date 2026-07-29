@@ -27,7 +27,7 @@ from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
 from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
-from .sources.hkex_disclosure import discover_hkex_continuity_documents, read_hkex_disclosures, select_continuity_downloads, write_hkex_disclosures
+from .sources.hkex_disclosure import discover_hkex_continuity_batch, read_hkex_disclosures, select_continuity_downloads, write_hkex_disclosures
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
@@ -118,6 +118,9 @@ def main() -> None:
     hkex_documents.add_argument("--from-date", required=True)
     hkex_documents.add_argument("--to-date", required=True)
     hkex_documents.add_argument("--limit", type=int, default=0)
+    hkex_documents.add_argument("--delay", type=float, default=.5)
+    hkex_documents.add_argument("--resume", action="store_true")
+    hkex_documents.add_argument("--failures")
     hkex_documents.add_argument("--output", required=True)
     hkex_documents.add_argument("--raw-output", required=True)
     hkex_downloads = sub.add_parser("prepare-hkex-continuity-downloads", help="从发现结果选择无覆盖冲突的连续性文件下载清单")
@@ -387,22 +390,13 @@ def main() -> None:
             task_rows = list(csv.DictReader(stream))
         if args.limit > 0:
             task_rows = task_rows[:args.limit]
-        disclosures = []
-        raw = {}
-        for task in task_rows:
-            code = task["stock_code"].strip().upper()
-            rows, payloads = discover_hkex_continuity_documents(code, args.from_date, args.to_date)
-            disclosures.extend(rows)
-            raw[code] = payloads
-        write_hkex_disclosures(args.output, disclosures)
-        raw_output = Path(args.raw_output)
-        raw_output.parent.mkdir(parents=True, exist_ok=True)
-        raw_output.write_text(json.dumps(raw, ensure_ascii=False) + "\n", encoding="utf-8")
-        print(json.dumps({
-            "requested_count": len(task_rows), "document_count": len(disclosures),
-            "codes_with_documents": len({item.company_code for item in disclosures}),
-        }, ensure_ascii=False, indent=2))
-        return
+        failure_path = args.failures or str(Path(args.output).with_name(Path(args.output).stem + "_failures.csv"))
+        _, failures, summary = discover_hkex_continuity_batch(
+            [task["stock_code"] for task in task_rows], args.from_date, args.to_date,
+            args.output, args.raw_output, failure_path, args.delay, args.resume,
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        raise SystemExit(0 if not failures else 2)
     if args.command == "prepare-hkex-continuity-downloads":
         rows, summary = select_continuity_downloads(read_hkex_disclosures(args.discoveries))
         write_hkex_disclosures(args.output, rows)

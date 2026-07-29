@@ -278,6 +278,22 @@ PYTHONPATH=src python3 -m aegis_esg.cli finalize-hkex-continuity-review \
 可直接交给`apply-hkex-continuity-decisions`，同时生成候选选择审计。当前真实复核包仍未签名，
 转换命令会在第一个未签名行立即拒绝，不产生可应用决定。
 
+全量连续性文件发现支持逐证券检查点和失败恢复：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-continuity-documents \
+  output/audit/hkex_continuity_evidence_tasks_2026-07-29.csv \
+  --from-date 2025-01-01 --to-date 2026-07-29 --delay 0.2 --resume \
+  --output data/manifests/hkex_continuity_all_2026-07-29.csv \
+  --raw-output data/snapshots/raw/hkex_continuity_all_2026-07-29.json.gz \
+  --failures output/audit/hkex_continuity_all_failures_2026-07-29.csv
+```
+
+命令在每个证券完成后写入发现清单、原始响应和失败表；`--resume`按原始检查点跳过成功证券，
+只重试失败或未处理项。`.json.gz`检查点可直接读写，避免原始HTML膨胀仓库。70项任务已全部完成，
+失败0，共发现252份相关文件，68家公司有候选、2家公司在该时间窗内无匹配文件。无冲突收敛后
+得到118份下载目标：68份年报、45份ESG报告、3份上市文件和2份更名公告。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

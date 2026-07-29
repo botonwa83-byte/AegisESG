@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import gzip
 import html
 import json
 import re
@@ -31,6 +32,12 @@ class HKEXDisclosure:
     title: str
     headline: str
     stock_id: str
+
+
+@dataclass(frozen=True)
+class HKEXDiscoveryFailure:
+    stock_code: str
+    error: str
 
 
 class _TitleSearchParser(HTMLParser):
@@ -204,7 +211,9 @@ def write_hkex_disclosures(path: str | Path, rows: Iterable[HKEXDisclosure]) -> 
     output = Path(path)
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=tuple(HKEXDisclosure.__annotations__))
+        writer = csv.DictWriter(
+            stream, fieldnames=tuple(HKEXDisclosure.__annotations__), lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(asdict(item) for item in rows)
 
@@ -257,6 +266,89 @@ def select_continuity_downloads(rows: Iterable[HKEXDisclosure]) -> tuple[list[HK
     if summary["duplicate_target_count"]:
         raise ValueError("HKEXnews下载清单存在目标路径冲突")
     return selected, summary
+
+
+def discover_hkex_continuity_batch(
+    stock_codes: Iterable[str], from_date: str, to_date: str,
+    output_path: str | Path, raw_output_path: str | Path, failures_path: str | Path,
+    delay_seconds: float = .5, resume: bool = False,
+    discoverer: Callable[[str, str, str], tuple[list[HKEXDisclosure], dict[str, object]]] = discover_hkex_continuity_documents,
+) -> tuple[list[HKEXDisclosure], list[HKEXDiscoveryFailure], dict]:
+    codes = [code.strip().upper() for code in stock_codes]
+    if any(not code for code in codes) or len(set(codes)) != len(codes):
+        raise ValueError("HKEXnews批量任务证券代码为空或重复")
+    output = Path(output_path)
+    raw_output = Path(raw_output_path)
+    failures_output = Path(failures_path)
+    disclosures = read_hkex_disclosures(output) if resume and output.exists() else []
+    if resume and raw_output.exists():
+        raw = _read_raw_checkpoint(raw_output)
+        if not isinstance(raw, dict):
+            raise ValueError("HKEXnews原始检查点不是对象")
+    else:
+        raw = {}
+    existing_urls = {item.source_url for item in disclosures}
+    completed = set(raw)
+    failures: dict[str, HKEXDiscoveryFailure] = {}
+    for index, code in enumerate(codes):
+        if resume and code in completed:
+            continue
+        try:
+            rows, payloads = discoverer(code, from_date, to_date)
+            for item in rows:
+                if item.company_code != code:
+                    raise ValueError(f"HKEXnews批量结果证券代码错配: {item.company_code}/{code}")
+                if item.source_url not in existing_urls:
+                    disclosures.append(item)
+                    existing_urls.add(item.source_url)
+            raw[code] = payloads
+            failures.pop(code, None)
+        except Exception as error:
+            failures[code] = HKEXDiscoveryFailure(code, str(error))
+        disclosures.sort(key=lambda item: (item.company_code, item.published_date, item.source_url), reverse=False)
+        write_hkex_disclosures(output, disclosures)
+        _write_raw_checkpoint(raw_output, raw)
+        _write_discovery_failures(failures_output, failures.values())
+        if index + 1 < len(codes) and delay_seconds > 0:
+            time.sleep(delay_seconds)
+    result_failures = sorted(failures.values(), key=lambda item: item.stock_code)
+    summary = {
+        "requested_count": len(codes),
+        "completed_count": len(set(codes).intersection(raw)),
+        "document_count": len(disclosures),
+        "codes_with_documents": len({item.company_code for item in disclosures}),
+        "failure_count": len(result_failures),
+        "complete": len(set(codes).intersection(raw)) == len(codes) and not result_failures,
+    }
+    return disclosures, result_failures, summary
+
+
+def _write_discovery_failures(path: str | Path, failures: Iterable[HKEXDiscoveryFailure]) -> None:
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(
+            stream, fieldnames=tuple(HKEXDiscoveryFailure.__annotations__), lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in failures)
+
+
+def _read_raw_checkpoint(path: Path) -> dict:
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt", encoding="utf-8") as stream:
+            return json.load(stream)
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _write_raw_checkpoint(path: Path, raw: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.suffix == ".gz":
+        with gzip.open(path, "wt", encoding="utf-8", compresslevel=9) as stream:
+            json.dump(raw, stream, ensure_ascii=False)
+            stream.write("\n")
+    else:
+        path.write_text(json.dumps(raw, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def _headers() -> dict[str, str]:
