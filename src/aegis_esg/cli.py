@@ -24,6 +24,7 @@ from .scoring import ScoringEngine
 from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
+from .sources.hkex_profile import collect_hkex_issuer_profiles, write_hkex_issuer_profiles
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
@@ -86,6 +87,11 @@ def main() -> None:
     import_hkex.add_argument("--as-of-date", default="", help="可选：要求文件内更新日期与此日期一致")
     import_hkex.add_argument("--output", required=True)
     import_hkex.add_argument("--quality", required=True)
+    hkex_profiles = sub.add_parser("discover-hkex-profiles", help="采集港交所中文名称、公司简介和行业候选证据")
+    hkex_profiles.add_argument("universe")
+    hkex_profiles.add_argument("--output", required=True)
+    hkex_profiles.add_argument("--raw-output", required=True)
+    hkex_profiles.add_argument("--limit", type=int, default=0, help="仅处理前N家，0表示全部港股")
     discover_bse = sub.add_parser("discover-bse-listings", help="采集北交所全部正常上市公司快照")
     discover_bse.add_argument("--as-of-date", default="", help="可选：要求接口报告日期与此日期一致")
     discover_bse.add_argument("--output", required=True)
@@ -285,6 +291,22 @@ def main() -> None:
         write_snapshot_quality(args.quality, quality)
         print(json.dumps({"file_as_of_date": as_of_date, **quality.as_dict()}, ensure_ascii=False, indent=2))
         raise SystemExit(0 if quality.valid else 2)
+    if args.command == "discover-hkex-profiles":
+        codes = [
+            item.stock_code for item in read_universe(args.universe)
+            if item.included and item.exchange == "HKEX"
+        ]
+        if args.limit > 0:
+            codes = codes[:args.limit]
+        profiles, payloads = collect_hkex_issuer_profiles(codes)
+        write_hkex_issuer_profiles(args.output, args.raw_output, profiles, payloads)
+        candidate_count = sum(item.evidence_status == "candidate" for item in profiles)
+        print(json.dumps({
+            "requested_count": len(codes), "profile_count": len(profiles),
+            "candidate_evidence_count": candidate_count,
+            "incomplete_count": len(profiles) - candidate_count,
+        }, ensure_ascii=False, indent=2))
+        return
     if args.command == "discover-bse-listings":
         securities, as_of_date, raw_pages = collect_bse_listings(
             make_bse_fetcher(), BSE_LIST_PAGE, args.as_of_date,

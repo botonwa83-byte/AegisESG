@@ -1,0 +1,12 @@
+{
+  "requested_count": 92,
+  "profile_count": 92,
+  "unique_stock_code_count": 92,
+  "chinese_name_count": 92,
+  "company_summary_count": 92,
+  "industry_evidence_count": 92,
+  "candidate_evidence_count": 92,
+  "incomplete_count": 0,
+  "source": "HKEX official equities quote page and getequityquote widget API",
+  "publishable_without_signed_review": false
+}

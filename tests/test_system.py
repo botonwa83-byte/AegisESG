@@ -2,6 +2,7 @@ import csv
 import tempfile
 import unittest
 import gzip
+import urllib.parse
 from decimal import Decimal
 from pathlib import Path
 
@@ -18,6 +19,7 @@ from aegis_esg.review import ReviewInstruction, apply_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
+from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
 from aegis_esg.universe import UniverseCompany, audit_universe
@@ -477,6 +479,50 @@ class MethodologyTests(unittest.TestCase):
             workbook.save(source)
             with self.assertRaisesRegex(ValueError, "日期不一致"):
                 import_hkex_securities(source, "https://official", "2026-07-29")
+
+    def test_hkex_profile_parser_validates_token_code_and_evidence(self):
+        html = (
+            "<script>LabCI.getToken = function () {\n"
+            "//return \"Base64-AES-Encrypted-Token\";\n"
+            "return \"abcdefghijklmnopqrstuvwxyz123456\";\n};</script>"
+        )
+        self.assertEqual("abcdefghijklmnopqrstuvwxyz123456", parse_hkex_access_token(html))
+        encoded_html = "LabCI.getToken = function () { return 'abcdefghijklmnopqrstuv%2B1234'; };"
+        self.assertEqual("abcdefghijklmnopqrstuv+1234", parse_hkex_access_token(encoded_html))
+        payload = (
+            'cb({"data":{"responsecode":"000","quote":{"sym":"2688","nm":"新奧能源控股有限公司",'
+            '"nm_s":"新奧能源","summary":"主要从事销售及分销管道燃气。",'
+            '"hsic_ind_classification":"公用事業 - 公用事業",'
+            '"hsic_sub_sector_classification":"燃氣供應","db_updatetime":"2026年7月29日09:48"}}})'
+        )
+        profile = parse_hkex_quote_payload(payload, "02688.HK")
+        self.assertEqual("新奧能源控股有限公司", profile.chinese_name)
+        self.assertEqual("燃氣供應", profile.hsic_sub_sector)
+        self.assertEqual("candidate", profile.evidence_status)
+        with self.assertRaises(ValueError):
+            parse_hkex_quote_payload(payload, "00003.HK")
+
+    def test_hkex_profile_collector_reuses_page_token_and_preserves_raw_payload(self):
+        html = "LabCI.getToken = function () { return 'abcdefghijklmnopqrstuvwxyz123456'; };"
+        payloads = {
+            "2688": 'aegisHKEX({"data":{"responsecode":"000","quote":{"sym":"2688","nm":"新奧能源",'
+                    '"summary":"燃气业务","hsic_sub_sector_classification":"燃氣供應"}}})',
+            "135": 'aegisHKEX({"data":{"responsecode":"000","quote":{"sym":"135","nm":"昆侖能源",'
+                   '"summary":"能源业务","hsic_sub_sector_classification":"油氣生產商"}}})',
+        }
+        calls = []
+
+        def fetch(url):
+            calls.append(url)
+            if "getequityquote" not in url:
+                return html
+            query = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+            return payloads[query["sym"][0]]
+
+        profiles, raw = collect_hkex_issuer_profiles(["02688.HK", "00135.HK"], fetch)
+        self.assertEqual(["02688.HK", "00135.HK"], [item.stock_code for item in profiles])
+        self.assertEqual(3, len(calls))
+        self.assertEqual({"02688.HK", "00135.HK"}, set(raw))
 
     def test_bse_jsonp_zero_based_pagination(self):
         def payload(page, code):

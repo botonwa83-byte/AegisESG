@@ -136,6 +136,19 @@ PYTHONPATH=src python3 -m aegis_esg.cli merge-universe-evidence batch-01.csv bat
 替换和撤销旧版本都会整批失败。账本保留`active/superseded/revoked`状态，活动投影可直接交给
 `apply-universe-evidence`。港股首批任务已生成在`output/audit/hkex_universe_evidence_tasks.csv`。
 
+港股中文名称、公司简介和行业候选证据来自港交所股票报价页自身调用的官方JSONP接口：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli discover-hkex-profiles \
+  data/universe/energy_historical_candidates_2026.csv \
+  --output data/reference/hkex_issuer_profiles_2026-07-29.csv \
+  --raw-output data/snapshots/raw/hkex_issuer_profiles_2026-07-29.json
+```
+
+适配器从官方报价页提取动态访问令牌，逐证券校验返回代码，并保存中文全称、简介、恒生行业/
+子行业、上市类别、资料更新时间及原始响应。网络客户端遇到港交所对Python请求的403时使用无shell
+参数的`curl`回退。上述92条资料全部完整，但仍只是审核候选，不会自动生成审核人签名或修改公司池。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
