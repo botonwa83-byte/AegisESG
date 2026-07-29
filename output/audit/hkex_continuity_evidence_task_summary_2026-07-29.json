@@ -1,0 +1,13 @@
+{
+  "audit_row_count": 92,
+  "task_count": 70,
+  "complete_without_review_count": 22,
+  "priority_zero_count": 4,
+  "next_action_counts": {
+    "review_ah_relationship": 2,
+    "review_issuer_identity_and_industry": 4,
+    "verify_name_continuity": 64
+  },
+  "pending_count": 70,
+  "complete": false
+}

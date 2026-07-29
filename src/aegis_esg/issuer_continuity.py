@@ -48,6 +48,21 @@ class AppliedContinuityDecision:
     rationale: str
 
 
+@dataclass(frozen=True)
+class ContinuityEvidenceTask:
+    task_id: str
+    stock_code: str
+    priority: int
+    next_action: str
+    historical_name: str
+    current_chinese_name: str
+    evidence_requirements: str
+    search_terms: str
+    profile_evidence_url: str
+    resolution_evidence_url: str
+    task_status: str
+
+
 def audit_hkex_issuer_continuity(
     historical_registry_path: str | Path, profiles_path: str | Path,
     drafts_path: str | Path, code_map_paths: Iterable[str | Path] = (),
@@ -143,6 +158,74 @@ def write_issuer_continuity_audit(
         writer = csv.DictWriter(stream, fieldnames=tuple(IssuerContinuityReview.__annotations__))
         writer.writeheader()
         writer.writerows(asdict(item) for item in rows)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def plan_continuity_evidence_tasks(
+    continuity_audit_path: str | Path,
+) -> tuple[list[ContinuityEvidenceTask], dict]:
+    rows = _read_csv(continuity_audit_path)
+    required = {
+        "stock_code", "historical_name", "current_chinese_name", "priority",
+        "next_action", "evidence_url", "resolution_evidence_url",
+    }
+    if not rows or not required.issubset(rows[0]):
+        raise ValueError("发行人连续性审计字段不完整")
+    tasks = []
+    seen = set()
+    for line, row in enumerate(rows, 2):
+        code = row["stock_code"].strip().upper()
+        if not code or code in seen:
+            raise ValueError(f"发行人连续性审计第{line}行证券代码为空或重复")
+        seen.add(code)
+        action = row["next_action"].strip()
+        if action == "continuity_name_check_complete":
+            continue
+        try:
+            priority = int(row["priority"])
+        except ValueError as error:
+            raise ValueError(f"发行人连续性审计第{line}行优先级无效") from error
+        requirements = {
+            "review_issuer_identity_and_industry": "港交所更名/上市文件或年报；当前主营业务及行业证据；如为H股同时核验A股关系",
+            "verify_signed_code_resolution": "交易所代码变更公告或上市文件；历史与当前发行人承继关系",
+            "verify_name_continuity": "港交所更名公告、年报公司沿革或上市文件；证明同一发行人或代码复用",
+            "review_ah_relationship": "A股与H股年报或招股书；统一社会信用代码或法定主体全称等独立主体标识",
+        }.get(action)
+        if requirements is None:
+            raise ValueError(f"发行人连续性审计第{line}行next_action无效: {action}")
+        names = [row["historical_name"].strip(), row["current_chinese_name"].strip()]
+        search_terms = " | ".join(item for item in names if item)
+        tasks.append(ContinuityEvidenceTask(
+            f"HKCONT-{code.replace('.', '-')}", code, priority, action,
+            names[0], names[1], requirements, search_terms,
+            row["evidence_url"].strip(), row["resolution_evidence_url"].strip(), "pending",
+        ))
+    tasks.sort(key=lambda item: (item.priority, item.stock_code))
+    action_counts = Counter(item.next_action for item in tasks)
+    summary = {
+        "audit_row_count": len(rows),
+        "task_count": len(tasks),
+        "complete_without_review_count": len(rows) - len(tasks),
+        "priority_zero_count": sum(item.priority == 0 for item in tasks),
+        "next_action_counts": dict(sorted(action_counts.items())),
+        "pending_count": len(tasks),
+        "complete": not tasks,
+    }
+    return tasks, summary
+
+
+def write_continuity_evidence_tasks(
+    output_path: str | Path, summary_path: str | Path,
+    tasks: Iterable[ContinuityEvidenceTask], summary: dict,
+) -> None:
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(ContinuityEvidenceTask.__annotations__))
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in tasks)
     summary_output = Path(summary_path)
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

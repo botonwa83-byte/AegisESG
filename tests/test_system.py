@@ -30,7 +30,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
-from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity
+from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
 
@@ -631,6 +631,35 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual(0, summary["unresolved_review_count"])
             self.assertTrue(summary["complete"])
             self.assertEqual(2, len(applied))
+
+    def test_plan_continuity_evidence_tasks_skips_completed_and_prioritizes_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit = Path(directory) / "audit.csv"
+            audit.write_text(
+                "stock_code,historical_name,current_chinese_name,priority,next_action,evidence_url,resolution_evidence_url\n"
+                "00001.HK,甲能源,甲能源,9,continuity_name_check_complete,https://hkex/1,\n"
+                "00600.HK,中国基建投资,爱芯元智,0,review_issuer_identity_and_industry,https://hkex/600,\n"
+                "00042.HK,东北电气,东北电气H股,3,review_ah_relationship,https://hkex/42,\n",
+                encoding="utf-8",
+            )
+            tasks, summary = plan_continuity_evidence_tasks(audit)
+            self.assertEqual(["00600.HK", "00042.HK"], [item.stock_code for item in tasks])
+            self.assertIn("主营业务", tasks[0].evidence_requirements)
+            self.assertEqual("pending", tasks[0].task_status)
+            self.assertEqual(2, summary["task_count"])
+            self.assertEqual(1, summary["complete_without_review_count"])
+            self.assertFalse(summary["complete"])
+
+    def test_plan_continuity_evidence_tasks_rejects_unknown_action(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit = Path(directory) / "audit.csv"
+            audit.write_text(
+                "stock_code,historical_name,current_chinese_name,priority,next_action,evidence_url,resolution_evidence_url\n"
+                "00001.HK,甲,乙,1,guess_by_name,https://hkex/1,\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "next_action无效"):
+                plan_continuity_evidence_tasks(audit)
 
     def test_apply_continuity_decision_rejects_unsigned_ah_mapping(self):
         with tempfile.TemporaryDirectory() as directory:

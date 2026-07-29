@@ -10,7 +10,7 @@ from .extraction import extract_batch_text_exports, extract_indicator_candidates
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_indicator_tasks, write_indicator_plan
-from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, write_applied_continuity_decisions, write_issuer_continuity_audit
+from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
@@ -107,6 +107,10 @@ def main() -> None:
     issuer_continuity.add_argument("--code-map", action="append")
     issuer_continuity.add_argument("--output", required=True)
     issuer_continuity.add_argument("--summary", required=True)
+    continuity_tasks = sub.add_parser("plan-hkex-continuity-evidence", help="生成港股发行人连续性官方证据采集任务")
+    continuity_tasks.add_argument("continuity_audit")
+    continuity_tasks.add_argument("--output", required=True)
+    continuity_tasks.add_argument("--summary", required=True)
     apply_continuity = sub.add_parser("apply-hkex-continuity-decisions", help="应用签名发行人连续性及A/H主体决定")
     apply_continuity.add_argument("universe")
     apply_continuity.add_argument("decisions")
@@ -341,6 +345,11 @@ def main() -> None:
             args.historical_registry, args.profiles, args.drafts, args.code_map or (),
         )
         write_issuer_continuity_audit(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "plan-hkex-continuity-evidence":
+        tasks, summary = plan_continuity_evidence_tasks(args.continuity_audit)
+        write_continuity_evidence_tasks(args.output, args.summary, tasks, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "apply-hkex-continuity-decisions":

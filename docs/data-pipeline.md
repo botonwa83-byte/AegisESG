@@ -197,6 +197,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli apply-hkex-continuity-decisions \
 `ah_same_entity`必须提供当前已纳入的沪深北证券代码和独立主体标识，系统固定保留A股并排除H股。
 未覆盖的复核项保留在摘要中，只有全部必审项签名后`complete`才为true。
 
+在签名决定前，可从连续性审计生成官方证据采集任务队列：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli plan-hkex-continuity-evidence \
+  output/audit/hkex_issuer_continuity_review_2026-07-29.csv \
+  --output output/audit/hkex_continuity_evidence_tasks_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_evidence_task_summary_2026-07-29.json
+```
+
+任务生成器跳过已完成字符级核验的证券，拒绝未知操作和重复代码，并按身份/行业复核、名称连续性、
+A/H关系顺序保留审计优先级。当前92条审计生成70项待采集任务：4项身份与行业联合复核、64项名称
+连续性核验、2项A/H关系核验；每项明确所需官方文件、历史与当前名称检索词及已有港交所资料URL。
+任务始终保持`pending`，不会把检索建议冒充证据或审核结论。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
