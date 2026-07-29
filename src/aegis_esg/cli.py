@@ -27,6 +27,7 @@ from .sources.hkex import import_hkex_securities
 from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
+from .universe_review import plan_universe_evidence, write_universe_evidence_plan
 
 
 DEFAULT_METHODOLOGY = Path("data/methodologies/energy_esg_2025.json")
@@ -132,6 +133,11 @@ def main() -> None:
     bind_provenance.add_argument("--output", required=True)
     bind_provenance.add_argument("--audit", required=True)
     bind_provenance.add_argument("--summary", required=True)
+    evidence_plan = sub.add_parser("plan-universe-evidence", help="生成行业纳入及主体映射证据复核队列")
+    evidence_plan.add_argument("universe")
+    evidence_plan.add_argument("--snapshot", required=True)
+    evidence_plan.add_argument("--output", required=True)
+    evidence_plan.add_argument("--summary", required=True)
     plan = sub.add_parser("plan-collection", help="按公司池和现有文档索引生成批量采集缺口计划")
     plan.add_argument("universe")
     plan.add_argument("--document-index", default="data/raw/document_index.csv")
@@ -342,6 +348,11 @@ def main() -> None:
         write_provenance_binding(args.output, args.audit, args.summary, rows, bindings, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         raise SystemExit(0 if summary["complete"] else 2)
+    if args.command == "plan-universe-evidence":
+        tasks, summary = plan_universe_evidence(read_universe(args.universe), args.snapshot)
+        write_universe_evidence_plan(args.output, args.summary, tasks, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
     if args.command == "plan-collection":
         tasks = plan_collection(
             read_universe(args.universe), read_document_records(args.document_index), args.report_year,

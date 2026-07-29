@@ -1,0 +1,615 @@
+﻿stock_code,company_name,exchange,current_sub_industry,snapshot_industry,entity_id,industry_status,entity_status,priority,next_action,snapshot_source_url,snapshot_as_of_date
+00002.HK,CLP HOLDINGS,HKEX,历史能源样本待复核,待分类,00002.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00003.HK,HK & CHINA GAS,HKEX,历史能源样本待复核,待分类,00003.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00006.HK,POWER ASSETS,HKEX,历史能源样本待复核,待分类,00006.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00042.HK,NE ELECTRIC,HKEX,历史能源样本待复核,待分类,00042.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00061.HK,GREEN LEAD-NEW,HKEX,历史能源样本待复核,待分类,00061.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00065.HK,GRAND OCEAN AR,HKEX,历史能源样本待复核,待分类,00065.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00135.HK,KUNLUN ENERGY,HKEX,历史能源样本待复核,待分类,00135.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00182.HK,CONCORD NE,HKEX,历史能源样本待复核,待分类,00182.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00196.HK,HONGHUA GROUP,HKEX,历史能源样本待复核,待分类,00196.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00206.HK,CM-ENERGY,HKEX,历史能源样本待复核,待分类,00206.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00228.HK,CHINA ENERGY,HKEX,历史能源样本待复核,待分类,00228.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00276.HK,MONGOLIA ENERGY,HKEX,历史能源样本待复核,待分类,00276.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00295.HK,KONG SUN HOLD,HKEX,历史能源样本待复核,待分类,00295.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00332.HK,YUANHENGGAS-NEW,HKEX,历史能源样本待复核,待分类,00332.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00346.HK,YANCHANG PETRO,HKEX,历史能源样本待复核,待分类,00346.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00353.HK,ENERGY INTINV,HKEX,历史能源样本待复核,待分类,00353.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00384.HK,CHINA GAS HOLD,HKEX,历史能源样本待复核,待分类,00384.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00392.HK,BEIJING ENT,HKEX,历史能源样本待复核,待分类,00392.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00451.HK,DYNASTY DIGITAL,HKEX,历史能源样本待复核,待分类,00451.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00467.HK,UNITEDENERGY GP,HKEX,历史能源样本待复核,待分类,00467.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00554.HK,HANS GP HLDGS,HKEX,历史能源样本待复核,待分类,00554.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00579.HK,JNCEC,HKEX,历史能源样本待复核,待分类,00579.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00600.HK,AXERA,HKEX,历史能源样本待复核,待分类,00600.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00607.HK,FULLSHARE,HKEX,历史能源样本待复核,待分类,00607.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00632.HK,CHK OIL,HKEX,历史能源样本待复核,待分类,00632.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00639.HK,SHOUGANG RES,HKEX,历史能源样本待复核,待分类,00639.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00645.HK,ARES ASIA,HKEX,历史能源样本待复核,待分类,00645.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00650.HK,PRODUCTIVE TECH,HKEX,历史能源样本待复核,待分类,00650.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00666.HK,REPT BATTERO,HKEX,历史能源样本待复核,待分类,00666.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00686.HK,BJ ENERGY INTL,HKEX,历史能源样本待复核,待分类,00686.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00689.HK,EPI (HOLDINGS),HKEX,历史能源样本待复核,待分类,00689.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00702.HK,SINO OIL & GAS,HKEX,历史能源样本待复核,待分类,00702.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00704.HK,HUSCOKE HLDGS,HKEX,历史能源样本待复核,待分类,00704.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00819.HK,TIANNENG POWER,HKEX,历史能源样本待复核,待分类,00819.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00836.HK,CHINA RES POWER,HKEX,历史能源样本待复核,待分类,00836.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00866.HK,CHINA QINFA,HKEX,历史能源样本待复核,待分类,00866.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00931.HK,CHINA HK POWER,HKEX,历史能源样本待复核,待分类,00931.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00934.HK,SINOPEC KANTONS,HKEX,历史能源样本待复核,待分类,00934.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00951.HK,CHAOWEI POWER,HKEX,历史能源样本待复核,待分类,00951.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00968.HK,XINYI SOLAR,HKEX,历史能源样本待复核,待分类,00968.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+00975.HK,MONGOL MINING,HKEX,历史能源样本待复核,待分类,00975.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01080.HK,SHENGLI PIPE,HKEX,历史能源样本待复核,待分类,01080.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01083.HK,TG SMART ENERGY,HKEX,历史能源样本待复核,待分类,01083.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01101.HK,HUARONG ENERGY,HKEX,历史能源样本待复核,待分类,01101.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01193.HK,CHINA RES GAS,HKEX,历史能源样本待复核,待分类,01193.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01205.HK,CITIC RESOURCES,HKEX,历史能源样本待复核,待分类,01205.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01229.HK,NAN NAN RES,HKEX,历史能源样本待复核,待分类,01229.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01250.HK,SDHS NEW ENERGY,HKEX,历史能源样本待复核,待分类,01250.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01251.HK,SPT ENERGY,HKEX,历史能源样本待复核,待分类,01251.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01277.HK,KINETIC DEV,HKEX,历史能源样本待复核,待分类,01277.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01303.HK,HUILI RES,HKEX,历史能源样本待复核,待分类,01303.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01393.HK,HIDILI INDUSTRY,HKEX,历史能源样本待复核,待分类,01393.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01407.HK,JY GAS,HKEX,历史能源样本待复核,待分类,01407.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01555.HK,MIE HOLDINGS,HKEX,历史能源样本待复核,待分类,01555.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01600.HK,TIAN LUN GAS,HKEX,历史能源样本待复核,待分类,01600.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01608.HK,VPOWER GROUP,HKEX,历史能源样本待复核,待分类,01608.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01621.HK,VICO INTL HLDGS,HKEX,历史能源样本待复核,待分类,01621.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01623.HK,HILONG,HKEX,历史能源样本待复核,待分类,01623.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01713.HK,SICHUAN EN INV,HKEX,历史能源样本待复核,待分类,01713.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01733.HK,E-COMMODITIES,HKEX,历史能源样本待复核,待分类,01733.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01738.HK,FS ANTHRACITE,HKEX,历史能源样本待复核,待分类,01738.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01798.HK,DATANG RENEW,HKEX,历史能源样本待复核,待分类,01798.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01799.HK,XINTE ENERGY,HKEX,历史能源样本待复核,待分类,01799.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01811.HK,CGN NEW ENERGY,HKEX,历史能源样本待复核,待分类,01811.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01878.HK,SOUTHGOBI,HKEX,历史能源样本待复核,待分类,01878.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01921.HK,DALIPAL HLDG,HKEX,历史能源样本待复核,待分类,01921.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01938.HK,CHU KONG PIPE,HKEX,历史能源样本待复核,待分类,01938.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+01940.HK,CGII HLDGS,HKEX,历史能源样本待复核,待分类,01940.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02012.HK,SUNSHINE OIL,HKEX,历史能源样本待复核,待分类,02012.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02178.HK,PETRO-KING,HKEX,历史能源样本待复核,待分类,02178.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02236.HK,WISON ENGRG,HKEX,历史能源样本待复核,待分类,02236.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02380.HK,CHINA POWER,HKEX,历史能源样本待复核,待分类,02380.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02386.HK,SINOPEC SEG,HKEX,历史能源样本待复核,待分类,02386.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02688.HK,ENN ENERGY,HKEX,历史能源样本待复核,待分类,02688.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02728.HK,JINTAI ENERGY H,HKEX,历史能源样本待复核,待分类,02728.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+02798.HK,PER ENERGY,HKEX,历史能源样本待复核,待分类,02798.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03303.HK,JUTAL OIL SER,HKEX,历史能源样本待复核,待分类,03303.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03337.HK,ANTON OILFIELD,HKEX,历史能源样本待复核,待分类,03337.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03395.HK,JX ENERGY,HKEX,历史能源样本待复核,待分类,03395.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03633.HK,ZHONGYU ENERGY,HKEX,历史能源样本待复核,待分类,03633.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03668.HK,YANCOAL AUS,HKEX,历史能源样本待复核,待分类,03668.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03800.HK,GCL TECH,HKEX,历史能源样本待复核,待分类,03800.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03868.HK,XINYI ENERGY,HKEX,历史能源样本待复核,待分类,03868.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+03899.HK,CIMC ENRIC,HKEX,历史能源样本待复核,待分类,03899.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+06828.HK,BG BLUE SKY,HKEX,历史能源样本待复核,待分类,06828.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+06885.HK,JINMA ENERGY,HKEX,历史能源样本待复核,待分类,06885.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+08132.HK,CENTURY EN INTL,HKEX,历史能源样本待复核,待分类,08132.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+08270.HK,CHINA CBM,HKEX,历史能源样本待复核,待分类,08270.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+08347.HK,F8 ENT,HKEX,历史能源样本待复核,待分类,08347.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+08536.HK,TL NATURAL GAS,HKEX,历史能源样本待复核,待分类,08536.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+08631.HK,SUN KONG HLDGS,HKEX,历史能源样本待复核,待分类,08631.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+09689.HK,JTF INTL,HKEX,历史能源样本待复核,待分类,09689.HK,pending_evidence,security_id_only,1,collect_hkex_industry_and_chinese_name_evidence,https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx,2026-07-29
+920010.BJ,凯添燃气,BSE,历史能源样本待复核,燃气生产和供应业,920010.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920046.BJ,亿能电力,BSE,历史能源样本待复核,电气机械和器材制造业,920046.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920062.BJ,科润智控,BSE,历史能源样本待复核,电气机械和器材制造业,920062.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920110.BJ,雷特科技,BSE,历史能源样本待复核,计算机、通信和其他电子设备制造业,920110.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920152.BJ,昆工科技,BSE,历史能源样本待复核,专用设备制造业,920152.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920167.BJ,同享科技,BSE,历史能源样本待复核,电气机械和器材制造业,920167.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920185.BJ,贝特瑞,BSE,历史能源样本待复核,计算机、通信和其他电子设备制造业,920185.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920237.BJ,力佳科技,BSE,历史能源样本待复核,电气机械和器材制造业,920237.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920239.BJ,长虹能源,BSE,历史能源样本待复核,电气机械和器材制造业,920239.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920252.BJ,天宏锂电,BSE,历史能源样本待复核,电气机械和器材制造业,920252.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920299.BJ,灿能电力,BSE,历史能源样本待复核,仪器仪表制造业,920299.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920368.BJ,连城数控,BSE,历史能源样本待复核,专用设备制造业,920368.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920375.BJ,派诺科技,BSE,历史能源样本待复核,软件和信息技术服务业,920375.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920414.BJ,欧普泰,BSE,历史能源样本待复核,专用设备制造业,920414.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920496.BJ,许昌智能,BSE,历史能源样本待复核,电气机械和器材制造业,920496.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920522.BJ,纳科诺尔,BSE,历史能源样本待复核,专用设备制造业,920522.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920523.BJ,德瑞锂电,BSE,历史能源样本待复核,电气机械和器材制造业,920523.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920556.BJ,雅达股份,BSE,历史能源样本待复核,仪器仪表制造业,920556.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920627.BJ,力王股份,BSE,历史能源样本待复核,电气机械和器材制造业,920627.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920639.BJ,晨光电缆,BSE,历史能源样本待复核,电气机械和器材制造业,920639.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920682.BJ,球冠电缆,BSE,历史能源样本待复核,电气机械和器材制造业,920682.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920770.BJ,艾能聚,BSE,历史能源样本待复核,电气机械和器材制造业,920770.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920779.BJ,武汉蓝电,BSE,历史能源样本待复核,仪器仪表制造业,920779.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920809.BJ,安达科技,BSE,历史能源样本待复核,计算机、通信和其他电子设备制造业,920809.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920914.BJ,远航精密,BSE,历史能源样本待复核,计算机、通信和其他电子设备制造业,920914.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+920985.BJ,海泰新能,BSE,历史能源样本待复核,电气机械和器材制造业,920985.BJ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.bse.cn/nq/listedcompany.html,2026-07-29
+600011.SH,华能国际,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600011.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600021.SH,上海电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600021.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600023.SH,浙能电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600023.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600025.SH,华能水电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600025.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600027.SH,华电国际,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600027.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600028.SH,中国石化,SSE,历史能源样本待复核,采矿业,600028.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600032.SH,浙江新能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600032.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600089.SH,特变电工,SSE,历史能源样本待复核,制造业,600089.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600098.SH,广州发展,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600098.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600101.SH,明星电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600101.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600110.SH,诺德股份,SSE,历史能源样本待复核,制造业,600110.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600116.SH,三峡水利,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600116.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600149.SH,廊坊发展,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600149.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600151.SH,航天机电,SSE,历史能源样本待复核,制造业,600151.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600152.SH,维科技术,SSE,历史能源样本待复核,制造业,600152.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600157.SH,永泰能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600157.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600163.SH,中闽能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600163.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600167.SH,联美控股,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600167.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600188.SH,兖矿能源,SSE,历史能源样本待复核,采矿业,600188.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600192.SH,长城电工,SSE,历史能源样本待复核,制造业,600192.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600207.SH,安彩高科,SSE,历史能源样本待复核,制造业,600207.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600212.SH,绿能慧充,SSE,历史能源样本待复核,制造业,600212.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600236.SH,桂冠电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600236.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600241.SH,时代万恒,SSE,历史能源样本待复核,制造业,600241.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600256.SH,广汇能源,SSE,历史能源样本待复核,采矿业,600256.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600268.SH,国电南自,SSE,历史能源样本待复核,制造业,600268.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600310.SH,广西能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600310.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600312.SH,平高电气,SSE,历史能源样本待复核,制造业,600312.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600333.SH,长春燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600333.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600339.SH,中油工程,SSE,历史能源样本待复核,采矿业,600339.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600346.SH,恒力石化,SSE,历史能源样本待复核,制造业,600346.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600379.SH,宝光股份,SSE,历史能源样本待复核,制造业,600379.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600395.SH,盘江股份,SSE,历史能源样本待复核,采矿业,600395.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600396.SH,华电辽能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600396.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600397.SH,江钨装备,SSE,历史能源样本待复核,批发和零售业,600397.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600405.SH,动力源,SSE,历史能源样本待复核,制造业,600405.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600406.SH,国电南瑞,SSE,历史能源样本待复核,信息传输、软件和信息技术服务业,600406.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600416.SH,湘电股份,SSE,历史能源样本待复核,制造业,600416.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600438.SH,通威股份,SSE,历史能源样本待复核,制造业,600438.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600452.SH,涪陵电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600452.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600458.SH,时代新材,SSE,历史能源样本待复核,制造业,600458.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600468.SH,百利电气,SSE,历史能源样本待复核,制造业,600468.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600475.SH,华光环能,SSE,历史能源样本待复核,水利、环境和公共设施管理业,600475.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600478.SH,科力远,SSE,历史能源样本待复核,制造业,600478.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600481.SH,双良节能,SSE,历史能源样本待复核,制造业,600481.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600482.SH,中国动力,SSE,历史能源样本待复核,制造业,600482.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600483.SH,福能股份,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600483.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600505.SH,西昌电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600505.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600508.SH,上海能源,SSE,历史能源样本待复核,采矿业,600508.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600509.SH,天富能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600509.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600550.SH,保变电气,SSE,历史能源样本待复核,制造业,600550.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600577.SH,精达股份,SSE,历史能源样本待复核,制造业,600577.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600578.SH,京能电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600578.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600580.SH,卧龙电驱,SSE,历史能源样本待复核,制造业,600580.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600617.SH,国新能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600617.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600635.SH,大众公用,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600635.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600642.SH,申能股份,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600642.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600644.SH,乐山电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600644.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600674.SH,川投能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600674.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600681.SH,百川能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600681.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600688.SH,上海石化,SSE,历史能源样本待复核,制造业,600688.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600719.SH,大连热电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600719.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600725.SH,云维股份,SSE,历史能源样本待复核,批发和零售业,600725.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600726.SH,华电能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600726.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600732.SH,爱旭股份,SSE,历史能源样本待复核,制造业,600732.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600744.SH,华银电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600744.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600758.SH,辽宁能源,SSE,历史能源样本待复核,采矿业,600758.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600777.SH,新潮能源,SSE,历史能源样本待复核,采矿业,600777.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600780.SH,XD通宝能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600780.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600795.SH,国电电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600795.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600803.SH,新奥股份,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600803.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600821.SH,金开新能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600821.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600847.SH,万里股份,SSE,历史能源样本待复核,制造业,600847.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600863.SH,华能蒙电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600863.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600868.SH,梅雁吉祥,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600868.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600869.SH,远东股份,SSE,历史能源样本待复核,制造业,600869.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600871.SH,石化油服,SSE,历史能源样本待复核,采矿业,600871.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600875.SH,东方电气,SSE,历史能源样本待复核,制造业,600875.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600884.SH,杉杉股份,SSE,历史能源样本待复核,制造业,600884.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600885.SH,宏发股份,SSE,历史能源样本待复核,制造业,600885.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600886.SH,国投电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600886.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600900.SH,长江电力,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600900.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600903.SH,贵州燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600903.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600905.SH,三峡能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600905.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600917.SH,重庆燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600917.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600925.SH,苏能股份,SSE,参考榜单能源种子待行业复核,采矿业,600925.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600938.SH,中国海油,SSE,历史能源样本待复核,采矿业,600938.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600956.SH,新天绿能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600956.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600968.SH,海油发展,SSE,历史能源样本待复核,采矿业,600968.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600969.SH,郴电国际,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600969.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600973.SH,宝胜股份,SSE,历史能源样本待复核,制造业,600973.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600979.SH,广安爱众,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600979.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600982.SH,宁波能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600982.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+600995.SH,南网储能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,600995.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601001.SH,晋控煤业,SSE,历史能源样本待复核,采矿业,601001.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601012.SH,隆基绿能,SSE,历史能源样本待复核,制造业,601012.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601016.SH,节能风电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601016.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601088.SH,中国神华,SSE,历史能源样本待复核,采矿业,601088.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601126.SH,四方股份,SSE,历史能源样本待复核,制造业,601126.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601139.SH,深圳燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601139.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601179.SH,中国西电,SSE,历史能源样本待复核,制造业,601179.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601218.SH,吉鑫科技,SSE,历史能源样本待复核,制造业,601218.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601222.SH,林洋能源,SSE,历史能源样本待复核,制造业,601222.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601225.SH,陕西煤业,SSE,历史能源样本待复核,采矿业,601225.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601233.SH,桐昆股份,SSE,历史能源样本待复核,制造业,601233.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601311.SH,骆驼股份,SSE,历史能源样本待复核,制造业,601311.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601567.SH,三星电气,SSE,历史能源样本待复核,制造业,601567.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601611.SH,中国核建,SSE,历史能源样本待复核,建筑业,601611.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601615.SH,明阳智能,SSE,历史能源样本待复核,制造业,601615.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601616.SH,广电电气,SSE,历史能源样本待复核,制造业,601616.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601619.SH,嘉泽新能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601619.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601666.SH,平煤股份,SSE,参考榜单能源种子待行业复核,采矿业,601666.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601669.SH,中国电建,SSE,历史能源样本待复核,建筑业,601669.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601700.SH,风范股份,SSE,历史能源样本待复核,制造业,601700.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601727.SH,上海电气,SSE,历史能源样本待复核,制造业,601727.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601778.SH,晶科科技,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601778.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601808.SH,中海油服,SSE,历史能源样本待复核,采矿业,601808.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601857.SH,中国石油,SSE,历史能源样本待复核,采矿业,601857.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601865.SH,福莱特,SSE,历史能源样本待复核,制造业,601865.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601868.SH,中国能建,SSE,历史能源样本待复核,建筑业,601868.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601877.SH,正泰电器,SSE,历史能源样本待复核,制造业,601877.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601898.SH,中煤能源,SSE,历史能源样本待复核,采矿业,601898.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601908.SH,京运通,SSE,历史能源样本待复核,制造业,601908.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601918.SH,新集能源,SSE,历史能源样本待复核,采矿业,601918.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601985.SH,中国核电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601985.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+601991.SH,大唐发电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,601991.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603016.SH,新宏泰,SSE,历史能源样本待复核,制造业,603016.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603026.SH,石大胜华,SSE,历史能源样本待复核,制造业,603026.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603031.SH,安孚科技,SSE,历史能源样本待复核,制造业,603031.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603032.SH,德新科技,SSE,历史能源样本待复核,制造业,603032.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603050.SH,科林电气,SSE,历史能源样本待复核,制造业,603050.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603053.SH,成都燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603053.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603063.SH,禾望电气,SSE,历史能源样本待复核,制造业,603063.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603070.SH,万控智造,SSE,历史能源样本待复核,制造业,603070.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603080.SH,新疆火炬,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603080.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603097.SH,江苏华辰,SSE,历史能源样本待复核,制造业,603097.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603105.SH,芯能科技,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603105.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603185.SH,弘元绿能,SSE,历史能源样本待复核,制造业,603185.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603191.SH,望变电气,SSE,历史能源样本待复核,制造业,603191.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603212.SH,赛伍技术,SSE,历史能源样本待复核,制造业,603212.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603218.SH,日月股份,SSE,历史能源样本待复核,制造业,603218.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603312.SH,西典新能,SSE,历史能源样本待复核,制造业,603312.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603318.SH,水发燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603318.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603320.SH,迪贝电气,SSE,历史能源样本待复核,制造业,603320.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603333.SH,福华尚纬,SSE,历史能源样本待复核,制造业,603333.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603344.SH,星德胜,SSE,历史能源样本待复核,制造业,603344.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603353.SH,和顺石油,SSE,历史能源样本待复核,批发和零售业,603353.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603393.SH,新天然气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603393.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603396.SH,金辰股份,SSE,历史能源样本待复核,制造业,603396.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603489.SH,八方股份,SSE,历史能源样本待复核,制造业,603489.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603507.SH,振江股份,SSE,历史能源样本待复核,制造业,603507.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603530.SH,神马电力,SSE,历史能源样本待复核,制造业,603530.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603556.SH,海兴电力,SSE,历史能源样本待复核,制造业,603556.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603577.SH,汇金通,SSE,历史能源样本待复核,制造业,603577.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603606.SH,东方电缆,SSE,历史能源样本待复核,制造业,603606.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603618.SH,杭电股份,SSE,历史能源样本待复核,制造业,603618.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603619.SH,中曼石油,SSE,历史能源样本待复核,采矿业,603619.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603628.SH,清源股份,SSE,历史能源样本待复核,制造业,603628.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603659.SH,璞泰来,SSE,历史能源样本待复核,制造业,603659.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603689.SH,皖天然气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603689.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603693.SH,江苏新能,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603693.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603706.SH,东方环宇,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,603706.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603727.SH,博迈科,SSE,历史能源样本待复核,采矿业,603727.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603728.SH,鸣志电器,SSE,历史能源样本待复核,制造业,603728.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603798.SH,康普顿,SSE,历史能源样本待复核,制造业,603798.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603806.SH,福斯特,SSE,历史能源样本待复核,制造业,603806.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603819.SH,神力股份,SSE,历史能源样本待复核,制造业,603819.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603829.SH,洛凯股份,SSE,历史能源样本待复核,制造业,603829.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603861.SH,白云电器,SSE,历史能源样本待复核,制造业,603861.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603897.SH,长城科技,SSE,历史能源样本待复核,制造业,603897.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603906.SH,龙蟠科技,SSE,历史能源样本待复核,制造业,603906.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603985.SH,恒润股份,SSE,历史能源样本待复核,制造业,603985.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+603988.SH,中电电机,SSE,历史能源样本待复核,制造业,603988.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605011.SH,杭州热电,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605011.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605028.SH,世茂能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605028.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605066.SH,天正电气,SSE,历史能源样本待复核,制造业,605066.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605090.SH,九丰能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605090.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605117.SH,德业股份,SSE,历史能源样本待复核,制造业,605117.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605162.SH,新中港,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605162.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605169.SH,洪通燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605169.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605196.SH,华通线缆,SSE,历史能源样本待复核,制造业,605196.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605222.SH,起帆电缆,SSE,历史能源样本待复核,制造业,605222.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605368.SH,蓝天燃气,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605368.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605378.SH,野马电池,SSE,历史能源样本待复核,制造业,605378.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+605580.SH,恒盛能源,SSE,历史能源样本待复核,电力、热力、燃气及水生产和供应业,605580.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688005.SH,容百科技,SSE,参考榜单能源种子待行业复核,制造业,688005.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688006.SH,杭可科技,SSE,历史能源样本待复核,制造业,688006.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688032.SH,禾迈股份,SSE,历史能源样本待复核,制造业,688032.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688063.SH,派能科技,SSE,历史能源样本待复核,制造业,688063.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688116.SH,天奈科技,SSE,历史能源样本待复核,制造业,688116.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688147.SH,微导纳米,SSE,历史能源样本待复核,制造业,688147.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688148.SH,芳源股份,SSE,历史能源样本待复核,制造业,688148.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688155.SH,先惠技术,SSE,历史能源样本待复核,制造业,688155.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688191.SH,智洋创新,SSE,历史能源样本待复核,信息传输、软件和信息技术服务业,688191.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688223.SH,晶科能源,SSE,历史能源样本待复核,制造业,688223.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688226.SH,威腾电气,SSE,历史能源样本待复核,制造业,688226.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688248.SH,南网科技,SSE,历史能源样本待复核,科学研究和技术服务业,688248.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688275.SH,万润新能,SSE,历史能源样本待复核,制造业,688275.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688303.SH,大全能源,SSE,历史能源样本待复核,制造业,688303.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688330.SH,宏力达,SSE,历史能源样本待复核,制造业,688330.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688339.SH,亿华通,SSE,历史能源样本待复核,制造业,688339.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688345.SH,博力威,SSE,历史能源样本待复核,制造业,688345.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688348.SH,昱能科技,SSE,历史能源样本待复核,制造业,688348.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688349.SH,三一重能,SSE,历史能源样本待复核,制造业,688349.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688353.SH,华盛锂电,SSE,历史能源样本待复核,制造业,688353.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688388.SH,嘉元科技,SSE,历史能源样本待复核,制造业,688388.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688390.SH,固德威,SSE,历史能源样本待复核,制造业,688390.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688392.SH,骄成超声,SSE,历史能源样本待复核,制造业,688392.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688408.SH,中信博,SSE,历史能源样本待复核,制造业,688408.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688429.SH,时创能源,SSE,历史能源样本待复核,制造业,688429.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688472.SH,阿特斯,SSE,历史能源样本待复核,制造业,688472.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688499.SH,利元亨,SSE,历史能源样本待复核,制造业,688499.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688503.SH,聚和材料,SSE,历史能源样本待复核,制造业,688503.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688516.SH,奥特维,SSE,历史能源样本待复核,制造业,688516.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688517.SH,金冠电气,SSE,历史能源样本待复核,制造业,688517.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688551.SH,科威尔,SSE,历史能源样本待复核,制造业,688551.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688556.SH,高测股份,SSE,历史能源样本待复核,制造业,688556.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688560.SH,明冠新材,SSE,历史能源样本待复核,制造业,688560.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688567.SH,孚能科技,SSE,历史能源样本待复核,制造业,688567.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688573.SH,信宇人,SSE,历史能源样本待复核,制造业,688573.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688597.SH,煜邦电力,SSE,历史能源样本待复核,制造业,688597.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688598.SH,金博股份,SSE,历史能源样本待复核,制造业,688598.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688599.SH,天合光能,SSE,历史能源样本待复核,制造业,688599.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688611.SH,杭州柯林,SSE,历史能源样本待复核,制造业,688611.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688616.SH,西力科技,SSE,历史能源样本待复核,制造业,688616.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688638.SH,誉辰智能,SSE,历史能源样本待复核,制造业,688638.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688660.SH,电气风电,SSE,历史能源样本待复核,制造业,688660.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688663.SH,DR新风光,SSE,历史能源样本待复核,制造业,688663.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688676.SH,金盘科技,SSE,历史能源样本待复核,制造业,688676.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688680.SH,海优新材,SSE,历史能源样本待复核,制造业,688680.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688681.SH,科汇股份,SSE,历史能源样本待复核,制造业,688681.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688707.SH,振华新材,SSE,历史能源样本待复核,制造业,688707.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688717.SH,艾罗能源,SSE,历史能源样本待复核,制造业,688717.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688719.SH,爱科赛博,SSE,历史能源样本待复核,制造业,688719.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688733.SH,壹石通,SSE,历史能源样本待复核,制造业,688733.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688772.SH,珠海冠宇,SSE,历史能源样本待复核,制造业,688772.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688778.SH,厦钨新能,SSE,历史能源样本待复核,制造业,688778.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688779.SH,五矿新能,SSE,历史能源样本待复核,制造业,688779.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+688819.SH,天能股份,SSE,历史能源样本待复核,制造业,688819.SH,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.sse.com.cn/assortment/stock/home/,2026-07-28
+000009.SZ,中国宝安,SZSE,历史能源样本待复核,J 金融业,000009.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000027.SZ,深圳能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000027.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000037.SZ,深南电A,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000037.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000049.SZ,德赛电池,SZSE,历史能源样本待复核,C 制造业,000049.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000096.SZ,广聚能源,SZSE,历史能源样本待复核,F 批发和零售业,000096.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000155.SZ,川能动力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000155.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000400.SZ,许继电气,SZSE,历史能源样本待复核,C 制造业,000400.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000407.SZ,胜利股份,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000407.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000421.SZ,南京公用,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000421.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000531.SZ,穗恒运Ａ,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000531.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000533.SZ,顺钠股份,SZSE,历史能源样本待复核,C 制造业,000533.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000537.SZ,绿发电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000537.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000539.SZ,粤电力Ａ,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000539.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000543.SZ,皖能电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000543.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000554.SZ,泰山石油,SZSE,历史能源样本待复核,F 批发和零售业,000554.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000591.SZ,太阳能,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000591.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000593.SZ,德龙汇能,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000593.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000600.SZ,建投能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000600.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000601.SZ,韶能股份,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000601.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000637.SZ,茂化实华,SZSE,历史能源样本待复核,C 制造业,000637.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000682.SZ,东方电子,SZSE,历史能源样本待复核,I 信息传输、软件和信息技术服务业,000682.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000690.SZ,宝新能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000690.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000692.SZ,惠天热电,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000692.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000703.SZ,恒逸石化,SZSE,历史能源样本待复核,C 制造业,000703.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000720.SZ,新能泰山,SZSE,历史能源样本待复核,C 制造业,000720.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000722.SZ,湖南发展,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000722.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000723.SZ,美锦能源,SZSE,历史能源样本待复核,C 制造业,000723.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000767.SZ,晋控电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000767.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000791.SZ,甘肃能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000791.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000819.SZ,岳阳兴长,SZSE,历史能源样本待复核,C 制造业,000819.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000862.SZ,银星能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000862.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000875.SZ,电投绿能,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000875.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000883.SZ,湖北能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000883.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000899.SZ,赣能股份,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000899.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000922.SZ,佳电股份,SZSE,历史能源样本待复核,C 制造业,000922.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000937.SZ,冀中能源,SZSE,历史能源样本待复核,B 采矿业,000937.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000966.SZ,长源电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000966.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000968.SZ,蓝焰控股,SZSE,历史能源样本待复核,B 采矿业,000968.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+000993.SZ,闽东电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,000993.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001208.SZ,华菱线缆,SZSE,历史能源样本待复核,C 制造业,001208.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001258.SZ,立新能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001258.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001269.SZ,欧晶科技,SZSE,历史能源样本待复核,C 制造业,001269.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001283.SZ,豪鹏科技,SZSE,历史能源样本待复核,C 制造业,001283.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001289.SZ,龙源电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001289.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001299.SZ,美能能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001299.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001301.SZ,尚太科技,SZSE,历史能源样本待复核,C 制造业,001301.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001331.SZ,胜通能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001331.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001376.SZ,百通能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001376.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+001896.SZ,豫能控股,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,001896.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002015.SZ,协鑫能科,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002015.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002028.SZ,思源电气,SZSE,历史能源样本待复核,C 制造业,002028.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002039.SZ,黔源电力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002039.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002056.SZ,横店东磁,SZSE,历史能源样本待复核,C 制造业,002056.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002060.SZ,广东建工,SZSE,历史能源样本待复核,E 建筑业,002060.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002074.SZ,国轩高科,SZSE,历史能源样本待复核,C 制造业,002074.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002090.SZ,金智科技,SZSE,历史能源样本待复核,C 制造业,002090.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002112.SZ,三变科技,SZSE,历史能源样本待复核,C 制造业,002112.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002121.SZ,科陆电子,SZSE,历史能源样本待复核,C 制造业,002121.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002125.SZ,湘潭电化,SZSE,历史能源样本待复核,C 制造业,002125.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002128.SZ,电投能源,SZSE,历史能源样本待复核,B 采矿业,002128.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002129.SZ,TCL中环,SZSE,历史能源样本待复核,C 制造业,002129.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002169.SZ,智光电气,SZSE,历史能源样本待复核,C 制造业,002169.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002196.SZ,方正电机,SZSE,历史能源样本待复核,C 制造业,002196.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002202.SZ,金风科技,SZSE,历史能源样本待复核,C 制造业,002202.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002218.SZ,拓日新能,SZSE,历史能源样本待复核,C 制造业,002218.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002221.SZ,东华能源,SZSE,历史能源样本待复核,F 批发和零售业,002221.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002245.SZ,蔚蓝锂芯,SZSE,历史能源样本待复核,C 制造业,002245.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002249.SZ,大洋电机,SZSE,历史能源样本待复核,C 制造业,002249.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002255.SZ,海陆重工,SZSE,历史能源样本待复核,C 制造业,002255.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002259.SZ,升达林业,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002259.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002267.SZ,陕天然气,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002267.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002270.SZ,华明装备,SZSE,历史能源样本待复核,C 制造业,002270.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002276.SZ,万马股份,SZSE,历史能源样本待复核,C 制造业,002276.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002300.SZ,太阳电缆,SZSE,历史能源样本待复核,C 制造业,002300.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002309.SZ,中利集团,SZSE,历史能源样本待复核,C 制造业,002309.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002335.SZ,科华数据,SZSE,历史能源样本待复核,C 制造业,002335.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002339.SZ,积成电子,SZSE,历史能源样本待复核,C 制造业,002339.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002340.SZ,格林美,SZSE,历史能源样本待复核,C 制造业,002340.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002346.SZ,柘中股份,SZSE,历史能源样本待复核,C 制造业,002346.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002350.SZ,北京科锐,SZSE,历史能源样本待复核,C 制造业,002350.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002358.SZ,森源电气,SZSE,历史能源样本待复核,C 制造业,002358.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002364.SZ,中恒电气,SZSE,历史能源样本待复核,C 制造业,002364.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002366.SZ,融发核电,SZSE,历史能源样本待复核,C 制造业,002366.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002441.SZ,众业达,SZSE,历史能源样本待复核,F 批发和零售业,002441.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002451.SZ,摩恩电气,SZSE,历史能源样本待复核,C 制造业,002451.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002452.SZ,长高电气,SZSE,历史能源样本待复核,C 制造业,002452.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002459.SZ,晶澳科技,SZSE,历史能源样本待复核,C 制造业,002459.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002471.SZ,中超控股,SZSE,历史能源样本待复核,C 制造业,002471.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002479.SZ,富春环保,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002479.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002487.SZ,大金重工,SZSE,历史能源样本待复核,C 制造业,002487.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002490.SZ,山东墨龙,SZSE,历史能源样本待复核,C 制造业,002490.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002493.SZ,荣盛石化,SZSE,历史能源样本待复核,C 制造业,002493.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002498.SZ,汉缆股份,SZSE,历史能源样本待复核,C 制造业,002498.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002506.SZ,协鑫集成,SZSE,历史能源样本待复核,C 制造业,002506.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002518.SZ,科士达,SZSE,历史能源样本待复核,C 制造业,002518.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002527.SZ,新时达,SZSE,历史能源样本待复核,C 制造业,002527.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002531.SZ,天顺风能,SZSE,历史能源样本待复核,C 制造业,002531.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002533.SZ,金杯电工,SZSE,历史能源样本待复核,C 制造业,002533.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002534.SZ,西子洁能,SZSE,历史能源样本待复核,C 制造业,002534.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002546.SZ,新联电子,SZSE,历史能源样本待复核,C 制造业,002546.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002560.SZ,通达股份,SZSE,历史能源样本待复核,C 制造业,002560.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002576.SZ,通达动力,SZSE,历史能源样本待复核,C 制造业,002576.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002580.SZ,圣阳股份,SZSE,历史能源样本待复核,C 制造业,002580.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002606.SZ,大连电瓷,SZSE,历史能源样本待复核,C 制造业,002606.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002608.SZ,江苏国信,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002608.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002616.SZ,长青集团,SZSE,历史能源样本待复核,N 水利、环境和公共设施管理业,002616.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002623.SZ,亚玛顿,SZSE,历史能源样本待复核,C 制造业,002623.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002629.SZ,仁智股份,SZSE,历史能源样本待复核,B 采矿业,002629.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002692.SZ,远程股份,SZSE,历史能源样本待复核,C 制造业,002692.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002700.SZ,万憬能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002700.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002706.SZ,良信股份,SZSE,历史能源样本待复核,C 制造业,002706.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002709.SZ,天赐材料,SZSE,历史能源样本待复核,C 制造业,002709.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002733.SZ,雄韬股份,SZSE,历史能源样本待复核,C 制造业,002733.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002801.SZ,微光股份,SZSE,历史能源样本待复核,C 制造业,002801.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002805.SZ,丰元股份,SZSE,历史能源样本待复核,C 制造业,002805.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002812.SZ,恩捷股份,SZSE,历史能源样本待复核,C 制造业,002812.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002823.SZ,凯中精密,SZSE,历史能源样本待复核,C 制造业,002823.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002828.SZ,贝肯能源,SZSE,历史能源样本待复核,B 采矿业,002828.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002850.SZ,科达利,SZSE,历史能源样本待复核,C 制造业,002850.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002851.SZ,麦格米特,SZSE,历史能源样本待复核,C 制造业,002851.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002857.SZ,三晖电气,SZSE,历史能源样本待复核,C 制造业,002857.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002865.SZ,钧达股份,SZSE,历史能源样本待复核,C 制造业,002865.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002879.SZ,长缆科技,SZSE,历史能源样本待复核,C 制造业,002879.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002882.SZ,金龙羽,SZSE,历史能源样本待复核,C 制造业,002882.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002892.SZ,科力尔,SZSE,历史能源样本待复核,C 制造业,002892.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002893.SZ,京能热力,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002893.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002911.SZ,佛燃能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,002911.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002927.SZ,泰永长征,SZSE,历史能源样本待复核,C 制造业,002927.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002953.SZ,日丰股份,SZSE,历史能源样本待复核,C 制造业,002953.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002980.SZ,华盛昌,SZSE,历史能源样本待复核,C 制造业,002980.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+002986.SZ,宇新股份,SZSE,历史能源样本待复核,C 制造业,002986.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+003021.SZ,兆威机电,SZSE,历史能源样本待复核,C 制造业,003021.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+003022.SZ,联泓新科,SZSE,历史能源样本待复核,C 制造业,003022.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+003035.SZ,南网能源,SZSE,历史能源样本待复核,M 科学研究和技术服务业,003035.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+003816.SZ,中国广核,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,003816.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300001.SZ,特锐德,SZSE,历史能源样本待复核,C 制造业,300001.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300014.SZ,亿纬锂能,SZSE,历史能源样本待复核,C 制造业,300014.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300018.SZ,中元股份,SZSE,历史能源样本待复核,C 制造业,300018.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300035.SZ,中科电气,SZSE,历史能源样本待复核,C 制造业,300035.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300037.SZ,新宙邦,SZSE,历史能源样本待复核,C 制造业,300037.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300040.SZ,九洲集团,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,300040.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300051.SZ,琏升科技,SZSE,历史能源样本待复核,I 信息传输、软件和信息技术服务业,300051.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300062.SZ,中能电气,SZSE,历史能源样本待复核,C 制造业,300062.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300069.SZ,金利华电,SZSE,历史能源样本待复核,C 制造业,300069.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300073.SZ,当升科技,SZSE,历史能源样本待复核,C 制造业,300073.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300080.SZ,易成新能,SZSE,历史能源样本待复核,C 制造业,300080.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300105.SZ,龙源技术,SZSE,历史能源样本待复核,C 制造业,300105.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300118.SZ,东方日升,SZSE,历史能源样本待复核,C 制造业,300118.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300129.SZ,泰胜风能,SZSE,历史能源样本待复核,C 制造业,300129.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300140.SZ,节能环境,SZSE,历史能源样本待复核,N 水利、环境和公共设施管理业,300140.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300141.SZ,和顺电气,SZSE,历史能源样本待复核,C 制造业,300141.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300153.SZ,科泰电源,SZSE,历史能源样本待复核,C 制造业,300153.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300185.SZ,通裕重工,SZSE,历史能源样本待复核,C 制造业,300185.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300191.SZ,潜能恒信,SZSE,历史能源样本待复核,B 采矿业,300191.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300207.SZ,欣旺达,SZSE,历史能源样本待复核,C 制造业,300207.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300222.SZ,科大智能,SZSE,历史能源样本待复核,C 制造业,300222.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300265.SZ,通光线缆,SZSE,历史能源样本待复核,C 制造业,300265.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300274.SZ,阳光电源,SZSE,历史能源样本待复核,C 制造业,300274.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300283.SZ,温州宏丰,SZSE,历史能源样本待复核,C 制造业,300283.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300286.SZ,安科瑞,SZSE,历史能源样本待复核,C 制造业,300286.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300316.SZ,晶盛机电,SZSE,历史能源样本待复核,C 制造业,300316.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300317.SZ,珈伟新能,SZSE,历史能源样本待复核,C 制造业,300317.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300332.SZ,天壕能源,SZSE,历史能源样本待复核,D 电力、热力、燃气及水生产和供应业,300332.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300340.SZ,科恒股份,SZSE,历史能源样本待复核,C 制造业,300340.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300360.SZ,炬华科技,SZSE,历史能源样本待复核,C 制造业,300360.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300376.SZ,易事特,SZSE,历史能源样本待复核,C 制造业,300376.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300390.SZ,天华新能,SZSE,历史能源样本待复核,C 制造业,300390.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300393.SZ,中来股份,SZSE,历史能源样本待复核,C 制造业,300393.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300407.SZ,凯发电气,SZSE,历史能源样本待复核,C 制造业,300407.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300409.SZ,道氏技术,SZSE,历史能源样本待复核,C 制造业,300409.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300410.SZ,正业科技,SZSE,历史能源样本待复核,C 制造业,300410.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300423.SZ,昇辉科技,SZSE,历史能源样本待复核,C 制造业,300423.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300427.SZ,红相股份,SZSE,历史能源样本待复核,C 制造业,300427.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300432.SZ,富临精工,SZSE,历史能源样本待复核,C 制造业,300432.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300438.SZ,鹏辉能源,SZSE,历史能源样本待复核,C 制造业,300438.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300443.SZ,金雷股份,SZSE,历史能源样本待复核,C 制造业,300443.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300444.SZ,双杰电气,SZSE,历史能源样本待复核,C 制造业,300444.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300450.SZ,先导智能,SZSE,历史能源样本待复核,C 制造业,300450.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300457.SZ,赢合科技,SZSE,历史能源样本待复核,C 制造业,300457.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300483.SZ,首华燃气,SZSE,历史能源样本待复核,B 采矿业,300483.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300490.SZ,华自科技,SZSE,历史能源样本待复核,C 制造业,300490.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300491.SZ,通合科技,SZSE,历史能源样本待复核,C 制造业,300491.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300510.SZ,金冠股份,SZSE,历史能源样本待复核,C 制造业,300510.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300514.SZ,友讯达,SZSE,历史能源样本待复核,C 制造业,300514.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300568.SZ,星源材质,SZSE,历史能源样本待复核,C 制造业,300568.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300569.SZ,天能重工,SZSE,历史能源样本待复核,C 制造业,300569.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300593.SZ,新雷能,SZSE,历史能源样本待复核,C 制造业,300593.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300617.SZ,安靠智电,SZSE,历史能源样本待复核,C 制造业,300617.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300619.SZ,金银河,SZSE,历史能源样本待复核,C 制造业,300619.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300626.SZ,华瑞股份,SZSE,历史能源样本待复核,C 制造业,300626.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300648.SZ,星云股份,SZSE,历史能源样本待复核,C 制造业,300648.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300660.SZ,江苏雷利,SZSE,历史能源样本待复核,C 制造业,300660.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300670.SZ,大烨智能,SZSE,历史能源样本待复核,C 制造业,300670.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300690.SZ,双一科技,SZSE,历史能源样本待复核,C 制造业,300690.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300693.SZ,盛弘股份,SZSE,历史能源样本待复核,C 制造业,300693.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300713.SZ,英可瑞,SZSE,历史能源样本待复核,C 制造业,300713.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300724.SZ,捷佳伟创,SZSE,历史能源样本待复核,C 制造业,300724.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300750.SZ,宁德时代,SZSE,历史能源样本待复核,C 制造业,300750.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300751.SZ,迈为股份,SZSE,历史能源样本待复核,C 制造业,300751.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300763.SZ,锦浪科技,SZSE,历史能源样本待复核,C 制造业,300763.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300769.SZ,德方纳米,SZSE,历史能源样本待复核,C 制造业,300769.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300772.SZ,运达股份,SZSE,历史能源样本待复核,C 制造业,300772.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300776.SZ,帝尔激光,SZSE,历史能源样本待复核,C 制造业,300776.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300820.SZ,英杰电气,SZSE,历史能源样本待复核,C 制造业,300820.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300827.SZ,上能电气,SZSE,历史能源样本待复核,C 制造业,300827.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300842.SZ,帝科股份,SZSE,历史能源样本待复核,C 制造业,300842.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300850.SZ,新强联,SZSE,历史能源样本待复核,C 制造业,300850.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300853.SZ,申昊科技,SZSE,历史能源样本待复核,C 制造业,300853.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300870.SZ,欧陆通,SZSE,历史能源样本待复核,C 制造业,300870.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300880.SZ,迦南智能,SZSE,历史能源样本待复核,C 制造业,300880.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300882.SZ,万胜智能,SZSE,历史能源样本待复核,C 制造业,300882.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300904.SZ,威力传动,SZSE,历史能源样本待复核,C 制造业,300904.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300907.SZ,康平科技,SZSE,历史能源样本待复核,C 制造业,300907.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300919.SZ,中伟新材,SZSE,历史能源样本待复核,C 制造业,300919.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300932.SZ,三友联众,SZSE,历史能源样本待复核,C 制造业,300932.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300933.SZ,中辰股份,SZSE,历史能源样本待复核,C 制造业,300933.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+300953.SZ,震裕科技,SZSE,历史能源样本待复核,C 制造业,300953.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301002.SZ,崧盛股份,SZSE,历史能源样本待复核,C 制造业,301002.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301012.SZ,扬电科技,SZSE,历史能源样本待复核,C 制造业,301012.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301023.SZ,奕帆传动,SZSE,历史能源样本待复核,C 制造业,301023.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301040.SZ,中环海陆,SZSE,历史能源样本待复核,C 制造业,301040.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301063.SZ,海锅股份,SZSE,历史能源样本待复核,C 制造业,301063.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301082.SZ,久盛电气,SZSE,历史能源样本待复核,C 制造业,301082.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301120.SZ,新特电气,SZSE,历史能源样本待复核,C 制造业,301120.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301121.SZ,紫建电子,SZSE,历史能源样本待复核,C 制造业,301121.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301150.SZ,中一科技,SZSE,历史能源样本待复核,C 制造业,301150.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301152.SZ,天力锂能,SZSE,历史能源样本待复核,C 制造业,301152.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301155.SZ,海力风电,SZSE,历史能源样本待复核,C 制造业,301155.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301157.SZ,华塑科技,SZSE,历史能源样本待复核,C 制造业,301157.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301163.SZ,宏德股份,SZSE,历史能源样本待复核,C 制造业,301163.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301168.SZ,通灵股份,SZSE,历史能源样本待复核,C 制造业,301168.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301179.SZ,泽宇智能,SZSE,历史能源样本待复核,I 信息传输、软件和信息技术服务业,301179.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301210.SZ,金杨精密,SZSE,历史能源样本待复核,C 制造业,301210.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301217.SZ,铜冠铜箔,SZSE,历史能源样本待复核,C 制造业,301217.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301222.SZ,浙江恒威,SZSE,历史能源样本待复核,C 制造业,301222.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301226.SZ,祥明智能,SZSE,历史能源样本待复核,C 制造业,301226.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301232.SZ,飞沃科技,SZSE,历史能源样本待复核,C 制造业,301232.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301238.SZ,瑞泰新材,SZSE,历史能源样本待复核,C 制造业,301238.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301266.SZ,宇邦新材,SZSE,历史能源样本待复核,C 制造业,301266.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301278.SZ,快可电子,SZSE,历史能源样本待复核,C 制造业,301278.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301291.SZ,明阳电气,SZSE,历史能源样本待复核,C 制造业,301291.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301292.SZ,海科新源,SZSE,历史能源样本待复核,C 制造业,301292.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301295.SZ,美硕科技,SZSE,历史能源样本待复核,C 制造业,301295.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301325.SZ,曼恩斯特,SZSE,历史能源样本待复核,C 制造业,301325.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301327.SZ,华宝新能,SZSE,历史能源样本待复核,C 制造业,301327.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301349.SZ,信德新材,SZSE,历史能源样本待复核,C 制造业,301349.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301358.SZ,湖南裕能,SZSE,历史能源样本待复核,C 制造业,301358.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301361.SZ,众智科技,SZSE,历史能源样本待复核,C 制造业,301361.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301386.SZ,未来电器,SZSE,历史能源样本待复核,C 制造业,301386.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301388.SZ,欣灵电气,SZSE,历史能源样本待复核,C 制造业,301388.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301439.SZ,泓淋电力,SZSE,历史能源样本待复核,C 制造业,301439.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301456.SZ,盘古智能,SZSE,历史能源样本待复核,C 制造业,301456.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301487.SZ,盟固利,SZSE,历史能源样本待复核,C 制造业,301487.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301502.SZ,华阳智能,SZSE,历史能源样本待复核,C 制造业,301502.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301511.SZ,德福科技,SZSE,历史能源样本待复核,C 制造业,301511.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301516.SZ,中远通,SZSE,历史能源样本待复核,C 制造业,301516.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28
+301587.SZ,中瑞股份,SZSE,历史能源样本待复核,C 制造业,301587.SZ,pending_evidence,security_id_only,2,review_energy_sub_industry_evidence,https://www.szse.cn/market/stock/company/,2026-07-28

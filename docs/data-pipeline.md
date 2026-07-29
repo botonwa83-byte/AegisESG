@@ -95,6 +95,19 @@ PYTHONPATH=src python3 -m aegis_esg.cli bind-universe-provenance \
 命令只填补空来源、日期和主体字段，已有纳入证据不会被覆盖；名称差异、主体冲突和未匹配项
 均保留逐证券记录。已排除的退市证券允许保持未匹配，但任何纳入证券未匹配都会返回非零状态。
 
+行业纳入证据和A/H主体关系使用独立任务队列推进：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli plan-universe-evidence \
+  data/universe/energy_historical_candidates_2026.csv \
+  --snapshot data/snapshots/all_exchanges_2026-07-29.csv \
+  --output output/audit/historical_candidate_universe_evidence_tasks.csv \
+  --summary output/audit/historical_candidate_universe_evidence_summary.json
+```
+
+任何包含“待分类”或“待…复核”的细分行业均计入`unclassified_count`并阻止发布。任务队列优先
+处理港股中文全称及行业证据，再处理内地能源细分行业，已明确行业的证券继续核验主体关系。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

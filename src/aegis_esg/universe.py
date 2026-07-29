@@ -101,7 +101,7 @@ def audit_universe(
     completed = included_codes.intersection(code.strip().upper() for code in completed_codes)
     exchange_counts = dict(sorted(Counter(item.exchange for item in included).items()))
     missing = tuple(exchange for exchange in required_exchanges if exchange not in exchange_counts)
-    unclassified = sum(item.sub_industry in ("", "待分类") for item in included)
+    unclassified = sum(_is_unclassified(item.sub_industry) for item in included)
     missing_source = sum(not item.source_url for item in included)
     missing_date = sum(not item.as_of_date for item in included)
     missing_entity = sum(not item.entity_id for item in included)
@@ -149,3 +149,11 @@ def _infer_exchange(code: str) -> str:
     if code.endswith(".BJ"):
         return "BSE"
     return "UNKNOWN"
+
+
+def _is_unclassified(value: str) -> bool:
+    classification = value.strip()
+    return (
+        not classification or "待分类" in classification
+        or ("待" in classification and "复核" in classification)
+    )

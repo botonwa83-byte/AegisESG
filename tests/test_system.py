@@ -28,6 +28,7 @@ from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
+from aegis_esg.universe_review import plan_universe_evidence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -351,6 +352,20 @@ class MethodologyTests(unittest.TestCase):
         ]
         report = audit_universe(companies, 4, [item.stock_code for item in companies])
         self.assertTrue(report.publishable)
+
+    def test_universe_audit_treats_review_placeholders_as_unclassified(self):
+        company = UniverseCompany(
+            "600001.SH", "甲", "SSE", "历史能源样本待复核", entity_id="A",
+            source_url="https://official", as_of_date="2026-07-29",
+        )
+        report = audit_universe([company], 1, [company.stock_code], required_exchanges=("SSE",))
+        self.assertEqual(1, report.unclassified_count)
+        self.assertFalse(report.publishable)
+        seed = UniverseCompany(
+            "600002.SH", "乙", "SSE", "参考榜单能源种子待行业复核", entity_id="B",
+            source_url="https://official", as_of_date="2026-07-29",
+        )
+        self.assertEqual(1, audit_universe([seed], 1, [], required_exchanges=("SSE",)).unclassified_count)
 
     def test_universe_builder_filters_st_non_energy_and_ah_duplicates(self):
         rows = [
@@ -721,6 +736,26 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("entity_conflict", bindings[0].status)
             self.assertEqual(1, summary["entity_conflict_count"])
             self.assertFalse(summary["complete"])
+
+    def test_universe_evidence_plan_prioritizes_hkex_and_tracks_snapshot_industry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.csv"
+            snapshot.write_text(
+                "stock_code,company_name,exchange,industry,entity_id,source_url,as_of_date\n"
+                "00001.HK,甲,HKEX,待分类,00001.HK,https://hkex,2026-07-29\n"
+                "600001.SH,乙,SSE,制造业,600001.SH,https://sse,2026-07-29\n",
+                encoding="utf-8",
+            )
+            companies = [
+                UniverseCompany("600001.SH", "乙", "SSE", "历史能源样本待复核"),
+                UniverseCompany("00001.HK", "甲", "HKEX", "待分类"),
+            ]
+            tasks, summary = plan_universe_evidence(companies, snapshot)
+            self.assertEqual("00001.HK", tasks[0].stock_code)
+            self.assertEqual("collect_hkex_industry_and_chinese_name_evidence", tasks[0].next_action)
+            self.assertEqual("制造业", tasks[1].snapshot_industry)
+            self.assertEqual(2, summary["pending_industry_count"])
+            self.assertFalse(summary["publishable"])
 
     def test_indicator_plan_builds_complete_company_indicator_matrix(self):
         companies = [
