@@ -1,19 +1,18 @@
 {
-  "security_count": 636,
-  "included_security_count": 493,
-  "included_company_count": 493,
-  "completed_company_count": 24,
+  "security_count": 639,
+  "included_security_count": 614,
+  "included_company_count": 614,
+  "completed_company_count": 25,
   "expected_company_count": 632,
-  "universe_coverage_rate": 0.7800632911392406,
-  "completed_coverage_rate": 0.0379746835443038,
+  "universe_coverage_rate": 0.9715189873417721,
+  "completed_coverage_rate": 0.03955696202531646,
   "exchanges": {
-    "SSE": 236,
+    "BSE": 26,
+    "HKEX": 92,
+    "SSE": 239,
     "SZSE": 257
   },
-  "missing_exchanges": [
-    "BSE",
-    "HKEX"
-  ],
+  "missing_exchanges": [],
   "unclassified_count": 0,
   "publishable": false
 }

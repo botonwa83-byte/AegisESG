@@ -1,0 +1,14 @@
+{
+  "exchange": "HKEX",
+  "as_of_date": "2026-07-29",
+  "source_url": "https://www.hkex.com.hk/eng/services/trading/securities/securitieslists/ListOfSecurities.xlsx",
+  "source_file": "data/snapshots/raw/hkex_ListOfSecurities_2026-07-29.xlsx",
+  "source_sha256": "290bf4d4a0799a1b4bb0283af53e17b572a67ffb706e40af67704d9d6160dc1a",
+  "source_size": 1388134,
+  "filter": {
+    "category": "Equity",
+    "sub_categories": ["Equity Securities (Main Board)", "Equity Securities (GEM)"]
+  },
+  "snapshot_file": "data/snapshots/hkex_2026-07-29.csv",
+  "snapshot_rows": 2785
+}

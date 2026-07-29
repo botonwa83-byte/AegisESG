@@ -1,15 +1,17 @@
 {
-  "company_count": 493,
-  "annual_collected": 24,
-  "esg_collected": 15,
-  "ready_for_extraction": 15,
+  "company_count": 614,
+  "annual_collected": 25,
+  "esg_collected": 16,
+  "ready_for_extraction": 16,
   "actions": {
-    "discover_annual_and_esg": 469,
+    "discover_annual_and_esg": 589,
     "discover_esg_or_scan_annual": 9,
-    "ready_for_extraction": 15
+    "ready_for_extraction": 16
   },
   "exchanges": {
-    "SSE": 236,
+    "BSE": 26,
+    "HKEX": 92,
+    "SSE": 239,
     "SZSE": 257
   }
 }

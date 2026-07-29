@@ -17,6 +17,8 @@ from aegis_esg.resolution import resolve_pending_candidates
 from aegis_esg.review import ReviewInstruction, apply_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
+from aegis_esg.sources.hkex import import_hkex_securities
+from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
@@ -24,7 +26,7 @@ from aegis_esg.reference import extract_reference_securities
 from aegis_esg.registry import normalize_company_name, reconcile_registry
 from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
-from aegis_esg.migration import plan_historical_migration, write_candidate_universe
+from aegis_esg.migration import augment_candidate_universe, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
 
 
@@ -383,6 +385,65 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(["920001.BJ", "920002.BJ"], [item.stock_code for item in rows])
         self.assertEqual("电力", rows[0].industry)
 
+    def test_hkex_full_list_filters_non_company_securities(self):
+        from openpyxl import Workbook
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "ListOfSecurities.xlsx"
+            workbook = Workbook()
+            sheet = workbook.active
+            sheet.append(["List of Securities"])
+            sheet.append(["Updated as at 29/07/2026"])
+            sheet.append(["Stock Code", "Name of Securities", "Category", "Sub-Category"])
+            sheet.append(["1", "CKH HOLDINGS", "Equity", "Equity Securities (Main Board)"])
+            sheet.append(["8100", "GET NICE", "Equity", "Equity Securities (GEM)"])
+            sheet.append(["2800", "TRACKER FUND", "Exchange Traded Products", "Exchange Traded Funds"])
+            sheet.append(["10001", "DERIVATIVE", "Derivative Warrants", None])
+            workbook.save(source)
+            rows, as_of_date = import_hkex_securities(
+                source, "https://www.hkex.com.hk/ListOfSecurities.xlsx", "2026-07-29",
+            )
+            self.assertEqual("2026-07-29", as_of_date)
+            self.assertEqual(["00001.HK", "08100.HK"], [item.stock_code for item in rows])
+            self.assertTrue(audit_snapshot(rows).valid)
+
+    def test_hkex_full_list_rejects_date_mismatch(self):
+        from openpyxl import Workbook
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "ListOfSecurities.xlsx"
+            workbook = Workbook()
+            sheet = workbook.active
+            sheet.append(["List of Securities"])
+            sheet.append(["Updated as at 28/07/2026"])
+            sheet.append(["Stock Code", "Name of Securities", "Category", "Sub-Category"])
+            sheet.append(["1", "CKH HOLDINGS", "Equity", "Equity Securities (Main Board)"])
+            workbook.save(source)
+            with self.assertRaisesRegex(ValueError, "日期不一致"):
+                import_hkex_securities(source, "https://official", "2026-07-29")
+
+    def test_bse_jsonp_zero_based_pagination(self):
+        def payload(page, code):
+            return 'null([{"content":[{"xxzqdm":"%s","xxzqjc":"测试%s","xxhyzl":"电气机械和器材制造业","xxjsrq":"20260729"}],"number":%s,"totalPages":2,"totalElements":2}])' % (code, page, page)
+        pages = {0: payload(0, "920001"), 1: payload(1, "920002")}
+        rows, as_of_date, raw = collect_bse_listings(pages.__getitem__, expected_as_of_date="2026-07-29")
+        self.assertEqual(["920001.BJ", "920002.BJ"], [item.stock_code for item in rows])
+        self.assertEqual("2026-07-29", as_of_date)
+        self.assertEqual(2, len(raw))
+        self.assertTrue(audit_snapshot(rows).valid)
+
+    def test_bse_rejects_page_mismatch_and_incomplete_result(self):
+        wrong = 'null([{"content":[],"number":1,"totalPages":1,"totalElements":0}])'
+        with self.assertRaisesRegex(ValueError, "分页响应错位"):
+            parse_bse_page(wrong, 0)
+        incomplete = 'null([{"content":[],"number":0,"totalPages":1,"totalElements":1}])'
+        with self.assertRaisesRegex(ValueError, "分页不完整"):
+            collect_bse_listings(lambda _: incomplete)
+
+    def test_bse_official_code_mapping_parses_collisions(self):
+        html = '<table><tr><td>1</td><td>许昌智能</td><td>2024/1/26</td><td>831396</td><td>920496</td></tr></table>'
+        rows = parse_bse_code_mapping(html)
+        self.assertEqual("831396.BJ", rows[0].old_code)
+        self.assertEqual("920496.BJ", rows[0].new_code)
+
     def test_official_listing_rejects_html_and_incomplete_pages(self):
         with self.assertRaises(ValueError):
             parse_listing_page("<html>blocked</html>")
@@ -420,6 +481,15 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("长江电力", rows[0].company_name)
             self.assertTrue(rows[0].matched_snapshot)
             self.assertFalse(rows[1].matched_snapshot)
+
+    def test_reference_old_bse_code_matches_through_official_alias(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "ocr.txt"
+            path.write_text("835185.BJ", encoding="utf-8")
+            snapshots = [UniverseCompany("920185.BJ", "贝特瑞", "BSE", "电池制造")]
+            rows = extract_reference_securities(path, snapshots, "67", {"835185.BJ": "920185.BJ"})
+            self.assertTrue(rows[0].matched_snapshot)
+            self.assertEqual("920185.BJ", rows[0].current_stock_code)
 
     def test_registry_reconciliation_exact_normalized_and_unmatched(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -521,6 +591,53 @@ class MethodologyTests(unittest.TestCase):
             write_candidate_universe(universe, rows)
             imported = __import__('aegis_esg.universe', fromlist=['read_universe']).read_universe(universe)
             self.assertEqual([True, False, False, False], [item.included for item in imported])
+
+    def test_historical_migration_uses_available_hkex_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "registry.csv"
+            path.write_text(
+                "stock_code,company_name,company_abbr,exchange,st_flag\n"
+                "00001.HK,港股甲,港股甲,HKEX,False\n",
+                encoding="utf-8",
+            )
+            rows, audit = plan_historical_migration(
+                path, [UniverseCompany("00001.HK", "CKH HOLDINGS", "HKEX", "待分类")],
+            )
+            self.assertEqual("provisional_include", rows[0].decision)
+            self.assertEqual("CKH HOLDINGS", rows[0].current_name)
+            self.assertEqual(["HKEX"], audit["snapshot_exchanges"])
+
+    def test_historical_missing_code_can_use_signed_resolution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "registry.csv"
+            path.write_text(
+                "stock_code,company_name,company_abbr,exchange,st_flag\n"
+                "#N/A,中国港能智慧能源集团有限公司,中国港能,UNKNOWN,False\n",
+                encoding="utf-8",
+            )
+            rows, _ = plan_historical_migration(
+                path, [UniverseCompany("00931.HK", "CHINA HK POWER", "HKEX", "待分类")],
+                {"#N/A": "00931.HK"},
+            )
+            self.assertEqual("provisional_include", rows[0].decision)
+            self.assertEqual("00931.HK", rows[0].stock_code)
+
+    def test_augment_universe_requires_snapshot_and_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.csv"
+            snapshot.write_text(
+                "stock_code,company_name,exchange,industry,entity_id,source_url,as_of_date\n"
+                "600925.SH,苏能股份,SSE,煤炭,600925.SH,https://official,2026-07-29\n",
+                encoding="utf-8",
+            )
+            additions = Path(directory) / "add.csv"
+            additions.write_text(
+                "stock_code,evidence_url,reason\n600925.SH,evidence.txt,参考前200\n",
+                encoding="utf-8",
+            )
+            rows = augment_candidate_universe([], additions, snapshot)
+            self.assertEqual("600925.SH", rows[0].stock_code)
+            self.assertTrue(rows[0].included)
 
     def test_indicator_plan_builds_complete_company_indicator_matrix(self):
         companies = [

@@ -15,6 +15,7 @@ CODE_PATTERN = re.compile(r"(?<!\d)(\d{5,6})\.(SH|SZ|HK|BJ)")
 @dataclass(frozen=True)
 class ReferenceSecurity:
     stock_code: str
+    current_stock_code: str
     company_name: str
     exchange: str
     matched_snapshot: bool
@@ -24,6 +25,7 @@ class ReferenceSecurity:
 
 def extract_reference_securities(
     ocr_path: str | Path, snapshots: Iterable[UniverseCompany], evidence_pages: str,
+    code_aliases: dict[str, str] | None = None,
 ) -> list[ReferenceSecurity]:
     text = Path(ocr_path).read_text(encoding="utf-8")
     codes = []
@@ -32,8 +34,10 @@ def extract_reference_securities(
         if code not in codes:
             codes.append(code)
     names = {item.stock_code: item.company_name for item in snapshots}
+    aliases = code_aliases or {}
     return [ReferenceSecurity(
-        code, names.get(code, "待核对"), _exchange(code), code in names,
+        code, aliases.get(code, code), names.get(aliases.get(code, code), "待核对"),
+        _exchange(code), aliases.get(code, code) in names,
         str(ocr_path), evidence_pages,
     ) for code in codes]
 

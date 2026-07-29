@@ -1,19 +1,19 @@
 ﻿stock_code,historical_name,current_name,exchange,historical_rank,historical_esg_score,decision,reason,requires_review
 300274.SZ,阳光电源股份有限公司,阳光电源,SZSE,1,71.98,provisional_include,历史能源样本且当前仍正常上市,False
-02688.HK,新奥能源控股有限公司,,HKEX,2,70.01,pending_snapshot,HKEX官方快照尚未接入,True
+02688.HK,新奥能源控股有限公司,ENN ENERGY,HKEX,2,70.01,provisional_include,历史能源样本且当前仍正常上市,False
 600900.SH,中国长江电力股份有限公司,长江电力,SSE,3,69.36,provisional_include,历史能源样本且当前仍正常上市,False
 000400.SZ,许继电气股份有限公司,许继电气,SZSE,4,68.89,provisional_include,历史能源样本且当前仍正常上市,False
 600956.SH,新天绿色能源股份有限公司,新天绿能,SSE,5,67.92,provisional_include,历史能源样本且当前仍正常上市,False
-01600.HK,天伦燃气控股有限公司,,HKEX,6,66.78,pending_snapshot,HKEX官方快照尚未接入,True
-00135.HK,昆仑能源有限公司,,HKEX,7,66.37,pending_snapshot,HKEX官方快照尚未接入,True
-00384.HK,中国燃气控股有限公司,,HKEX,8,65.97,pending_snapshot,HKEX官方快照尚未接入,True
+01600.HK,天伦燃气控股有限公司,TIAN LUN GAS,HKEX,6,66.78,provisional_include,历史能源样本且当前仍正常上市,False
+00135.HK,昆仑能源有限公司,KUNLUN ENERGY,HKEX,7,66.37,provisional_include,历史能源样本且当前仍正常上市,False
+00384.HK,中国燃气控股有限公司,CHINA GAS HOLD,HKEX,8,65.97,provisional_include,历史能源样本且当前仍正常上市,False
 600438.SH,通威股份有限公司,通威股份,SSE,9,65.13,provisional_include,历史能源样本且当前仍正常上市,False
-03868.HK,信义能源控股有限公司,,HKEX,10,64.51,pending_snapshot,HKEX官方快照尚未接入,True
-00686.HK,北京能源国际控股有限公司,,HKEX,11,64.12,pending_snapshot,HKEX官方快照尚未接入,True
+03868.HK,信义能源控股有限公司,XINYI ENERGY,HKEX,10,64.51,provisional_include,历史能源样本且当前仍正常上市,False
+00686.HK,北京能源国际控股有限公司,BJ ENERGY INTL,HKEX,11,64.12,provisional_include,历史能源样本且当前仍正常上市,False
 688599.SH,天合光能股份有限公司,天合光能,SSE,12,63.29,provisional_include,历史能源样本且当前仍正常上市,False
 600406.SH,国电南瑞科技股份有限公司,国电南瑞,SSE,13,62.6,provisional_include,历史能源样本且当前仍正常上市,False
-01798.HK,中国大唐集团新能源股份有限公司,,HKEX,14,62.17,pending_snapshot,HKEX官方快照尚未接入,True
-03633.HK,中裕能源控股有限公司,,HKEX,15,62.12,pending_snapshot,HKEX官方快照尚未接入,True
+01798.HK,中国大唐集团新能源股份有限公司,DATANG RENEW,HKEX,14,62.17,provisional_include,历史能源样本且当前仍正常上市,False
+03633.HK,中裕能源控股有限公司,ZHONGYU ENERGY,HKEX,15,62.12,provisional_include,历史能源样本且当前仍正常上市,False
 002459.SZ,晶澳太阳能科技股份有限公司,晶澳科技,SZSE,16,61.94,provisional_include,历史能源样本且当前仍正常上市,False
 600732.SH,上海爱旭新能源股份有限公司,爱旭股份,SSE,17,61.67,provisional_include,历史能源样本且当前仍正常上市,False
 688390.SH,固德威技术股份有限公司,固德威,SSE,18,61.62,provisional_include,历史能源样本且当前仍正常上市,False
@@ -21,17 +21,17 @@
 688676.SH,海南金盘智能科技股份有限公司,金盘科技,SSE,20,60.86,provisional_include,历史能源样本且当前仍正常上市,False
 002129.SZ,TCL中环新能源科技股份有限公司,TCL中环,SZSE,21,60.4,provisional_include,历史能源样本且当前仍正常上市,False
 601727.SH,上海电气集团股份有限公司,上海电气,SSE,22,60.17,provisional_include,历史能源样本且当前仍正常上市,False
-00852.HK,海峡石油化工控股有限公司,,HKEX,23,59.92,pending_snapshot,HKEX官方快照尚未接入,True
-06828.HK,北京燃气蓝天控股有限公司,,HKEX,24,59.9,pending_snapshot,HKEX官方快照尚未接入,True
+00852.HK,海峡石油化工控股有限公司,STRONG PETRO,HKEX,23,59.92,exclude,ST/*ST排除,False
+06828.HK,北京燃气蓝天控股有限公司,BG BLUE SKY,HKEX,24,59.9,provisional_include,历史能源样本且当前仍正常上市,False
 600875.SH,东方电气股份有限公司,东方电气,SSE,25,59.84,provisional_include,历史能源样本且当前仍正常上市,False
-03899.HK,中集安瑞科控股有限公司,,HKEX,26,59.79,pending_snapshot,HKEX官方快照尚未接入,True
-01083.HK,港华智慧能源有限公司,,HKEX,27,59.78,pending_snapshot,HKEX官方快照尚未接入,True
+03899.HK,中集安瑞科控股有限公司,CIMC ENRIC,HKEX,26,59.79,provisional_include,历史能源样本且当前仍正常上市,False
+01083.HK,港华智慧能源有限公司,TG SMART ENERGY,HKEX,27,59.78,provisional_include,历史能源样本且当前仍正常上市,False
 688248.SH,南方电网电力科技股份有限公司,南网科技,SSE,28,59.64,provisional_include,历史能源样本且当前仍正常上市,False
-01623.HK,海隆控股有限公司,,HKEX,29,59.5,pending_snapshot,HKEX官方快照尚未接入,True
+01623.HK,海隆控股有限公司,HILONG,HKEX,29,59.5,provisional_include,历史能源样本且当前仍正常上市,False
 600938.SH,中国海洋石油有限公司,中国海油,SSE,30,59.49,provisional_include,历史能源样本且当前仍正常上市,False
 600803.SH,新奥天然气股份有限公司,新奥股份,SSE,31,58.71,provisional_include,历史能源样本且当前仍正常上市,False
 301327.SZ,深圳市华宝新能源股份有限公司,华宝新能,SZSE,32,58.28,provisional_include,历史能源样本且当前仍正常上市,False
-01621.HK,域高国际控股有限公司,,HKEX,33,58.1,pending_snapshot,HKEX官方快照尚未接入,True
+01621.HK,域高国际控股有限公司,VICO INTL HLDGS,HKEX,33,58.1,provisional_include,历史能源样本且当前仍正常上市,False
 300569.SZ,青岛天能重工股份有限公司,天能重工,SZSE,34,58.01,provisional_include,历史能源样本且当前仍正常上市,False
 688303.SH,新疆大全新能源股份有限公司,大全能源,SSE,35,57.92,provisional_include,历史能源样本且当前仍正常上市,False
 600821.SH,金开新能源股份有限公司,金开新能,SSE,36,57.56,provisional_include,历史能源样本且当前仍正常上市,False
@@ -39,38 +39,38 @@
 600968.SH,中海油能源发展股份有限公司,海油发展,SSE,38,57.37,provisional_include,历史能源样本且当前仍正常上市,False
 300750.SZ,宁德时代新能源科技股份有限公司,宁德时代,SZSE,39,57.03,provisional_include,历史能源样本且当前仍正常上市,False
 000155.SZ,四川省新能源动力股份有限公司,川能动力,SZSE,40,56.79,provisional_include,历史能源样本且当前仍正常上市,False
-01407.HK,交运燃气有限公司,,HKEX,41,56.01,pending_snapshot,HKEX官方快照尚未接入,True
+01407.HK,交运燃气有限公司,JY GAS,HKEX,41,56.01,provisional_include,历史能源样本且当前仍正常上市,False
 002506.SZ,协鑫集成科技股份有限公司,协鑫集成,SZSE,42,55.84,provisional_include,历史能源样本且当前仍正常上市,False
 688063.SH,上海派能能源科技股份有限公司,派能科技,SSE,43,55.65,provisional_include,历史能源样本且当前仍正常上市,False
 601012.SH,隆基绿能科技股份有限公司,隆基绿能,SSE,44,55.63,provisional_include,历史能源样本且当前仍正常上市,False
 002202.SZ,金风科技股份有限公司,金风科技,SZSE,45,55.25,provisional_include,历史能源样本且当前仍正常上市,False
-01733.HK,易大宗控股有限公司,,HKEX,46,54.95,pending_snapshot,HKEX官方快照尚未接入,True
-00003.HK,香港中华煤气有限公司,,HKEX,47,54.78,pending_snapshot,HKEX官方快照尚未接入,True
+01733.HK,易大宗控股有限公司,E-COMMODITIES,HKEX,46,54.95,provisional_include,历史能源样本且当前仍正常上市,False
+00003.HK,香港中华煤气有限公司,HK & CHINA GAS,HKEX,47,54.78,provisional_include,历史能源样本且当前仍正常上市,False
 003816.SZ,中国广核电力股份有限公司,中国广核,SZSE,48,54.62,provisional_include,历史能源样本且当前仍正常上市,False
 601126.SH,北京四方继保自动化股份有限公司,四方股份,SSE,49,53.92,provisional_include,历史能源样本且当前仍正常上市,False
-00579.HK,北京京能清洁能源电力股份有限公司,,HKEX,50,53.61,pending_snapshot,HKEX官方快照尚未接入,True
+00579.HK,北京京能清洁能源电力股份有限公司,JNCEC,HKEX,50,53.61,provisional_include,历史能源样本且当前仍正常上市,False
 000862.SZ,宁夏银星能源股份有限公司,银星能源,SZSE,51,53.42,provisional_include,历史能源样本且当前仍正常上市,False
 300014.SZ,惠州亿纬锂能股份有限公司,亿纬锂能,SZSE,52,53.32,provisional_include,历史能源样本且当前仍正常上市,False
 600188.SH,兖矿能源集团股份有限公司,兖矿能源,SSE,53,53.23,provisional_include,历史能源样本且当前仍正常上市,False
 601877.SH,浙江正泰电器股份有限公司,正泰电器,SSE,54,53.22,provisional_include,历史能源样本且当前仍正常上市,False
 003035.SZ,南方电网综合能源股份有限公司,南网能源,SZSE,55,53.21,provisional_include,历史能源样本且当前仍正常上市,False
 600312.SH,河南平高电气股份有限公司,平高电气,SSE,56,53.17,provisional_include,历史能源样本且当前仍正常上市,False
-02236.HK,惠生工程技术服务有限公司,,HKEX,57,52.81,pending_snapshot,HKEX官方快照尚未接入,True
+02236.HK,惠生工程技术服务有限公司,WISON ENGRG,HKEX,57,52.81,provisional_include,历史能源样本且当前仍正常上市,False
 601857.SH,中国石油天然气股份有限公司,中国石油,SSE,58,52.26,provisional_include,历史能源样本且当前仍正常上市,False
 688660.SH,上海电气风电集团股份有限公司,电气风电,SSE,59,52.24,provisional_include,历史能源样本且当前仍正常上市,False
 000682.SZ,东方电子股份有限公司,东方电子,SZSE,60,51.99,provisional_include,历史能源样本且当前仍正常上市,False
 002249.SZ,中山大洋电机股份有限公司,大洋电机,SZSE,61,51.88,provisional_include,历史能源样本且当前仍正常上市,False
 001289.SZ,龙源电力集团股份有限公司,龙源电力,SZSE,62,51.82,provisional_include,历史能源样本且当前仍正常上市,False
-00392.HK,北京控股有限公司,,HKEX,63,51.51,pending_snapshot,HKEX官方快照尚未接入,True
+00392.HK,北京控股有限公司,BEIJING ENT,HKEX,63,51.51,provisional_include,历史能源样本且当前仍正常上市,False
 601088.SH,中国神华能源股份有限公司,中国神华,SSE,64,51.27,provisional_include,历史能源样本且当前仍正常上市,False
 601898.SH,中国中煤能源股份有限公司,中煤能源,SSE,65,51.01,provisional_include,历史能源样本且当前仍正常上市,False
 300118.SZ,东方日升新能源股份有限公司,东方日升,SZSE,66,50.99,provisional_include,历史能源样本且当前仍正常上市,False
 300693.SZ,深圳市盛弘电气股份有限公司,盛弘股份,SZSE,67,50.78,provisional_include,历史能源样本且当前仍正常上市,False
 600973.SH,宝胜科技创新股份有限公司,宝胜股份,SSE,68,50.7,provisional_include,历史能源样本且当前仍正常上市,False
-00639.HK,首钢福山资源集团有限公司,,HKEX,69,50.66,pending_snapshot,HKEX官方快照尚未接入,True
-03668.HK,兖煤澳大利亚有限公司,,HKEX,70,50.43,pending_snapshot,HKEX官方快照尚未接入,True
+00639.HK,首钢福山资源集团有限公司,SHOUGANG RES,HKEX,69,50.66,provisional_include,历史能源样本且当前仍正常上市,False
+03668.HK,兖煤澳大利亚有限公司,YANCOAL AUS,HKEX,70,50.43,provisional_include,历史能源样本且当前仍正常上市,False
 600885.SH,宏发科技股份有限公司,宏发股份,SSE,71,49.69,provisional_include,历史能源样本且当前仍正常上市,False
-01250.HK,山高新能源集团有限公司,,HKEX,72,48.98,pending_snapshot,HKEX官方快照尚未接入,True
+01250.HK,山高新能源集团有限公司,SDHS NEW ENERGY,HKEX,72,48.98,provisional_include,历史能源样本且当前仍正常上市,False
 600028.SH,中国石油化工股份有限公司,中国石化,SSE,73,48.95,provisional_include,历史能源样本且当前仍正常上市,False
 300882.SZ,浙江万胜智能科技股份有限公司,万胜智能,SZSE,74,48.79,provisional_include,历史能源样本且当前仍正常上市,False
 600098.SH,广州发展集团股份有限公司,广州发展,SSE,75,48.61,provisional_include,历史能源样本且当前仍正常上市,False
@@ -81,8 +81,8 @@
 688032.SH,杭州禾迈电力电子股份有限公司,禾迈股份,SSE,80,47.61,provisional_include,历史能源样本且当前仍正常上市,False
 600635.SH,上海大众公用事业(集团)股份有限公司,大众公用,SSE,81,47.42,provisional_include,历史能源样本且当前仍正常上市,False
 600032.SH,浙江省新能源投资集团股份有限公司,浙江新能,SSE,82,47.33,provisional_include,历史能源样本且当前仍正常上市,False
-00206.HK,华商能源科技股份有限公司,,HKEX,83,47.26,pending_snapshot,HKEX官方快照尚未接入,True
-00467.HK,联合能源集团有限公司,,HKEX,84,47.18,pending_snapshot,HKEX官方快照尚未接入,True
+00206.HK,华商能源科技股份有限公司,CM-ENERGY,HKEX,83,47.26,provisional_include,历史能源样本且当前仍正常上市,False
+00467.HK,联合能源集团有限公司,UNITEDENERGY GP,HKEX,84,47.18,provisional_include,历史能源样本且当前仍正常上市,False
 603659.SH,上海璞泰来新能源科技股份有限公司,璞泰来,SSE,85,47.1,provisional_include,历史能源样本且当前仍正常上市,False
 002493.SZ,荣盛石化股份有限公司,荣盛石化,SZSE,86,47.05,provisional_include,历史能源样本且当前仍正常上市,False
 600236.SH,广西桂冠电力股份有限公司,桂冠电力,SSE,87,47,provisional_include,历史能源样本且当前仍正常上市,False
@@ -90,17 +90,17 @@
 600475.SH,无锡华光环保能源集团股份有限公司,华光环能,SSE,89,46.78,provisional_include,历史能源样本且当前仍正常上市,False
 600886.SH,国投电力控股股份有限公司,国投电力,SSE,90,46.76,provisional_include,历史能源样本且当前仍正常上市,False
 000922.SZ,哈尔滨电气集团佳木斯电机股份有限公司,佳电股份,SZSE,91,46.75,provisional_include,历史能源样本且当前仍正常上市,False
-02380.HK,中国电力国际发展有限公司,,HKEX,92,46.61,pending_snapshot,HKEX官方快照尚未接入,True
+02380.HK,中国电力国际发展有限公司,CHINA POWER,HKEX,92,46.61,provisional_include,历史能源样本且当前仍正常上市,False
 600905.SH,中国三峡新能源(集团)股份有限公司,三峡能源,SSE,93,46.24,provisional_include,历史能源样本且当前仍正常上市,False
 002479.SZ,浙江富春江环保热电股份有限公司,富春环保,SZSE,94,46.12,provisional_include,历史能源样本且当前仍正常上市,False
-01921.HK,达力普控股有限公司,,HKEX,95,45.7,pending_snapshot,HKEX官方快照尚未接入,True
+01921.HK,达力普控股有限公司,DALIPAL HLDG,HKEX,95,45.7,provisional_include,历史能源样本且当前仍正常上市,False
 002267.SZ,陕西省天然气股份有限公司,陕天然气,SZSE,96,45.6,provisional_include,历史能源样本且当前仍正常上市,False
 600151.SH,上海航天汽车机电股份有限公司,航天机电,SSE,97,45.36,provisional_include,历史能源样本且当前仍正常上市,False
 601179.SH,中国西电电气股份有限公司,中国西电,SSE,98,45.28,provisional_include,历史能源样本且当前仍正常上市,False
 600021.SH,上海电力股份有限公司,上海电力,SSE,99,45.27,provisional_include,历史能源样本且当前仍正常上市,False
-00934.HK,中石化冠德控股有限公司,,HKEX,100,45.23,pending_snapshot,HKEX官方快照尚未接入,True
-00554.HK,汉思能源有限公司,,HKEX,101,45.22,pending_snapshot,HKEX官方快照尚未接入,True
-01193.HK,华润燃气控股有限公司,,HKEX,102,45.2,pending_snapshot,HKEX官方快照尚未接入,True
+00934.HK,中石化冠德控股有限公司,SINOPEC KANTONS,HKEX,100,45.23,provisional_include,历史能源样本且当前仍正常上市,False
+00554.HK,汉思能源有限公司,HANS GP HLDGS,HKEX,101,45.22,provisional_include,历史能源样本且当前仍正常上市,False
+01193.HK,华润燃气控股有限公司,CHINA RES GAS,HKEX,102,45.2,provisional_include,历史能源样本且当前仍正常上市,False
 688223.SH,晶科能源股份有限公司,晶科能源,SSE,103,45.19,provisional_include,历史能源样本且当前仍正常上市,False
 688472.SH,阿特斯阳光电力集团股份有限公司,阿特斯,SSE,104,45.18,provisional_include,历史能源样本且当前仍正常上市,False
 603185.SH,弘元绿色能源股份有限公司,弘元绿能,SSE,105,45.12,provisional_include,历史能源样本且当前仍正常上市,False
@@ -108,60 +108,60 @@
 002709.SZ,广州天赐高新材料股份有限公司,天赐材料,SZSE,107,45,provisional_include,历史能源样本且当前仍正常上市,False
 600379.SH,陕西宝光真空电器股份有限公司,宝光股份,SSE,108,44.69,provisional_include,历史能源样本且当前仍正常上市,False
 600995.SH,南方电网储能股份有限公司,南网储能,SSE,109,44.65,provisional_include,历史能源样本且当前仍正常上市,False
-00182.HK,协合新能源集团有限公司,,HKEX,110,44.57,pending_snapshot,HKEX官方快照尚未接入,True
+00182.HK,协合新能源集团有限公司,CONCORD NE,HKEX,110,44.57,provisional_include,历史能源样本且当前仍正常上市,False
 600310.SH,广西能源股份有限公司,广西能源,SSE,111,44.56,provisional_include,历史能源样本且当前仍正常上市,False
-00332.HK,元亨燃气控股有限公司,,HKEX,112,44.46,pending_snapshot,HKEX官方快照尚未接入,True
+00332.HK,元亨燃气控股有限公司,YUANHENGGAS-NEW,HKEX,112,44.46,provisional_include,历史能源样本且当前仍正常上市,False
 601225.SH,陕西煤业股份有限公司,陕西煤业,SSE,113,44.39,provisional_include,历史能源样本且当前仍正常上市,False
-00632.HK,中港石油有限公司,,HKEX,114,44.14,pending_snapshot,HKEX官方快照尚未接入,True
-00061.HK,绿领控股集团有限公司,,HKEX,115,44.04,pending_snapshot,HKEX官方快照尚未接入,True
+00632.HK,中港石油有限公司,CHK OIL,HKEX,114,44.14,provisional_include,历史能源样本且当前仍正常上市,False
+00061.HK,绿领控股集团有限公司,GREEN LEAD-NEW,HKEX,115,44.04,provisional_include,历史能源样本且当前仍正常上市,False
 600525.SH,长园科技集团股份有限公司,ST长园,SSE,116,43.98,exclude,ST/*ST排除,False
-02386.HK,中石化炼化工程(集团)股份有限公司,,HKEX,117,43.96,pending_snapshot,HKEX官方快照尚未接入,True
+02386.HK,中石化炼化工程(集团)股份有限公司,SINOPEC SEG,HKEX,117,43.96,provisional_include,历史能源样本且当前仍正常上市,False
 002911.SZ,佛燃能源集团股份有限公司,佛燃能源,SZSE,118,43.89,provisional_include,历史能源样本且当前仍正常上市,False
-00836.HK,华润电力控股有限公司,,HKEX,119,43.87,pending_snapshot,HKEX官方快照尚未接入,True
+00836.HK,华润电力控股有限公司,CHINA RES POWER,HKEX,119,43.87,provisional_include,历史能源样本且当前仍正常上市,False
 002608.SZ,江苏国信股份有限公司,江苏国信,SZSE,120,43.84,provisional_include,历史能源样本且当前仍正常上市,False
-08347.HK,F8企业(控股)集团有限公司,,HKEX,121,43.83,pending_snapshot,HKEX官方快照尚未接入,True
+08347.HK,F8企业(控股)集团有限公司,F8 ENT,HKEX,121,43.83,provisional_include,历史能源样本且当前仍正常上市,False
 002074.SZ,国轩高科股份有限公司,国轩高科,SZSE,122,43.54,provisional_include,历史能源样本且当前仍正常上市,False
-00228.HK,中国能源开发控股有限公司,,HKEX,123,43.53,pending_snapshot,HKEX官方快照尚未接入,True
-03337.HK,安东油田服务集团,,HKEX,124,43.37,pending_snapshot,HKEX官方快照尚未接入,True
-01713.HK,四川能投发展股份有限公司,,HKEX,125,43.33,pending_snapshot,HKEX官方快照尚未接入,True
+00228.HK,中国能源开发控股有限公司,CHINA ENERGY,HKEX,123,43.53,provisional_include,历史能源样本且当前仍正常上市,False
+03337.HK,安东油田服务集团,ANTON OILFIELD,HKEX,124,43.37,provisional_include,历史能源样本且当前仍正常上市,False
+01713.HK,四川能投发展股份有限公司,SICHUAN EN INV,HKEX,125,43.33,provisional_include,历史能源样本且当前仍正常上市,False
 002531.SZ,天顺风能(苏州)股份有限公司,天顺风能,SZSE,126,43.09,provisional_include,历史能源样本且当前仍正常上市,False
 600089.SH,特变电工股份有限公司,特变电工,SSE,127,43.07,provisional_include,历史能源样本且当前仍正常上市,False
 000723.SZ,山西美锦能源股份有限公司,美锦能源,SZSE,128,43.02,provisional_include,历史能源样本且当前仍正常上市,False
-08631.HK,申港控股有限公司,,HKEX,129,42.92,pending_snapshot,HKEX官方快照尚未接入,True
+08631.HK,申港控股有限公司,SUN KONG HLDGS,HKEX,129,42.92,provisional_include,历史能源样本且当前仍正常上市,False
 688006.SH,浙江杭可科技股份有限公司,杭可科技,SSE,130,42.55,provisional_include,历史能源样本且当前仍正常上市,False
 000875.SZ,吉林电力股份有限公司,电投绿能,SZSE,131,42.53,provisional_include,历史能源样本且当前仍正常上市,False
 300626.SZ,华瑞电器股份有限公司,华瑞股份,SZSE,132,42.49,provisional_include,历史能源样本且当前仍正常上市,False
 688778.SH,厦门厦钨新能源材料股份有限公司,厦钨新能,SSE,133,42.35,provisional_include,历史能源样本且当前仍正常上市,False
-00353.HK,能源国际投资控股有限公司,,HKEX,134,42.34,pending_snapshot,HKEX官方快照尚未接入,True
+00353.HK,能源国际投资控股有限公司,ENERGY INTINV,HKEX,134,42.34,provisional_include,历史能源样本且当前仍正常上市,False
 600537.SH,亿晶光电科技股份有限公司,*ST亿晶,SSE,135,42.24,exclude,ST/*ST排除,False
-01205.HK,中信资源控股有限公司,,HKEX,136,42.18,pending_snapshot,HKEX官方快照尚未接入,True
+01205.HK,中信资源控股有限公司,CITIC RESOURCES,HKEX,136,42.18,provisional_include,历史能源样本且当前仍正常上市,False
 300185.SZ,通裕重工股份有限公司,通裕重工,SZSE,137,42.17,provisional_include,历史能源样本且当前仍正常上市,False
-00346.HK,延长石油国际有限公司,,HKEX,138,42.05,pending_snapshot,HKEX官方快照尚未接入,True
-00295.HK,江山控股有限公司,,HKEX,139,41.95,pending_snapshot,HKEX官方快照尚未接入,True
+00346.HK,延长石油国际有限公司,YANCHANG PETRO,HKEX,138,42.05,provisional_include,历史能源样本且当前仍正常上市,False
+00295.HK,江山控股有限公司,KONG SUN HOLD,HKEX,139,41.95,provisional_include,历史能源样本且当前仍正常上市,False
 600011.SH,华能国际电力股份有限公司,华能国际,SSE,140,41.89,provisional_include,历史能源样本且当前仍正常上市,False
-00607.HK,丰盛控股有限公司,,HKEX,141,41.87,pending_snapshot,HKEX官方快照尚未接入,True
-01381.HK,粤丰环保电力有限公司,,HKEX,142,41.75,pending_snapshot,HKEX官方快照尚未接入,True
+00607.HK,丰盛控股有限公司,FULLSHARE,HKEX,141,41.87,provisional_include,历史能源样本且当前仍正常上市,False
+01381.HK,粤丰环保电力有限公司,,HKEX,142,41.75,manual_review,未匹配当前沪深正常上市底表,True
 688707.SH,贵州振华新材料股份有限公司,振华新材,SSE,143,41.62,provisional_include,历史能源样本且当前仍正常上市,False
-09689.HK,金泰丰国际控股有限公司,,HKEX,144,41.61,pending_snapshot,HKEX官方快照尚未接入,True
+09689.HK,金泰丰国际控股有限公司,JTF INTL,HKEX,144,41.61,provisional_include,历史能源样本且当前仍正常上市,False
 688567.SH,孚能科技(赣州)股份有限公司,孚能科技,SSE,145,41.44,provisional_include,历史能源样本且当前仍正常上市,False
 688772.SH,珠海冠宇电池股份有限公司,珠海冠宇,SSE,146,41.42,provisional_include,历史能源样本且当前仍正常上市,False
-01277.HK,力量发展集团有限公司,,HKEX,147,41.35,pending_snapshot,HKEX官方快照尚未接入,True
+01277.HK,力量发展集团有限公司,KINETIC DEV,HKEX,147,41.35,provisional_include,历史能源样本且当前仍正常上市,False
 605011.SH,杭州热电集团股份有限公司,杭州热电,SSE,148,41.25,provisional_include,历史能源样本且当前仍正常上市,False
 600483.SH,福建福能股份有限公司,福能股份,SSE,149,41.22,provisional_include,历史能源样本且当前仍正常上市,False
-00002.HK,中电控股有限公司,,HKEX,150,41.17,pending_snapshot,HKEX官方快照尚未接入,True
+00002.HK,中电控股有限公司,CLP HOLDINGS,HKEX,150,41.17,provisional_include,历史能源样本且当前仍正常上市,False
 600167.SH,联美量子股份有限公司,联美控股,SSE,151,41.06,provisional_include,历史能源样本且当前仍正常上市,False
-00650.HK,普达特科技有限公司,,HKEX,152,40.95,pending_snapshot,HKEX官方快照尚未接入,True
+00650.HK,普达特科技有限公司,PRODUCTIVE TECH,HKEX,152,40.95,provisional_include,历史能源样本且当前仍正常上市,False
 603606.SH,宁波东方电缆股份有限公司,东方电缆,SSE,153,40.91,provisional_include,历史能源样本且当前仍正常上市,False
 601808.SH,中海油田服务股份有限公司,中海油服,SSE,153,40.91,provisional_include,历史能源样本且当前仍正常上市,False
-00196.HK,宏华集团有限公司,,HKEX,154,40.57,pending_snapshot,HKEX官方快照尚未接入,True
+00196.HK,宏华集团有限公司,HONGHUA GROUP,HKEX,154,40.57,provisional_include,历史能源样本且当前仍正常上市,False
 001258.SZ,新疆立新能源股份有限公司,立新能源,SZSE,155,40.31,provisional_include,历史能源样本且当前仍正常上市,False
-01251.HK,华油能源集团有限公司,,HKEX,156,40.3,pending_snapshot,HKEX官方快照尚未接入,True
-01303.HK,汇力资源(集团)有限公司,,HKEX,157,40.24,pending_snapshot,HKEX官方快照尚未接入,True
+01251.HK,华油能源集团有限公司,SPT ENERGY,HKEX,156,40.3,provisional_include,历史能源样本且当前仍正常上市,False
+01303.HK,汇力资源(集团)有限公司,HUILI RES,HKEX,157,40.24,provisional_include,历史能源样本且当前仍正常上市,False
 601991.SH,大唐国际发电股份有限公司,大唐发电,SSE,158,40.11,provisional_include,历史能源样本且当前仍正常上市,False
 601139.SH,深圳市燃气集团股份有限公司,深圳燃气,SSE,159,40.04,provisional_include,历史能源样本且当前仍正常上市,False
-01393.HK,恒鼎实业国际发展有限公司,,HKEX,160,39.71,pending_snapshot,HKEX官方快照尚未接入,True
+01393.HK,恒鼎实业国际发展有限公司,HIDILI INDUSTRY,HKEX,160,39.71,provisional_include,历史能源样本且当前仍正常上市,False
 001208.SZ,湖南华菱线缆股份有限公司,华菱线缆,SZSE,161,39.63,provisional_include,历史能源样本且当前仍正常上市,False
-03800.HK,协鑫科技控股有限公司,,HKEX,162,39.46,pending_snapshot,HKEX官方快照尚未接入,True
+03800.HK,协鑫科技控股有限公司,GCL TECH,HKEX,162,39.46,provisional_include,历史能源样本且当前仍正常上市,False
 002340.SZ,格林美股份有限公司,格林美,SZSE,163,39.44,provisional_include,历史能源样本且当前仍正常上市,False
 600688.SH,中国石化上海石油化工股份有限公司,上海石化,SSE,164,39.34,provisional_include,历史能源样本且当前仍正常上市,False
 300450.SZ,无锡先导智能装备股份有限公司,先导智能,SZSE,165,39.22,provisional_include,历史能源样本且当前仍正常上市,False
@@ -173,67 +173,67 @@
 600795.SH,国电电力发展股份有限公司,国电电力,SSE,170,38.77,provisional_include,历史能源样本且当前仍正常上市,False
 600505.SH,四川西昌电力股份有限公司,西昌电力,SSE,171,38.73,provisional_include,历史能源样本且当前仍正常上市,False
 300919.SZ,中伟新材料股份有限公司,中伟新材,SZSE,172,38.7,provisional_include,历史能源样本且当前仍正常上市,False
-01101.HK,中国华荣能源股份有限公司,,HKEX,173,38.63,pending_snapshot,HKEX官方快照尚未接入,True
+01101.HK,中国华荣能源股份有限公司,HUARONG ENERGY,HKEX,173,38.63,provisional_include,历史能源样本且当前仍正常上市,False
 600863.SH,内蒙古蒙电华能热电股份有限公司,华能蒙电,SSE,174,38.58,provisional_include,历史能源样本且当前仍正常上市,False
 600917.SH,重庆燃气集团股份有限公司,重庆燃气,SSE,175,38.52,provisional_include,历史能源样本且当前仍正常上市,False
 300376.SZ,易事特集团股份有限公司,易事特,SZSE,176,38.48,provisional_include,历史能源样本且当前仍正常上市,False
 300751.SZ,苏州迈为科技股份有限公司,迈为股份,SZSE,177,38.21,provisional_include,历史能源样本且当前仍正常上市,False
 600027.SH,华电国际电力股份有限公司,华电国际,SSE,178,38.2,provisional_include,历史能源样本且当前仍正常上市,False
-08270.HK,中国煤层气集团有限公司,,HKEX,179,38.11,pending_snapshot,HKEX官方快照尚未接入,True
-06885.HK,河南金马能源股份有限公司,,HKEX,180,37.86,pending_snapshot,HKEX官方快照尚未接入,True
+08270.HK,中国煤层气集团有限公司,CHINA CBM,HKEX,179,38.11,provisional_include,历史能源样本且当前仍正常上市,False
+06885.HK,河南金马能源股份有限公司,JINMA ENERGY,HKEX,180,37.86,provisional_include,历史能源样本且当前仍正常上市,False
 601918.SH,中煤新集能源股份有限公司,新集能源,SSE,181,37.71,provisional_include,历史能源样本且当前仍正常上市,False
-00042.HK,东北电气发展股份有限公司,,HKEX,182,37.59,pending_snapshot,HKEX官方快照尚未接入,True
-00276.HK,蒙古能源有限公司,,HKEX,183,37.58,pending_snapshot,HKEX官方快照尚未接入,True
-02798.HK,久泰邦达能源控股有限公司,,HKEX,184,37.4,pending_snapshot,HKEX官方快照尚未接入,True
+00042.HK,东北电气发展股份有限公司,NE ELECTRIC,HKEX,182,37.59,provisional_include,历史能源样本且当前仍正常上市,False
+00276.HK,蒙古能源有限公司,MONGOLIA ENERGY,HKEX,183,37.58,provisional_include,历史能源样本且当前仍正常上市,False
+02798.HK,久泰邦达能源控股有限公司,PER ENERGY,HKEX,184,37.4,provisional_include,历史能源样本且当前仍正常上市,False
 600025.SH,华能澜沧江水电股份有限公司,华能水电,SSE,185,37.38,provisional_include,历史能源样本且当前仍正常上市,False
 300207.SZ,欣旺达电子股份有限公司,欣旺达,SZSE,186,36.97,provisional_include,历史能源样本且当前仍正常上市,False
 688819.SH,天能电池集团股份有限公司,天能股份,SSE,187,36.87,provisional_include,历史能源样本且当前仍正常上市,False
-00866.HK,中国秦发集团有限公司,,HKEX,188,36.82,pending_snapshot,HKEX官方快照尚未接入,True
-01080.HK,胜利油气管道控股有限公司,,HKEX,189,36.78,pending_snapshot,HKEX官方快照尚未接入,True
-00065.HK,弘海高新资源有限公司,,HKEX,190,36.72,pending_snapshot,HKEX官方快照尚未接入,True
-01811.HK,中国广核新能源控股有限公司,,HKEX,191,36.71,pending_snapshot,HKEX官方快照尚未接入,True
+00866.HK,中国秦发集团有限公司,CHINA QINFA,HKEX,188,36.82,provisional_include,历史能源样本且当前仍正常上市,False
+01080.HK,胜利油气管道控股有限公司,SHENGLI PIPE,HKEX,189,36.78,provisional_include,历史能源样本且当前仍正常上市,False
+00065.HK,弘海高新资源有限公司,GRAND OCEAN AR,HKEX,190,36.72,provisional_include,历史能源样本且当前仍正常上市,False
+01811.HK,中国广核新能源控股有限公司,CGN NEW ENERGY,HKEX,191,36.71,provisional_include,历史能源样本且当前仍正常上市,False
 002893.SZ,北京京能热力股份有限公司,京能热力,SZSE,192,36.56,provisional_include,历史能源样本且当前仍正常上市,False
-00645.HK,安域亚洲有限公司,,HKEX,193,36.38,pending_snapshot,HKEX官方快照尚未接入,True
+00645.HK,安域亚洲有限公司,ARES ASIA,HKEX,193,36.38,provisional_include,历史能源样本且当前仍正常上市,False
 601619.SH,宁夏嘉泽新能源股份有限公司,嘉泽新能,SSE,194,36.3,provisional_include,历史能源样本且当前仍正常上市,False
 300393.SZ,苏州中来光伏新材股份有限公司,中来股份,SZSE,195,36.12,provisional_include,历史能源样本且当前仍正常上市,False
 600268.SH,国电南京自动化股份有限公司,国电南自,SSE,196,36.08,provisional_include,历史能源样本且当前仍正常上市,False
 688779.SH,湖南长远锂科股份有限公司,五矿新能,SSE,197,36.03,provisional_include,历史能源样本且当前仍正常上市,False
 002812.SZ,云南恩捷新材料股份有限公司,恩捷股份,SZSE,198,35.84,provisional_include,历史能源样本且当前仍正常上市,False
-00451.HK,协鑫新能源控股有限公司,,HKEX,199,35.71,pending_snapshot,HKEX官方快照尚未接入,True
-01940.HK,CHINA GAS INDUSTRY INVESTMENT HOLDINGS CO. LTD.,,HKEX,200,35.68,pending_snapshot,HKEX官方快照尚未接入,True
+00451.HK,协鑫新能源控股有限公司,DYNASTY DIGITAL,HKEX,199,35.71,provisional_include,历史能源样本且当前仍正常上市,False
+01940.HK,CHINA GAS INDUSTRY INVESTMENT HOLDINGS CO. LTD.,CGII HLDGS,HKEX,200,35.68,provisional_include,历史能源样本且当前仍正常上市,False
 600644.SH,乐山电力股份有限公司,乐山电力,SSE,201,35.39,provisional_include,历史能源样本且当前仍正常上市,False
-00975.HK,MONGOLIAN MINING CORPORATION,,HKEX,202,35.37,pending_snapshot,HKEX官方快照尚未接入,True
+00975.HK,MONGOLIAN MINING CORPORATION,MONGOL MINING,HKEX,202,35.37,provisional_include,历史能源样本且当前仍正常上市,False
 688663.SH,新风光电子科技股份有限公司,DR新风光,SSE,203,35.27,provisional_include,历史能源样本且当前仍正常上市,False
-00702.HK,中国油气控股有限公司,,HKEX,204,35.1,pending_snapshot,HKEX官方快照尚未接入,True
+00702.HK,中国油气控股有限公司,SINO OIL & GAS,HKEX,204,35.1,provisional_include,历史能源样本且当前仍正常上市,False
 688681.SH,山东科汇电力自动化股份有限公司,科汇股份,SSE,205,35.08,provisional_include,历史能源样本且当前仍正常上市,False
-01738.HK,飞尚无烟煤资源有限公司,,HKEX,206,34.91,pending_snapshot,HKEX官方快照尚未接入,True
+01738.HK,飞尚无烟煤资源有限公司,FS ANTHRACITE,HKEX,206,34.91,provisional_include,历史能源样本且当前仍正常上市,False
 600256.SH,广汇能源股份有限公司,广汇能源,SSE,207,34.9,provisional_include,历史能源样本且当前仍正常上市,False
 000703.SZ,恒逸石化股份有限公司,恒逸石化,SZSE,208,34.62,provisional_include,历史能源样本且当前仍正常上市,False
 002560.SZ,河南通达电缆股份有限公司,通达股份,SZSE,209,34.56,provisional_include,历史能源样本且当前仍正常上市,False
 688560.SH,明冠新材料股份有限公司,明冠新材,SSE,210,34.54,provisional_include,历史能源样本且当前仍正常上市,False
-03303.HK,巨涛海洋石油服务有限公司,,HKEX,211,34.49,pending_snapshot,HKEX官方快照尚未接入,True
+03303.HK,巨涛海洋石油服务有限公司,JUTAL OIL SER,HKEX,211,34.49,provisional_include,历史能源样本且当前仍正常上市,False
 600578.SH,北京京能电力股份有限公司,京能电力,SSE,212,34.48,provisional_include,历史能源样本且当前仍正常上市,False
 000966.SZ,长源电力股份有限公司,长源电力,SZSE,213,34.27,provisional_include,历史能源样本且当前仍正常上市,False
-02728.HK,金泰能源控股有限公司,,HKEX,214,34.1,pending_snapshot,HKEX官方快照尚未接入,True
+02728.HK,金泰能源控股有限公司,JINTAI ENERGY H,HKEX,214,34.1,provisional_include,历史能源样本且当前仍正常上市,False
 600101.SH,四川明星电力股份有限公司,明星电力,SSE,215,34.04,provisional_include,历史能源样本且当前仍正常上市,False
-01608.HK,伟能集团国际控股有限公司,,HKEX,216,34.03,pending_snapshot,HKEX官方快照尚未接入,True
+01608.HK,伟能集团国际控股有限公司,VPOWER GROUP,HKEX,216,34.03,provisional_include,历史能源样本且当前仍正常上市,False
 600346.SH,恒力石化股份有限公司,恒力石化,SSE,217,34.01,provisional_include,历史能源样本且当前仍正常上市,False
 300037.SZ,深圳新宙邦科技股份有限公司,新宙邦,SZSE,218,33.89,provisional_include,历史能源样本且当前仍正常上市,False
 600482.SH,中国船舶重工集团动力股份有限公司,中国动力,SSE,219,33.72,provisional_include,历史能源样本且当前仍正常上市,False
-02178.HK,百勤油田服务有限公司,,HKEX,220,33.63,pending_snapshot,HKEX官方快照尚未接入,True
+02178.HK,百勤油田服务有限公司,PETRO-KING,HKEX,220,33.63,provisional_include,历史能源样本且当前仍正常上市,False
 002039.SZ,贵州黔源电力股份有限公司,黔源电力,SZSE,221,33.46,provisional_include,历史能源样本且当前仍正常上市,False
 605090.SH,江西九丰能源股份有限公司,九丰能源,SSE,222,32.93,provisional_include,历史能源样本且当前仍正常上市,False
-08536.HK,TL Natural Gas Holdings Limited,,HKEX,223,32.9,pending_snapshot,HKEX官方快照尚未接入,True
-00968.HK,信义光能控股有限公司,,HKEX,224,32.59,pending_snapshot,HKEX官方快照尚未接入,True
+08536.HK,TL Natural Gas Holdings Limited,TL NATURAL GAS,HKEX,223,32.9,provisional_include,历史能源样本且当前仍正常上市,False
+00968.HK,信义光能控股有限公司,XINYI SOLAR,HKEX,224,32.59,provisional_include,历史能源样本且当前仍正常上市,False
 600780.SH,山西通宝能源股份有限公司,XD通宝能,SSE,225,32.41,provisional_include,历史能源样本且当前仍正常上市,False
 688226.SH,威腾电气集团股份有限公司,威腾电气,SSE,226,32.08,provisional_include,历史能源样本且当前仍正常上市,False
-01229.HK,南南资源实业有限公司,,HKEX,227,32.03,pending_snapshot,HKEX官方快照尚未接入,True
+01229.HK,南南资源实业有限公司,NAN NAN RES,HKEX,227,32.03,provisional_include,历史能源样本且当前仍正常上市,False
 002490.SZ,山东墨龙石油机械股份有限公司,山东墨龙,SZSE,228,32,provisional_include,历史能源样本且当前仍正常上市,False
 600023.SH,浙江浙能电力股份有限公司,浙能电力,SSE,229,31.65,provisional_include,历史能源样本且当前仍正常上市,False
 601311.SH,骆驼集团股份有限公司,骆驼股份,SSE,230,31.52,provisional_include,历史能源样本且当前仍正常上市,False
-00600.HK,中国基建投资有限公司,,HKEX,231,31.39,pending_snapshot,HKEX官方快照尚未接入,True
+00600.HK,中国基建投资有限公司,AXERA,HKEX,231,31.39,provisional_include,历史能源样本且当前仍正常上市,False
 600452.SH,重庆涪陵电力实业股份有限公司,涪陵电力,SSE,232,31.23,provisional_include,历史能源样本且当前仍正常上市,False
-#N/A,中国港能智慧能源集团有限公司,,UNKNOWN,233,30.87,manual_review,证券代码缺失或格式异常,True
+00931.HK,中国港能智慧能源集团有限公司,CHINA HK POWER,HKEX,233,30.87,provisional_include,历史能源样本且当前仍正常上市,False
 601865.SH,福莱特玻璃集团股份有限公司,福莱特,SSE,234,30.86,provisional_include,历史能源样本且当前仍正常上市,False
 000720.SZ,山东新能泰山发电股份有限公司,新能泰山,SZSE,235,30.85,provisional_include,历史能源样本且当前仍正常上市,False
 600642.SH,申能股份有限公司,申能股份,SSE,236,30.6,provisional_include,历史能源样本且当前仍正常上市,False
@@ -259,33 +259,33 @@
 000937.SZ,冀中能源股份有限公司,冀中能源,SZSE,256,28.52,provisional_include,历史能源样本且当前仍正常上市,False
 002350.SZ,北京科锐配电自动化股份有限公司,北京科锐,SZSE,257,28.31,provisional_include,历史能源样本且当前仍正常上市,False
 603577.SH,青岛汇金通电力设备股份有限公司,汇金通,SSE,258,28.29,provisional_include,历史能源样本且当前仍正常上市,False
-01938.HK,珠江石油天然气钢管控股有限公司,,HKEX,259,28.23,pending_snapshot,HKEX官方快照尚未接入,True
+01938.HK,珠江石油天然气钢管控股有限公司,CHU KONG PIPE,HKEX,259,28.23,provisional_include,历史能源样本且当前仍正常上市,False
 600468.SH,天津百利特精电气股份有限公司,百利电气,SSE,260,28.17,provisional_include,历史能源样本且当前仍正常上市,False
 605196.SH,河北华通线缆集团股份有限公司,华通线缆,SSE,261,27.86,provisional_include,历史能源样本且当前仍正常上市,False
 603861.SH,广州白云电器设备股份有限公司,白云电器,SSE,262,27.67,provisional_include,历史能源样本且当前仍正常上市,False
 603320.SH,浙江迪贝电气股份有限公司,迪贝电气,SSE,263,27.64,provisional_include,历史能源样本且当前仍正常上市,False
 002128.SZ,内蒙古电投能源股份有限公司,电投能源,SZSE,264,27.63,provisional_include,历史能源样本且当前仍正常上市,False
-00006.HK,电能实业有限公司,,HKEX,265,27.62,pending_snapshot,HKEX官方快照尚未接入,True
-01555.HK,MI能源控股有限公司,,HKEX,266,27.59,pending_snapshot,HKEX官方快照尚未接入,True
+00006.HK,电能实业有限公司,POWER ASSETS,HKEX,265,27.62,provisional_include,历史能源样本且当前仍正常上市,False
+01555.HK,MI能源控股有限公司,MIE HOLDINGS,HKEX,266,27.59,provisional_include,历史能源样本且当前仍正常上市,False
 300772.SZ,运达能源科技集团股份有限公司,运达股份,SZSE,267,27.54,provisional_include,历史能源样本且当前仍正常上市,False
 600116.SH,重庆三峡水利电力(集团)股份有限公司,三峡水利,SSE,268,27.37,provisional_include,历史能源样本且当前仍正常上市,False
 600903.SH,贵州燃气集团股份有限公司,贵州燃气,SSE,269,27.31,provisional_include,历史能源样本且当前仍正常上市,False
 600884.SH,宁波杉杉股份有限公司,杉杉股份,SSE,270,27.3,provisional_include,历史能源样本且当前仍正常上市,False
 000819.SZ,岳阳兴长石化股份有限公司,岳阳兴长,SZSE,271,27.24,provisional_include,历史能源样本且当前仍正常上市,False
-00091.HK,金禧国际控股集团有限公司,,HKEX,272,27.18,pending_snapshot,HKEX官方快照尚未接入,True
+00091.HK,金禧国际控股集团有限公司,,HKEX,272,27.18,manual_review,未匹配当前沪深正常上市底表,True
 002056.SZ,横店集团东磁股份有限公司,横店东磁,SZSE,273,27.14,provisional_include,历史能源样本且当前仍正常上市,False
 000539.SZ,广东电力发展股份有限公司,粤电力Ａ,SZSE,274,26.71,provisional_include,历史能源样本且当前仍正常上市,False
 601616.SH,上海广电电气(集团)股份有限公司,广电电气,SSE,275,26.49,provisional_include,历史能源样本且当前仍正常上市,False
 600405.SH,北京动力源科技股份有限公司,动力源,SSE,276,26.41,provisional_include,历史能源样本且当前仍正常上市,False
-00819.HK,天能动力国际有限公司,,HKEX,277,26.22,pending_snapshot,HKEX官方快照尚未接入,True
+00819.HK,天能动力国际有限公司,TIANNENG POWER,HKEX,277,26.22,provisional_include,历史能源样本且当前仍正常上市,False
 600163.SH,中闽能源股份有限公司,中闽能源,SSE,278,26.17,provisional_include,历史能源样本且当前仍正常上市,False
 603706.SH,新疆东方环宇燃气股份有限公司,东方环宇,SSE,279,26.13,provisional_include,历史能源样本且当前仍正常上市,False
 603618.SH,杭州电缆股份有限公司,杭电股份,SSE,280,26.1,provisional_include,历史能源样本且当前仍正常上市,False
 688616.SH,杭州西力智能科技股份有限公司,西力科技,SSE,281,25.99,provisional_include,历史能源样本且当前仍正常上市,False
 688116.SH,江苏天奈科技股份有限公司,天奈科技,SSE,282,25.73,provisional_include,历史能源样本且当前仍正常上市,False
 600508.SH,上海大屯能源股份有限公司,上海能源,SSE,283,25.6,provisional_include,历史能源样本且当前仍正常上市,False
-03395.HK,吉星新能源有限责任公司,,HKEX,284,25.45,pending_snapshot,HKEX官方快照尚未接入,True
-00689.HK,长盈集团(控股)有限公司,,HKEX,285,25.35,pending_snapshot,HKEX官方快照尚未接入,True
+03395.HK,吉星新能源有限责任公司,JX ENERGY,HKEX,284,25.45,provisional_include,历史能源样本且当前仍正常上市,False
+00689.HK,长盈集团(控股)有限公司,EPI (HOLDINGS),HKEX,285,25.35,provisional_include,历史能源样本且当前仍正常上市,False
 688517.SH,金冠电气股份有限公司,金冠电气,SSE,286,25.12,provisional_include,历史能源样本且当前仍正常上市,False
 002986.SZ,湖南宇新能源科技股份有限公司,宇新股份,SZSE,287,24.98,provisional_include,历史能源样本且当前仍正常上市,False
 600744.SH,大唐华银电力股份有限公司,华银电力,SSE,288,24.6,provisional_include,历史能源样本且当前仍正常上市,False
@@ -309,7 +309,7 @@
 603031.SH,安徽安孚电池科技股份有限公司,安孚科技,SSE,306,22.52,provisional_include,历史能源样本且当前仍正常上市,False
 688503.SH,常州聚和新材料股份有限公司,聚和材料,SSE,307,22.28,provisional_include,历史能源样本且当前仍正常上市,False
 003022.SZ,联泓新材料科技股份有限公司,联泓新科,SZSE,308,22.22,provisional_include,历史能源样本且当前仍正常上市,False
-834770.BJ,浙江艾能聚光伏科技股份有限公司,,BSE,309,22,pending_snapshot,BSE官方快照尚未接入,True
+920770.BJ,浙江艾能聚光伏科技股份有限公司,艾能聚,BSE,309,22,provisional_include,历史能源样本且当前仍正常上市,False
 603105.SH,浙江芯能光伏科技股份有限公司,芯能科技,SSE,310,21.92,provisional_include,历史能源样本且当前仍正常上市,False
 603063.SH,深圳市禾望电气股份有限公司,禾望电气,SSE,311,21.83,provisional_include,历史能源样本且当前仍正常上市,False
 603353.SH,湖南和顺石油股份有限公司,和顺石油,SSE,312,21.81,provisional_include,历史能源样本且当前仍正常上市,False
@@ -325,8 +325,8 @@
 600395.SH,贵州盘江精煤股份有限公司,盘江股份,SSE,322,21.42,provisional_include,历史能源样本且当前仍正常上市,False
 688597.SH,北京煜邦电力技术股份有限公司,煜邦电力,SSE,323,21.35,provisional_include,历史能源样本且当前仍正常上市,False
 605117.SH,宁波德业科技股份有限公司,德业股份,SSE,324,21.3,provisional_include,历史能源样本且当前仍正常上市,False
-830809.BJ,贵州安达科技能源股份有限公司,,BSE,325,21.3,pending_snapshot,BSE官方快照尚未接入,True
-835237.BJ,力佳电源科技(湖北)股份有限公司,,BSE,326,21.26,pending_snapshot,BSE官方快照尚未接入,True
+920809.BJ,贵州安达科技能源股份有限公司,安达科技,BSE,325,21.3,provisional_include,历史能源样本且当前仍正常上市,False
+920237.BJ,力佳电源科技(湖北)股份有限公司,力佳科技,BSE,326,21.26,provisional_include,历史能源样本且当前仍正常上市,False
 002533.SZ,金杯电工股份有限公司,金杯电工,SZSE,327,21.26,provisional_include,历史能源样本且当前仍正常上市,False
 601567.SH,宁波三星医疗电气股份有限公司,三星电气,SSE,328,21.25,provisional_include,历史能源样本且当前仍正常上市,False
 001269.SZ,内蒙古欧晶科技股份有限公司,欧晶科技,SZSE,329,21.25,provisional_include,历史能源样本且当前仍正常上市,False
@@ -341,12 +341,12 @@
 300332.SZ,天壕能源股份有限公司,天壕能源,SZSE,338,20.83,provisional_include,历史能源样本且当前仍正常上市,False
 605169.SH,新疆洪通燃气股份有限公司,洪通燃气,SSE,339,20.81,provisional_include,历史能源样本且当前仍正常上市,False
 605580.SH,恒盛能源股份有限公司,恒盛能源,SSE,340,20.79,provisional_include,历史能源样本且当前仍正常上市,False
-831010.BJ,宁夏凯添燃气发展股份有限公司,,BSE,341,20.78,pending_snapshot,BSE官方快照尚未接入,True
+920010.BJ,宁夏凯添燃气发展股份有限公司,凯添燃气,BSE,341,20.78,provisional_include,历史能源样本且当前仍正常上市,False
 603619.SH,中曼石油天然气集团股份有限公司,中曼石油,SSE,342,20.78,provisional_include,历史能源样本且当前仍正常上市,False
 300286.SZ,安科瑞电气股份有限公司,安科瑞,SZSE,343,20.77,provisional_include,历史能源样本且当前仍正常上市,False
 605162.SH,浙江新中港热电股份有限公司,新中港,SSE,344,20.77,provisional_include,历史能源样本且当前仍正常上市,False
 688598.SH,湖南金博碳素股份有限公司,金博股份,SSE,345,20.71,provisional_include,历史能源样本且当前仍正常上市,False
-834682.BJ,宁波球冠电缆股份有限公司,,BSE,346,20.68,pending_snapshot,BSE官方快照尚未接入,True
+920682.BJ,宁波球冠电缆股份有限公司,球冠电缆,BSE,346,20.68,provisional_include,历史能源样本且当前仍正常上市,False
 688556.SH,青岛高测科技股份有限公司,高测股份,SSE,347,20.67,provisional_include,历史能源样本且当前仍正常上市,False
 002850.SZ,深圳市科达利实业股份有限公司,科达利,SZSE,348,20.64,provisional_include,历史能源样本且当前仍正常上市,False
 600681.SH,百川能源股份有限公司,百川能源,SSE,349,20.64,provisional_include,历史能源样本且当前仍正常上市,False
@@ -354,9 +354,9 @@
 603728.SH,上海鸣志电器股份有限公司,鸣志电器,SSE,351,20.57,provisional_include,历史能源样本且当前仍正常上市,False
 600577.SH,铜陵精达特种电磁线股份有限公司,精达股份,SSE,352,20.56,provisional_include,历史能源样本且当前仍正常上市,False
 000593.SZ,德龙汇能集团股份有限公司,德龙汇能,SZSE,353,20.54,provisional_include,历史能源样本且当前仍正常上市,False
-832110.BJ,珠海雷特科技股份有限公司,,BSE,354,20.51,pending_snapshot,BSE官方快照尚未接入,True
+920110.BJ,珠海雷特科技股份有限公司,雷特科技,BSE,354,20.51,provisional_include,历史能源样本且当前仍正常上市,False
 000591.SZ,中节能太阳能股份有限公司,太阳能,SZSE,355,20.5,provisional_include,历史能源样本且当前仍正常上市,False
-835185.BJ,贝特瑞新材料集团股份有限公司,,BSE,356,20.49,pending_snapshot,BSE官方快照尚未接入,True
+920185.BJ,贝特瑞新材料集团股份有限公司,贝特瑞,BSE,356,20.49,provisional_include,历史能源样本且当前仍正常上市,False
 301439.SZ,威海市泓淋电力技术股份有限公司,泓淋电力,SZSE,357,20.46,provisional_include,历史能源样本且当前仍正常上市,False
 688275.SH,湖北万润新能源科技股份有限公司,万润新能,SSE,358,20.43,provisional_include,历史能源样本且当前仍正常上市,False
 600725.SH,云南云维股份有限公司,云维股份,SSE,359,20.39,provisional_include,历史能源样本且当前仍正常上市,False
@@ -383,7 +383,7 @@
 688348.SH,昱能科技股份有限公司,昱能科技,SSE,380,19.91,provisional_include,历史能源样本且当前仍正常上市,False
 000600.SZ,河北建投能源投资股份有限公司,建投能源,SZSE,381,19.91,provisional_include,历史能源样本且当前仍正常上市,False
 301157.SZ,杭州华塑科技股份有限公司,华塑科技,SZSE,382,19.88,provisional_include,历史能源样本且当前仍正常上市,False
-839167.BJ,同享(苏州)电子材料科技股份有限公司,,BSE,383,19.87,pending_snapshot,BSE官方快照尚未接入,True
+920167.BJ,同享(苏州)电子材料科技股份有限公司,同享科技,BSE,383,19.87,provisional_include,历史能源样本且当前仍正常上市,False
 002953.SZ,广东日丰电缆股份有限公司,日丰股份,SZSE,384,19.86,provisional_include,历史能源样本且当前仍正常上市,False
 002276.SZ,浙江万马股份有限公司,万马股份,SZSE,385,19.86,provisional_include,历史能源样本且当前仍正常上市,False
 301222.SZ,浙江恒威电池股份有限公司,浙江恒威,SZSE,386,19.85,provisional_include,历史能源样本且当前仍正常上市,False
@@ -399,7 +399,7 @@
 002169.SZ,广州智光电气股份有限公司,智光电气,SZSE,396,19.65,provisional_include,历史能源样本且当前仍正常上市,False
 002259.SZ,四川升达林业产业股份有限公司,升达林业,SZSE,397,19.65,provisional_include,历史能源样本且当前仍正常上市,False
 300360.SZ,杭州炬华科技股份有限公司,炬华科技,SZSE,398,19.61,provisional_include,历史能源样本且当前仍正常上市,False
-833914.BJ,江苏远航精密合金科技股份有限公司,,BSE,399,19.58,pending_snapshot,BSE官方快照尚未接入,True
+920914.BJ,江苏远航精密合金科技股份有限公司,远航精密,BSE,399,19.58,provisional_include,历史能源样本且当前仍正常上市,False
 300438.SZ,广州鹏辉能源科技股份有限公司,鹏辉能源,SZSE,400,19.57,provisional_include,历史能源样本且当前仍正常上市,False
 002245.SZ,江苏蔚蓝锂芯股份有限公司,蔚蓝锂芯,SZSE,401,19.56,provisional_include,历史能源样本且当前仍正常上市,False
 000049.SZ,深圳市德赛电池科技股份有限公司,德赛电池,SZSE,402,19.56,provisional_include,历史能源样本且当前仍正常上市,False
@@ -414,11 +414,11 @@
 000554.SZ,中国石化山东泰山石油股份有限公司,泰山石油,SZSE,411,19.44,provisional_include,历史能源样本且当前仍正常上市,False
 603097.SH,江苏华辰变压器股份有限公司,江苏华辰,SSE,412,19.43,provisional_include,历史能源样本且当前仍正常上市,False
 603312.SH,苏州西典新能源电气股份有限公司,西典新能,SSE,413,19.38,provisional_include,历史能源样本且当前仍正常上市,False
-836414.BJ,上海欧普泰科技创业股份有限公司,,BSE,414,19.36,pending_snapshot,BSE官方快照尚未接入,True
-833523.BJ,惠州市惠德瑞锂电科技股份有限公司,,BSE,415,19.33,pending_snapshot,BSE官方快照尚未接入,True
+920414.BJ,上海欧普泰科技创业股份有限公司,欧普泰,BSE,414,19.36,provisional_include,历史能源样本且当前仍正常上市,False
+920523.BJ,惠州市惠德瑞锂电科技股份有限公司,德瑞锂电,BSE,415,19.33,provisional_include,历史能源样本且当前仍正常上市,False
 002527.SZ,上海新时达电气股份有限公司,新时达,SZSE,416,19.29,provisional_include,历史能源样本且当前仍正常上市,False
 000791.SZ,甘肃电投能源发展股份有限公司,甘肃能源,SZSE,417,19.28,provisional_include,历史能源样本且当前仍正常上市,False
-835985.BJ,唐山海泰新能科技股份有限公司,,BSE,418,19.27,pending_snapshot,BSE官方快照尚未接入,True
+920985.BJ,唐山海泰新能科技股份有限公司,海泰新能,BSE,418,19.27,provisional_include,历史能源样本且当前仍正常上市,False
 603218.SH,日月重工股份有限公司,日月股份,SSE,419,19.26,provisional_include,历史能源样本且当前仍正常上市,False
 001283.SZ,深圳市豪鹏科技股份有限公司,豪鹏科技,SZSE,420,19.26,provisional_include,历史能源样本且当前仍正常上市,False
 600110.SH,诺德新材料股份有限公司,诺德股份,SSE,421,19.25,provisional_include,历史能源样本且当前仍正常上市,False
@@ -427,7 +427,7 @@
 301291.SZ,广东明阳电气股份有限公司,明阳电气,SZSE,424,19.2,provisional_include,历史能源样本且当前仍正常上市,False
 301012.SZ,江苏扬电科技股份有限公司,扬电科技,SZSE,425,19.19,provisional_include,历史能源样本且当前仍正常上市,False
 002028.SZ,思源电气股份有限公司,思源电气,SZSE,426,19.18,provisional_include,历史能源样本且当前仍正常上市,False
-831627.BJ,广东力王新能源股份有限公司,,BSE,427,19.17,pending_snapshot,BSE官方快照尚未接入,True
+920627.BJ,广东力王新能源股份有限公司,力王股份,BSE,427,19.17,provisional_include,历史能源样本且当前仍正常上市,False
 301063.SZ,张家港海锅新能源装备股份有限公司,海锅股份,SZSE,428,19.16,provisional_include,历史能源样本且当前仍正常上市,False
 000899.SZ,江西赣能股份有限公司,赣能股份,SZSE,429,19.15,provisional_include,历史能源样本且当前仍正常上市,False
 301278.SZ,苏州快可光伏电子股份有限公司,快可电子,SZSE,430,19.14,provisional_include,历史能源样本且当前仍正常上市,False
@@ -435,34 +435,34 @@
 000407.SZ,山东胜利股份有限公司,胜利股份,SZSE,432,19.12,provisional_include,历史能源样本且当前仍正常上市,False
 600241.SH,辽宁时代万恒股份有限公司,时代万恒,SSE,433,19.11,provisional_include,历史能源样本且当前仍正常上市,False
 603212.SH,苏州赛伍应用技术股份有限公司,赛伍技术,SSE,434,19.11,provisional_include,历史能源样本且当前仍正常上市,False
-831152.BJ,昆明理工恒达科技股份有限公司,,BSE,435,19.08,pending_snapshot,BSE官方快照尚未接入,True
+920152.BJ,昆明理工恒达科技股份有限公司,昆工科技,BSE,435,19.08,provisional_include,历史能源样本且当前仍正常上市,False
 300776.SZ,武汉帝尔激光科技股份有限公司,帝尔激光,SZSE,436,19.07,provisional_include,历史能源样本且当前仍正常上市,False
 301511.SZ,九江德福科技股份有限公司,德福科技,SZSE,437,19.07,provisional_include,历史能源样本且当前仍正常上市,False
 600478.SH,湖南科力远新能源股份有限公司,科力远,SSE,438,19.07,provisional_include,历史能源样本且当前仍正常上市,False
 300265.SZ,江苏通光电子线缆股份有限公司,通光线缆,SZSE,439,19.07,provisional_include,历史能源样本且当前仍正常上市,False
 688551.SH,科威尔技术股份有限公司,科威尔,SSE,440,19.03,provisional_include,历史能源样本且当前仍正常上市,False
 600481.SH,双良节能系统股份有限公司,双良节能,SSE,441,19.02,provisional_include,历史能源样本且当前仍正常上市,False
-830779.BJ,武汉市蓝电电子股份有限公司,,BSE,442,19.01,pending_snapshot,BSE官方快照尚未接入,True
+920779.BJ,武汉市蓝电电子股份有限公司,武汉蓝电,BSE,442,19.01,provisional_include,历史能源样本且当前仍正常上市,False
 301210.SZ,无锡市金杨新材料股份有限公司,金杨精密,SZSE,443,18.99,provisional_include,历史能源样本且当前仍正常上市,False
 600207.SH,河南安彩高科股份有限公司,安彩高科,SSE,444,18.99,provisional_include,历史能源样本且当前仍正常上市,False
-02012.HK,阳光油砂有限公司,,HKEX,445,18.98,pending_snapshot,HKEX官方快照尚未接入,True
+02012.HK,阳光油砂有限公司,SUNSHINE OIL,HKEX,445,18.98,provisional_include,历史能源样本且当前仍正常上市,False
 002623.SZ,常州亚玛顿股份有限公司,亚玛顿,SZSE,446,18.95,provisional_include,历史能源样本且当前仍正常上市,False
 002015.SZ,协鑫能源科技股份有限公司,协鑫能科,SZSE,447,18.95,provisional_include,历史能源样本且当前仍正常上市,False
 603344.SH,星德胜科技(苏州)股份有限公司,星德胜,SSE,448,18.94,provisional_include,历史能源样本且当前仍正常上市,False
-834062.BJ,科润智能控制股份有限公司,,BSE,449,18.94,pending_snapshot,BSE官方快照尚未接入,True
+920062.BJ,科润智能控制股份有限公司,科润智控,BSE,449,18.94,provisional_include,历史能源样本且当前仍正常上市,False
 600758.SH,辽宁能源煤电产业股份有限公司,辽宁能源,SSE,450,18.92,provisional_include,历史能源样本且当前仍正常上市,False
-831396.BJ,许昌智能继电器股份有限公司,,BSE,451,18.91,pending_snapshot,BSE官方快照尚未接入,True
-01799.HK,新特能源股份有限公司,,HKEX,452,18.9,pending_snapshot,HKEX官方快照尚未接入,True
-870299.BJ,南京灿能电力自动化股份有限公司,,BSE,453,18.89,pending_snapshot,BSE官方快照尚未接入,True
+920496.BJ,许昌智能继电器股份有限公司,许昌智能,BSE,451,18.91,provisional_include,历史能源样本且当前仍正常上市,False
+01799.HK,新特能源股份有限公司,XINTE ENERGY,HKEX,452,18.9,provisional_include,历史能源样本且当前仍正常上市,False
+920299.BJ,南京灿能电力自动化股份有限公司,灿能电力,BSE,453,18.89,provisional_include,历史能源样本且当前仍正常上市,False
 300317.SZ,珈伟新能源股份有限公司,珈伟新能,SZSE,454,18.87,provisional_include,历史能源样本且当前仍正常上市,False
 002487.SZ,大金重工股份有限公司,大金重工,SZSE,455,18.87,provisional_include,历史能源样本且当前仍正常上市,False
-00951.HK,超威动力控股有限公司,,HKEX,456,18.85,pending_snapshot,HKEX官方快照尚未接入,True
+00951.HK,超威动力控股有限公司,CHAOWEI POWER,HKEX,456,18.85,provisional_include,历史能源样本且当前仍正常上市,False
 002346.SZ,上海柘中集团股份有限公司,柘中股份,SZSE,457,18.84,provisional_include,历史能源样本且当前仍正常上市,False
 301516.SZ,深圳市核达中远通电源技术股份有限公司,中远通,SZSE,458,18.84,provisional_include,历史能源样本且当前仍正常上市,False
 002733.SZ,深圳市雄韬电源科技股份有限公司,雄韬股份,SZSE,459,18.83,provisional_include,历史能源样本且当前仍正常上市,False
 301349.SZ,辽宁信德新材料科技(集团)股份有限公司,信德新材,SZSE,460,18.82,provisional_include,历史能源样本且当前仍正常上市,False
 300617.SZ,江苏安靠智电股份有限公司,安靠智电,SZSE,461,18.82,provisional_include,历史能源样本且当前仍正常上市,False
-873152.BJ,浙江天宏锂电股份有限公司,,BSE,462,18.82,pending_snapshot,BSE官方快照尚未接入,True
+920252.BJ,浙江天宏锂电股份有限公司,天宏锂电,BSE,462,18.82,provisional_include,历史能源样本且当前仍正常上市,False
 002580.SZ,山东圣阳电源股份有限公司,圣阳股份,SZSE,463,18.81,provisional_include,历史能源样本且当前仍正常上市,False
 688147.SH,江苏微导纳米科技股份有限公司,微导纳米,SSE,464,18.81,provisional_include,历史能源样本且当前仍正常上市,False
 002823.SZ,深圳市凯中精密技术股份有限公司,凯中精密,SZSE,465,18.78,provisional_include,历史能源样本且当前仍正常上市,False
@@ -485,7 +485,7 @@
 688392.SH,上海骄成超声波技术股份有限公司,骄成超声,SSE,482,18.56,provisional_include,历史能源样本且当前仍正常上市,False
 002441.SZ,众业达电气股份有限公司,众业达,SZSE,483,18.46,provisional_include,历史能源样本且当前仍正常上市,False
 603988.SH,中电电机股份有限公司,中电电机,SSE,484,18.41,provisional_include,历史能源样本且当前仍正常上市,False
-834639.BJ,浙江晨光电缆股份有限公司,,BSE,485,18.4,pending_snapshot,BSE官方快照尚未接入,True
+920639.BJ,浙江晨光电缆股份有限公司,晨光电缆,BSE,485,18.4,provisional_include,历史能源样本且当前仍正常上市,False
 600869.SH,远东智慧能源股份有限公司,远东股份,SSE,486,18.35,provisional_include,历史能源样本且当前仍正常上市,False
 301023.SZ,无锡江南奕帆电力传动科技股份有限公司,奕帆传动,SZSE,487,18.29,provisional_include,历史能源样本且当前仍正常上市,False
 300491.SZ,石家庄通合电子科技股份有限公司,通合科技,SZSE,488,18.29,provisional_include,历史能源样本且当前仍正常上市,False
@@ -522,10 +522,10 @@
 300001.SZ,青岛特锐德电气股份有限公司,特锐德,SZSE,519,17.69,provisional_include,历史能源样本且当前仍正常上市,False
 002451.SZ,上海摩恩电气股份有限公司,摩恩电气,SZSE,520,17.67,provisional_include,历史能源样本且当前仍正常上市,False
 002805.SZ,山东丰元化学股份有限公司,丰元股份,SZSE,521,17.62,provisional_include,历史能源样本且当前仍正常上市,False
-430556.BJ,广东雅达电子股份有限公司,,BSE,522,17.61,pending_snapshot,BSE官方快照尚未接入,True
+920556.BJ,广东雅达电子股份有限公司,雅达股份,BSE,522,17.61,provisional_include,历史能源样本且当前仍正常上市,False
 605222.SH,上海起帆电缆股份有限公司,起帆电缆,SSE,523,17.59,provisional_include,历史能源样本且当前仍正常上市,False
 300068.SZ,浙江南都电源动力股份有限公司,ST南都,SZSE,524,17.58,exclude,ST/*ST排除,False
-837046.BJ,无锡亿能电力设备股份有限公司,,BSE,525,17.57,pending_snapshot,BSE官方快照尚未接入,True
+920046.BJ,无锡亿能电力设备股份有限公司,亿能电力,BSE,525,17.57,provisional_include,历史能源样本且当前仍正常上市,False
 603333.SH,尚纬股份有限公司,福华尚纬,SSE,526,17.56,provisional_include,历史能源样本且当前仍正常上市,False
 601233.SH,桐昆集团股份有限公司,桐昆股份,SSE,527,17.55,provisional_include,历史能源样本且当前仍正常上市,False
 601778.SH,晶科电力科技股份有限公司,晶科科技,SSE,528,17.55,provisional_include,历史能源样本且当前仍正常上市,False
@@ -533,17 +533,17 @@
 301121.SZ,重庆市紫建电子股份有限公司,紫建电子,SZSE,530,17.52,provisional_include,历史能源样本且当前仍正常上市,False
 300827.SZ,上能电气股份有限公司,上能电气,SZSE,531,17.5,provisional_include,历史能源样本且当前仍正常上市,False
 000037.SZ,深圳南山热电股份有限公司,深南电A,SZSE,532,17.46,provisional_include,历史能源样本且当前仍正常上市,False
-831175.BJ,珠海派诺科技股份有限公司,,BSE,533,17.45,pending_snapshot,BSE官方快照尚未接入,True
+920375.BJ,珠海派诺科技股份有限公司,派诺科技,BSE,533,17.45,provisional_include,历史能源样本且当前仍正常上市,False
 000821.SZ,湖北京山轻工机械股份有限公司,ST京机,SZSE,534,17.43,exclude,ST/*ST排除,False
 002112.SZ,三变科技股份有限公司,三变科技,SZSE,535,17.36,provisional_include,历史能源样本且当前仍正常上市,False
 600152.SH,维科技术股份有限公司,维科技术,SSE,536,17.34,provisional_include,历史能源样本且当前仍正常上市,False
 600617.SH,山西省国新能源股份有限公司,国新能源,SSE,537,17.34,provisional_include,历史能源样本且当前仍正常上市,False
-836239.BJ,四川长虹新能源科技股份有限公司,,BSE,538,17.27,pending_snapshot,BSE官方快照尚未接入,True
+920239.BJ,四川长虹新能源科技股份有限公司,长虹能源,BSE,538,17.27,provisional_include,历史能源样本且当前仍正常上市,False
 300443.SZ,金雷科技股份公司,金雷股份,SZSE,539,17.23,provisional_include,历史能源样本且当前仍正常上市,False
 688330.SH,上海宏力达信息技术股份有限公司,宏力达,SSE,540,17.2,provisional_include,历史能源样本且当前仍正常上市,False
 300051.SZ,琏升科技股份有限公司,琏升科技,SZSE,541,17.15,provisional_include,历史能源样本且当前仍正常上市,False
 300933.SZ,中辰电缆股份有限公司,中辰股份,SZSE,542,17.15,provisional_include,历史能源样本且当前仍正常上市,False
-832522.BJ,邢台纳科诺尔精轧科技股份有限公司,,BSE,543,17.14,pending_snapshot,BSE官方快照尚未接入,True
+920522.BJ,邢台纳科诺尔精轧科技股份有限公司,纳科诺尔,BSE,543,17.14,provisional_include,历史能源样本且当前仍正常上市,False
 688573.SH,深圳市信宇人科技股份有限公司,信宇人,SSE,544,17.14,provisional_include,历史能源样本且当前仍正常上市,False
 603050.SH,石家庄科林电气股份有限公司,科林电气,SSE,545,17.13,provisional_include,历史能源样本且当前仍正常上市,False
 603727.SH,博迈科海洋工程股份有限公司,博迈科,SSE,546,17.1,provisional_include,历史能源样本且当前仍正常上市,False
@@ -561,7 +561,7 @@
 603819.SH,常州神力电机股份有限公司,神力股份,SSE,558,16.77,provisional_include,历史能源样本且当前仍正常上市,False
 600387.SH,海越能源集团股份有限公司,,SSE,559,16.74,exclude,ST/*ST排除,False
 002927.SZ,贵州泰永长征技术股份有限公司,泰永长征,SZSE,560,16.66,provisional_include,历史能源样本且当前仍正常上市,False
-835368.BJ,大连连城数控机器股份有限公司,,BSE,561,16.62,pending_snapshot,BSE官方快照尚未接入,True
+920368.BJ,大连连城数控机器股份有限公司,连城数控,BSE,561,16.62,provisional_include,历史能源样本且当前仍正常上市,False
 300427.SZ,红相股份有限公司,红相股份,SZSE,562,16.61,provisional_include,历史能源样本且当前仍正常上市,False
 601868.SH,中国能源建设股份有限公司,中国能建,SSE,563,16.6,provisional_include,历史能源样本且当前仍正常上市,False
 600759.SH,洲际油气股份有限公司,ST洲际,SSE,564,16.6,exclude,ST/*ST排除,False
@@ -595,23 +595,23 @@
 000767.SZ,晋能控股山西电力股份有限公司,晋控电力,SZSE,592,15.1,provisional_include,历史能源样本且当前仍正常上市,False
 600397.SH,安源煤业集团股份有限公司,江钨装备,SSE,593,15.03,provisional_include,历史能源样本且当前仍正常上市,False
 300140.SZ,中节能环境保护股份有限公司,节能环境,SZSE,594,14.93,provisional_include,历史能源样本且当前仍正常上市,False
-00704.HK,和嘉控股有限公司,,HKEX,595,14.91,pending_snapshot,HKEX官方快照尚未接入,True
+00704.HK,和嘉控股有限公司,HUSCOKE HLDGS,HKEX,595,14.91,provisional_include,历史能源样本且当前仍正常上市,False
 002546.SZ,南京新联电子股份有限公司,新联电子,SZSE,596,14.88,provisional_include,历史能源样本且当前仍正常上市,False
 300648.SZ,福建星云电子股份有限公司,星云股份,SZSE,597,14.82,provisional_include,历史能源样本且当前仍正常上市,False
 002665.SZ,首航高科能源技术股份有限公司,,SZSE,598,14.73,exclude,ST/*ST排除,False
 002879.SZ,长缆科技集团股份有限公司,长缆科技,SZSE,599,14.71,provisional_include,历史能源样本且当前仍正常上市,False
 002227.SZ,深圳奥特迅电力设备股份有限公司,*ST特迅,SZSE,600,14.6,exclude,ST/*ST排除,False
 001896.SZ,河南豫能控股股份有限公司,豫能控股,SZSE,601,14.58,provisional_include,历史能源样本且当前仍正常上市,False
-08132.HK,百能国际能源控股有限公司,,HKEX,602,14.44,pending_snapshot,HKEX官方快照尚未接入,True
+08132.HK,百能国际能源控股有限公司,CENTURY EN INTL,HKEX,602,14.44,provisional_include,历史能源样本且当前仍正常上市,False
 002364.SZ,杭州中恒电气股份有限公司,中恒电气,SZSE,603,14.42,provisional_include,历史能源样本且当前仍正常上市,False
-01878.HK,南戈壁资源有限公司,,HKEX,604,14.36,pending_snapshot,HKEX官方快照尚未接入,True
+01878.HK,南戈壁资源有限公司,SOUTHGOBI,HKEX,604,14.36,provisional_include,历史能源样本且当前仍正常上市,False
 002309.SZ,江苏中利集团股份有限公司,中利集团,SZSE,605,14.29,provisional_include,历史能源样本且当前仍正常上市,False
 002629.SZ,浙江仁智股份有限公司,仁智股份,SZSE,606,14.28,provisional_include,历史能源样本且当前仍正常上市,False
 600192.SH,兰州长城电工股份有限公司,长城电工,SSE,607,14.24,provisional_include,历史能源样本且当前仍正常上市,False
 603985.SH,江阴市恒润重工股份有限公司,恒润股份,SSE,608,14.1,provisional_include,历史能源样本且当前仍正常上市,False
 002060.SZ,广东省建筑工程集团股份有限公司,广东建工,SZSE,609,14.1,provisional_include,历史能源样本且当前仍正常上市,False
 300444.SZ,北京双杰电气股份有限公司,双杰电气,SZSE,610,14.06,provisional_include,历史能源样本且当前仍正常上市,False
-00666.HK,瑞浦兰钧能源股份有限公司,,HKEX,611,14.04,pending_snapshot,HKEX官方快照尚未接入,True
+00666.HK,瑞浦兰钧能源股份有限公司,REPT BATTERO,HKEX,611,14.04,provisional_include,历史能源样本且当前仍正常上市,False
 600396.SH,华电辽宁能源发展股份有限公司,华电辽能,SSE,612,13.76,provisional_include,历史能源样本且当前仍正常上市,False
 000982.SZ,宁夏中银绒业股份有限公司,,SZSE,613,13.48,manual_review,未匹配当前沪深正常上市底表,True
 301155.SZ,江苏海力风电设备科技股份有限公司,海力风电,SZSE,614,13.46,provisional_include,历史能源样本且当前仍正常上市,False

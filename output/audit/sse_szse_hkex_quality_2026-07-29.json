@@ -1,0 +1,16 @@
+{
+  "row_count": 7991,
+  "exchanges": {
+    "HKEX": 2785,
+    "SSE": 2310,
+    "SZSE": 2896
+  },
+  "missing_source_count": 0,
+  "missing_date_count": 0,
+  "missing_entity_count": 0,
+  "unknown_exchange_count": 0,
+  "duplicate_code_count": 0,
+  "invalid_source_count": 0,
+  "invalid_date_count": 0,
+  "valid": true
+}

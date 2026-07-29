@@ -1,0 +1,15 @@
+{
+  "exchange": "BSE",
+  "as_of_date": "2026-07-29",
+  "listing_source_url": "https://www.bse.cn/nq/listedcompany.html",
+  "listing_raw_file": "data/snapshots/raw/bse_listed_companies_2026-07-29.json",
+  "listing_raw_sha256": "29c734273b733dabd5e2cdb8cc5c2bbac4dca75dbf370a7f9fc0692d04099a61",
+  "listing_raw_size": 309561,
+  "snapshot_file": "data/snapshots/bse_2026-07-29.csv",
+  "snapshot_rows": 332,
+  "code_mapping_source_url": "https://www.bse.cn/service/code_mapping.html",
+  "code_mapping_raw_file": "data/snapshots/raw/bse_code_mapping_2026-07-29.html",
+  "code_mapping_raw_sha256": "95d43bba3b5ca2d6e5a2654755ea732ef52fa8d2c39fe667b5d4eab533a3b877",
+  "code_mapping_raw_size": 459945,
+  "code_mapping_rows": 248
+}

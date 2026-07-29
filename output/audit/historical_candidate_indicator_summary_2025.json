@@ -1,38 +1,38 @@
 {
   "report_year": 2025,
-  "company_count": 493,
+  "company_count": 614,
   "indicator_count": 80,
-  "task_count": 39440,
-  "confirmed_count": 355,
-  "completion_rate": 0.009001014198782962,
+  "task_count": 49120,
+  "confirmed_count": 367,
+  "completion_rate": 0.007471498371335505,
   "status_counts": {
-    "confirmed": 355,
-    "missing": 39085
+    "confirmed": 367,
+    "missing": 48753
   },
   "action_counts": {
-    "collect_qualitative_evidence": 21199,
-    "complete": 355,
-    "extract_or_derive": 17886
+    "collect_qualitative_evidence": 26402,
+    "complete": 367,
+    "extract_or_derive": 22351
   },
   "dimension_completion": {
     "E": {
       "confirmed": 5,
-      "total": 15776,
-      "rate": 0.0003169371196754564
+      "total": 19648,
+      "rate": 0.0002544788273615635
     },
     "G": {
-      "confirmed": 304,
-      "total": 14297,
-      "rate": 0.02126320207036441
+      "confirmed": 315,
+      "total": 17806,
+      "rate": 0.017690666067617655
     },
     "S": {
-      "confirmed": 46,
-      "total": 9367,
-      "rate": 0.004910857264866019
+      "confirmed": 47,
+      "total": 11666,
+      "rate": 0.0040288016458083315
     }
   },
   "fully_complete_companies": 0,
-  "empty_companies": 469,
+  "empty_companies": 589,
   "indicator_population": {
     "Q_E_GHG_INTENSITY": 2,
     "Q_E_GHG_REDUCTION_RATE": 0,
@@ -48,27 +48,27 @@
     "Q_E_HAZ_WASTE_INTENSITY": 0,
     "Q_S_SAFETY_INVEST_RATE": 0,
     "Q_S_ENV_INVEST_RATE": 0,
-    "Q_S_RD_RATE": 24,
+    "Q_S_RD_RATE": 25,
     "Q_S_DONATION_RATE": 0,
     "Q_S_PAY_PER_EMPLOYEE": 0,
     "Q_S_BENEFIT_PER_EMPLOYEE": 0,
     "Q_S_EDU_PER_EMPLOYEE": 0,
     "Q_S_DIVIDEND_PER_SHARE": 22,
-    "Q_G_ROE": 24,
-    "Q_G_ROA": 22,
-    "Q_G_OPERATING_MARGIN": 22,
+    "Q_G_ROE": 25,
+    "Q_G_ROA": 23,
+    "Q_G_OPERATING_MARGIN": 23,
     "Q_G_EBITDA_MARGIN": 0,
     "Q_G_CASH_REALIZATION": 22,
-    "Q_G_COST_REVENUE_RATE": 22,
-    "Q_G_ASSET_TURNOVER": 22,
-    "Q_G_AR_TURNOVER": 22,
-    "Q_G_CURRENT_ASSET_TURNOVER": 22,
-    "Q_G_TWO_FUNDS_RATE": 22,
-    "Q_G_DEBT_ASSET_RATE": 22,
-    "Q_G_EBITDA_INTEREST": 22,
+    "Q_G_COST_REVENUE_RATE": 23,
+    "Q_G_ASSET_TURNOVER": 23,
+    "Q_G_AR_TURNOVER": 23,
+    "Q_G_CURRENT_ASSET_TURNOVER": 23,
+    "Q_G_TWO_FUNDS_RATE": 23,
+    "Q_G_DEBT_ASSET_RATE": 23,
+    "Q_G_EBITDA_INTEREST": 23,
     "Q_G_QUICK_RATIO": 0,
     "Q_G_CASH_CURRENT_LIABILITY": 19,
-    "Q_G_REVENUE_GROWTH": 24,
+    "Q_G_REVENUE_GROWTH": 25,
     "Q_G_OPERATING_PROFIT_GROWTH": 14,
     "Q_G_CAPITAL_ACCUMULATION": 3,
     "X_E_ENV_SYSTEM": 0,

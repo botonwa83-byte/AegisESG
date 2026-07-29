@@ -12,7 +12,7 @@ from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_indicator_tasks, write_indicator_plan
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
-from .migration import plan_historical_migration, write_candidate_universe, write_migration_plan
+from .migration import augment_candidate_universe, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan
 from .planning import collection_summary, plan_collection, read_document_records, write_collection_plan, write_collection_summary
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
@@ -23,6 +23,8 @@ from .registry import reconcile_registry, write_registry_reconciliation
 from .scoring import ScoringEngine
 from .sources.sse import discover_reports
 from .sources.listings import collect_listing_pages, fetch_json
+from .sources.hkex import import_hkex_securities
+from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
 
@@ -77,11 +79,26 @@ def main() -> None:
     import_listing.add_argument("--as-of-date", required=True)
     import_listing.add_argument("--output", required=True)
     import_listing.add_argument("--quality", required=True)
+    import_hkex = sub.add_parser("import-hkex-list", help="导入港交所Full List并筛选主板/GEM普通股")
+    import_hkex.add_argument("input")
+    import_hkex.add_argument("--source-url", required=True)
+    import_hkex.add_argument("--as-of-date", default="", help="可选：要求文件内更新日期与此日期一致")
+    import_hkex.add_argument("--output", required=True)
+    import_hkex.add_argument("--quality", required=True)
+    discover_bse = sub.add_parser("discover-bse-listings", help="采集北交所全部正常上市公司快照")
+    discover_bse.add_argument("--as-of-date", default="", help="可选：要求接口报告日期与此日期一致")
+    discover_bse.add_argument("--output", required=True)
+    discover_bse.add_argument("--quality", required=True)
+    discover_bse.add_argument("--raw-output", required=True, help="保存逐页官方原始响应JSON")
+    import_bse_map = sub.add_parser("import-bse-code-map", help="从北交所官方HTML导入新旧代码对照表")
+    import_bse_map.add_argument("input")
+    import_bse_map.add_argument("--output", required=True)
     reference_codes = sub.add_parser("extract-reference-codes", help="从参考榜单OCR提取证券代码并与快照核对")
     reference_codes.add_argument("ocr")
     reference_codes.add_argument("--snapshot", required=True)
     reference_codes.add_argument("--pages", default="67-72")
     reference_codes.add_argument("--output", required=True)
+    reference_codes.add_argument("--code-map", action="append", help="旧代码到当前代码映射CSV，可重复指定")
     registry = sub.add_parser("reconcile-registry", help="将外部企业名录与交易所快照对账")
     registry.add_argument("input")
     registry.add_argument("--snapshot", required=True)
@@ -103,6 +120,12 @@ def main() -> None:
     migrate.add_argument("--output", required=True)
     migrate.add_argument("--audit", required=True)
     migrate.add_argument("--candidate-universe", help="同步输出可供采集计划使用的标准候选公司池")
+    migrate.add_argument("--code-map", action="append", help="旧代码到当前代码映射CSV，可重复指定")
+    augment = sub.add_parser("augment-universe", help="以可审计证据表向候选池追加当前快照证券")
+    augment.add_argument("base")
+    augment.add_argument("additions")
+    augment.add_argument("--snapshot", required=True)
+    augment.add_argument("--output", required=True)
     plan = sub.add_parser("plan-collection", help="按公司池和现有文档索引生成批量采集缺口计划")
     plan.add_argument("universe")
     plan.add_argument("--document-index", default="data/raw/document_index.csv")
@@ -229,8 +252,43 @@ def main() -> None:
         write_snapshot_quality(args.quality, quality)
         print(json.dumps(quality.as_dict(), ensure_ascii=False, indent=2))
         raise SystemExit(0 if quality.valid else 2)
+    if args.command == "import-hkex-list":
+        securities, as_of_date = import_hkex_securities(
+            args.input, args.source_url, args.as_of_date,
+        )
+        quality = audit_snapshot(securities)
+        write_exchange_snapshot(args.output, securities)
+        write_snapshot_quality(args.quality, quality)
+        print(json.dumps({"file_as_of_date": as_of_date, **quality.as_dict()}, ensure_ascii=False, indent=2))
+        raise SystemExit(0 if quality.valid else 2)
+    if args.command == "discover-bse-listings":
+        securities, as_of_date, raw_pages = collect_bse_listings(
+            make_bse_fetcher(), BSE_LIST_PAGE, args.as_of_date,
+        )
+        quality = audit_snapshot(securities)
+        write_exchange_snapshot(args.output, securities)
+        write_snapshot_quality(args.quality, quality)
+        raw_output = Path(args.raw_output)
+        raw_output.parent.mkdir(parents=True, exist_ok=True)
+        raw_output.write_text(json.dumps({
+            "source_url": BSE_LIST_PAGE, "as_of_date": as_of_date,
+            "pages": [payload.decode("utf-8-sig") for payload in raw_pages],
+        }, ensure_ascii=False), encoding="utf-8")
+        print(json.dumps({"file_as_of_date": as_of_date, **quality.as_dict()}, ensure_ascii=False, indent=2))
+        raise SystemExit(0 if quality.valid else 2)
+    if args.command == "import-bse-code-map":
+        mappings = parse_bse_code_mapping(Path(args.input).read_bytes())
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=tuple(mappings[0].__annotations__))
+            writer.writeheader()
+            writer.writerows(vars(item) for item in mappings)
+        print(json.dumps({"mapping_count": len(mappings)}, ensure_ascii=False, indent=2))
+        return
     if args.command == "extract-reference-codes":
-        rows = extract_reference_securities(args.ocr, read_universe(args.snapshot), args.pages)
+        aliases = _read_code_maps(args.code_map or [])
+        rows = extract_reference_securities(args.ocr, read_universe(args.snapshot), args.pages, aliases)
         write_reference_securities(args.output, rows)
         matched = sum(item.matched_snapshot for item in rows)
         counts = {exchange: sum(item.exchange == exchange for item in rows) for exchange in ("SSE", "SZSE", "BSE", "HKEX")}
@@ -257,11 +315,19 @@ def main() -> None:
     if args.command == "plan-universe-migration":
         rows, audit = plan_historical_migration(
             args.historical_registry, read_universe(args.snapshot),
+            _read_code_maps(args.code_map or []),
         )
         write_migration_plan(args.output, args.audit, rows, audit)
         if args.candidate_universe:
             write_candidate_universe(args.candidate_universe, rows)
         print(json.dumps(audit, ensure_ascii=False, indent=2))
+        return
+    if args.command == "augment-universe":
+        rows = augment_candidate_universe(
+            read_universe(args.base), args.additions, args.snapshot,
+        )
+        write_augmented_universe(args.output, rows)
+        print(json.dumps({"company_count": sum(item.included for item in rows)}, ensure_ascii=False, indent=2))
         return
     if args.command == "plan-collection":
         tasks = plan_collection(
@@ -407,6 +473,22 @@ def main() -> None:
     write_ranking_json(output / "ranking.json", results)
     write_ranking_html(output / "ranking.html", results, methodology, args.title)
     print(f"scored {len(results)} companies; files written to {output}")
+
+
+def _read_code_maps(paths: list[str]) -> dict[str, str]:
+    aliases: dict[str, str] = {}
+    for path in paths:
+        with Path(path).open(encoding="utf-8-sig", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        if not rows or not {"old_code", "new_code"}.issubset(rows[0]):
+            raise ValueError("代码映射CSV缺少old_code/new_code字段")
+        for row in rows:
+            old = row["old_code"].strip().upper()
+            new = row["new_code"].strip().upper()
+            if old in aliases and aliases[old] != new:
+                raise ValueError(f"代码映射冲突: {old}")
+            aliases[old] = new
+    return aliases
 
 
 if __name__ == "__main__":
