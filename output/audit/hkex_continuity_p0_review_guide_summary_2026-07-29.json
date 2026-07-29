@@ -1,0 +1,12 @@
+{
+  "packet_count": 4,
+  "candidate_count": 40,
+  "category_counts": {
+    "ah_identity": 12,
+    "issuer_history": 2,
+    "principal_business": 26
+  },
+  "codes_without_candidates": [],
+  "signed_count": 0,
+  "applicable": false
+}

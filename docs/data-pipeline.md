@@ -337,6 +337,21 @@ PYTHONPATH=src python3 -m aegis_esg.cli render-hkex-continuity-review \
 手册按优先级和证券代码排列，逐候选展示官方文件、报告期、页码、置信度及证据原文。它不会填写
 `outcome`、选择候选或生成签名；审核结果仍必须回填CSV复核包并通过严格转换器校验。
 
+审阅可以按最高优先级切分为独立批次，避免一次编辑全部68行：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli select-hkex-continuity-review-batch \
+  data/review/hkex_continuity_all_review_packet_2026-07-29.csv \
+  data/review/hkex_continuity_all_evidence_candidates_2026-07-29.csv \
+  --max-priority 0 \
+  --output-packets data/review/hkex_continuity_p0_review_packet_2026-07-29.csv \
+  --output-candidates data/review/hkex_continuity_p0_evidence_candidates_2026-07-29.csv \
+  --summary output/audit/hkex_continuity_p0_review_batch_summary_2026-07-29.json
+```
+
+P0批次包含`00042.HK`、`00600.HK`、`00607.HK`和`00650.HK`共4个复核包、40条候选。
+切分器保留原始字段和未签名状态；审核完成后，可将该批次直接传给`finalize-hkex-continuity-review`。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含

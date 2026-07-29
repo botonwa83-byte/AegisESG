@@ -370,6 +370,68 @@ def write_continuity_review_guide(
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def select_continuity_review_batch(
+    packets_path: str | Path, candidates_path: str | Path, max_priority: int,
+) -> tuple[list[dict[str, str]], list[dict[str, str]], dict]:
+    if max_priority < 0:
+        raise ValueError("连续性复核批次最高优先级不能小于0")
+    packets = _read_csv(packets_path)
+    candidates = _read_csv(candidates_path)
+    required_packet = {"stock_code", "priority", "review_status"}
+    required_candidate = {"candidate_id", "company_code"}
+    if not packets or not required_packet.issubset(packets[0]):
+        raise ValueError("连续性人工复核包字段不完整")
+    if not candidates or not required_candidate.issubset(candidates[0]):
+        raise ValueError("连续性证据候选字段不完整")
+    selected_packets = []
+    selected_codes = set()
+    for line, row in enumerate(packets, 2):
+        try:
+            priority = int(row["priority"])
+        except ValueError as error:
+            raise ValueError(f"连续性人工复核包第{line}行优先级无效") from error
+        code = row["stock_code"].strip().upper()
+        if priority <= max_priority:
+            if not code or code in selected_codes:
+                raise ValueError(f"连续性人工复核包第{line}行证券代码为空或重复")
+            selected_codes.add(code)
+            selected_packets.append(row)
+    selected_candidates = [
+        row for row in candidates if row["company_code"].strip().upper() in selected_codes
+    ]
+    candidate_ids = [row["candidate_id"].strip() for row in selected_candidates]
+    if any(not item for item in candidate_ids) or len(candidate_ids) != len(set(candidate_ids)):
+        raise ValueError("连续性复核批次候选ID为空或重复")
+    covered_codes = {row["company_code"].strip().upper() for row in selected_candidates}
+    summary = {
+        "max_priority": max_priority,
+        "packet_count": len(selected_packets),
+        "candidate_count": len(selected_candidates),
+        "signed_count": sum(row["review_status"].strip().lower() == "signed" for row in selected_packets),
+        "codes_without_candidates": sorted(selected_codes.difference(covered_codes)),
+        "applicable": False,
+    }
+    return selected_packets, selected_candidates, summary
+
+
+def write_continuity_review_batch(
+    packets_path: str | Path, candidates_path: str | Path, summary_path: str | Path,
+    packets: list[dict[str, str]], candidates: list[dict[str, str]], summary: dict,
+) -> None:
+    for path, rows in ((packets_path, packets), (candidates_path, candidates)):
+        if not rows:
+            raise ValueError("连续性复核批次不能为空")
+        output = Path(path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=tuple(rows[0]), lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(rows)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def finalize_continuity_reviews(
     packets_path: str | Path, candidates_path: str | Path,
 ) -> tuple[list[SignedContinuityDecision], list[FinalizedContinuityReview], dict]:

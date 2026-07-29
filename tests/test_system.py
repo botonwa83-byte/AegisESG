@@ -23,7 +23,7 @@ from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_h
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, write_document_index
-from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, write_continuity_evidence_candidates
+from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
@@ -721,6 +721,30 @@ class MethodologyTests(unittest.TestCase):
             self.assertIn("## 00042.HK", guide)
             self.assertIn("`C1`", guide)
             self.assertIn("Formerly known as Old Name", guide)
+            self.assertEqual(0, summary["signed_count"])
+            self.assertFalse(summary["applicable"])
+
+    def test_select_continuity_review_batch_filters_packets_and_candidates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packets = root / "packets.csv"
+            candidates = root / "candidates.csv"
+            packets.write_text(
+                "stock_code,priority,review_status\n"
+                "00042.HK,0,unsigned\n00002.HK,2,unsigned\n",
+                encoding="utf-8",
+            )
+            candidates.write_text(
+                "candidate_id,company_code,evidence_category\n"
+                "C1,00042.HK,issuer_history\nC2,00002.HK,principal_business\n",
+                encoding="utf-8",
+            )
+            selected_packets, selected_candidates, summary = select_continuity_review_batch(
+                packets, candidates, 0,
+            )
+            self.assertEqual(["00042.HK"], [row["stock_code"] for row in selected_packets])
+            self.assertEqual(["C1"], [row["candidate_id"] for row in selected_candidates])
+            self.assertEqual(1, summary["packet_count"])
             self.assertEqual(0, summary["signed_count"])
             self.assertFalse(summary["applicable"])
 
