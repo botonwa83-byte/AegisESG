@@ -25,6 +25,19 @@ class MigrationDecision:
     requires_review: bool
 
 
+@dataclass(frozen=True)
+class ProvenanceBinding:
+    stock_code: str
+    universe_name: str
+    snapshot_name: str
+    included: bool
+    status: str
+    source_action: str
+    date_action: str
+    entity_action: str
+    reason: str
+
+
 def plan_historical_migration(
     historical_registry: str | Path, snapshots: Iterable[UniverseCompany],
     code_aliases: dict[str, str] | None = None,
@@ -156,6 +169,90 @@ def write_augmented_universe(path: str | Path, rows: Iterable[UniverseCompany]) 
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
         writer.writerows(asdict(item) for item in rows)
+
+
+def bind_snapshot_provenance(
+    universe: Iterable[UniverseCompany], snapshot_path: str | Path,
+) -> tuple[list[UniverseCompany], list[ProvenanceBinding], dict]:
+    """Fill missing official provenance by exact security-code match only."""
+    rows = list(universe)
+    snapshot_rows = read_exchange_snapshot(snapshot_path)
+    snapshot: dict[str, object] = {}
+    for item in snapshot_rows:
+        if item.stock_code in snapshot:
+            raise ValueError(f"官方快照证券代码重复: {item.stock_code}")
+        snapshot[item.stock_code] = item
+    enriched: list[UniverseCompany] = []
+    bindings: list[ProvenanceBinding] = []
+    for item in rows:
+        security = snapshot.get(item.stock_code)
+        if security is None:
+            enriched.append(item)
+            bindings.append(ProvenanceBinding(
+                item.stock_code, item.company_name, "", item.included, "unmatched", "unchanged",
+                "unchanged", "unchanged", "证券代码未匹配官方快照",
+            ))
+            continue
+        source = item.source_url or security.source_url
+        as_of_date = item.as_of_date or security.as_of_date
+        entity_id = item.entity_id or security.entity_id
+        entity_conflict = (
+            bool(item.entity_id and security.entity_id)
+            and item.entity_id != item.stock_code
+            and security.entity_id != item.stock_code
+            and item.entity_id != security.entity_id
+        )
+        status = "entity_conflict" if entity_conflict else (
+            "name_difference" if item.company_name != security.company_name else "matched"
+        )
+        reason = (
+            f"主体标识冲突:{item.entity_id}!={security.entity_id}" if entity_conflict else
+            ("证券代码精确匹配，名称不同需保留审计" if status == "name_difference" else "证券代码及名称匹配")
+        )
+        enriched.append(UniverseCompany(
+            item.stock_code, item.company_name, item.exchange, item.sub_industry,
+            item.included, item.exclusion_reason, entity_id, source, as_of_date,
+        ))
+        bindings.append(ProvenanceBinding(
+            item.stock_code, item.company_name, security.company_name, item.included, status,
+            "filled" if not item.source_url and source else "preserved",
+            "filled" if not item.as_of_date and as_of_date else "preserved",
+            "filled" if not item.entity_id and entity_id else "preserved", reason,
+        ))
+    counts = Counter(item.status for item in bindings)
+    included_unmatched = sum(item.included and item.status == "unmatched" for item in bindings)
+    included_conflicts = sum(item.included and item.status == "entity_conflict" for item in bindings)
+    audit = {
+        "universe_security_count": len(rows),
+        "snapshot_security_count": len(snapshot_rows),
+        "status_counts": dict(sorted(counts.items())),
+        "matched_code_count": len(rows) - counts["unmatched"],
+        "unmatched_count": counts["unmatched"],
+        "included_unmatched_count": included_unmatched,
+        "name_difference_count": counts["name_difference"],
+        "entity_conflict_count": counts["entity_conflict"],
+        "included_entity_conflict_count": included_conflicts,
+        "source_filled_count": sum(item.source_action == "filled" for item in bindings),
+        "date_filled_count": sum(item.date_action == "filled" for item in bindings),
+        "complete": not included_unmatched and not included_conflicts,
+    }
+    return enriched, bindings, audit
+
+
+def write_provenance_binding(
+    universe_path: str | Path, audit_path: str | Path, summary_path: str | Path,
+    universe: Iterable[UniverseCompany], bindings: Iterable[ProvenanceBinding], summary: dict,
+) -> None:
+    write_augmented_universe(universe_path, universe)
+    audit_output = Path(audit_path)
+    audit_output.parent.mkdir(parents=True, exist_ok=True)
+    with audit_output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=tuple(ProvenanceBinding.__annotations__))
+        writer.writeheader()
+        writer.writerows(asdict(item) for item in bindings)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def _truthy(value) -> bool:

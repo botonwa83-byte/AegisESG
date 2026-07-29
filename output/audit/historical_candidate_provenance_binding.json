@@ -1,0 +1,17 @@
+{
+  "universe_security_count": 639,
+  "snapshot_security_count": 8323,
+  "status_counts": {
+    "matched": 630,
+    "unmatched": 9
+  },
+  "matched_code_count": 630,
+  "unmatched_count": 9,
+  "included_unmatched_count": 0,
+  "name_difference_count": 0,
+  "entity_conflict_count": 0,
+  "included_entity_conflict_count": 0,
+  "source_filled_count": 627,
+  "date_filled_count": 627,
+  "complete": true
+}

@@ -12,7 +12,7 @@ from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_indicator_tasks, write_indicator_plan
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
-from .migration import augment_candidate_universe, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan
+from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import collection_summary, plan_collection, read_document_records, write_collection_plan, write_collection_summary
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
@@ -126,6 +126,12 @@ def main() -> None:
     augment.add_argument("additions")
     augment.add_argument("--snapshot", required=True)
     augment.add_argument("--output", required=True)
+    bind_provenance = sub.add_parser("bind-universe-provenance", help="按证券代码精确绑定候选池与官方快照来源")
+    bind_provenance.add_argument("universe")
+    bind_provenance.add_argument("--snapshot", required=True)
+    bind_provenance.add_argument("--output", required=True)
+    bind_provenance.add_argument("--audit", required=True)
+    bind_provenance.add_argument("--summary", required=True)
     plan = sub.add_parser("plan-collection", help="按公司池和现有文档索引生成批量采集缺口计划")
     plan.add_argument("universe")
     plan.add_argument("--document-index", default="data/raw/document_index.csv")
@@ -329,6 +335,13 @@ def main() -> None:
         write_augmented_universe(args.output, rows)
         print(json.dumps({"company_count": sum(item.included for item in rows)}, ensure_ascii=False, indent=2))
         return
+    if args.command == "bind-universe-provenance":
+        rows, bindings, summary = bind_snapshot_provenance(
+            read_universe(args.universe), args.snapshot,
+        )
+        write_provenance_binding(args.output, args.audit, args.summary, rows, bindings, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        raise SystemExit(0 if summary["complete"] else 2)
     if args.command == "plan-collection":
         tasks = plan_collection(
             read_universe(args.universe), read_document_records(args.document_index), args.report_year,

@@ -26,7 +26,7 @@ from aegis_esg.reference import extract_reference_securities
 from aegis_esg.registry import normalize_company_name, reconcile_registry
 from aegis_esg.planning import collection_summary, plan_collection
 from aegis_esg.historical import import_historical_workbook
-from aegis_esg.migration import augment_candidate_universe, plan_historical_migration, write_candidate_universe
+from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
 
 
@@ -681,6 +681,46 @@ class MethodologyTests(unittest.TestCase):
             rows = augment_candidate_universe([], additions, snapshot)
             self.assertEqual("600925.SH", rows[0].stock_code)
             self.assertTrue(rows[0].included)
+
+    def test_bind_snapshot_provenance_fills_only_missing_fields_by_exact_code(self):
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.csv"
+            snapshot.write_text(
+                "stock_code,company_name,exchange,industry,entity_id,source_url,as_of_date\n"
+                "600900.SH,长江电力,SSE,电力,600900.SH,https://official,2026-07-29\n",
+                encoding="utf-8",
+            )
+            companies = [
+                UniverseCompany("600900.SH", "中国长江电力", "SSE", "电力"),
+                UniverseCompany(
+                    "000001.SZ", "甲", "SZSE", "电力", source_url="https://evidence",
+                ),
+            ]
+            rows, bindings, summary = bind_snapshot_provenance(companies, snapshot)
+            self.assertEqual("https://official", rows[0].source_url)
+            self.assertEqual("2026-07-29", rows[0].as_of_date)
+            self.assertEqual("name_difference", bindings[0].status)
+            self.assertEqual("https://evidence", rows[1].source_url)
+            self.assertEqual("unmatched", bindings[1].status)
+            self.assertTrue(bindings[1].included)
+            self.assertEqual(1, summary["source_filled_count"])
+            self.assertEqual(1, summary["included_unmatched_count"])
+            self.assertFalse(summary["complete"])
+
+    def test_bind_snapshot_provenance_flags_explicit_entity_conflict(self):
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot.csv"
+            snapshot.write_text(
+                "stock_code,company_name,exchange,industry,entity_id,source_url,as_of_date\n"
+                "00001.HK,甲,HKEX,电力,ENTITY-NEW,https://official,2026-07-29\n",
+                encoding="utf-8",
+            )
+            company = UniverseCompany("00001.HK", "甲", "HKEX", "电力", entity_id="ENTITY-OLD")
+            rows, bindings, summary = bind_snapshot_provenance([company], snapshot)
+            self.assertEqual("ENTITY-OLD", rows[0].entity_id)
+            self.assertEqual("entity_conflict", bindings[0].status)
+            self.assertEqual(1, summary["entity_conflict_count"])
+            self.assertFalse(summary["complete"])
 
     def test_indicator_plan_builds_complete_company_indicator_matrix(self):
         companies = [

@@ -81,6 +81,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli build-universe \
 同一主体被重复纳入，排除行没有理由，以及纳入行仍带有排除理由。上述问题均在审计JSON中
 输出独立计数，不能仅靠主体总数达到632而绕过证据质量门槛。
 
+历史迁移候选通过证券代码精确绑定四交易所官方快照，不允许名称模糊匹配：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli bind-universe-provenance \
+  data/universe/energy_historical_candidates_2026.csv \
+  --snapshot data/snapshots/all_exchanges_2026-07-29.csv \
+  --output data/universe/energy_historical_candidates_2026.csv \
+  --audit output/audit/historical_candidate_provenance_binding.csv \
+  --summary output/audit/historical_candidate_provenance_binding.json
+```
+
+命令只填补空来源、日期和主体字段，已有纳入证据不会被覆盖；名称差异、主体冲突和未匹配项
+均保留逐证券记录。已排除的退市证券允许保持未匹配，但任何纳入证券未匹配都会返回非零状态。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
