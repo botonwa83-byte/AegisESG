@@ -28,7 +28,7 @@ from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
 from aegis_esg.reference import extract_reference_securities
 from aegis_esg.registry import normalize_company_name, reconcile_registry
-from aegis_esg.planning import collection_summary, plan_collection
+from aegis_esg.planning import collection_summary, merge_document_indexes, plan_collection
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_indicator_tasks
@@ -1309,6 +1309,23 @@ class MethodologyTests(unittest.TestCase):
             path = Path(directory) / "index.csv"
             write_document_index(path, [record])
             self.assertEqual(record, _read_document_index(path)[record.source_url])
+
+    def test_merge_document_indexes_deduplicates_exact_and_rejects_path_conflicts(self):
+        first = DocumentRecord("A", "甲", 2025, "annual_report", "https://one", "https://one", "a.pdf", "abc", 12)
+        second = DocumentRecord("B", "乙", 2025, "annual_report", "https://two", "https://two", "b.pdf", "def", 13)
+        conflict = DocumentRecord("C", "丙", 2025, "annual_report", "https://three", "https://three", "a.pdf", "ghi", 14)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            one, two, bad = root / "one.csv", root / "two.csv", root / "bad.csv"
+            write_document_index(one, [first])
+            write_document_index(two, [first, second])
+            write_document_index(bad, [conflict])
+            rows, summary = merge_document_indexes([one, two])
+            self.assertEqual([first, second], rows)
+            self.assertEqual(1, summary["duplicate_count"])
+            self.assertEqual(2, summary["company_count"])
+            with self.assertRaisesRegex(ValueError, "本地路径冲突"):
+                merge_document_indexes([one, bad])
 
 
 if __name__ == "__main__":

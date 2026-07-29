@@ -42,6 +42,38 @@ def read_document_records(path: str | Path) -> list[DocumentRecord]:
     return result
 
 
+def merge_document_indexes(paths: Iterable[str | Path]) -> tuple[list[DocumentRecord], dict]:
+    records = []
+    by_url: dict[str, DocumentRecord] = {}
+    by_path: dict[str, DocumentRecord] = {}
+    duplicate_count = 0
+    source_count = 0
+    for path in paths:
+        source_count += 1
+        for record in read_document_records(path):
+            existing_url = by_url.get(record.source_url)
+            existing_path = by_path.get(record.local_path)
+            if existing_url is not None:
+                if existing_url != record:
+                    raise ValueError(f"文档索引URL元数据冲突: {record.source_url}")
+                duplicate_count += 1
+                continue
+            if existing_path is not None:
+                raise ValueError(f"文档索引本地路径冲突: {record.local_path}")
+            by_url[record.source_url] = record
+            by_path[record.local_path] = record
+            records.append(record)
+    records.sort(key=lambda item: (item.company_code, item.report_year, item.document_type, item.source_url))
+    summary = {
+        "source_index_count": source_count,
+        "document_count": len(records),
+        "company_count": len({item.company_code for item in records}),
+        "duplicate_count": duplicate_count,
+        "complete": True,
+    }
+    return records, summary
+
+
 def plan_collection(
     companies: Iterable[UniverseCompany], records: Iterable[DocumentRecord], report_year: int,
 ) -> list[CollectionTask]:

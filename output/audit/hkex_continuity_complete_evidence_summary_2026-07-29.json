@@ -1,0 +1,17 @@
+{
+  "document_count": 121,
+  "candidate_count": 440,
+  "category_counts": {
+    "ah_identity": 73,
+    "issuer_history": 11,
+    "principal_business": 356
+  },
+  "company_coverage": {
+    "issuer_history": 7,
+    "principal_business": 70,
+    "ah_identity": 23
+  },
+  "missing_text_count": 0,
+  "missing_text_files": [],
+  "applicable": false
+}

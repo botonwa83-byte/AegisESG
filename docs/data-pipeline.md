@@ -352,6 +352,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli select-hkex-continuity-review-batch \
 P0批次包含`00042.HK`、`00600.HK`、`00607.HK`和`00650.HK`共4个复核包、40条候选。
 切分器保留原始字段和未签名状态；审核完成后，可将该批次直接传给`finalize-hkex-continuity-review`。
 
+原2025—2026时间窗无候选的`00702.HK`和`01101.HK`，扩展到2020—2026年后发现15份官方文件，
+无冲突选择并下载2份2023年年报和1份ESG报告。多个断点下载索引通过严格合并命令统一：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli merge-document-indexes \
+  data/raw/hkex_continuity_all_document_index.csv \
+  data/raw/hkex_continuity_missing_document_index.csv \
+  --output data/raw/hkex_continuity_complete_document_index.csv \
+  --summary output/audit/hkex_continuity_complete_document_index_summary_2026-07-29.json
+```
+
+合并器按官方URL去除完全一致的重复项，并拒绝URL元数据冲突或本地路径冲突。统一索引包含121份
+文件和70家公司；重新抽取后形成440条候选及70个审阅包，`codes_without_candidates=[]`。
+
 ## 外部企业名录对账
 
 业务方或用户提供的企业名录使用`reconcile-registry`与交易所标准快照核对。输入至少包含
