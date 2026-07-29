@@ -219,8 +219,8 @@ class MethodologyTests(unittest.TestCase):
 
     def test_english_consolidated_statement_derives_debt_asset_rate(self):
         pages = [
-            PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nTotal assets 2,000 1,800\nTotal liabilities 800 700"),
-            PageText(101, "Consolidated Statement of Profit or Loss"),
+            PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nTotal current assets 800 700\nTotal assets 2,000 1,800\nTotal liabilities 800 700\nTotal equity 1,200 1,100"),
+            PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000"),
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
         debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
@@ -228,10 +228,14 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(40, debt[0].value)
         self.assertEqual(100, debt[0].source_page)
         self.assertEqual(ValueStatus.PENDING, debt[0].status)
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1200 / 1900, values["Q_G_ASSET_TURNOVER"])
+        self.assertAlmostEqual(1200 / 750, values["Q_G_CURRENT_ASSET_TURNOVER"])
+        self.assertAlmostEqual(100 / 1100 * 100, values["Q_G_CAPITAL_ACCUMULATION"])
 
     def test_english_consolidated_income_derives_revenue_growth_and_skips_note_column(self):
         pages = [
-            PageText(120, "Consolidated Statement of Profit or Loss\nfor the year ended 31 December 2025\nRevenue 5 1,200,000 1,000,000\nCost of sales (800,000) (700,000)"),
+            PageText(120, "Consolidated Statement of Profit or Loss\nfor the year ended 31 December 2025\nRevenue 5 1,200,000 1,000,000\nOperating profit 8 240,000 200,000\nCost of sales (800,000) (700,000)"),
             PageText(121, "Consolidated Statement of Changes in Equity"),
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
@@ -240,6 +244,9 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(20, growth[0].value)
         self.assertEqual(120, growth[0].source_page)
         self.assertEqual(ValueStatus.PENDING, growth[0].status)
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(20, values["Q_G_OPERATING_MARGIN"])
+        self.assertAlmostEqual(20, values["Q_G_OPERATING_PROFIT_GROWTH"])
 
     def test_english_income_rejects_missing_period_and_contaminated_extra_columns(self):
         for text in (

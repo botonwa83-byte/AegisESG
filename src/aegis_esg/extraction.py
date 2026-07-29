@@ -455,6 +455,7 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
     )
     end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit|income|changes|cash flows?)")
     starts = [index for index, page in enumerate(pages) if title.search(page.text)]
+    best_result = []
     for start in starts:
         statement_pages = []
         for page in pages[start:start + 6]:
@@ -463,12 +464,58 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
             statement_pages.append(page)
         assets = _find_english_statement_fact(statement_pages, r"Total assets(?!\s+less)")
         liabilities = _find_english_statement_fact(statement_pages, r"Total liabilities(?!\s+and)")
+        current_assets = _find_english_statement_fact(statement_pages, r"Total current assets")
+        equity = _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
+        revenue = _find_english_revenue_fact(pages)
+        result = []
         if assets and liabilities and assets.values[0] > 0:
             value = liabilities.values[0] / assets.values[0] * 100
             if 0 <= value <= 1000:
                 evidence = "English consolidated statement derived: " + liabilities.evidence + " | " + assets.evidence
-                return [("Q_G_DEBT_ASSET_RATE", value, max(assets.page, liabilities.page), evidence)]
-    return []
+                result.append(("Q_G_DEBT_ASSET_RATE", value, max(assets.page, liabilities.page), evidence))
+        if assets and revenue and len(assets.values) >= 2:
+            average_assets = (assets.values[0] + assets.values[1]) / 2
+            if average_assets != 0:
+                result.append((
+                    "Q_G_ASSET_TURNOVER", revenue.values[0] / average_assets,
+                    max(assets.page, revenue.page), "English consolidated statements derived: " +
+                    revenue.evidence + " | " + assets.evidence,
+                ))
+        if current_assets and revenue and len(current_assets.values) >= 2:
+            average_current_assets = (current_assets.values[0] + current_assets.values[1]) / 2
+            if average_current_assets != 0:
+                result.append((
+                    "Q_G_CURRENT_ASSET_TURNOVER", revenue.values[0] / average_current_assets,
+                    max(current_assets.page, revenue.page), "English consolidated statements derived: " +
+                    revenue.evidence + " | " + current_assets.evidence,
+                ))
+        if equity and len(equity.values) >= 2 and equity.values[1] != 0:
+            growth = (equity.values[0] - equity.values[1]) / abs(equity.values[1]) * 100
+            if -1000 <= growth <= 1000:
+                result.append((
+                    "Q_G_CAPITAL_ACCUMULATION", growth, equity.page,
+                    "English consolidated statement derived: " + equity.evidence,
+                ))
+        if len(result) > len(best_result):
+            best_result = result
+    return best_result
+
+
+def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
+    title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit or loss|profit and loss|income)(?:\s|$)",
+    )
+    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:financial position|changes|cash flows?)")
+    for start in (index for index, page in enumerate(pages) if title.search(page.text)):
+        statement_pages = []
+        for page in pages[start:start + 5]:
+            if statement_pages and end.search(page.text):
+                break
+            statement_pages.append(page)
+        revenue = _find_english_statement_fact(statement_pages, r"Revenue")
+        if revenue:
+            return revenue
+    return None
 
 
 def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
@@ -507,13 +554,38 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                 break
             statement_pages.append(page)
         revenue = _find_english_statement_fact(statement_pages, r"Revenue")
-        if revenue and len(revenue.values) >= 2 and revenue.values[1] != 0:
+        if not revenue or revenue.values[0] == 0:
+            continue
+        result = []
+        if revenue.values[1] != 0:
             growth = (revenue.values[0] - revenue.values[1]) / abs(revenue.values[1]) * 100
             if -100 <= growth <= 1000:
-                return [(
+                result.append((
                     "Q_G_REVENUE_GROWTH", growth, revenue.page,
                     "English consolidated income statement derived: " + revenue.evidence,
-                )]
+                ))
+        operating = _find_english_statement_fact(
+            statement_pages, r"(?:Operating profit|Profit from operations)",
+        )
+        if operating:
+            margin = operating.values[0] / revenue.values[0] * 100
+            if -1000 <= margin <= 1000:
+                result.append((
+                    "Q_G_OPERATING_MARGIN", margin, max(revenue.page, operating.page),
+                    "English consolidated income statement derived: " +
+                    operating.evidence + " | " + revenue.evidence,
+                ))
+            if operating.values[1] != 0:
+                operating_growth = (
+                    (operating.values[0] - operating.values[1]) / abs(operating.values[1]) * 100
+                )
+                if -1000 <= operating_growth <= 1000:
+                    result.append((
+                        "Q_G_OPERATING_PROFIT_GROWTH", operating_growth, operating.page,
+                        "English consolidated income statement derived: " + operating.evidence,
+                    ))
+        if result:
+            return result
     return []
 
 

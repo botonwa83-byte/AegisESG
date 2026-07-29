@@ -1,7 +1,27 @@
 {
+  "Q_G_ASSET_TURNOVER": {
+    "candidate_count": 15,
+    "company_count": 15
+  },
+  "Q_G_CAPITAL_ACCUMULATION": {
+    "candidate_count": 61,
+    "company_count": 61
+  },
+  "Q_G_CURRENT_ASSET_TURNOVER": {
+    "candidate_count": 18,
+    "company_count": 18
+  },
   "Q_G_DEBT_ASSET_RATE": {
     "candidate_count": 30,
     "company_count": 30
+  },
+  "Q_G_OPERATING_MARGIN": {
+    "candidate_count": 17,
+    "company_count": 17
+  },
+  "Q_G_OPERATING_PROFIT_GROWTH": {
+    "candidate_count": 16,
+    "company_count": 16
   },
   "Q_G_REVENUE_GROWTH": {
     "candidate_count": 52,
