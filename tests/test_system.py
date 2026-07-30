@@ -26,7 +26,7 @@ from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, _fetch, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
-from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page
+from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page, parse_bse_disclosures, classify_disclosure_title, discover_bse_reports, discover_bse_annual_report
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, write_document_index
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
@@ -1513,6 +1513,54 @@ class MethodologyTests(unittest.TestCase):
         rows = parse_bse_code_mapping(html)
         self.assertEqual("831396.BJ", rows[0].old_code)
         self.assertEqual("920496.BJ", rows[0].new_code)
+
+    def test_bse_official_disclosure_response_and_strict_titles(self):
+        payload = json.dumps({"data": {"content": [{"disclosures": [
+            {"companyCd": "920110", "companyName": "雷特科技", "publishDate": "2026-04-10",
+             "disclosureTitle": "[定期报告]雷特科技:2025年年度报告", "disclosurePostTitle": "",
+             "destFilePath": "/disclosure/2026/annual.pdf"},
+            {"companyCd": "920110", "companyName": "雷特科技", "publishDate": "2026-04-10",
+             "disclosureTitle": "雷特科技:2025年年度报告摘要", "disclosurePostTitle": "",
+             "destFilePath": "/disclosure/2026/summary.pdf"},
+            {"companyCd": "920110", "companyName": "雷特科技", "publishDate": "2026-04-11",
+             "disclosureTitle": "雷特科技:2025年度社会责任报告", "disclosurePostTitle": "",
+             "destFilePath": "/disclosure/2026/esg.pdf"},
+        ]}], "number": 0, "totalPages": 3}}, ensure_ascii=False)
+        rows, page, pages = parse_bse_disclosures(payload, 2025)
+        self.assertEqual((0, 3), (page, pages))
+        self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in rows})
+        self.assertEqual("920110.BJ", rows[0].stock_code)
+        self.assertTrue(rows[0].source_url.startswith("https://www.bse.cn/disclosure/"))
+        self.assertIsNone(classify_disclosure_title("关于2025年年度报告问询函的回复", "2025"))
+
+    def test_bse_disclosure_discovery_validates_pages_and_selects_latest(self):
+        def page(number, title, path, total=2):
+            return json.dumps({"data": {"content": [{"disclosures": [{
+                "companyCd": "920110", "companyName": "雷特科技",
+                "publishDate": f"2026-04-{10 + number:02d}", "disclosureTitle": title,
+                "destFilePath": path,
+            }]}], "number": number, "totalPages": total}}, ensure_ascii=False)
+        payloads = {
+            0: page(0, "雷特科技:2025年年度报告", "/old.pdf"),
+            1: page(1, "雷特科技:2025年年度报告", "/new.pdf"),
+        }
+        rows = discover_bse_reports("920110.BJ", 2025, payloads.__getitem__)
+        self.assertEqual(1, len(rows))
+        self.assertTrue(rows[0].source_url.endswith("new.pdf"))
+        with self.assertRaisesRegex(ValueError, "分页响应错位"):
+            discover_bse_reports("920110.BJ", 2025, lambda _: page(1, "雷特科技:2025年年度报告", "/a.pdf"))
+
+    def test_bse_annual_report_request_uses_official_category(self):
+        payload = 'null([{"listInfo":{"content":[{"companyCd":"920110","companyName":"雷特科技","publishDate":"2026-04-10","disclosureTitle":"[定期报告]雷特科技:2025年年度报告","destFilePath":"/disclosure/2026/a.pdf"}],"number":0,"totalPages":1}}])'
+        requests = []
+        def fetcher(request):
+            requests.append(request)
+            return payload.encode()
+        rows = discover_bse_annual_report("920110.BJ", 2025, fetcher)
+        self.assertEqual(1, len(rows))
+        query = request_data = requests[0].data.decode()
+        self.assertIn("disclosureSubtype%5B%5D=9503-1001", query)
+        self.assertIn("companyCd=920110", request_data)
 
     def test_official_listing_rejects_html_and_incomplete_pages(self):
         with self.assertRaises(ValueError):
