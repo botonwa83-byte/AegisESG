@@ -17,7 +17,7 @@ from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_i
 from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import scan_annual_esg_disclosure
 from aegis_esg.quality import evaluate_quality
-from aegis_esg.resolution import resolve_pending_candidates
+from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
@@ -221,7 +221,8 @@ class MethodologyTests(unittest.TestCase):
     def test_english_consolidated_statement_derives_debt_asset_rate(self):
         pages = [
             PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nInventories 100 80\nTrade receivables 200 160\nTotal current assets 800 700\nTotal current liabilities 400 350\nTotal assets 2,000 1,800\nTotal liabilities 800 700\nTotal equity 1,200 1,100"),
-            PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000"),
+            PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000\nFinance costs (20) (18)\nProfit before income tax 140 118\nIncome tax expense (20) (18)\nProfit for the year 120 100"),
+            PageText(102, "Consolidated Statement of Cash Flows\nDepreciation and amortisation 40 35\nNet cash generated from operating activities 240 180"),
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
         debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
@@ -236,6 +237,10 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(37.5, values["Q_G_TWO_FUNDS_RATE"])
         self.assertAlmostEqual(175, values["Q_G_QUICK_RATIO"])
         self.assertAlmostEqual(100 / 1100 * 100, values["Q_G_CAPITAL_ACCUMULATION"])
+        self.assertAlmostEqual(120 / 1150 * 100, values["Q_G_ROE"])
+        self.assertAlmostEqual(160 / 1900 * 100, values["Q_G_ROA"])
+        self.assertAlmostEqual(8, values["Q_G_EBITDA_INTEREST"])
+        self.assertAlmostEqual(200 / 1200 * 100, values["Q_G_EBITDA_MARGIN"])
 
     def test_english_balance_sheet_rejects_mixed_receivables_for_ar_metrics(self):
         pages = [
@@ -248,9 +253,17 @@ class MethodologyTests(unittest.TestCase):
         self.assertNotIn("Q_G_TWO_FUNDS_RATE", values)
         self.assertAlmostEqual(175, values["Q_G_QUICK_RATIO"])
 
+    def test_english_ebitda_margin_requires_complete_combined_da_line(self):
+        pages = [
+            PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000\nFinance costs (20) (18)\nIncome tax expense (20) (18)\nProfit for the year 120 100"),
+            PageText(102, "Consolidated Statement of Cash Flows\nDepreciation of property, plant and equipment 30 25\nAmortisation of intangible assets 10 10"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_EBITDA_MARGIN"])
+
     def test_english_consolidated_income_derives_revenue_growth_and_skips_note_column(self):
         pages = [
-            PageText(120, "Consolidated Statement of Profit or Loss\nfor the year ended 31 December 2025\nRevenue 5 1,200,000 1,000,000\nOperating profit 8 240,000 200,000\nCost of sales (800,000) (700,000)"),
+            PageText(120, "Consolidated Statement of Profit or Loss\nfor the year ended 31 December 2025\nRevenue 5 1,200,000 1,000,000\nTotal operating expenses 9 (900,000) (800,000)\nOperating profit 8 240,000 200,000\nCost of sales (800,000) (700,000)"),
             PageText(121, "Consolidated Statement of Changes in Equity"),
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
@@ -262,6 +275,16 @@ class MethodologyTests(unittest.TestCase):
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(20, values["Q_G_OPERATING_MARGIN"])
         self.assertAlmostEqual(20, values["Q_G_OPERATING_PROFIT_GROWTH"])
+        self.assertAlmostEqual(75, values["Q_G_COST_REVENUE_RATE"])
+
+    def test_english_cost_revenue_rate_rejects_cost_of_sales_only(self):
+        pages = [PageText(
+            120,
+            "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000\n"
+            "Cost of sales (800) (700)",
+        )]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_COST_REVENUE_RATE"])
 
     def test_english_cashflow_derives_cash_governance_metrics(self):
         pages = [
@@ -326,6 +349,25 @@ class MethodologyTests(unittest.TestCase):
         values = [item.value for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"]
         self.assertEqual([12.4, 19.848, 60], values)
 
+    def test_english_ghg_reduction_uses_explicit_current_previous_header(self):
+        pages = [PageText(
+            20,
+            "Environmental Indicators\nIndicator Unit 2025 2024\n"
+            "Total GHG emissions (Scope 1 and Scope 2) tCO2e 80,000 100,000",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
+        self.assertEqual([20], values)
+
+    def test_english_ghg_reduction_rejects_ambiguous_year_order(self):
+        pages = [PageText(
+            20,
+            "Environmental Indicators\nIndicator Unit 2024 2025\n"
+            "Total GHG emissions tCO2e 100,000 80,000",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"])
+
     def test_english_ghg_intensity_rejects_non_rmb_denominators(self):
         pages = [PageText(
             20,
@@ -348,6 +390,135 @@ class MethodologyTests(unittest.TestCase):
             ("Q_E_SOLID_WASTE_INTENSITY", 30),
             ("Q_E_SOLID_WASTE_INTENSITY", .5),
         ], values)
+
+    def test_english_additional_environmental_intensities_convert_units(self):
+        pages = [PageText(
+            20,
+            "SO2 emissions intensity Tonnes per Million Yuan of Revenue 0.05\n"
+            "PM emissions intensity kg/RMB million of revenue 0.20\n"
+            "Wastewater discharge intensity Tons per Million Yuan of Revenue 4.97\n"
+            "Hazardous waste intensity Tonnes/CNY 10k revenue 0.01",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(500, values["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(2, values["Q_E_PM_INTENSITY"])
+        self.assertAlmostEqual(49.7, values["Q_E_WASTEWATER_INTENSITY"])
+        self.assertAlmostEqual(10, values["Q_E_HAZ_WASTE_INTENSITY"])
+
+    def test_english_additional_environmental_intensities_reject_production_denominators(self):
+        pages = [PageText(
+            20,
+            "SOx emission intensity 1.73 kg/MW of wafers\n"
+            "Particulate matter emission intensity 0.72 kg/MW of wafers\n"
+            "Intensity of wastewater discharge 2.10 tonnes per barrel of crude oil\n"
+            "Hazardous waste intensity 0.4 tonnes per employee",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_E_SO2_INTENSITY", "Q_E_PM_INTENSITY", "Q_E_WASTEWATER_INTENSITY",
+            "Q_E_HAZ_WASTE_INTENSITY",
+        }])
+
+    def test_hazardous_waste_rule_does_not_match_non_hazardous_label(self):
+        pages = [PageText(
+            20, "Non-hazardous waste intensity Tonnes/CNY 10k revenue 0.03",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_HAZ_WASTE_INTENSITY"])
+
+    def test_english_recycled_water_proportion_accepts_explicit_share(self):
+        pages = [PageText(20, "Proportion of the recycled water consumption 8.53 %")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"]
+        self.assertEqual([8.53], values)
+
+    def test_english_recycled_water_proportion_rejects_utilisation_and_over_100(self):
+        pages = [PageText(
+            20,
+            "Utilisation rate of recycled water (%) 96.8\n"
+            "Proportion of recycled water 292.7%",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"])
+
+    def test_english_clean_energy_intensity_and_environmental_investment_rate(self):
+        pages = [PageText(
+            20,
+            "Clean energy consumption intensity tonnes of standard coal equivalent "
+            "per RMB million of revenue 0.60\n"
+            "Proportion of environmental protection investment16 Unit 2024 % / 2025 0.18",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(6, values["Q_E_CLEAN_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(.18, values["Q_S_ENV_INVEST_RATE"])
+
+    def test_english_clean_energy_and_environmental_investment_reject_wrong_context(self):
+        pages = [PageText(
+            20,
+            "Renewable Energy Consumption intensity kWh/Production unit (’000) 208.77\n"
+            "Proportion of Environmental Protection Investment (%) = "
+            "Environmental Protection Investment/Revenue",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_E_CLEAN_ENERGY_INTENSITY", "Q_S_ENV_INVEST_RATE",
+        }])
+
+    def test_english_donation_rate_accepts_explicit_revenue_share(self):
+        pages = [PageText(20, "Proportion of donation total in revenue 0.03 %")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_DONATION_RATE"]
+        self.assertEqual([.03], values)
+
+    def test_english_donation_rate_rejects_amount_and_formula_only(self):
+        pages = [PageText(
+            20,
+            "Corporate donation totalled RMB 60,000. "
+            "Proportion of donation total in revenue = donation/revenue.",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_S_DONATION_RATE"])
+
+    def test_english_pay_per_employee_uses_same_group_rmb_paragraph(self):
+        pages = [PageText(
+            20,
+            "As at 31 December 2025, the Group had 12,685 full-time employees, "
+            "staff cost of the Group for the Reporting Period amounted to RMB2,267.04 million.",
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_PAY_PER_EMPLOYEE"]
+        self.assertAlmostEqual(2267.04 * 100 / 12685, values[0])
+
+    def test_english_pay_per_employee_rejects_hkd_and_mismatched_period(self):
+        pages = [
+            PageText(20, "As at 31 December 2025, the Group had 21,677 employees. Total staff costs amounted to HK$1,459.247 million."),
+            PageText(21, "As at 31 December 2024, the Group had 457 employees. Total staff costs was RMB68.8 million."),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_S_PAY_PER_EMPLOYEE"])
+
+    def test_english_employee_benefit_note_derives_rmb_per_capita_metrics(self):
+        pages = [
+            PageText(20, "As at 31 December 2025, the Group had a total of 2,669 full-time employees."),
+            PageText(151, "Notes (Expressed in RMB unless otherwise indicated)\nEmployee benefits payable\n2025 Opening balance Increase during the year Decrease during the year Closing balance\nStaff welfare — 15,459,263.55 15,459,263.55 —\nSocial insurance 22,480.63 27,477,202.96 27,477,202.92 22,480.67\nHousing provident fund (6,271.80) 39,187,497.36 39,116,330.36 64,895.20\nLabour union operating funds and\nstaff education funds 7,021,581.31 11,407,746.42 11,121,875.15 7,307,452.58"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        expected_benefit = (15_459_263.55 + 27_477_202.96 + 39_187_497.36) / 10_000 / 2669
+        self.assertAlmostEqual(expected_benefit, values["Q_S_BENEFIT_PER_EMPLOYEE"])
+        self.assertAlmostEqual(11_407_746.42 / 10_000 / 2669, values["Q_S_EDU_PER_EMPLOYEE"])
+
+    def test_english_employee_benefit_note_requires_rmb_and_increase_header(self):
+        pages = [
+            PageText(20, "As at 31 December 2025, the Group had a total of 2,669 full-time employees."),
+            PageText(151, "Notes expressed in HKD\nEmployee benefits payable\nStaff welfare 15,459,263.55"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "annual.pdf")
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_S_BENEFIT_PER_EMPLOYEE", "Q_S_EDU_PER_EMPLOYEE",
+        }])
 
     def test_english_pollutant_and_waste_intensities_reject_production_and_usd(self):
         pages = [PageText(
@@ -493,6 +664,66 @@ class MethodologyTests(unittest.TestCase):
         confirmed, unresolved, _ = resolve_pending_candidates([item])
         self.assertEqual([6.68], [value.value for value in confirmed])
         self.assertFalse(unresolved)
+
+    def test_review_tiers_separate_auto_conflict_and_manual_spot_check(self):
+        items = [
+            Observation("A", "甲", 2025, "Q_G_ROE", 10, ValueStatus.PENDING,
+                        source_file="annual_report.pdf", source_page=1, confidence=.92),
+            Observation("B", "乙", 2025, "Q_S_SAFETY_INVEST_RATE", 2, ValueStatus.PENDING,
+                        source_file="esg_report.pdf", source_page=2, confidence=.94),
+            Observation("B", "乙", 2025, "Q_S_SAFETY_INVEST_RATE", 3, ValueStatus.PENDING,
+                        source_file="esg_report.pdf", source_page=3, confidence=.94),
+            Observation("C", "丙", 2025, "Q_S_ENV_INVEST_RATE", 1, ValueStatus.PENDING,
+                        source_file="esg_report.pdf", source_page=4, confidence=.94),
+        ]
+        rows, summary = plan_review_tiers(items)
+        tiers = {(item.company_code, item.tier) for item in rows}
+        self.assertIn(("A", "auto_policy_eligible"), tiers)
+        self.assertIn(("B", "manual_signature_required"), tiers)
+        self.assertIn(("C", "single_candidate_review"), tiers)
+        self.assertEqual(3, summary["candidate_group_count"])
+        self.assertFalse(summary["applicable"])
+
+    def test_pending_resolver_v4_requires_strict_evidence_prefix_for_new_metrics(self):
+        eligible = Observation(
+            "A", "甲", 2025, "Q_G_QUICK_RATIO", 150, ValueStatus.PENDING,
+            source_file="annual_report.pdf", confidence=.94,
+            evidence_text="English consolidated statement derived: current assets | inventory | liabilities",
+        )
+        unverified = Observation(
+            "B", "乙", 2025, "Q_G_QUICK_RATIO", 160, ValueStatus.PENDING,
+            source_file="annual_report.pdf", confidence=.94,
+            evidence_text="management discussion ratio",
+        )
+        confirmed, unresolved, decisions = resolve_pending_candidates([eligible, unverified])
+        self.assertEqual([150], [item.value for item in confirmed])
+        self.assertEqual([160], [item.value for item in unresolved])
+        self.assertEqual("public-disclosure-v4", decisions[0].policy_version)
+        self.assertEqual("strict_extraction_evidence_consistent", decisions[0].reason)
+
+    def test_resolution_preview_audit_closes_auto_and_manual_groups(self):
+        auto = Observation("A", "甲", 2025, "Q_G_ROE", 10, ValueStatus.PENDING,
+                           source_file="annual_report.pdf", confidence=.92)
+        manual = [
+            Observation("B", "乙", 2025, "Q_S_SAFETY_INVEST_RATE", value, ValueStatus.PENDING,
+                        source_file="esg_report.pdf", source_page=page, confidence=.94)
+            for value, page in ((2, 2), (3, 3))
+        ]
+        confirmed, unresolved, decisions = resolve_pending_candidates([auto, *manual])
+        report = audit_resolution_preview([auto, *manual], confirmed, unresolved, decisions)
+        self.assertTrue(report["valid"])
+        self.assertFalse(report["freeze_ready"])
+        self.assertEqual(1, report["auto_confirmed_group_count"])
+        self.assertEqual(1, report["manual_required_group_count"])
+
+    def test_resolution_preview_audit_rejects_selected_value_tamper(self):
+        candidate = Observation("A", "甲", 2025, "Q_G_ROE", 10, ValueStatus.PENDING,
+                                source_file="annual_report.pdf", confidence=.92)
+        confirmed, unresolved, decisions = resolve_pending_candidates([candidate])
+        decision = decisions[0]
+        tampered = ResolutionDecision(**{**vars(decision), "selected_value": "11"})
+        with self.assertRaisesRegex(ValueError, "selected value drift"):
+            audit_resolution_preview([candidate], confirmed, unresolved, [tampered])
 
     def test_manual_review_requires_selected_candidate(self):
         candidate = Observation("A", "甲", 2025, "Q_G_DEBT_ASSET_RATE", 40, ValueStatus.PENDING, source_file="annual.pdf", source_page=3)
@@ -1542,6 +1773,8 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(1, summary["candidate_task_count"])
         self.assertEqual(1, summary["candidate_observation_count"])
         self.assertEqual(73, summary["missing_task_count"])
+        self.assertEqual(36, summary["zero_coverage_indicator_count"])
+        self.assertNotIn(indicator.code, summary["zero_coverage_indicator_codes"])
         self.assertFalse(summary["complete"])
         self.assertFalse(summary["applicable"])
         available = next(
@@ -1562,17 +1795,30 @@ class MethodologyTests(unittest.TestCase):
             ROOT / "data/review/hkex_indicator_candidates_review_2026-07-29.csv",
             ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
             self.methodology,
+            ROOT / "output/audit/hkex_candidate_review_tiers_summary_2026-07-29.json",
+            ROOT / "output/audit/hkex_candidate_review_tiers_2026-07-29.csv",
+            ROOT / "output/audit/hkex_resolution_preview_freeze_audit_2026-07-29.json",
         )
         self.assertEqual(3404, data["overview"]["task_count"])
-        self.assertEqual(275, data["overview"]["candidate_task_count"])
-        self.assertEqual(2, data["overview"]["conflict_count"])
-        self.assertEqual({"00196.HK", "00600.HK"}, {item["company_code"] for item in data["conflicts"]})
+        self.assertEqual(400, data["overview"]["candidate_task_count"])
+        self.assertEqual(3, data["overview"]["conflict_count"])
+        self.assertEqual(
+            {"00196.HK", "00600.HK", "01205.HK"},
+            {item["company_code"] for item in data["conflicts"]},
+        )
         self.assertTrue(all(item["candidates"] for item in data["conflicts"]))
+        self.assertEqual(394, data["review_tiers"]["summary"]["tier_counts"]["auto_policy_eligible"])
+        self.assertEqual(6, len(data["review_tiers"]["manual_items"]))
+        self.assertTrue(data["resolution_freeze_audit"]["valid"])
+        self.assertFalse(data["resolution_freeze_audit"]["freeze_ready"])
         rendered = render_progress_dashboard(data)
         self.assertIn("AegisESP 开发进度", rendered)
         self.assertIn("候选数据不等于正式评分", rendered)
         self.assertIn("下一批关键缺口", rendered)
         self.assertIn("indicator-search", rendered)
+        self.assertIn("审核分层", rendered)
+        self.assertIn("v4可自动确认", rendered)
+        self.assertIn("待人工审核", rendered)
         review_template = render_conflict_review_template(data)
         self.assertTrue(review_template.startswith("\ufeffcompany_code,"))
         self.assertIn("00196.HK", review_template)

@@ -19,7 +19,7 @@ from .migration import augment_candidate_universe, bind_snapshot_provenance, pla
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
-from .resolution import resolve_pending_candidates
+from .resolution import audit_resolution_preview, plan_review_tiers, read_resolution_decisions, resolve_pending_candidates, write_review_tiers
 from .review import apply_conflict_review_instructions, apply_review_instructions, read_review_instructions, write_review_audit, write_review_template
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
@@ -306,6 +306,16 @@ def main() -> None:
     resolve.add_argument("--confirmed", required=True)
     resolve.add_argument("--unresolved", required=True)
     resolve.add_argument("--decisions", required=True)
+    review_tiers = sub.add_parser("plan-review-tiers", help="只读生成候选自动确认与人工审核分层")
+    review_tiers.add_argument("input")
+    review_tiers.add_argument("--output", required=True)
+    review_tiers.add_argument("--summary", required=True)
+    resolution_audit = sub.add_parser("audit-resolution-preview", help="校验自动确认预览批次能否冻结")
+    resolution_audit.add_argument("candidates")
+    resolution_audit.add_argument("confirmed")
+    resolution_audit.add_argument("unresolved")
+    resolution_audit.add_argument("decisions")
+    resolution_audit.add_argument("--output", required=True)
     review_template = sub.add_parser("review-template", help="为未决候选生成人工复核模板")
     review_template.add_argument("input")
     review_template.add_argument("--output", required=True)
@@ -720,6 +730,23 @@ def main() -> None:
             if decisions:
                 writer.writeheader(); writer.writerows(vars(item) for item in decisions)
         print(f"auto-confirmed {len(confirmed)}; unresolved {len(unresolved)}; decisions {len(decisions)}")
+        return
+    if args.command == "plan-review-tiers":
+        rows, summary = plan_review_tiers(read_observations(args.input, methodology))
+        write_review_tiers(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-resolution-preview":
+        report = audit_resolution_preview(
+            read_observations(args.candidates, methodology),
+            read_observations(args.confirmed, methodology),
+            read_observations(args.unresolved, methodology),
+            read_resolution_decisions(args.decisions),
+        )
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
         return
     if args.command == "review-template":
         write_review_template(args.output, read_observations(args.input, methodology))

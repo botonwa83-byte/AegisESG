@@ -1,0 +1,401 @@
+﻿company_code,company_name,report_year,indicator_code,decision,candidate_count,distinct_values,selected_value,policy_version,reason
+00002.HK,CLP HOLDINGS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.9043,2.9043,public-disclosure-v4,official_annual_direct_consistent
+00002.HK,CLP HOLDINGS,2025,Q_G_EBITDA_MARGIN,auto_confirmed,1,29.3248,29.3248,public-disclosure-v4,strict_extraction_evidence_consistent
+00002.HK,CLP HOLDINGS,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,3.347,3.347,public-disclosure-v4,official_annual_direct_consistent
+00002.HK,CLP HOLDINGS,2025,Q_G_ROE,auto_confirmed,1,10.9664,10.9664,public-disclosure-v4,official_annual_direct_consistent
+00003.HK,HK & CHINA GAS,0,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,4.4719,4.4719,public-disclosure-v4,official_annual_direct_consistent
+00006.HK,POWER ASSETS,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,29.307,29.307,public-disclosure-v4,official_annual_direct_consistent
+00006.HK,POWER ASSETS,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-16.1045,-16.1045,public-disclosure-v4,official_annual_direct_consistent
+00042.HK,NE ELECTRIC,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-281.322,-281.322,public-disclosure-v4,official_annual_direct_consistent
+00042.HK,NE ELECTRIC,2025,Q_G_EBITDA_MARGIN,auto_confirmed,1,-43.9642,-43.9642,public-disclosure-v4,strict_extraction_evidence_consistent
+00042.HK,NE ELECTRIC,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,4.9405,4.9405,public-disclosure-v4,official_annual_direct_consistent
+00061.HK,GREEN LEADER,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,28.0312,28.0312,public-disclosure-v4,official_annual_direct_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-27.3758,-27.3758,public-disclosure-v4,official_annual_direct_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,-14.4056,-14.4056,public-disclosure-v4,official_annual_direct_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.4553,1.4553,public-disclosure-v4,official_annual_direct_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_QUICK_RATIO,auto_confirmed,1,139.118,139.118,public-disclosure-v4,strict_extraction_evidence_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-10.7122,-10.7122,public-disclosure-v4,official_annual_direct_consistent
+00065.HK,GRAND OCEAN AR,2025,Q_G_ROE,auto_confirmed,1,-47.0432,-47.0432,public-disclosure-v4,official_annual_direct_consistent
+00135.HK,KUNLUN ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,3.8746,3.8746,public-disclosure-v4,official_annual_direct_consistent
+00135.HK,KUNLUN ENERGY,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,35.9717,35.9717,public-disclosure-v4,official_annual_direct_consistent
+00135.HK,KUNLUN ENERGY,2025,Q_S_DIVIDEND_PER_SHARE,auto_confirmed,1,0.3158,0.3158,public-disclosure-v4,official_annual_direct_consistent
+00182.HK,CONCORD NE,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-2.8503,-2.8503,public-disclosure-v4,official_annual_direct_consistent
+00182.HK,CONCORD NE,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,73.9046,73.9046,public-disclosure-v4,official_annual_direct_consistent
+00182.HK,CONCORD NE,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,1.4296,1.4296,public-disclosure-v4,official_annual_direct_consistent
+00182.HK,CONCORD NE,2025,Q_G_ROA,auto_confirmed,1,2.7752,2.7752,public-disclosure-v4,official_annual_direct_consistent
+00182.HK,CONCORD NE,2025,Q_G_ROE,auto_confirmed,1,1.7841,1.7841,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,31.7124,31.7124,public-disclosure-v4,strict_extraction_evidence_consistent
+00196.HK,HONGHUA GROUP,2025,Q_E_HAZ_WASTE_INTENSITY,auto_confirmed,2,10,10,public-disclosure-v4,strict_extraction_evidence_consistent
+00196.HK,HONGHUA GROUP,2025,Q_E_SOLID_WASTE_INTENSITY,auto_confirmed,2,30,30,public-disclosure-v4,strict_extraction_evidence_consistent
+00196.HK,HONGHUA GROUP,2025,Q_E_WATER_INTENSITY,auto_confirmed,2,630,630,public-disclosure-v4,official_esg_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.4477,0.4477,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,71.1288,71.1288,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,3.1377,3.1377,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,16.3215,16.3215,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-2.4866,-2.4866,public-disclosure-v4,official_annual_direct_consistent
+00196.HK,HONGHUA GROUP,2025,Q_S_RD_RATE,manual_required,3,2.9776|5.2,,public-disclosure-v4,conflicting_or_ineligible_sources
+00206.HK,CM-ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.2929,2.2929,public-disclosure-v4,official_annual_direct_consistent
+00206.HK,CM-ENERGY,2025,Q_G_ROE,auto_confirmed,1,0.9785,0.9785,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_AR_TURNOVER,auto_confirmed,1,1.9406,1.9406,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,19.3007,19.3007,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.7512,0.7512,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.6354,2.6354,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-21.9403,-21.9403,public-disclosure-v4,official_annual_direct_consistent
+00228.HK,CHINA ENERGY,2025,Q_G_ROE,auto_confirmed,1,1.1445,1.1445,public-disclosure-v4,official_annual_direct_consistent
+00276.HK,MONGOLIA ENERGY,2026,Q_G_REVENUE_GROWTH,auto_confirmed,1,-29.4937,-29.4937,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.0708,0.0708,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.1508,0.1508,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,53.7893,53.7893,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-1.1964,-1.1964,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-18.2081,-18.2081,public-disclosure-v4,official_annual_direct_consistent
+00295.HK,KONG SUN HOLD,2025,Q_G_ROA,auto_confirmed,1,-2.5822,-2.5822,public-disclosure-v4,official_annual_direct_consistent
+00332.HK,YUANHENGGAS-NEW,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,-12.0504,-12.0504,public-disclosure-v4,strict_extraction_evidence_consistent
+00332.HK,YUANHENGGAS-NEW,2026,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-10.5594,-10.5594,public-disclosure-v4,official_annual_direct_consistent
+00332.HK,YUANHENGGAS-NEW,2026,Q_G_EBITDA_INTEREST,auto_confirmed,1,-0.1853,-0.1853,public-disclosure-v4,official_annual_direct_consistent
+00332.HK,YUANHENGGAS-NEW,2026,Q_G_ROE,auto_confirmed,1,-62.8291,-62.8291,public-disclosure-v4,official_annual_direct_consistent
+00346.HK,YANCHANG PETRO,2025,Q_G_AR_TURNOVER,auto_confirmed,1,22.1717,22.1717,public-disclosure-v4,official_annual_direct_consistent
+00346.HK,YANCHANG PETRO,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,6.2282,6.2282,public-disclosure-v4,official_annual_direct_consistent
+00346.HK,YANCHANG PETRO,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-55.2971,-55.2971,public-disclosure-v4,official_annual_direct_consistent
+00346.HK,YANCHANG PETRO,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,78.9713,78.9713,public-disclosure-v4,official_annual_direct_consistent
+00346.HK,YANCHANG PETRO,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-40.6319,-40.6319,public-disclosure-v4,official_annual_direct_consistent
+00353.HK,ENERGY INTINV,2024,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,32.9297,32.9297,public-disclosure-v4,official_annual_direct_consistent
+00384.HK,CHINA GAS HOLD,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,6.6811,6.6811,public-disclosure-v4,official_annual_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_E_ENERGY_INTENSITY,auto_confirmed,3,6,6,public-disclosure-v4,official_esg_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_E_GHG_INTENSITY,auto_confirmed,2,12.4,12.4,public-disclosure-v4,official_esg_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_E_HAZ_WASTE_INTENSITY,auto_confirmed,1,0.0003,0.0003,public-disclosure-v4,strict_extraction_evidence_consistent
+00451.HK,GCL NEWENERGY,2025,Q_E_WATER_INTENSITY,auto_confirmed,2,349.5,349.5,public-disclosure-v4,official_esg_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-14.3634,-14.3634,public-disclosure-v4,official_annual_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-24.5593,-24.5593,public-disclosure-v4,official_annual_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-4.0792,-4.0792,public-disclosure-v4,official_annual_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_G_ROE,auto_confirmed,1,-25.6141,-25.6141,public-disclosure-v4,official_annual_direct_consistent
+00451.HK,GCL NEWENERGY,2025,Q_S_RD_RATE,auto_confirmed,1,2.9052,2.9052,public-disclosure-v4,official_annual_direct_consistent
+00467.HK,UNITEDENERGY GP,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-0.8315,-0.8315,public-disclosure-v4,official_annual_direct_consistent
+00467.HK,UNITEDENERGY GP,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,50.2238,50.2238,public-disclosure-v4,official_annual_direct_consistent
+00467.HK,UNITEDENERGY GP,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,5.0358,5.0358,public-disclosure-v4,official_annual_direct_consistent
+00467.HK,UNITEDENERGY GP,2025,Q_G_QUICK_RATIO,auto_confirmed,1,98.7525,98.7525,public-disclosure-v4,strict_extraction_evidence_consistent
+00467.HK,UNITEDENERGY GP,2025,Q_G_ROE,auto_confirmed,1,8.4374,8.4374,public-disclosure-v4,official_annual_direct_consistent
+00554.HK,HANS GP HLDGS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,109.363,109.363,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,4.9086,4.9086,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,4.0123,4.0123,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_EBITDA_MARGIN,auto_confirmed,1,42.0827,42.0827,public-disclosure-v4,strict_extraction_evidence_consistent
+00579.HK,JNCEC,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,23.1311,23.1311,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-8.2116,-8.2116,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,1.5335,1.5335,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_G_ROE,auto_confirmed,1,8.038,8.038,public-disclosure-v4,official_annual_direct_consistent
+00579.HK,JNCEC,2025,Q_S_RD_RATE,auto_confirmed,2,3.67,3.67,public-disclosure-v4,official_annual_direct_consistent
+00600.HK,AXERA,2025,Q_E_GHG_INTENSITY,manual_required,2,12.5|7003.1,,public-disclosure-v4,conflicting_or_ineligible_sources
+00600.HK,AXERA,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,4.2298,4.2298,public-disclosure-v4,strict_extraction_evidence_consistent
+00632.HK,CHK OIL,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,51.5883,51.5883,public-disclosure-v4,strict_extraction_evidence_consistent
+00632.HK,CHK OIL,2025,Q_G_AR_TURNOVER,auto_confirmed,1,11.0614,11.0614,public-disclosure-v4,official_annual_direct_consistent
+00632.HK,CHK OIL,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,13.2002,13.2002,public-disclosure-v4,official_annual_direct_consistent
+00632.HK,CHK OIL,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-61.6022,-61.6022,public-disclosure-v4,official_annual_direct_consistent
+00639.HK,SHOUGANG RES,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-1.3808,-1.3808,public-disclosure-v4,official_annual_direct_consistent
+00639.HK,SHOUGANG RES,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,435.454,435.454,public-disclosure-v4,official_annual_direct_consistent
+00645.HK,ARES ASIA,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-16.0905,-16.0905,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_G_AR_TURNOVER,auto_confirmed,1,2.9186,2.9186,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-17.5138,-17.5138,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_G_EBITDA_INTEREST,auto_confirmed,1,-26.5256,-26.5256,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_G_REVENUE_GROWTH,auto_confirmed,1,-48.7105,-48.7105,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_G_ROE,auto_confirmed,1,-19.5139,-19.5139,public-disclosure-v4,official_annual_direct_consistent
+00650.HK,PRODUCTIVE TECH,2024,Q_S_RD_RATE,auto_confirmed,1,40.3412,40.3412,public-disclosure-v4,official_annual_direct_consistent
+00666.HK,REPT BATTERO,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,14.8545,14.8545,public-disclosure-v4,official_annual_direct_consistent
+00666.HK,REPT BATTERO,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,12.0678,12.0678,public-disclosure-v4,official_annual_direct_consistent
+00666.HK,REPT BATTERO,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.0778,1.0778,public-disclosure-v4,official_annual_direct_consistent
+00666.HK,REPT BATTERO,2025,Q_G_QUICK_RATIO,auto_confirmed,1,86.6486,86.6486,public-disclosure-v4,strict_extraction_evidence_consistent
+00666.HK,REPT BATTERO,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,36.7392,36.7392,public-disclosure-v4,official_annual_direct_consistent
+00666.HK,REPT BATTERO,2025,Q_S_PAY_PER_EMPLOYEE,auto_confirmed,1,17.8718,17.8718,public-disclosure-v4,strict_extraction_evidence_consistent
+00666.HK,REPT BATTERO,2025,Q_S_RD_RATE,auto_confirmed,1,3.1509,3.1509,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.0749,0.0749,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,28.2966,28.2966,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.4605,0.4605,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,72.0947,72.0947,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,1.1947,1.1947,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,10.3552,10.3552,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_ROA,auto_confirmed,1,2.5657,2.5657,public-disclosure-v4,official_annual_direct_consistent
+00686.HK,BJ ENERGY INTL,2025,Q_G_ROE,auto_confirmed,1,0.1237,0.1237,public-disclosure-v4,official_annual_direct_consistent
+00689.HK,EPI (HOLDINGS),2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,6.3508,6.3508,public-disclosure-v4,official_annual_direct_consistent
+00689.HK,EPI (HOLDINGS),2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.3061,0.3061,public-disclosure-v4,official_annual_direct_consistent
+00689.HK,EPI (HOLDINGS),2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,5.8245,5.8245,public-disclosure-v4,official_annual_direct_consistent
+00689.HK,EPI (HOLDINGS),2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-10.9203,-10.9203,public-disclosure-v4,official_annual_direct_consistent
+00704.HK,HUSCOKE HLDGS,2024,Q_G_AR_TURNOVER,auto_confirmed,1,38.6125,38.6125,public-disclosure-v4,official_annual_direct_consistent
+00704.HK,HUSCOKE HLDGS,2024,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-4.0434,-4.0434,public-disclosure-v4,official_annual_direct_consistent
+00704.HK,HUSCOKE HLDGS,2024,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.2435,0.2435,public-disclosure-v4,official_annual_direct_consistent
+00704.HK,HUSCOKE HLDGS,2024,Q_G_EBITDA_INTEREST,auto_confirmed,1,0.0532,0.0532,public-disclosure-v4,official_annual_direct_consistent
+00704.HK,HUSCOKE HLDGS,2024,Q_G_ROE,auto_confirmed,1,-2.7736,-2.7736,public-disclosure-v4,official_annual_direct_consistent
+00819.HK,TIANNENG POWER,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,7.4525,7.4525,public-disclosure-v4,official_annual_direct_consistent
+00819.HK,TIANNENG POWER,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,5.5978,5.5978,public-disclosure-v4,official_annual_direct_consistent
+00819.HK,TIANNENG POWER,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-29.8295,-29.8295,public-disclosure-v4,official_annual_direct_consistent
+00819.HK,TIANNENG POWER,2025,Q_G_ROE,auto_confirmed,1,8.4786,8.4786,public-disclosure-v4,official_annual_direct_consistent
+00819.HK,TIANNENG POWER,2025,Q_S_RD_RATE,auto_confirmed,1,3.7419,3.7419,public-disclosure-v4,official_annual_direct_consistent
+00836.HK,CHINA RES POWER,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,11.4108,11.4108,public-disclosure-v4,official_annual_direct_consistent
+00836.HK,CHINA RES POWER,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,67.3544,67.3544,public-disclosure-v4,official_annual_direct_consistent
+00836.HK,CHINA RES POWER,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,6.0669,6.0669,public-disclosure-v4,official_annual_direct_consistent
+00836.HK,CHINA RES POWER,2025,Q_G_ROA,auto_confirmed,1,6.271,6.271,public-disclosure-v4,official_annual_direct_consistent
+00836.HK,CHINA RES POWER,2025,Q_G_ROE,auto_confirmed,1,13.0179,13.0179,public-disclosure-v4,official_annual_direct_consistent
+00931.HK,CHINA HK POWER,2026,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,9.2322,9.2322,public-disclosure-v4,official_annual_direct_consistent
+00931.HK,CHINA HK POWER,2026,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.5811,1.5811,public-disclosure-v4,official_annual_direct_consistent
+00931.HK,CHINA HK POWER,2026,Q_G_EBITDA_INTEREST,auto_confirmed,1,-4.3946,-4.3946,public-disclosure-v4,official_annual_direct_consistent
+00931.HK,CHINA HK POWER,2026,Q_G_QUICK_RATIO,auto_confirmed,1,49.1152,49.1152,public-disclosure-v4,strict_extraction_evidence_consistent
+00931.HK,CHINA HK POWER,2026,Q_G_REVENUE_GROWTH,auto_confirmed,1,14.1914,14.1914,public-disclosure-v4,official_annual_direct_consistent
+00934.HK,SINOPEC KANTONS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,3.7153,3.7153,public-disclosure-v4,official_annual_direct_consistent
+00934.HK,SINOPEC KANTONS,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,160.858,160.858,public-disclosure-v4,official_annual_direct_consistent
+00934.HK,SINOPEC KANTONS,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,2.0542,2.0542,public-disclosure-v4,official_annual_direct_consistent
+00951.HK,CHAOWEI POWER,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.5075,2.5075,public-disclosure-v4,official_annual_direct_consistent
+00951.HK,CHAOWEI POWER,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,8.0639,8.0639,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_AR_TURNOVER,auto_confirmed,1,2.5475,2.5475,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.3665,0.3665,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,1.5359,1.5359,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,42.6828,42.6828,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.1039,1.1039,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,38.6178,38.6178,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,6.993,6.993,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-37.3009,-37.3009,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_QUICK_RATIO,auto_confirmed,1,139.591,139.591,public-disclosure-v4,strict_extraction_evidence_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-4.8367,-4.8367,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_ROE,auto_confirmed,1,1.9023,1.9023,public-disclosure-v4,official_annual_direct_consistent
+00968.HK,XINYI SOLAR,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,47.3067,47.3067,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-0.8663,-0.8663,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.9099,1.9099,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,1.5362,1.5362,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,9.5662,9.5662,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-78.6145,-78.6145,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_QUICK_RATIO,auto_confirmed,1,78.1829,78.1829,public-disclosure-v4,strict_extraction_evidence_consistent
+00975.HK,MONGOL MINING,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-20.8158,-20.8158,public-disclosure-v4,official_annual_direct_consistent
+00975.HK,MONGOL MINING,2025,Q_G_ROE,auto_confirmed,1,1.0088,1.0088,public-disclosure-v4,official_annual_direct_consistent
+01080.HK,SHENGLI PIPE,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-0.4736,-0.4736,public-disclosure-v4,official_annual_direct_consistent
+01080.HK,SHENGLI PIPE,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,58.4306,58.4306,public-disclosure-v4,official_annual_direct_consistent
+01083.HK,TG SMART ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,9.3247,9.3247,public-disclosure-v4,official_annual_direct_consistent
+01101.HK,HUARONG ENERGY,2023,Q_G_AR_TURNOVER,auto_confirmed,1,12.6984,12.6984,public-disclosure-v4,official_annual_direct_consistent
+01101.HK,HUARONG ENERGY,2023,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.0585,0.0585,public-disclosure-v4,official_annual_direct_consistent
+01101.HK,HUARONG ENERGY,2023,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,741.981,741.981,public-disclosure-v4,official_annual_direct_consistent
+01101.HK,HUARONG ENERGY,2023,Q_G_REVENUE_GROWTH,auto_confirmed,1,-19.6636,-19.6636,public-disclosure-v4,official_annual_direct_consistent
+01205.HK,CITIC RESOURCES,2025,Q_E_GHG_REDUCTION_RATE,manual_required,2,-14.2513|-14.2506,,public-disclosure-v4,conflicting_or_ineligible_sources
+01205.HK,CITIC RESOURCES,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,8.9109,8.9109,public-disclosure-v4,official_annual_direct_consistent
+01205.HK,CITIC RESOURCES,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,24.9823,24.9823,public-disclosure-v4,official_annual_direct_consistent
+01205.HK,CITIC RESOURCES,2025,Q_G_QUICK_RATIO,auto_confirmed,1,149.229,149.229,public-disclosure-v4,strict_extraction_evidence_consistent
+01205.HK,CITIC RESOURCES,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,15.1085,15.1085,public-disclosure-v4,official_annual_direct_consistent
+01229.HK,NAN NAN RES,2026,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,7.5672,7.5672,public-disclosure-v4,official_annual_direct_consistent
+01229.HK,NAN NAN RES,2026,Q_G_EBITDA_INTEREST,auto_confirmed,1,4.2509,4.2509,public-disclosure-v4,official_annual_direct_consistent
+01229.HK,NAN NAN RES,2026,Q_G_REVENUE_GROWTH,auto_confirmed,1,18.626,18.626,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.0131,2.0131,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,34.9188,34.9188,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.265,0.265,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,1.6245,1.6245,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_QUICK_RATIO,auto_confirmed,1,161.619,161.619,public-disclosure-v4,strict_extraction_evidence_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-0.3275,-0.3275,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_G_ROE,auto_confirmed,1,2.054,2.054,public-disclosure-v4,official_annual_direct_consistent
+01250.HK,SDHS NEW ENERGY,2025,Q_S_ENV_INVEST_RATE,auto_confirmed,1,0.18,0.18,public-disclosure-v4,strict_extraction_evidence_consistent
+01251.HK,SPT ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-11.1466,-11.1466,public-disclosure-v4,official_annual_direct_consistent
+01251.HK,SPT ENERGY,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,62.7562,62.7562,public-disclosure-v4,official_annual_direct_consistent
+01277.HK,KINETIC DEV,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,25.7718,25.7718,public-disclosure-v4,official_annual_direct_consistent
+01277.HK,KINETIC DEV,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-51.4291,-51.4291,public-disclosure-v4,official_annual_direct_consistent
+01277.HK,KINETIC DEV,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-6.4104,-6.4104,public-disclosure-v4,official_annual_direct_consistent
+01303.HK,HUILI RES,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,1.0579,1.0579,public-disclosure-v4,official_annual_direct_consistent
+01303.HK,HUILI RES,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,16.6662,16.6662,public-disclosure-v4,official_annual_direct_consistent
+01303.HK,HUILI RES,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,49.6488,49.6488,public-disclosure-v4,official_annual_direct_consistent
+01303.HK,HUILI RES,2025,Q_G_QUICK_RATIO,auto_confirmed,1,140.683,140.683,public-disclosure-v4,strict_extraction_evidence_consistent
+01393.HK,HIDILI INDUSTRY,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,22.6014,22.6014,public-disclosure-v4,strict_extraction_evidence_consistent
+01393.HK,HIDILI INDUSTRY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-0.9924,-0.9924,public-disclosure-v4,official_annual_direct_consistent
+01393.HK,HIDILI INDUSTRY,2025,Q_G_EBITDA_MARGIN,auto_confirmed,1,2.771,2.771,public-disclosure-v4,strict_extraction_evidence_consistent
+01393.HK,HIDILI INDUSTRY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-10.8091,-10.8091,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_E_GHG_INTENSITY,auto_confirmed,1,6.98,6.98,public-disclosure-v4,official_esg_direct_consistent
+01407.HK,JY GAS,2025,Q_G_AR_TURNOVER,auto_confirmed,1,38.3744,38.3744,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.5736,0.5736,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,4.9034,4.9034,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,43.0274,43.0274,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,12.4724,12.4724,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,12.9518,12.9518,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,1.6705,1.6705,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-9.6749,-9.6749,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_ROA,auto_confirmed,1,7.4771,7.4771,public-disclosure-v4,official_annual_direct_consistent
+01407.HK,JY GAS,2025,Q_G_ROE,auto_confirmed,1,8.9851,8.9851,public-disclosure-v4,official_annual_direct_consistent
+01555.HK,MIE HOLDINGS,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,358.844,358.844,public-disclosure-v4,official_annual_direct_consistent
+01555.HK,MIE HOLDINGS,2025,Q_G_QUICK_RATIO,auto_confirmed,1,55.5557,55.5557,public-disclosure-v4,strict_extraction_evidence_consistent
+01555.HK,MIE HOLDINGS,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,35.6107,35.6107,public-disclosure-v4,official_annual_direct_consistent
+01600.HK,TIAN LUN GAS,2025,Q_E_HAZ_WASTE_INTENSITY,auto_confirmed,1,0.016,0.016,public-disclosure-v4,strict_extraction_evidence_consistent
+01600.HK,TIAN LUN GAS,2025,Q_E_SOLID_WASTE_INTENSITY,auto_confirmed,1,0.5,0.5,public-disclosure-v4,strict_extraction_evidence_consistent
+01600.HK,TIAN LUN GAS,2025,Q_E_WASTEWATER_INTENSITY,auto_confirmed,1,49.7,49.7,public-disclosure-v4,strict_extraction_evidence_consistent
+01608.HK,VPOWER GROUP,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-11.1546,-11.1546,public-disclosure-v4,official_annual_direct_consistent
+01621.HK,VICO INTL HLDGS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,6.8981,6.8981,public-disclosure-v4,official_annual_direct_consistent
+01621.HK,VICO INTL HLDGS,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,20.8791,20.8791,public-disclosure-v4,official_annual_direct_consistent
+01621.HK,VICO INTL HLDGS,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-15.3897,-15.3897,public-disclosure-v4,official_annual_direct_consistent
+01623.HK,HILONG,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-8.9705,-8.9705,public-disclosure-v4,official_annual_direct_consistent
+01623.HK,HILONG,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,61.2127,61.2127,public-disclosure-v4,official_annual_direct_consistent
+01713.HK,SICHUAN EN INV,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,49.8714,49.8714,public-disclosure-v4,official_annual_direct_consistent
+01713.HK,SICHUAN EN INV,2025,Q_G_QUICK_RATIO,auto_confirmed,1,66.0955,66.0955,public-disclosure-v4,strict_extraction_evidence_consistent
+01713.HK,SICHUAN EN INV,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,53.3399,53.3399,public-disclosure-v4,official_annual_direct_consistent
+01713.HK,SICHUAN EN INV,2025,Q_S_BENEFIT_PER_EMPLOYEE,auto_confirmed,1,3.077,3.077,public-disclosure-v4,strict_extraction_evidence_consistent
+01713.HK,SICHUAN EN INV,2025,Q_S_EDU_PER_EMPLOYEE,auto_confirmed,1,0.4274,0.4274,public-disclosure-v4,strict_extraction_evidence_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.13,0.13,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,2.5413,2.5413,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,2.8128,2.8128,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,189.758,189.758,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-3.3537,-3.3537,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_QUICK_RATIO,auto_confirmed,1,1.9164,1.9164,public-disclosure-v4,strict_extraction_evidence_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,15.72,15.72,public-disclosure-v4,official_annual_direct_consistent
+01738.HK,FS ANTHRACITE,2025,Q_G_ROA,auto_confirmed,1,-18.8991,-18.8991,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.109,0.109,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,0.0317,0.0317,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.4968,0.4968,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,67.369,67.369,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,30.4641,30.4641,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-18.5933,-18.5933,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_QUICK_RATIO,auto_confirmed,1,101.688,101.688,public-disclosure-v4,strict_extraction_evidence_consistent
+01798.HK,DATANG RENEW,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,0.0109,0.0109,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_G_ROE,auto_confirmed,1,4.8263,4.8263,public-disclosure-v4,official_annual_direct_consistent
+01798.HK,DATANG RENEW,2025,Q_S_SAFETY_INVEST_RATE,manual_required,1,4.41,,public-disclosure-v4,indicator_not_auto_eligible
+01799.HK,XINTE ENERGY,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,54.8883,54.8883,public-disclosure-v4,official_annual_direct_consistent
+01799.HK,XINTE ENERGY,2025,Q_G_QUICK_RATIO,auto_confirmed,1,92.0124,92.0124,public-disclosure-v4,strict_extraction_evidence_consistent
+01799.HK,XINTE ENERGY,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,43.3353,43.3353,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_AR_TURNOVER,auto_confirmed,1,1.9846,1.9846,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,14.6692,14.6692,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_COST_REVENUE_RATE,auto_confirmed,1,71.6016,71.6016,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,3.3023,3.3023,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,28.3984,28.3984,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-9.0077,-9.0077,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-13.2468,-13.2468,public-disclosure-v4,official_annual_direct_consistent
+01811.HK,CGN NEW ENERGY,2025,Q_G_ROE,auto_confirmed,1,15.0963,15.0963,public-disclosure-v4,official_annual_direct_consistent
+01878.HK,SOUTHGOBI,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,11.4605,11.4605,public-disclosure-v4,official_annual_direct_consistent
+01878.HK,SOUTHGOBI,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,163.906,163.906,public-disclosure-v4,official_annual_direct_consistent
+01878.HK,SOUTHGOBI,2025,Q_G_QUICK_RATIO,auto_confirmed,1,9.6084,9.6084,public-disclosure-v4,strict_extraction_evidence_consistent
+01921.HK,DALIPAL HLDG,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.4969,2.4969,public-disclosure-v4,official_annual_direct_consistent
+01921.HK,DALIPAL HLDG,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,2.4527,2.4527,public-disclosure-v4,official_annual_direct_consistent
+01921.HK,DALIPAL HLDG,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,5.1704,5.1704,public-disclosure-v4,official_annual_direct_consistent
+01921.HK,DALIPAL HLDG,2025,Q_S_PAY_PER_EMPLOYEE,auto_confirmed,1,13.3302,13.3302,public-disclosure-v4,strict_extraction_evidence_consistent
+01938.HK,CHU KONG PIPE,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,20.6517,20.6517,public-disclosure-v4,official_annual_direct_consistent
+01938.HK,CHU KONG PIPE,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.6866,0.6866,public-disclosure-v4,official_annual_direct_consistent
+01938.HK,CHU KONG PIPE,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.016,2.016,public-disclosure-v4,official_annual_direct_consistent
+01938.HK,CHU KONG PIPE,2025,Q_G_QUICK_RATIO,auto_confirmed,1,79.0898,79.0898,public-disclosure-v4,strict_extraction_evidence_consistent
+01938.HK,CHU KONG PIPE,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-19.9966,-19.9966,public-disclosure-v4,official_annual_direct_consistent
+02012.HK,SUNSHINE OIL,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,96.1771,96.1771,public-disclosure-v4,official_annual_direct_consistent
+02012.HK,SUNSHINE OIL,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-0.3656,-0.3656,public-disclosure-v4,official_annual_direct_consistent
+02012.HK,SUNSHINE OIL,2025,Q_G_ROA,auto_confirmed,1,-0.469,-0.469,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_G_AR_TURNOVER,auto_confirmed,1,1.5616,1.5616,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,15.7797,15.7797,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,7.1357,7.1357,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,267.635,267.635,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-8.3907,-8.3907,public-disclosure-v4,official_annual_direct_consistent
+02178.HK,PETRO-KING,2025,Q_S_RD_RATE,auto_confirmed,1,8.3727,8.3727,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_E_GHG_INTENSITY,auto_confirmed,1,17.21,17.21,public-disclosure-v4,official_esg_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_E_HAZ_WASTE_INTENSITY,auto_confirmed,1,0.026,0.026,public-disclosure-v4,strict_extraction_evidence_consistent
+02236.HK,WISON ENGRG,2025,Q_E_SOLID_WASTE_INTENSITY,auto_confirmed,1,1.139,1.139,public-disclosure-v4,strict_extraction_evidence_consistent
+02236.HK,WISON ENGRG,2025,Q_E_WATER_INTENSITY,auto_confirmed,1,398.528,398.528,public-disclosure-v4,official_esg_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_AR_TURNOVER,auto_confirmed,1,11.2721,11.2721,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,7.7026,7.7026,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.0707,1.0707,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,4.5714,4.5714,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_QUICK_RATIO,auto_confirmed,1,98.0581,98.0581,public-disclosure-v4,strict_extraction_evidence_consistent
+02236.HK,WISON ENGRG,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,34.6591,34.6591,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_ROE,auto_confirmed,1,5.2769,5.2769,public-disclosure-v4,official_annual_direct_consistent
+02236.HK,WISON ENGRG,2025,Q_G_TWO_FUNDS_RATE,auto_confirmed,1,17.1645,17.1645,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_AR_TURNOVER,auto_confirmed,1,1.5015,1.5015,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.1385,0.1385,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,9.764,9.764,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,67.8873,67.8873,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.5523,2.5523,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,24.3453,24.3453,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-1.8971,-1.8971,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-9.5611,-9.5611,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_ROA,auto_confirmed,1,3.6501,3.6501,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_G_ROE,auto_confirmed,1,5.2474,5.2474,public-disclosure-v4,official_annual_direct_consistent
+02380.HK,CHINA POWER,2025,Q_S_DIVIDEND_PER_SHARE,auto_confirmed,1,0.168,0.168,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_E_GHG_INTENSITY,auto_confirmed,1,19.848,19.848,public-disclosure-v4,official_esg_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.8114,0.8114,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,0.7376,0.7376,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.8934,0.8934,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,65.1226,65.1226,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,1.8254,1.8254,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-25.4253,-25.4253,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_QUICK_RATIO,auto_confirmed,1,144.5,144.5,public-disclosure-v4,strict_extraction_evidence_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,9.1527,9.1527,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_G_ROE,auto_confirmed,1,5.6997,5.6997,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_S_DIVIDEND_PER_SHARE,auto_confirmed,1,0.358,0.358,public-disclosure-v4,official_annual_direct_consistent
+02386.HK,SINOPEC SEG,2025,Q_S_RD_RATE,auto_confirmed,1,3.4448,3.4448,public-disclosure-v4,official_annual_direct_consistent
+02688.HK,ENN ENERGY,2025,Q_E_GHG_REDUCTION_RATE,auto_confirmed,1,45.0722,45.0722,public-disclosure-v4,strict_extraction_evidence_consistent
+02688.HK,ENN ENERGY,2025,Q_E_NOX_INTENSITY,auto_confirmed,1,0.9,0.9,public-disclosure-v4,strict_extraction_evidence_consistent
+02688.HK,ENN ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,15.5261,15.5261,public-disclosure-v4,official_annual_direct_consistent
+02688.HK,ENN ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,1.868,1.868,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,4.0263,4.0263,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-20.1054,-20.1054,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,85.3668,85.3668,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,0.3012,0.3012,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,0.3718,0.3718,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,153.374,153.374,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,8.9294,8.9294,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_ROA,auto_confirmed,1,1.5778,1.5778,public-disclosure-v4,official_annual_direct_consistent
+02728.HK,JINTAI ENERGY H,2025,Q_G_ROE,auto_confirmed,1,-23.3942,-23.3942,public-disclosure-v4,official_annual_direct_consistent
+02798.HK,PER ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-6.2674,-6.2674,public-disclosure-v4,official_annual_direct_consistent
+02798.HK,PER ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-29.3071,-29.3071,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_AR_TURNOVER,auto_confirmed,1,348.933,348.933,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,0.5677,0.5677,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,9.1848,9.1848,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,6.9854,6.9854,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-75.8186,-75.8186,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-61.5237,-61.5237,public-disclosure-v4,official_annual_direct_consistent
+03303.HK,JUTAL OIL SER,2025,Q_G_ROE,auto_confirmed,1,2.1011,2.1011,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_E_ALTERNATIVE_WATER_RATE,manual_required,2,8.53,,public-disclosure-v4,indicator_not_auto_eligible
+03337.HK,ANTON OILFIELD,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,4.443,4.443,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,67.4985,67.4985,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,5.6871,5.6871,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_G_ROA,auto_confirmed,1,6.5335,6.5335,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_G_ROE,auto_confirmed,1,10.3885,10.3885,public-disclosure-v4,official_annual_direct_consistent
+03337.HK,ANTON OILFIELD,2025,Q_S_DONATION_RATE,manual_required,1,0.03,,public-disclosure-v4,indicator_not_auto_eligible
+03395.HK,JX ENERGY,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,-10.5409,-10.5409,public-disclosure-v4,official_annual_direct_consistent
+03395.HK,JX ENERGY,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,313.973,313.973,public-disclosure-v4,official_annual_direct_consistent
+03633.HK,ZHONGYU ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.4414,2.4414,public-disclosure-v4,official_annual_direct_consistent
+03668.HK,YANCOAL AUS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-3.0482,-3.0482,public-disclosure-v4,official_annual_direct_consistent
+03668.HK,YANCOAL AUS,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,90.4317,90.4317,public-disclosure-v4,official_annual_direct_consistent
+03668.HK,YANCOAL AUS,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,25.9893,25.9893,public-disclosure-v4,official_annual_direct_consistent
+03800.HK,GCL TECH,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.6566,2.6566,public-disclosure-v4,official_annual_direct_consistent
+03800.HK,GCL TECH,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-4.7789,-4.7789,public-disclosure-v4,official_annual_direct_consistent
+03800.HK,GCL TECH,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-4.4552,-4.4552,public-disclosure-v4,official_annual_direct_consistent
+03800.HK,GCL TECH,2025,Q_G_ROE,auto_confirmed,1,-6.8215,-6.8215,public-disclosure-v4,official_annual_direct_consistent
+03800.HK,GCL TECH,2025,Q_S_RD_RATE,auto_confirmed,1,5.8839,5.8839,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.1113,0.1113,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,5.8684,5.8684,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,0.4651,0.4651,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,40.9432,40.9432,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,64.6406,64.6406,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,3.6501,3.6501,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,0.527,0.527,public-disclosure-v4,official_annual_direct_consistent
+03868.HK,XINYI ENERGY,2025,Q_S_PAY_PER_EMPLOYEE,auto_confirmed,1,15.0547,15.0547,public-disclosure-v4,strict_extraction_evidence_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.8552,0.8552,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,5.2008,5.2008,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_CASH_CURRENT_LIABILITY,auto_confirmed,1,11.6437,11.6437,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_CURRENT_ASSET_TURNOVER,auto_confirmed,1,1.1292,1.1292,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,57.1603,57.1603,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,15.8368,15.8368,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_OPERATING_MARGIN,auto_confirmed,1,5.4761,5.4761,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,-6.2922,-6.2922,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_QUICK_RATIO,auto_confirmed,1,126.946,126.946,public-disclosure-v4,strict_extraction_evidence_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,6.3428,6.3428,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_ROA,auto_confirmed,1,4.8296,4.8296,public-disclosure-v4,official_annual_direct_consistent
+03899.HK,CIMC ENRIC,2025,Q_G_ROE,auto_confirmed,1,8.7134,8.7134,public-disclosure-v4,official_annual_direct_consistent
+06828.HK,BG BLUE SKY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,2.9494,2.9494,public-disclosure-v4,official_annual_direct_consistent
+06828.HK,BG BLUE SKY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,2.0517,2.0517,public-disclosure-v4,official_annual_direct_consistent
+06828.HK,BG BLUE SKY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,13.6254,13.6254,public-disclosure-v4,official_annual_direct_consistent
+06828.HK,BG BLUE SKY,2025,Q_G_ROE,auto_confirmed,1,5.5413,5.5413,public-disclosure-v4,official_annual_direct_consistent
+06885.HK,JINMA ENERGY,2025,Q_E_NOX_INTENSITY,auto_confirmed,1,620,620,public-disclosure-v4,strict_extraction_evidence_consistent
+06885.HK,JINMA ENERGY,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-17.4027,-17.4027,public-disclosure-v4,official_annual_direct_consistent
+06885.HK,JINMA ENERGY,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-3.3993,-3.3993,public-disclosure-v4,official_annual_direct_consistent
+06885.HK,JINMA ENERGY,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,-29.9618,-29.9618,public-disclosure-v4,official_annual_direct_consistent
+08132.HK,CENTURY EN INTL,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-5.9432,-5.9432,public-disclosure-v4,official_annual_direct_consistent
+08132.HK,CENTURY EN INTL,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,12.3677,12.3677,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_ASSET_TURNOVER,auto_confirmed,1,0.1453,0.1453,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-48.5713,-48.5713,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_EBITDA_INTEREST,auto_confirmed,1,-869.6,-869.6,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_REVENUE_GROWTH,auto_confirmed,1,123.052,123.052,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_ROA,auto_confirmed,1,-14.7556,-14.7556,public-disclosure-v4,official_annual_direct_consistent
+08270.HK,CHINA CBM,2025,Q_G_ROE,auto_confirmed,1,-64.3891,-64.3891,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_AR_TURNOVER,auto_confirmed,1,4.4594,4.4594,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,0.7654,0.7654,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_EBITDA_INTEREST,auto_confirmed,1,-0.0044,-0.0044,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_OPERATING_MARGIN,auto_confirmed,1,1.4735,1.4735,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_OPERATING_PROFIT_GROWTH,auto_confirmed,1,825.376,825.376,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_REVENUE_GROWTH,auto_confirmed,1,-15.5462,-15.5462,public-disclosure-v4,official_annual_direct_consistent
+08347.HK,F8 ENT,2026,Q_G_ROE,auto_confirmed,1,-0.2417,-0.2417,public-disclosure-v4,official_annual_direct_consistent
+08536.HK,TL NATURAL GAS,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-5.0902,-5.0902,public-disclosure-v4,official_annual_direct_consistent
+08536.HK,TL NATURAL GAS,2025,Q_G_ROE,auto_confirmed,1,-14.911,-14.911,public-disclosure-v4,official_annual_direct_consistent
+08631.HK,YUFENGCHANG HLD,2024,Q_G_REVENUE_GROWTH,auto_confirmed,1,-19.6054,-19.6054,public-disclosure-v4,official_annual_direct_consistent
+09689.HK,JTF INTL,2025,Q_G_CAPITAL_ACCUMULATION,auto_confirmed,1,-2.4788,-2.4788,public-disclosure-v4,official_annual_direct_consistent
+09689.HK,JTF INTL,2025,Q_G_DEBT_ASSET_RATE,auto_confirmed,1,47.4048,47.4048,public-disclosure-v4,official_annual_direct_consistent

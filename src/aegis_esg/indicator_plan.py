@@ -156,6 +156,7 @@ def plan_candidate_coverage(
                 1 if available and indicator.key_indicator else 3 if available else 0 if indicator.key_indicator else 2,
             ))
     population = Counter(task.indicator_code for task in tasks if task.candidate_count)
+    zero_coverage = [item.code for item in quantitative if population[item.code] == 0]
     summary = {
         "company_count": len(expected),
         "quantitative_indicator_count": len(quantitative),
@@ -167,6 +168,8 @@ def plan_candidate_coverage(
             task.candidate_count == 0 and task.key_indicator for task in tasks
         ),
         "indicator_population": {item.code: population[item.code] for item in quantitative},
+        "zero_coverage_indicator_count": len(zero_coverage),
+        "zero_coverage_indicator_codes": zero_coverage,
         "complete": all(task.candidate_count > 0 for task in tasks),
         "applicable": False,
     }

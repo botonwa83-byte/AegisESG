@@ -17,6 +17,9 @@ def load_progress_dashboard(
     review_path: str | Path,
     candidates_path: str | Path,
     methodology: Methodology,
+    review_tiers_summary_path: str | Path | None = None,
+    review_tiers_path: str | Path | None = None,
+    resolution_freeze_audit_path: str | Path | None = None,
 ) -> dict:
     summary = json.loads(Path(summary_path).read_text(encoding="utf-8"))
     tasks = _read_csv(tasks_path)
@@ -90,6 +93,30 @@ def load_progress_dashboard(
 
     key_total = company_count * sum(item.key_indicator for item in methodology.quantitative)
     key_missing = summary["key_indicator_missing_task_count"]
+    review_tiers = None
+    if review_tiers_summary_path is not None or review_tiers_path is not None:
+        if review_tiers_summary_path is None or review_tiers_path is None:
+            raise ValueError("审核分层摘要和明细必须同时提供")
+        tier_summary = json.loads(Path(review_tiers_summary_path).read_text(encoding="utf-8"))
+        tier_rows = _read_csv(review_tiers_path)
+        if len(tier_rows) != tier_summary["candidate_group_count"]:
+            raise ValueError("审核分层明细数与摘要不一致")
+        actual_counts = Counter(row["tier"] for row in tier_rows)
+        if any(actual_counts[name] != count for name, count in tier_summary["tier_counts"].items()):
+            raise ValueError("审核分层类别计数与摘要不一致")
+        review_tiers = {
+            "summary": tier_summary,
+            "manual_items": [row for row in tier_rows if row["tier"] != "auto_policy_eligible"],
+        }
+    freeze_audit = None
+    if resolution_freeze_audit_path is not None:
+        freeze_audit = json.loads(Path(resolution_freeze_audit_path).read_text(encoding="utf-8"))
+        if freeze_audit.get("candidate_group_count") != summary["candidate_task_count"]:
+            raise ValueError("冻结审计候选组数与覆盖摘要不一致")
+        if freeze_audit.get("candidate_observation_count") != len(candidates):
+            raise ValueError("冻结审计候选观测数与覆盖摘要不一致")
+        if not freeze_audit.get("valid"):
+            raise ValueError("冻结审计未通过")
     return {
         "overview": {
             **{key: summary[key] for key in (
@@ -108,11 +135,16 @@ def load_progress_dashboard(
         "indicators": indicators,
         "priority_gaps": [row for row in indicators if row["key_indicator"] and row["missing_companies"]][:10],
         "conflicts": conflicts,
+        "review_tiers": review_tiers,
+        "resolution_freeze_audit": freeze_audit,
     }
 
 
 def render_progress_dashboard(data: dict) -> str:
     overview = data["overview"]
+    tier_summary = (data.get("review_tiers") or {}).get("summary", {})
+    tier_counts = tier_summary.get("tier_counts", {})
+    freeze_audit = data.get("resolution_freeze_audit") or {}
     cards = (
         ("公司", overview["company_count"]),
         ("候选观测", overview["candidate_observation_count"]),
@@ -120,6 +152,9 @@ def render_progress_dashboard(data: dict) -> str:
         ("总体覆盖率", f'{overview["coverage_rate"]}%'),
         ("关键指标覆盖", f'{overview["key_indicator_covered_task_count"]}/{overview["key_indicator_task_count"]}'),
         ("待复核冲突", overview["conflict_count"]),
+        ("v4可自动确认", tier_counts.get("auto_policy_eligible", "-")),
+        ("人工审核组", sum(value for key, value in tier_counts.items() if key != "auto_policy_eligible") if tier_counts else "-"),
+        ("正式冻结", "就绪" if freeze_audit.get("freeze_ready") else "待人工审核" if freeze_audit else "-"),
     )
     card_html = "".join(f'<div class="card"><span>{html.escape(str(label))}</span><strong>{html.escape(str(value))}</strong></div>' for label, value in cards)
     dimension_html = "".join(
@@ -147,6 +182,12 @@ def render_progress_dashboard(data: dict) -> str:
             for candidate in item["candidates"]
         ) + '</article>' for item in data["conflicts"]
     ) or "<p>当前没有冲突候选。</p>"
+    tier_html = "".join(
+        f'<tr><td>{html.escape(item["tier"])}</td><td>{html.escape(item["company_code"])}</td>'
+        f'<td><code>{html.escape(item["indicator_code"])}</code></td><td>{html.escape(item["distinct_values"])}</td>'
+        f'<td>{html.escape(item["next_action"])}</td></tr>'
+        for item in (data.get("review_tiers") or {}).get("manual_items", [])
+    ) or '<tr><td colspan="5">未加载审核分层产物。</td></tr>'
     return f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AegisESP 开发进度</title><style>
 :root{{--bg:#f3f6f4;--panel:#fff;--ink:#19332a;--muted:#66776f;--accent:#087f5b;--line:#dce5e0}}
@@ -156,6 +197,7 @@ main{{max-width:1200px;margin:auto;padding:32px 20px 64px}}h1{{margin:0}}.sub{{c
 section{{margin-top:18px;padding:20px;overflow:auto}}table{{width:100%;border-collapse:collapse}}th,td{{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}}th{{color:var(--muted)}}code{{color:#096b50}}article{{border-top:1px solid var(--line);padding:12px 0}}blockquote{{margin:8px 0;padding:10px 14px;background:#f5faf7;border-left:3px solid var(--accent)}}input{{width:min(420px,100%);padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit}}
 </style></head><body><main><h1>AegisESP 开发进度</h1><p class="sub">港股定量候选覆盖 · 只读审计看板 · 候选数据不等于正式评分</p>
 <div class="cards">{card_html}</div><section><h2>维度覆盖</h2><table><thead><tr><th>维度</th><th>已有候选</th><th>缺失</th><th>覆盖率</th></tr></thead><tbody>{dimension_html}</tbody></table></section>
+<section><h2>审核分层</h2><table><thead><tr><th>分层</th><th>公司</th><th>指标</th><th>候选值</th><th>下一步</th></tr></thead><tbody>{tier_html}</tbody></table></section>
 <section><h2>下一批关键缺口</h2><table><thead><tr><th>优先级</th><th>编码</th><th>指标</th><th>覆盖公司</th><th>缺失公司</th><th>下一步</th></tr></thead><tbody>{priority_html}</tbody></table></section>
 <section><h2>37项定量指标</h2><p><input id="indicator-search" placeholder="搜索指标名称、编码或E/S/G维度"></p><table><thead><tr><th>编码</th><th>指标</th><th>关键</th><th>覆盖公司</th><th>缺失公司</th><th>覆盖率</th></tr></thead><tbody>{indicator_html}</tbody></table></section>
 <section><h2>冲突候选</h2><p><a href="/api/v1/review-template">下载待签名复核模板 CSV</a></p>{conflict_html}</section></main><script>

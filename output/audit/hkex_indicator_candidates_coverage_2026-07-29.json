@@ -1,4 +1,8 @@
 {
+  "Q_E_ALTERNATIVE_WATER_RATE": {
+    "candidate_count": 2,
+    "company_count": 1
+  },
   "Q_E_ENERGY_INTENSITY": {
     "candidate_count": 3,
     "company_count": 1
@@ -7,6 +11,14 @@
     "candidate_count": 7,
     "company_count": 5
   },
+  "Q_E_GHG_REDUCTION_RATE": {
+    "candidate_count": 8,
+    "company_count": 7
+  },
+  "Q_E_HAZ_WASTE_INTENSITY": {
+    "candidate_count": 5,
+    "company_count": 4
+  },
   "Q_E_NOX_INTENSITY": {
     "candidate_count": 2,
     "company_count": 2
@@ -14,6 +26,10 @@
   "Q_E_SOLID_WASTE_INTENSITY": {
     "candidate_count": 4,
     "company_count": 3
+  },
+  "Q_E_WASTEWATER_INTENSITY": {
+    "candidate_count": 1,
+    "company_count": 1
   },
   "Q_E_WATER_INTENSITY": {
     "candidate_count": 5,
@@ -31,6 +47,14 @@
     "candidate_count": 61,
     "company_count": 61
   },
+  "Q_G_CASH_CURRENT_LIABILITY": {
+    "candidate_count": 14,
+    "company_count": 14
+  },
+  "Q_G_COST_REVENUE_RATE": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
   "Q_G_CURRENT_ASSET_TURNOVER": {
     "candidate_count": 18,
     "company_count": 18
@@ -38,6 +62,14 @@
   "Q_G_DEBT_ASSET_RATE": {
     "candidate_count": 30,
     "company_count": 30
+  },
+  "Q_G_EBITDA_INTEREST": {
+    "candidate_count": 42,
+    "company_count": 42
+  },
+  "Q_G_EBITDA_MARGIN": {
+    "candidate_count": 4,
+    "company_count": 4
   },
   "Q_G_OPERATING_MARGIN": {
     "candidate_count": 17,
@@ -55,11 +87,39 @@
     "candidate_count": 52,
     "company_count": 52
   },
+  "Q_G_ROA": {
+    "candidate_count": 12,
+    "company_count": 12
+  },
+  "Q_G_ROE": {
+    "candidate_count": 32,
+    "company_count": 32
+  },
   "Q_G_TWO_FUNDS_RATE": {
     "candidate_count": 6,
     "company_count": 6
   },
+  "Q_S_BENEFIT_PER_EMPLOYEE": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
   "Q_S_DIVIDEND_PER_SHARE": {
+    "candidate_count": 3,
+    "company_count": 3
+  },
+  "Q_S_DONATION_RATE": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
+  "Q_S_EDU_PER_EMPLOYEE": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
+  "Q_S_ENV_INVEST_RATE": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
+  "Q_S_PAY_PER_EMPLOYEE": {
     "candidate_count": 3,
     "company_count": 3
   },

@@ -31,6 +31,16 @@ REVIEW_SUMMARY_PATH = Path(os.getenv(
 CANDIDATES_PATH = Path(os.getenv(
     "AEGIS_CANDIDATES", ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
 ))
+REVIEW_TIERS_SUMMARY_PATH = Path(os.getenv(
+    "AEGIS_REVIEW_TIERS_SUMMARY", ROOT / "output/audit/hkex_candidate_review_tiers_summary_2026-07-29.json",
+))
+REVIEW_TIERS_PATH = Path(os.getenv(
+    "AEGIS_REVIEW_TIERS", ROOT / "output/audit/hkex_candidate_review_tiers_2026-07-29.csv",
+))
+RESOLUTION_FREEZE_AUDIT_PATH = Path(os.getenv(
+    "AEGIS_RESOLUTION_FREEZE_AUDIT",
+    ROOT / "output/audit/hkex_resolution_preview_freeze_audit_2026-07-29.json",
+))
 methodology = load_methodology(METHODOLOGY_PATH)
 app = FastAPI(title="中国能源上市公司ESG评价系统", version="0.1.0")
 
@@ -60,7 +70,8 @@ def progress_data() -> dict:
     try:
         return load_progress_dashboard(
             PROGRESS_SUMMARY_PATH, PROGRESS_TASKS_PATH, REVIEW_SUMMARY_PATH,
-            CANDIDATES_PATH, methodology,
+            CANDIDATES_PATH, methodology, REVIEW_TIERS_SUMMARY_PATH, REVIEW_TIERS_PATH,
+            RESOLUTION_FREEZE_AUDIT_PATH,
         )
     except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError) as error:
         raise HTTPException(503, f"进度产物不可用: {error}") from error
@@ -100,6 +111,16 @@ def progress() -> dict:
 @app.get("/api/v1/review-conflicts")
 def review_conflicts() -> list[dict]:
     return progress_data()["conflicts"]
+
+
+@app.get("/api/v1/review-tiers")
+def review_tiers() -> dict:
+    return progress_data()["review_tiers"]
+
+
+@app.get("/api/v1/resolution-freeze-audit")
+def resolution_freeze_audit() -> dict:
+    return progress_data()["resolution_freeze_audit"]
 
 
 @app.get("/api/v1/review-template")

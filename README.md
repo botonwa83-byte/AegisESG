@@ -62,6 +62,37 @@ AEGIS_DB=var/aegis.db uvicorn aegis_esg.api:app --host 0.0.0.0 --port 8000
 定量指标覆盖、E/S/G维度缺口、关键指标优先级和冲突候选证据。看板展示的是`pending`候选审计
 状态，不代表正式评分或已确认数据。
 
+在应用任何确认动作前，可只读生成候选审核分层：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli plan-review-tiers \
+  data/review/hkex_indicator_candidates_2026-07-29.csv \
+  --output output/audit/hkex_candidate_review_tiers_2026-07-29.csv \
+  --summary output/audit/hkex_candidate_review_tiers_summary_2026-07-29.json
+```
+
+该命令区分现行策略可自动确认、冲突强制签名、一致多候选抽查和单候选抽查，不修改候选状态。
+当前`public-disclosure-v4`还要求新指标同时通过官方报告类型、证据前缀和置信度门槛。可将结果
+输出到明确的预览文件，供正式批次冻结前核验：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli resolve-pending \
+  data/review/hkex_indicator_candidates_2026-07-29.csv \
+  --confirmed output/review/hkex_auto_confirmed_preview_2026-07-29.csv \
+  --unresolved output/review/hkex_unresolved_preview_2026-07-29.csv \
+  --decisions output/audit/hkex_auto_resolution_decisions_preview_2026-07-29.csv
+
+PYTHONPATH=src python3 -m aegis_esg.cli audit-resolution-preview \
+  data/review/hkex_indicator_candidates_2026-07-29.csv \
+  output/review/hkex_auto_confirmed_preview_2026-07-29.csv \
+  output/review/hkex_unresolved_preview_2026-07-29.csv \
+  output/audit/hkex_auto_resolution_decisions_preview_2026-07-29.csv \
+  --output output/audit/hkex_resolution_preview_freeze_audit_2026-07-29.json
+```
+
+冻结校验逐组核对候选、确认、未决和决策日志。当前批次结构有效，但仍有6组需人工审核，因而
+`valid=true`、`freeze_ready=false`；预览不会进入正式评分数据。
+
 下载冲突复核模板并由审核人填写`action`（`confirm`或`reject`）、候选值、审核人、带时区时间和
 理由后，可安全生成确认观测、剩余候选和独立审计：
 
@@ -77,6 +108,8 @@ PYTHONPATH=src python3 -m aegis_esg.cli apply-conflict-review \
 
 - `GET /health`
 - `GET /api/v1/progress`
+- `GET /api/v1/review-tiers`
+- `GET /api/v1/resolution-freeze-audit`
 - `GET /api/v1/review-conflicts`
 - `GET /api/v1/review-template`
 - `GET /api/v1/methodology`

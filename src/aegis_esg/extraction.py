@@ -85,6 +85,24 @@ RULES = (
 
 DIRECT_RULES = (
     DirectRule(
+        "Q_S_DONATION_RATE",
+        re.compile(
+            r"Proportion\s+of\s+(?:the\s+)?donation\s+total\s+in\s+revenue"
+            r"[^\d%]{0,20}" + NUMBER + r"\s*%", re.I,
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
+        "Q_E_ALTERNATIVE_WATER_RATE",
+        re.compile(
+            r"(?:Percentage|Proportion)\s+of\s+(?:the\s+)?recycled\s+water(?:\s+consumption)?"
+            r"[^\d%]{0,40}" + NUMBER + r"\s*%", re.I,
+        ),
+        1.0,
+        .93,
+    ),
+    DirectRule(
         "Q_S_SAFETY_INVEST_RATE",
         re.compile(
             r"Proportion\s+of\s+(?:work|production)\s+safety\s+investment\s+to\s+"
@@ -180,6 +198,9 @@ _GHG_LABEL = (
 _GHG_NUMERATOR = r"(?P<numerator>kg\s*CO2-?e|tCO2-?e|tonnes?(?:\s+of)?\s+CO2(?:\s+equivalents?|-?e)?)"
 _MASS_NUMERATOR = r"(?P<numerator>kg|kilograms?|tonnes?|tons?)"
 _SOLID_WASTE_LABEL = r"(?:total\s+)?non-hazardous\s+waste(?:\s+(?:generation|production|disposal|emission))?\s+intensity(?:Note\d+)?"
+_HAZ_WASTE_LABEL = r"(?<!non-)hazardous\s+waste(?:\s+(?:generation|production|disposal|emission|discharge))?\s+intensity(?:Note\d+)?"
+_WASTEWATER_LABEL = r"(?:wastewater|sewage)(?:\s+(?:discharge|emission))?\s+intensity(?:Note\d+)?"
+_PM_LABEL = r"(?:(?:particulate\s+matter|PM)\s+emissions?\s+intensity|intensity\s+of\s+(?:particulate\s+matter|PM)\s+emissions?)"
 ENGLISH_REVENUE_INTENSITY_RULES = (
     EnglishRevenueIntensityRule(
         "Q_E_GHG_INTENSITY",
@@ -216,6 +237,63 @@ ENGLISH_REVENUE_INTENSITY_RULES = (
             r"\s+emissions?\s+intensity)"
             r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR +
             r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_SO2_INTENSITY",
+        re.compile(
+            r"(?:(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))"
+            r"\s+emissions?\s+intensity)[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_PM_INTENSITY",
+        re.compile(
+            _PM_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" +
+            _REVENUE_DENOMINATOR + r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_PM_INTENSITY",
+        re.compile(
+            _PM_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_WASTEWATER_INTENSITY",
+        re.compile(
+            _WASTEWATER_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_HAZ_WASTE_INTENSITY",
+        re.compile(
+            _HAZ_WASTE_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" +
+            _REVENUE_DENOMINATOR + r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        .91,
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_HAZ_WASTE_INTENSITY",
+        re.compile(
+            _HAZ_WASTE_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR +
+            r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
+            r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
         ),
         .91,
     ),
@@ -260,6 +338,15 @@ ENGLISH_REVENUE_INTENSITY_RULES = (
         "Q_E_ENERGY_INTENSITY",
         re.compile(
             r"(?:comprehensive|total)\s+energy\s+consumption\s+intensity"
+            r"[^\d]{0,100}?(?P<numerator>kg|kilograms?|tonnes?)\s+(?:of\s+)?"
+            r"(?:standard\s+)?coal\s+equivalent\s*" + _REVENUE_DENOMINATOR +
+            r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+    ),
+    EnglishRevenueIntensityRule(
+        "Q_E_CLEAN_ENERGY_INTENSITY",
+        re.compile(
+            r"(?:clean|renewable|green)\s+energy\s+(?:consumption|production|use)\s+intensity"
             r"[^\d]{0,100}?(?P<numerator>kg|kilograms?|tonnes?)\s+(?:of\s+)?"
             r"(?:standard\s+)?coal\s+equivalent\s*" + _REVENUE_DENOMINATOR +
             r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
@@ -455,6 +542,42 @@ def extract_indicator_candidates(
                 source_url=source_url, source_file=source_file, source_page=page.page,
                 evidence_text=evidence, confidence=confidence,
             ))
+        reduction = _extract_english_ghg_reduction(text, report_year)
+        if reduction:
+            value, evidence = reduction
+            identity = ("Q_E_GHG_REDUCTION_RATE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_E_GHG_REDUCTION_RATE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.93,
+                ))
+        env_investment = _extract_english_env_investment_rate(text, report_year)
+        if env_investment:
+            value, evidence = env_investment
+            identity = ("Q_S_ENV_INVEST_RATE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_S_ENV_INVEST_RATE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.94,
+                ))
+        pay_per_employee = _extract_english_pay_per_employee(text, report_year)
+        if pay_per_employee:
+            value, evidence = pay_per_employee
+            identity = ("Q_S_PAY_PER_EMPLOYEE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_S_PAY_PER_EMPLOYEE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.95,
+                ))
     for code, value, source_page, evidence in _extract_balance_sheet_indicators(pages):
         identity = (code, source_page, round(value, 8))
         if identity in seen:
@@ -510,6 +633,17 @@ def extract_indicator_candidates(
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.93,
         ))
+    for code, value, source_page, evidence in _extract_english_employee_per_capita(pages, report_year):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.95,
+        ))
     return candidates
 
 
@@ -540,13 +674,85 @@ def _extract_english_revenue_intensities(text: str) -> list[tuple[str, float, st
             mass_kg = 1 if compact_numerator in {"kg", "kilogram", "kilograms", "kgco2e", "kgco2-e"} else 1_000
             raw_value = float(match.group("value").replace(",", ""))
             value = raw_value * mass_kg * 10_000 / amount
-            if rule.indicator_code in {"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY"}:
+            if rule.indicator_code in {"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY", "Q_E_PM_INTENSITY"}:
                 value *= 1_000
             if not _plausible_value(rule.indicator_code, value):
                 continue
             evidence = re.sub(r"\s+", " ", match.group(0)).strip()[:300]
             result.append((rule.indicator_code, value, "English revenue intensity: " + evidence, rule.confidence))
     return result
+
+
+def _extract_english_ghg_reduction(text: str, report_year: int) -> tuple[float, str] | None:
+    previous_year = report_year - 1
+    if not re.search(rf"\b{report_year}\b[^\n]{{0,40}}\b{previous_year}\b", text):
+        return None
+    row = re.compile(
+        r"(?i)\bTotal\s+(?:(?:Scope\s*1\s*(?:and|&|\+)\s*Scope\s*2\s*)?)"
+        r"(?:GHG|greenhouse\s+gas)\s+emissions?"
+        r"(?:\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*Scope\s*2\s*\))?\s*"
+        r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+of\s+(?:carbon\s+dioxide\s+equivalent|CO2e))\s+"
+        r"(?P<current>[\d,]+(?:\.\d+)?)\s+(?P<previous>[\d,]+(?:\.\d+)?)\b"
+        r"(?!\s+[\d,]+(?:\.\d+)?)",
+    )
+    match = row.search(text)
+    if not match:
+        return None
+    current = float(match.group("current").replace(",", ""))
+    previous = float(match.group("previous").replace(",", ""))
+    if current < 0 or previous <= 0:
+        return None
+    reduction = (previous - current) / previous * 100
+    if not -1000 <= reduction <= 100:
+        return None
+    evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+    return reduction, "English same-scope GHG table derived: " + evidence
+
+
+def _extract_english_env_investment_rate(text: str, report_year: int) -> tuple[float, str] | None:
+    previous_year = report_year - 1
+    patterns = (
+        re.compile(
+            rf"Proportion\s+of\s+environmental\s+protection\s+investment\d*\s+"
+            rf"Unit\s+{previous_year}\s+%\s+(?:/|N/?A|-)\s+{report_year}\s+"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+        re.compile(
+            r"Proportion\s+of\s+environmental\s+protection\s+investment\s*"
+            r"\(\s*%\s*\)\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
+        ),
+    )
+    for pattern in patterns:
+        match = pattern.search(text)
+        if not match:
+            continue
+        value = float(match.group("value").replace(",", ""))
+        if 0 <= value <= 100:
+            evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+            return value, "English environmental investment table: " + evidence
+    return None
+
+
+def _extract_english_pay_per_employee(text: str, report_year: int) -> tuple[float, str] | None:
+    pattern = re.compile(
+        rf"As\s+(?:at|of)\s+31(?:st)?\s+December\s+{report_year},\s+the\s+Group\s+had\s+"
+        r"(?P<employees>[\d,]+)\s+(?:full-time\s+)?employees\b.{0,300}?"
+        r"(?:Total\s+)?staff\s+costs?\b.{0,100}?\b(?:amounted\s+to|was)\s+"
+        r"RMB\s*(?P<cost>[\d,]+(?:\.\d+)?)\s+million\b",
+        re.I,
+    )
+    match = pattern.search(text)
+    if not match:
+        return None
+    employees = int(match.group("employees").replace(",", ""))
+    cost_million = float(match.group("cost").replace(",", ""))
+    if employees <= 0 or cost_million < 0:
+        return None
+    value = cost_million * 100 / employees
+    if value > 1000:
+        return None
+    evidence = re.sub(r"\s+", " ", match.group(0)).strip()[:500]
+    return value, "English same-group RMB staff cost derived: " + evidence
 
 
 def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) -> bool:
@@ -572,7 +778,10 @@ def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) ->
 def _plausible_value(code: str, value: float) -> bool:
     if value < 0:
         return False
-    percentage_codes = {"Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE", "Q_G_DEBT_ASSET_RATE", "Q_G_ROE"}
+    percentage_codes = {
+        "Q_E_ALTERNATIVE_WATER_RATE", "Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE",
+        "Q_S_DONATION_RATE", "Q_G_DEBT_ASSET_RATE", "Q_G_ROE",
+    }
     if code in percentage_codes and value > 100:
         return False
     if code == "Q_S_DIVIDEND_PER_SHARE" and value > 100:
@@ -719,6 +928,19 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
         inventory = _find_english_statement_fact(statement_pages, r"Inventor(?:y|ies)")
         equity = _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
         revenue = _find_english_revenue_fact(pages)
+        profit = _find_english_income_fact(pages, r"(?:Profit|Loss) for the year")
+        profit_before_tax = _find_english_income_fact(
+            pages, r"(?:Profit|Loss) before (?:income )?tax(?:ation)?",
+        )
+        finance_cost = _find_english_income_fact(
+            pages, r"(?:Finance costs?|Interest expenses?)",
+        )
+        income_tax = _find_english_income_fact(
+            pages, r"(?:Income tax expense|Taxation)",
+        )
+        depreciation_amortisation = _find_english_cashflow_fact(
+            pages, r"Depreciation and amorti[sz]ation",
+        )
         result = []
         if assets and liabilities and assets.values[0] > 0:
             value = liabilities.values[0] / assets.values[0] * 100
@@ -774,12 +996,62 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
                     "Q_G_CAPITAL_ACCUMULATION", growth, equity.page,
                     "English consolidated statement derived: " + equity.evidence,
                 ))
+        if profit and equity and len(equity.values) >= 2:
+            average_equity = (equity.values[0] + equity.values[1]) / 2
+            if average_equity != 0:
+                roe = profit.values[0] / average_equity * 100
+                if -1000 <= roe <= 1000:
+                    result.append((
+                        "Q_G_ROE", roe, max(profit.page, equity.page),
+                        "English consolidated statements derived: " + profit.evidence +
+                        " | " + equity.evidence,
+                    ))
+        if profit_before_tax and finance_cost:
+            interest = abs(finance_cost.values[0])
+            ebit = profit_before_tax.values[0] + interest
+            if interest > 0:
+                coverage = ebit / interest
+                if -1000 <= coverage <= 1000:
+                    result.append((
+                        "Q_G_EBITDA_INTEREST", coverage,
+                        max(profit_before_tax.page, finance_cost.page),
+                        "English consolidated income statement derived: " +
+                        profit_before_tax.evidence + " | " + finance_cost.evidence,
+                    ))
+            if assets and len(assets.values) >= 2:
+                average_assets = (assets.values[0] + assets.values[1]) / 2
+                if average_assets != 0:
+                    roa = ebit / average_assets * 100
+                    if -1000 <= roa <= 1000:
+                        result.append((
+                            "Q_G_ROA", roa, max(profit_before_tax.page, finance_cost.page, assets.page),
+                            "English consolidated statements derived: " +
+                            profit_before_tax.evidence + " | " + finance_cost.evidence +
+                            " | " + assets.evidence,
+                        ))
+        if all((profit, income_tax, finance_cost, depreciation_amortisation, revenue)):
+            ebitda = (
+                profit.values[0] + abs(income_tax.values[0]) + abs(finance_cost.values[0]) +
+                abs(depreciation_amortisation.values[0])
+            )
+            margin = ebitda / revenue.values[0] * 100 if revenue.values[0] else None
+            if margin is not None and -1000 <= margin <= 1000:
+                used = (profit, income_tax, finance_cost, depreciation_amortisation, revenue)
+                result.append((
+                    "Q_G_EBITDA_MARGIN", margin, max(item.page for item in used),
+                    "English consolidated statements derived: " +
+                    " | ".join(item.evidence for item in used),
+                ))
         if len(result) > len(best_result):
             best_result = result
     return best_result
 
 
 def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
+    return _find_english_income_fact(pages, r"Revenue")
+
+
+def _find_english_income_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
     title = re.compile(
         r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit or loss|profit and loss|income)(?:\s|$)",
     )
@@ -790,9 +1062,29 @@ def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
             if statement_pages and end.search(page.text):
                 break
             statement_pages.append(page)
-        revenue = _find_english_statement_fact(statement_pages, r"Revenue")
-        if revenue:
-            return revenue
+        fact = _find_english_statement_fact(statement_pages, label_pattern)
+        if fact:
+            return fact
+    return None
+
+
+def _find_english_cashflow_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
+    title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+cash\s+flows?(?:\s|$)",
+    )
+    end = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+"
+        r"(?:financial position|profit|income|changes)",
+    )
+    for start in (index for index, page in enumerate(pages) if title.search(page.text)):
+        statement_pages = []
+        for page in pages[start:start + 6]:
+            if statement_pages and end.search(page.text):
+                break
+            statement_pages.append(page)
+        fact = _find_english_statement_fact(statement_pages, label_pattern)
+        if fact:
+            return fact
     return None
 
 
@@ -873,6 +1165,17 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                     "English consolidated income statement derived: " +
                     research.evidence + " | " + revenue.evidence,
                 ))
+        total_costs = _find_english_statement_fact(
+            statement_pages, r"(?:Total operating expenses|Total costs and expenses)",
+        )
+        if total_costs:
+            cost_rate = abs(total_costs.values[0]) / abs(revenue.values[0]) * 100
+            if 0 <= cost_rate <= 1000:
+                result.append((
+                    "Q_G_COST_REVENUE_RATE", cost_rate, max(revenue.page, total_costs.page),
+                    "English consolidated income statement derived: " +
+                    total_costs.evidence + " | " + revenue.evidence,
+                ))
         if result:
             return result
     return []
@@ -934,6 +1237,63 @@ def _extract_english_cashflow_indicators(pages: list[PageText]) -> list[tuple[st
         if len(result) > len(best_result):
             best_result = result
     return best_result
+
+
+def _extract_english_employee_per_capita(
+    pages: list[PageText], report_year: int,
+) -> list[tuple[str, float, int, str]]:
+    employee_pattern = re.compile(
+        rf"As\s+at\s+31\s+December\s+{report_year},\s+the\s+Group\s+had\s+a\s+total\s+of\s+"
+        r"(?P<count>[\d,]+)\s+full-time\s+employees\b", re.I,
+    )
+    employee_fact = None
+    for page in pages:
+        match = employee_pattern.search(_normalize(page.text))
+        if match:
+            employee_fact = (int(match.group("count").replace(",", "")), page.page, match.group(0))
+            break
+    if not employee_fact or employee_fact[0] <= 0:
+        return []
+    number = r"\(?[\d,]+(?:\.\d+)?\)?"
+    for page in pages:
+        text = page.text
+        if not (
+            re.search(r"Expressed\s+in\s+RMB\s+unless\s+otherwise\s+indicated", text, re.I)
+            and re.search(r"Increase\s+during\s+the\s+year", text, re.I)
+            and "Employee benefits payable" in text
+        ):
+            continue
+        def values(label: str) -> list[float]:
+            match = re.search(rf"(?mi)^\s*{label}(?P<body>[^\n]*(?:\n(?![A-Z—-])[^\n]*)?)", text)
+            if not match:
+                return []
+            result = []
+            for raw in re.findall(number, match.group("body")):
+                negative = raw.startswith("(")
+                value = float(raw.strip("()").replace(",", ""))
+                result.append(-value if negative else value)
+            return result
+        welfare = values(r"Staff welfare")
+        social = values(r"Social insurance")
+        housing = values(r"Housing provident fund")
+        education = values(r"Labour union operating funds and\s+staff education funds")
+        if not (welfare and len(social) >= 2 and len(housing) >= 2 and len(education) >= 2):
+            continue
+        welfare_increase = welfare[0]
+        benefit_increase = welfare_increase + social[1] + housing[1]
+        education_increase = education[1]
+        employees, employee_page, employee_evidence = employee_fact
+        common = (
+            f"English RMB employee note derived: employees={employees} | "
+            f"{employee_evidence} | current-year increases on page {page.page}"
+        )
+        return [
+            ("Q_S_BENEFIT_PER_EMPLOYEE", benefit_increase / 10_000 / employees,
+             max(employee_page, page.page), common),
+            ("Q_S_EDU_PER_EMPLOYEE", education_increase / 10_000 / employees,
+             max(employee_page, page.page), common),
+        ]
+    return []
 
 
 def _statement_page_range(
