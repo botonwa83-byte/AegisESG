@@ -125,10 +125,11 @@ class MethodologyTests(unittest.TestCase):
     def test_szse_official_response_classification(self):
         payload = json.dumps({"data": [
             {"secCode": "000027", "secName": "深圳能源", "publishTime": "2026-04-30 18:00:00", "title": "深圳能源2025年年度报告", "attachPath": "/disc/a.pdf"},
-            {"secCode": "000027", "secName": "深圳能源", "publishTime": "2026-04-30", "title": "深圳能源2025年度可持续发展报告", "attachPath": "/disc/esg.pdf"},
+            {"secCode": ["000027"], "secName": ["深圳能源"], "publishTime": "2026-04-30", "title": "深圳能源2025年度可持续发展报告", "attachPath": "/disc/esg.pdf"},
         ]}, ensure_ascii=False)
         rows = parse_szse_response(payload)
         self.assertEqual("https://disc.static.szse.cn/disc/a.pdf", rows[0].source_url)
+        self.assertEqual("000027.SZ", rows[1].stock_code)
         self.assertEqual("annual_report", classify_szse_title(rows[0].title, "2025"))
         reports = discover_szse_reports("000027.SZ", 2025, fetcher=lambda request: payload.encode())
         self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in reports})

@@ -45,12 +45,18 @@ def parse_response(payload: bytes | str) -> list[SZSEDisclosure]:
         rows = rows.get("data") or rows.get("list") or []
     result = []
     for item in rows:
-        code = str(item.get("secCode") or item.get("stockCode") or item.get("code") or "").strip()
+        code_value = item.get("secCode") or item.get("stockCode") or item.get("code") or ""
+        name_value = item.get("secName") or item.get("stockName") or ""
+        if isinstance(code_value, list):
+            code_value = code_value[0] if code_value else ""
+        if isinstance(name_value, list):
+            name_value = name_value[0] if name_value else ""
+        code = str(code_value).strip()
         path = item.get("attachPath") or item.get("attachUrl") or item.get("url") or ""
         if not code or not path:
             continue
         result.append(SZSEDisclosure(
-            stock_code=code + ".SZ", company_name=item.get("secName") or item.get("stockName") or "",
+            stock_code=code + ".SZ", company_name=str(name_value),
             published_date=(item.get("publishTime") or item.get("publishDate") or "")[:10],
             title=item.get("title") or item.get("announcementTitle") or "",
             document_type="unclassified", source_url=urllib.parse.urljoin(SZSE_DOCUMENT_ORIGIN, path),
@@ -104,13 +110,13 @@ def discover_batch(
             failures.pop(code, None)
         except Exception as exc:
             failures[code] = {"company_code": code, "company_name": name, "error": str(exc)}
-        _write_disclosures(output, rows)
+        _write_disclosures(output, rows, report_year)
         _write_failures(failures_output, list(failures.values()))
         if delay and index + 1 < len(targets):
             time.sleep(delay)
     unique = {(item.stock_code, item.document_type, item.source_url): item for item in rows}
     rows = sorted(unique.values(), key=lambda item: (item.stock_code, item.document_type, item.source_url))
-    _write_disclosures(output, rows)
+    _write_disclosures(output, rows, report_year)
     codes = {code for code, _ in companies}
     annual_codes = {item.stock_code for item in rows if item.document_type == "annual_report"}
     esg_codes = {item.stock_code for item in rows if item.document_type == "esg_report"}
@@ -127,17 +133,27 @@ def discover_batch(
     return rows, list(failures.values()), summary
 
 
-def _write_disclosures(path: Path, rows: list[SZSEDisclosure]) -> None:
+def _write_disclosures(path: Path, rows: list[SZSEDisclosure], report_year: int) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fields = tuple(SZSEDisclosure.__annotations__)
+    fields = ("company_code", "company_name", "report_year", "document_type", "source_url", "published_date", "title")
     with path.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
-        writer.writeheader(); writer.writerows(vars(item) for item in rows)
+        writer.writeheader()
+        writer.writerows({
+            "company_code": item.stock_code, "company_name": item.company_name,
+            "report_year": report_year, "document_type": item.document_type,
+            "source_url": item.source_url, "published_date": item.published_date, "title": item.title,
+        } for item in rows)
 
 
 def _read_disclosures(path: Path) -> list[SZSEDisclosure]:
     with path.open(encoding="utf-8-sig", newline="") as stream:
-        return [SZSEDisclosure(**row) for row in csv.DictReader(stream)]
+        return [SZSEDisclosure(
+            stock_code=row.get("company_code") or row.get("stock_code") or "",
+            company_name=row["company_name"],
+            published_date=row["published_date"], title=row["title"],
+            document_type=row["document_type"], source_url=row["source_url"],
+        ) for row in csv.DictReader(stream)]
 
 
 def _write_failures(path: Path, rows: list[dict]) -> None:
