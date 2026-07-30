@@ -18,7 +18,12 @@ from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write
 from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
-from .qualitative_review import plan_qualitative_review, read_qualitative_candidates, write_qualitative_review_plan
+from .qualitative_review import (
+    apply_qualitative_review_decisions, plan_qualitative_review, read_qualitative_candidates,
+    read_qualitative_review_decisions, read_qualitative_review_packets,
+    write_qualitative_review_plan, write_qualitative_review_results,
+    write_qualitative_review_template,
+)
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
@@ -322,6 +327,17 @@ def main() -> None:
     qualitative_plan.add_argument("--packets", required=True)
     qualitative_plan.add_argument("--gaps", required=True)
     qualitative_plan.add_argument("--summary", required=True)
+    qualitative_template = sub.add_parser("qualitative-review-template", help="按优先级生成空白定性签名复核批次")
+    qualitative_template.add_argument("packets")
+    qualitative_template.add_argument("--priority", type=int, choices=(1, 2))
+    qualitative_template.add_argument("--limit", type=int)
+    qualitative_template.add_argument("--output", required=True)
+    apply_qualitative = sub.add_parser("apply-qualitative-review", help="严格应用定性复核签名并输出确认、剩余和审计")
+    apply_qualitative.add_argument("packets")
+    apply_qualitative.add_argument("decisions")
+    apply_qualitative.add_argument("--confirmed", required=True)
+    apply_qualitative.add_argument("--unresolved", required=True)
+    apply_qualitative.add_argument("--audit", required=True)
     derive = sub.add_parser("derive-financial", help="从标准财务事实自动派生治理指标")
     derive.add_argument("input")
     derive.add_argument("--output", required=True)
@@ -820,6 +836,24 @@ def main() -> None:
         )
         write_qualitative_review_plan(args.packets, args.gaps, args.summary, packets, gaps, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "qualitative-review-template":
+        count = write_qualitative_review_template(
+            args.output, read_qualitative_review_packets(args.packets), args.priority, args.limit,
+        )
+        print(f"qualitative review template groups {count}")
+        return
+    if args.command == "apply-qualitative-review":
+        confirmed, unresolved, audits = apply_qualitative_review_decisions(
+            read_qualitative_review_packets(args.packets),
+            read_qualitative_review_decisions(args.decisions),
+        )
+        write_observations(args.confirmed, confirmed)
+        write_qualitative_review_results(args.unresolved, args.audit, unresolved, audits)
+        print(json.dumps({
+            "confirmed_count": len(confirmed), "unresolved_count": len(unresolved),
+            "audit_count": len(audits), "complete": not unresolved,
+        }, ensure_ascii=False, indent=2))
         return
     if args.command == "derive-financial":
         observations = derive_financial_observations(read_financial_facts(args.input))

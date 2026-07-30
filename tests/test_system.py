@@ -17,7 +17,10 @@ from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
 from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import QualitativeEvidenceCandidate, collect_annual_qualitative_evidence, scan_annual_esg_disclosure
-from aegis_esg.qualitative_review import plan_qualitative_review
+from aegis_esg.qualitative_review import (
+    QualitativeReviewDecision, apply_qualitative_review_decisions, plan_qualitative_review,
+    read_qualitative_review_decisions, write_qualitative_review_template,
+)
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
@@ -2202,6 +2205,35 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual(42, len(gaps))
             self.assertEqual(0, summary["auto_confirmed_count"])
             self.assertFalse(summary["scoring_authorized"])
+
+            template = Path(directory) / "review.csv"
+            self.assertEqual(1, write_qualitative_review_template(template, packets, priority=1, limit=10))
+            with template.open(encoding="utf-8-sig") as stream:
+                row = next(csv.DictReader(stream))
+            self.assertFalse(row["action"] or row["selected_score"] or row["reviewer"])
+
+            decision = QualitativeReviewDecision(
+                "A", 2025, "X_E_ENV_SYSTEM", "confirm", "80", "alice",
+                "2026-07-30T16:30:00+08:00", "核对制度、目标、行动及年度成效",
+            )
+            confirmed, unresolved, audits = apply_qualitative_review_decisions(packets, [decision])
+            self.assertEqual(80, confirmed[0].value)
+            self.assertEqual("confirmed", confirmed[0].status.value)
+            self.assertEqual("https://a", confirmed[0].source_url)
+            self.assertEqual("a.pdf", confirmed[0].source_file)
+            self.assertFalse(unresolved)
+            self.assertEqual("alice", audits[0].reviewer)
+
+    def test_qualitative_review_decision_requires_timezone_and_leading_evidence_for_100(self):
+        with tempfile.TemporaryDirectory() as directory:
+            decisions = Path(directory) / "decisions.csv"
+            decisions.write_text(
+                "company_code,report_year,indicator_code,action,selected_score,reviewer,reviewed_at,note\n"
+                "A,2025,X_E_ENV_SYSTEM,confirm,100,alice,2026-07-30T16:30:00+08:00,材料完整\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "领先或标杆"):
+                read_qualitative_review_decisions(decisions)
 
 
 if __name__ == "__main__":

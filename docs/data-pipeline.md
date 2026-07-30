@@ -621,6 +621,30 @@ PYTHONPATH=src python3 -m aegis_esg.cli plan-qualitative-review \
 建议档位最高为80分；100分必须由复核员依据完整性、效果和行业领先证据主动判定。建议档位、
 质量等级及优先级都不改变`pending`状态，汇总中的自动确认数必须保持0。
 
+定性复核必须通过签名模板闭环，不允许直接编辑正式观测表。以下命令生成优先级1的首批500组
+空白模板；它不会预填动作、最终分值、审核人或时间：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli qualitative-review-template \
+  data/review/all_markets_qualitative_review_packets_2025.csv \
+  --priority 1 --limit 500 \
+  --output data/review/all_markets_qualitative_review_batch01_2025.csv
+```
+
+审核完成后使用`apply-qualitative-review`校验并应用决定：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli apply-qualitative-review \
+  data/review/all_markets_qualitative_review_packets_2025.csv signed-decisions.csv \
+  --confirmed data/confirmed/qualitative_reviewed_2025.csv \
+  --unresolved data/review/qualitative_unresolved_2025.csv \
+  --audit output/audit/qualitative_review_audit_2025.csv
+```
+
+`confirm`只接受0/20/50/80/100，`reject`禁止填写分值；所有决定必须填写审核人、理由和带时区
+ISO-8601时间。100分的备注还必须明确行业领先或标杆证据。确认观测继承官方URL、原文件和页码，
+并写入审核签名；原始证据候选和复核包均不覆盖。
+
 - 100：描述完整、制度目标合理、措施有效、年度目标完成、行业领先；
 - 80：描述具体、制度目标清晰、基本完成、行业优秀；
 - 50：披露一般、措施和完成效果一般；
