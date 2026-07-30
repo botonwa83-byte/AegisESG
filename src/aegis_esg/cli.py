@@ -20,7 +20,7 @@ from .planning import audit_document_coverage, collection_summary, merge_documen
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
 from .resolution import resolve_pending_candidates
-from .review import apply_review_instructions, read_review_instructions, write_review_template
+from .review import apply_conflict_review_instructions, apply_review_instructions, read_review_instructions, write_review_audit, write_review_template
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
 from .scoring import ScoringEngine
@@ -314,6 +314,12 @@ def main() -> None:
     apply_review.add_argument("decisions")
     apply_review.add_argument("--confirmed", required=True)
     apply_review.add_argument("--unresolved", required=True)
+    apply_conflict_review = sub.add_parser("apply-conflict-review", help="严格应用带时区签名的冲突复核决定并输出审计")
+    apply_conflict_review.add_argument("input")
+    apply_conflict_review.add_argument("decisions")
+    apply_conflict_review.add_argument("--confirmed", required=True)
+    apply_conflict_review.add_argument("--unresolved", required=True)
+    apply_conflict_review.add_argument("--audit", required=True)
     args = parser.parse_args()
     methodology = load_methodology(args.methodology)
     if args.command == "template":
@@ -726,6 +732,15 @@ def main() -> None:
         write_observations(args.confirmed, confirmed)
         write_observations(args.unresolved, unresolved)
         print(f"manually confirmed {len(confirmed)}; unresolved {len(unresolved)}")
+        return
+    if args.command == "apply-conflict-review":
+        confirmed, unresolved, audits = apply_conflict_review_instructions(
+            read_observations(args.input, methodology), read_review_instructions(args.decisions),
+        )
+        write_observations(args.confirmed, confirmed)
+        write_observations(args.unresolved, unresolved)
+        write_review_audit(args.audit, audits)
+        print(f"conflict decisions {len(audits)}; confirmed {len(confirmed)}; unresolved {len(unresolved)}")
         return
     observations = read_observations(args.input, methodology)
     if args.release:

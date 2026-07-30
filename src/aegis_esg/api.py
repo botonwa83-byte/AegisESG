@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from pydantic import BaseModel, Field
 
+from .dashboard import load_progress_dashboard, render_conflict_review_template, render_progress_dashboard
 from .methodology import load_methodology
 from .models import Observation, ValueStatus
 from .repository import SQLiteRepository
@@ -16,6 +19,18 @@ from .scoring import ScoringEngine
 ROOT = Path(__file__).resolve().parents[2]
 METHODOLOGY_PATH = Path(os.getenv("AEGIS_METHODOLOGY", ROOT / "data/methodologies/energy_esg_2025.json"))
 DB_PATH = Path(os.getenv("AEGIS_DB", ROOT / "var/aegis.db"))
+PROGRESS_SUMMARY_PATH = Path(os.getenv(
+    "AEGIS_PROGRESS_SUMMARY", ROOT / "output/audit/hkex_quantitative_candidate_tasks_summary_2026-07-29.json",
+))
+PROGRESS_TASKS_PATH = Path(os.getenv(
+    "AEGIS_PROGRESS_TASKS", ROOT / "output/audit/hkex_quantitative_candidate_tasks_2026-07-29.csv",
+))
+REVIEW_SUMMARY_PATH = Path(os.getenv(
+    "AEGIS_REVIEW_SUMMARY", ROOT / "data/review/hkex_indicator_candidates_review_2026-07-29.csv",
+))
+CANDIDATES_PATH = Path(os.getenv(
+    "AEGIS_CANDIDATES", ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
+))
 methodology = load_methodology(METHODOLOGY_PATH)
 app = FastAPI(title="中国能源上市公司ESG评价系统", version="0.1.0")
 
@@ -41,6 +56,26 @@ def repository() -> SQLiteRepository:
     return repo
 
 
+def progress_data() -> dict:
+    try:
+        return load_progress_dashboard(
+            PROGRESS_SUMMARY_PATH, PROGRESS_TASKS_PATH, REVIEW_SUMMARY_PATH,
+            CANDIDATES_PATH, methodology,
+        )
+    except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(503, f"进度产物不可用: {error}") from error
+
+
+@app.get("/", include_in_schema=False)
+def index() -> RedirectResponse:
+    return RedirectResponse("/dashboard")
+
+
+@app.get("/dashboard", response_class=HTMLResponse, include_in_schema=False)
+def dashboard() -> HTMLResponse:
+    return HTMLResponse(render_progress_dashboard(progress_data()))
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok", "methodology_version": methodology.version}
@@ -55,6 +90,24 @@ def get_methodology() -> dict:
         "qualitative_ratio": methodology.qualitative_ratio,
         "indicators": [vars(item) for item in methodology.indicators],
     }
+
+
+@app.get("/api/v1/progress")
+def progress() -> dict:
+    return progress_data()
+
+
+@app.get("/api/v1/review-conflicts")
+def review_conflicts() -> list[dict]:
+    return progress_data()["conflicts"]
+
+
+@app.get("/api/v1/review-template")
+def review_template() -> Response:
+    return Response(
+        render_conflict_review_template(progress_data()), media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": "attachment; filename=indicator_conflict_review.csv"},
+    )
 
 
 @app.post("/api/v1/observations")

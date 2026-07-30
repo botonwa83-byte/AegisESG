@@ -58,9 +58,27 @@ python3 -m aegis_esg.cli init-db var/aegis.db
 AEGIS_DB=var/aegis.db uvicorn aegis_esg.api:app --host 0.0.0.0 --port 8000
 ```
 
+启动后访问`http://127.0.0.1:8000/dashboard`可查看本地只读开发进度看板，包括港股公司×37项
+定量指标覆盖、E/S/G维度缺口、关键指标优先级和冲突候选证据。看板展示的是`pending`候选审计
+状态，不代表正式评分或已确认数据。
+
+下载冲突复核模板并由审核人填写`action`（`confirm`或`reject`）、候选值、审核人、带时区时间和
+理由后，可安全生成确认观测、剩余候选和独立审计：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli apply-conflict-review \
+  data/review/hkex_indicator_candidates_2026-07-29.csv signed-review.csv \
+  --confirmed output/review/confirmed.csv \
+  --unresolved output/review/unresolved.csv \
+  --audit output/review/audit.csv
+```
+
 主要接口：
 
 - `GET /health`
+- `GET /api/v1/progress`
+- `GET /api/v1/review-conflicts`
+- `GET /api/v1/review-template`
 - `GET /api/v1/methodology`
 - `POST /api/v1/observations`
 - `GET /api/v1/rankings?report_year=2024`

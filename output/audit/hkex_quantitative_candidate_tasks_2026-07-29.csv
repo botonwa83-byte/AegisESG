@@ -585,7 +585,6 @@
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -896,6 +895,7 @@
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,79,0.94,candidate_available,review_candidates,1
 01738.HK,飛尚無煙煤資源有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,69,0.94,candidate_available,review_candidates,1
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,212,0.94,candidate_available,review_candidates,1
+01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,1,2025,165,0.94,candidate_available,review_candidates,1
 01799.HK,新特能源股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,100,0.94,candidate_available,review_candidates,1
 01878.HK,南戈壁資源有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,200,0.94,candidate_available,review_candidates,1
 02012.HK,陽光油砂有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,57,0.94,candidate_available,review_candidates,1
@@ -1063,7 +1063,6 @@
 00065.HK,弘海高新資源有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00065.HK,弘海高新資源有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00065.HK,弘海高新資源有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00065.HK,弘海高新資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00065.HK,弘海高新資源有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00065.HK,弘海高新資源有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00065.HK,弘海高新資源有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1179,7 +1178,6 @@
 00228.HK,中國能源開發控股有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00228.HK,中國能源開發控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00228.HK,中國能源開發控股有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00228.HK,中國能源開發控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00228.HK,中國能源開發控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00228.HK,中國能源開發控股有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00228.HK,中國能源開發控股有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1279,7 +1277,6 @@
 00346.HK,延長石油國際有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00346.HK,延長石油國際有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00346.HK,延長石油國際有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00346.HK,延長石油國際有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00346.HK,延長石油國際有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00346.HK,延長石油國際有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00346.HK,延長石油國際有限公司,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1417,7 +1414,6 @@
 00467.HK,聯合能源集團有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00467.HK,聯合能源集團有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00467.HK,聯合能源集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00467.HK,聯合能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00467.HK,聯合能源集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00467.HK,聯合能源集團有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00467.HK,聯合能源集團有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1536,7 +1532,6 @@
 00632.HK,中港石油有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00632.HK,中港石油有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00632.HK,中港石油有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00632.HK,中港石油有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00632.HK,中港石油有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00632.HK,中港石油有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00632.HK,中港石油有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1613,7 +1608,6 @@
 00650.HK,普達特科技有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00650.HK,普達特科技有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00650.HK,普達特科技有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00650.HK,普達特科技有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00650.HK,普達特科技有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00650.HK,普達特科技有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00650.HK,普達特科技有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1647,7 +1641,6 @@
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1736,7 +1729,6 @@
 00704.HK,和嘉控股有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00704.HK,和嘉控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00704.HK,和嘉控股有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00704.HK,和嘉控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00704.HK,和嘉控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00704.HK,和嘉控股有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00704.HK,和嘉控股有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1848,7 +1840,6 @@
 00931.HK,中國港能智慧能源集團有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00931.HK,中國港能智慧能源集團有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00931.HK,中國港能智慧能源集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00931.HK,中國港能智慧能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00931.HK,中國港能智慧能源集團有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00931.HK,中國港能智慧能源集團有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00931.HK,中國港能智慧能源集團有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1915,16 +1906,13 @@
 00968.HK,信義光能控股有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00968.HK,信義光能控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00968.HK,信義光能控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00968.HK,信義光能控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00968.HK,信義光能控股有限公司,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1943,7 +1931,6 @@
 00975.HK,Mongolian Mining Corporation,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00975.HK,Mongolian Mining Corporation,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2010,7 +1997,6 @@
 01101.HK,中國華榮能源股份有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01101.HK,中國華榮能源股份有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01101.HK,中國華榮能源股份有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01101.HK,中國華榮能源股份有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01101.HK,中國華榮能源股份有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01101.HK,中國華榮能源股份有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01101.HK,中國華榮能源股份有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2072,11 +2058,9 @@
 01205.HK,中信資源控股有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01205.HK,中信資源控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01205.HK,中信資源控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,中信資源控股有限公司,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2122,7 +2106,6 @@
 01250.HK,山高新能源集團有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01250.HK,山高新能源集團有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01250.HK,山高新能源集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01250.HK,山高新能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01250.HK,山高新能源集團有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01250.HK,山高新能源集團有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01250.HK,山高新能源集團有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2197,7 +2180,6 @@
 01303.HK,滙力資源(集團)有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,滙力資源(集團)有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,滙力資源(集團)有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01303.HK,滙力資源(集團)有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,滙力資源(集團)有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,滙力資源(集團)有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,滙力資源(集團)有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2239,7 +2221,6 @@
 01407.HK,交運燃氣有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01407.HK,交運燃氣有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01407.HK,交運燃氣有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01407.HK,交運燃氣有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01407.HK,交運燃氣有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01407.HK,交運燃氣有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01407.HK,交運燃氣有限公司,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2272,11 +2253,9 @@
 01555.HK,ＭＩ能源控股有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01555.HK,ＭＩ能源控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01555.HK,ＭＩ能源控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,ＭＩ能源控股有限公司,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2403,11 +2382,9 @@
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2455,7 +2432,6 @@
 01738.HK,飛尚無煙煤資源有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01738.HK,飛尚無煙煤資源有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01738.HK,飛尚無煙煤資源有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01738.HK,飛尚無煙煤資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01738.HK,飛尚無煙煤資源有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01738.HK,飛尚無煙煤資源有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01738.HK,飛尚無煙煤資源有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2476,7 +2452,6 @@
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2502,11 +2477,9 @@
 01799.HK,新特能源股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2518,7 +2491,6 @@
 01811.HK,中國廣核新能源控股有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01811.HK,中國廣核新能源控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01811.HK,中國廣核新能源控股有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01811.HK,中國廣核新能源控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01811.HK,中國廣核新能源控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01811.HK,中國廣核新能源控股有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01811.HK,中國廣核新能源控股有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2552,7 +2524,6 @@
 01878.HK,南戈壁資源有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,南戈壁資源有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,南戈壁資源有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01878.HK,南戈壁資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,南戈壁資源有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,南戈壁資源有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,南戈壁資源有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2601,7 +2572,6 @@
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2670,7 +2640,6 @@
 02178.HK,百勤油田服務有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02178.HK,百勤油田服務有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02178.HK,百勤油田服務有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02178.HK,百勤油田服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02178.HK,百勤油田服務有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02178.HK,百勤油田服務有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02178.HK,百勤油田服務有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2693,7 +2662,6 @@
 02236.HK,惠生工程技術服務有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02236.HK,惠生工程技術服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2702,10 +2670,8 @@
 02236.HK,惠生工程技術服務有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02236.HK,惠生工程技術服務有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02236.HK,惠生工程技術服務有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02236.HK,惠生工程技術服務有限公司,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2717,7 +2683,6 @@
 02380.HK,中國電力國際發展有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02380.HK,中國電力國際發展有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02380.HK,中國電力國際發展有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02380.HK,中國電力國際發展有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02380.HK,中國電力國際發展有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02380.HK,中國電力國際發展有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02380.HK,中國電力國際發展有限公司,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2745,7 +2710,6 @@
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2833,7 +2797,6 @@
 03303.HK,巨濤海洋石油服務有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,巨濤海洋石油服務有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,巨濤海洋石油服務有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03303.HK,巨濤海洋石油服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,巨濤海洋石油服務有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,巨濤海洋石油服務有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,巨濤海洋石油服務有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -3014,7 +2977,6 @@
 03899.HK,中集安瑞科控股有限公司,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03899.HK,中集安瑞科控股有限公司,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03899.HK,中集安瑞科控股有限公司,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03899.HK,中集安瑞科控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03899.HK,中集安瑞科控股有限公司,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03899.HK,中集安瑞科控股有限公司,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03899.HK,中集安瑞科控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -3129,7 +3091,6 @@
 08347.HK,F8企業(控股)集團有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08347.HK,F8企業(控股)集團有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08347.HK,F8企業(控股)集團有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-08347.HK,F8企業(控股)集團有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08347.HK,F8企業(控股)集團有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08347.HK,F8企業(控股)集團有限公司,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08347.HK,F8企業(控股)集團有限公司,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -3232,6 +3193,7 @@
 00061.HK,綠領控股集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
 00065.HK,弘海高新資源有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 00065.HK,弘海高新資源有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
+00065.HK,弘海高新資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
 00065.HK,弘海高新資源有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,85,0.93,candidate_available,review_candidates,3
 00135.HK,昆侖能源有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
 00182.HK,協合新能源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,60,0.94,candidate_available,review_candidates,3
@@ -3240,6 +3202,7 @@
 00196.HK,宏華集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00196.HK,宏華集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00206.HK,華商能源科技股份有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,210,0.94,candidate_available,review_candidates,3
+00228.HK,中國能源開發控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
 00228.HK,中國能源開發控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 00228.HK,中國能源開發控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
 00228.HK,中國能源開發控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
@@ -3248,6 +3211,7 @@
 00295.HK,江山控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,122,0.94,candidate_available,review_candidates,3
 00295.HK,江山控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,122,0.93,candidate_available,review_candidates,3
 00332.HK,元亨燃氣控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2026,190,0.94,candidate_available,review_candidates,3
+00346.HK,延長石油國際有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 00346.HK,延長石油國際有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 00346.HK,延長石油國際有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 00346.HK,延長石油國際有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,57,0.93,candidate_available,review_candidates,3
@@ -3256,19 +3220,23 @@
 00451.HK,時代數字控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
 00451.HK,時代數字控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,76,0.93,candidate_available,review_candidates,3
 00467.HK,聯合能源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
+00467.HK,聯合能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,58,0.94,candidate_available,review_candidates,3
 00554.HK,漢思集團控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,109,0.94,candidate_available,review_candidates,3
 00579.HK,北京京能清潔能源電力股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
 00579.HK,北京京能清潔能源電力股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,98,0.93,candidate_available,review_candidates,3
 00579.HK,北京京能清潔能源電力股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,98,0.93,candidate_available,review_candidates,3
 00579.HK,北京京能清潔能源電力股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,98,0.93,candidate_available,review_candidates,3
+00632.HK,中港石油有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 00632.HK,中港石油有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 00632.HK,中港石油有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,4,0.93,candidate_available,review_candidates,3
 00639.HK,首鋼福山資源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,359,0.94,candidate_available,review_candidates,3
 00645.HK,安域亞洲有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,65,0.94,candidate_available,review_candidates,3
+00650.HK,普達特科技有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2024,219,0.94,candidate_available,review_candidates,3
 00650.HK,普達特科技有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2024,221,0.94,candidate_available,review_candidates,3
 00650.HK,普達特科技有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2024,216,0.93,candidate_available,review_candidates,3
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,93,0.94,candidate_available,review_candidates,3
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
+00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 00666.HK,瑞浦蘭鈞能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
 00686.HK,北京能源國際控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,124,0.94,candidate_available,review_candidates,3
 00686.HK,北京能源國際控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,124,0.94,candidate_available,review_candidates,3
@@ -3277,6 +3245,7 @@
 00689.HK,長盈集團(控股)有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 00689.HK,長盈集團(控股)有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 00689.HK,長盈集團(控股)有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,89,0.93,candidate_available,review_candidates,3
+00704.HK,和嘉控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2024,112,0.94,candidate_available,review_candidates,3
 00704.HK,和嘉控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2024,113,0.94,candidate_available,review_candidates,3
 00704.HK,和嘉控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2024,112,0.94,candidate_available,review_candidates,3
 00819.HK,天能動力國際有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
@@ -3284,71 +3253,98 @@
 00836.HK,華潤電力控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
 00931.HK,中國港能智慧能源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2026,73,0.94,candidate_available,review_candidates,3
 00931.HK,中國港能智慧能源集團有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2026,72,0.94,candidate_available,review_candidates,3
+00931.HK,中國港能智慧能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2026,72,0.94,candidate_available,review_candidates,3
 00931.HK,中國港能智慧能源集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2026,70,0.93,candidate_available,review_candidates,3
 00934.HK,中石化冠德控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 00951.HK,超威動力控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,8,0.93,candidate_available,review_candidates,3
+00968.HK,信義光能控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
+00968.HK,信義光能控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
+00968.HK,信義光能控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
+00975.HK,Mongolian Mining Corporation,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
 01080.HK,勝利油氣管道控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,110,0.93,candidate_available,review_candidates,3
 01083.HK,港華智慧能源有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,97,0.94,candidate_available,review_candidates,3
+01101.HK,中國華榮能源股份有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2023,99,0.94,candidate_available,review_candidates,3
 01101.HK,中國華榮能源股份有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2023,99,0.94,candidate_available,review_candidates,3
 01101.HK,中國華榮能源股份有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2023,99,0.93,candidate_available,review_candidates,3
 01205.HK,中信資源控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+01205.HK,中信資源控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
+01205.HK,中信資源控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01229.HK,南南資源實業有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2026,81,0.94,candidate_available,review_candidates,3
 01229.HK,南南資源實業有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2026,78,0.93,candidate_available,review_candidates,3
 01250.HK,山高新能源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
 01250.HK,山高新能源集團有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,97,0.94,candidate_available,review_candidates,3
+01250.HK,山高新能源集團有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,97,0.94,candidate_available,review_candidates,3
 01250.HK,山高新能源集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,95,0.93,candidate_available,review_candidates,3
 01251.HK,華油能源集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,128,0.94,candidate_available,review_candidates,3
 01277.HK,力量發展集團有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
 01277.HK,力量發展集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
 01277.HK,力量發展集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
 01303.HK,滙力資源(集團)有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,55,0.94,candidate_available,review_candidates,3
+01303.HK,滙力資源(集團)有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,54,0.94,candidate_available,review_candidates,3
 01393.HK,恒鼎實業國際發展有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
+01407.HK,交運燃氣有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01407.HK,交運燃氣有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01407.HK,交運燃氣有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 01407.HK,交運燃氣有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,64,0.93,candidate_available,review_candidates,3
 01407.HK,交運燃氣有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,64,0.93,candidate_available,review_candidates,3
 01407.HK,交運燃氣有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,64,0.93,candidate_available,review_candidates,3
+01555.HK,ＭＩ能源控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,123,0.94,candidate_available,review_candidates,3
+01555.HK,ＭＩ能源控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,122,0.94,candidate_available,review_candidates,3
 01608.HK,偉能集團國際控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 01621.HK,域高國際控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,167,0.94,candidate_available,review_candidates,3
 01621.HK,域高國際控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,165,0.93,candidate_available,review_candidates,3
 01623.HK,海隆控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,82,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01738.HK,飛尚無煙煤資源有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
 01738.HK,飛尚無煙煤資源有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
+01738.HK,飛尚無煙煤資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
 01738.HK,飛尚無煙煤資源有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,66,0.93,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,212,0.94,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,209,0.93,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,209,0.93,candidate_available,review_candidates,3
+01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,209,0.93,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,100,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+01811.HK,中國廣核新能源控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,135,0.94,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,136,0.94,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,133,0.93,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,133,0.93,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,133,0.93,candidate_available,review_candidates,3
+01878.HK,南戈壁資源有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,200,0.94,candidate_available,review_candidates,3
 01921.HK,達力普控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,238,0.94,candidate_available,review_candidates,3
 01921.HK,達力普控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,237,0.93,candidate_available,review_candidates,3
 01921.HK,達力普控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,237,0.93,candidate_available,review_candidates,3
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,139,0.94,candidate_available,review_candidates,3
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,138,0.94,candidate_available,review_candidates,3
+01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,138,0.94,candidate_available,review_candidates,3
 01938.HK,珠江石油天然氣鋼管控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,136,0.93,candidate_available,review_candidates,3
+02178.HK,百勤油田服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 02178.HK,百勤油田服務有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,93,0.94,candidate_available,review_candidates,3
 02178.HK,百勤油田服務有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
 02178.HK,百勤油田服務有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
 02178.HK,百勤油田服務有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
+02236.HK,惠生工程技術服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 02236.HK,惠生工程技術服務有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 02236.HK,惠生工程技術服務有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
+02236.HK,惠生工程技術服務有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 02236.HK,惠生工程技術服務有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,89,0.93,candidate_available,review_candidates,3
+02236.HK,惠生工程技術服務有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
+02380.HK,中國電力國際發展有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,160,0.94,candidate_available,review_candidates,3
 02380.HK,中國電力國際發展有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,160,0.94,candidate_available,review_candidates,3
 02380.HK,中國電力國際發展有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,160,0.94,candidate_available,review_candidates,3
 02380.HK,中國電力國際發展有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,158,0.93,candidate_available,review_candidates,3
@@ -3359,6 +3355,7 @@
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
+02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,111,0.94,candidate_available,review_candidates,3
 02386.HK,中石化煉化工程(集團)股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
 02688.HK,新奧能源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,92,0.93,candidate_available,review_candidates,3
 02728.HK,金泰能源控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,41,0.94,candidate_available,review_candidates,3
@@ -3368,6 +3365,7 @@
 02728.HK,金泰能源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,39,0.93,candidate_available,review_candidates,3
 02798.HK,久泰邦達能源控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,161,0.94,candidate_available,review_candidates,3
 02798.HK,久泰邦達能源控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,159,0.93,candidate_available,review_candidates,3
+03303.HK,巨濤海洋石油服務有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
 03303.HK,巨濤海洋石油服務有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,53,0.94,candidate_available,review_candidates,3
 03303.HK,巨濤海洋石油服務有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,50,0.93,candidate_available,review_candidates,3
 03303.HK,巨濤海洋石油服務有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,50,0.93,candidate_available,review_candidates,3
@@ -3387,6 +3385,7 @@
 03899.HK,中集安瑞科控股有限公司,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,127,0.94,candidate_available,review_candidates,3
 03899.HK,中集安瑞科控股有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,125,0.93,candidate_available,review_candidates,3
 03899.HK,中集安瑞科控股有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,125,0.93,candidate_available,review_candidates,3
+03899.HK,中集安瑞科控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,128,0.94,candidate_available,review_candidates,3
 03899.HK,中集安瑞科控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,125,0.93,candidate_available,review_candidates,3
 06828.HK,北京燃氣藍天控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 06828.HK,北京燃氣藍天控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,65,0.93,candidate_available,review_candidates,3
@@ -3396,6 +3395,7 @@
 08270.HK,中國煤層氣集團有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 08270.HK,中國煤層氣集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 08270.HK,中國煤層氣集團有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,67,0.93,candidate_available,review_candidates,3
+08347.HK,F8企業(控股)集團有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2026,111,0.94,candidate_available,review_candidates,3
 08347.HK,F8企業(控股)集團有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2026,112,0.94,candidate_available,review_candidates,3
 08347.HK,F8企業(控股)集團有限公司,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2026,109,0.93,candidate_available,review_candidates,3
 08347.HK,F8企業(控股)集團有限公司,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2026,109,0.93,candidate_available,review_candidates,3

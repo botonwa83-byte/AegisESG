@@ -19,6 +19,10 @@
     "candidate_count": 5,
     "company_count": 3
   },
+  "Q_G_AR_TURNOVER": {
+    "candidate_count": 14,
+    "company_count": 14
+  },
   "Q_G_ASSET_TURNOVER": {
     "candidate_count": 15,
     "company_count": 15
@@ -43,9 +47,17 @@
     "candidate_count": 16,
     "company_count": 16
   },
+  "Q_G_QUICK_RATIO": {
+    "candidate_count": 19,
+    "company_count": 19
+  },
   "Q_G_REVENUE_GROWTH": {
     "candidate_count": 52,
     "company_count": 52
+  },
+  "Q_G_TWO_FUNDS_RATE": {
+    "candidate_count": 6,
+    "company_count": 6
   },
   "Q_S_DIVIDEND_PER_SHARE": {
     "candidate_count": 3,
@@ -54,5 +66,9 @@
   "Q_S_RD_RATE": {
     "candidate_count": 12,
     "company_count": 9
+  },
+  "Q_S_SAFETY_INVEST_RATE": {
+    "candidate_count": 1,
+    "company_count": 1
   }
 }

@@ -85,6 +85,24 @@ RULES = (
 
 DIRECT_RULES = (
     DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"Proportion\s+of\s+(?:work|production)\s+safety\s+investment\s+to\s+"
+            r"(?:operating\s+)?revenue\s*%?\s*" + NUMBER, re.I,
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"Work\s+safety\s+investment\s+as\s*%\s+of\s*%\s*" + NUMBER +
+            r"(?:\s+[\d,.]+){0,4}\s+revenue", re.I,
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
         "Q_S_DIVIDEND_PER_SHARE",
         re.compile(r"(?<!final )(?<!interim )(?<!proposed )Dividend\s+per\s+share\s*\(\s*RMB\s+cents?\s*\)[^\d]{0,20}" + NUMBER, re.I),
         .01,
@@ -481,6 +499,17 @@ def extract_indicator_candidates(
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.93,
         ))
+    for code, value, source_page, evidence in _extract_english_cashflow_indicators(pages):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.93,
+        ))
     return candidates
 
 
@@ -685,6 +714,9 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
         assets = _find_english_statement_fact(statement_pages, r"Total assets(?!\s+less)")
         liabilities = _find_english_statement_fact(statement_pages, r"Total liabilities(?!\s+and)")
         current_assets = _find_english_statement_fact(statement_pages, r"Total current assets")
+        current_liabilities = _find_english_statement_fact(statement_pages, r"Total current liabilities")
+        receivable = _find_english_statement_fact(statement_pages, r"(?:Trade|Accounts) receivables?")
+        inventory = _find_english_statement_fact(statement_pages, r"Inventor(?:y|ies)")
         equity = _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
         revenue = _find_english_revenue_fact(pages)
         result = []
@@ -708,6 +740,32 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
                     "Q_G_CURRENT_ASSET_TURNOVER", revenue.values[0] / average_current_assets,
                     max(current_assets.page, revenue.page), "English consolidated statements derived: " +
                     revenue.evidence + " | " + current_assets.evidence,
+                ))
+        if receivable and revenue and len(receivable.values) >= 2:
+            average_receivable = (receivable.values[0] + receivable.values[1]) / 2
+            if average_receivable > 0:
+                result.append((
+                    "Q_G_AR_TURNOVER", revenue.values[0] / average_receivable,
+                    max(receivable.page, revenue.page), "English consolidated statements derived: " +
+                    revenue.evidence + " | " + receivable.evidence,
+                ))
+        if receivable and inventory and current_assets and current_assets.values[0] > 0:
+            two_funds = (receivable.values[0] + inventory.values[0]) / current_assets.values[0] * 100
+            if 0 <= two_funds <= 1000:
+                result.append((
+                    "Q_G_TWO_FUNDS_RATE", two_funds,
+                    max(receivable.page, inventory.page, current_assets.page),
+                    "English consolidated statement derived: " + receivable.evidence + " | " +
+                    inventory.evidence + " | " + current_assets.evidence,
+                ))
+        if inventory and current_assets and current_liabilities and current_liabilities.values[0] > 0:
+            quick_ratio = (current_assets.values[0] - inventory.values[0]) / current_liabilities.values[0] * 100
+            if -1000 <= quick_ratio <= 1000:
+                result.append((
+                    "Q_G_QUICK_RATIO", quick_ratio,
+                    max(inventory.page, current_assets.page, current_liabilities.page),
+                    "English consolidated statement derived: " + current_assets.evidence + " | " +
+                    inventory.evidence + " | " + current_liabilities.evidence,
                 ))
         if equity and len(equity.values) >= 2 and equity.values[1] != 0:
             growth = (equity.values[0] - equity.values[1]) / abs(equity.values[1]) * 100
@@ -818,6 +876,64 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
         if result:
             return result
     return []
+
+
+def _extract_english_cashflow_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
+    title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+cash\s+flows?(?:\s|$)",
+    )
+    end = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+"
+        r"(?:financial position|profit|income|changes)",
+    )
+    revenue = _find_english_revenue_fact(pages)
+    current_liabilities = None
+    balance_title = re.compile(
+        r"(?mi)^\s*(?:consolidated\s+)?statement of financial position(?:\s|$)|"
+        r"^\s*consolidated balance sheet\s*$",
+    )
+    for start in (index for index, page in enumerate(pages) if balance_title.search(page.text)):
+        current_liabilities = _find_english_statement_fact(
+            pages[start:start + 6], r"Total current liabilities",
+        )
+        if current_liabilities:
+            break
+    best_result = []
+    for start in (index for index, page in enumerate(pages) if title.search(page.text)):
+        statement_pages = []
+        for page in pages[start:start + 6]:
+            if statement_pages and end.search(page.text):
+                break
+            statement_pages.append(page)
+        net_operating_cash = _find_english_statement_fact(
+            statement_pages,
+            r"Net cash (?:flows? )?(?:(?:generated )?from|(?:used )?in|inflow from) operating activities",
+        )
+        customer_receipts = _find_english_statement_fact(
+            statement_pages, r"(?:Cash )?Receipts from customers",
+        )
+        result = []
+        if net_operating_cash and current_liabilities and current_liabilities.values[0] > 0:
+            ratio = net_operating_cash.values[0] / current_liabilities.values[0] * 100
+            if -1000 <= ratio <= 1000:
+                result.append((
+                    "Q_G_CASH_CURRENT_LIABILITY", ratio,
+                    max(net_operating_cash.page, current_liabilities.page),
+                    "English consolidated statements derived: " + net_operating_cash.evidence +
+                    " | " + current_liabilities.evidence,
+                ))
+        if customer_receipts and revenue and revenue.values[0] != 0:
+            ratio = customer_receipts.values[0] / revenue.values[0] * 100
+            if -1000 <= ratio <= 1000:
+                result.append((
+                    "Q_G_CASH_REALIZATION", ratio,
+                    max(customer_receipts.page, revenue.page),
+                    "English consolidated statements derived: " + customer_receipts.evidence +
+                    " | " + revenue.evidence,
+                ))
+        if len(result) > len(best_result):
+            best_result = result
+    return best_result
 
 
 def _statement_page_range(

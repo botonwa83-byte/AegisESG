@@ -18,7 +18,7 @@ from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import scan_annual_esg_disclosure
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import resolve_pending_candidates
-from aegis_esg.review import ReviewInstruction, apply_review_instructions
+from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
@@ -35,6 +35,7 @@ from aegis_esg.planning import audit_document_coverage, collection_summary, merg
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_candidate_coverage, plan_indicator_tasks
+from aegis_esg.dashboard import load_progress_dashboard, render_conflict_review_template, render_progress_dashboard
 from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
 
@@ -219,7 +220,7 @@ class MethodologyTests(unittest.TestCase):
 
     def test_english_consolidated_statement_derives_debt_asset_rate(self):
         pages = [
-            PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nTotal current assets 800 700\nTotal assets 2,000 1,800\nTotal liabilities 800 700\nTotal equity 1,200 1,100"),
+            PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nInventories 100 80\nTrade receivables 200 160\nTotal current assets 800 700\nTotal current liabilities 400 350\nTotal assets 2,000 1,800\nTotal liabilities 800 700\nTotal equity 1,200 1,100"),
             PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000"),
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
@@ -231,7 +232,21 @@ class MethodologyTests(unittest.TestCase):
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(1200 / 1900, values["Q_G_ASSET_TURNOVER"])
         self.assertAlmostEqual(1200 / 750, values["Q_G_CURRENT_ASSET_TURNOVER"])
+        self.assertAlmostEqual(1200 / 180, values["Q_G_AR_TURNOVER"])
+        self.assertAlmostEqual(37.5, values["Q_G_TWO_FUNDS_RATE"])
+        self.assertAlmostEqual(175, values["Q_G_QUICK_RATIO"])
         self.assertAlmostEqual(100 / 1100 * 100, values["Q_G_CAPITAL_ACCUMULATION"])
+
+    def test_english_balance_sheet_rejects_mixed_receivables_for_ar_metrics(self):
+        pages = [
+            PageText(100, "Consolidated Statement of Financial Position\n2025 2024\nInventories 100 80\nTrade and other receivables 200 160\nTotal current assets 800 700\nTotal current liabilities 400 350\nTotal assets 2,000 1,800\nTotal liabilities 800 700"),
+            PageText(101, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertNotIn("Q_G_AR_TURNOVER", values)
+        self.assertNotIn("Q_G_TWO_FUNDS_RATE", values)
+        self.assertAlmostEqual(175, values["Q_G_QUICK_RATIO"])
 
     def test_english_consolidated_income_derives_revenue_growth_and_skips_note_column(self):
         pages = [
@@ -247,6 +262,26 @@ class MethodologyTests(unittest.TestCase):
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(20, values["Q_G_OPERATING_MARGIN"])
         self.assertAlmostEqual(20, values["Q_G_OPERATING_PROFIT_GROWTH"])
+
+    def test_english_cashflow_derives_cash_governance_metrics(self):
+        pages = [
+            PageText(90, "Consolidated Statement of Financial Position\n2025 2024\nTotal current liabilities 400 350\nTotal assets 2,000 1,800\nTotal liabilities 800 700"),
+            PageText(91, "Consolidated Statement of Profit or Loss\n2025 2024\nRevenue 1,200 1,000"),
+            PageText(92, "Consolidated Statement of Cash Flows\n2025 2024\nReceipts from customers 1,260 1,050\nNet cash generated from operating activities 240 180"),
+            PageText(93, "Consolidated Statement of Changes in Equity"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(105, values["Q_G_CASH_REALIZATION"])
+        self.assertAlmostEqual(60, values["Q_G_CASH_CURRENT_LIABILITY"])
+
+    def test_english_cashflow_rejects_contaminated_customer_receipts(self):
+        pages = [
+            PageText(91, "Consolidated Statement of Profit or Loss\nRevenue 1,200 1,000"),
+            PageText(92, "Consolidated Statement of Cash Flows\nReceipts from customers Payments to suppliers 1,260 (800) 1,050 (700)"),
+        ]
+        items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_CASH_REALIZATION"])
 
     def test_english_revenue_intensities_convert_to_methodology_units(self):
         pages = [PageText(
@@ -359,6 +394,16 @@ class MethodologyTests(unittest.TestCase):
         for actual, expected in zip(values, [.3158, .168, .358]):
             self.assertAlmostEqual(expected, actual)
 
+    def test_english_work_safety_investment_rate(self):
+        pages = [
+            PageText(20, "Proportion of work safety investment to operating revenue % 0.12"),
+            PageText(21, "Work safety investment as % of % 4.41 3.63 2.48 revenue"),
+            PageText(22, "Proportion of Safety Production Investment (%) = Safety Production Investment/Revenue."),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_SAFETY_INVEST_RATE"]
+        self.assertEqual([.12, 4.41], values)
+
     def test_english_dividend_rejects_hkd_and_final_only(self):
         pages = [PageText(
             20,
@@ -456,6 +501,35 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(1, len(confirmed))
         self.assertFalse(unresolved)
         self.assertIn("manual-review:reviewer", confirmed[0].evidence_text)
+
+    def test_conflict_review_confirms_or_rejects_with_audit(self):
+        conflict = [
+            Observation("A", "甲", 2025, "Q_G_DEBT_ASSET_RATE", 40, ValueStatus.PENDING, source_page=3, confidence=.9),
+            Observation("A", "甲", 2025, "Q_G_DEBT_ASSET_RATE", 42, ValueStatus.PENDING, source_page=4, confidence=.95),
+        ]
+        other = Observation("B", "乙", 2025, "Q_G_DEBT_ASSET_RATE", 30, ValueStatus.PENDING)
+        signed = ReviewInstruction("A", 2025, "Q_G_DEBT_ASSET_RATE", "confirm", "42", "alice", "2026-07-30T09:00:00+08:00", "核对报表")
+        confirmed, unresolved, audits = apply_conflict_review_instructions(conflict + [other], [signed])
+        self.assertEqual([42], [item.value for item in confirmed])
+        self.assertEqual(["B"], [item.company_code for item in unresolved])
+        self.assertEqual(("confirm", "40|42", "3|4"),
+                         (audits[0].action, audits[0].candidate_values, audits[0].source_pages))
+        rejected = ReviewInstruction("A", 2025, "Q_G_DEBT_ASSET_RATE", "reject", "", "bob", "2026-07-30T10:00:00+08:00", "口径均不适用")
+        confirmed, unresolved, audits = apply_conflict_review_instructions(conflict, [rejected])
+        self.assertFalse(confirmed)
+        self.assertFalse(unresolved)
+        self.assertEqual("reject", audits[0].action)
+
+    def test_review_instruction_requires_timezone_and_note(self):
+        header = "company_code,report_year,indicator_code,action,selected_value,reviewer,reviewed_at,note\n"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "review.csv"
+            path.write_text(header + "A,2025,Q_G_ROE,confirm,10,alice,2026-07-30T09:00:00,核对\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "必须包含时区"):
+                read_review_instructions(path)
+            path.write_text(header + "A,2025,Q_G_ROE,reject,,alice,2026-07-30T09:00:00+08:00,\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "必须填写"):
+                read_review_instructions(path)
 
     def test_quality_gate_rejects_incomplete_dataset(self):
         item = Observation("A", "甲公司", 2025, "Q_G_ROE", 10)
@@ -1480,6 +1554,29 @@ class MethodologyTests(unittest.TestCase):
                          (available.status, available.next_action, available.source_pages))
         self.assertEqual(("missing_candidate", "extend_extraction_rules"),
                          (missing.status, missing.next_action))
+
+    def test_progress_dashboard_loads_coverage_and_conflict_evidence(self):
+        data = load_progress_dashboard(
+            ROOT / "output/audit/hkex_quantitative_candidate_tasks_summary_2026-07-29.json",
+            ROOT / "output/audit/hkex_quantitative_candidate_tasks_2026-07-29.csv",
+            ROOT / "data/review/hkex_indicator_candidates_review_2026-07-29.csv",
+            ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
+            self.methodology,
+        )
+        self.assertEqual(3404, data["overview"]["task_count"])
+        self.assertEqual(275, data["overview"]["candidate_task_count"])
+        self.assertEqual(2, data["overview"]["conflict_count"])
+        self.assertEqual({"00196.HK", "00600.HK"}, {item["company_code"] for item in data["conflicts"]})
+        self.assertTrue(all(item["candidates"] for item in data["conflicts"]))
+        rendered = render_progress_dashboard(data)
+        self.assertIn("AegisESP 开发进度", rendered)
+        self.assertIn("候选数据不等于正式评分", rendered)
+        self.assertIn("下一批关键缺口", rendered)
+        self.assertIn("indicator-search", rendered)
+        review_template = render_conflict_review_template(data)
+        self.assertTrue(review_template.startswith("\ufeffcompany_code,"))
+        self.assertIn("00196.HK", review_template)
+        self.assertNotIn(",confirm,", review_template)
 
     def test_download_validation_decompresses_and_rejects_html(self):
         pdf = b"%PDF-1.7\n" + b"x" * 10_000
