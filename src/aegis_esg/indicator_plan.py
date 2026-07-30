@@ -128,6 +128,11 @@ def plan_candidate_coverage(
         raise ValueError("候选覆盖公司清单缺少证券代码")
     expected = {}
     for line, row in enumerate(companies, 2):
+        included = (row.get("included") or "true").strip().lower()
+        if included in {"false", "0", "no", "n"}:
+            continue
+        if included not in {"true", "1", "yes", "y"}:
+            raise ValueError(f"候选覆盖公司清单第{line}行included无效")
         code = row[code_field].strip().upper()
         if not code or code in expected:
             raise ValueError(f"候选覆盖公司清单第{line}行证券代码为空或重复")

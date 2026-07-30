@@ -5,6 +5,7 @@ import csv
 import time
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import date
 from typing import Callable
@@ -28,7 +29,8 @@ class SZSEDisclosure:
 
 def classify_title(title: str, report_year: str) -> str | None:
     compact = title.replace(" ", "")
-    if "摘要" in compact or report_year not in compact:
+    non_report_terms = ("摘要", "提示性公告", "关于披露", "取消", "更正公告")
+    if any(term in compact for term in non_report_terms) or report_year not in compact:
         return None
     if f"{report_year}年年度报告" in compact or f"{report_year}年度报告" in compact:
         return "annual_report"
@@ -69,22 +71,47 @@ def discover_reports(
     fetcher: Callable[[urllib.request.Request], bytes] | None = None,
 ) -> list[SZSEDisclosure]:
     publish_year = report_year + 1
-    body = json.dumps({
+    base_query = {
         "seDate": [f"{publish_year}-01-01", min(date.today(), date(publish_year, 7, 31)).isoformat()],
         "stock": [stock_code.split(".")[0]], "channelCode": ["listedNotice_disc"],
-        "bigCategoryId": ["010301"], "pageSize": 100, "pageNum": 1,
-    }).encode()
-    request = urllib.request.Request(
-        SZSE_QUERY_URL, data=body, method="POST",
-        headers={"Content-Type": "application/json", "Referer": "https://www.szse.cn/disclosure/", "User-Agent": "AegisESG/0.2"},
-    )
-    rows = parse_response((fetcher or _fetch)(request))
+        "pageSize": 100,
+    }
+    rows = []
+    # The annual-report category is reliable for financial statements, while
+    # ESG reports are filed under several changing categories. Query the
+    # general announcement channel as a second, independently classified feed.
+    for extra in ({"bigCategoryId": ["010301"]}, {}):
+        page = 1
+        while True:
+            query = {**base_query, **extra, "pageNum": page}
+            request = urllib.request.Request(
+                SZSE_QUERY_URL, data=json.dumps(query).encode(), method="POST",
+                headers={"Content-Type": "application/json", "Referer": "https://www.szse.cn/disclosure/", "User-Agent": "AegisESG/0.2"},
+            )
+            payload = (fetcher or _fetch)(request)
+            page_rows = parse_response(payload)
+            rows.extend(page_rows)
+            total = _response_count(payload)
+            if total is None or page * query["pageSize"] >= total or not page_rows:
+                break
+            page += 1
     selected = {}
-    for item in rows:
+    for item in sorted(rows, key=lambda value: (value.published_date, value.title, value.source_url)):
         kind = classify_title(item.title, str(report_year))
         if kind:
             selected[kind] = SZSEDisclosure(**{**vars(item), "document_type": kind})
-    return list(selected.values())
+    return [selected[kind] for kind in ("annual_report", "esg_report") if kind in selected]
+
+
+def _response_count(payload: bytes | str) -> int | None:
+    if isinstance(payload, bytes):
+        payload = payload.decode("utf-8")
+    raw = json.loads(payload)
+    value = raw.get("announceCount") or raw.get("totalRecordNum") or raw.get("total")
+    try:
+        return int(value) if value is not None else None
+    except (TypeError, ValueError):
+        return None
 
 
 def discover_batch(
@@ -92,6 +119,7 @@ def discover_batch(
     failures_path: str | Path, summary_path: str | Path, delay: float = .5,
     resume: bool = False,
     discoverer: Callable[[str, int], list[SZSEDisclosure]] = discover_reports,
+    workers: int = 6,
 ) -> tuple[list[SZSEDisclosure], list[dict], dict]:
     output, failures_output, summary_output = map(Path, (output_path, failures_path, summary_path))
     rows = _read_disclosures(output) if resume and output.exists() else []
@@ -101,9 +129,18 @@ def discover_batch(
         with failures_output.open(encoding="utf-8-sig", newline="") as stream:
             failures = {row["company_code"]: row for row in csv.DictReader(stream)}
     targets = [(code, name) for code, name in companies if code not in completed]
-    for index, (code, name) in enumerate(targets):
+    def run(target: tuple[str, str]) -> tuple[str, str, list[SZSEDisclosure]]:
+        code, name = target
+        if delay:
+            time.sleep(delay)
+        return code, name, discoverer(code, report_year)
+
+    executor = ThreadPoolExecutor(max_workers=max(1, workers))
+    futures = {executor.submit(run, target): target for target in targets}
+    for future in as_completed(futures):
+        code, name = futures[future]
         try:
-            found = discoverer(code, report_year)
+            _, _, found = future.result()
             if not any(item.document_type == "annual_report" for item in found):
                 raise ValueError("official annual report not found")
             rows.extend(found)
@@ -112,8 +149,7 @@ def discover_batch(
             failures[code] = {"company_code": code, "company_name": name, "error": str(exc)}
         _write_disclosures(output, rows, report_year)
         _write_failures(failures_output, list(failures.values()))
-        if delay and index + 1 < len(targets):
-            time.sleep(delay)
+    executor.shutdown()
     unique = {(item.stock_code, item.document_type, item.source_url): item for item in rows}
     rows = sorted(unique.values(), key=lambda item: (item.stock_code, item.document_type, item.source_url))
     _write_disclosures(output, rows, report_year)

@@ -3,10 +3,13 @@ from __future__ import annotations
 import csv
 import gzip
 import hashlib
+import subprocess
+import tempfile
 import time
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 
@@ -80,15 +83,20 @@ def collect_batch(
     failure_path: str | Path,
     delay_seconds: float = 1.0,
     reuse_existing: bool = True,
+    workers: int = 1,
+    reuse_indexes: list[str] | None = None,
 ) -> tuple[list[DocumentRecord], list[CollectionFailure]]:
     """Resumable collector: reuse valid PDFs and checkpoint after every manifest row."""
     output_root = Path(output_root)
     records: list[DocumentRecord] = []
     failures: list[CollectionFailure] = []
     previous = _read_document_index(index_path)
+    for reuse_index in reuse_indexes or []:
+        for source_url, record in _read_document_index(reuse_index).items():
+            previous.setdefault(source_url, record)
     with Path(manifest_path).open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
-    for index, row in enumerate(rows):
+    def collect_one(row: dict[str, str]) -> DocumentRecord:
         code = row["company_code"].strip()
         name = row["company_name"].strip()
         year = int(row["report_year"])
@@ -97,41 +105,60 @@ def collect_batch(
         suffix = Path(urllib.parse.urlparse(url).path).suffix.lower() or ".pdf"
         target = output_root / code / str(year) / f"{kind}{suffix}"
         target.parent.mkdir(parents=True, exist_ok=True)
+        old = previous.get(url)
+        can_reuse = reuse_existing and target.exists() and old is not None and Path(old.local_path) == target
+        if can_reuse:
+            body = _decode_document(target.read_bytes(), "", str(target))
+            digest = hashlib.sha256(body).hexdigest()
+            if digest != old.sha256 or len(body) != old.size:
+                raise ValueError(f"本地PDF与断点索引不一致: {target}")
+            retrieval_url = old.retrieval_url
+        else:
+            body, retrieval_url = _download_pdf(url)
+            target.write_bytes(body)
+        return DocumentRecord(
+            company_code=code, company_name=name, report_year=year, document_type=kind,
+            source_url=url, retrieval_url=retrieval_url, local_path=str(target),
+            sha256=hashlib.sha256(body).hexdigest(), size=len(body),
+        )
+
+    executor = ThreadPoolExecutor(max_workers=max(1, workers))
+    futures = {executor.submit(collect_one, row): row for row in rows}
+    for future in as_completed(futures):
+        row = futures[future]
         try:
-            old = previous.get(url)
-            can_reuse = (
-                reuse_existing and target.exists() and old is not None
-                and Path(old.local_path) == target
-            )
-            if can_reuse:
-                body = _decode_document(target.read_bytes(), "", str(target))
-                digest = hashlib.sha256(body).hexdigest()
-                if digest != old.sha256 or len(body) != old.size:
-                    raise ValueError(f"本地PDF与断点索引不一致: {target}")
-                retrieval_url = old.retrieval_url
-            else:
-                body, retrieval_url = _download_pdf(url)
-                target.write_bytes(body)
-            records.append(DocumentRecord(
-                company_code=code, company_name=name, report_year=year, document_type=kind,
-                source_url=url, retrieval_url=retrieval_url, local_path=str(target),
-                sha256=hashlib.sha256(body).hexdigest(), size=len(body),
-            ))
+            records.append(future.result())
         except Exception as error:
             failures.append(CollectionFailure(
-                company_code=code, company_name=name, report_year=year, document_type=kind,
-                source_url=url, error=str(error),
+                company_code=row["company_code"].strip(), company_name=row["company_name"].strip(),
+                report_year=int(row["report_year"]), document_type=row["document_type"].strip(),
+                source_url=row["source_url"].strip(), error=str(error),
             ))
+        records.sort(key=lambda item: (item.company_code, item.report_year, item.document_type))
         write_document_index(index_path, records)
         write_collection_failures(failure_path, failures)
-        if index + 1 < len(rows):
-            time.sleep(delay_seconds)
+    executor.shutdown()
     return records, failures
 
 
 def _download_pdf(url: str) -> tuple[bytes, str]:
     errors: list[str] = []
     for candidate in _download_candidates(url):
+        if "disc.static.szse.cn" in candidate:
+            try:
+                with tempfile.NamedTemporaryFile(suffix=".pdf") as stream:
+                    result = subprocess.run([
+                        "curl", "-fL", "--max-time", "180", "--connect-timeout", "20",
+                        "-A", "AegisESG/0.2 public-disclosure-collector",
+                        "-e", "https://www.szse.cn/disclosure/", "-o", stream.name, candidate,
+                    ], capture_output=True, timeout=190)
+                    if result.returncode:
+                        raise ValueError(result.stderr.decode("utf-8", errors="replace")[-500:])
+                    body = _decode_document(Path(stream.name).read_bytes(), "", candidate)
+                return body, candidate
+            except Exception as error:
+                errors.append(f"{candidate}: {error}")
+                continue
         request = urllib.request.Request(
             candidate,
             headers={
@@ -173,7 +200,7 @@ def write_document_index(path: str | Path, records: list[DocumentRecord]) -> Non
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(DocumentRecord.__annotations__))
+        writer = csv.DictWriter(stream, fieldnames=list(DocumentRecord.__annotations__), lineterminator="\n")
         writer.writeheader()
         writer.writerows(vars(record) for record in records)
 
@@ -182,7 +209,7 @@ def write_collection_failures(path: str | Path, failures: list[CollectionFailure
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(CollectionFailure.__annotations__))
+        writer = csv.DictWriter(stream, fieldnames=list(CollectionFailure.__annotations__), lineterminator="\n")
         writer.writeheader()
         writer.writerows(vars(item) for item in failures)
 

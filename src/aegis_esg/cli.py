@@ -260,6 +260,7 @@ def main() -> None:
     discover_szse.add_argument("--summary")
     discover_szse.add_argument("--delay", type=float, default=.5)
     discover_szse.add_argument("--resume", action="store_true")
+    discover_szse.add_argument("--workers", type=int, default=6)
     collect = sub.add_parser("collect", help="下载审核后的公开报告清单并生成Hash索引")
     collect.add_argument("manifest")
     collect.add_argument("--output-root", default="data/raw")
@@ -267,6 +268,8 @@ def main() -> None:
     collect.add_argument("--delay", type=float, default=1.0)
     collect.add_argument("--failures")
     collect.add_argument("--resume", action="store_true", help="复用有效本地PDF并逐项写入检查点")
+    collect.add_argument("--workers", type=int, default=1)
+    collect.add_argument("--reuse-index", action="append", default=[], help="额外的可信文档索引，用于恢复断点")
     merge_indexes = sub.add_parser("merge-document-indexes", help="严格合并多个文档索引并拒绝URL或路径冲突")
     merge_indexes.add_argument("indexes", nargs="+")
     merge_indexes.add_argument("--output", required=True)
@@ -665,7 +668,7 @@ def main() -> None:
             ]
             _, failures, summary = discover_szse_batch(
                 companies, args.report_year, args.output, args.failures, args.summary,
-                args.delay, args.resume,
+                args.delay, args.resume, workers=args.workers,
             )
             print(json.dumps(summary, ensure_ascii=False, indent=2))
             raise SystemExit(0 if not failures else 2)
@@ -692,6 +695,8 @@ def main() -> None:
             failure_path = args.failures or str(Path(args.index).with_name("collection_failures.csv"))
             records, failures = collect_batch(
                 args.manifest, args.output_root, args.index, failure_path, args.delay, True,
+                args.workers,
+                args.reuse_index,
             )
             print(f"collected {len(records)} documents; failed {len(failures)}")
             raise SystemExit(0 if not failures else 2)

@@ -131,8 +131,27 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual("https://disc.static.szse.cn/disc/a.pdf", rows[0].source_url)
         self.assertEqual("000027.SZ", rows[1].stock_code)
         self.assertEqual("annual_report", classify_szse_title(rows[0].title, "2025"))
+        self.assertIsNone(classify_szse_title("崧盛股份：2025年年度报告披露提示性公告", "2025"))
+        self.assertIsNone(classify_szse_title("关于披露2025年度可持续发展报告的提示性公告", "2025"))
         reports = discover_szse_reports("000027.SZ", 2025, fetcher=lambda request: payload.encode())
         self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in reports})
+
+    def test_szse_discovers_esg_from_general_paginated_channel(self):
+        calls = []
+        annual = {"data": [{"secCode": ["000027"], "secName": ["深圳能源"], "publishTime": "2026-04-30", "title": "深圳能源2025年年度报告", "attachPath": "/annual.pdf"}], "announceCount": 1}
+        general_pages = {
+            1: {"data": [{"secCode": ["000027"], "secName": ["深圳能源"], "publishTime": "2026-03-01", "title": "深圳能源2025年度社会责任报告", "attachPath": "/old-esg.pdf"}], "announceCount": 101},
+            2: {"data": [{"secCode": ["000027"], "secName": ["深圳能源"], "publishTime": "2026-05-01", "title": "深圳能源2025年度可持续发展报告", "attachPath": "/new-esg.pdf"}], "announceCount": 101},
+        }
+        def fetcher(request):
+            query = json.loads(request.data)
+            calls.append(query)
+            result = annual if query.get("bigCategoryId") else general_pages[query["pageNum"]]
+            return json.dumps(result, ensure_ascii=False).encode()
+        reports = discover_szse_reports("000027.SZ", 2025, fetcher=fetcher)
+        by_type = {item.document_type: item for item in reports}
+        self.assertTrue(by_type["esg_report"].source_url.endswith("new-esg.pdf"))
+        self.assertEqual(3, len(calls))
 
     def test_szse_batch_checkpoints_failures_and_resumes(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -1855,7 +1874,10 @@ class MethodologyTests(unittest.TestCase):
     def test_candidate_coverage_builds_quantitative_company_matrix(self):
         with tempfile.TemporaryDirectory() as directory:
             companies = Path(directory) / "companies.csv"
-            companies.write_text("stock_code,chinese_name\nA,甲\nB,乙\n", encoding="utf-8")
+            companies.write_text(
+                "stock_code,chinese_name,included\nA,甲,True\nB,乙,True\nC,丙,False\n",
+                encoding="utf-8",
+            )
             indicator = self.methodology.quantitative[0]
             observations = [
                 Observation("A", "甲", 2025, indicator.code, 1, ValueStatus.PENDING,
