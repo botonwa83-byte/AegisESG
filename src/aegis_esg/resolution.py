@@ -236,6 +236,54 @@ def read_resolution_decisions(path: str | Path) -> list[ResolutionDecision]:
     return rows
 
 
+def read_review_tiers(path: str | Path) -> list[ReviewTier]:
+    with Path(path).open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream)
+        required = set(ReviewTier.__annotations__)
+        missing = required - set(reader.fieldnames or ())
+        if missing:
+            raise ValueError(f"review tier file missing columns: {','.join(sorted(missing))}")
+        rows = []
+        for number, row in enumerate(reader, start=2):
+            try:
+                rows.append(ReviewTier(
+                    company_code=row["company_code"], company_name=row["company_name"],
+                    report_year=int(row["report_year"]), indicator_code=row["indicator_code"],
+                    candidate_count=int(row["candidate_count"]), distinct_values=row["distinct_values"],
+                    source_pages=row["source_pages"], max_confidence=float(row["max_confidence"]),
+                    tier=row["tier"], next_action=row["next_action"], reason=row["reason"],
+                ))
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"invalid review tier at row {number}: {exc}") from exc
+    return rows
+
+
+def select_manual_review_candidates(
+    candidates: list[Observation], tiers: list[ReviewTier],
+) -> list[Observation]:
+    """Select only candidate groups that the frozen tier plan sends to human review."""
+    key = lambda item: (item.company_code, item.report_year, item.indicator_code)
+    grouped: dict[tuple[str, int, str], list[Observation]] = defaultdict(list)
+    tier_by_key = {}
+    for item in candidates:
+        grouped[key(item)].append(item)
+    for item in tiers:
+        item_key = key(item)
+        if item_key in tier_by_key:
+            raise ValueError(f"duplicate review tier: {item_key}")
+        tier_by_key[item_key] = item
+    if set(tier_by_key) != set(grouped):
+        raise ValueError("review tiers do not exactly match candidate groups")
+    selected = []
+    for item_key, items in sorted(grouped.items()):
+        tier = tier_by_key[item_key]
+        if tier.candidate_count != len(items):
+            raise ValueError(f"review tier candidate count drift: {item_key}")
+        if tier.tier != "auto_policy_eligible":
+            selected.extend(items)
+    return selected
+
+
 def audit_resolution_preview(
     candidates: list[Observation], confirmed: list[Observation], unresolved: list[Observation],
     decisions: list[ResolutionDecision],

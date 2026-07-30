@@ -93,6 +93,19 @@ PYTHONPATH=src python3 -m aegis_esg.cli audit-resolution-preview \
 冻结校验逐组核对候选、确认、未决和决策日志。当前批次结构有效，但仍有6组需人工审核，因而
 `valid=true`、`freeze_ready=false`；预览不会进入正式评分数据。
 
+可从冻结分层中精确生成6组人工队列及空白签名模板：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli select-manual-review \
+  data/review/hkex_indicator_candidates_2026-07-29.csv \
+  output/audit/hkex_candidate_review_tiers_2026-07-29.csv \
+  --output data/review/hkex_manual_review_candidates_2026-07-29.csv
+
+PYTHONPATH=src python3 -m aegis_esg.cli review-template \
+  data/review/hkex_manual_review_candidates_2026-07-29.csv \
+  --output data/review/hkex_manual_review_template_2026-07-29.csv
+```
+
 下载冲突复核模板并由审核人填写`action`（`confirm`或`reject`）、候选值、审核人、带时区时间和
 理由后，可安全生成确认观测、剩余候选和独立审计：
 

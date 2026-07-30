@@ -121,6 +121,15 @@ DIRECT_RULES = (
         .94,
     ),
     DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"Proportion\s+of\s+(?:(?:work|production)\s+safety|safety\s+production)\s+investment"
+            r"\s*\d{0,2}\s*%\s*(?:/|–|—|-)?\s*" + NUMBER, re.I,
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
         "Q_S_DIVIDEND_PER_SHARE",
         re.compile(r"(?<!final )(?<!interim )(?<!proposed )Dividend\s+per\s+share\s*\(\s*RMB\s+cents?\s*\)[^\d]{0,20}" + NUMBER, re.I),
         .01,

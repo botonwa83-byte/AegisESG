@@ -17,7 +17,7 @@ from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_i
 from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import scan_annual_esg_disclosure
 from aegis_esg.quality import evaluate_quality
-from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates
+from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
@@ -570,10 +570,11 @@ class MethodologyTests(unittest.TestCase):
             PageText(20, "Proportion of work safety investment to operating revenue % 0.12"),
             PageText(21, "Work safety investment as % of % 4.41 3.63 2.48 revenue"),
             PageText(22, "Proportion of Safety Production Investment (%) = Safety Production Investment/Revenue."),
+            PageText(23, "Proportion of safety production investment38 % / 1.77"),
         ]
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
         values = [item.value for item in items if item.indicator_code == "Q_S_SAFETY_INVEST_RATE"]
-        self.assertEqual([.12, 4.41], values)
+        self.assertEqual([.12, 4.41, 1.77], values)
 
     def test_english_dividend_rejects_hkd_and_final_only(self):
         pages = [PageText(
@@ -724,6 +725,19 @@ class MethodologyTests(unittest.TestCase):
         tampered = ResolutionDecision(**{**vars(decision), "selected_value": "11"})
         with self.assertRaisesRegex(ValueError, "selected value drift"):
             audit_resolution_preview([candidate], confirmed, unresolved, [tampered])
+
+    def test_manual_review_selection_uses_complete_frozen_tiers(self):
+        candidates = [
+            Observation("A", "甲", 2025, "Q_G_ROE", 10, ValueStatus.PENDING,
+                        source_file="annual_report.pdf", confidence=.92),
+            Observation("B", "乙", 2025, "Q_S_SAFETY_INVEST_RATE", 2),
+            Observation("B", "乙", 2025, "Q_S_SAFETY_INVEST_RATE", 3),
+        ]
+        tiers, _ = plan_review_tiers(candidates)
+        selected = select_manual_review_candidates(candidates, tiers)
+        self.assertEqual([2, 3], [item.value for item in selected])
+        with self.assertRaisesRegex(ValueError, "exactly match"):
+            select_manual_review_candidates(candidates, tiers[:1])
 
     def test_manual_review_requires_selected_candidate(self):
         candidate = Observation("A", "甲", 2025, "Q_G_DEBT_ASSET_RATE", 40, ValueStatus.PENDING, source_file="annual.pdf", source_page=3)

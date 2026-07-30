@@ -19,7 +19,7 @@ from .migration import augment_candidate_universe, bind_snapshot_provenance, pla
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
 from .repository import SQLiteRepository
-from .resolution import audit_resolution_preview, plan_review_tiers, read_resolution_decisions, resolve_pending_candidates, write_review_tiers
+from .resolution import audit_resolution_preview, plan_review_tiers, read_resolution_decisions, read_review_tiers, resolve_pending_candidates, select_manual_review_candidates, write_review_tiers
 from .review import apply_conflict_review_instructions, apply_review_instructions, read_review_instructions, write_review_audit, write_review_template
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
@@ -316,6 +316,10 @@ def main() -> None:
     resolution_audit.add_argument("unresolved")
     resolution_audit.add_argument("decisions")
     resolution_audit.add_argument("--output", required=True)
+    manual_queue = sub.add_parser("select-manual-review", help="按审核分层筛出需人工签名的候选")
+    manual_queue.add_argument("candidates")
+    manual_queue.add_argument("tiers")
+    manual_queue.add_argument("--output", required=True)
     review_template = sub.add_parser("review-template", help="为未决候选生成人工复核模板")
     review_template.add_argument("input")
     review_template.add_argument("--output", required=True)
@@ -747,6 +751,13 @@ def main() -> None:
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "select-manual-review":
+        selected = select_manual_review_candidates(
+            read_observations(args.candidates, methodology), read_review_tiers(args.tiers),
+        )
+        write_observations(args.output, selected)
+        print(f"manual review candidates {len(selected)}")
         return
     if args.command == "review-template":
         write_review_template(args.output, read_observations(args.input, methodology))

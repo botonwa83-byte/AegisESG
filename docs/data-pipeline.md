@@ -471,6 +471,8 @@ PYTHONPATH=src python3 -m aegis_esg.cli plan-review-tiers \
 策略版本、候选计数、原始选值和自动确认标记。当前真实批次400组/413条候选校验有效，394组
 自动确认、6组人工审核，故`valid=true`但`freeze_ready=false`。看板和`/api/v1/review-tiers`
 同步展示审核分层摘要及6组人工项；`/api/v1/resolution-freeze-audit`提供同源发布门禁状态。
+`select-manual-review`严格要求分层与全部候选组一一对应，并核验每组候选计数；真实队列筛出
+11条候选、6个审核组，再由`review-template`生成空白签名模板，避免对394个自动策略组重复审核。
 
 冲突候选可从本地看板下载未签名模板。审核人只能选择候选中已有值执行`confirm`，或用`reject`
 关闭全部不适用口径；两种动作都必须填写审核人、理由及带时区ISO-8601时间。使用
