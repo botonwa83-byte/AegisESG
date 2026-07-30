@@ -270,6 +270,7 @@ def main() -> None:
     collect.add_argument("--resume", action="store_true", help="复用有效本地PDF并逐项写入检查点")
     collect.add_argument("--workers", type=int, default=1)
     collect.add_argument("--reuse-index", action="append", default=[], help="额外的可信文档索引，用于恢复断点")
+    collect.add_argument("--preserve-index", action="store_true", help="仅处理增量清单并保留主索引中的其他文档")
     merge_indexes = sub.add_parser("merge-document-indexes", help="严格合并多个文档索引并拒绝URL或路径冲突")
     merge_indexes.add_argument("indexes", nargs="+")
     merge_indexes.add_argument("--output", required=True)
@@ -697,6 +698,7 @@ def main() -> None:
                 args.manifest, args.output_root, args.index, failure_path, args.delay, True,
                 args.workers,
                 args.reuse_index,
+                args.preserve_index,
             )
             print(f"collected {len(records)} documents; failed {len(failures)}")
             raise SystemExit(0 if not failures else 2)

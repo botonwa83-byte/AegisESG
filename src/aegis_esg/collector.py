@@ -50,6 +50,7 @@ def collect_from_manifest(
     records: list[DocumentRecord] = []
     with Path(manifest_path).open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
+    rows.sort(key=lambda row: (row["document_type"].strip() != "annual_report", row["company_code"].strip()))
     for index, row in enumerate(rows):
         code = row["company_code"].strip()
         year = int(row["report_year"])
@@ -85,17 +86,24 @@ def collect_batch(
     reuse_existing: bool = True,
     workers: int = 1,
     reuse_indexes: list[str] | None = None,
+    preserve_index: bool = False,
 ) -> tuple[list[DocumentRecord], list[CollectionFailure]]:
     """Resumable collector: reuse valid PDFs and checkpoint after every manifest row."""
     output_root = Path(output_root)
     records: list[DocumentRecord] = []
     failures: list[CollectionFailure] = []
-    previous = _read_document_index(index_path)
+    primary_index = _read_document_index(index_path)
+    previous = dict(primary_index)
+    if preserve_index:
+        records.extend(primary_index.values())
+    trusted_by_path: dict[str, DocumentRecord] = {}
     for reuse_index in reuse_indexes or []:
         for source_url, record in _read_document_index(reuse_index).items():
             previous.setdefault(source_url, record)
+            trusted_by_path[record.local_path] = record
     with Path(manifest_path).open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
+    rows.sort(key=lambda row: (row["document_type"].strip() != "annual_report", row["company_code"].strip()))
     def collect_one(row: dict[str, str]) -> DocumentRecord:
         code = row["company_code"].strip()
         name = row["company_name"].strip()
@@ -106,6 +114,12 @@ def collect_batch(
         target = output_root / code / str(year) / f"{kind}{suffix}"
         target.parent.mkdir(parents=True, exist_ok=True)
         old = previous.get(url)
+        if old is None:
+            trusted = trusted_by_path.get(str(target))
+            if trusted is not None and (
+                trusted.company_code, trusted.report_year, trusted.document_type
+            ) == (code, year, kind):
+                old = trusted
         can_reuse = reuse_existing and target.exists() and old is not None and Path(old.local_path) == target
         if can_reuse:
             body = _decode_document(target.read_bytes(), "", str(target))
@@ -127,7 +141,9 @@ def collect_batch(
     for future in as_completed(futures):
         row = futures[future]
         try:
-            records.append(future.result())
+            record = future.result()
+            records = [item for item in records if item.source_url != record.source_url]
+            records.append(record)
         except Exception as error:
             failures.append(CollectionFailure(
                 company_code=row["company_code"].strip(), company_name=row["company_name"].strip(),
@@ -146,15 +162,29 @@ def _download_pdf(url: str) -> tuple[bytes, str]:
     for candidate in _download_candidates(url):
         if "disc.static.szse.cn" in candidate:
             try:
-                with tempfile.NamedTemporaryFile(suffix=".pdf") as stream:
-                    result = subprocess.run([
-                        "curl", "-fL", "--max-time", "180", "--connect-timeout", "20",
-                        "-A", "AegisESG/0.2 public-disclosure-collector",
-                        "-e", "https://www.szse.cn/disclosure/", "-o", stream.name, candidate,
-                    ], capture_output=True, timeout=190)
-                    if result.returncode:
-                        raise ValueError(result.stderr.decode("utf-8", errors="replace")[-500:])
-                    body = _decode_document(Path(stream.name).read_bytes(), "", candidate)
+                partial = Path(tempfile.gettempdir()) / f"aegis_szse_{hashlib.sha256(candidate.encode()).hexdigest()}.part"
+                if partial.exists() and partial.read_bytes()[:5] != b"%PDF-":
+                    partial.unlink()
+                result = subprocess.run([
+                    "curl", "-fsSL", "-C", "-", "--max-time", "180", "--connect-timeout", "20",
+                    "-A", "AegisESG/0.2 public-disclosure-collector",
+                    "-e", "https://www.szse.cn/disclosure/", "-o", str(partial), candidate,
+                ], capture_output=True, timeout=190)
+                if result.returncode:
+                    raise ValueError(
+                        f"curl退出码{result.returncode}; 已保留{partial.stat().st_size if partial.exists() else 0}字节分片; "
+                        + result.stderr.decode("utf-8", errors="replace")[-300:]
+                    )
+                try:
+                    body = _decode_document(partial.read_bytes(), "", candidate)
+                except ValueError:
+                    # Verification/HTML responses must never poison a future
+                    # byte-range resume; only genuine timed-out PDF fragments
+                    # are useful checkpoints.
+                    if partial.exists() and not partial.read_bytes()[:5] == b"%PDF-":
+                        partial.unlink()
+                    raise
+                partial.unlink()
                 return body, candidate
             except Exception as error:
                 errors.append(f"{candidate}: {error}")

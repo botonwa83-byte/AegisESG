@@ -1993,6 +1993,23 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("https://official/new.pdf", rows[0].source_url)
             download.assert_called_once_with("https://official/new.pdf")
 
+    def test_incremental_collection_preserves_main_index(self):
+        body = b"%PDF-1.7\n" + b"x" * 10_000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            existing = DocumentRecord("A", "甲", 2025, "annual_report", "https://old", "https://old", str(root / "old.pdf"), "abc", 12)
+            index, failures = root / "index.csv", root / "failures.csv"
+            write_document_index(index, [existing])
+            manifest = root / "retry.csv"
+            manifest.write_text(
+                "company_code,company_name,report_year,document_type,source_url,error\n"
+                "B,乙,2025,esg_report,https://new,timeout\n", encoding="utf-8",
+            )
+            with patch("aegis_esg.collector._download_pdf", return_value=(body, "https://new")):
+                rows, errors = collect_batch(manifest, root / "raw", index, failures, 0, True, 1, None, True)
+            self.assertFalse(errors)
+            self.assertEqual({"https://old", "https://new"}, {item.source_url for item in rows})
+
     def test_merge_document_indexes_deduplicates_exact_and_rejects_path_conflicts(self):
         first = DocumentRecord("A", "甲", 2025, "annual_report", "https://one", "https://one", "a.pdf", "abc", 12)
         second = DocumentRecord("B", "乙", 2025, "annual_report", "https://two", "https://two", "b.pdf", "def", 13)

@@ -369,8 +369,21 @@ PYTHONPATH=src python3 -m aegis_esg.cli merge-document-indexes \
 评价报告采集另将沪市试点与港股正式报告索引合并为`data/raw/all_markets_document_index.csv`，
 共199份文件、117家公司且冲突为0。重建614家公司计划后，105家已有年报、71家已有ESG报告。
 深市257家候选可使用`discover-szse`批量生成官方报告清单，摘要不会进入下载队列。
-真实运行已完成257/257家年报发现及下载，失败0；沪港深索引扩大到456份文件、374家公司，
-并从批量文本生成833条候选。全市场矩阵按`included=true`的614家公司展开，排除25条迁移否决项。
+真实运行已完成257/257家年报，并通过通用公告分页通道发现73份独立ESG报告。13份新增ESG正文
+已下载校验，60份因官方静态站限速进入可重试失败队列；沪港深索引扩大到469份文件、374家公司。
+上一轮456份文件批量文本生成833条候选。全市场矩阵按`included=true`的614家公司展开，排除
+25条迁移否决项。
+
+深交所静态站限速或验证页解除后，可直接把失败CSV作为增量清单重试；`--preserve-index`保证只更新
+成功重试项，不会覆盖主索引中已有的270份文档，PDF超时分片则按URL哈希从系统临时目录续传：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli collect \
+  output/audit/szse_collection_failures_2025.csv \
+  --output-root data/raw --index data/raw/szse_document_index.csv \
+  --failures output/audit/szse_collection_failures_2025.csv \
+  --resume --preserve-index --workers 1 --delay 1
+```
 
 全部92家港股候选可直接使用发行人资料表执行同一官方发现适配器。2025-01-01至2026-07-29
 时间窗共发现332份文件，收敛为155份目标并全部下载；原始PDF保存在隔离目录
