@@ -1,0 +1,10 @@
+{
+  "candidate_count": 10,
+  "selected_count": 10,
+  "company_count": 10,
+  "document_type_counts": {
+    "annual_report": 10
+  },
+  "duplicate_target_count": 0,
+  "complete": true
+}

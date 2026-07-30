@@ -421,6 +421,7 @@ def read_page_text_export(path: str | Path) -> list[PageText]:
 def extract_batch_text_exports(
     document_index: str | Path,
     text_root: str | Path,
+    report_year: int | None = None,
 ) -> tuple[list[Observation], dict[str, dict[str, int]]]:
     candidates: list[Observation] = []
     candidate_counts: Counter[str] = Counter()
@@ -429,6 +430,8 @@ def extract_batch_text_exports(
     with Path(document_index).open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
     for row in rows:
+        if report_year is not None and int(row["report_year"]) != report_year:
+            continue
         local = Path(row["local_path"])
         try:
             relative = local.relative_to("data/raw")

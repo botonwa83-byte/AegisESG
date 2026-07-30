@@ -8,13 +8,17 @@ from pathlib import Path
 from .collector import collect_batch, collect_from_manifest, write_document_index
 from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates, write_continuity_review_batch, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import ReviewSummary, extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
-from .esg_disclosure import scan_annual_esg_disclosure, write_annual_esg_evidence
+from .esg_disclosure import (
+    collect_annual_qualitative_evidence, scan_annual_esg_disclosure,
+    write_annual_esg_evidence, write_qualitative_evidence_candidates,
+)
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write_candidate_coverage, write_indicator_plan
 from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
 from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
+from .qualitative_review import plan_qualitative_review, read_qualitative_candidates, write_qualitative_review_plan
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
@@ -30,7 +34,7 @@ from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
 from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
 from .sources.hkex_disclosure import discover_hkex_continuity_batch, read_hkex_disclosures, select_continuity_downloads, write_hkex_disclosures
-from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping
+from .sources.bse import BSE_LIST_PAGE, collect_bse_listings, make_bse_fetcher, parse_bse_code_mapping, discover_bse_annual_report
 from .universe import audit_universe, read_universe, write_universe_audit
 from .universe_builder import audit_snapshot, build_energy_universe, normalize_exchange_export, read_exchange_snapshot, write_decision_audit, write_exchange_snapshot, write_snapshot_quality, write_universe
 from .universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence, write_applied_universe_evidence, write_universe_evidence_ledger, write_universe_evidence_plan
@@ -129,6 +133,8 @@ def main() -> None:
     hkex_downloads.add_argument("discoveries")
     hkex_downloads.add_argument("--output", required=True)
     hkex_downloads.add_argument("--summary", required=True)
+    hkex_downloads.add_argument("--report-year", type=int)
+    hkex_downloads.add_argument("--annual-only", action="store_true")
     continuity_extract = sub.add_parser("extract-hkex-continuity-evidence", help="从带页码文本提取发行人沿革、主营业务和A/H身份候选")
     continuity_extract.add_argument("document_index")
     continuity_extract.add_argument("--text-root", default="data/text")
@@ -252,6 +258,11 @@ def main() -> None:
     discover.add_argument("universe")
     discover.add_argument("--report-year", type=int, required=True)
     discover.add_argument("--output", required=True)
+    discover.add_argument("--failures")
+    discover.add_argument("--summary")
+    discover.add_argument("--delay", type=float, default=.5)
+    discover.add_argument("--resume", action="store_true")
+    discover.add_argument("--workers", type=int, default=6)
     discover_szse = sub.add_parser("discover-szse", help="从深交所官方接口发现年报和ESG报告")
     discover_szse.add_argument("universe")
     discover_szse.add_argument("--report-year", type=int, required=True)
@@ -261,6 +272,11 @@ def main() -> None:
     discover_szse.add_argument("--delay", type=float, default=.5)
     discover_szse.add_argument("--resume", action="store_true")
     discover_szse.add_argument("--workers", type=int, default=6)
+    discover_bse = sub.add_parser("discover-bse", help="从北交所官方年度报告分类发现正式年报")
+    discover_bse.add_argument("universe")
+    discover_bse.add_argument("--report-year", type=int, required=True)
+    discover_bse.add_argument("--output", required=True)
+    discover_bse.add_argument("--failures", required=True)
     collect = sub.add_parser("collect", help="下载审核后的公开报告清单并生成Hash索引")
     collect.add_argument("manifest")
     collect.add_argument("--output-root", default="data/raw")
@@ -275,9 +291,11 @@ def main() -> None:
     merge_indexes.add_argument("indexes", nargs="+")
     merge_indexes.add_argument("--output", required=True)
     merge_indexes.add_argument("--summary", required=True)
+    merge_indexes.add_argument("--allow-metadata-corrections", action="store_true")
     coverage = sub.add_parser("audit-document-coverage", help="审计公司清单的年报和ESG文件覆盖")
     coverage.add_argument("companies")
     coverage.add_argument("document_index")
+    coverage.add_argument("--report-year", type=int, help="仅审计指定报告年度")
     coverage.add_argument("--output", required=True)
     coverage.add_argument("--summary", required=True)
     esg_scan = sub.add_parser("scan-annual-esg-disclosure", help="从无独立ESG报告公司的年报提取待复核披露候选")
@@ -287,6 +305,23 @@ def main() -> None:
     esg_scan.add_argument("--max-per-company", type=int, default=5)
     esg_scan.add_argument("--output", required=True)
     esg_scan.add_argument("--summary", required=True)
+    qualitative = sub.add_parser("collect-annual-qualitative-evidence", help="从年报定位43项定性指标的待复核证据")
+    qualitative.add_argument("coverage")
+    qualitative.add_argument("document_index")
+    qualitative.add_argument("--methodology", default="data/methodologies/energy_esg_2025.json")
+    qualitative.add_argument("--report-year", type=int, required=True)
+    qualitative.add_argument("--text-root", default="data/text")
+    qualitative.add_argument("--max-per-indicator", type=int, default=3)
+    qualitative.add_argument("--output", required=True)
+    qualitative.add_argument("--summary", required=True)
+    qualitative_plan = sub.add_parser("plan-qualitative-review", help="去重定性证据并生成保守档位建议和缺口队列")
+    qualitative_plan.add_argument("candidates")
+    qualitative_plan.add_argument("coverage")
+    qualitative_plan.add_argument("--methodology", default="data/methodologies/energy_esg_2025.json")
+    qualitative_plan.add_argument("--report-year", type=int, required=True)
+    qualitative_plan.add_argument("--packets", required=True)
+    qualitative_plan.add_argument("--gaps", required=True)
+    qualitative_plan.add_argument("--summary", required=True)
     derive = sub.add_parser("derive-financial", help="从标准财务事实自动派生治理指标")
     derive.add_argument("input")
     derive.add_argument("--output", required=True)
@@ -311,6 +346,7 @@ def main() -> None:
     extract_batch.add_argument("--output", required=True)
     extract_batch.add_argument("--coverage", required=True)
     extract_batch.add_argument("--review-summary")
+    extract_batch.add_argument("--report-year", type=int)
     quality = sub.add_parser("quality", help="检查正式评分数据是否达到发布门槛")
     quality.add_argument("input")
     quality.add_argument("--expected-companies", type=int)
@@ -465,7 +501,9 @@ def main() -> None:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         raise SystemExit(0 if not failures else 2)
     if args.command == "prepare-hkex-continuity-downloads":
-        rows, summary = select_continuity_downloads(read_hkex_disclosures(args.discoveries))
+        rows, summary = select_continuity_downloads(
+            read_hkex_disclosures(args.discoveries), args.report_year, args.annual_only,
+        )
         write_hkex_disclosures(args.output, rows)
         summary_output = Path(args.summary)
         summary_output.parent.mkdir(parents=True, exist_ok=True)
@@ -641,6 +679,19 @@ def main() -> None:
         print(f"initialized {args.path}")
         return
     if args.command == "discover-sse":
+        if args.failures or args.summary or args.resume:
+            if not args.failures or not args.summary:
+                raise ValueError("批量断点模式必须同时提供--failures和--summary")
+            companies = [
+                (company.stock_code, company.company_name) for company in read_universe(args.universe)
+                if company.included and company.exchange == "SSE"
+            ]
+            _, failures, summary = discover_szse_batch(
+                companies, args.report_year, args.output, args.failures, args.summary,
+                args.delay, args.resume, discover_reports, args.workers,
+            )
+            print(json.dumps(summary, ensure_ascii=False, indent=2))
+            raise SystemExit(0 if not failures else 2)
         rows = []
         for company in read_universe(args.universe):
             if not company.included or company.exchange != "SSE":
@@ -691,6 +742,32 @@ def main() -> None:
             writer.writeheader(); writer.writerows(rows)
         print(f"discovered {len(rows)} official SZSE reports")
         return
+    if args.command == "discover-bse":
+        rows, failures = [], []
+        for company in read_universe(args.universe):
+            if not company.included or company.exchange != "BSE":
+                continue
+            try:
+                reports = discover_bse_annual_report(company.stock_code, args.report_year)
+                if not reports:
+                    raise ValueError("official annual report not found")
+                rows.extend({
+                    "company_code": item.stock_code, "company_name": item.company_name,
+                    "report_year": args.report_year, "document_type": item.document_type,
+                    "source_url": item.source_url, "published_date": item.published_date,
+                    "title": item.title,
+                } for item in reports)
+            except Exception as error:
+                failures.append({"company_code": company.stock_code, "company_name": company.company_name, "error": str(error)})
+        fields = ("company_code", "company_name", "report_year", "document_type", "source_url", "published_date", "title")
+        output_path = Path(args.output); output_path.parent.mkdir(parents=True, exist_ok=True)
+        with output_path.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n"); writer.writeheader(); writer.writerows(rows)
+        failure_path = Path(args.failures); failure_path.parent.mkdir(parents=True, exist_ok=True)
+        with failure_path.open("w", encoding="utf-8-sig", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=("company_code", "company_name", "error"), lineterminator="\n"); writer.writeheader(); writer.writerows(failures)
+        print(f"discovered {len(rows)} official BSE annual reports; failed {len(failures)}")
+        raise SystemExit(0 if not failures else 2)
     if args.command == "collect":
         if args.resume:
             failure_path = args.failures or str(Path(args.index).with_name("collection_failures.csv"))
@@ -707,7 +784,7 @@ def main() -> None:
         print(f"collected {len(records)} documents")
         return
     if args.command == "merge-document-indexes":
-        records, summary = merge_document_indexes(args.indexes)
+        records, summary = merge_document_indexes(args.indexes, args.allow_metadata_corrections)
         write_document_index(args.output, records)
         summary_output = Path(args.summary)
         summary_output.parent.mkdir(parents=True, exist_ok=True)
@@ -715,7 +792,7 @@ def main() -> None:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "audit-document-coverage":
-        rows, summary = audit_document_coverage(args.companies, args.document_index)
+        rows, summary = audit_document_coverage(args.companies, args.document_index, args.report_year)
         write_document_coverage(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
@@ -724,6 +801,24 @@ def main() -> None:
             args.coverage, args.document_index, args.text_root, args.max_per_company,
         )
         write_annual_esg_evidence(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "collect-annual-qualitative-evidence":
+        methodology = load_methodology(args.methodology)
+        rows, summary = collect_annual_qualitative_evidence(
+            args.coverage, args.document_index, args.text_root, methodology,
+            args.report_year, args.max_per_indicator,
+        )
+        write_qualitative_evidence_candidates(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "plan-qualitative-review":
+        methodology = load_methodology(args.methodology)
+        packets, gaps, summary = plan_qualitative_review(
+            read_qualitative_candidates(args.candidates), args.coverage,
+            methodology, args.report_year,
+        )
+        write_qualitative_review_plan(args.packets, args.gaps, args.summary, packets, gaps, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "derive-financial":
@@ -748,7 +843,7 @@ def main() -> None:
         print(f"extracted {len(candidates)} pending candidates")
         return
     if args.command == "extract-batch-text":
-        candidates, coverage = extract_batch_text_exports(args.document_index, args.text_root)
+        candidates, coverage = extract_batch_text_exports(args.document_index, args.text_root, args.report_year)
         write_observations(args.output, candidates)
         coverage_path = Path(args.coverage)
         coverage_path.parent.mkdir(parents=True, exist_ok=True)

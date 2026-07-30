@@ -1,8 +1,8 @@
 import Foundation
 import PDFKit
 
-guard CommandLine.arguments.count == 3 else {
-    FileHandle.standardError.write(Data("usage: extract_pdf_batch.swift input-root output-root\n".utf8))
+guard CommandLine.arguments.count == 3 || (CommandLine.arguments.count == 4 && CommandLine.arguments[3] == "--force") else {
+    FileHandle.standardError.write(Data("usage: extract_pdf_batch.swift input-root output-root [--force]\n".utf8))
     exit(2)
 }
 
@@ -14,9 +14,15 @@ guard let enumerator = manager.enumerator(at: inputRoot, includingPropertiesForK
 
 var succeeded = 0
 var failed = 0
+var skipped = 0
+let force = CommandLine.arguments.count == 4
 for case let input as URL in enumerator where input.pathExtension.lowercased() == "pdf" {
     let relative = String(input.path.dropFirst(inputRoot.path.count + 1))
     let output = outputRoot.appendingPathComponent(relative).deletingPathExtension().appendingPathExtension("txt")
+    if !force && manager.fileExists(atPath: output.path) {
+        skipped += 1
+        continue
+    }
     do {
         guard let document = PDFDocument(url: input) else { throw NSError(domain: "PDFKit", code: 1) }
         var text = ""
@@ -34,5 +40,5 @@ for case let input as URL in enumerator where input.pathExtension.lowercased() =
         print("failed \(relative): \(error)")
     }
 }
-print("completed succeeded=\(succeeded) failed=\(failed)")
+print("completed succeeded=\(succeeded) skipped=\(skipped) failed=\(failed)")
 if failed > 0 { exit(2) }

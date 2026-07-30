@@ -1,0 +1,21 @@
+{
+  "report_year": 2025,
+  "company_count": 612,
+  "qualitative_indicator_count": 43,
+  "expected_group_count": 26316,
+  "candidate_observation_count": 14744,
+  "review_packet_count": 7148,
+  "evidence_gap_count": 19168,
+  "quality_counts": {
+    "standard_candidate": 4385,
+    "strong_candidate": 2050,
+    "weak_candidate": 713
+  },
+  "suggested_score_counts": {
+    "20": 1116,
+    "50": 2125,
+    "80": 3907
+  },
+  "auto_confirmed_count": 0,
+  "scoring_authorized": false
+}

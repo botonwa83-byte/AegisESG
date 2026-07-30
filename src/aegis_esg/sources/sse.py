@@ -96,11 +96,12 @@ def discover_reports(
 
 
 def classify_title(title: str, report_year: str) -> str | None:
-    if "摘要" in title or report_year not in title:
+    rejected = ("摘要", "提示性公告", "关于披露", "取消", "问询函", "回复")
+    if any(term in title for term in rejected) or report_year not in title:
         return None
-    if f"{report_year}年年度报告" in title or f"{report_year}年度报告" in title:
+    if any(term in title for term in (f"{report_year}年年度报告", f"{report_year}年度报告", f"{report_year}年年报")):
         return "annual_report"
-    esg_terms = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
+    esg_terms = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "环境、社会和治理报告", "环境社会和治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
     if any(term in title for term in esg_terms):
         return "esg_report"
     return None
@@ -130,4 +131,3 @@ def parse_response(payload: bytes | str) -> list[SSEDisclosure]:
 def _fetch(request: urllib.request.Request) -> bytes:
     with urllib.request.urlopen(request, timeout=45) as response:
         return response.read()
-

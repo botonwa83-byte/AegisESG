@@ -16,7 +16,8 @@ from aegis_esg.scoring import PopulationStats, ScoringEngine
 from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
 from aegis_esg.financial import FinancialFact, derive_financial_observations
-from aegis_esg.esg_disclosure import scan_annual_esg_disclosure
+from aegis_esg.esg_disclosure import QualitativeEvidenceCandidate, collect_annual_qualitative_evidence, scan_annual_esg_disclosure
+from aegis_esg.qualitative_review import plan_qualitative_review
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
@@ -116,6 +117,9 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual("https://www.sse.com.cn/annual.pdf", parsed[0].source_url)
         self.assertEqual("annual_report", classify_title(parsed[0].title, "2025"))
         self.assertEqual("esg_report", classify_title(parsed[1].title, "2025"))
+        self.assertIsNone(classify_title("长江电力2025年年度报告披露提示性公告", "2025"))
+        self.assertEqual("annual_report", classify_title("中国石油天然气股份有限公司2025年年报", "2025"))
+        self.assertEqual("esg_report", classify_title("中国石油天然气股份有限公司2025年度环境、社会和治理报告", "2025"))
 
         def fetcher(_request):
             return payload.encode()
@@ -222,6 +226,8 @@ class MethodologyTests(unittest.TestCase):
                 {"Q_G_DEBT_ASSET_RATE": {"candidate_count": 1, "company_count": 1}},
                 coverage,
             )
+            filtered, _ = extract_batch_text_exports(index, root / "text", report_year=2024)
+            self.assertFalse(filtered)
 
     def test_debt_ratio_excludes_guarantee_threshold_and_formula(self):
         pages = [PageText(1, "资产负债率超过70%的被担保对象；资产负债率＝负债/资产×100%；期末资产负债率58.2%。")]
@@ -1132,6 +1138,12 @@ class MethodologyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "分页不完整"):
             parse_title_search(page, "00600.HK", "1")
         self.assertEqual(("listing_document", 0), classify_continuity_document("GLOBAL OFFERING", "Listing Documents"))
+        self.assertEqual(("annual_report", 2025), classify_continuity_document(
+            "2024/25 ANNUAL REPORT", "Financial Statements/ESG Information",
+        ))
+        self.assertEqual(("annual_report", 2026), classify_continuity_document(
+            "Annual Report 2025/2026", "Financial Statements/ESG Information",
+        ))
         self.assertEqual((None, 0), classify_continuity_document(
             "Letter to shareholders - publication of Annual Report 2025", "Circulars - [Other]",
         ))
@@ -1175,6 +1187,11 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual("https://hkex/new.pdf", selected[0].source_url)
         self.assertEqual("https://hkex/prospectus.pdf", selected[1].source_url)
         self.assertEqual(0, summary["duplicate_target_count"])
+        target, _ = select_continuity_downloads([
+            row(2024, "annual_report", "https://hkex/old.pdf"),
+            row(2025, "annual_report", "https://hkex/new.pdf"),
+        ], report_year=2024)
+        self.assertEqual("https://hkex/old.pdf", target[0].source_url)
 
     def test_hkex_discovery_batch_checkpoints_and_resumes_failures(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -2075,24 +2092,40 @@ class MethodologyTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "本地路径冲突"):
                 merge_document_indexes([one, bad])
 
+    def test_merge_document_indexes_allows_hash_identical_metadata_correction(self):
+        old = DocumentRecord("A", "甲", 0, "annual_report", "https://same", "https://same", "data/raw/A/0/annual_report.pdf", "abc", 12)
+        corrected = DocumentRecord("A", "甲", 2025, "annual_report", "https://same", "https://same", "data/raw/A/2025/annual_report.pdf", "abc", 12)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); first = root / "first.csv"; second = root / "second.csv"
+            write_document_index(first, [old]); write_document_index(second, [corrected])
+            with self.assertRaisesRegex(ValueError, "URL元数据冲突"):
+                merge_document_indexes([first, second])
+            rows, summary = merge_document_indexes([first, second], allow_metadata_corrections=True)
+            self.assertEqual([corrected], rows)
+            self.assertEqual(1, summary["metadata_correction_count"])
+
     def test_document_coverage_distinguishes_missing_esg_and_annual(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             companies, index = root / "companies.csv", root / "index.csv"
             companies.write_text(
-                "stock_code,chinese_name\nA,甲\nB,乙\nC,丙\n", encoding="utf-8",
+                "stock_code,chinese_name,included\nA,甲,true\nB,乙,yes\nC,丙,1\nD,丁,false\n", encoding="utf-8",
             )
             write_document_index(index, [
                 DocumentRecord("A", "甲", 2025, "annual_report", "https://a/annual", "https://a/annual", "a.pdf", "a", 1),
                 DocumentRecord("A", "甲", 2025, "esg_report", "https://a/esg", "https://a/esg", "e.pdf", "e", 1),
                 DocumentRecord("B", "乙", 2025, "annual_report", "https://b/annual", "https://b/annual", "b.pdf", "b", 1),
+                DocumentRecord("C", "丙", 2024, "annual_report", "https://c/old", "https://c/old", "c.pdf", "c", 1),
             ])
-            rows, summary = audit_document_coverage(companies, index)
+            rows, summary = audit_document_coverage(companies, index, 2025)
             by_code = {row.stock_code: row for row in rows}
             self.assertEqual("ready_for_extraction", by_code["A"].next_action)
             self.assertEqual("scan_annual_for_esg", by_code["B"].next_action)
             self.assertEqual("discover_annual_report", by_code["C"].next_action)
             self.assertEqual(["C"], summary["missing_annual_codes"])
+            self.assertEqual(3, summary["company_count"])
+            self.assertEqual(2025, summary["report_year"])
+            self.assertNotIn("D", by_code)
             self.assertFalse(summary["complete"])
 
     def test_annual_esg_scan_preserves_page_and_pending_status(self):
@@ -2120,6 +2153,55 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("pending", rows[0].review_status)
             self.assertEqual(1, summary["candidate_company_count"])
             self.assertFalse(summary["applicable"])
+
+    def test_collect_annual_qualitative_evidence_maps_terms_without_scoring(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coverage, index = root / "coverage.csv", root / "index.csv"
+            coverage.write_text(
+                "stock_code,company_name,annual_status\nA,甲,collected\nB,乙,missing\n",
+                encoding="utf-8",
+            )
+            write_document_index(index, [DocumentRecord(
+                "A", "甲", 2025, "annual_report", "https://official/a.pdf",
+                "https://official/a.pdf", "data/raw/A/2025/annual_report.pdf", "abc", 12,
+            )])
+            text = root / "text/A/2025/annual_report.txt"
+            text.parent.mkdir(parents=True)
+            text.write_text(
+                "\n=== PAGE 9 ===\n公司完善环境管理体系\x00，并加强职业健康管理。\n",
+                encoding="utf-8",
+            )
+            rows, summary = collect_annual_qualitative_evidence(
+                coverage, index, root / "text", self.methodology, 2025,
+            )
+            self.assertEqual({"X_E_ENV_SYSTEM", "X_S_OCCUPATIONAL_HEALTH"}, {row.indicator_code for row in rows})
+            self.assertTrue(all(row.review_status == "pending" for row in rows))
+            self.assertFalse(summary["scoring_authorized"])
+            self.assertEqual(1, summary["annual_document_count"])
+            self.assertTrue(all("\x00" not in row.evidence_text for row in rows))
+
+    def test_qualitative_review_plan_suggests_but_never_confirms(self):
+        with tempfile.TemporaryDirectory() as directory:
+            coverage = Path(directory) / "coverage.csv"
+            coverage.write_text(
+                "stock_code,company_name,annual_status\nA,甲,collected\nB,乙,missing\n",
+                encoding="utf-8",
+            )
+            candidates = [QualitativeEvidenceCandidate(
+                "A", "甲", 2025, "X_E_ENV_SYSTEM", "环保体系", "https://a", "a.pdf", 9,
+                "环境管理体系", "公司建立环境管理体系，制定年度目标，实施培训并实现减排目标。", .75,
+            )]
+            packets, gaps, summary = plan_qualitative_review(
+                candidates, coverage, self.methodology, 2025,
+            )
+            self.assertEqual(1, len(packets))
+            self.assertEqual(80, packets[0].suggested_score)
+            self.assertEqual("pending", packets[0].review_status)
+            self.assertFalse(packets[0].scoring_authorized)
+            self.assertEqual(42, len(gaps))
+            self.assertEqual(0, summary["auto_confirmed_count"])
+            self.assertFalse(summary["scoring_authorized"])
 
 
 if __name__ == "__main__":

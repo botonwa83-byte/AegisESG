@@ -305,6 +305,30 @@ PYTHONPATH=src python3 -m aegis_esg.cli collect \
   --delay 0.2 --resume
 ```
 
+北交所使用官网公告分类字典中的年度报告父类`9504-0100`和子类`9503-1001`查询，严格排除摘要、
+更正、问询及回复。真实批次26/26家均发现并下载正式2025年报，失败0：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli discover-bse \
+  data/universe/energy_historical_candidates_2026.csv --report-year 2025 \
+  --output data/manifests/bse_candidates_2025.csv \
+  --failures output/audit/bse_discovery_failures_2025.csv
+```
+
+四市场合并索引现有495份文件、400家公司，采集矩阵中388家公司已有年报。
+
+上交所全量批次完成239/239家公司，发现239份正式年报和96份独立ESG报告，下载及哈希校验失败0。
+四市场统一索引扩大到789份文件并覆盖全部614家公司；602家已有年报、164家已有独立ESG报告。
+Swift批处理默认跳过已有文本，本轮增量文本化847份、跳过317份、失败0。重抽得到4,760条候选和
+4,279个候选任务，剩余18,439项缺失，其中5,161项为关键指标缺口；4,210组可按策略自动确认，
+69组需人工签名。
+
+港股剩余12家使用2020—2026扩展窗口重新发现，并将`2024/25`等非自然财年归属于结束年度；无年份
+年报按发布日期前一年归属。`--report-year 2025 --annual-only`只选择目标年报，避免最新2026财年
+或连续性文件混入评价索引。10家补齐，`00702.HK`和`01101.HK`最新年报仍为2023，明确保留缺失。
+同URL元数据更正只在公司、文档类型、SHA-256和大小完全一致时允许。最终索引794份，612家有年报、
+163家有独立ESG；年度过滤后为4,756条候选/4,275组，自动预览4,206组、人工69组。
+
 本批118份文件已全部下载且失败0。PDFKit文本化后，以下载索引生成带页码证据候选和审阅包：
 
 ```bash
@@ -566,6 +590,36 @@ PYTHONPATH=src python3 -m aegis_esg.cli reconcile-registry incoming/companies.cs
 ## 定性指标
 
 自动文本匹配只产生建议档位，不能直接确认。复核员依据报告标准选择：
+
+全量年报的证据定位可通过以下命令生成。该命令覆盖方法论中的全部43项定性指标，保存原始文件、
+URL、页码、匹配词和上下文，但所有记录保持`pending`，并在汇总中明确
+`scoring_authorized=false`：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli collect-annual-qualitative-evidence \
+  output/audit/all_markets_document_coverage_2025.csv \
+  data/raw/all_markets_document_index.csv --report-year 2025 \
+  --text-root data/text --max-per-indicator 3 \
+  --output data/review/all_markets_annual_qualitative_evidence_candidates_2025.csv \
+  --summary output/audit/all_markets_annual_qualitative_evidence_summary_2025.json
+```
+
+PDF文本中的NUL字符在证据写入前清除，确保CSV可被标准解析器读取。关键词命中仅说明存在待复核
+证据，不等于满足任何评分档位，也不能直接写入正式观测表。
+
+候选去重、四类上下文特征和缺口队列通过以下命令生成：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli plan-qualitative-review \
+  data/review/all_markets_annual_qualitative_evidence_candidates_2025.csv \
+  output/audit/all_markets_document_coverage_2025.csv --report-year 2025 \
+  --packets data/review/all_markets_qualitative_review_packets_2025.csv \
+  --gaps output/audit/all_markets_qualitative_evidence_gaps_2025.csv \
+  --summary output/audit/all_markets_qualitative_review_plan_summary_2025.json
+```
+
+建议档位最高为80分；100分必须由复核员依据完整性、效果和行业领先证据主动判定。建议档位、
+质量等级及优先级都不改变`pending`状态，汇总中的自动确认数必须保持0。
 
 - 100：描述完整、制度目标合理、措施有效、年度目标完成、行业领先；
 - 80：描述具体、制度目标清晰、基本完成、行业优秀；

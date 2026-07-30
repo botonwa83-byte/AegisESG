@@ -1,7 +1,8 @@
 {
-  "source_index_count": 3,
-  "document_count": 469,
-  "company_count": 374,
+  "source_index_count": 5,
+  "document_count": 794,
+  "company_count": 614,
   "duplicate_count": 0,
+  "metadata_correction_count": 5,
   "complete": true
 }

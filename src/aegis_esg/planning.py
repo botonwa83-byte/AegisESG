@@ -56,11 +56,14 @@ def read_document_records(path: str | Path) -> list[DocumentRecord]:
     return result
 
 
-def merge_document_indexes(paths: Iterable[str | Path]) -> tuple[list[DocumentRecord], dict]:
+def merge_document_indexes(
+    paths: Iterable[str | Path], allow_metadata_corrections: bool = False,
+) -> tuple[list[DocumentRecord], dict]:
     records = []
     by_url: dict[str, DocumentRecord] = {}
     by_path: dict[str, DocumentRecord] = {}
     duplicate_count = 0
+    metadata_correction_count = 0
     source_count = 0
     for path in paths:
         source_count += 1
@@ -69,7 +72,21 @@ def merge_document_indexes(paths: Iterable[str | Path]) -> tuple[list[DocumentRe
             existing_path = by_path.get(record.local_path)
             if existing_url is not None:
                 if existing_url != record:
-                    raise ValueError(f"文档索引URL元数据冲突: {record.source_url}")
+                    correction_safe = allow_metadata_corrections and (
+                        existing_url.company_code, existing_url.document_type,
+                        existing_url.sha256, existing_url.size,
+                    ) == (record.company_code, record.document_type, record.sha256, record.size)
+                    if not correction_safe:
+                        raise ValueError(f"文档索引URL元数据冲突: {record.source_url}")
+                    if record.local_path in by_path and by_path[record.local_path].source_url != record.source_url:
+                        raise ValueError(f"文档索引本地路径冲突: {record.local_path}")
+                    records.remove(existing_url)
+                    by_path.pop(existing_url.local_path, None)
+                    by_url[record.source_url] = record
+                    by_path[record.local_path] = record
+                    records.append(record)
+                    metadata_correction_count += 1
+                    continue
                 duplicate_count += 1
                 continue
             if existing_path is not None:
@@ -83,13 +100,14 @@ def merge_document_indexes(paths: Iterable[str | Path]) -> tuple[list[DocumentRe
         "document_count": len(records),
         "company_count": len({item.company_code for item in records}),
         "duplicate_count": duplicate_count,
+        "metadata_correction_count": metadata_correction_count,
         "complete": True,
     }
     return records, summary
 
 
 def audit_document_coverage(
-    companies_path: str | Path, document_index: str | Path,
+    companies_path: str | Path, document_index: str | Path, report_year: int | None = None,
 ) -> tuple[list[DocumentCoverage], dict]:
     with Path(companies_path).open(encoding="utf-8-sig", newline="") as stream:
         companies = list(csv.DictReader(stream))
@@ -100,12 +118,19 @@ def audit_document_coverage(
         raise ValueError("文档覆盖公司清单缺少证券代码")
     expected = {}
     for line, row in enumerate(companies, 2):
+        included = (row.get("included") or "true").strip().lower()
+        if included in {"false", "0", "no", "n"}:
+            continue
+        if included not in {"true", "1", "yes", "y"}:
+            raise ValueError(f"文档覆盖公司清单第{line}行included无效")
         code = row[code_field].strip().upper()
         if not code or code in expected:
             raise ValueError(f"文档覆盖公司清单第{line}行证券代码为空或重复")
         expected[code] = (row.get("chinese_name") or row.get("company_name") or "").strip()
     by_code: dict[str, list[DocumentRecord]] = {}
     for record in read_document_records(document_index):
+        if report_year is not None and record.report_year != report_year:
+            continue
         by_code.setdefault(record.company_code, []).append(record)
     rows = []
     for code, name in expected.items():
@@ -127,6 +152,7 @@ def audit_document_coverage(
     rows.sort(key=lambda item: (item.annual_status != "missing", item.esg_status != "missing", item.stock_code))
     summary = {
         "company_count": len(rows),
+        "report_year": report_year,
         "document_count": sum(item.document_count for item in rows),
         "annual_coverage_count": sum(item.annual_status == "collected" for item in rows),
         "esg_coverage_count": sum(item.esg_status == "collected" for item in rows),

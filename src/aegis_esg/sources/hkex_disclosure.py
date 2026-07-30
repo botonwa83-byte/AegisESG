@@ -134,6 +134,8 @@ def parse_title_search(payload: bytes | str, expected_code: str, stock_id: str) 
         title = _clean(row["title"])
         headline = _clean(row["headline"])
         document_type, report_year = classify_continuity_document(title, headline)
+        if document_type == "annual_report" and report_year == 0:
+            report_year = int(date_match.group(3)) - 1
         if document_type:
             result.append(HKEXDisclosure(
                 expected_code.upper(), re.sub(r"^Stock Short Name:\s*", "", _clean(row["name"])), report_year, document_type,
@@ -147,8 +149,13 @@ def classify_continuity_document(title: str, headline: str) -> tuple[str | None,
     combined = f"{headline} {title}".lower()
     title_lower = title.lower().strip()
     headline_lower = headline.lower()
-    year_match = re.search(r"\b(20\d{2})\b", title)
-    report_year = int(year_match.group(1)) if year_match else 0
+    fiscal_match = re.search(r"\b(20\d{2})\s*[/–-]\s*(20\d{2}|\d{2})\b", title)
+    if fiscal_match:
+        end_year = fiscal_match.group(2)
+        report_year = int(end_year if len(end_year) == 4 else fiscal_match.group(1)[:2] + end_year)
+    else:
+        year_match = re.search(r"\b(20\d{2})\b", title)
+        report_year = int(year_match.group(1)) if year_match else 0
     is_annual_title = bool(re.match(r"^(?:20\d{2}\s+)?annual report\b", title_lower))
     if "annual report" in combined and "summary" not in combined and (
         "financial statements" in headline_lower or is_annual_title
@@ -235,12 +242,18 @@ def read_hkex_disclosures(path: str | Path) -> list[HKEXDisclosure]:
     return result
 
 
-def select_continuity_downloads(rows: Iterable[HKEXDisclosure]) -> tuple[list[HKEXDisclosure], dict]:
+def select_continuity_downloads(
+    rows: Iterable[HKEXDisclosure], report_year: int | None = None, annual_only: bool = False,
+) -> tuple[list[HKEXDisclosure], dict]:
     allowed = {"annual_report", "esg_report", "listing_document", "name_change_announcement"}
     grouped: dict[tuple[str, str], list[HKEXDisclosure]] = {}
     seen_urls = set()
     for item in rows:
         if item.document_type not in allowed or not item.source_url.lower().endswith(".pdf"):
+            continue
+        if annual_only and item.document_type != "annual_report":
+            continue
+        if report_year is not None and item.document_type == "annual_report" and item.report_year != report_year:
             continue
         if item.source_url in seen_urls:
             raise ValueError(f"HKEXnews文件清单URL重复: {item.source_url}")
