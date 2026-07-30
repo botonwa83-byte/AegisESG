@@ -1,12 +1,12 @@
 {
   "company_count": 614,
-  "annual_collected": 25,
-  "esg_collected": 16,
-  "ready_for_extraction": 16,
+  "annual_collected": 105,
+  "esg_collected": 71,
+  "ready_for_extraction": 68,
   "actions": {
-    "discover_annual_and_esg": 589,
-    "discover_esg_or_scan_annual": 9,
-    "ready_for_extraction": 16
+    "discover_annual_and_esg": 509,
+    "discover_esg_or_scan_annual": 37,
+    "ready_for_extraction": 68
   },
   "exchanges": {
     "BSE": 26,

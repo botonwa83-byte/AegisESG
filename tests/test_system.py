@@ -1,4 +1,5 @@
 import csv
+import json
 import tempfile
 import unittest
 import gzip
@@ -20,6 +21,7 @@ from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
+from aegis_esg.sources.szse import SZSEDisclosure, classify_title as classify_szse_title, discover_batch as discover_szse_batch, discover_reports as discover_szse_reports, parse_response as parse_szse_response
 from aegis_esg.sources.listings import collect_listing_pages, parse_listing_page
 from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
@@ -119,6 +121,42 @@ class MethodologyTests(unittest.TestCase):
             return payload.encode()
         reports = discover_reports("600900.SH", 2025, fetcher=fetcher)
         self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in reports})
+
+    def test_szse_official_response_classification(self):
+        payload = json.dumps({"data": [
+            {"secCode": "000027", "secName": "深圳能源", "publishTime": "2026-04-30 18:00:00", "title": "深圳能源2025年年度报告", "attachPath": "/disc/a.pdf"},
+            {"secCode": "000027", "secName": "深圳能源", "publishTime": "2026-04-30", "title": "深圳能源2025年度可持续发展报告", "attachPath": "/disc/esg.pdf"},
+        ]}, ensure_ascii=False)
+        rows = parse_szse_response(payload)
+        self.assertEqual("https://disc.static.szse.cn/disc/a.pdf", rows[0].source_url)
+        self.assertEqual("annual_report", classify_szse_title(rows[0].title, "2025"))
+        reports = discover_szse_reports("000027.SZ", 2025, fetcher=lambda request: payload.encode())
+        self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in reports})
+
+    def test_szse_batch_checkpoints_failures_and_resumes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "manifest.csv"
+            failures = Path(directory) / "failures.csv"
+            summary = Path(directory) / "summary.json"
+            attempts = {"000002.SZ": 0}
+            def discover(code, year):
+                if code == "000002.SZ" and attempts[code] == 0:
+                    attempts[code] += 1
+                    raise TimeoutError("temporary")
+                return [SZSEDisclosure(code, code, "2026-04-30", f"{year}年年度报告", "annual_report", f"https://disc/{code}.pdf")]
+            _, first_failures, first = discover_szse_batch(
+                [("000001.SZ", "甲"), ("000002.SZ", "乙")], 2025,
+                output, failures, summary, 0, False, discover,
+            )
+            self.assertEqual(1, len(first_failures))
+            self.assertFalse(first["complete"])
+            rows, second_failures, second = discover_szse_batch(
+                [("000001.SZ", "甲"), ("000002.SZ", "乙")], 2025,
+                output, failures, summary, 0, True, discover,
+            )
+            self.assertFalse(second_failures)
+            self.assertTrue(second["complete"])
+            self.assertEqual(2, len(rows))
 
     def test_financial_derivation(self):
         def fact(code, value):
@@ -306,6 +344,33 @@ class MethodologyTests(unittest.TestCase):
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
         self.assertFalse([item for item in items if item.indicator_code == "Q_G_CASH_REALIZATION"])
 
+    def test_english_direct_method_cashflow_accepts_sales_and_services_receipts(self):
+        pages = [
+            PageText(
+                84,
+                "Consolidated Statement of Profit or Loss\n2025 2024\n"
+                "I. Total operating revenue V.33 5,000 4,000\n"
+                "II. Total operating cost 4,000 3,300\n"
+                "R&D expenses V.46 100 80\nIII. Operating profit 500 400",
+            ),
+            PageText(
+                87,
+                "Consolidated Cash Flow Statement\n2025 2024\n"
+                "Cash received from sales of goods or rendering of\n"
+                "services 5,750 4,200\nCash received relating to other operating activities 30 40",
+            ),
+        ]
+        items = extract_indicator_candidates(
+            pages, "01713.HK", "SICHUAN ENERGY", 2025, "url", "annual_report.pdf",
+        )
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(115, values["Q_G_CASH_REALIZATION"])
+        self.assertAlmostEqual(25, values["Q_G_REVENUE_GROWTH"])
+        self.assertAlmostEqual(10, values["Q_G_OPERATING_MARGIN"])
+        self.assertAlmostEqual(25, values["Q_G_OPERATING_PROFIT_GROWTH"])
+        self.assertAlmostEqual(80, values["Q_G_COST_REVENUE_RATE"])
+        self.assertAlmostEqual(2, values["Q_S_RD_RATE"])
+
     def test_english_revenue_intensities_convert_to_methodology_units(self):
         pages = [PageText(
             20,
@@ -390,6 +455,20 @@ class MethodologyTests(unittest.TestCase):
             ("Q_E_SOLID_WASTE_INTENSITY", 30),
             ("Q_E_SOLID_WASTE_INTENSITY", .5),
         ], values)
+
+    def test_english_inverted_air_emission_labels_use_rmb_revenue_units(self):
+        pages = [PageText(
+            57,
+            "Type of Emissions Unit 2025 2024 2023\n"
+            "Intensity of SO2 emissions Kg/RMB10,000 0.44 0.24 0.18\n"
+            "Intensity of particulate emissions Kg/RMB10,000 0.11 0.06 0.05",
+        )]
+        items = extract_indicator_candidates(
+            pages, "06885.HK", "JINMA ENERGY", 2025, "https://source", "annual_report.pdf",
+        )
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(440, values["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(110, values["Q_E_PM_INTENSITY"])
 
     def test_english_additional_environmental_intensities_convert_units(self):
         pages = [PageText(
@@ -1814,15 +1893,15 @@ class MethodologyTests(unittest.TestCase):
             ROOT / "output/audit/hkex_resolution_preview_freeze_audit_2026-07-29.json",
         )
         self.assertEqual(3404, data["overview"]["task_count"])
-        self.assertEqual(400, data["overview"]["candidate_task_count"])
+        self.assertEqual(422, data["overview"]["candidate_task_count"])
         self.assertEqual(3, data["overview"]["conflict_count"])
         self.assertEqual(
             {"00196.HK", "00600.HK", "01205.HK"},
             {item["company_code"] for item in data["conflicts"]},
         )
         self.assertTrue(all(item["candidates"] for item in data["conflicts"]))
-        self.assertEqual(394, data["review_tiers"]["summary"]["tier_counts"]["auto_policy_eligible"])
-        self.assertEqual(6, len(data["review_tiers"]["manual_items"]))
+        self.assertEqual(415, data["review_tiers"]["summary"]["tier_counts"]["auto_policy_eligible"])
+        self.assertEqual(7, len(data["review_tiers"]["manual_items"]))
         self.assertTrue(data["resolution_freeze_audit"]["valid"])
         self.assertFalse(data["resolution_freeze_audit"]["freeze_ready"])
         rendered = render_progress_dashboard(data)

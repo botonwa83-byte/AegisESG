@@ -1,0 +1,11 @@
+{
+  "company_count": 257,
+  "completed_company_count": 0,
+  "annual_report_count": 0,
+  "esg_report_count": 0,
+  "esg_company_count": 0,
+  "failure_count": 257,
+  "remaining_company_count": 257,
+  "complete": false,
+  "applicable": false
+}

@@ -90,10 +90,10 @@ PYTHONPATH=src python3 -m aegis_esg.cli audit-resolution-preview \
   --output output/audit/hkex_resolution_preview_freeze_audit_2026-07-29.json
 ```
 
-冻结校验逐组核对候选、确认、未决和决策日志。当前批次结构有效，但仍有6组需人工审核，因而
+冻结校验逐组核对候选、确认、未决和决策日志。当前批次结构有效，但仍有7组需人工审核，因而
 `valid=true`、`freeze_ready=false`；预览不会进入正式评分数据。
 
-可从冻结分层中精确生成6组人工队列及空白签名模板：
+可从冻结分层中精确生成7组人工队列及空白签名模板：
 
 ```bash
 PYTHONPATH=src python3 -m aegis_esg.cli select-manual-review \
@@ -199,3 +199,7 @@ PYTHONPATH=src python3 -m aegis_esg.cli universe-audit \
 历史迁移、港股缺失代码签名解析与前200新增种子合并后，当前可审计候选池为614家公司，
 距632家目标还差18家。
 该差额必须通过最新细分行业名录识别，不能用20个重复H股证券补足主体数。
+
+采集侧已统一沪港199份正式文档索引，614家公司中105家已有2025年年报、71家已有ESG报告；
+`discover-szse`可为257家深市候选批量发现官方年报和ESG报告。发现结果仍需下载、PDF验证和
+SHA-256入索引后才计为已采集。

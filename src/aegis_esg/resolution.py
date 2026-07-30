@@ -22,6 +22,8 @@ ESG_AUTO_INDICATORS = {"Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_I
 STRICT_EVIDENCE_PREFIXES = {
     "Q_E_GHG_REDUCTION_RATE": ("English same-scope GHG table derived:",),
     "Q_E_NOX_INTENSITY": ("English revenue intensity:",),
+    "Q_E_SO2_INTENSITY": ("English revenue intensity:",),
+    "Q_E_PM_INTENSITY": ("English revenue intensity:",),
     "Q_E_WASTEWATER_INTENSITY": ("English revenue intensity:",),
     "Q_E_SOLID_WASTE_INTENSITY": ("English revenue intensity:",),
     "Q_E_HAZ_WASTE_INTENSITY": ("English revenue intensity:",),

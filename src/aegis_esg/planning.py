@@ -192,7 +192,7 @@ def write_collection_plan(path: str | Path, tasks: Iterable[CollectionTask]) -> 
     output.parent.mkdir(parents=True, exist_ok=True)
     fields = tuple(CollectionTask.__annotations__)
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(vars(item) for item in tasks)
 

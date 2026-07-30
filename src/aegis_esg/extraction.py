@@ -209,7 +209,12 @@ _MASS_NUMERATOR = r"(?P<numerator>kg|kilograms?|tonnes?|tons?)"
 _SOLID_WASTE_LABEL = r"(?:total\s+)?non-hazardous\s+waste(?:\s+(?:generation|production|disposal|emission))?\s+intensity(?:Note\d+)?"
 _HAZ_WASTE_LABEL = r"(?<!non-)hazardous\s+waste(?:\s+(?:generation|production|disposal|emission|discharge))?\s+intensity(?:Note\d+)?"
 _WASTEWATER_LABEL = r"(?:wastewater|sewage)(?:\s+(?:discharge|emission))?\s+intensity(?:Note\d+)?"
-_PM_LABEL = r"(?:(?:particulate\s+matter|PM)\s+emissions?\s+intensity|intensity\s+of\s+(?:particulate\s+matter|PM)\s+emissions?)"
+_PM_LABEL = r"(?:(?:particulate(?:\s+matter)?|PM)\s+emissions?\s+intensity|intensity\s+of\s+(?:particulate(?:\s+matter)?|PM)\s+emissions?)"
+_SO2_LABEL = (
+    r"(?:(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))"
+    r"\s+emissions?\s+intensity|intensity\s+of\s+"
+    r"(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))\s+emissions?)"
+)
 ENGLISH_REVENUE_INTENSITY_RULES = (
     EnglishRevenueIntensityRule(
         "Q_E_GHG_INTENSITY",
@@ -242,9 +247,7 @@ ENGLISH_REVENUE_INTENSITY_RULES = (
     EnglishRevenueIntensityRule(
         "Q_E_SO2_INTENSITY",
         re.compile(
-            r"(?:(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))"
-            r"\s+emissions?\s+intensity)"
-            r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR +
+            _SO2_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR + r"\s*" + _REVENUE_DENOMINATOR +
             r"\s*(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
         ),
         .91,
@@ -252,8 +255,7 @@ ENGLISH_REVENUE_INTENSITY_RULES = (
     EnglishRevenueIntensityRule(
         "Q_E_SO2_INTENSITY",
         re.compile(
-            r"(?:(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))"
-            r"\s+emissions?\s+intensity)[^\d]{0,80}?" + _MASS_NUMERATOR +
+            _SO2_LABEL + r"[^\d]{0,80}?" + _MASS_NUMERATOR +
             r"\s*(?:/|per)\s*(?P<scale>million|billion|100\s+million|10[,.]?000|10k)\s*"
             r"(?:RMB|CNY|Yuan)(?:\s+(?:in\s+)?revenue|\s+(?:of\s+)?revenue)?\s*"
             r"(?P<value>[\d,]+(?:\.\d+)?)\b", re.I,
@@ -1057,7 +1059,9 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
 
 
 def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
-    return _find_english_income_fact(pages, r"Revenue")
+    return _find_english_income_fact(
+        pages, r"(?:I\.\s*)?(?:(?:Total\s+)?Operating\s+)?Revenue",
+    )
 
 
 def _find_english_income_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
@@ -1079,7 +1083,7 @@ def _find_english_income_fact(pages: list[PageText], label_pattern: str) -> Stat
 
 def _find_english_cashflow_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
     title = re.compile(
-        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+cash\s+flows?(?:\s|$)",
+        r"(?mi)^\s*(?:consolidated\s+)?(?:statement\s+of\s+cash\s+flows?|cash\s+flow\s+statement)(?:\s|$)",
     )
     end = re.compile(
         r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+"
@@ -1132,7 +1136,9 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
             if statement_pages and end.search(page.text):
                 break
             statement_pages.append(page)
-        revenue = _find_english_statement_fact(statement_pages, r"Revenue")
+        revenue = _find_english_statement_fact(
+            statement_pages, r"(?:I\.\s*)?(?:(?:Total\s+)?Operating\s+)?Revenue",
+        )
         if not revenue or revenue.values[0] == 0:
             continue
         result = []
@@ -1144,7 +1150,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                     "English consolidated income statement derived: " + revenue.evidence,
                 ))
         operating = _find_english_statement_fact(
-            statement_pages, r"(?:Operating profit|Profit from operations)",
+            statement_pages, r"(?:II{1,2}\.\s*)?(?:Operating profit|Profit from operations)",
         )
         if operating:
             margin = operating.values[0] / revenue.values[0] * 100
@@ -1175,7 +1181,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                     research.evidence + " | " + revenue.evidence,
                 ))
         total_costs = _find_english_statement_fact(
-            statement_pages, r"(?:Total operating expenses|Total costs and expenses)",
+            statement_pages, r"(?:II\.\s*)?(?:Total operating costs?|Total operating expenses|Total costs and expenses)",
         )
         if total_costs:
             cost_rate = abs(total_costs.values[0]) / abs(revenue.values[0]) * 100
@@ -1192,7 +1198,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
 
 def _extract_english_cashflow_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
     title = re.compile(
-        r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+cash\s+flows?(?:\s|$)",
+        r"(?mi)^\s*(?:consolidated\s+)?(?:statement\s+of\s+cash\s+flows?|cash\s+flow\s+statement)(?:\s|$)",
     )
     end = re.compile(
         r"(?mi)^\s*(?:consolidated\s+)?statement\s+of\s+"
@@ -1222,7 +1228,9 @@ def _extract_english_cashflow_indicators(pages: list[PageText]) -> list[tuple[st
             r"Net cash (?:flows? )?(?:(?:generated )?from|(?:used )?in|inflow from) operating activities",
         )
         customer_receipts = _find_english_statement_fact(
-            statement_pages, r"(?:Cash )?Receipts from customers",
+            statement_pages,
+            r"(?:(?:Cash\s+)?Receipts\s+from\s+customers|Cash\s+received\s+from\s+sales\s+of\s+goods\s+"
+            r"(?:and\s+provision|or\s+rendering)\s+of\s+services)",
         )
         result = []
         if net_operating_cash and current_liabilities and current_liabilities.values[0] > 0:

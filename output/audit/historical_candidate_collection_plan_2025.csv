@@ -25,98 +25,18 @@
 920809.BJ,安达科技,BSE,2025,missing,missing,discover_annual_and_esg,1
 920914.BJ,远航精密,BSE,2025,missing,missing,discover_annual_and_esg,1
 920985.BJ,海泰新能,BSE,2025,missing,missing,discover_annual_and_esg,1
-00002.HK,CLP HOLDINGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00003.HK,HK & CHINA GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00006.HK,POWER ASSETS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00042.HK,NE ELECTRIC,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00061.HK,GREEN LEAD-NEW,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00065.HK,GRAND OCEAN AR,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00135.HK,KUNLUN ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00182.HK,CONCORD NE,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00196.HK,HONGHUA GROUP,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00206.HK,CM-ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00228.HK,CHINA ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
+00003.HK,HK & CHINA GAS,HKEX,2025,missing,collected,discover_annual_and_esg,1
 00276.HK,MONGOLIA ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00295.HK,KONG SUN HOLD,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00332.HK,YUANHENGGAS-NEW,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00346.HK,YANCHANG PETRO,HKEX,2025,missing,missing,discover_annual_and_esg,1
+00332.HK,YUANHENGGAS-NEW,HKEX,2025,missing,collected,discover_annual_and_esg,1
 00353.HK,ENERGY INTINV,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00384.HK,CHINA GAS HOLD,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00392.HK,BEIJING ENT,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00451.HK,DYNASTY DIGITAL,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00467.HK,UNITEDENERGY GP,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00554.HK,HANS GP HLDGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00579.HK,JNCEC,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00600.HK,AXERA,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00607.HK,FULLSHARE,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00632.HK,CHK OIL,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00639.HK,SHOUGANG RES,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00645.HK,ARES ASIA,HKEX,2025,missing,missing,discover_annual_and_esg,1
 00650.HK,PRODUCTIVE TECH,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00666.HK,REPT BATTERO,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00686.HK,BJ ENERGY INTL,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00689.HK,EPI (HOLDINGS),HKEX,2025,missing,missing,discover_annual_and_esg,1
 00702.HK,SINO OIL & GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
 00704.HK,HUSCOKE HLDGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00819.HK,TIANNENG POWER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00836.HK,CHINA RES POWER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00866.HK,CHINA QINFA,HKEX,2025,missing,missing,discover_annual_and_esg,1
 00931.HK,CHINA HK POWER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00934.HK,SINOPEC KANTONS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00951.HK,CHAOWEI POWER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00968.HK,XINYI SOLAR,HKEX,2025,missing,missing,discover_annual_and_esg,1
-00975.HK,MONGOL MINING,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01080.HK,SHENGLI PIPE,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01083.HK,TG SMART ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
 01101.HK,HUARONG ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01193.HK,CHINA RES GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01205.HK,CITIC RESOURCES,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01229.HK,NAN NAN RES,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01250.HK,SDHS NEW ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01251.HK,SPT ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01277.HK,KINETIC DEV,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01303.HK,HUILI RES,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01393.HK,HIDILI INDUSTRY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01407.HK,JY GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01555.HK,MIE HOLDINGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01600.HK,TIAN LUN GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01608.HK,VPOWER GROUP,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01621.HK,VICO INTL HLDGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01623.HK,HILONG,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01713.HK,SICHUAN EN INV,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01733.HK,E-COMMODITIES,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01738.HK,FS ANTHRACITE,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01798.HK,DATANG RENEW,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01799.HK,XINTE ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01811.HK,CGN NEW ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01878.HK,SOUTHGOBI,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01921.HK,DALIPAL HLDG,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01938.HK,CHU KONG PIPE,HKEX,2025,missing,missing,discover_annual_and_esg,1
-01940.HK,CGII HLDGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02012.HK,SUNSHINE OIL,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02178.HK,PETRO-KING,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02236.HK,WISON ENGRG,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02380.HK,CHINA POWER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02386.HK,SINOPEC SEG,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02688.HK,ENN ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02728.HK,JINTAI ENERGY H,HKEX,2025,missing,missing,discover_annual_and_esg,1
-02798.HK,PER ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03303.HK,JUTAL OIL SER,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03337.HK,ANTON OILFIELD,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03395.HK,JX ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03633.HK,ZHONGYU ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03668.HK,YANCOAL AUS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03800.HK,GCL TECH,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03868.HK,XINYI ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-03899.HK,CIMC ENRIC,HKEX,2025,missing,missing,discover_annual_and_esg,1
-06828.HK,BG BLUE SKY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-06885.HK,JINMA ENERGY,HKEX,2025,missing,missing,discover_annual_and_esg,1
-08132.HK,CENTURY EN INTL,HKEX,2025,missing,missing,discover_annual_and_esg,1
-08270.HK,CHINA CBM,HKEX,2025,missing,missing,discover_annual_and_esg,1
+01229.HK,NAN NAN RES,HKEX,2025,missing,collected,discover_annual_and_esg,1
 08347.HK,F8 ENT,HKEX,2025,missing,missing,discover_annual_and_esg,1
-08536.HK,TL NATURAL GAS,HKEX,2025,missing,missing,discover_annual_and_esg,1
 08631.HK,SUN KONG HLDGS,HKEX,2025,missing,missing,discover_annual_and_esg,1
-09689.HK,JTF INTL,HKEX,2025,missing,missing,discover_annual_and_esg,1
 600011.SH,华能国际,SSE,2025,missing,missing,discover_annual_and_esg,1
 600021.SH,上海电力,SSE,2025,missing,missing,discover_annual_and_esg,1
 600023.SH,浙能电力,SSE,2025,missing,missing,discover_annual_and_esg,1
@@ -588,6 +508,34 @@
 301511.SZ,德福科技,SZSE,2025,missing,missing,discover_annual_and_esg,1
 301516.SZ,中远通,SZSE,2025,missing,missing,discover_annual_and_esg,1
 301587.SZ,中瑞股份,SZSE,2025,missing,missing,discover_annual_and_esg,1
+00002.HK,CLP HOLDINGS,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00065.HK,GRAND OCEAN AR,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00206.HK,CM-ENERGY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00295.HK,KONG SUN HOLD,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00600.HK,AXERA,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00632.HK,CHK OIL,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00639.HK,SHOUGANG RES,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00645.HK,ARES ASIA,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00689.HK,EPI (HOLDINGS),HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00866.HK,CHINA QINFA,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+00975.HK,MONGOL MINING,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01080.HK,SHENGLI PIPE,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01251.HK,SPT ENERGY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01277.HK,KINETIC DEV,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01393.HK,HIDILI INDUSTRY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01555.HK,MIE HOLDINGS,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01621.HK,VICO INTL HLDGS,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01798.HK,DATANG RENEW,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01878.HK,SOUTHGOBI,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01921.HK,DALIPAL HLDG,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+01938.HK,CHU KONG PIPE,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+02178.HK,PETRO-KING,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+02798.HK,PER ENERGY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+03395.HK,JX ENERGY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+06885.HK,JINMA ENERGY,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+08132.HK,CENTURY EN INTL,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+08536.HK,TL NATURAL GAS,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
+09689.HK,JTF INTL,HKEX,2025,collected,missing,discover_esg_or_scan_annual,2
 600339.SH,中油工程,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
 600406.SH,国电南瑞,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
 600875.SH,东方电气,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
@@ -597,6 +545,58 @@
 603606.SH,东方电缆,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
 688155.SH,先惠技术,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
 688408.SH,中信博,SSE,2025,collected,missing,discover_esg_or_scan_annual,2
+00006.HK,POWER ASSETS,HKEX,2025,collected,collected,ready_for_extraction,3
+00042.HK,NE ELECTRIC,HKEX,2025,collected,collected,ready_for_extraction,3
+00061.HK,GREEN LEAD-NEW,HKEX,2025,collected,collected,ready_for_extraction,3
+00135.HK,KUNLUN ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+00182.HK,CONCORD NE,HKEX,2025,collected,collected,ready_for_extraction,3
+00196.HK,HONGHUA GROUP,HKEX,2025,collected,collected,ready_for_extraction,3
+00228.HK,CHINA ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+00346.HK,YANCHANG PETRO,HKEX,2025,collected,collected,ready_for_extraction,3
+00384.HK,CHINA GAS HOLD,HKEX,2025,collected,collected,ready_for_extraction,3
+00392.HK,BEIJING ENT,HKEX,2025,collected,collected,ready_for_extraction,3
+00451.HK,DYNASTY DIGITAL,HKEX,2025,collected,collected,ready_for_extraction,3
+00467.HK,UNITEDENERGY GP,HKEX,2025,collected,collected,ready_for_extraction,3
+00554.HK,HANS GP HLDGS,HKEX,2025,collected,collected,ready_for_extraction,3
+00579.HK,JNCEC,HKEX,2025,collected,collected,ready_for_extraction,3
+00607.HK,FULLSHARE,HKEX,2025,collected,collected,ready_for_extraction,3
+00666.HK,REPT BATTERO,HKEX,2025,collected,collected,ready_for_extraction,3
+00686.HK,BJ ENERGY INTL,HKEX,2025,collected,collected,ready_for_extraction,3
+00819.HK,TIANNENG POWER,HKEX,2025,collected,collected,ready_for_extraction,3
+00836.HK,CHINA RES POWER,HKEX,2025,collected,collected,ready_for_extraction,3
+00934.HK,SINOPEC KANTONS,HKEX,2025,collected,collected,ready_for_extraction,3
+00951.HK,CHAOWEI POWER,HKEX,2025,collected,collected,ready_for_extraction,3
+00968.HK,XINYI SOLAR,HKEX,2025,collected,collected,ready_for_extraction,3
+01083.HK,TG SMART ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+01193.HK,CHINA RES GAS,HKEX,2025,collected,collected,ready_for_extraction,3
+01205.HK,CITIC RESOURCES,HKEX,2025,collected,collected,ready_for_extraction,3
+01250.HK,SDHS NEW ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+01303.HK,HUILI RES,HKEX,2025,collected,collected,ready_for_extraction,3
+01407.HK,JY GAS,HKEX,2025,collected,collected,ready_for_extraction,3
+01600.HK,TIAN LUN GAS,HKEX,2025,collected,collected,ready_for_extraction,3
+01608.HK,VPOWER GROUP,HKEX,2025,collected,collected,ready_for_extraction,3
+01623.HK,HILONG,HKEX,2025,collected,collected,ready_for_extraction,3
+01713.HK,SICHUAN EN INV,HKEX,2025,collected,collected,ready_for_extraction,3
+01733.HK,E-COMMODITIES,HKEX,2025,collected,collected,ready_for_extraction,3
+01738.HK,FS ANTHRACITE,HKEX,2025,collected,collected,ready_for_extraction,3
+01799.HK,XINTE ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+01811.HK,CGN NEW ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+01940.HK,CGII HLDGS,HKEX,2025,collected,collected,ready_for_extraction,3
+02012.HK,SUNSHINE OIL,HKEX,2025,collected,collected,ready_for_extraction,3
+02236.HK,WISON ENGRG,HKEX,2025,collected,collected,ready_for_extraction,3
+02380.HK,CHINA POWER,HKEX,2025,collected,collected,ready_for_extraction,3
+02386.HK,SINOPEC SEG,HKEX,2025,collected,collected,ready_for_extraction,3
+02688.HK,ENN ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+02728.HK,JINTAI ENERGY H,HKEX,2025,collected,collected,ready_for_extraction,3
+03303.HK,JUTAL OIL SER,HKEX,2025,collected,collected,ready_for_extraction,3
+03337.HK,ANTON OILFIELD,HKEX,2025,collected,collected,ready_for_extraction,3
+03633.HK,ZHONGYU ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+03668.HK,YANCOAL AUS,HKEX,2025,collected,collected,ready_for_extraction,3
+03800.HK,GCL TECH,HKEX,2025,collected,collected,ready_for_extraction,3
+03868.HK,XINYI ENERGY,HKEX,2025,collected,collected,ready_for_extraction,3
+03899.HK,CIMC ENRIC,HKEX,2025,collected,collected,ready_for_extraction,3
+06828.HK,BG BLUE SKY,HKEX,2025,collected,collected,ready_for_extraction,3
+08270.HK,CHINA CBM,HKEX,2025,collected,collected,ready_for_extraction,3
 600236.SH,桂冠电力,SSE,2025,collected,collected,ready_for_extraction,3
 600803.SH,新奥股份,SSE,2025,collected,collected,ready_for_extraction,3
 600821.SH,金开新能,SSE,2025,collected,collected,ready_for_extraction,3

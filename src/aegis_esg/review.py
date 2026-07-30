@@ -47,7 +47,7 @@ def write_review_template(path: str | Path, candidates: list[Observation]) -> No
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8-sig", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=REVIEW_COLUMNS)
+        writer = csv.DictWriter(stream, fieldnames=REVIEW_COLUMNS, lineterminator="\n")
         writer.writeheader()
         for item in summarize_review_candidates(candidates):
             row = vars(item) | {"action": "", "selected_value": "", "reviewer": "", "reviewed_at": "", "note": ""}

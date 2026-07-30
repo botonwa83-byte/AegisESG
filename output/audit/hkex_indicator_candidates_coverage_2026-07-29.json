@@ -23,6 +23,14 @@
     "candidate_count": 2,
     "company_count": 2
   },
+  "Q_E_PM_INTENSITY": {
+    "candidate_count": 2,
+    "company_count": 2
+  },
+  "Q_E_SO2_INTENSITY": {
+    "candidate_count": 1,
+    "company_count": 1
+  },
   "Q_E_SOLID_WASTE_INTENSITY": {
     "candidate_count": 4,
     "company_count": 3
@@ -36,28 +44,32 @@
     "company_count": 3
   },
   "Q_G_AR_TURNOVER": {
-    "candidate_count": 14,
-    "company_count": 14
+    "candidate_count": 16,
+    "company_count": 16
   },
   "Q_G_ASSET_TURNOVER": {
-    "candidate_count": 15,
-    "company_count": 15
+    "candidate_count": 17,
+    "company_count": 17
   },
   "Q_G_CAPITAL_ACCUMULATION": {
     "candidate_count": 61,
     "company_count": 61
   },
   "Q_G_CASH_CURRENT_LIABILITY": {
-    "candidate_count": 14,
-    "company_count": 14
+    "candidate_count": 16,
+    "company_count": 16
+  },
+  "Q_G_CASH_REALIZATION": {
+    "candidate_count": 2,
+    "company_count": 2
   },
   "Q_G_COST_REVENUE_RATE": {
-    "candidate_count": 1,
-    "company_count": 1
+    "candidate_count": 2,
+    "company_count": 2
   },
   "Q_G_CURRENT_ASSET_TURNOVER": {
-    "candidate_count": 18,
-    "company_count": 18
+    "candidate_count": 20,
+    "company_count": 20
   },
   "Q_G_DEBT_ASSET_RATE": {
     "candidate_count": 30,
@@ -72,20 +84,20 @@
     "company_count": 4
   },
   "Q_G_OPERATING_MARGIN": {
-    "candidate_count": 17,
-    "company_count": 17
+    "candidate_count": 19,
+    "company_count": 19
   },
   "Q_G_OPERATING_PROFIT_GROWTH": {
-    "candidate_count": 16,
-    "company_count": 16
+    "candidate_count": 18,
+    "company_count": 18
   },
   "Q_G_QUICK_RATIO": {
     "candidate_count": 19,
     "company_count": 19
   },
   "Q_G_REVENUE_GROWTH": {
-    "candidate_count": 52,
-    "company_count": 52
+    "candidate_count": 54,
+    "company_count": 54
   },
   "Q_G_ROA": {
     "candidate_count": 12,
@@ -124,11 +136,11 @@
     "company_count": 3
   },
   "Q_S_RD_RATE": {
-    "candidate_count": 12,
-    "company_count": 9
+    "candidate_count": 13,
+    "company_count": 10
   },
   "Q_S_SAFETY_INVEST_RATE": {
-    "candidate_count": 1,
-    "company_count": 1
+    "candidate_count": 2,
+    "company_count": 2
   }
 }

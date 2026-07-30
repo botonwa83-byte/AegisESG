@@ -455,7 +455,6 @@
 01250.HK,山高新能源集團有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01250.HK,山高新能源集團有限公司,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01250.HK,山高新能源集團有限公司,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01250.HK,山高新能源集團有限公司,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01251.HK,華油能源集團有限公司,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01251.HK,華油能源集團有限公司,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01251.HK,華油能源集團有限公司,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -592,7 +591,6 @@
 01799.HK,新特能源股份有限公司 - H股,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01799.HK,新特能源股份有限公司 - H股,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,新特能源股份有限公司 - H股,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01811.HK,中國廣核新能源控股有限公司,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01811.HK,中國廣核新能源控股有限公司,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -796,7 +794,6 @@
 06828.HK,北京燃氣藍天控股有限公司,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-06885.HK,河南金馬能源股份有限公司 - H股,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -885,6 +882,7 @@
 00934.HK,中石化冠德控股有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,88,0.94,candidate_available,review_candidates,1
 00968.HK,信義光能控股有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,77,0.94,candidate_available,review_candidates,1
 01101.HK,中國華榮能源股份有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2023,98,0.94,candidate_available,review_candidates,1
+01250.HK,山高新能源集團有限公司,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,1,2025,58,0.94,candidate_available,review_candidates,1
 01251.HK,華油能源集團有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,129,0.94,candidate_available,review_candidates,1
 01303.HK,滙力資源(集團)有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,55,0.94,candidate_available,review_candidates,1
 01407.HK,交運燃氣有限公司,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,12,0.92,candidate_available,review_candidates,1
@@ -897,6 +895,7 @@
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,212,0.94,candidate_available,review_candidates,1
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,1,2025,165,0.94,candidate_available,review_candidates,1
 01799.HK,新特能源股份有限公司 - H股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,100,0.94,candidate_available,review_candidates,1
+01799.HK,新特能源股份有限公司 - H股,Q_S_RD_RATE,研发费用占比,S,True,1,2025,105,0.93,candidate_available,review_candidates,1
 01878.HK,南戈壁資源有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,200,0.94,candidate_available,review_candidates,1
 02012.HK,陽光油砂有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,57,0.94,candidate_available,review_candidates,1
 02178.HK,百勤油田服務有限公司,Q_S_RD_RATE,研发费用占比,S,True,1,2025,90,0.93,candidate_available,review_candidates,1
@@ -918,6 +917,7 @@
 03868.HK,信義能源控股有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,57,0.94,candidate_available,review_candidates,1
 03899.HK,中集安瑞科控股有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,128,0.94,candidate_available,review_candidates,1
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,1,2025,58,0.91,candidate_available,review_candidates,1
+06885.HK,河南金馬能源股份有限公司 - H股,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,1,2025,58,0.91,candidate_available,review_candidates,1
 09689.HK,金泰豐國際控股有限公司,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,92,0.94,candidate_available,review_candidates,1
 00002.HK,中電控股有限公司,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,中電控股有限公司,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -1874,7 +1874,6 @@
 00975.HK,Mongolian Mining Corporation,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00975.HK,Mongolian Mining Corporation,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00975.HK,Mongolian Mining Corporation,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2195,7 +2194,6 @@
 01600.HK,天倫燃氣控股有限公司,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,天倫燃氣控股有限公司,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,天倫燃氣控股有限公司,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,天倫燃氣控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,天倫燃氣控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,天倫燃氣控股有限公司,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,天倫燃氣控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2299,18 +2297,10 @@
 01713.HK,四川能投發展股份有限公司 - H股,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01713.HK,四川能投發展股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2388,18 +2378,10 @@
 01799.HK,新特能源股份有限公司 - H股,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01799.HK,新特能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,新特能源股份有限公司 - H股,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -2897,7 +2879,6 @@
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-06885.HK,河南金馬能源股份有限公司 - H股,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06885.HK,河南金馬能源股份有限公司 - H股,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -3194,6 +3175,7 @@
 00968.HK,信義光能控股有限公司,Q_G_ROE,净资产收益率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,信義光能控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+00975.HK,Mongolian Mining Corporation,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,85,0.93,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,82,0.94,candidate_available,review_candidates,3
 00975.HK,Mongolian Mining Corporation,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
@@ -3246,13 +3228,22 @@
 01555.HK,ＭＩ能源控股有限公司,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,123,0.94,candidate_available,review_candidates,3
 01555.HK,ＭＩ能源控股有限公司,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,122,0.94,candidate_available,review_candidates,3
 01600.HK,天倫燃氣控股有限公司,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
+01600.HK,天倫燃氣控股有限公司,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
 01600.HK,天倫燃氣控股有限公司,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
 01608.HK,偉能集團國際控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 01621.HK,域高國際控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,167,0.94,candidate_available,review_candidates,3
 01621.HK,域高國際控股有限公司,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,165,0.94,candidate_available,review_candidates,3
 01621.HK,域高國際控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,165,0.93,candidate_available,review_candidates,3
 01623.HK,海隆控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,82,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,87,0.93,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_CASH_REALIZATION,营业收现率,G,False,1,2025,87,0.93,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
+01713.HK,四川能投發展股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
 01713.HK,四川能投發展股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,1,2025,151,0.95,candidate_available,review_candidates,3
 01713.HK,四川能投發展股份有限公司 - H股,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,1,2025,151,0.95,candidate_available,review_candidates,3
@@ -3271,7 +3262,15 @@
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,209,0.93,candidate_available,review_candidates,3
 01798.HK,中國大唐集團新能源股份有限公司 - H股,Q_G_ROE,净资产收益率,G,False,1,2025,212,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,105,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,105,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_CASH_REALIZATION,营业收现率,G,False,1,2025,110,0.93,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,1,2025,105,0.93,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,105,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,105,0.93,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,105,0.93,candidate_available,review_candidates,3
 01799.HK,新特能源股份有限公司 - H股,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,100,0.94,candidate_available,review_candidates,3
+01799.HK,新特能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,105,0.93,candidate_available,review_candidates,3
 01799.HK,新特能源股份有限公司 - H股,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,135,0.94,candidate_available,review_candidates,3
 01811.HK,中國廣核新能源控股有限公司,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,136,0.94,candidate_available,review_candidates,3
@@ -3381,6 +3380,7 @@
 06828.HK,北京燃氣藍天控股有限公司,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,65,0.94,candidate_available,review_candidates,3
 06828.HK,北京燃氣藍天控股有限公司,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,65,0.93,candidate_available,review_candidates,3
 06828.HK,北京燃氣藍天控股有限公司,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+06885.HK,河南金馬能源股份有限公司 - H股,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,1,2025,58,0.91,candidate_available,review_candidates,3
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,134,0.94,candidate_available,review_candidates,3
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,12,0.94,candidate_available,review_candidates,3
 06885.HK,河南金馬能源股份有限公司 - H股,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,12,0.93,candidate_available,review_candidates,3

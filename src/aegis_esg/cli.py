@@ -25,6 +25,7 @@ from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
 from .scoring import ScoringEngine
 from .sources.sse import discover_reports
+from .sources.szse import discover_batch as discover_szse_batch, discover_reports as discover_szse_reports
 from .sources.listings import collect_listing_pages, fetch_json
 from .sources.hkex import import_hkex_securities
 from .sources.hkex_profile import collect_hkex_issuer_profiles, prepare_hkex_evidence_drafts, write_hkex_evidence_drafts, write_hkex_issuer_profiles
@@ -251,6 +252,14 @@ def main() -> None:
     discover.add_argument("universe")
     discover.add_argument("--report-year", type=int, required=True)
     discover.add_argument("--output", required=True)
+    discover_szse = sub.add_parser("discover-szse", help="从深交所官方接口发现年报和ESG报告")
+    discover_szse.add_argument("universe")
+    discover_szse.add_argument("--report-year", type=int, required=True)
+    discover_szse.add_argument("--output", required=True)
+    discover_szse.add_argument("--failures")
+    discover_szse.add_argument("--summary")
+    discover_szse.add_argument("--delay", type=float, default=.5)
+    discover_szse.add_argument("--resume", action="store_true")
     collect = sub.add_parser("collect", help="下载审核后的公开报告清单并生成Hash索引")
     collect.add_argument("manifest")
     collect.add_argument("--output-root", default="data/raw")
@@ -646,6 +655,38 @@ def main() -> None:
             writer.writeheader(); writer.writerows(rows)
         print(f"discovered {len(rows)} official reports")
         return
+    if args.command == "discover-szse":
+        if args.failures or args.summary or args.resume:
+            if not args.failures or not args.summary:
+                raise ValueError("批量断点模式必须同时提供--failures和--summary")
+            companies = [
+                (company.stock_code, company.company_name) for company in read_universe(args.universe)
+                if company.included and company.exchange == "SZSE"
+            ]
+            _, failures, summary = discover_szse_batch(
+                companies, args.report_year, args.output, args.failures, args.summary,
+                args.delay, args.resume,
+            )
+            print(json.dumps(summary, ensure_ascii=False, indent=2))
+            raise SystemExit(0 if not failures else 2)
+        rows = []
+        for company in read_universe(args.universe):
+            if not company.included or company.exchange != "SZSE":
+                continue
+            for item in discover_szse_reports(company.stock_code, args.report_year):
+                rows.append({
+                    "company_code": item.stock_code, "company_name": item.company_name,
+                    "report_year": args.report_year, "document_type": item.document_type,
+                    "source_url": item.source_url, "published_date": item.published_date, "title": item.title,
+                })
+        output_path = Path(args.output)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with output_path.open("w", encoding="utf-8-sig", newline="") as stream:
+            fields = ("company_code", "company_name", "report_year", "document_type", "source_url", "published_date", "title")
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+            writer.writeheader(); writer.writerows(rows)
+        print(f"discovered {len(rows)} official SZSE reports")
+        return
     if args.command == "collect":
         if args.resume:
             failure_path = args.failures or str(Path(args.index).with_name("collection_failures.csv"))
@@ -730,7 +771,10 @@ def main() -> None:
         decision_path = Path(args.decisions)
         decision_path.parent.mkdir(parents=True, exist_ok=True)
         with decision_path.open("w", encoding="utf-8-sig", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(type(decisions[0]).__annotations__) if decisions else [])
+            writer = csv.DictWriter(
+                stream, fieldnames=list(type(decisions[0]).__annotations__) if decisions else [],
+                lineterminator="\n",
+            )
             if decisions:
                 writer.writeheader(); writer.writerows(vars(item) for item in decisions)
         print(f"auto-confirmed {len(confirmed)}; unresolved {len(unresolved)}; decisions {len(decisions)}")
