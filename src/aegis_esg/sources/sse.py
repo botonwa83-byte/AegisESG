@@ -8,9 +8,17 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Callable
 
+from .report_titles import classify_report_title, normalize_title, select_preferred
+
 
 SSE_QUERY_URL = "https://query.sse.com.cn/security/stock/queryCompanyBulletin.do"
 SSE_DOCUMENT_ORIGIN = "https://www.sse.com.cn"
+
+_ESG_TERMS = (
+    "环境、社会和公司治理报告", "环境社会和公司治理报告",
+    "环境、社会和治理报告", "环境社会和治理报告",
+    "可持续发展报告", "社会责任报告", "ESG报告",
+)
 
 
 @dataclass(frozen=True)
@@ -77,8 +85,7 @@ def discover_reports(
     target = str(report_year)
     result = []
     for item in disclosures:
-        title = item.title.replace(" ", "")
-        kind = classify_title(title, target)
+        kind = classify_title(item.title, target)
         if kind:
             result.append(SSEDisclosure(
                 stock_code=item.stock_code,
@@ -88,23 +95,14 @@ def discover_reports(
                 document_type=kind,
                 source_url=item.source_url,
             ))
-    # Keep the latest official document of each kind; exclude summaries in classifier.
-    unique: dict[str, SSEDisclosure] = {}
-    for item in sorted(result, key=lambda x: (x.published_date, x.title)):
-        unique[item.document_type] = item
-    return list(unique.values())
+    selected = {
+        kind: select_preferred(result, kind) for kind in ("annual_report", "esg_report")
+    }
+    return [selected[kind] for kind in ("annual_report", "esg_report") if selected[kind]]
 
 
 def classify_title(title: str, report_year: str) -> str | None:
-    rejected = ("摘要", "提示性公告", "关于披露", "取消", "问询函", "回复")
-    if any(term in title for term in rejected) or report_year not in title:
-        return None
-    if any(term in title for term in (f"{report_year}年年度报告", f"{report_year}年度报告", f"{report_year}年年报")):
-        return "annual_report"
-    esg_terms = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "环境、社会和治理报告", "环境社会和治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
-    if any(term in title for term in esg_terms):
-        return "esg_report"
-    return None
+    return classify_report_title(normalize_title(title), report_year, _ESG_TERMS)
 
 
 def parse_response(payload: bytes | str) -> list[SSEDisclosure]:

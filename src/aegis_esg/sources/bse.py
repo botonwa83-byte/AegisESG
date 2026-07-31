@@ -12,6 +12,9 @@ from urllib.error import HTTPError
 from urllib.request import HTTPCookieProcessor, Request, build_opener
 
 from ..universe_builder import ExchangeSecurity, normalize_stock_code
+from .report_titles import classify_report_title, normalize_title, select_preferred
+
+_ESG_TERMS = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
 
 
 BSE_ENDPOINT = "https://www.bse.cn/nqxxController/nqxxCnzq.do"
@@ -47,14 +50,7 @@ class BseDisclosure:
 
 
 def classify_disclosure_title(title: str, report_year: str) -> str | None:
-    compact = re.sub(r"\s+", "", title)
-    rejected = ("摘要", "问询函", "回复", "提示性公告", "关于披露", "更正公告", "取消")
-    if report_year not in compact or any(term in compact for term in rejected):
-        return None
-    if f"{report_year}年年度报告" in compact or f"{report_year}年度报告" in compact:
-        return "annual_report"
-    esg_terms = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
-    return "esg_report" if any(term in compact for term in esg_terms) else None
+    return classify_report_title(normalize_title(title), report_year, _ESG_TERMS)
 
 
 def parse_bse_disclosures(payload: bytes | str, report_year: int) -> tuple[list[BseDisclosure], int, int]:
@@ -118,10 +114,10 @@ def discover_bse_reports(
         found.extend(item for item in rows if item.stock_code == normalized)
         if requested_page + 1 >= expected_pages:
             break
-    selected = {}
-    for item in sorted(found, key=lambda value: (value.published_date, value.title, value.source_url)):
-        selected[item.document_type] = item
-    return [selected[kind] for kind in ("annual_report", "esg_report") if kind in selected]
+    selected = {
+        kind: select_preferred(found, kind) for kind in ("annual_report", "esg_report")
+    }
+    return [selected[kind] for kind in ("annual_report", "esg_report") if selected[kind]]
 
 
 def discover_bse_annual_report(

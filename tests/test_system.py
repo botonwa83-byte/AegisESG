@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import json
 import tempfile
 import unittest
@@ -14,12 +15,27 @@ from aegis_esg.methodology import load_methodology
 from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, ValueStatus
 from aegis_esg.scoring import PopulationStats, ScoringEngine
 from aegis_esg.repository import SQLiteRepository
-from aegis_esg.extraction import PageText, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
+from aegis_esg.extraction import PageText, _extract_chinese_env_table_rows, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
 from aegis_esg.financial import FinancialFact, derive_financial_observations
-from aegis_esg.esg_disclosure import QualitativeEvidenceCandidate, collect_annual_qualitative_evidence, scan_annual_esg_disclosure
+from aegis_esg.esg_disclosure import (
+    QualitativeEvidenceCandidate, collect_annual_qualitative_evidence,
+    collect_esg_qualitative_evidence, scan_annual_esg_disclosure,
+)
 from aegis_esg.qualitative_review import (
-    QualitativeReviewDecision, apply_qualitative_review_decisions, plan_qualitative_review,
-    read_qualitative_review_decisions, write_qualitative_review_template,
+    QualitativeReviewAudit, QualitativeReviewDecision, apply_qualitative_review_decisions,
+    merge_qualitative_candidate_files, plan_qualitative_review,
+    read_qualitative_review_decisions, read_qualitative_review_packets,
+    reprioritize_evidence_gaps, write_qualitative_review_plan, write_qualitative_review_template,
+)
+from aegis_esg.dual_review import (
+    ArbitrationDecision, DualReviewDecision, apply_arbitration_decisions,
+    apply_dual_review_decisions, read_arbitration_decisions, read_dual_review_decisions,
+    requires_dual_review, select_dual_review_cases, write_dual_review_template,
+)
+from aegis_esg.io import merge_confirmed_observations
+from aegis_esg.review_batch import (
+    apply_review_batch, create_review_batch, read_batch_ledger, read_batch_rows,
+    read_review_progress,
 )
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
@@ -31,7 +47,7 @@ from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, _fetch, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page, parse_bse_disclosures, classify_disclosure_title, discover_bse_reports, discover_bse_annual_report
-from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, write_document_index
+from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, supersede_documents, write_document_index
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
@@ -128,6 +144,59 @@ class MethodologyTests(unittest.TestCase):
             return payload.encode()
         reports = discover_reports("600900.SH", 2025, fetcher=fetcher)
         self.assertEqual({"annual_report", "esg_report"}, {item.document_type for item in reports})
+
+    def test_report_title_policy_rejects_non_report_announcements(self):
+        annual_lookalikes = [
+            "岳阳兴长：关于举办2025年年度报告及2026年一季度报告网上业绩说明会的公告",
+            "豪鹏科技：关于举行2025年年度报告网上业绩说明会的通知",
+            "思源电气：关于举行2025年年度报告网上说明会的通知",
+            "麦格米特：关于举行2025年度报告网上业绩说明会的公告（更正后）",
+            "蓝天燃气关于2025年年度报告更正的公告",
+            "关于公司自愿披露2025年年度报告（简版）及可持续发展报告英文版本的公告",
+            "阳光电源：关于2025年年度报告（英文简版）的自愿性披露公告",
+            "某公司2025年半年度报告",
+            "某公司2025年年度报告摘要",
+        ]
+        for title in annual_lookalikes:
+            with self.subTest(title=title):
+                self.assertIsNone(classify_title(title, "2025"))
+                self.assertIsNone(classify_szse_title(title, "2025"))
+                self.assertIsNone(classify_disclosure_title(title, "2025"))
+        self.assertEqual("annual_report", classify_title("石化油服2025年年度报告全文（修订稿）", "2025"))
+        self.assertEqual("annual_report", classify_title("电气风电2025年年度报告（修订版）", "2025"))
+
+    def test_report_selection_prefers_chinese_full_text_over_later_variants(self):
+        payload = json.dumps({"data": [
+            {"secCode": "002459", "secName": "晶澳科技", "publishTime": "2026-04-29", "title": "晶澳科技：2025年年度报告", "attachPath": "/annual-cn.pdf"},
+            {"secCode": "002459", "secName": "晶澳科技", "publishTime": "2026-06-27", "title": "晶澳科技：2025年年度报告英文版（2025 Annual Report）", "attachPath": "/annual-en.pdf"},
+            {"secCode": "002459", "secName": "晶澳科技", "publishTime": "2026-05-07", "title": "晶澳科技：关于举行2025年年度报告网上业绩说明会的公告", "attachPath": "/briefing.pdf"},
+        ], "announceCount": 3}, ensure_ascii=False)
+        reports = discover_szse_reports("002459.SZ", 2025, fetcher=lambda request: payload.encode())
+        annual = [item for item in reports if item.document_type == "annual_report"]
+        self.assertEqual(1, len(annual))
+        self.assertTrue(annual[0].source_url.endswith("annual-cn.pdf"))
+
+    def test_report_selection_prefers_a_share_over_h_share_version(self):
+        payload = '{"result":[' \
+            '{"SECURITY_CODE":"600011","SECURITY_NAME":"华能国际","SSEDATE":"2026-03-20",' \
+            '"TITLE":"华能国际2025年年度报告","URL":"/annual-a.pdf"},' \
+            '{"SECURITY_CODE":"600011","SECURITY_NAME":"华能国际","SSEDATE":"2026-04-18",' \
+            '"TITLE":"华能国际H股2025年度报告","URL":"/annual-h.pdf"}' \
+            ']}'
+        reports = discover_reports("600011.SH", 2025, fetcher=lambda request: payload.encode())
+        annual = [item for item in reports if item.document_type == "annual_report"]
+        self.assertEqual(1, len(annual))
+        self.assertTrue(annual[0].source_url.endswith("annual-a.pdf"))
+
+    def test_report_selection_keeps_english_when_no_chinese_version(self):
+        payload = '{"result":[' \
+            '{"SECURITY_CODE":"688005","SECURITY_NAME":"容百科技","SSEDATE":"2026-04-30",' \
+            '"TITLE":"容百科技2025年年度报告（英文版）","URL":"/annual-en.pdf"}' \
+            ']}'
+        reports = discover_reports("688005.SH", 2025, fetcher=lambda request: payload.encode())
+        annual = [item for item in reports if item.document_type == "annual_report"]
+        self.assertEqual(1, len(annual))
+        self.assertTrue(annual[0].source_url.endswith("annual-en.pdf"))
 
     def test_szse_official_response_classification(self):
         payload = json.dumps({"data": [
@@ -296,6 +365,110 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(37.5, values["Q_G_TWO_FUNDS_RATE"])
         self.assertAlmostEqual(100 / 11, values["Q_G_CAPITAL_ACCUMULATION"])
 
+    def test_chinese_balance_sheet_derives_quick_ratio_and_excludes_parent_equity(self):
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 120.00 100.00\n利润总额 20.00"),
+            PageText(80, "合并资产负债表\n应收账款 10.00 8.00\n存货 5.00 4.00\n流动资产合计 40.00 30.00 非流动资产合计 160.00 150.00\n"
+                         "资产总计 200.00 180.00\n流动负债合计 25.00 20.00 非流动负债合计 55.00 50.00\n负债合计 80.00 70.00\n"
+                         "归属于母公司股东权益合计 100.00 90.00\n少数股东权益 20.00 20.00\n股东权益合计 120.00 110.00"),
+            PageText(81, "合并利润表"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(140, values["Q_G_QUICK_RATIO"])
+        self.assertAlmostEqual(100 / 11, values["Q_G_CAPITAL_ACCUMULATION"])
+
+    def test_chinese_ebitda_margin_requires_complete_supplementary_da(self):
+        balance = "合并资产负债表\n流动负债合计 25.00 20.00\n资产总计 200.00 180.00\n股东权益合计 120.00 110.00"
+        income = (
+            "合并利润表\n二、营业总成本 900.00 800.00\n研发费用 36.00 30.00\n财务费用 25.00 20.00\n"
+            "其中：利息费用 20.00 18.00\n三、营业利润（亏损以“－”号填列） 300.00 250.00\n"
+            "四、利润总额（亏损总额以“－”号填列） 140.00 118.00\n减：所得税费用 20.00 18.00\n"
+            "五、净利润（净亏损以“－”号填列） 120.00 100.00\n（一）按经营持续性分类\n"
+            "1.持续经营净利润（净亏损以“－”号填列） 120.00 100.00"
+        )
+        supplement = (
+            "现金流量表补充资料\n将净利润调节为经营活动现金流量：\n净利润 120.00 100.00\n"
+            "固定资产折旧、油气资产折耗、生产性生物资产折旧 30.00 25.00\n使用权资产折旧 5.00 4.00\n"
+            "无形资产摊销 8.00 7.00\n长期待摊费用摊销 2.00 1.00\n"
+            "经营活动产生的现金流量净额 200.00 180.00\n2．不涉及现金收支的重大投资和筹资活动："
+        )
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 1,200.00 1,000.00\n利润总额 140.00"),
+            PageText(80, balance), PageText(84, income), PageText(90, supplement),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(205 / 1200 * 100, values["Q_G_EBITDA_MARGIN"])
+        incomplete = [page for page in pages if page.page != 90] + [
+            PageText(90, supplement.replace("\n长期待摊费用摊销 2.00 1.00", "")),
+        ]
+        items = extract_indicator_candidates(incomplete, "A", "甲", 2025, "url", "annual_report.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_EBITDA_MARGIN"])
+
+    def test_chinese_roe_rd_fallback_used_only_without_disclosed_values(self):
+        balance = "合并资产负债表\n流动负债合计 25.00 20.00\n资产总计 200.00 180.00\n股东权益合计 120.00 110.00"
+        income = (
+            "合并利润表\n研发费用 36.00 30.00\n其中：利息费用 20.00 18.00\n"
+            "三、营业利润（亏损以“－”号填列） 300.00 250.00\n四、利润总额（亏损总额以“－”号填列） 140.00 118.00\n"
+            "减：所得税费用 20.00 18.00\n五、净利润（净亏损以“－”号填列） 120.00 100.00"
+        )
+        base_pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 1,200.00 1,000.00\n利润总额 140.00"),
+            PageText(80, balance), PageText(84, income),
+        ]
+        items = extract_indicator_candidates(base_pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        fallback = {
+            item.indicator_code: item.value for item in items
+            if item.evidence_text.startswith("合并报表回退派生: ")
+        }
+        self.assertAlmostEqual(120 / 115 * 100, fallback["Q_G_ROE"])
+        self.assertAlmostEqual(3.0, fallback["Q_S_RD_RATE"])
+        disclosed_pages = base_pages + [PageText(
+            7, "主要会计数据 加权平均净资产收益率(%) 15.90 研发投入总额占营业收入比例(%) 3.20",
+        )]
+        items = extract_indicator_candidates(disclosed_pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        suppressed = [
+            item for item in items
+            if item.indicator_code in {"Q_G_ROE", "Q_S_RD_RATE"}
+            and item.evidence_text.startswith("合并报表回退派生: ")
+        ]
+        self.assertEqual([], suppressed)
+        values = {
+            item.indicator_code: item.value for item in items
+            if item.indicator_code in {"Q_G_ROE", "Q_S_RD_RATE"}
+        }
+        self.assertAlmostEqual(15.90, values["Q_G_ROE"])
+        self.assertAlmostEqual(3.20, values["Q_S_RD_RATE"])
+
+    def test_chinese_rd_fallback_rejects_empty_row_adjacent_values(self):
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 2,499.47 2,300.00\n利润总额 140.00"),
+            PageText(80, "合并资产负债表\n流动负债合计 25.00 20.00\n资产总计 200.00 180.00\n股东权益合计 120.00 110.00"),
+            PageText(84, "合并利润表\n研发费用 财务费用 461.22 508.34\n其中：利息费用 461.93 509.77\n"
+                         "三、营业利润（亏损以“－”号填列） 300.00 250.00\n四、利润总额（亏损总额以“－”号填列） 140.00 118.00\n"
+                         "减：所得税费用 五、净利润（净亏损以“－”号填列） 120.00 100.00"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        fallback = [
+            item for item in items
+            if item.evidence_text.startswith("合并报表回退派生: ") and item.indicator_code == "Q_S_RD_RATE"
+        ]
+        self.assertEqual([], fallback)
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_EBITDA_MARGIN"])
+        dash_pages = pages[:2] + [PageText(
+            84, "合并利润表\n研发费用- - 财务费用 242.03 139.85\n其中：利息费用 20.00 18.00\n"
+                "三、营业利润（亏损以“－”号填列） 300.00 250.00\n四、利润总额（亏损总额以“－”号填列） 140.00 118.00\n"
+                "减：所得税费用 - - 五、净利润（净亏损以“－”号填列） 120.00 100.00",
+        )]
+        items = extract_indicator_candidates(dash_pages, "A", "甲", 2025, "url", "annual_report.pdf")
+        fallback = [
+            item for item in items
+            if item.evidence_text.startswith("合并报表回退派生: ") and item.indicator_code == "Q_S_RD_RATE"
+        ]
+        self.assertEqual([], fallback)
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_EBITDA_MARGIN"])
+
     def test_english_consolidated_statement_derives_debt_asset_rate(self):
         pages = [
             PageText(100, "Consolidated Statement of Financial Position\nas at 31 December 2025\n2025 2024\nInventories 100 80\nTrade receivables 200 160\nTotal current assets 800 700\nTotal current liabilities 400 350\nTotal assets 2,000 1,800\nTotal liabilities 800 700\nTotal equity 1,200 1,100"),
@@ -338,6 +511,342 @@ class MethodologyTests(unittest.TestCase):
         ]
         items = extract_indicator_candidates(pages, "00001.HK", "甲", 2025, "url", "annual_report.pdf")
         self.assertFalse([item for item in items if item.indicator_code == "Q_G_EBITDA_MARGIN"])
+
+    def test_chinese_transposed_roe_table_layout(self):
+        pages = [
+            PageText(250, "2、净资产收益率及每股收益\n报告期利润 加权平均净资产收益率 每股收益"),
+            PageText(251, "基本每股收益（元/股） 稀释每股收益（元/股）\n归属于公司普通股股东的净 利润 6.08% 0.5414 0.5414\n扣除非经常性损益后归属于 公司普通股股东的净利润 5.93% 0.5274 0.5274"),
+        ]
+        items = extract_indicator_candidates(pages, "001289.SZ", "龙源电力", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(6.08, roe[0].value)
+        self.assertEqual(251, roe[0].source_page)
+        self.assertIn("转置表", roe[0].evidence_text)
+
+    def test_chinese_transposed_roe_table_split_label_and_deduction_guard(self):
+        pages = [
+            PageText(90, "2、净资产收益率及每股收益\n报告期利润 加权平均净资产收益率 每股收益\n基本每股收益（元/股） 稀释每股收益（元/股）\n归属于公司普通股股东 -66.40% -0.199 -0.199 的净利润\n扣除非经常性损益后归 属于公司普通股股东的 -69.01% -0.207 -0.207 净利润"),
+        ]
+        items = extract_indicator_candidates(pages, "002506.SZ", "协鑫集成", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(-66.40, roe[0].value)
+
+    def test_summary_roe_row_split_label_current_first(self):
+        pages = [
+            PageText(7, "主要会计数据\n加权平均净资产\n收益率\n1.05% 0.93% 0.12% 1.74%\n2025 年末 2024 年末\n总资产（元） 109,629,492,714.94"),
+        ]
+        items = extract_indicator_candidates(pages, "000703.SZ", "恒逸石化", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(1.05, roe[0].value)
+        self.assertIn("主要会计数据加权平均净资产收益率行", roe[0].evidence_text)
+
+    def test_summary_roe_row_six_value_restated_columns(self):
+        pages = [
+            PageText(7, "主要会计数据\n加权平均净资\n产收益率-73.17% -40.71% -40.71% -32.46% -15.69% -15.69%\n2024 年末 2025 年末"),
+        ]
+        items = extract_indicator_candidates(pages, "300051.SZ", "琏升科技", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(-73.17, roe[0].value)
+
+    def test_summary_roe_row_declared_percent_bare_cells(self):
+        pages = [
+            PageText(7, "主要会计数据和财务指标\n加权平均净资产收益率（%）-155.89 -97.80 不适用-36.50\n扣除非经常性损益后的加权平均\n净资产收益率（%）-159.21 -98.41 不适用-37.09"),
+        ]
+        items = extract_indicator_candidates(pages, "600405.SH", "动力源", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(-155.89, roe[0].value)
+
+    def test_summary_roe_row_loss_label_parenthesized_negative(self):
+        pages = [
+            PageText(6, "主要会计数据\n加权平均净资产（亏损）/收益率（%）\n*\n(5.953) 1.270 减少 7.22 个百分点 (5.504)\n扣除非经常性损益后的加权平均净资\n产（亏损）/收益率（%）* (5.910) 1.356 减少 7.27\n个百分点 (5.346)"),
+        ]
+        items = extract_indicator_candidates(pages, "600688.SH", "上海石化", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(-5.953, roe[0].value)
+
+    def test_summary_roe_row_bse_multiline_basis_note(self):
+        pages = [
+            PageText(5, "主要财务数据\n加权平均净资产收益率%（依\n据归属于上市公司股东的净利\n润计算）\n7.08% 7.85% - 15.73%\n加权平均净资产收益率%（依\n据归属于上市公司股东的扣除\n非经常性损益后的净利润计\n算）\n5.55% 7.71% - 15.03%"),
+        ]
+        items = extract_indicator_candidates(pages, "920185.BJ", "贝特瑞", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(7.08, roe[0].value)
+
+    def test_summary_roe_row_not_applicable_current_year_yields_nothing(self):
+        pages = [
+            PageText(7, "主要会计数据\n加权平均净资产收益\n率 不适用 -114.48% 不适用 -193.36%\n2025 年末 2024 年末"),
+        ]
+        items = extract_indicator_candidates(pages, "300340.SZ", "科恒股份", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(0, len(roe))
+
+    def test_summary_roe_row_collapsed_year_header_rejected(self):
+        pages = [
+            PageText(7, "主要会计数据\n加权平均净资产收益率 2024 年 本年比上年增减 2023 年末\n2023 年\n2025 年末 2024 年末"),
+        ]
+        items = extract_indicator_candidates(pages, "300510.SZ", "金冠股份", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(0, len(roe))
+
+    def test_summary_roe_row_prose_not_matched(self):
+        from aegis_esg.extraction import _extract_summary_roe_row
+        self.assertIsNone(_extract_summary_roe_row("管理层讨论\n公司加权平均净资产收益率为12.5%，同比提升。"))
+        self.assertIsNone(_extract_summary_roe_row("扣除非经常性损益后的加权平均净资产收益率\n2.5% 3.1% 0.6% 1.9%"))
+
+    def test_direct_roe_rule_preserves_negative_sign(self):
+        pages = [
+            PageText(8, "主要会计数据\n稀释每股收益(元/股) -0.27 -0.16 -68.75% -0.25 加权平均净资产收益 率 -24.66% -12.14% -103.13%"),
+        ]
+        items = extract_indicator_candidates(pages, "000637.SZ", "茂化实华", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertTrue(roe)
+        self.assertTrue(all(item.value < 0 for item in roe))
+        self.assertAlmostEqual(-24.66, roe[0].value)
+
+    def test_direct_roe_rule_rejects_change_wording(self):
+        pages = [
+            PageText(8, "本报告期加权平均净资产收益率较上年同期下降5.20个百分点。"),
+        ]
+        items = extract_indicator_candidates(pages, "600000.SH", "测试", 2025, "url", "annual_report.pdf")
+        roe = [item for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertEqual(0, len(roe))
+
+    def test_direct_roe_rule_ignores_section_number_and_formula_variable(self):
+        pages = [
+            PageText(8, "2、加权平均净资产收益率的计算过程 (1) 加权平均净资产收益率以归属于本公司普通股股东的合并净利润除以加权平均净资产"),
+            PageText(9, "L=D+A/2 4,239,398,052.63 加权平均净资产收益率 M=A/L 14.15% 期初股份总数 N 733,941,062.00"),
+        ]
+        items = extract_indicator_candidates(pages, "002533.SZ", "金杯电工", 2025, "url", "annual_report.pdf")
+        roe = [item.value for item in items if item.indicator_code == "Q_G_ROE"]
+        self.assertNotIn(1, roe)
+        self.assertIn(14.15, roe)
+
+    def test_chinese_employee_note_derives_per_capita(self):
+        pages = [
+            PageText(45, "八、公司员工情况\n报告期末母公司在职员工的数量（人） 500\n"
+                         "报告期末主要子公司在职员工的数量（人） 4,390\n"
+                         "报告期末在职员工的数量合计（人） 4,890"),
+            PageText(158, "七、合并财务报表项目注释\n40、应付职工薪酬"),
+            PageText(159, "（2） 短期薪酬列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "1、工资、奖金、津贴和补贴 172,535,126.31 597,283,514.77 585,204,289.87 184,614,351.21\n"
+                          "2、职工福利费 32,261,755.23 32,261,755.23\n"
+                          "3、社会保险费 29,499,254.51 29,496,178.88 3,075.63\n"
+                          "其中：医疗保险费 23,751,028.64 23,748,312.74 2,715.90\n"
+                          "4、住房公积金 8,737.00 29,292,647.14 29,151,613.14 149,771.00\n"
+                          "5、工会经费和职工教育经费 6,080,718.87 5,087,463.95 6,169,927.47 4,998,255.35\n"
+                          "合计 178,624,582.18 693,424,635.60 682,283,764.59 189,765,453.19"),
+        ]
+        items = extract_indicator_candidates(pages, "002533.SZ", "金杯电工", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(597_283_514.77 / 10_000 / 4890, values["Q_S_PAY_PER_EMPLOYEE"], places=6)
+        benefit = (32_261_755.23 + 29_499_254.51 + 29_292_647.14) / 10_000 / 4890
+        self.assertAlmostEqual(benefit, values["Q_S_BENEFIT_PER_EMPLOYEE"], places=6)
+        self.assertAlmostEqual(5_087_463.95 / 10_000 / 4890, values["Q_S_EDU_PER_EMPLOYEE"], places=6)
+        evidences = {item.indicator_code: item.evidence_text for item in items}
+        self.assertTrue(evidences["Q_S_PAY_PER_EMPLOYEE"].startswith("中文应付职工薪酬附注派生: "))
+
+    def test_chinese_employee_note_rejects_scope_mismatch(self):
+        pages = [
+            PageText(45, "报告期末母公司在职员工的数量（人） 500\n"
+                         "报告期末主要子公司在职员工的数量（人） 4,390\n"
+                         "报告期末在职员工的数量合计（人） 9,999"),
+            PageText(159, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "1、工资、奖金、津贴和补贴 172,535,126.31 597,283,514.77 585,204,289.87 184,614,351.21\n"
+                          "5、工会经费和职工教育经费 6,080,718.87 5,087,463.95 6,169,927.47 4,998,255.35"),
+        ]
+        items = extract_indicator_candidates(pages, "002533.SZ", "金杯电工", 2025, "url", "annual_report.pdf")
+        social = [item for item in items if item.indicator_code.startswith("Q_S_") and "EMPLOYEE" in item.indicator_code]
+        self.assertEqual(0, len(social))
+
+    def test_chinese_employee_note_rejects_parent_company_section(self):
+        pages = [
+            PageText(45, "报告期末在职员工的数量合计（人） 4,890"),
+            PageText(200, "七、合并财务报表项目注释\n1、货币资金 100.00 90.00"),
+            PageText(260, "十七、母公司财务报表主要项目注释\n（2） 短期薪酬列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "1、工资、奖金、津贴和补贴 10,000.00 99,000.00 99,000.00 10,000.00\n"
+                          "5、工会经费和职工教育经费 1,000.00 9,000.00 9,000.00 1,000.00"),
+        ]
+        items = extract_indicator_candidates(pages, "600000.SH", "测试", 2025, "url", "annual_report.pdf")
+        social = [item for item in items if item.indicator_code.startswith("Q_S_") and "EMPLOYEE" in item.indicator_code]
+        self.assertEqual(0, len(social))
+
+    def test_chinese_employee_note_rejects_identity_failure(self):
+        pages = [
+            PageText(45, "报告期末在职员工的数量合计（人） 4,890"),
+            PageText(159, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "5、工会经费和职工教育经费 6,080,718.87 9,999,999.99 6,169,927.47 4,998,255.35"),
+        ]
+        items = extract_indicator_candidates(pages, "002533.SZ", "金杯电工", 2025, "url", "annual_report.pdf")
+        edu = [item for item in items if item.indicator_code == "Q_S_EDU_PER_EMPLOYEE"]
+        self.assertEqual(0, len(edu))
+
+    def test_chinese_employee_note_bse_employee_total(self):
+        pages = [
+            PageText(62, "二、 员工情况\n(一) 在职员工（公司及控股子公司）基本情况\n"
+                         "按工作性质分类 期初人数 本期新增 本期减少 期末人数\n"
+                         "管理人员 276 15 61 230\n员工总计 8,352 1,720 1,930 8,142"),
+            PageText(159, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n项目 年初余额 本年增加 本年减少 年末余额\n"
+                          "1、工资、奖金、\n津贴和补贴 247,221,035.58 1,280,263,200.97 1,295,257,918.63 232,226,317.92\n"
+                          "2、职工福利费 114,233,676.01 114,109,605.72 124,070.29\n"
+                          "3、社会保险费 67,500.97 48,166,301.16 48,154,106.57 79,695.56\n"
+                          "4、住房公积金 985,001.06 58,718,760.64 58,830,803.14 872,958.56\n"
+                          "5、工会经费和\n职工教育经费 2,533,400.81 20,204,747.53 20,112,882.53 2,625,265.81"),
+        ]
+        items = extract_indicator_candidates(pages, "920185.BJ", "贝特瑞", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1_280_263_200.97 / 10_000 / 8142, values["Q_S_PAY_PER_EMPLOYEE"], places=6)
+        benefit = (114_233_676.01 + 48_166_301.16 + 58_718_760.64) / 10_000 / 8142
+        self.assertAlmostEqual(benefit, values["Q_S_BENEFIT_PER_EMPLOYEE"], places=6)
+        self.assertAlmostEqual(20_204_747.53 / 10_000 / 8142, values["Q_S_EDU_PER_EMPLOYEE"], places=6)
+
+    def test_chinese_employee_note_horizontal_employee_table(self):
+        pages = [
+            PageText(38, "十、公司员工情况\n1、员工数量、专业构成及教育程度\n"
+                         "报告期末母公司在职员工的数量（人） 报告期末主要子公司在职员工的数量（人） "
+                         "报告期末在职员工的数量合计（人） 当期领取薪酬员工总人数（人） 审议通过事项\n"
+                         "无 无\n38\n1,624\n153\n1,777\n1,777\n39\n专业构成\n专业构成类别 专业构成人数（人）\n"
+                         "生产人员 900\n销售人员 200\n技术人员 500\n财务人员 50\n行政人员 127\n合计 1,777"),
+            PageText(148, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "5、工会经费和职工教育经费 18,149,074.71 286,516.34 265,126.62 18,170,464.43"),
+        ]
+        items = extract_indicator_candidates(pages, "300690.SZ", "双一科技", 2025, "url", "annual_report.pdf")
+        edu = [item for item in items if item.indicator_code == "Q_S_EDU_PER_EMPLOYEE"]
+        self.assertEqual(1, len(edu))
+        self.assertAlmostEqual(286_516.34 / 10_000 / 1777, edu[0].value, places=6)
+
+    def test_chinese_employee_note_cross_page_header_binding(self):
+        pages = [
+            PageText(30, "报告期末母公司在职员工的数量（人） 400\n"
+                         "报告期末主要子公司在职员工的数量（人） 2,272\n报告期末在职员工的数量合计（人） 2,672"),
+            PageText(163, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n单位：元\n"
+                          "项目 期初余额 本期增加 本期减少 期末余额\n163"),
+            PageText(164, "某某股份有限公司 2025 年年度报告全文\n"
+                          "1、工资、奖金、津贴和补贴 150,687,035.94 685,500,805.16 649,810,762.44 186,377,078.66\n"
+                          "2、职工福利费 11,072,640.34 11,072,640.34\n"
+                          "3、社会保险费 27,370,582.98 27,319,354.86 51,228.12\n"
+                          "4、住房公积金 17,955,372.75 17,794,190.75 161,182.00\n"
+                          "5、工会经费和职工教育经费 240.80 121,838.57 111,484.17 10,595.20\n"
+                          "合计 150,687,276.74 742,021,239.80 706,108,432.56 186,600,083.98\n"
+                          "（3） 设定提存计划列示\n单位：元\n项目 期初余额 本期增加 本期减少 期末余额\n"
+                          "1、基本养老保险 32,448,315.93 32,447,712.64 603.29"),
+        ]
+        items = extract_indicator_candidates(pages, "002121.SZ", "科陆电子", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(685_500_805.16 / 10_000 / 2672, values["Q_S_PAY_PER_EMPLOYEE"], places=6)
+        benefit = (11_072_640.34 + 27_370_582.98 + 17_955_372.75) / 10_000 / 2672
+        self.assertAlmostEqual(benefit, values["Q_S_BENEFIT_PER_EMPLOYEE"], places=6)
+
+    def test_chinese_employee_note_truncated_header_with_detached_year_end(self):
+        pages = [
+            PageText(50, "报告期末在职员工的数量合计（人） 305"),
+            PageText(151, "七、合并财务报表项目注释\n24. 应付职工薪酬\n（1） 应付职工薪酬分类\n"
+                          "项目 年初余额 本年增加 本年减少 年末余额\n"
+                          "短期薪酬 16,052,879.47 110,632,039.53 107,188,425.05 19,496,493.95"),
+            PageText(152, "（2） 短期薪酬\n项目 年初余额 本年增加 本年减少 工资、奖金、津贴\n"
+                          "和补贴 15,180,182.34 89,766,895.18 86,203,229.46 职工福利费 731,700.11 4,986,114.72 "
+                          "5,078,811.21 社会保险费 4,680,731.18 4,675,950.39 其中：医疗保险费 3,737,049.09 "
+                          "3,733,355.89 住房公积金 9,267,711.08 9,267,711.08\n"
+                          "工会经费和职工教\n育经费 140,997.02 1,930,587.37 1,962,722.91 短期带薪缺勤\n"
+                          "合计 16,052,879.47 110,632,039.53 107,188,425.05 （3） 设定提存计划\n"
+                          "年末余额\n18,743,848.06\n639,003.62\n4,780.79\n3,693.20\n108,861.48\n19,496,493.95"),
+        ]
+        items = extract_indicator_candidates(pages, "000037.SZ", "深南电", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(89_766_895.18 / 10_000 / 305, values["Q_S_PAY_PER_EMPLOYEE"], places=6)
+        benefit = (4_986_114.72 + 4_680_731.18 + 9_267_711.08) / 10_000 / 305
+        self.assertAlmostEqual(benefit, values["Q_S_BENEFIT_PER_EMPLOYEE"], places=6)
+        self.assertAlmostEqual(1_930_587.37 / 10_000 / 305, values["Q_S_EDU_PER_EMPLOYEE"], places=6)
+
+    def test_chinese_employee_note_rejects_band_split_layout(self):
+        pages = [
+            PageText(30, "报告期末在职员工的数量合计（人） 2,000"),
+            PageText(176, "七、合并财务报表项目注释\n（2） 短期薪酬列示\n单位：元\n176"),
+            PageText(177, "项目 期初余额 1、工资、奖金、津贴\n和补贴 160,950,554.56 2、职工福利费 65,611.95 "
+                          "5、工会经费和职工教\n育经费 1,643,586.06 合计 165,224,336.00 （3） 设定提存计划列示\n"
+                          "本期增加 本期减少 期末余额\n368,011,318.41 316,268,866.91 212,693,006.06\n"
+                          "65,611.95 65,611.95 -\n1,930,587.37 1,962,722.91 1,611,450.52"),
+        ]
+        items = extract_indicator_candidates(pages, "000155.SZ", "川能动力", 2025, "url", "annual_report.pdf")
+        social = [item for item in items if item.indicator_code.startswith("Q_S_") and "EMPLOYEE" in item.indicator_code]
+        self.assertEqual(0, len(social))
+
+    def test_chinese_numbered_statement_titles_derive_balance_indicators(self):
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 1,000.00 900.00\n利润总额 150.00"),
+            PageText(60, "1、合并资产负债表\n流动资产合计 500.00 450.00\n存货 100.00 90.00\n应收账款 200.00 180.00\n资产总计 1,000.00 900.00\n流动负债合计 300.00 250.00\n负债合计 400.00 350.00\n股东权益合计 600.00 550.00"),
+            PageText(63, "3、合并利润表\n一、营业总收入 1,000.00 900.00\n三、营业利润（亏损以“－”号填列） 150.00 120.00"),
+        ]
+        items = extract_indicator_candidates(pages, "000703.SZ", "恒逸石化", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(40, values["Q_G_DEBT_ASSET_RATE"])
+        self.assertAlmostEqual((500 - 100) / 300 * 100, values["Q_G_QUICK_RATIO"])
+
+    def test_summary_marker_variant_enables_revenue(self):
+        pages = [
+            PageText(6, "六、主要会计数据和财务指标\n单位：元\n项目 2025年 2024年\n营业收入 8,633,599,405.13 7,903,721,308.59\n归属于上市公司股东的净利润 1,024,495,080.91 705,541,276.56"),
+            PageText(60, "合并资产负债表\n资产总计 20,000,000,000.00 18,000,000,000.00\n负债合计 7,000,000,000.00 6,000,000,000.00\n股东权益合计 13,000,000,000.00 12,000,000,000.00"),
+            PageText(63, "合并利润表\n五、净利润（净亏损以“－”号填列） 1,024,495,080.91 705,541,276.56\n减：所得税费用 300,000,000.00 200,000,000.00"),
+        ]
+        items = extract_indicator_candidates(pages, "000690.SZ", "宝新能源", 2025, "url", "annual_report.pdf")
+        roe = [
+            item for item in items
+            if item.indicator_code == "Q_G_ROE" and item.evidence_text.startswith("合并报表回退派生: ")
+        ]
+        self.assertEqual(1, len(roe))
+        self.assertAlmostEqual(1024495080.91 / ((13_000_000_000 + 12_000_000_000) / 2) * 100, roe[0].value)
+
+    def test_cas_english_statements_derive_indicators(self):
+        pages = [
+            PageText(112, "Consolidated balance sheet\nDecember 31, 2025\nUnit:Yuan Currency:CNY\nTotal current assets 66,238,762,666.65 66,192,918,621.75\nInventories 14,880,555,929.26 12,633,286,216.02\nAccounts receivable 6,863,715,377.32 6,706,810,000.00"),
+            PageText(113, "Total assets 187,779,256,397.63 195,916,763,061.99\nTotal current liabilities 55,766,509,445.26 56,538,075,361.44"),
+            PageText(114, "Total liabilities 136,391,138,210.41 137,997,611,563.26\nTotal owners’ equity (or shareholders'\nequity) 51,388,118,187.22 57,919,151,498.73\nTotal liabilities and owners’ equity 187,779,256,397.63 195,916,763,061.99"),
+            PageText(116, "Consolidated Profit Statement\nI. Total operating revenue 84,128,281,703.14 91,994,404,333.54\nII. Total operating cost\nIncluding: Operating cost 81,856,406,510.25 86,117,213,124.73\nR&D cost 1,106,164,996.59 1,510,114,124.23\nIncluding: Interest expense 2,895,890,520.93 2,259,805,051.33\nIII. Operating profit (“\n-\n” for loss) -11,525,989,535.68 -8,418,172,185.07"),
+            PageText(117, "IV: Total profit (“\n-\n” for loss) -11,670,943,654.43 -8,683,316,454.96\nLess: Income tax expense -770,060,689.82 -574,532,383.25\nV . Net profit (“\n-\n” for net loss) -10,900,882,964.61 -8,108,784,071.71\n1. Net profit attributable to shareholders of\nthe parent company -9,553,425,884.06 -7,038,757,392.54"),
+        ]
+        items = extract_indicator_candidates(pages, "600438.SH", "通威股份", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(136391138210.41 / 187779256397.63 * 100, values["Q_G_DEBT_ASSET_RATE"])
+        self.assertAlmostEqual((51388118187.22 - 57919151498.73) / 57919151498.73 * 100, values["Q_G_CAPITAL_ACCUMULATION"])
+        self.assertAlmostEqual(-10900882964.61 / ((51388118187.22 + 57919151498.73) / 2) * 100, values["Q_G_ROE"])
+        self.assertAlmostEqual(1106164996.59 / 84128281703.14 * 100, values["Q_S_RD_RATE"])
+        self.assertAlmostEqual(-8.55, values["Q_G_REVENUE_GROWTH"], places=1)
+        self.assertAlmostEqual((66238762666.65 - 14880555929.26) / 55766509445.26 * 100, values["Q_G_QUICK_RATIO"])
+        self.assertNotIn("Q_G_COST_REVENUE_RATE", values)
+
+    def test_balance_derivation_rejected_when_accounting_identity_breaks(self):
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 60,000.00 55,000.00\n利润总额 150.00"),
+            PageText(100, "合并资产负债表\n流动资产合计 500.00 450.00\n存货 100.00 90.00\n流动负债合计 25.00 20.00\n资产总计 200.00 180.00\n负债合计 184,139,748.17 300,497,387.53\n股东权益合计 1,484,256,563.32 1,473,230,420.64"),
+        ]
+        items = extract_indicator_candidates(pages, "001331.SZ", "胜通能源", 2025, "url", "annual_report.pdf")
+        derived = [item for item in items if "合并报表自动派生: " in item.evidence_text]
+        self.assertEqual([], derived)
+
+    def test_statement_fact_rejects_values_detached_behind_another_label(self):
+        pages = [
+            PageText(5, "近三年主要会计数据\n（一）主要会计数据\n营业收入 6,000,000,000.00 5,500,000,000.00\n利润总额 150.00"),
+            PageText(100, "合并资产负债表\n资产总计 流动负债： 短期借款\n17,174,396.04 29,825,551.92\n股东权益合计 1,484,256,563.32 1,473,230,420.64"),
+        ]
+        items = extract_indicator_candidates(pages, "001331.SZ", "胜通能源", 2025, "url", "annual_report.pdf")
+        derived = {item.indicator_code: item.value for item in items if "合并报表自动派生: " in item.evidence_text}
+        self.assertNotIn("Q_G_DEBT_ASSET_RATE", derived)
+        self.assertNotIn("Q_G_ASSET_TURNOVER", derived)
+        self.assertAlmostEqual((1484256563.32 - 1473230420.64) / 1473230420.64 * 100, derived["Q_G_CAPITAL_ACCUMULATION"])
+
+    def test_balance_derivation_rejected_for_implausibly_small_assets(self):
+        pages = [
+            PageText(68, "合并资产负债表\n资产总计 3,218,767.51 3,849,642.78\n负债合计 48,109,096.25 47,438,919.35"),
+        ]
+        items = extract_indicator_candidates(pages, "920237.BJ", "力佳科技", 2025, "url", "annual_report.pdf")
+        derived = [item for item in items if "合并报表自动派生: " in item.evidence_text]
+        self.assertEqual([], derived)
 
     def test_english_consolidated_income_derives_revenue_growth_and_skips_note_column(self):
         pages = [
@@ -2290,6 +2799,62 @@ class MethodologyTests(unittest.TestCase):
             self.assertFalse(errors)
             self.assertEqual({"https://old", "https://new"}, {item.source_url for item in rows})
 
+    def test_supersede_documents_archives_file_and_writes_ledger(self):
+        body = b"%PDF-1.4\n" + b"z" * 5000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "raw/A/2025/annual_report.pdf"
+            target.parent.mkdir(parents=True)
+            target.write_bytes(body)
+            digest = hashlib.sha256(body).hexdigest()
+            record = DocumentRecord(
+                "A", "甲", 2025, "annual_report", "https://official/briefing.pdf",
+                "https://official/briefing.pdf", str(target), digest, len(body),
+            )
+            keep = DocumentRecord("B", "乙", 2025, "annual_report", "https://two", "https://two", "b.pdf", "def", 13)
+            index = root / "index.csv"
+            write_document_index(index, [record, keep])
+            requests = root / "requests.csv"
+            requests.write_text(
+                "company_code,report_year,document_type,reason\n"
+                "A,2025,annual_report,业绩说明会公告误登记为年报\n",
+                encoding="utf-8",
+            )
+            ledger, summary_path = root / "ledger.csv", root / "summary.json"
+            records, rows, summary = supersede_documents(
+                index, requests, root / "archive", ledger, summary_path,
+            )
+            self.assertEqual([keep], records)
+            self.assertEqual(1, summary["superseded_count"])
+            self.assertFalse(target.exists())
+            archived = root / "archive/A/2025" / f"annual_report_{digest[:8]}.pdf"
+            self.assertEqual(body, archived.read_bytes())
+            self.assertEqual(digest, rows[0]["sha256"])
+            self.assertEqual("业绩说明会公告误登记为年报", rows[0]["reason"])
+            with self.assertRaisesRegex(ValueError, "匹配0条"):
+                supersede_documents(index, requests, root / "archive", ledger, summary_path)
+
+    def test_supersede_documents_rejects_hash_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "a.pdf"
+            target.write_bytes(b"%PDF-1.4\n" + b"z" * 100)
+            record = DocumentRecord(
+                "A", "甲", 2025, "annual_report", "https://one", "https://one",
+                str(target), "0" * 64, 500,
+            )
+            index = root / "index.csv"
+            write_document_index(index, [record])
+            requests = root / "requests.csv"
+            requests.write_text(
+                "company_code,report_year,document_type,reason\nA,2025,annual_report,测试\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "Hash不一致"):
+                supersede_documents(
+                    index, requests, root / "archive", root / "ledger.csv", root / "summary.json",
+                )
+
     def test_merge_document_indexes_deduplicates_exact_and_rejects_path_conflicts(self):
         first = DocumentRecord("A", "甲", 2025, "annual_report", "https://one", "https://one", "a.pdf", "abc", 12)
         second = DocumentRecord("B", "乙", 2025, "annual_report", "https://two", "https://two", "b.pdf", "def", 13)
@@ -2446,6 +3011,385 @@ class MethodologyTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(ValueError, "领先或标杆"):
                 read_qualitative_review_decisions(decisions)
+
+    def _planned_packets(self, directory):
+        root = Path(directory)
+        coverage = root / "coverage.csv"
+        coverage.write_text(
+            "stock_code,company_name,annual_status,esg_status\n"
+            "A,甲,collected,collected\nB,乙,missing,missing\n",
+            encoding="utf-8",
+        )
+        candidates = [
+            QualitativeEvidenceCandidate(
+                "A", "甲", 2025, "X_E_ENV_SYSTEM", "环保体系", "https://a", "a.pdf", 9,
+                "环境管理体系", "公司建立环境管理体系，制定年度目标，实施培训并实现减排目标。", .8,
+            ),
+            QualitativeEvidenceCandidate(
+                "A", "甲", 2025, "X_S_OCCUPATIONAL_HEALTH", "职业健康", "https://a", "a.pdf", 10,
+                "职业健康", "公司关注职业健康。", .6,
+            ),
+        ]
+        packets, gaps, summary = plan_qualitative_review(candidates, coverage, self.methodology, 2025)
+        packet_path = root / "packets.csv"
+        write_qualitative_review_plan(packet_path, root / "gaps.csv", root / "summary.json", packets, gaps, summary)
+        return read_qualitative_review_packets(packet_path), packet_path
+
+    def test_qualitative_review_batch_ledger_gates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            packets, packet_path = self._planned_packets(directory)
+            root = Path(directory)
+            ledger_path = root / "ledger.csv"
+            batch_path = root / "batch01.csv"
+            batch = create_review_batch(
+                packets, batch_path, ledger_path, packet_path, label="首批", priority=1, limit=1,
+            )
+            self.assertEqual(1, batch.group_count)
+            self.assertEqual("open", batch.status)
+            self.assertTrue(batch.batch_id.startswith("QRB-"))
+            self.assertEqual(1, len(read_batch_ledger(ledger_path)))
+            with self.assertRaisesRegex(ValueError, "重复分配"):
+                create_review_batch(packets, root / "batch02.csv", ledger_path, packet_path, priority=1, limit=1)
+
+            batch_id, rows = read_batch_rows(batch_path)
+            self.assertEqual(batch.batch_id, batch_id)
+            tampered = [dict(row) for row in rows]
+            tampered[0]["indicator_code"] = "X_E_EMERGENCY"
+            with self.assertRaisesRegex(ValueError, "哈希不一致"):
+                apply_review_batch(packets, read_batch_ledger(ledger_path), batch_id, tampered, [])
+
+            ledger = read_batch_ledger(ledger_path)
+            rows[0].update({
+                "action": "confirm", "selected_score": rows[0]["suggested_score"],
+                "reviewer": "alice", "reviewed_at": "2026-07-31T10:00:00+08:00", "note": "核对证据充分",
+            })
+            confirmed, unresolved, audits, updated = apply_review_batch(packets, ledger, batch_id, rows, [])
+            self.assertEqual(1, len(confirmed))
+            self.assertFalse(unresolved)
+            self.assertEqual("closed", updated.status)
+            self.assertEqual(1.0, updated.completion_rate)
+            with self.assertRaisesRegex(ValueError, "已关闭"):
+                apply_review_batch(packets, [updated], batch_id, rows, audits)
+
+    def test_qualitative_review_batch_partial_progress_no_overwrite(self):
+        with tempfile.TemporaryDirectory() as directory:
+            packets, packet_path = self._planned_packets(directory)
+            root = Path(directory)
+            ledger_path = root / "ledger.csv"
+            batch = create_review_batch(packets, root / "batch.csv", ledger_path, packet_path, priority=1)
+            self.assertEqual(2, batch.group_count)
+            batch_id, rows = read_batch_rows(root / "batch.csv")
+            first, second = rows
+            first.update({
+                "action": "confirm", "selected_score": first["suggested_score"],
+                "reviewer": "alice", "reviewed_at": "2026-07-31T10:00:00+08:00", "note": "核对通过",
+            })
+            ledger = read_batch_ledger(ledger_path)
+            confirmed, unresolved, audits, updated = apply_review_batch(packets, ledger, batch_id, [first, second], [])
+            self.assertEqual(1, len(confirmed))
+            self.assertEqual(1, len(unresolved))
+            self.assertEqual("open", updated.status)
+            self.assertEqual(0.5, updated.completion_rate)
+            progress = audits
+            with self.assertRaisesRegex(ValueError, "禁止覆盖"):
+                apply_review_batch(packets, ledger, batch_id, [first, second], progress)
+            second.update({
+                "action": "reject", "selected_score": "",
+                "reviewer": "bob", "reviewed_at": "2026-07-31T11:00:00+08:00", "note": "证据不足",
+            })
+            blank_first = dict(first, action="", selected_score="", reviewer="", reviewed_at="", note="")
+            confirmed, unresolved, audits2, updated = apply_review_batch(
+                packets, ledger, batch_id, [blank_first, second], progress,
+            )
+            self.assertFalse(confirmed)
+            self.assertFalse(unresolved)
+            self.assertEqual("closed", updated.status)
+            self.assertEqual(1.0, updated.completion_rate)
+
+    def test_dual_review_closes_agreement_and_routes_disagreement_to_arbitration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            packets, _ = self._planned_packets(directory)
+            audits = [
+                QualitativeReviewAudit(
+                    "A", "甲", 2025, "X_E_ENV_SYSTEM", 80, "confirm", "80", 9,
+                    "alice", "2026-07-31T10:00:00+08:00", "核对制度目标行动成效",
+                ),
+                QualitativeReviewAudit(
+                    "A", "甲", 2025, "X_S_OCCUPATIONAL_HEALTH", 20, "confirm", "50", 10,
+                    "alice", "2026-07-31T10:05:00+08:00", "补充行动证据上调",
+                ),
+            ]
+            cases = select_dual_review_cases(packets, audits)
+            self.assertEqual(2, len(cases))
+            self.assertFalse(requires_dual_review(QualitativeReviewAudit(
+                "A", "甲", 2025, "X_S_OCCUPATIONAL_HEALTH", 20, "confirm", "20", 10,
+                "alice", "2026-07-31T10:05:00+08:00", "与建议一致",
+            )))
+            template = Path(directory) / "dual.csv"
+            self.assertEqual(2, write_dual_review_template(template, cases))
+            with template.open(encoding="utf-8-sig", newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            for row in rows:
+                self.assertFalse(row["second_action"] or row["second_reviewer"])
+                if row["indicator_code"] == "X_E_ENV_SYSTEM":
+                    row.update({
+                        "second_action": "confirm", "second_score": "80", "second_reviewer": "bob",
+                        "second_reviewed_at": "2026-07-31T12:00:00+08:00", "second_note": "复核一致",
+                    })
+                else:
+                    row.update({
+                        "second_action": "confirm", "second_score": "20", "second_reviewer": "bob",
+                        "second_reviewed_at": "2026-07-31T12:05:00+08:00", "second_note": "证据仅支持20档",
+                    })
+            with template.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=list(rows[0].keys()), lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(rows)
+            decisions = read_dual_review_decisions(template)
+            confirmed, outcomes, arbitrations, open_cases = apply_dual_review_decisions(cases, decisions)
+            self.assertEqual(1, len(confirmed))
+            self.assertEqual(80, confirmed[0].value)
+            self.assertEqual("X_E_ENV_SYSTEM", confirmed[0].indicator_code)
+            self.assertEqual({"closed_agreement", "arbitration_required"}, {item.outcome for item in outcomes})
+            self.assertEqual(1, len(arbitrations))
+            self.assertFalse(open_cases)
+
+            case = arbitrations[0]
+            same_side = ArbitrationDecision(
+                case.company_code, case.report_year, case.indicator_code, "confirm", "20",
+                "alice", "2026-07-31T13:00:00+08:00", "维持20档",
+            )
+            with self.assertRaisesRegex(ValueError, "区别于两名审核人"):
+                apply_arbitration_decisions([case], [same_side])
+            final = ArbitrationDecision(
+                case.company_code, case.report_year, case.indicator_code, "confirm", "20",
+                "carol", "2026-07-31T14:00:00+08:00", "仲裁采纳第二审核人20档",
+            )
+            resolved, unresolved, arb_audits = apply_arbitration_decisions([case], [final])
+            self.assertEqual(20, resolved[0].value)
+            self.assertFalse(unresolved)
+            self.assertEqual("carol", arb_audits[0].arbiter)
+
+    def test_dual_review_rejects_same_reviewer_and_unsigned_rows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            packets, _ = self._planned_packets(directory)
+            audits = [QualitativeReviewAudit(
+                "A", "甲", 2025, "X_E_ENV_SYSTEM", 80, "confirm", "80", 9,
+                "alice", "2026-07-31T10:00:00+08:00", "核对通过",
+            )]
+            cases = select_dual_review_cases(packets, audits)
+            same = DualReviewDecision(
+                "A", 2025, "X_E_ENV_SYSTEM", "confirm", "80",
+                "alice", "2026-07-31T12:00:00+08:00", "复核一致",
+            )
+            with self.assertRaisesRegex(ValueError, "必须与第一审核人不同"):
+                apply_dual_review_decisions(cases, [same])
+            template = Path(directory) / "dual.csv"
+            write_dual_review_template(template, cases)
+            with template.open(encoding="utf-8-sig", newline="") as stream:
+                row = next(csv.DictReader(stream))
+            row.update({
+                "second_action": "confirm", "second_score": "80", "second_reviewer": "bob",
+                "second_reviewed_at": "2026-07-31 12:00:00", "second_note": "复核一致",
+            })
+            with template.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=list(row.keys()), lineterminator="\n")
+                writer.writeheader()
+                writer.writerow(row)
+            with self.assertRaisesRegex(ValueError, "时区"):
+                read_dual_review_decisions(template)
+
+    def test_reprioritize_evidence_gaps_orders_by_weight_and_esg_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gaps = root / "gaps.csv"
+            gaps.write_text(
+                "company_code,company_name,report_year,indicator_code,indicator_name,indicator_weight,priority,status,next_action\n"
+                "A,甲,2025,X_E_EMERGENCY,应急,1.0,2,evidence_missing,locate_additional_public_evidence\n"
+                "A,甲,2025,X_E_ENV_SYSTEM,体系,4.0,1,evidence_missing,locate_additional_public_evidence\n"
+                "B,乙,2025,X_E_ENV_SYSTEM,体系,4.0,1,evidence_missing,locate_additional_public_evidence\n",
+                encoding="utf-8",
+            )
+            coverage = root / "coverage.csv"
+            coverage.write_text(
+                "stock_code,company_name,annual_status,esg_status\n"
+                "A,甲,collected,missing\nB,乙,collected,collected\n",
+                encoding="utf-8",
+            )
+            rows, summary = reprioritize_evidence_gaps(gaps, coverage)
+            self.assertEqual(["B", "A", "A"], [row["company_code"] for row in rows])
+            self.assertEqual([1, 2, 3], [row["gap_rank"] for row in rows])
+            self.assertEqual("collected", rows[0]["esg_status"])
+            self.assertEqual(3, summary["gap_count"])
+            self.assertEqual(2, summary["high_weight_gap_count"])
+            self.assertEqual(1, summary["esg_collected_gap_count"])
+            self.assertFalse(summary["scoring_authorized"])
+            unknown = root / "unknown.csv"
+            unknown.write_text(
+                "company_code,company_name,report_year,indicator_code,indicator_name,indicator_weight,priority,status,next_action\n"
+                "C,丙,2025,X_E_ENV_SYSTEM,体系,4.0,1,evidence_missing,locate_additional_public_evidence\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "不在覆盖审计中"):
+                reprioritize_evidence_gaps(unknown, coverage)
+
+    def test_collect_esg_qualitative_evidence_scans_esg_reports_only(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coverage = root / "coverage.csv"
+            coverage.write_text(
+                "stock_code,company_name,annual_status,esg_status\n"
+                "A,甲,collected,collected\nB,乙,collected,missing\nC,丙,collected,collected\n",
+                encoding="utf-8",
+            )
+            index = root / "index.csv"
+            write_document_index(index, [
+                DocumentRecord(
+                    "A", "甲", 2025, "annual_report", "https://official/a.pdf",
+                    "https://official/a.pdf", "data/raw/A/2025/annual_report.pdf", "abc", 12,
+                ),
+                DocumentRecord(
+                    "A", "甲", 2025, "esg_report", "https://official/a_esg.pdf",
+                    "https://official/a_esg.pdf", "data/raw/A/2025/esg_report.pdf", "def", 34,
+                ),
+                DocumentRecord(
+                    "A", "甲", 2024, "esg_report", "https://official/a_esg_2024.pdf",
+                    "https://official/a_esg_2024.pdf", "data/raw/A/2024/esg_report.pdf", "ghi", 56,
+                ),
+            ])
+            text = root / "text/A/2025/esg_report.txt"
+            text.parent.mkdir(parents=True)
+            text.write_text(
+                "\n=== PAGE 3 ===\n公司完善生物多样性保护体系，并设定年度目标，开展专项行动并达成修复成效。\n",
+                encoding="utf-8",
+            )
+            rows, summary = collect_esg_qualitative_evidence(
+                coverage, index, root / "text", self.methodology, 2025,
+            )
+            self.assertEqual({"X_E_BIODIVERSITY"}, {row.indicator_code for row in rows})
+            self.assertTrue(all(row.source_file.endswith("esg_report.pdf") for row in rows))
+            self.assertTrue(all(row.review_status == "pending" for row in rows))
+            self.assertEqual(1, summary["esg_document_count"])
+            self.assertEqual(1, summary["candidate_group_count"])
+            self.assertEqual(0, summary["missing_text_count"])
+            self.assertFalse(summary["scoring_authorized"])
+            self.assertEqual(["C"], summary["companies_without_esg_document"])
+
+    def test_merge_qualitative_candidates_dedupes_and_rejects_year_mix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            from aegis_esg.esg_disclosure import write_qualitative_candidates
+            first = root / "first.csv"
+            second = root / "second.csv"
+            candidate = QualitativeEvidenceCandidate(
+                "A", "甲", 2025, "X_E_ENV_SYSTEM", "环保体系", "https://a", "a.pdf", 9,
+                "环境管理体系", "公司建立环境管理体系。", .75,
+            )
+            write_qualitative_candidates(first, [candidate])
+            write_qualitative_candidates(second, [
+                candidate,
+                QualitativeEvidenceCandidate(
+                    "A", "甲", 2025, "X_E_ENV_SYSTEM", "环保体系", "https://b", "b.pdf", 4,
+                    "环境管理体系", "ESG报告披露环境管理体系。", .75,
+                ),
+            ])
+            merged, summary = merge_qualitative_candidate_files([first, second])
+            self.assertEqual(2, len(merged))
+            self.assertEqual(1, summary["duplicate_candidate_count"])
+            self.assertFalse(summary["scoring_authorized"])
+            other_year = root / "other_year.csv"
+            write_qualitative_candidates(other_year, [QualitativeEvidenceCandidate(
+                "A", "甲", 2024, "X_E_ENV_SYSTEM", "环保体系", "https://c", "c.pdf", 2,
+                "环境管理体系", "上年披露环境管理体系。", .75,
+            )])
+            with self.assertRaisesRegex(ValueError, "报告期不一致"):
+                merge_qualitative_candidate_files([first, other_year])
+
+    def test_chinese_env_table_rows_respect_year_modes_and_units(self):
+        single = "指标 单位 2025 年数据\n温室气体排放强度 吨二氧化碳当量 / 万元 1.94\n"
+        rows = _extract_chinese_env_table_rows(single, 2025)
+        self.assertEqual([("Q_E_GHG_INTENSITY", 1940.0)], [(code, value) for code, value, _ in rows])
+
+        current_first = "指标 单位 2025 2024\n水资源使用强度 吨/万元 0.5 0.6\n"
+        rows = _extract_chinese_env_table_rows(current_first, 2025)
+        self.assertEqual([("Q_E_WATER_INTENSITY", 500.0)], [(code, value) for code, value, _ in rows])
+
+        current_last = "指标名称 单位 2023 年 2024 年 2025\n氮氧化物排放强度 千克/万元 0.1 0.2 0.3\n"
+        rows = _extract_chinese_env_table_rows(current_last, 2025)
+        self.assertEqual([("Q_E_NOX_INTENSITY", 300.0)], [(code, value) for code, value, _ in rows])
+
+        rate = "指标 单位 2025 2024\n环保投入占营业收入比例（%） 1.2 1.1\n"
+        rows = _extract_chinese_env_table_rows(rate, 2025)
+        self.assertEqual([("Q_S_ENV_INVEST_RATE", 1.2)], [(code, value) for code, value, _ in rows])
+
+    def test_chinese_env_table_rows_handle_real_world_variants(self):
+        footnote = "指标\n单位 2024 2025\n温室气体排放强度\n注 3\n吨二氧化碳当量 / 百万元\n54.63\n60.08\n"
+        rows = _extract_chinese_env_table_rows(footnote, 2025)
+        self.assertEqual([("Q_E_GHG_INTENSITY", 600.8)], [(code, value) for code, value, _ in rows])
+
+        missing_tail = "指标 单位 2025年 2024年 2023年\n综合能源消耗强度\n吨标准煤/百万元 55.46 50.21 /\n"
+        rows = _extract_chinese_env_table_rows(missing_tail, 2025)
+        self.assertEqual([("Q_E_ENERGY_INTENSITY", 554.6)], [(code, value) for code, value, _ in rows])
+
+        suffix = "用水强度\n1.1991\n吨 / 百万元\n2025 年\n"
+        rows = _extract_chinese_env_table_rows(suffix, 2025)
+        self.assertEqual([("Q_E_WATER_INTENSITY", 11.991)], [(code, value) for code, value, _ in rows])
+
+        kangxi = "指标 单位 2025年\n温室⽓体排放强度\n万吨⼆氧化碳当量/百万元营业收入\n0.19\n"
+        rows = _extract_chinese_env_table_rows(kangxi, 2025)
+        self.assertEqual([("Q_E_GHG_INTENSITY", 19000.0)], [(code, value) for code, value, _ in rows])
+
+        wrong_unit = "能源消耗强度\n0.266\n兆瓦时 / 百万元\n2025 年\n"
+        self.assertFalse(_extract_chinese_env_table_rows(wrong_unit, 2025))
+
+    def test_chinese_env_table_rows_reject_ambiguous_or_wrong_denominator(self):
+        no_header = "温室气体排放强度 吨二氧化碳当量 / 万元 1.94\n"
+        self.assertFalse(_extract_chinese_env_table_rows(no_header, 2025))
+        output_value = "指标 单位 2025 2024\n能源消耗强度 吨标准煤/万元产值 0.5 0.6\n"
+        self.assertFalse(_extract_chinese_env_table_rows(output_value, 2025))
+        totals = "指标 单位 2025 年数据\n温室气体排放总量（范围一、范围二） 吨二氧化碳当量 30,422,875.75\n"
+        self.assertFalse(_extract_chinese_env_table_rows(totals, 2025))
+        scope_only = "指标 单位 2025 年数据\n范围一温室气体排放强度 吨二氧化碳当量 / 万元 1.81\n"
+        self.assertFalse(_extract_chinese_env_table_rows(scope_only, 2025))
+        collapsed = "指标 单位 2025 2024\n温室气体排放强度 吨二氧化碳当量 / 万元 2.613 清洁能源发电折合碳减排量 吨 7174787\n"
+        self.assertFalse(_extract_chinese_env_table_rows(collapsed, 2025))
+
+    def test_merge_confirmed_observations_dedupes_and_rejects_conflicts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first = root / "first.csv"
+            second = root / "second.csv"
+            write_observations(first, [Observation(
+                "600900.SH", "长江电力", 2025, "Q_E_GHG_INTENSITY", 1.25,
+                ValueStatus.CONFIRMED, source_url="https://a", confidence=1.0,
+            )])
+            write_observations(second, [
+                Observation(
+                    "600900.SH", "长江电力", 2025, "Q_E_GHG_INTENSITY", 1.25,
+                    ValueStatus.CONFIRMED, source_url="https://a", confidence=1.0,
+                ),
+                Observation(
+                    "600900.SH", "长江电力", 2025, "X_E_ENV_SYSTEM", 80,
+                    ValueStatus.CONFIRMED, source_url="https://b", confidence=1.0,
+                ),
+            ])
+            merged, summary = merge_confirmed_observations([first, second], self.methodology)
+            self.assertEqual(2, len(merged))
+            self.assertEqual(2, summary["merged_observation_count"])
+            self.assertFalse(summary["publishable"])
+            conflict = root / "conflict.csv"
+            write_observations(conflict, [Observation(
+                "600900.SH", "长江电力", 2025, "Q_E_GHG_INTENSITY", 2.5,
+                ValueStatus.CONFIRMED, source_url="https://c", confidence=1.0,
+            )])
+            with self.assertRaisesRegex(ValueError, "冲突"):
+                merge_confirmed_observations([first, conflict], self.methodology)
+            pending = root / "pending.csv"
+            write_observations(pending, [Observation(
+                "600900.SH", "长江电力", 2025, "Q_E_GHG_INTENSITY", None, ValueStatus.PENDING,
+            )])
+            with self.assertRaisesRegex(ValueError, "非confirmed"):
+                merge_confirmed_observations([pending], self.methodology)
 
 
 if __name__ == "__main__":

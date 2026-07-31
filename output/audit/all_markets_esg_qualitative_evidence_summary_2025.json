@@ -1,0 +1,16 @@
+{
+  "report_year": 2025,
+  "target_company_count": 179,
+  "esg_document_count": 179,
+  "esg_company_count": 179,
+  "companies_without_esg_document": [],
+  "qualitative_indicator_count": 43,
+  "candidate_count": 11545,
+  "candidate_group_count": 4917,
+  "candidate_company_count": 172,
+  "expected_group_count": 7697,
+  "missing_group_count": 2780,
+  "missing_text_count": 0,
+  "missing_text_files": [],
+  "scoring_authorized": false
+}

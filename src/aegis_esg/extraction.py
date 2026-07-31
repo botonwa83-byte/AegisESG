@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 import csv
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -182,7 +183,8 @@ DIRECT_RULES = (
     ),
     DirectRule(
         "Q_G_ROE",
-        re.compile(r"加权平均净资产收益\s*率(?:\s*\(%\))?[^\d]{0,20}" + NUMBER, re.I),
+        # 分隔符排除正负号与括号：负号必须由NUMBER捕获；(1)等小节编号、M1等公式变量不得误作数值
+        re.compile(r"加权平均净资产收益\s*率(?:\s*[（(]\s*%[）)])?[^\d（(+-]{0,20}(?<![A-Za-z])" + NUMBER, re.I),
         1.0,
         .92,
     ),
@@ -497,11 +499,11 @@ def extract_indicator_candidates(
     seen = set()
     summary_pages: set[int] = set()
     for index, page in enumerate(pages):
-        if re.search(r"近三年主要会计数据", page.text):
+        if _is_summary_section_page(page.text):
             summary_pages.add(page.page)
             if "营业收入" not in page.text and index + 1 < len(pages):
                 summary_pages.add(pages[index + 1].page)
-    for page in pages:
+    for page_index, page in enumerate(pages):
         text = _normalize(page.text)
         for rule in RULES:
             for match in rule.pattern.finditer(text):
@@ -642,6 +644,16 @@ def extract_indicator_candidates(
                     source_url=source_url, source_file=source_file, source_page=page.page,
                     evidence_text=evidence, confidence=.95,
                 ))
+        for code, value, evidence in _extract_chinese_env_table_rows(page.text, report_year):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.9,
+                ))
         pay_per_employee = _extract_english_pay_per_employee(text, report_year)
         if pay_per_employee:
             value, evidence = pay_per_employee
@@ -653,6 +665,31 @@ def extract_indicator_candidates(
                     indicator_code="Q_S_PAY_PER_EMPLOYEE", value=value,
                     status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
                     source_page=page.page, evidence_text=evidence, confidence=.95,
+                ))
+        transposed_context = (pages[page_index - 1].text if page_index > 0 else "") + page.text
+        transposed_roe = _extract_weighted_roe_transposed(page.text, transposed_context)
+        if transposed_roe:
+            value, evidence = transposed_roe
+            identity = ("Q_G_ROE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_G_ROE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.94,
+                ))
+        summary_roe = _extract_summary_roe_row(page.text)
+        if summary_roe:
+            value, evidence = summary_roe
+            identity = ("Q_G_ROE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_G_ROE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.94,
                 ))
     for code, value, source_page, evidence in _extract_balance_sheet_indicators(pages):
         identity = (code, source_page, round(value, 8))
@@ -731,6 +768,27 @@ def extract_indicator_candidates(
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.95,
         ))
+    for code, value, source_page, evidence in _extract_chinese_employee_per_capita(pages):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.95,
+        ))
+    for code in ("Q_G_ROE", "Q_S_RD_RATE"):
+        direct = [
+            item for item in candidates
+            if item.indicator_code == code and not item.evidence_text.startswith(_FALLBACK_PREFIX)
+        ]
+        if direct:
+            candidates = [
+                item for item in candidates
+                if item.indicator_code != code or not item.evidence_text.startswith(_FALLBACK_PREFIX)
+            ]
     return candidates
 
 
@@ -1102,6 +1160,122 @@ def _extract_english_yuan_current_first_rows(
     return result
 
 
+_CN_NUMBER = r"[\d,]+(?:\.\d+)?"
+
+_CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
+    ("Q_E_GHG_INTENSITY", r"温室气体排放强度(?:\s*[（(]范围[一1]\s*[、和+]\s*范围[二2][）)])?", (
+        ("万吨二氧化碳当量/百万元营业收入", 100000.0), ("万吨二氧化碳当量/百万元营收", 100000.0),
+        ("吨二氧化碳当量/百万元营业收入", 1000.0), ("吨二氧化碳当量/百万元营收", 1000.0),
+        ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/亿元", 0.1),
+        ("千克二氧化碳当量/万元", 1.0), ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
+    )),
+    ("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度|综合能耗强度", (
+        ("万吨标准煤/百万元营业收入", 100000.0), ("万吨标准煤/百万元营收", 100000.0),
+        ("吨标准煤/百万元营业收入", 1000.0), ("吨标准煤/百万元营收", 1000.0),
+        ("吨标准煤/万元", 1000.0), ("吨标准煤/百万元", 10.0), ("吨标准煤/亿元", 0.1),
+        ("千克标准煤/万元", 1.0),
+    )),
+    ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|用水强度", (
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("立方米/万元", 1000.0), ("立方米/百万元", 10.0),
+        ("千克/万元", 1.0),
+    )),
+    ("Q_E_SO2_INTENSITY", r"二氧化硫排放强度", (
+        ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
+    )),
+    ("Q_E_NOX_INTENSITY", r"氮氧化物排放强度", (
+        ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
+    )),
+    ("Q_E_PM_INTENSITY", r"颗粒物排放强度", (
+        ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
+    )),
+    ("Q_E_WASTEWATER_INTENSITY", r"废水排放强度", (
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
+    )),
+    ("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物排放强度|一般固废排放强度", (
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
+    )),
+    ("Q_E_HAZ_WASTE_INTENSITY", r"危险废物排放强度|危险废物产生强度|危废排放强度", (
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
+    )),
+    ("Q_S_ENV_INVEST_RATE", r"环保(?:总)?投入占营业收入(?:的)?比例", (("%", 1.0),)),
+    ("Q_S_SAFETY_INVEST_RATE", r"安全生产投入占营业收入(?:的)?比例", (("%", 1.0),)),
+    ("Q_S_RD_RATE", r"研发投入占营业收入(?:的)?比例", (("%", 1.0),)),
+    ("Q_S_DONATION_RATE", r"(?:对外)?捐赠(?:总额)?占营业收入(?:的)?比例", (("%", 1.0),)),
+)
+
+
+def _cn_unit_fragment(unit: str) -> str:
+    if unit == "%":
+        return r"[（(]?\s*[%％]\s*[）)]?"
+    fragment = re.escape(unit).replace("/", r"\s*/\s*")
+    for prefix in ("吨二", "千克二", "吨标", "千克标"):
+        if prefix in fragment:
+            fragment = fragment.replace(prefix, prefix[:-1] + r"\s*" + prefix[-1])
+    return fragment + r"(?!产)"
+
+
+def _normalize_kangxi(text: str) -> str:
+    chars = (
+        unicodedata.normalize("NFKC", ch) if "\u2f00" <= ch <= "\u2fdf" else ch
+        for ch in text.replace("\x00", " ")
+    )
+    return "".join(chars)
+
+
+def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[str, float, str]]:
+    """Read methodology-compatible rows from Chinese KPI tables with explicit year headers."""
+    text = _normalize_kangxi(text)
+    previous_year = report_year - 1
+    header = r"(?:指标|项目)(?:名称)?\s*单位"
+    if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
+        mode = "current-first"
+    elif re.search(rf"{header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?", text):
+        mode = "current-last"
+    elif re.search(rf"{header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
+        mode = "single-year"
+    else:
+        mode = None
+    results: list[tuple[str, float, str]] = []
+    for code, label, units in _CN_TABLE_RULES:
+        factors = dict(units)
+        unit_pattern = "(?:" + "|".join(f"(?:{_cn_unit_fragment(unit)})" for unit, _ in units) + ")"
+        label_group = rf"(?:{label})(?:\s*注\s*\d+)?"
+        patterns: list[tuple[str, str]] = []
+        if mode == "current-first":
+            patterns.append((
+                "current-first",
+                rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s+(?:{_CN_NUMBER}|/)(?:\s+(?:{_CN_NUMBER}|/))?\s*$",
+            ))
+        elif mode == "current-last":
+            patterns.append((
+                "current-last",
+                rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
+            ))
+        elif mode == "single-year":
+            patterns.append((
+                "single-year",
+                rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s*$",
+            ))
+        patterns.append((
+            "row-year-suffix",
+            rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*{report_year}\s*年\s*$",
+        ))
+        for pattern_mode, row in patterns:
+            for match in re.finditer(row, text, re.M):
+                unit_key = re.sub(r"\s+", "", match.group("unit")).strip("（）()")
+                factor = factors.get(unit_key)
+                if factor is None:
+                    continue
+                value = float(match.group("current").replace(",", "")) * factor
+                if not _plausible_value(code, value):
+                    continue
+                results.append((
+                    code, value,
+                    f"Chinese {pattern_mode} environmental table row: " + re.sub(r"\s+", " ", match.group(0)).strip(),
+                ))
+    return results
+
+
 def _extract_english_pay_per_employee(text: str, report_year: int) -> tuple[float, str] | None:
     pattern = re.compile(
         rf"As\s+(?:at|of)\s+31(?:st)?\s+December\s+{report_year},\s+the\s+Group\s+had\s+"
@@ -1122,6 +1296,101 @@ def _extract_english_pay_per_employee(text: str, report_year: int) -> tuple[floa
         return None
     evidence = re.sub(r"\s+", " ", match.group(0)).strip()[:500]
     return value, "English same-group RMB staff cost derived: " + evidence
+
+
+_WEIGHTED_ROE_ROW = re.compile(
+    r"归\s*属\s*于\s*公\s*司\s*普\s*通\s*股\s*股\s*东\s*的\s*净\s*利\s*润\s*([+-]?[\d,]+(?:\.\d+)?)\s*%"
+)
+_WEIGHTED_ROE_SPLIT_ROW = re.compile(
+    r"归\s*属\s*于\s*公\s*司\s*普\s*通\s*股\s*股\s*东\s*(?:的\s*净\s*)?"
+    r"([+-]?[\d,]+(?:\.\d+)?)\s*%\s+[+-]?[\d.]+\s+[+-]?[\d.]+\s+(?:的\s*)?(?:净\s*)?利\s*润"
+)
+
+
+def _extract_weighted_roe_transposed(text: str, context: str) -> tuple[float, str] | None:
+    """Read the exchange-mandated transposed ROE/EPS table (value carries an explicit % sign)."""
+    if "加权平均净资产收益率" not in context:
+        return None
+    for pattern in (_WEIGHTED_ROE_ROW, _WEIGHTED_ROE_SPLIT_ROW):
+        for match in pattern.finditer(text):
+            prefix = re.sub(r"\s+", "", text[max(0, match.start() - 30):match.start()])
+            if "扣除非经常" in prefix:
+                continue
+            value = float(match.group(1).replace(",", ""))
+            if not -1000 <= value <= 1000:
+                continue
+            evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+            return value, "加权平均净资产收益率转置表: " + evidence[:220]
+    return None
+
+
+_ROE_SUMMARY_LABEL = re.compile(
+    r"加\s*权\s*平\s*均\s*净\s*资\s*产\s*"
+    r"(?:[（(]\s*亏\s*损\s*[）)]\s*[/／]\s*)?"
+    r"收\s*益\s*率\s*(?:[（(]\s*%\s*[）)]|%)?\s*"
+    r"(?:[（(][^（）()]{0,60}?计\s*算\s*[）)]\s*)?"
+)
+_ROE_CELL = re.compile(
+    r"\s*(?:"
+    r"(?P<paren>\([+-]?[\d,]+(?:\.\d+)?\)\s*%?)"
+    r"|(?P<pct>[+-]?[\d,]+(?:\.\d+)?\s*%)"
+    r"|(?P<bare>[+-]?[\d,]+(?:\.\d+)?)"
+    r"|(?P<na>不适用|\*|—|--|-)"
+    r")"
+)
+
+
+def _extract_summary_roe_row(text: str) -> tuple[float, str] | None:
+    """Read the ROE row of the exchange-mandated summary table (主要会计数据).
+
+    Handles split labels across lines, parenthesized negatives, labels declaring
+    the unit as （%）so cells omit the sign, and multi-line （依据…计算）notes.
+    The current-year column is always first; a leading 不适用 cell means the
+    current year is genuinely not applicable and yields no candidate.
+    """
+    for label in _ROE_SUMMARY_LABEL.finditer(text):
+        before = re.sub(r"\s+", "", text[max(0, label.start() - 30):label.start()])
+        if "扣除" in before:
+            continue
+        declared_percent = "%" in label.group(0)
+        cells = []
+        cursor = label.end()
+        for _ in range(6):
+            cell = _ROE_CELL.match(text, cursor)
+            if not cell or cell.group(0).strip() == "":
+                break
+            token = cell.group(0).strip()
+            cells.append((token, cell))
+            cursor = cell.end()
+        if not cells:
+            continue
+        first = cells[0][0]
+        if first == "不适用":
+            continue
+        value: float | None = None
+        for token, cell in cells:
+            if cell.group("paren"):
+                value = -float(cell.group("paren").strip("()% ").replace(",", ""))
+                break
+            if cell.group("pct"):
+                value = float(cell.group("pct").rstrip("% ").replace(",", ""))
+                break
+            if cell.group("bare"):
+                if not declared_percent:
+                    break
+                number = float(cell.group("bare").replace(",", ""))
+                following = text[cell.end():cell.end() + 2]
+                if following.strip().startswith("年") or abs(number) >= 1000:
+                    break
+                value = number
+                break
+            if token != "*":
+                break
+        if value is None or not -1000 <= value <= 1000:
+            continue
+        evidence = re.sub(r"\s+", " ", text[label.start():cursor]).strip()
+        return value, "主要会计数据加权平均净资产收益率行: " + evidence[:240]
+    return None
 
 
 def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) -> bool:
@@ -1145,11 +1414,14 @@ def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) ->
 
 
 def _plausible_value(code: str, value: float) -> bool:
+    if code == "Q_G_ROE":
+        # 亏损公司ROE合法为负；自由文本匹配保留正向上限，表格行抽取器才放宽到±1000
+        return -1000 <= value <= 100
     if value < 0:
         return False
     percentage_codes = {
         "Q_E_ALTERNATIVE_WATER_RATE", "Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE",
-        "Q_S_DONATION_RATE", "Q_G_DEBT_ASSET_RATE", "Q_G_ROE",
+        "Q_S_DONATION_RATE", "Q_S_ENV_INVEST_RATE", "Q_G_DEBT_ASSET_RATE",
     }
     if code in percentage_codes and value > 100:
         return False
@@ -1165,7 +1437,7 @@ def _is_direct_false_positive(code: str, text: str, match: re.Match[str]) -> boo
     matched = match.group(0)
     if "扣除非经常性损益" in before:
         return True
-    if any(token in matched for token in ("同比", "增加", "减少", "提升", "下降", "变动", "较上年")):
+    if any(token in matched for token in ("同比", "增加", "减少", "提升", "下降", "上升", "增长", "变动", "较上年", "不适用")):
         return True
     return False
 
@@ -1179,8 +1451,15 @@ def _extract_revenue_growth(raw_text: str, in_summary_section: bool = False) -> 
     return [(growth, evidence)] if -100 <= growth <= 1000 else []
 
 
+_SUMMARY_SECTION_MARKERS = ("近三年主要会计数据", "主要会计数据和财务指标")
+
+
+def _is_summary_section_page(text: str) -> bool:
+    return any(marker in text for marker in _SUMMARY_SECTION_MARKERS)
+
+
 def _extract_summary_revenue(raw_text: str, in_summary_section: bool = False) -> tuple[float, float, str] | None:
-    if not in_summary_section and not re.search(r"(?:近三年主要会计数据|[(（]一[)）]\s*主要会计数据)", raw_text):
+    if not in_summary_section and not re.search(r"(?:近三年主要会计数据|[(（]一[)）]\s*主要会计数据|主要会计数据和财务指标)", raw_text):
         return None
     repaired = _repair_wrapped_numbers(raw_text)
     number = re.compile(r"[+-]?[\d,]+(?:\.\d+)?")
@@ -1204,9 +1483,12 @@ def _repair_wrapped_numbers(raw_text: str) -> str:
     )
 
 
+_STATEMENT_TITLE_PREFIX = r"(?:\d{1,2}、|[（(][一二三四五六七八九十]+[)）])?"
+
+
 def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
-    title = re.compile(r"(?m)^\s*合并资产负债表\s*$")
-    profit_title = re.compile(r"(?m)^\s*合并利润表\s*$")
+    title = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并资产负债表\s*$")
+    profit_title = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并利润表\s*$")
     start = next((index for index, page in enumerate(pages) if title.search(page.text)), None)
     if start is None:
         return []
@@ -1218,17 +1500,29 @@ def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, 
     labels = {
         "assets": r"资产总计",
         "liabilities": r"(?<!流动)(?<!非流动)负债合计",
-        "equity": r"(?:股东权益|所有者权益(?:（或股东权益）|\(或股东权益\))?)合计",
         "current_assets": r"流动资产合计",
+        "current_liabilities": r"(?<!非)流动负债合计",
         "accounts_receivable": r"(?<!其他)应收账款",
         "inventory": r"存货",
     }
     facts = {name: _find_statement_fact(statement_pages, pattern) for name, pattern in labels.items()}
+    facts["equity"] = _find_equity_fact(statement_pages)
+    if not _accounting_identity_holds(facts.get("assets"), facts.get("liabilities"), facts.get("equity")):
+        return []
+    for larger_name, smaller_name in (
+        ("assets", "current_assets"),
+        ("current_assets", "inventory"),
+        ("current_assets", "accounts_receivable"),
+        ("liabilities", "current_liabilities"),
+    ):
+        if not _subsumption_consistent(facts.get(larger_name), facts.get(smaller_name)):
+            facts[larger_name] = None
+            facts[smaller_name] = None
     revenue = None
     revenue_page = None
     for index, page in enumerate(pages):
-        in_summary = "近三年主要会计数据" in page.text or (
-            index > 0 and "近三年主要会计数据" in pages[index - 1].text and "营业收入" not in pages[index - 1].text
+        in_summary = _is_summary_section_page(page.text) or (
+            index > 0 and _is_summary_section_page(pages[index - 1].text) and "营业收入" not in pages[index - 1].text
         )
         parsed = _extract_summary_revenue(page.text, in_summary)
         if parsed:
@@ -1245,22 +1539,60 @@ def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, 
         result.append((code, value, page, "合并报表自动派生: " + evidence))
     assets, liabilities = facts.get("assets"), facts.get("liabilities")
     if assets and liabilities and assets.values[0] != 0:
-        add("Q_G_DEBT_ASSET_RATE", liabilities.values[0] / assets.values[0] * 100, ("liabilities", "assets"))
+        debt_rate = liabilities.values[0] / assets.values[0] * 100
+        if 0.5 <= debt_rate <= 200:
+            add("Q_G_DEBT_ASSET_RATE", debt_rate, ("liabilities", "assets"))
     if revenue is not None and assets and len(assets.values) >= 2:
-        add("Q_G_ASSET_TURNOVER", revenue / ((assets.values[0] + assets.values[1]) / 2), ("assets",))
+        asset_turnover = revenue / ((assets.values[0] + assets.values[1]) / 2)
+        if 0.02 <= asset_turnover <= 10:
+            add("Q_G_ASSET_TURNOVER", asset_turnover, ("assets",))
     current_assets = facts.get("current_assets")
     if revenue is not None and current_assets and len(current_assets.values) >= 2:
-        add("Q_G_CURRENT_ASSET_TURNOVER", revenue / ((current_assets.values[0] + current_assets.values[1]) / 2), ("current_assets",))
+        current_turnover = revenue / ((current_assets.values[0] + current_assets.values[1]) / 2)
+        if 0.05 <= current_turnover <= 30:
+            add("Q_G_CURRENT_ASSET_TURNOVER", current_turnover, ("current_assets",))
     receivable = facts.get("accounts_receivable")
     if revenue is not None and receivable and len(receivable.values) >= 2 and (receivable.values[0] + receivable.values[1]) != 0:
-        add("Q_G_AR_TURNOVER", revenue / ((receivable.values[0] + receivable.values[1]) / 2), ("accounts_receivable",))
+        ar_turnover = revenue / ((receivable.values[0] + receivable.values[1]) / 2)
+        if 0.1 <= ar_turnover <= 1000:
+            add("Q_G_AR_TURNOVER", ar_turnover, ("accounts_receivable",))
     inventory = facts.get("inventory")
     if receivable and inventory and current_assets and current_assets.values[0] != 0:
-        add("Q_G_TWO_FUNDS_RATE", (receivable.values[0] + inventory.values[0]) / current_assets.values[0] * 100, ("accounts_receivable", "inventory", "current_assets"))
+        two_funds = (receivable.values[0] + inventory.values[0]) / current_assets.values[0] * 100
+        if 0 <= two_funds <= 100:
+            add("Q_G_TWO_FUNDS_RATE", two_funds, ("accounts_receivable", "inventory", "current_assets"))
+    current_liabilities = facts.get("current_liabilities")
+    if current_assets and inventory and current_liabilities and current_liabilities.values[0] != 0:
+        quick_ratio = (current_assets.values[0] - inventory.values[0]) / current_liabilities.values[0] * 100
+        if 0 < quick_ratio <= 1000:
+            add("Q_G_QUICK_RATIO", quick_ratio, ("current_assets", "inventory", "current_liabilities"))
     equity = facts.get("equity")
     if equity and len(equity.values) >= 2 and equity.values[1] != 0:
         add("Q_G_CAPITAL_ACCUMULATION", (equity.values[0] - equity.values[1]) / equity.values[1] * 100, ("equity",))
     return result
+
+
+def _accounting_identity_holds(
+    assets: StatementFact | None, liabilities: StatementFact | None, equity: StatementFact | None,
+) -> bool:
+    """Reject statements whose parsed rows violate 资产 = 负债 + 权益 (column-interleave artifact)."""
+    if assets and liabilities and assets.values[0] > 0 and liabilities.values[0] > assets.values[0] * 2:
+        return False
+    if not (assets and liabilities and equity):
+        return True
+    if assets.values[0] <= 0:
+        return False
+    expected = liabilities.values[0] + equity.values[0]
+    return abs(assets.values[0] - expected) / assets.values[0] <= 0.05
+
+
+def _subsumption_consistent(
+    larger: StatementFact | None, smaller: StatementFact | None, tolerance: float = 0.02,
+) -> bool:
+    """Check containment between statement rows (e.g. 流动资产 ⊂ 总资产)."""
+    if not (larger and smaller):
+        return True
+    return larger.values[0] >= smaller.values[0] * (1 - tolerance)
 
 
 def _find_statement_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
@@ -1270,9 +1602,37 @@ def _find_statement_fact(pages: list[PageText], label_pattern: str) -> Statement
         repaired = _repair_wrapped_numbers(page.text)
         for match in label.finditer(repaired):
             fragment = repaired[match.start():match.end() + 180]
-            values = tuple(float(item.replace(",", "")) for item in money.findall(fragment))
-            if values:
-                return StatementFact(values[:2], page.page, re.sub(r"\s+", " ", fragment)[:220])
+            raw_values = money.findall(fragment)
+            if not raw_values:
+                continue
+            first_number_at = fragment.find(raw_values[0], match.end() - match.start())
+            between = fragment[match.end() - match.start():first_number_at]
+            if "：" in between or ":" in between:
+                continue
+            values = tuple(float(item.replace(",", "")) for item in raw_values)
+            return StatementFact(values[:2], page.page, re.sub(r"\s+", " ", fragment)[:220])
+    return None
+
+
+def _find_equity_fact(pages: list[PageText]) -> StatementFact | None:
+    money = re.compile(r"[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}")
+    label = re.compile(r"(?:股东权益|所有者权益(?:（或股东权益）|\(或股东权益\))?)\s*合\s*计")
+    for page in pages:
+        repaired = _repair_wrapped_numbers(page.text)
+        for match in label.finditer(repaired):
+            prefix = repaired[max(0, match.start() - 8):match.start()]
+            if "母公司" in prefix:
+                continue
+            fragment = repaired[match.start():match.end() + 180]
+            raw_values = money.findall(fragment)
+            if not raw_values:
+                continue
+            first_number_at = fragment.find(raw_values[0], match.end() - match.start())
+            between = fragment[match.end() - match.start():first_number_at]
+            if "：" in between or ":" in between:
+                continue
+            values = tuple(float(item.replace(",", "")) for item in raw_values)
+            return StatementFact(values[:2], page.page, re.sub(r"\s+", " ", fragment)[:220])
     return None
 
 
@@ -1281,7 +1641,10 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
         r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+financial\s+position(?:\s|$)"
         r"|^\s*consolidated\s+balance\s+sheet\s*$",
     )
-    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:profit|income|changes|cash\s+flows?)")
+    end = re.compile(
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:profit|income|changes|cash\s+flows?)"
+        r"|^\s*consolidated\s+(?:income|profit)\s+statement\s*$",
+    )
     starts = [index for index, page in enumerate(pages) if title.search(page.text)]
     best_result = []
     for start in starts:
@@ -1296,54 +1659,86 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
         current_liabilities = _find_english_statement_fact(statement_pages, r"Total current liabilities")
         receivable = _find_english_statement_fact(statement_pages, r"(?:Trade|Accounts) receivables?")
         inventory = _find_english_statement_fact(statement_pages, r"Inventor(?:y|ies)")
-        equity = _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
+        equity = (
+            _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
+            or _find_cas_english_equity_fact(statement_pages)
+        )
         revenue = _find_english_revenue_fact(pages)
-        profit = _find_english_income_fact(pages, r"(?:Profit|Loss) for the year")
+        profit = _find_english_income_fact(
+            pages, r"(?:(?:Profit|Loss) for the year|(?:[IV]{1,3}\s*[.:]?\s*)?Net profit(?!\s+attributable))",
+        )
         profit_before_tax = _find_english_income_fact(
-            pages, r"(?:Profit|Loss) before (?:income )?tax(?:ation)?",
+            pages, r"(?:(?:Profit|Loss) before (?:income )?tax(?:ation)?|(?:[IV]{1,3}\s*[.:]?\s*)?Total profit(?!\s+and))",
         )
         finance_cost = _find_english_income_fact(
-            pages, r"(?:Finance costs?|Interest expenses?)",
+            pages, r"(?:Finance costs?|(?:Including\s*:\s*)?Interest expenses?)",
         )
         income_tax = _find_english_income_fact(
-            pages, r"(?:Income tax expense|Taxation)",
+            pages, r"(?:(?:Less\s*:\s*)?Income tax expenses?|Taxation)",
         )
         depreciation_amortisation = _find_english_cashflow_fact(
             pages, r"Depreciation and amorti[sz]ation",
         )
+        if not _accounting_identity_holds(assets, liabilities, equity):
+            continue
+        balance_facts = {
+            "assets": assets, "liabilities": liabilities, "current_assets": current_assets,
+            "current_liabilities": current_liabilities, "inventory": inventory, "receivable": receivable,
+        }
+        for larger_name, smaller_name in (
+            ("assets", "current_assets"),
+            ("current_assets", "inventory"),
+            ("current_assets", "receivable"),
+            ("liabilities", "current_liabilities"),
+        ):
+            if not _subsumption_consistent(balance_facts[larger_name], balance_facts[smaller_name]):
+                balance_facts[larger_name] = None
+                balance_facts[smaller_name] = None
+        assets = balance_facts["assets"]
+        liabilities = balance_facts["liabilities"]
+        current_assets = balance_facts["current_assets"]
+        current_liabilities = balance_facts["current_liabilities"]
+        inventory = balance_facts["inventory"]
+        receivable = balance_facts["receivable"]
         result = []
         if assets and liabilities and assets.values[0] > 0:
             value = liabilities.values[0] / assets.values[0] * 100
-            if 0 <= value <= 1000:
+            if 0.5 <= value <= 200:
                 evidence = "English consolidated statement derived: " + liabilities.evidence + " | " + assets.evidence
                 result.append(("Q_G_DEBT_ASSET_RATE", value, max(assets.page, liabilities.page), evidence))
         if assets and revenue and len(assets.values) >= 2:
             average_assets = (assets.values[0] + assets.values[1]) / 2
             if average_assets != 0:
-                result.append((
-                    "Q_G_ASSET_TURNOVER", revenue.values[0] / average_assets,
-                    max(assets.page, revenue.page), "English consolidated statements derived: " +
-                    revenue.evidence + " | " + assets.evidence,
-                ))
+                asset_turnover = revenue.values[0] / average_assets
+                if 0.02 <= asset_turnover <= 10:
+                    result.append((
+                        "Q_G_ASSET_TURNOVER", asset_turnover,
+                        max(assets.page, revenue.page), "English consolidated statements derived: " +
+                        revenue.evidence + " | " + assets.evidence,
+                    ))
         if current_assets and revenue and len(current_assets.values) >= 2:
             average_current_assets = (current_assets.values[0] + current_assets.values[1]) / 2
             if average_current_assets != 0:
-                result.append((
-                    "Q_G_CURRENT_ASSET_TURNOVER", revenue.values[0] / average_current_assets,
-                    max(current_assets.page, revenue.page), "English consolidated statements derived: " +
-                    revenue.evidence + " | " + current_assets.evidence,
-                ))
+                current_turnover = revenue.values[0] / average_current_assets
+                if 0.05 <= current_turnover <= 30:
+                    result.append((
+                        "Q_G_CURRENT_ASSET_TURNOVER", current_turnover,
+                        max(current_assets.page, revenue.page), "English consolidated statements derived: " +
+                        revenue.evidence + " | " + current_assets.evidence,
+                    ))
         if receivable and revenue and len(receivable.values) >= 2:
             average_receivable = (receivable.values[0] + receivable.values[1]) / 2
             if average_receivable > 0:
-                result.append((
-                    "Q_G_AR_TURNOVER", revenue.values[0] / average_receivable,
-                    max(receivable.page, revenue.page), "English consolidated statements derived: " +
-                    revenue.evidence + " | " + receivable.evidence,
-                ))
+                ar_turnover = revenue.values[0] / average_receivable
+                if 0.1 <= ar_turnover <= 1000:
+                    result.append((
+                        "Q_G_AR_TURNOVER", ar_turnover,
+                        max(receivable.page, revenue.page), "English consolidated statements derived: " +
+                        revenue.evidence + " | " + receivable.evidence,
+                    ))
         if receivable and inventory and current_assets and current_assets.values[0] > 0:
             two_funds = (receivable.values[0] + inventory.values[0]) / current_assets.values[0] * 100
-            if 0 <= two_funds <= 1000:
+            if 0 <= two_funds <= 100:
                 result.append((
                     "Q_G_TWO_FUNDS_RATE", two_funds,
                     max(receivable.page, inventory.page, current_assets.page),
@@ -1352,7 +1747,7 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
                 ))
         if inventory and current_assets and current_liabilities and current_liabilities.values[0] > 0:
             quick_ratio = (current_assets.values[0] - inventory.values[0]) / current_liabilities.values[0] * 100
-            if -1000 <= quick_ratio <= 1000:
+            if 0 < quick_ratio <= 1000:
                 result.append((
                     "Q_G_QUICK_RATIO", quick_ratio,
                     max(inventory.page, current_assets.page, current_liabilities.page),
@@ -1370,7 +1765,7 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
             average_equity = (equity.values[0] + equity.values[1]) / 2
             if average_equity != 0:
                 roe = profit.values[0] / average_equity * 100
-                if -1000 <= roe <= 1000:
+                if -300 <= roe <= 300:
                     result.append((
                         "Q_G_ROE", roe, max(profit.page, equity.page),
                         "English consolidated statements derived: " + profit.evidence +
@@ -1392,7 +1787,7 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
                 average_assets = (assets.values[0] + assets.values[1]) / 2
                 if average_assets != 0:
                     roa = ebit / average_assets * 100
-                    if -1000 <= roa <= 1000:
+                    if -100 <= roa <= 100:
                         result.append((
                             "Q_G_ROA", roa, max(profit_before_tax.page, finance_cost.page, assets.page),
                             "English consolidated statements derived: " +
@@ -1419,16 +1814,66 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
 
 def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
     return _find_english_income_fact(
-        pages, r"(?:I\.\s*)?(?:(?:Total\s+)?Operating\s+)?Revenue",
+        pages, r"(?:I\.\s*)?(?:Total\s+revenue\s+from\s+operations|(?:(?:Total\s+)?Operating\s+)?Revenue)",
     )
+
+
+_CAS_ENGLISH_RD = re.compile(r"(?i)research\s+and\s+development\s+expenses?(?P<body>[\s\S]{0,80})")
+
+
+def _find_cas_english_rd_fact(pages: list[PageText]) -> StatementFact | None:
+    """Find R&D expense in CAS-format English income statements where the label
+    'Research and development expenses' wraps across lines before its values."""
+    number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
+    for page in pages:
+        match = _CAS_ENGLISH_RD.search(_repair_wrapped_numbers(page.text))
+        if not match:
+            continue
+        raw_values = number.findall(match.group("body"))
+        if len(raw_values) < 2:
+            continue
+        values = tuple(float(raw.strip("()").replace(",", "")) for raw in raw_values[:2])
+        evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+        return StatementFact(values, page.page, evidence[:220])
+    return None
+
+
+_CAS_ENGLISH_EQUITY = re.compile(
+    r"(?i)total\s+owners['’]?\s*equity(?:[\s\S]{0,40}?equity\))?(?P<body>[\s\S]{0,80})"
+)
+
+
+def _find_cas_english_equity_fact(pages: list[PageText]) -> StatementFact | None:
+    """Find total equity in CAS-format English balance sheets ('Total owners' equity',
+    whose '(or shareholders' equity)' suffix and values may wrap onto the next line)."""
+    number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
+    for page in pages:
+        match = _CAS_ENGLISH_EQUITY.search(_repair_wrapped_numbers(page.text))
+        if not match:
+            continue
+        raw_values = number.findall(match.group("body"))
+        values = []
+        for raw in raw_values:
+            negative = raw.startswith("(") and raw.endswith(")")
+            value = float(raw.strip("()").replace(",", ""))
+            values.append(-value if negative else value)
+        if len(values) < 2:
+            continue
+        evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+        return StatementFact(tuple(values[:2]), page.page, evidence[:220])
+    return None
 
 
 def _find_english_income_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
     title = re.compile(
         r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+"
-        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)",
+        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)"
+        r"|^\s*consolidated\s+(?:income|profit)\s+statement\s*$",
     )
-    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)")
+    end = re.compile(
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)"
+        r"|^\s*parent\s+(?:company\s+)?(?:income|profit)\s+statement\s*$",
+    )
     for start in (index for index, page in enumerate(pages) if title.search(page.text)):
         statement_pages = []
         for page in pages[start:start + 5]:
@@ -1467,7 +1912,8 @@ def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> S
     )
     number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
     for page in pages:
-        for match in label.finditer(_repair_wrapped_numbers(page.text)):
+        repaired = re.sub(r"[“”]\s*\n\s*-\s*\n\s*[“”]", "“-”", _repair_wrapped_numbers(page.text))
+        for match in label.finditer(repaired):
             raw_values = number.findall(match.group("body"))
             values = []
             for raw in raw_values:
@@ -1490,9 +1936,13 @@ def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> S
 def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
     title = re.compile(
         r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+"
-        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)",
+        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)"
+        r"|^\s*consolidated\s+(?:income|profit)\s+statement\s*$",
     )
-    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)")
+    end = re.compile(
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)"
+        r"|^\s*parent\s+(?:company\s+)?(?:income|profit)\s+statement\s*$",
+    )
     for start in (index for index, page in enumerate(pages) if title.search(page.text)):
         statement_pages = []
         for page in pages[start:start + 5]:
@@ -1500,7 +1950,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                 break
             statement_pages.append(page)
         revenue = _find_english_statement_fact(
-            statement_pages, r"(?:I\.\s*)?(?:(?:Total\s+)?Operating\s+)?Revenue",
+            statement_pages, r"(?:I\.\s*)?(?:Total\s+revenue\s+from\s+operations|(?:(?:Total\s+)?Operating\s+)?Revenue)",
         )
         if not revenue or revenue.values[0] == 0:
             continue
@@ -1534,7 +1984,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                     ))
         research = _find_english_statement_fact(
             statement_pages, r"(?:Research and development|R&D) (?:expenses?|expenditure|costs?)",
-        )
+        ) or _find_cas_english_rd_fact(statement_pages)
         if research:
             rd_rate = abs(research.values[0]) / abs(revenue.values[0]) * 100
             if 0 <= rd_rate <= 100:
@@ -1544,7 +1994,7 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                     research.evidence + " | " + revenue.evidence,
                 ))
         total_costs = _find_english_statement_fact(
-            statement_pages, r"(?:II\.\s*)?(?:Total operating costs?|Total operating expenses|Total costs and expenses)",
+            statement_pages, r"(?:II\.\s*)?(?:Total operating costs?|Total cost of operations|Total operating expenses|Total costs and expenses)",
         )
         if total_costs:
             cost_rate = abs(total_costs.values[0]) / abs(revenue.values[0]) * 100
@@ -1708,11 +2158,257 @@ def _extract_english_employee_per_capita(
     return []
 
 
+_CN_NUM = r"[\d,]+(?:\.\d+)?"
+_CN_EMP_TOTAL = re.compile(r"(?:报告期末)?在职员工的数量合计\s*[（(]?\s*人?\s*[）)]?\s*(?P<count>[\d,]+)")
+_CN_EMP_PARENT = re.compile(r"(?:报告期末)?母公司在职员工的数量\s*[（(]?\s*人?\s*[）)]?\s*(?P<count>[\d,]+)")
+_CN_EMP_SUB = re.compile(r"(?:报告期末)?主要子公司在职员工的数量\s*[（(]?\s*人?\s*[）)]?\s*(?P<count>[\d,]+)")
+_CN_EMP_H_LABEL = re.compile(
+    r"报告期末母公司在职员工的数量[（(]\s*人\s*[）)][^\n]*报告期末主要子公司在职员工的数量[（(]\s*人\s*[）)]"
+    r"[^\n]*报告期末在职员工的数量合计[（(]\s*人\s*[）)]"
+)
+_CN_EMP_H_NUMBER = re.compile(r"(?m)^\s*([\d,]{1,12})\s*$")
+_CN_EMP_BSE_HEADER = re.compile(r"按工作性质分类[^\n]{0,80}期末人数")
+_CN_EMP_BSE_TOTAL = re.compile(
+    rf"(?m)^\s*员工总计\s+(?P<v0>{_CN_NUM})\s+(?P<v1>{_CN_NUM})\s+(?P<v2>{_CN_NUM})\s+(?P<v3>{_CN_NUM})\s*$"
+)
+_CN_COMP_SECTION_START = re.compile(r"合并财务报表项目注释")
+_CN_COMP_SECTION_END = re.compile(r"母公司财务报表(?:主要)?项目注释")
+_CN_COMP_HEADER = re.compile(r"(?:期初|年初)余额\s+(?:本期|本年)增加\s+(?:本期|本年)减少\s+(?:期末|年末)余额")
+_CN_COMP_HEADER_TRUNC = re.compile(r"(?:期初|年初)余额\s+(?:本期|本年)增加\s+(?:本期|本年)减少(?!\s*(?:期末|年末)余额)")
+_CN_COMP_HEADER_STRIP = re.compile(
+    r"(?:项目\s*)?(?:期初|年初)余额\s+(?:本期|本年)增加\s+(?:本期|本年)减少(?:\s+(?:期末|年末)余额)?"
+)
+_CN_COMP_TABLE_TITLE = re.compile(r"短期薪酬(?:列示|情况)?\s*$", re.M)
+_CN_UNIT_FACTORS = {"元": 1.0, "千元": 1e3, "万元": 1e4, "百万元": 1e6}
+
+
+def _cn_employee_count_horizontal(pages: list[PageText]) -> tuple[int, int, str] | None:
+    """Read the three-column horizontal employee table: labels share one line and values
+    are scattered by two-column PDF flow; accept only an exact 母公司+子公司=合计 triple
+    corroborated by a nearby 专业构成/教育程度 合计."""
+    combined = ""
+    page_marks: list[tuple[int, int]] = []
+    for page in pages:
+        page_marks.append((len(combined), page.page))
+        combined += page.text + "\n"
+    label = _CN_EMP_H_LABEL.search(combined)
+    if not label:
+        return None
+    label_page = next(page for offset, page in reversed(page_marks) if offset <= label.start())
+    window = combined[label.end():label.end() + 1500]
+    nums = [int(m.group(1).replace(",", "")) for m in _CN_EMP_H_NUMBER.finditer(window)]
+    for i in range(len(nums) - 2):
+        a, b, c = nums[i], nums[i + 1], nums[i + 2]
+        if a + b == c and 0 < a and 0 < b and c <= 2_000_000:
+            if re.search(rf"(?:合计|员工总计)\s*(?:{c:,}|{c})(?![\d,])", window):
+                return c, label_page, f"员工情况表水平布局: 母公司{a}+子公司{b}=合计{c}"
+    return None
+
+
+def _cn_employee_count(pages: list[PageText]) -> tuple[int, int, str] | None:
+    """Locate the period-end group employee count with scope consistency checks."""
+    for page in pages:
+        total = _CN_EMP_TOTAL.search(page.text)
+        if total:
+            count = int(total.group("count").replace(",", ""))
+            parent = _CN_EMP_PARENT.search(page.text)
+            subsidiary = _CN_EMP_SUB.search(page.text)
+            if parent and subsidiary:
+                p = int(parent.group("count").replace(",", ""))
+                s = int(subsidiary.group("count").replace(",", ""))
+                if p + s != count:
+                    continue
+            if count > 0:
+                return count, page.page, re.sub(r"\s+", " ", total.group(0)).strip()
+        if _CN_EMP_BSE_HEADER.search(page.text):
+            match = _CN_EMP_BSE_TOTAL.search(page.text)
+            if match:
+                values = [float(match.group(f"v{i}").replace(",", "")) for i in range(4)]
+                if abs(values[0] + values[1] - values[2] - values[3]) < 1 and values[3] > 0:
+                    return (
+                        int(values[3]), page.page,
+                        "员工情况表员工总计期末人数: " + re.sub(r"\s+", " ", match.group(0)).strip(),
+                    )
+    return _cn_employee_count_horizontal(pages)
+
+
+def _cn_comp_note_section(pages: list[PageText]) -> list[PageText]:
+    """Bound the consolidated-statement notes; never read the parent-company notes."""
+    start = end = None
+    for index, page in enumerate(pages):
+        if start is None and _CN_COMP_SECTION_START.search(page.text):
+            start = index
+        elif start is not None and _CN_COMP_SECTION_END.search(page.text):
+            end = index
+            break
+    if start is not None:
+        return pages[start:end]
+    occurrences = [
+        page for page in pages
+        if re.search(r"应付职工薪酬(?:列示|情况)?\s*$", page.text, re.M)
+    ]
+    if len(occurrences) == 1:
+        return pages
+    return []
+
+
+def _cn_resolve_increase(cells: list[float], trailing_pool: set[float] | None = None) -> float | None:
+    """Pick the 本期/本年增加 column; accounting identity 期末=期初+增加-减少 must hold.
+
+    3-cell rows lack one column: （增加,减少,期末） and （年初,增加,减少） with zero 期末 are
+    self-checking; otherwise the implied 期末 must appear verbatim in the page's trailing
+    detached 年末余额 column cluster (exact cents match) to bind the 增加 column safely.
+    """
+    tolerance = 1.0
+    if len(cells) == 4:
+        if abs(cells[0] + cells[1] - cells[2] - cells[3]) <= tolerance:
+            return cells[1]
+        return None
+    if len(cells) == 3:
+        if abs(cells[0] - cells[1] - cells[2]) <= tolerance:
+            return cells[0]
+        if abs(cells[0] + cells[1] - cells[2]) <= tolerance:
+            return cells[1]
+        implied_end = cells[0] + cells[1] - cells[2]
+        if trailing_pool and any(abs(implied_end - pool) <= 0.01 for pool in trailing_pool):
+            return cells[1]
+        return None
+    if len(cells) == 2:
+        if abs(cells[0] - cells[1]) <= tolerance:
+            return cells[0]
+        implied_end = cells[0] - cells[1]
+        if implied_end > 0 and trailing_pool and any(abs(implied_end - pool) <= 0.01 for pool in trailing_pool):
+            return cells[0]
+    return None
+
+
+def _cn_comp_row(text: str, label: str) -> tuple[float, str] | None:
+    # 表头剥离后标签可在行首或行中；数值体以中文/序号/行尾为界，避免吞入下一行序号
+    stripped = _CN_COMP_HEADER_STRIP.sub("", text)
+    pattern = re.compile(
+        rf"(?<![\u4e00-\u9fff、，,])[ \t]*(?:[（(]\s*\d+\s*[）)]\s*|\d+\s*[、.．]\s*)?{label}[ \t]*"
+        rf"(?P<body>(?:[ \t]*(?:{_CN_NUM}|-))+?)"
+        rf"(?=\s*(?:[\u4e00-\u9fff]|[（(]\s*\d+\s*[）)]|\d+\s*[、.．]|\n\s*-|$))"
+    )
+    for match in pattern.finditer(stripped):
+        cells = []
+        for raw in re.findall(rf"{_CN_NUM}|-", match.group("body")):
+            cells.append(0.0 if raw == "-" else float(raw.replace(",", "")))
+        trailing_pool = {
+            float(number.replace(",", ""))
+            for number in re.findall(r"(?m)^\s*([\d,]+\.\d{1,2})\s*$", stripped[match.end():])
+        }
+        increase = _cn_resolve_increase(cells, trailing_pool)
+        if increase is not None and increase > 0:
+            return increase, re.sub(r"\s+", " ", match.group(0)).strip()
+    return None
+
+
+def _cn_comp_unit(page_text: str, section_head: str) -> float | None:
+    table_unit = re.search(r"单位[：:]\s*(?:人民币)?\s*(百万元|千元|万元|元)", page_text)
+    if table_unit:
+        return _CN_UNIT_FACTORS[table_unit.group(1)]
+    declared = re.search(
+        r"(?:以|为)\s*人民币\s*(百万元|千元|万元|元)\s*列示|[（(]金额单位[：:]\s*人民币\s*(百万元|千元|万元|元)[）)]",
+        section_head,
+    )
+    if declared:
+        return _CN_UNIT_FACTORS[declared.group(1) or declared.group(2)]
+    return 1.0
+
+
+_CN_COMP_ROWS = (
+    ("pay", r"工\s*资\s*、\s*奖\s*金\s*、\s*津\s*贴\s*和\s*补\s*贴"),
+    ("welfare", r"职\s*工\s*福\s*利\s*费"),
+    ("social", r"社\s*会\s*保\s*险\s*费"),
+    ("housing", r"住\s*房\s*公\s*积\s*金"),
+    ("education", r"工\s*会\s*经\s*费\s*(?:和|及)\s*职\s*工\s*教\s*育\s*经\s*费"),
+)
+_CN_PER_CAPITA_RANGES = {
+    "Q_S_PAY_PER_EMPLOYEE": (1.0, 150.0),
+    "Q_S_BENEFIT_PER_EMPLOYEE": (0.05, 60.0),
+    "Q_S_EDU_PER_EMPLOYEE": (0.005, 30.0),
+}
+
+
+def _extract_chinese_employee_per_capita(
+    pages: list[PageText],
+) -> list[tuple[str, float, int, str]]:
+    """Derive per-capita pay/benefit/education from the consolidated 应付职工薪酬 note.
+
+    同页闭环：短期薪酬列示的列头与数据行必须在同一页，员工数取报告期末在职合计
+    （母公司+子公司交叉校验）或北交所员工总计期末人数（期初+新增-减少=期末校验），
+    禁止跨表拼接母公司附注口径。
+    """
+    employee_fact = _cn_employee_count(pages)
+    if not employee_fact:
+        return []
+    employees, employee_page, employee_evidence = employee_fact
+    section = _cn_comp_note_section(pages)
+    if not section:
+        return []
+    section_head = "".join(page.text for page in section[:4])
+    for index, page in enumerate(section):
+        header = _CN_COMP_HEADER.search(page.text) or _CN_COMP_HEADER_TRUNC.search(page.text)
+        if not (header and _CN_COMP_TABLE_TITLE.search(page.text)):
+            continue
+        probe = page.text + (section[index + 1].text if index + 1 < len(section) else "")
+        if "职工福利费" not in probe and "工会经费" not in probe and "工资、奖金" not in probe:
+            continue
+        row_pages = [page]
+        after_header = page.text[header.end():]
+        has_inline_rows = any(
+            re.search(label, after_header) for _, label in _CN_COMP_ROWS
+        )
+        if not has_inline_rows and index + 1 < len(section):
+            # 表头在页尾、数据行在下一页：仅当标题与完整表头同页且后续无其他行时才绑定
+            row_pages.append(section[index + 1])
+        rows: dict[str, tuple[float, str]] = {}
+        row_pages_used: dict[str, int] = {}
+        for row_page in row_pages:
+            for key, label in _CN_COMP_ROWS:
+                if key in rows:
+                    continue
+                row = _cn_comp_row(row_page.text, label)
+                if row:
+                    rows[key] = row
+                    row_pages_used[key] = row_page.page
+        if "education" not in rows and not {"welfare", "social", "housing"} <= rows.keys():
+            if "pay" not in rows:
+                continue
+        unit_factor = _cn_comp_unit(page.text, section_head)
+        if unit_factor is None:
+            continue
+        base = f"中文应付职工薪酬附注派生: 员工数={employees}(第{employee_page}页 {employee_evidence})"
+        result = []
+        combos = [
+            ("Q_S_PAY_PER_EMPLOYEE", ["pay"]),
+            ("Q_S_BENEFIT_PER_EMPLOYEE", ["welfare", "social", "housing"]),
+            ("Q_S_EDU_PER_EMPLOYEE", ["education"]),
+        ]
+        for code, keys in combos:
+            if not all(key in rows for key in keys):
+                continue
+            total = sum(rows[key][0] for key in keys)
+            value = total * unit_factor / 10_000 / employees
+            low, high = _CN_PER_CAPITA_RANGES[code]
+            if not low <= value <= high:
+                continue
+            row_evidence = " | ".join(f"{rows[key][1]}(第{row_pages_used[key]}页)" for key in keys)
+            result.append((
+                code, value, max(employee_page, *(row_pages_used[key] for key in keys)),
+                f"{base} | {row_evidence}",
+            ))
+        if result:
+            return result
+    return []
+
+
 def _statement_page_range(
     pages: list[PageText], start_title: str, end_title: str, maximum_pages: int = 8,
 ) -> list[PageText]:
-    start_pattern = re.compile(rf"(?m)^\s*{start_title}\s*$")
-    end_pattern = re.compile(rf"(?m)^\s*{end_title}\s*$")
+    start_pattern = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*{start_title}\s*$")
+    end_pattern = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*{end_title}\s*$")
     start = next((index for index, page in enumerate(pages) if start_pattern.search(page.text)), None)
     if start is None:
         return []
@@ -1722,6 +2418,48 @@ def _statement_page_range(
             break
         result.append(page)
     return result
+
+
+def _supplementary_cashflow_text(pages: list[PageText]) -> str | None:
+    marker = "将净利润调节为经营活动现金流量"
+    for index, page in enumerate(pages):
+        position = page.text.find(marker)
+        if position < 0:
+            continue
+        joined = page.text[position:] + "\n" + "\n".join(
+            follow.text for follow in pages[index + 1:index + 3]
+        )
+        end = re.search(r"不涉及现金收支|现金及现金等价物净变动", joined)
+        if end:
+            joined = joined[:end.start()]
+        return joined
+    return None
+
+
+def _extract_supplementary_depreciation_amortization(text: str) -> tuple[float, str] | None:
+    money = re.compile(r"[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}")
+    specs = (
+        ("固定资产折旧", r"固定资产折旧(?:\s*、\s*油气资产折耗)?(?:\s*、\s*生产\s*性生物资产折旧)?", True),
+        ("使用权资产折旧", r"(?<!新增)使用权资产折旧", False),
+        ("无形资产摊销", r"(?<!其他)无形资产摊销", True),
+        ("长期待摊费用摊销", r"长期待摊费用摊销", True),
+    )
+    total = 0.0
+    parts = []
+    for name, pattern, required in specs:
+        match = re.search(pattern, text)
+        values = money.findall(text[match.end():match.end() + 120]) if match else []
+        if not values:
+            if required:
+                return None
+            continue
+        value = float(values[0].replace(",", ""))
+        total += value
+        parts.append(f"{name}={value:g}")
+    return total, "+".join(parts)
+
+
+_FALLBACK_PREFIX = "合并报表回退派生: "
 
 
 def _extract_income_cash_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
@@ -1735,6 +2473,15 @@ def _extract_income_cash_indicators(pages: list[PageText]) -> list[tuple[str, fl
         "operating_profit": _find_statement_fact(income_pages, r"营业利润"),
         "profit_total": _find_statement_fact(income_pages, r"利润总额"),
         "interest_expense": _find_statement_fact(income_pages, r"利息费用"),
+        "net_profit": _find_statement_fact(income_pages, r"五\s*、\s*净利润[（(]净亏损以"),
+        "income_tax": _find_statement_fact(
+            income_pages,
+            r"所得税费用(?!\s*[-–—/\s]*[一-鿿、]{0,12}(?:费用|成本|收入|支出|收益|利润|税金))",
+        ),
+        "rd_expense": _find_statement_fact(
+            income_pages,
+            r"研发费用(?!率)(?!\s*[-–—/\s]*[一-鿿、]{0,12}(?:费用|成本|收入|支出|收益|利润|税金))",
+        ),
     }
     cash = {
         "operating_cash_inflow": _find_statement_fact(cash_pages, r"经营活动现金流入小计"),
@@ -1742,13 +2489,20 @@ def _extract_income_cash_indicators(pages: list[PageText]) -> list[tuple[str, fl
     }
     balance = {
         "assets": _find_statement_fact(balance_pages, r"资产总计"),
-        "current_liabilities": _find_statement_fact(balance_pages, r"流动负债合计"),
+        "liabilities": _find_statement_fact(balance_pages, r"(?<!流动)(?<!非流动)负债合计"),
+        "current_liabilities": _find_statement_fact(balance_pages, r"(?<!非)流动负债合计"),
+        "equity": _find_equity_fact(balance_pages),
     }
+    if not _accounting_identity_holds(balance.get("assets"), balance.get("liabilities"), balance.get("equity")):
+        balance = {}
+    elif not _subsumption_consistent(balance.get("liabilities"), balance.get("current_liabilities")):
+        balance["liabilities"] = None
+        balance["current_liabilities"] = None
     revenue = None
     revenue_page = 0
     for index, page in enumerate(pages):
-        in_summary = "近三年主要会计数据" in page.text or (
-            index > 0 and "近三年主要会计数据" in pages[index - 1].text and "营业收入" not in pages[index - 1].text
+        in_summary = _is_summary_section_page(page.text) or (
+            index > 0 and _is_summary_section_page(pages[index - 1].text) and "营业收入" not in pages[index - 1].text
         )
         parsed = _extract_summary_revenue(page.text, in_summary)
         if parsed:
@@ -1776,15 +2530,50 @@ def _extract_income_cash_indicators(pages: list[PageText]) -> list[tuple[str, fl
         add("Q_G_COST_REVENUE_RATE", cost.values[0] / revenue * 100, [cost])
     inflow = cash["operating_cash_inflow"]
     if inflow:
-        add("Q_G_CASH_REALIZATION", inflow.values[0] / revenue * 100, [inflow])
-    net_cash, current_liabilities = cash["operating_cashflow_net"], balance["current_liabilities"]
+        cash_realization = inflow.values[0] / revenue * 100
+        if 10 <= cash_realization <= 500:
+            add("Q_G_CASH_REALIZATION", cash_realization, [inflow])
+    net_cash, current_liabilities = cash["operating_cashflow_net"], balance.get("current_liabilities")
     if net_cash and current_liabilities and current_liabilities.values[0] != 0:
         add("Q_G_CASH_CURRENT_LIABILITY", net_cash.values[0] / current_liabilities.values[0] * 100, [net_cash, current_liabilities])
-    profit, interest, assets = income["profit_total"], income["interest_expense"], balance["assets"]
+    profit, interest, assets = income["profit_total"], income["interest_expense"], balance.get("assets")
     if profit and interest:
         ebit = profit.values[0] + interest.values[0]
         if interest.values[0] != 0:
             add("Q_G_EBITDA_INTEREST", ebit / interest.values[0], [profit, interest])
         if assets and len(assets.values) >= 2 and (assets.values[0] + assets.values[1]) != 0:
-            add("Q_G_ROA", ebit / ((assets.values[0] + assets.values[1]) / 2) * 100, [profit, interest, assets])
+            roa = ebit / ((assets.values[0] + assets.values[1]) / 2) * 100
+            if -100 <= roa <= 100:
+                add("Q_G_ROA", roa, [profit, interest, assets])
+    net_profit, income_tax = income["net_profit"], income["income_tax"]
+    supplement = _supplementary_cashflow_text(pages)
+    depreciation = _extract_supplementary_depreciation_amortization(supplement) if supplement else None
+    if net_profit and income_tax and interest and depreciation:
+        da_total, da_evidence = depreciation
+        ebitda = net_profit.values[0] + income_tax.values[0] + interest.values[0] + da_total
+        margin = ebitda / revenue * 100
+        if -1000 <= margin <= 1000:
+            used = [net_profit, income_tax, interest]
+            result.append((
+                "Q_G_EBITDA_MARGIN", margin,
+                max([item.page for item in used] + [revenue_page]),
+                "合并利润/现金流量表自动派生: 营业收入=" + f"{revenue:g} | 折旧摊销=(" +
+                da_evidence + ") | " + " | ".join(item.evidence for item in used),
+            ))
+    equity = balance.get("equity")
+    if net_profit and equity and len(equity.values) >= 2 and (equity.values[0] + equity.values[1]) != 0:
+        roe = net_profit.values[0] / ((equity.values[0] + equity.values[1]) / 2) * 100
+        if -300 <= roe <= 300:
+            result.append((
+                "Q_G_ROE", roe, max(net_profit.page, equity.page),
+                _FALLBACK_PREFIX + "净利润/平均净资产: " + net_profit.evidence + " | " + equity.evidence,
+            ))
+    rd_expense = income["rd_expense"]
+    if rd_expense:
+        rd_rate = rd_expense.values[0] / revenue * 100
+        if 0 <= rd_rate <= 100:
+            result.append((
+                "Q_S_RD_RATE", rd_rate, max(rd_expense.page, revenue_page),
+                _FALLBACK_PREFIX + "研发费用/营业收入: 营业收入=" + f"{revenue:g} | " + rd_expense.evidence,
+            ))
     return result

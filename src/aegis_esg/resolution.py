@@ -35,11 +35,11 @@ STRICT_EVIDENCE_PREFIXES = {
     "Q_E_SOLID_WASTE_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:", "English current-first direct intensity row:", "English current-year interleaved waste row:"),
     "Q_E_HAZ_WASTE_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:", "English current-first direct intensity row:"),
     "Q_S_ENV_INVEST_RATE": ("English environmental investment table:", "English current-first direct intensity row:"),
-    "Q_S_PAY_PER_EMPLOYEE": ("English same-group RMB staff cost derived:",),
-    "Q_S_BENEFIT_PER_EMPLOYEE": ("English RMB employee note derived:",),
-    "Q_S_EDU_PER_EMPLOYEE": ("English RMB employee note derived:",),
-    "Q_G_EBITDA_MARGIN": ("English consolidated statements derived:",),
-    "Q_G_QUICK_RATIO": ("English consolidated statement derived:",),
+    "Q_S_PAY_PER_EMPLOYEE": ("English same-group RMB staff cost derived:", "中文应付职工薪酬附注派生: "),
+    "Q_S_BENEFIT_PER_EMPLOYEE": ("English RMB employee note derived:", "中文应付职工薪酬附注派生: "),
+    "Q_S_EDU_PER_EMPLOYEE": ("English RMB employee note derived:", "中文应付职工薪酬附注派生: "),
+    "Q_G_EBITDA_MARGIN": ("English consolidated statements derived:", "合并利润/现金流量表自动派生: "),
+    "Q_G_QUICK_RATIO": ("English consolidated statement derived:", "合并报表自动派生: "),
 }
 
 

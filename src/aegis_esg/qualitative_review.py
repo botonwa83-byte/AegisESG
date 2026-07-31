@@ -295,44 +295,48 @@ def write_qualitative_review_template(
 
 
 def read_qualitative_review_decisions(path: str | Path) -> list[QualitativeReviewDecision]:
-    decisions = []
     with Path(path).open(encoding="utf-8-sig", newline="") as stream:
         reader = csv.DictReader(stream)
         required = {"company_code", "report_year", "indicator_code", "action", "selected_score", "reviewer", "reviewed_at", "note"}
         missing = required - set(reader.fieldnames or ())
         if missing:
             raise ValueError(f"定性复核决定缺少字段: {','.join(sorted(missing))}")
-        for line, row in enumerate(reader, 2):
-            action = row["action"].strip().lower()
-            if not action:
-                continue
-            if action not in {"confirm", "reject"}:
-                raise ValueError(f"定性复核决定第{line}行action无效")
-            score = row["selected_score"].strip()
-            reviewer, reviewed_at, note = row["reviewer"].strip(), row["reviewed_at"].strip(), row["note"].strip()
-            if not reviewer or not reviewed_at or not note:
-                raise ValueError("定性复核决定必须填写reviewer、reviewed_at和note")
+        return parse_qualitative_decision_rows(list(reader))
+
+
+def parse_qualitative_decision_rows(rows: list[dict]) -> list[QualitativeReviewDecision]:
+    decisions = []
+    for line, row in enumerate(rows, 2):
+        action = row["action"].strip().lower()
+        if not action:
+            continue
+        if action not in {"confirm", "reject"}:
+            raise ValueError(f"定性复核决定第{line}行action无效")
+        score = row["selected_score"].strip()
+        reviewer, reviewed_at, note = row["reviewer"].strip(), row["reviewed_at"].strip(), row["note"].strip()
+        if not reviewer or not reviewed_at or not note:
+            raise ValueError("定性复核决定必须填写reviewer、reviewed_at和note")
+        try:
+            parsed_time = datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+        except ValueError as error:
+            raise ValueError(f"reviewed_at不是ISO-8601时间: {reviewed_at}") from error
+        if parsed_time.tzinfo is None or parsed_time.utcoffset() is None:
+            raise ValueError("reviewed_at必须包含时区")
+        if action == "confirm":
             try:
-                parsed_time = datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+                numeric = int(score)
             except ValueError as error:
-                raise ValueError(f"reviewed_at不是ISO-8601时间: {reviewed_at}") from error
-            if parsed_time.tzinfo is None or parsed_time.utcoffset() is None:
-                raise ValueError("reviewed_at必须包含时区")
-            if action == "confirm":
-                try:
-                    numeric = int(score)
-                except ValueError as error:
-                    raise ValueError("confirm必须填写离散selected_score") from error
-                if str(numeric) != score or numeric not in {0, 20, 50, 80, 100}:
-                    raise ValueError("selected_score只能是0/20/50/80/100")
-                if numeric == 100 and not re.search(r"领先|标杆|leading|benchmark", note, re.I):
-                    raise ValueError("100分决定必须在note说明行业领先或标杆证据")
-            elif score:
-                raise ValueError("reject禁止填写selected_score")
-            decisions.append(QualitativeReviewDecision(
-                row["company_code"].strip().upper(), int(row["report_year"]), row["indicator_code"].strip(),
-                action, score, reviewer, reviewed_at, note,
-            ))
+                raise ValueError("confirm必须填写离散selected_score") from error
+            if str(numeric) != score or numeric not in {0, 20, 50, 80, 100}:
+                raise ValueError("selected_score只能是0/20/50/80/100")
+            if numeric == 100 and not re.search(r"领先|标杆|leading|benchmark", note, re.I):
+                raise ValueError("100分决定必须在note说明行业领先或标杆证据")
+        elif score:
+            raise ValueError("reject禁止填写selected_score")
+        decisions.append(QualitativeReviewDecision(
+            row["company_code"].strip().upper(), int(row["report_year"]), row["indicator_code"].strip(),
+            action, score, reviewer, reviewed_at, note,
+        ))
     return decisions
 
 
@@ -388,6 +392,105 @@ def apply_qualitative_review_decisions(
             decision.reviewer, decision.reviewed_at, decision.note,
         ))
     return confirmed, unresolved, audits
+
+
+def merge_qualitative_candidate_files(
+    paths: list[str | Path],
+) -> tuple[list[QualitativeEvidenceCandidate], dict]:
+    if not paths:
+        raise ValueError("至少需要一个定性候选输入")
+    merged: dict[tuple, QualitativeEvidenceCandidate] = {}
+    per_file = []
+    years = set()
+    for path in paths:
+        candidates = read_qualitative_candidates(path)
+        per_file.append({"path": str(path), "candidate_count": len(candidates)})
+        for item in candidates:
+            years.add(item.report_year)
+            key = (
+                item.company_code, item.report_year, item.indicator_code,
+                item.source_file, item.source_page, item.matched_term,
+                re.sub(r"\s+", " ", item.evidence_text).casefold(),
+            )
+            existing = merged.get(key)
+            if existing is not None and existing.confidence != item.confidence:
+                raise ValueError(
+                    f"定性候选冲突: {item.company_code}/{item.indicator_code}第{item.source_page}页置信度不一致"
+                )
+            merged.setdefault(key, item)
+    if len(years) > 1:
+        raise ValueError("定性候选报告期不一致，禁止合并")
+    rows = sorted(merged.values(), key=lambda item: (
+        item.company_code, item.indicator_code, item.source_file, item.source_page, item.matched_term,
+    ))
+    summary = {
+        "input_files": per_file,
+        "merged_candidate_count": len(rows),
+        "duplicate_candidate_count": sum(item["candidate_count"] for item in per_file) - len(rows),
+        "company_count": len({item.company_code for item in rows}),
+        "group_count": len({(item.company_code, item.indicator_code) for item in rows}),
+        "scoring_authorized": False,
+    }
+    return rows, summary
+
+
+GAP_REPRIORITY_COLUMNS = ("gap_rank", "esg_status") + tuple(QualitativeEvidenceGap.__annotations__)
+
+
+def reprioritize_evidence_gaps(
+    gap_path: str | Path, coverage_path: str | Path,
+) -> tuple[list[dict], dict]:
+    with Path(gap_path).open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream)
+        missing = set(QualitativeEvidenceGap.__annotations__) - set(reader.fieldnames or ())
+        if missing:
+            raise ValueError(f"定性证据缺口缺少字段: {','.join(sorted(missing))}")
+        rows = [row for row in reader]
+    with Path(coverage_path).open(encoding="utf-8-sig", newline="") as stream:
+        coverage = list(csv.DictReader(stream))
+    if not coverage or not {"stock_code", "esg_status"}.issubset(coverage[0]):
+        raise ValueError("文档覆盖审计缺少esg_status字段")
+    esg_status = {row["stock_code"].strip().upper(): row["esg_status"].strip() for row in coverage}
+    ranked = []
+    for line, row in enumerate(rows, 2):
+        code = row["company_code"].strip().upper()
+        if code not in esg_status:
+            raise ValueError(f"定性证据缺口第{line}行公司不在覆盖审计中: {code}")
+        try:
+            weight = float(row["indicator_weight"])
+            priority = int(row["priority"])
+        except ValueError as error:
+            raise ValueError(f"定性证据缺口第{line}行格式错误: {error}") from error
+        ranked.append((priority, -weight, esg_status[code] != "collected", code, row["indicator_code"].strip(), row))
+    ranked.sort(key=lambda item: item[:5])
+    output_rows = []
+    for rank, (priority, negative_weight, _, code, _, row) in enumerate(ranked, 1):
+        output_rows.append({
+            "gap_rank": rank, "esg_status": esg_status[code],
+            **{field: (row.get(field) or "").strip() for field in QualitativeEvidenceGap.__annotations__},
+        })
+    high_weight = sum(1 for row in output_rows if float(row["indicator_weight"]) >= 3)
+    summary = {
+        "gap_count": len(output_rows),
+        "high_weight_gap_count": high_weight,
+        "company_count": len({row["company_code"] for row in output_rows}),
+        "esg_collected_gap_count": sum(row["esg_status"] == "collected" for row in output_rows),
+        "ordering": "priority asc, indicator_weight desc, esg collected first, company_code, indicator_code",
+        "scoring_authorized": False,
+    }
+    return output_rows, summary
+
+
+def write_reprioritized_gaps(path: str | Path, summary_path: str | Path, rows: list[dict], summary: dict) -> None:
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=GAP_REPRIORITY_COLUMNS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+    summary_output = Path(summary_path)
+    summary_output.parent.mkdir(parents=True, exist_ok=True)
+    summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def write_qualitative_review_results(

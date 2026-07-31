@@ -3,12 +3,14 @@ from __future__ import annotations
 import csv
 import gzip
 import hashlib
+import json
 import subprocess
 import tempfile
 import time
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -224,6 +226,119 @@ def _decode_document(body: bytes, content_encoding: str, url: str) -> bytes:
     if len(body) < 10_000:
         raise ValueError(f"公开PDF尺寸异常: {url}; size={len(body)}")
     return body
+
+
+_SUPERSEDE_REQUEST_FIELDS = ("company_code", "report_year", "document_type", "reason")
+_SUPERSEDE_LEDGER_FIELDS = tuple(DocumentRecord.__annotations__) + ("archive_path", "reason", "superseded_at")
+
+
+def supersede_documents(
+    index_path: str | Path,
+    requests_path: str | Path,
+    archive_root: str | Path,
+    ledger_path: str | Path,
+    summary_path: str | Path,
+) -> tuple[list[DocumentRecord], list[dict], dict]:
+    """归档被误登记的文档并从索引移除，保留逐条取代账本。
+
+    只处理请求中明确列出的（公司、年度、文档类型）；本地文件必须存在且与索引
+    Hash一致才允许归档，拒绝静默丢弃无法复现的字节。
+    """
+    index_path = Path(index_path)
+    records = list(_read_document_index(index_path).values())
+    with Path(requests_path).open(encoding="utf-8-sig", newline="") as stream:
+        requests = list(csv.DictReader(stream))
+    if not requests:
+        raise ValueError("取代请求清单为空")
+    archive_root = Path(archive_root)
+    ledger_path = Path(ledger_path)
+    existing_ledger: list[dict] = []
+    if ledger_path.exists():
+        with ledger_path.open(encoding="utf-8-sig", newline="") as stream:
+            existing_ledger = list(csv.DictReader(stream))
+    seen_keys = {
+        (row["company_code"], row["report_year"], row["document_type"], row["sha256"])
+        for row in existing_ledger
+    }
+    pending: list[tuple[DocumentRecord, str, Path, bool, bool]] = []
+    seen_requests: set[tuple[str, int, str]] = set()
+    for line, row in enumerate(requests, 2):
+        try:
+            code = row["company_code"].strip().upper()
+            year = int(row["report_year"])
+            kind = row["document_type"].strip()
+            reason = row["reason"].strip()
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError(f"取代请求第{line}行格式错误") from error
+        if not code or not kind or not reason:
+            raise ValueError(f"取代请求第{line}行缺少公司、类型或原因")
+        request_key = (code, year, kind)
+        if request_key in seen_requests:
+            raise ValueError(f"取代请求第{line}行与前序请求重复: {code} {kind}")
+        seen_requests.add(request_key)
+        matches = [
+            item for item in records
+            if (item.company_code, item.report_year, item.document_type) == request_key
+        ]
+        if len(matches) != 1:
+            raise ValueError(f"取代请求第{line}行在索引中匹配{len(matches)}条记录: {code} {kind}")
+        record = matches[0]
+        local = Path(record.local_path)
+        archive_path = archive_root / code / str(year) / f"{kind}_{record.sha256[:8]}{local.suffix}"
+        archive_ok = (
+            archive_path.exists()
+            and hashlib.sha256(archive_path.read_bytes()).hexdigest() == record.sha256
+        )
+        ledger_key = (record.company_code, str(record.report_year), record.document_type, record.sha256)
+        already_ledgered = ledger_key in seen_keys
+        if archive_path.exists() and not archive_ok:
+            raise ValueError(f"归档路径已存在且Hash不同，拒绝覆盖: {archive_path}")
+        move_local = False
+        if not archive_ok:
+            if not local.exists():
+                raise ValueError(f"待归档本地文件不存在且无一致归档: {local}")
+            body = local.read_bytes()
+            if hashlib.sha256(body).hexdigest() != record.sha256 or len(body) != record.size:
+                raise ValueError(f"待归档文件与索引Hash不一致: {local}")
+            move_local = True
+        seen_keys.add(ledger_key)
+        pending.append((record, reason, archive_path, move_local, already_ledgered))
+    new_ledger_rows: list[dict] = []
+    for record, reason, archive_path, move_local, already_ledgered in pending:
+        archive_path.parent.mkdir(parents=True, exist_ok=True)
+        if move_local:
+            local = Path(record.local_path)
+            if archive_path.exists():
+                local.unlink()
+            else:
+                local.replace(archive_path)
+        records.remove(record)
+        if already_ledgered:
+            continue
+        new_ledger_rows.append({
+            **vars(record),
+            "archive_path": str(archive_path),
+            "reason": reason,
+            "superseded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        })
+    records.sort(key=lambda item: (item.company_code, item.report_year, item.document_type, item.source_url))
+    write_document_index(index_path, records)
+    ledger_path.parent.mkdir(parents=True, exist_ok=True)
+    with ledger_path.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(_SUPERSEDE_LEDGER_FIELDS), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(existing_ledger + new_ledger_rows)
+    summary = {
+        "document_index": str(index_path),
+        "superseded_count": len(new_ledger_rows),
+        "ledger_total_count": len(existing_ledger) + len(new_ledger_rows),
+        "remaining_document_count": len(records),
+        "applicable": False,
+    }
+    summary_path = Path(summary_path)
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return records, new_ledger_rows, summary
 
 
 def write_document_index(path: str | Path, records: list[DocumentRecord]) -> None:

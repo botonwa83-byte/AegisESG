@@ -11,9 +11,13 @@ from datetime import date
 from typing import Callable
 from pathlib import Path
 
+from .report_titles import classify_report_title, normalize_title, select_preferred
+
 
 SZSE_QUERY_URL = "https://www.szse.cn/api/disc/announcement/annList"
 SZSE_DOCUMENT_ORIGIN = "https://disc.static.szse.cn/"
+
+_ESG_TERMS = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
 
 
 @dataclass(frozen=True)
@@ -28,14 +32,7 @@ class SZSEDisclosure:
 
 
 def classify_title(title: str, report_year: str) -> str | None:
-    compact = title.replace(" ", "")
-    non_report_terms = ("摘要", "提示性公告", "关于披露", "取消", "更正公告")
-    if any(term in compact for term in non_report_terms) or report_year not in compact:
-        return None
-    if f"{report_year}年年度报告" in compact or f"{report_year}年度报告" in compact:
-        return "annual_report"
-    terms = ("环境、社会和公司治理报告", "环境社会和公司治理报告", "可持续发展报告", "社会责任报告", "ESG报告")
-    return "esg_report" if any(term in compact for term in terms) else None
+    return classify_report_title(normalize_title(title), report_year, _ESG_TERMS)
 
 
 def parse_response(payload: bytes | str) -> list[SZSEDisclosure]:
@@ -95,12 +92,15 @@ def discover_reports(
             if total is None or page * query["pageSize"] >= total or not page_rows:
                 break
             page += 1
-    selected = {}
-    for item in sorted(rows, key=lambda value: (value.published_date, value.title, value.source_url)):
+    classified = []
+    for item in rows:
         kind = classify_title(item.title, str(report_year))
         if kind:
-            selected[kind] = SZSEDisclosure(**{**vars(item), "document_type": kind})
-    return [selected[kind] for kind in ("annual_report", "esg_report") if kind in selected]
+            classified.append(SZSEDisclosure(**{**vars(item), "document_type": kind}))
+    selected = {
+        kind: select_preferred(classified, kind) for kind in ("annual_report", "esg_report")
+    }
+    return [selected[kind] for kind in ("annual_report", "esg_report") if selected[kind]]
 
 
 def _response_count(payload: bytes | str) -> int | None:

@@ -5,24 +5,36 @@ import csv
 import json
 from pathlib import Path
 
-from .collector import collect_batch, collect_from_manifest, write_document_index
+from .collector import collect_batch, collect_from_manifest, supersede_documents, write_document_index
 from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates, write_continuity_review_batch, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import ReviewSummary, extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .esg_disclosure import (
-    collect_annual_qualitative_evidence, scan_annual_esg_disclosure,
-    write_annual_esg_evidence, write_qualitative_evidence_candidates,
+    collect_annual_qualitative_evidence, collect_esg_qualitative_evidence,
+    scan_annual_esg_disclosure, write_annual_esg_evidence,
+    write_qualitative_candidates, write_qualitative_evidence_candidates,
 )
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write_candidate_coverage, write_indicator_plan
 from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
-from .io import read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
+from .dual_review import (
+    apply_arbitration_decisions, apply_dual_review_decisions, read_arbitration_cases,
+    read_arbitration_decisions, read_dual_review_decisions, read_qualitative_review_audits,
+    select_dual_review_cases, write_arbitration_results, write_dual_review_results,
+    write_dual_review_template,
+)
+from .io import merge_confirmed_observations, read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
 from .qualitative_review import (
-    apply_qualitative_review_decisions, plan_qualitative_review, read_qualitative_candidates,
+    apply_qualitative_review_decisions, merge_qualitative_candidate_files,
+    plan_qualitative_review, read_qualitative_candidates,
     read_qualitative_review_decisions, read_qualitative_review_packets,
-    write_qualitative_review_plan, write_qualitative_review_results,
-    write_qualitative_review_template,
+    reprioritize_evidence_gaps, write_qualitative_review_plan, write_qualitative_review_results,
+    write_qualitative_review_template, write_reprioritized_gaps,
+)
+from .review_batch import (
+    apply_review_batch, create_review_batch, read_batch_ledger, read_batch_rows,
+    read_review_progress, update_ledger_entry, write_batch_ledger, write_review_progress,
 )
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
@@ -292,6 +304,12 @@ def main() -> None:
     collect.add_argument("--workers", type=int, default=1)
     collect.add_argument("--reuse-index", action="append", default=[], help="额外的可信文档索引，用于恢复断点")
     collect.add_argument("--preserve-index", action="store_true", help="仅处理增量清单并保留主索引中的其他文档")
+    supersede = sub.add_parser("supersede-documents", help="归档误登记文档并从索引移除，写入取代账本")
+    supersede.add_argument("document_index")
+    supersede.add_argument("--requests", required=True, help="取代请求CSV：公司、年度、类型、原因")
+    supersede.add_argument("--archive-root", required=True)
+    supersede.add_argument("--ledger", required=True)
+    supersede.add_argument("--summary", required=True)
     merge_indexes = sub.add_parser("merge-document-indexes", help="严格合并多个文档索引并拒绝URL或路径冲突")
     merge_indexes.add_argument("indexes", nargs="+")
     merge_indexes.add_argument("--output", required=True)
@@ -319,6 +337,19 @@ def main() -> None:
     qualitative.add_argument("--max-per-indicator", type=int, default=3)
     qualitative.add_argument("--output", required=True)
     qualitative.add_argument("--summary", required=True)
+    qualitative_esg = sub.add_parser("collect-esg-qualitative-evidence", help="从独立ESG报告定位43项定性指标的待复核证据")
+    qualitative_esg.add_argument("coverage")
+    qualitative_esg.add_argument("document_index")
+    qualitative_esg.add_argument("--methodology", default="data/methodologies/energy_esg_2025.json")
+    qualitative_esg.add_argument("--report-year", type=int, required=True)
+    qualitative_esg.add_argument("--text-root", default="data/text")
+    qualitative_esg.add_argument("--max-per-indicator", type=int, default=3)
+    qualitative_esg.add_argument("--output", required=True)
+    qualitative_esg.add_argument("--summary", required=True)
+    merge_qual = sub.add_parser("merge-qualitative-candidates", help="合并多份定性证据候选，精确去重且冲突拒绝")
+    merge_qual.add_argument("inputs", nargs="+")
+    merge_qual.add_argument("--output", required=True)
+    merge_qual.add_argument("--summary", required=True)
     qualitative_plan = sub.add_parser("plan-qualitative-review", help="去重定性证据并生成保守档位建议和缺口队列")
     qualitative_plan.add_argument("candidates")
     qualitative_plan.add_argument("coverage")
@@ -338,6 +369,48 @@ def main() -> None:
     apply_qualitative.add_argument("--confirmed", required=True)
     apply_qualitative.add_argument("--unresolved", required=True)
     apply_qualitative.add_argument("--audit", required=True)
+    review_batch = sub.add_parser("qualitative-review-batch", help="创建定性复核批次并登记批次清单")
+    review_batch.add_argument("packets")
+    review_batch.add_argument("--ledger", required=True)
+    review_batch.add_argument("--label", default="")
+    review_batch.add_argument("--priority", type=int, choices=(1, 2))
+    review_batch.add_argument("--limit", type=int)
+    review_batch.add_argument("--output", required=True)
+    apply_batch = sub.add_parser("apply-qualitative-batch", help="按批次清单门禁应用定性批次签名并更新完成率")
+    apply_batch.add_argument("packets")
+    apply_batch.add_argument("batch_file")
+    apply_batch.add_argument("--ledger", required=True)
+    apply_batch.add_argument("--progress", required=True)
+    apply_batch.add_argument("--confirmed", required=True)
+    apply_batch.add_argument("--unresolved", required=True)
+    apply_batch.add_argument("--audit", required=True)
+    dual_select = sub.add_parser("select-dual-review", help="筛出需双人复核的定性决定并生成空白二审模板")
+    dual_select.add_argument("packets")
+    dual_select.add_argument("audits")
+    dual_select.add_argument("--output", required=True)
+    dual_apply = sub.add_parser("apply-dual-review", help="应用二审签名，一致闭合、分歧进入仲裁队列")
+    dual_apply.add_argument("packets")
+    dual_apply.add_argument("audits")
+    dual_apply.add_argument("decisions")
+    dual_apply.add_argument("--confirmed", required=True)
+    dual_apply.add_argument("--outcomes", required=True)
+    dual_apply.add_argument("--arbitration", required=True)
+    dual_apply.add_argument("--open", required=True)
+    arbitration_apply = sub.add_parser("apply-qualitative-arbitration", help="应用仲裁签名并输出最终确认观测")
+    arbitration_apply.add_argument("arbitration_file")
+    arbitration_apply.add_argument("--confirmed", required=True)
+    arbitration_apply.add_argument("--unresolved", required=True)
+    arbitration_apply.add_argument("--audit", required=True)
+    gap_rank = sub.add_parser("reprioritize-qualitative-gaps", help="按指标权重和ESG报告状态重排定性证据缺口")
+    gap_rank.add_argument("gaps")
+    gap_rank.add_argument("coverage")
+    gap_rank.add_argument("--output", required=True)
+    gap_rank.add_argument("--summary", required=True)
+    merge_confirmed = sub.add_parser("merge-confirmed-observations", help="安全合并多份confirmed观测，冲突拒绝")
+    merge_confirmed.add_argument("inputs", nargs="+")
+    merge_confirmed.add_argument("--methodology", default="data/methodologies/energy_esg_2025.json")
+    merge_confirmed.add_argument("--output", required=True)
+    merge_confirmed.add_argument("--summary", required=True)
     derive = sub.add_parser("derive-financial", help="从标准财务事实自动派生治理指标")
     derive.add_argument("input")
     derive.add_argument("--output", required=True)
@@ -799,6 +872,12 @@ def main() -> None:
         write_document_index(args.index, records)
         print(f"collected {len(records)} documents")
         return
+    if args.command == "supersede-documents":
+        records, ledger_rows, summary = supersede_documents(
+            args.document_index, args.requests, args.archive_root, args.ledger, args.summary,
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
     if args.command == "merge-document-indexes":
         records, summary = merge_document_indexes(args.indexes, args.allow_metadata_corrections)
         write_document_index(args.output, records)
@@ -828,6 +907,23 @@ def main() -> None:
         write_qualitative_evidence_candidates(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
+    if args.command == "collect-esg-qualitative-evidence":
+        methodology = load_methodology(args.methodology)
+        rows, summary = collect_esg_qualitative_evidence(
+            args.coverage, args.document_index, args.text_root, methodology,
+            args.report_year, args.max_per_indicator,
+        )
+        write_qualitative_evidence_candidates(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "merge-qualitative-candidates":
+        rows, summary = merge_qualitative_candidate_files(args.inputs)
+        write_qualitative_candidates(args.output, rows)
+        merge_summary_path = Path(args.summary)
+        merge_summary_path.parent.mkdir(parents=True, exist_ok=True)
+        merge_summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
     if args.command == "plan-qualitative-review":
         methodology = load_methodology(args.methodology)
         packets, gaps, summary = plan_qualitative_review(
@@ -854,6 +950,82 @@ def main() -> None:
             "confirmed_count": len(confirmed), "unresolved_count": len(unresolved),
             "audit_count": len(audits), "complete": not unresolved,
         }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "qualitative-review-batch":
+        batch = create_review_batch(
+            read_qualitative_review_packets(args.packets), args.output, args.ledger,
+            args.packets, args.label, args.priority, args.limit,
+        )
+        print(json.dumps({
+            "batch_id": batch.batch_id, "group_count": batch.group_count,
+            "keys_sha256": batch.keys_sha256, "status": batch.status,
+        }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-qualitative-batch":
+        batch_id, batch_rows = read_batch_rows(args.batch_file)
+        ledger = read_batch_ledger(args.ledger)
+        progress = read_review_progress(args.progress, batch_id)
+        confirmed, unresolved, audits, updated = apply_review_batch(
+            read_qualitative_review_packets(args.packets), ledger, batch_id, batch_rows, progress,
+        )
+        write_observations(args.confirmed, confirmed)
+        write_qualitative_review_results(args.unresolved, args.audit, unresolved, audits)
+        write_review_progress(args.progress, batch_id, progress + audits)
+        write_batch_ledger(args.ledger, update_ledger_entry(ledger, updated))
+        print(json.dumps({
+            "batch_id": batch_id, "confirmed_count": len(confirmed),
+            "unresolved_count": len(unresolved), "decided_count": updated.decided_count,
+            "completion_rate": updated.completion_rate, "status": updated.status,
+        }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "select-dual-review":
+        cases = select_dual_review_cases(
+            read_qualitative_review_packets(args.packets),
+            read_qualitative_review_audits(args.audits),
+        )
+        count = write_dual_review_template(args.output, cases)
+        print(json.dumps({"dual_review_case_count": count}, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-dual-review":
+        cases = select_dual_review_cases(
+            read_qualitative_review_packets(args.packets),
+            read_qualitative_review_audits(args.audits),
+        )
+        confirmed, outcomes, arbitrations, open_cases = apply_dual_review_decisions(
+            cases, read_dual_review_decisions(args.decisions),
+        )
+        write_observations(args.confirmed, confirmed)
+        write_dual_review_results(args.outcomes, args.arbitration, args.open, outcomes, arbitrations, open_cases)
+        print(json.dumps({
+            "confirmed_count": len(confirmed), "closed_count": sum(item.outcome == "closed_agreement" for item in outcomes),
+            "arbitration_count": len(arbitrations), "open_count": len(open_cases),
+        }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-qualitative-arbitration":
+        confirmed, unresolved, audits = apply_arbitration_decisions(
+            read_arbitration_cases(args.arbitration_file),
+            read_arbitration_decisions(args.arbitration_file),
+        )
+        write_observations(args.confirmed, confirmed)
+        write_arbitration_results(args.unresolved, args.audit, unresolved, audits)
+        print(json.dumps({
+            "confirmed_count": len(confirmed), "unresolved_count": len(unresolved),
+            "audit_count": len(audits), "complete": not unresolved,
+        }, ensure_ascii=False, indent=2))
+        return
+    if args.command == "reprioritize-qualitative-gaps":
+        rows, summary = reprioritize_evidence_gaps(args.gaps, args.coverage)
+        write_reprioritized_gaps(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "merge-confirmed-observations":
+        methodology = load_methodology(args.methodology)
+        rows, summary = merge_confirmed_observations(args.inputs, methodology)
+        write_observations(args.output, rows)
+        summary_output = Path(args.summary)
+        summary_output.parent.mkdir(parents=True, exist_ok=True)
+        summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "derive-financial":
         observations = derive_financial_observations(read_financial_facts(args.input))

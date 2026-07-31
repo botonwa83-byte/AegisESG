@@ -1,0 +1,8 @@
+{
+  "gap_count": 15778,
+  "high_weight_gap_count": 3596,
+  "company_count": 612,
+  "esg_collected_gap_count": 2437,
+  "ordering": "priority asc, indicator_weight desc, esg collected first, company_code, indicator_code",
+  "scoring_authorized": false
+}

@@ -175,6 +175,57 @@ def write_annual_esg_evidence(
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def _collect_qualitative_evidence(
+    documents: dict[str, list], targets: dict[str, str], text_root: Path,
+    methodology: Methodology, report_year: int, max_per_indicator: int,
+) -> tuple[list[QualitativeEvidenceCandidate], list[str], set[tuple[str, str]]]:
+    rules = []
+    for indicator in methodology.qualitative:
+        aliases = QUALITATIVE_ALIASES.get(indicator.code)
+        if not aliases:
+            raise ValueError(f"定性指标缺少证据关键词: {indicator.code}")
+        rules.append((indicator, tuple(re.compile(re.escape(term), re.I) for term in aliases)))
+    output = []
+    missing_text = []
+    matched_groups: set[tuple[str, str]] = set()
+    for code in sorted(targets):
+        records = documents.get(code)
+        if not records:
+            continue
+        counts: dict[str, int] = {}
+        for record in records:
+            try:
+                relative = Path(record.local_path).relative_to("data/raw")
+            except ValueError as error:
+                raise ValueError(f"报告路径不在data/raw下: {record.local_path}") from error
+            text_path = (text_root / relative).with_suffix(".txt")
+            if not text_path.exists():
+                missing_text.append(str(text_path))
+                continue
+            for page in read_page_text_export(text_path):
+                normalized = _normalize_page_text(page.text)
+                for indicator, patterns in rules:
+                    if counts.get(indicator.code, 0) >= max_per_indicator:
+                        continue
+                    match = None
+                    for pattern in patterns:
+                        match = pattern.search(normalized)
+                        if match is not None:
+                            break
+                    if match is None:
+                        continue
+                    start, end = max(0, match.start() - 180), min(len(normalized), match.end() + 360)
+                    output.append(QualitativeEvidenceCandidate(
+                        code, targets[code], report_year, indicator.code, indicator.name,
+                        record.source_url, record.local_path, page.page, match.group(0),
+                        normalized[start:end], 0.75 if match.group(0).casefold() == indicator.name.casefold() else 0.65,
+                    ))
+                    counts[indicator.code] = counts.get(indicator.code, 0) + 1
+                    matched_groups.add((code, indicator.code))
+    output.sort(key=lambda item: (item.company_code, item.indicator_code, item.source_file, item.source_page))
+    return output, missing_text, matched_groups
+
+
 def collect_annual_qualitative_evidence(
     coverage_path: str | Path, document_index: str | Path, text_root: str | Path,
     methodology: Methodology, report_year: int, max_per_indicator: int = 3,
@@ -191,60 +242,18 @@ def collect_annual_qualitative_evidence(
         row["stock_code"].strip().upper(): row["company_name"].strip()
         for row in coverage if row["annual_status"].strip() == "collected"
     }
-    annuals = {
-        item.company_code: item for item in read_document_records(document_index)
-        if item.document_type == "annual_report" and item.report_year == report_year
-        and item.company_code in targets
-    }
-    rules = []
-    for indicator in methodology.qualitative:
-        aliases = QUALITATIVE_ALIASES.get(indicator.code)
-        if not aliases:
-            raise ValueError(f"定性指标缺少证据关键词: {indicator.code}")
-        rules.append((indicator, tuple(re.compile(re.escape(term), re.I) for term in aliases)))
-    output = []
-    missing_text = []
-    matched_groups: set[tuple[str, str]] = set()
-    text_root = Path(text_root)
-    for code in sorted(targets):
-        record = annuals.get(code)
-        if record is None:
-            continue
-        try:
-            relative = Path(record.local_path).relative_to("data/raw")
-        except ValueError as error:
-            raise ValueError(f"年报路径不在data/raw下: {record.local_path}") from error
-        text_path = (text_root / relative).with_suffix(".txt")
-        if not text_path.exists():
-            missing_text.append(str(text_path))
-            continue
-        counts: dict[str, int] = {}
-        for page in read_page_text_export(text_path):
-            normalized = _normalize_page_text(page.text)
-            for indicator, patterns in rules:
-                if counts.get(indicator.code, 0) >= max_per_indicator:
-                    continue
-                match = None
-                for pattern in patterns:
-                    match = pattern.search(normalized)
-                    if match is not None:
-                        break
-                if match is None:
-                    continue
-                start, end = max(0, match.start() - 180), min(len(normalized), match.end() + 360)
-                output.append(QualitativeEvidenceCandidate(
-                    code, targets[code], report_year, indicator.code, indicator.name,
-                    record.source_url, record.local_path, page.page, match.group(0),
-                    normalized[start:end], 0.75 if match.group(0).casefold() == indicator.name.casefold() else 0.65,
-                ))
-                counts[indicator.code] = counts.get(indicator.code, 0) + 1
-                matched_groups.add((code, indicator.code))
-    output.sort(key=lambda item: (item.company_code, item.indicator_code, item.source_page))
-    expected_groups = len(annuals) * len(methodology.qualitative)
+    documents: dict[str, list] = {}
+    for item in read_document_records(document_index):
+        if item.document_type == "annual_report" and item.report_year == report_year and item.company_code in targets:
+            documents.setdefault(item.company_code, []).append(item)
+    output, missing_text, matched_groups = _collect_qualitative_evidence(
+        documents, targets, Path(text_root), methodology, report_year, max_per_indicator,
+    )
+    expected_groups = len(documents) * len(methodology.qualitative)
     summary = {
         "report_year": report_year,
         "target_company_count": len(targets),
-        "annual_document_count": len(annuals),
+        "annual_document_count": len(documents),
         "qualitative_indicator_count": len(methodology.qualitative),
         "candidate_count": len(output),
         "candidate_group_count": len(matched_groups),
@@ -258,16 +267,64 @@ def collect_annual_qualitative_evidence(
     return output, summary
 
 
-def write_qualitative_evidence_candidates(
-    output_path: str | Path, summary_path: str | Path,
-    rows: list[QualitativeEvidenceCandidate], summary: dict,
-) -> None:
+def collect_esg_qualitative_evidence(
+    coverage_path: str | Path, document_index: str | Path, text_root: str | Path,
+    methodology: Methodology, report_year: int, max_per_indicator: int = 3,
+) -> tuple[list[QualitativeEvidenceCandidate], dict]:
+    """Scan standalone ESG reports for qualitative evidence without assigning a score."""
+    if max_per_indicator < 1:
+        raise ValueError("定性证据上限必须大于0")
+    with Path(coverage_path).open(encoding="utf-8-sig", newline="") as stream:
+        coverage = list(csv.DictReader(stream))
+    required = {"stock_code", "company_name", "esg_status"}
+    if not coverage or not required.issubset(coverage[0]):
+        raise ValueError("文档覆盖审计缺少esg_status字段")
+    targets = {
+        row["stock_code"].strip().upper(): row["company_name"].strip()
+        for row in coverage if row["esg_status"].strip() == "collected"
+    }
+    documents: dict[str, list] = {}
+    for item in read_document_records(document_index):
+        if item.document_type == "esg_report" and item.report_year == report_year and item.company_code in targets:
+            documents.setdefault(item.company_code, []).append(item)
+    missing_documents = sorted(set(targets) - set(documents))
+    output, missing_text, matched_groups = _collect_qualitative_evidence(
+        documents, targets, Path(text_root), methodology, report_year, max_per_indicator,
+    )
+    expected_groups = len(documents) * len(methodology.qualitative)
+    summary = {
+        "report_year": report_year,
+        "target_company_count": len(targets),
+        "esg_document_count": sum(len(items) for items in documents.values()),
+        "esg_company_count": len(documents),
+        "companies_without_esg_document": missing_documents,
+        "qualitative_indicator_count": len(methodology.qualitative),
+        "candidate_count": len(output),
+        "candidate_group_count": len(matched_groups),
+        "candidate_company_count": len({item.company_code for item in output}),
+        "expected_group_count": expected_groups,
+        "missing_group_count": expected_groups - len(matched_groups),
+        "missing_text_count": len(missing_text),
+        "missing_text_files": missing_text,
+        "scoring_authorized": False,
+    }
+    return output, summary
+
+
+def write_qualitative_candidates(output_path: str | Path, rows: list[QualitativeEvidenceCandidate]) -> None:
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=tuple(QualitativeEvidenceCandidate.__annotations__), lineterminator="\n")
         writer.writeheader()
         writer.writerows(asdict(item) for item in rows)
+
+
+def write_qualitative_evidence_candidates(
+    output_path: str | Path, summary_path: str | Path,
+    rows: list[QualitativeEvidenceCandidate], summary: dict,
+) -> None:
+    write_qualitative_candidates(output_path, rows)
     summary_output = Path(summary_path)
     summary_output.parent.mkdir(parents=True, exist_ok=True)
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

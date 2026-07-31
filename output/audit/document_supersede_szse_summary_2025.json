@@ -1,0 +1,7 @@
+{
+  "document_index": "data/raw/szse_document_index.csv",
+  "superseded_count": 15,
+  "ledger_total_count": 15,
+  "remaining_document_count": 255,
+  "applicable": false
+}

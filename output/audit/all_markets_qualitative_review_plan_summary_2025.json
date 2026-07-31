@@ -3,18 +3,18 @@
   "company_count": 612,
   "qualitative_indicator_count": 43,
   "expected_group_count": 26316,
-  "candidate_observation_count": 14744,
-  "review_packet_count": 7148,
-  "evidence_gap_count": 19168,
+  "candidate_observation_count": 26624,
+  "review_packet_count": 10538,
+  "evidence_gap_count": 15778,
   "quality_counts": {
-    "standard_candidate": 4385,
-    "strong_candidate": 2050,
-    "weak_candidate": 713
+    "standard_candidate": 6194,
+    "strong_candidate": 3485,
+    "weak_candidate": 859
   },
   "suggested_score_counts": {
-    "20": 1116,
-    "50": 2125,
-    "80": 3907
+    "20": 1070,
+    "50": 2698,
+    "80": 6770
   },
   "auto_confirmed_count": 0,
   "scoring_authorized": false

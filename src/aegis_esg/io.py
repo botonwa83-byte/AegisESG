@@ -135,6 +135,41 @@ def write_observations(path: str | Path, observations: list[Observation]) -> Non
 
 
 
+def merge_confirmed_observations(
+    paths: list[str | Path], methodology: Methodology,
+) -> tuple[list[Observation], dict]:
+    if not paths:
+        raise ValueError("至少需要一个确认观测输入")
+    merged: dict[tuple[str, int, str], Observation] = {}
+    per_file = []
+    for path in paths:
+        observations = read_observations(path, methodology)
+        not_confirmed = [item for item in observations if item.status != ValueStatus.CONFIRMED]
+        if not_confirmed:
+            raise ValueError(f"{path}存在非confirmed观测，禁止并入正式评分输入")
+        per_file.append({"path": str(path), "observation_count": len(observations)})
+        for item in observations:
+            key = (item.company_code, item.report_year, item.indicator_code)
+            existing = merged.get(key)
+            if existing is None:
+                merged[key] = item
+                continue
+            if existing.value != item.value:
+                raise ValueError(
+                    f"确认观测冲突: {item.company_code}/{item.report_year}/{item.indicator_code} "
+                    f"{existing.value} != {item.value}，禁止静默选值"
+                )
+    rows = [merged[key] for key in sorted(merged)]
+    summary = {
+        "input_files": per_file,
+        "merged_observation_count": len(rows),
+        "company_count": len({item.company_code for item in rows}),
+        "duplicate_conflicts": 0,
+        "publishable": False,
+    }
+    return rows, summary
+
+
 def _number(value: float) -> str:
     return f"{value:.4f}".rstrip("0").rstrip(".")
 

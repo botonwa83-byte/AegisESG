@@ -117,6 +117,29 @@ PYTHONPATH=src python3 -m aegis_esg.cli apply-conflict-review \
   --audit output/review/audit.csv
 ```
 
+定性复核在单签闭环之上增加三层治理门禁：
+
+- 批次清单：`qualitative-review-batch`按优先级创建批次并登记组键/文件SHA-256清单，未关闭批次
+  禁止重复分配；`apply-qualitative-batch`校验组键哈希、拒绝跨批覆盖和已签名组覆盖，自动更新
+  批次完成率与open/closed状态；
+- 双人复核：`select-dual-review`筛出重大主观判断（确认80/100分、偏离建议档或拒绝80档建议），
+  `apply-dual-review`强制不同第二审核人闭合，分歧进入仲裁，`apply-qualitative-arbitration`
+  由区别于两名审核人的仲裁人终裁；
+- 合并门禁：`merge-confirmed-observations`仅在方法论指标、confirmed状态且同组值一致时合并，
+  冲突直接拒绝；`reprioritize-qualitative-gaps`按优先级、指标权重和ESG报告状态重排证据缺口。
+
+定性证据采集覆盖年报和独立ESG报告两个来源，`merge-qualitative-candidates`按公司/指标/文件/
+页码/匹配词/证据精确去重后统一进入复核规划：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli collect-esg-qualitative-evidence \
+  output/audit/all_markets_document_coverage_2025.csv \
+  data/raw/all_markets_document_index.csv \
+  --report-year 2025 \
+  --output data/review/all_markets_esg_qualitative_evidence_candidates_2025.csv \
+  --summary output/audit/all_markets_esg_qualitative_evidence_summary_2025.json
+```
+
 主要接口：
 
 - `GET /health`
@@ -216,11 +239,12 @@ SHA-256入索引后才计为已采集。
 上交所全量阶段已完成239/239家公司，239份年报和96份ESG报告全部下载校验、失败0。四市场统一
 索引现为789份文件并覆盖614家公司，其中602家已有年报、164家已有独立ESG报告。补齐847份文本
 缓存及港股当前年度人民币表格、跨行/双语英文财务主表和折叠利润表规则扩展后，严格候选增至
-4,902条，对应4,421个公司指标任务；矩阵仍缺18,297项，关键缺口5,146项，37项定量指标均已有
-候选。90家已有2025年年报的港股公司现已全部产生严格候选，港股子集为577条候选、564组。
-自动策略预览确认4,352组，69组进入人工签名队列。
+4,902条；A股中文环境绩效表严格解析（显式年份列表头、人民币收入分母、拒绝产值/人均/发电量
+口径）再增27条至4,929条，对应4,440个公司指标任务；矩阵仍缺18,278项，关键缺口5,130项，
+37项定量指标均已有候选。90家已有2025年年报的港股公司现已全部产生严格候选，港股子集为577条
+候选、564组。自动策略预览确认4,364组，76组进入人工签名队列。
 
 港股最后12家缺口已扩展扫描至2020—2026年，并按财年结束年度归一化。10家补齐2025年报；
 `00702.HK`与`01101.HK`最新正式年报停在2023，继续作为真实缺失。目标年度统一索引现为794份，
 612/614家有年报、164家有独立ESG报告。强制`--report-year 2025`并完成严格规则扩展后，
-自动确认预览4,352组，69组需人工签名；冻结审计保持`valid=true`、`freeze_ready=false`。
+自动确认预览4,364组，76组需人工签名；冻结审计保持`valid=true`、`freeze_ready=false`。
