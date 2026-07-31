@@ -20,13 +20,14 @@ AUTO_INDICATORS = {
 }
 ESG_AUTO_INDICATORS = {"Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY"}
 STRICT_EVIDENCE_PREFIXES = {
+    "Q_E_CLEAN_ENERGY_INTENSITY": ("English same-table renewable energy intensity derived:",),
     "Q_E_GHG_REDUCTION_RATE": ("English same-scope GHG table derived:",),
-    "Q_E_NOX_INTENSITY": ("English revenue intensity:",),
-    "Q_E_SO2_INTENSITY": ("English revenue intensity:",),
+    "Q_E_NOX_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:"),
+    "Q_E_SO2_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:"),
     "Q_E_PM_INTENSITY": ("English revenue intensity:",),
-    "Q_E_WASTEWATER_INTENSITY": ("English revenue intensity:",),
-    "Q_E_SOLID_WASTE_INTENSITY": ("English revenue intensity:",),
-    "Q_E_HAZ_WASTE_INTENSITY": ("English revenue intensity:",),
+    "Q_E_WASTEWATER_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:"),
+    "Q_E_SOLID_WASTE_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:"),
+    "Q_E_HAZ_WASTE_INTENSITY": ("English revenue intensity:", "English current-first environmental table derived:"),
     "Q_S_ENV_INVEST_RATE": ("English environmental investment table:",),
     "Q_S_PAY_PER_EMPLOYEE": ("English same-group RMB staff cost derived:",),
     "Q_S_BENEFIT_PER_EMPLOYEE": ("English RMB employee note derived:",),

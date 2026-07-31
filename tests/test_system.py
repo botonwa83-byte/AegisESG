@@ -574,6 +574,42 @@ class MethodologyTests(unittest.TestCase):
             "Q_E_CLEAN_ENERGY_INTENSITY", "Q_S_ENV_INVEST_RATE",
         }])
 
+    def test_english_clean_energy_intensity_derives_from_current_first_same_table(self):
+        pages = [PageText(20,
+            "Environmental\nIndicator Unit 2025 2024 2023\n"
+            "Renewable energy consumption Tonnes of standard coal 2,440.43 1,422.36 1,251.75\n"
+            "Comprehensive energy consumption Tonnes of standard coal 38,926.06 71,336.26 85,106.43\n"
+            "Intensity of comprehensive energy consumption\n"
+            "Tonnes of standard coal /RMB billion in revenue 347.85 649.38 747.48\n"
+            "Intensity of water consumption Tonnes/RMB billion in revenue 6,091.30 25,839.34 16,307.71\n"
+            "Intensity of hazardous waste generation Tonnes/RMB billion in revenue 0.61 0.21 0.41\n"
+            "Intensity of non-hazardous waste generation Tonnes/RMB billion in revenue 7.48 24.59 22.05\n"
+            "Total SO2 emissions Tonnes 1.49 45.84 21.06\n"
+            "Total wastewater discharge Tonnes 403,550.20 2,412,749.27 1,578,248.77\n"
+        )]
+        items = extract_indicator_candidates(pages, "02688.HK", "ENN ENERGY", 2025, "url", "esg_report.pdf")
+        by_code = {item.indicator_code: item for item in items}
+        matches = [by_code["Q_E_CLEAN_ENERGY_INTENSITY"]]
+        self.assertEqual(1, len(matches))
+        self.assertAlmostEqual(0.21808104, matches[0].value, places=8)
+        self.assertTrue(matches[0].evidence_text.startswith("English same-table renewable energy intensity derived:"))
+        self.assertAlmostEqual(3.4785, by_code["Q_E_ENERGY_INTENSITY"].value)
+        self.assertAlmostEqual(60.913, by_code["Q_E_WATER_INTENSITY"].value)
+        self.assertAlmostEqual(.0061, by_code["Q_E_HAZ_WASTE_INTENSITY"].value)
+        self.assertAlmostEqual(.0748, by_code["Q_E_SOLID_WASTE_INTENSITY"].value)
+        self.assertAlmostEqual(.13314898, by_code["Q_E_SO2_INTENSITY"].value)
+        self.assertAlmostEqual(36.06194335, by_code["Q_E_WASTEWATER_INTENSITY"].value)
+
+    def test_english_clean_energy_intensity_rejects_unordered_or_non_revenue_table(self):
+        pages = [PageText(20,
+            "Indicator Unit 2024 2025 2023\n"
+            "Renewable energy consumption Tonnes of standard coal 2 3 1\n"
+            "Comprehensive energy consumption Tonnes of standard coal 10 12 8\n"
+            "Intensity of comprehensive energy consumption Tonnes of standard coal / tonne output 1 2 3\n"
+        )]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"])
+
     def test_english_donation_rate_accepts_explicit_revenue_share(self):
         pages = [PageText(20, "Proportion of donation total in revenue 0.03 %")]
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")

@@ -580,6 +580,16 @@ def extract_indicator_candidates(
                     status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
                     source_page=page.page, evidence_text=evidence, confidence=.94,
                 ))
+        for code, value, evidence in _extract_english_current_first_environmental_table(page.text, report_year):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.95,
+                ))
         pay_per_employee = _extract_english_pay_per_employee(text, report_year)
         if pay_per_employee:
             value, evidence = pay_per_employee
@@ -745,6 +755,138 @@ def _extract_english_env_investment_rate(text: str, report_year: int) -> tuple[f
             evidence = re.sub(r"\s+", " ", match.group(0)).strip()
             return value, "English environmental investment table: " + evidence
     return None
+
+
+def _extract_english_clean_energy_intensity_table(
+    text: str, report_year: int,
+) -> tuple[float, str] | None:
+    """Derive renewable-energy intensity only from one current-first, same-unit table."""
+    previous_year = report_year - 1
+    older_year = report_year - 2
+    if not re.search(
+        rf"(?i)Indicator\s+Unit\s+{report_year}\s+{previous_year}\s+{older_year}", text,
+    ):
+        return None
+    number = r"([\d,]+(?:\.\d+)?)"
+    renewable = re.search(
+        rf"(?im)^\s*Renewable\s+energy\s+consumption\s+Tonnes?\s+of\s+standard\s+coal\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+    )
+    comprehensive = re.search(
+        rf"(?im)^\s*Comprehensive\s+energy\s+consumption\s+Tonnes?\s+of\s+standard\s+coal\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+    )
+    intensity = re.search(
+        rf"(?ims)^\s*Intensity\s+of\s+comprehensive\s+energy\s+consumption\s+"
+        rf"Tonnes?\s+of\s+standard\s+coal\s*/\s*RMB\s+"
+        rf"(?P<scale>billion|million|10\s*k|10,?000)\s+in\s+revenue\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+    )
+    if not renewable or not comprehensive or not intensity:
+        return None
+    renewable_total = float(renewable.group("current").replace(",", ""))
+    comprehensive_total = float(comprehensive.group("current").replace(",", ""))
+    comprehensive_raw_intensity = float(intensity.group("current").replace(",", ""))
+    if renewable_total < 0 or comprehensive_total <= 0 or renewable_total > comprehensive_total:
+        return None
+    scale = re.sub(r"\s+", "", intensity.group("scale").lower()).replace(",", "")
+    denominator = {"billion": 1_000_000_000, "million": 1_000_000, "10k": 10_000, "10000": 10_000}.get(scale)
+    if denominator is None:
+        return None
+    comprehensive_value = comprehensive_raw_intensity * 1_000 * 10_000 / denominator
+    value = comprehensive_value * renewable_total / comprehensive_total
+    if not _plausible_value("Q_E_CLEAN_ENERGY_INTENSITY", value):
+        return None
+    evidence = (
+        f"renewable={renewable.group(0).strip()} | comprehensive={comprehensive.group(0).strip()} | "
+        f"intensity={intensity.group(0).strip()}"
+    )
+    return value, "English same-table renewable energy intensity derived: " + re.sub(r"\s+", " ", evidence)
+
+
+def _extract_english_current_first_environmental_table(
+    text: str, report_year: int,
+) -> list[tuple[str, float, str]]:
+    """Derive revenue intensities from one assured, current-first environmental table."""
+    clean = _extract_english_clean_energy_intensity_table(text, report_year)
+    previous_year, older_year = report_year - 1, report_year - 2
+    if not re.search(rf"(?i)Indicator\s+Unit\s+{report_year}\s+{previous_year}\s+{older_year}", text):
+        return []
+    number = r"[\d,]+(?:\.\d+)?"
+    total = re.search(
+        rf"(?im)^\s*Comprehensive\s+energy\s+consumption\s+Tonnes?\s+of\s+standard\s+coal\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+    )
+    intensity = re.search(
+        rf"(?ims)^\s*Intensity\s+of\s+comprehensive\s+energy\s+consumption\s+"
+        rf"Tonnes?\s+of\s+standard\s+coal\s*/\s*RMB\s+"
+        rf"(?P<scale>billion|million|10\s*k|10,?000)\s+in\s+revenue\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+    )
+    if not total or not intensity:
+        return [("Q_E_CLEAN_ENERGY_INTENSITY", clean[0], clean[1])] if clean else []
+    scale = re.sub(r"\s+", "", intensity.group("scale").lower()).replace(",", "")
+    scale_amount = {"billion": 1_000_000_000, "million": 1_000_000, "10k": 10_000, "10000": 10_000}.get(scale)
+    total_energy = float(total.group("current").replace(",", ""))
+    raw_energy_intensity = float(intensity.group("current").replace(",", ""))
+    if scale_amount is None or total_energy <= 0 or raw_energy_intensity <= 0:
+        return []
+    revenue_scale_units = total_energy / raw_energy_intensity
+    revenue_rmb = revenue_scale_units * scale_amount
+    if revenue_rmb <= 0:
+        return []
+    base_evidence = (
+        f"revenue basis from {total.group(0).strip()} | {intensity.group(0).strip()}"
+    )
+    result: list[tuple[str, float, str]] = []
+    energy_value = total_energy * 1_000 * 10_000 / revenue_rmb
+    result.append((
+        "Q_E_ENERGY_INTENSITY", energy_value,
+        "English current-first environmental table derived: " + re.sub(r"\s+", " ", base_evidence),
+    ))
+    if clean:
+        result.append(("Q_E_CLEAN_ENERGY_INTENSITY", clean[0], clean[1]))
+
+    direct_rows = (
+        ("Q_E_NOX_INTENSITY", r"Intensity\s+of\s+NOx\s+emissions", "g"),
+        ("Q_E_WATER_INTENSITY", r"Intensity\s+of\s+water\s+consumption", "kg"),
+        ("Q_E_HAZ_WASTE_INTENSITY", r"Intensity\s+of\s+hazardous\s+waste(?:\s+generation)?", "kg"),
+        ("Q_E_SOLID_WASTE_INTENSITY", r"Intensity\s+of\s+non-hazardous\s+waste(?:\s+generation)?", "kg"),
+    )
+    for code, label, target_unit in direct_rows:
+        row = re.search(
+            rf"(?ims)^\s*{label}\s+Tonnes?\s*/\s*RMB\s+{re.escape(intensity.group('scale'))}"
+            rf"\s+in\s+revenue\s+(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+        )
+        if not row:
+            continue
+        raw = float(row.group("current").replace(",", ""))
+        mass_factor = 1_000_000 if target_unit == "g" else 1_000
+        value = raw * mass_factor * 10_000 / scale_amount
+        if _plausible_value(code, value):
+            result.append((
+                code, value, "English current-first environmental table derived: " +
+                re.sub(r"\s+", " ", row.group(0).strip()),
+            ))
+
+    total_rows = (
+        ("Q_E_SO2_INTENSITY", r"Total\s+SO2\s+emissions", 1_000_000),
+        ("Q_E_WASTEWATER_INTENSITY", r"Total\s+wastewater\s+discharge", 1_000),
+    )
+    for code, label, mass_factor in total_rows:
+        row = re.search(
+            rf"(?im)^\s*{label}\s+Tonnes?\s+(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+        )
+        if not row:
+            continue
+        raw_total = float(row.group("current").replace(",", ""))
+        value = raw_total * mass_factor * 10_000 / revenue_rmb
+        if _plausible_value(code, value):
+            result.append((
+                code, value, "English current-first environmental table derived: " +
+                re.sub(r"\s+", " ", row.group(0).strip() + " | " + base_evidence),
+            ))
+    return result
 
 
 def _extract_english_pay_per_employee(text: str, report_year: int) -> tuple[float, str] | None:
