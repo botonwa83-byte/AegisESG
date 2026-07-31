@@ -124,7 +124,7 @@ def write_observations(path: str | Path, observations: list[Observation]) -> Non
                 "company_name": item.company_name,
                 "report_year": item.report_year,
                 "indicator_code": item.indicator_code,
-                "value": "" if item.value is None else _number(item.value),
+                "value": "" if item.value is None else _observation_number(item.value),
                 "status": item.status.value,
                 "source_url": item.source_url,
                 "source_file": item.source_file,
@@ -137,6 +137,11 @@ def write_observations(path: str | Path, observations: list[Observation]) -> Non
 
 def _number(value: float) -> str:
     return f"{value:.4f}".rstrip("0").rstrip(".")
+
+
+def _observation_number(value: float) -> str:
+    """Preserve small auditable measurements; presentation rounding belongs to rankings."""
+    return format(value, ".12g")
 
 
 def _escape(value: str) -> str:

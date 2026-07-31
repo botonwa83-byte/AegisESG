@@ -198,7 +198,7 @@ DIRECT_RULES = (
 _REVENUE_DENOMINATOR = (
     r"(?:/|per)\s*(?:RMB|CNY)\s*"
     r"(?P<scale>thousand|million|billion|100\s+million|10[,.]?000|1[,.]?000|10k|’000|'000)"
-    r"(?:\s+(?:(?:of|in)\s+)?revenue)?"
+    r"(?:\s+(?:(?:of|in)\s+)?revenue)?\s*\)?"
 )
 _GHG_LABEL = (
     r"(?:total\s+)?(?:GHG|greenhouse\s+gas)\s+emissions?\s+(?:intensity|density)"
@@ -216,6 +216,16 @@ _SO2_LABEL = (
     r"(?:SO2|SOx|sulphur\s+(?:dioxide|oxides?)|sulfur\s+(?:dioxide|oxides?))\s+emissions?)"
 )
 ENGLISH_REVENUE_INTENSITY_RULES = (
+    EnglishRevenueIntensityRule(
+        "Q_E_ENERGY_INTENSITY",
+        re.compile(
+            r"comprehensive\s+energy\s+intensity\s+per\s+unit\s+of\s+revenue\s+was\s+"
+            r"(?P<value>[\d,]+(?:\.\d+)?)\s*(?P<numerator>tonnes?)\s+of\s+"
+            r"standard\s+coal(?:\s+equivalent)?\s+per\s+RMB\s+"
+            r"(?P<scale>100\s+million|million|10[,.]?000|10k)\s+of\s+revenue", re.I,
+        ),
+        .95,
+    ),
     EnglishRevenueIntensityRule(
         "Q_E_GHG_INTENSITY",
         re.compile(
@@ -546,7 +556,7 @@ def extract_indicator_candidates(
                     evidence_text=text[start:end], confidence=rule.confidence,
                 ))
         for code, value, evidence, confidence in _extract_english_revenue_intensities(text):
-            identity = (code, page.page, value)
+            identity = (code, page.page, round(value, 8))
             if identity in seen:
                 continue
             seen.add(identity)
@@ -589,6 +599,48 @@ def extract_indicator_candidates(
                     indicator_code=code, value=value,
                     status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
                     source_page=page.page, evidence_text=evidence, confidence=.95,
+                ))
+        for code, value, evidence in _extract_english_current_first_direct_rows(page.text, report_year):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.95,
+                ))
+        for code, value, evidence in _extract_english_current_first_standard_coal_rows(
+            page.text, report_year,
+        ):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.96,
+                ))
+        for code, value, evidence in _extract_english_current_year_interleaved_rows(page.text, report_year):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.95,
+                ))
+        for code, value, evidence in _extract_english_yuan_current_first_rows(page.text, report_year):
+            identity = (code, page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code=code, value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.95,
                 ))
         pay_per_employee = _extract_english_pay_per_employee(text, report_year)
         if pay_per_employee:
@@ -645,6 +697,17 @@ def extract_indicator_candidates(
             indicator_code=code, value=value, status=ValueStatus.PENDING,
             source_url=source_url, source_file=source_file, source_page=source_page,
             evidence_text=evidence, confidence=.93,
+        ))
+    for code, value, source_page, evidence in _extract_collapsed_english_income_rows(pages):
+        identity = (code, source_page, round(value, 8))
+        if identity in seen:
+            continue
+        seen.add(identity)
+        candidates.append(Observation(
+            company_code=company_code, company_name=company_name, report_year=report_year,
+            indicator_code=code, value=value, status=ValueStatus.PENDING,
+            source_url=source_url, source_file=source_file, source_page=source_page,
+            evidence_text=evidence, confidence=.95,
         ))
     for code, value, source_page, evidence in _extract_english_cashflow_indicators(pages):
         identity = (code, source_page, round(value, 8))
@@ -889,6 +952,156 @@ def _extract_english_current_first_environmental_table(
     return result
 
 
+def _extract_english_current_first_direct_rows(
+    text: str, report_year: int,
+) -> list[tuple[str, float, str]]:
+    """Read explicit methodology-compatible intensity rows under a current-first header."""
+    previous_year, older_year = report_year - 1, report_year - 2
+    if not re.search(rf"(?i)Indicator\s+Unit\s+{report_year}\s+{previous_year}\s+{older_year}", text):
+        return []
+    number = r"[\d,]+(?:\.\d+)?"
+    rules = (
+        ("Q_E_GHG_INTENSITY", r"Intensity\s+of\s+Scope\s*1\s*&\s*2\s+GHG\s+emissions", r"Ton(?:nes?)?\s*/\s*RMB\s+million", 10.0),
+        ("Q_E_WATER_INTENSITY", r"Intensity\s+of\s+total\s+water\s+consumption", r"Ton(?:nes?)?\s*/\s*RMB\s+million", 10.0),
+        ("Q_E_HAZ_WASTE_INTENSITY", r"Intensity\s+of\s+hazardous\s+waste", r"kg\s*/\s*RMB\s+million", .01),
+        ("Q_E_SOLID_WASTE_INTENSITY", r"Intensity\s+of\s+non-hazardous\s+waste", r"kg\s*/\s*RMB\s+million", .01),
+    )
+    rows = []
+    for code, label, unit, factor in rules:
+        separator = rf"\s+{unit}" if unit else ""
+        match = re.search(
+            rf"(?ims)^\s*{label}{separator}\s+(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+        )
+        if not match:
+            continue
+        value = float(match.group("current").replace(",", "")) * factor
+        if not _plausible_value(code, value):
+            continue
+        rows.append((
+            code, value, "English current-first direct intensity row: " +
+            re.sub(r"\s+", " ", match.group(0).strip()),
+        ))
+    investment = re.search(
+        rf"(?ims)^\s*Total\s+Environmental\s+protection\s+investment\s+%\s+"
+        rf"(?P<current>{number})\s+{number}\s+{number}\s+as\s*%\s+of\s+revenue\s*$", text,
+    )
+    if investment:
+        value = float(investment.group("current").replace(",", ""))
+        if _plausible_value("Q_S_ENV_INVEST_RATE", value):
+            rows.append((
+                "Q_S_ENV_INVEST_RATE", value, "English current-first direct intensity row: " +
+                re.sub(r"\s+", " ", investment.group(0).strip()),
+            ))
+    return rows
+
+
+def _extract_english_current_first_standard_coal_rows(
+    text: str, report_year: int,
+) -> list[tuple[str, float, str]]:
+    """Read explicit tce/water revenue intensities from a current-first resource table."""
+    previous_year, older_year = report_year - 1, report_year - 2
+    if not re.search(
+        rf"(?is)Type\s+of\s+resources\s+Unit\s+{report_year}\s+{previous_year}\s+{older_year}",
+        text,
+    ):
+        return []
+    if not re.search(
+        r"(?is)intensity\s+data\s+above\s+is\s+calculated\s+by\s+dividing\s+"
+        r"consumption\s+volume\s+by\s+revenue",
+        text,
+    ):
+        return []
+    number = r"[\d,]+(?:\.\d+)?"
+    rules = (
+        (
+            "Q_E_ENERGY_INTENSITY",
+            r"Intensity\s+of\s+integrated\s+energy\s+Ton\s+of\s+standard\s+coal\s*/\s*"
+            rf"(?P<current>{number})\s+{number}\s+{number}\s+consumption\s+RMB\s*10,?000",
+            1_000.0,
+        ),
+        (
+            "Q_E_WATER_INTENSITY",
+            r"Intensity\s+of\s+freshwater\s+consumption\s+Recycling\s+rate\s+of\s+water\s+"
+            r"for\s+industrial\s+use\s+Ton\s*/\s*RMB\s*10,?000\s+"
+            rf"(?P<current>{number})\s+{number}\s+{number}\s+%",
+            1_000.0,
+        ),
+    )
+    result = []
+    for code, pattern, factor in rules:
+        match = re.search(rf"(?is){pattern}", text)
+        if not match:
+            continue
+        value = float(match.group("current").replace(",", "")) * factor
+        if _plausible_value(code, value):
+            result.append((
+                code, value, "English current-first revenue resource row: " +
+                re.sub(r"\s+", " ", match.group(0).strip()),
+            ))
+    return result
+
+
+def _extract_english_current_year_interleaved_rows(
+    text: str, report_year: int,
+) -> list[tuple[str, float, str]]:
+    """Handle audited PDF column order only when the page explicitly identifies the year."""
+    if not re.search(rf"(?i)Unit\s+Year\s+{report_year}", text):
+        return []
+    match = re.search(
+        r"(?is)Total\s+discharge\s+of\s+non-hazardous\s+waste\s+Tons\s+Intensity\s+"
+        r"Ton\s*/\s*ten\s+thousand\s+RMB\s+[\d,]+(?:\.\d+)?\s+revenue\s+"
+        r"(?P<value>[\d,]+(?:\.\d+)?)", text,
+    )
+    if not match:
+        return []
+    value = float(match.group("value").replace(",", "")) * 1_000
+    if not _plausible_value("Q_E_SOLID_WASTE_INTENSITY", value):
+        return []
+    return [(
+        "Q_E_SOLID_WASTE_INTENSITY", value,
+        "English current-year interleaved waste row: " + re.sub(r"\s+", " ", match.group(0).strip()),
+    )]
+
+
+def _extract_english_yuan_current_first_rows(
+    text: str, report_year: int,
+) -> list[tuple[str, float, str]]:
+    """Read current-first Million Yuan rows with spelled-out environmental units."""
+    if not re.search(rf"(?i)Indicator\s+Name(?:\s+Unit)?\s+{report_year}", text):
+        return []
+    number = r"[\d,]+(?:\.\d+)?"
+    rules = (
+        (
+            "Q_E_GHG_INTENSITY",
+            r"GHG\s+emissions\s+intensity\s*\(\s*Scope\s*1\s+and\s+Scope\s*2\s*\)",
+            r"Tons?\s+of\s+Carbon\s+Dioxide\s+Equivalent\s+per\s+Million\s+Yuan\s+of\s+Revenue",
+            10.0,
+        ),
+        (
+            "Q_E_WATER_INTENSITY", r"Water\s+consumption\s+intensity",
+            r"Tons?\s+per\s+Million\s+Yuan\s+of\s+Revenue", 10.0,
+        ),
+        (
+            "Q_E_PM_INTENSITY", r"Particulate\s+emissions\s+intensity",
+            r"Kg\s+per\s+Million\s+Yuan\s+of\s+Revenue", 10.0,
+        ),
+    )
+    result = []
+    for code, label, unit, factor in rules:
+        match = re.search(
+            rf"(?ims)^\s*{label}\s+{unit}\s+(?P<current>{number})\s+{number}\s+{number}\s*$", text,
+        )
+        if not match:
+            continue
+        value = float(match.group("current").replace(",", "")) * factor
+        if _plausible_value(code, value):
+            result.append((
+                code, value, "English current-first Million Yuan row: " +
+                re.sub(r"\s+", " ", match.group(0).strip()),
+            ))
+    return result
+
+
 def _extract_english_pay_per_employee(text: str, report_year: int) -> tuple[float, str] | None:
     pattern = re.compile(
         rf"As\s+(?:at|of)\s+31(?:st)?\s+December\s+{report_year},\s+the\s+Group\s+had\s+"
@@ -1065,9 +1278,10 @@ def _find_statement_fact(pages: list[PageText], label_pattern: str) -> Statement
 
 def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
     title = re.compile(
-        r"(?mi)^\s*(?:consolidated\s+)?statement of financial position(?:\s|$)|^\s*consolidated balance sheet\s*$",
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+financial\s+position(?:\s|$)"
+        r"|^\s*consolidated\s+balance\s+sheet\s*$",
     )
-    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit|income|changes|cash flows?)")
+    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:profit|income|changes|cash\s+flows?)")
     starts = [index for index, page in enumerate(pages) if title.search(page.text)]
     best_result = []
     for start in starts:
@@ -1211,9 +1425,10 @@ def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:
 
 def _find_english_income_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
     title = re.compile(
-        r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit or loss|profit and loss|income)(?:\s|$)",
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+"
+        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)",
     )
-    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:financial position|changes|cash flows?)")
+    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)")
     for start in (index for index, page in enumerate(pages) if title.search(page.text)):
         statement_pages = []
         for page in pages[start:start + 5]:
@@ -1247,7 +1462,9 @@ def _find_english_cashflow_fact(pages: list[PageText], label_pattern: str) -> St
 
 
 def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> StatementFact | None:
-    label = re.compile(rf"(?mi)^\s*{label_pattern}\b(?P<body>[^\n]*)$")
+    label = re.compile(
+        rf"(?mi)^\s*(?:[^\x00-\x7F][^\n]{{0,30}}?\s+)?{label_pattern}\b(?P<body>[^\n]*)$",
+    )
     number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
     for page in pages:
         for match in label.finditer(_repair_wrapped_numbers(page.text)):
@@ -1272,9 +1489,10 @@ def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> S
 
 def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
     title = re.compile(
-        r"(?mi)^\s*(?:consolidated\s+)?statement of (?:profit or loss|profit and loss|income)(?:\s|$)",
+        r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+"
+        r"(?:profit\s+or\s+loss|profit\s+and\s+loss|income|comprehensive\s+income)(?:\s|$)",
     )
-    end = re.compile(r"(?mi)^\s*(?:consolidated\s+)?statement of (?:financial position|changes|cash flows?)")
+    end = re.compile(r"(?mi)^\s*(?:[^\n]{0,40}?\s+)?(?:consolidated\s+)?statement\s+of\s+(?:financial\s+position|changes|cash\s+flows?)")
     for start in (index for index, page in enumerate(pages) if title.search(page.text)):
         statement_pages = []
         for page in pages[start:start + 5]:
@@ -1338,6 +1556,38 @@ def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str,
                 ))
         if result:
             return result
+    return []
+
+
+def _extract_collapsed_english_income_rows(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
+    """Recover revenue only from a deterministic PDF column-collapse signature."""
+    pattern = re.compile(
+        r"Revenue\s+\d+\s+Cost\s+of\s+sales\s+and\s+services\s+provided\s+\d+\s+Gross\s+profit\s+"
+        r"(?P<current>[\d,]+(?:\.\d+)?)\s+\([\d,]+(?:\.\d+)?\)\s+"
+        r"(?P<previous>[\d,]+(?:\.\d+)?)\s+\([\d,]+(?:\.\d+)?\)\s+"
+        r"[\d,]+(?:\.\d+)?\s+[\d,]+(?:\.\d+)?", re.I,
+    )
+    title = re.compile(
+        r"(?is)Consolidated\s+Statement\s+of\s+Profit\s+or\s+Loss\s+and\s+Other\s+Comprehensive\s+Income",
+    )
+    for page in pages:
+        if not title.search(page.text):
+            continue
+        normalized = _normalize(page.text)
+        match = pattern.search(normalized)
+        if not match:
+            continue
+        current = float(match.group("current").replace(",", ""))
+        previous = float(match.group("previous").replace(",", ""))
+        if current < 0 or previous <= 0:
+            return []
+        growth = (current - previous) / previous * 100
+        if not -100 <= growth <= 1000:
+            return []
+        return [(
+            "Q_G_REVENUE_GROWTH", growth, page.page,
+            "English collapsed statement row derived: " + re.sub(r"\s+", " ", match.group(0)),
+        )]
     return []
 
 

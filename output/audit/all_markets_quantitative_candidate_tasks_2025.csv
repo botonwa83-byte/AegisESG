@@ -1356,7 +1356,6 @@
 00392.HK,BEIJING ENT,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 00392.HK,BEIJING ENT,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 00392.HK,BEIJING ENT,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-00392.HK,BEIJING ENT,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 00392.HK,BEIJING ENT,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 00392.HK,BEIJING ENT,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 00392.HK,BEIJING ENT,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1702,11 +1701,8 @@
 01555.HK,MIE HOLDINGS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01555.HK,MIE HOLDINGS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01600.HK,TIAN LUN GAS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01600.HK,TIAN LUN GAS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01600.HK,TIAN LUN GAS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01600.HK,TIAN LUN GAS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1768,11 +1764,8 @@
 01738.HK,FS ANTHRACITE,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01738.HK,FS ANTHRACITE,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,DATANG RENEW,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01798.HK,DATANG RENEW,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,DATANG RENEW,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,DATANG RENEW,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01798.HK,DATANG RENEW,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01798.HK,DATANG RENEW,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,DATANG RENEW,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01798.HK,DATANG RENEW,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01799.HK,XINTE ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1830,7 +1823,6 @@
 01940.HK,CGII HLDGS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01940.HK,CGII HLDGS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01940.HK,CGII HLDGS,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-01940.HK,CGII HLDGS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 01940.HK,CGII HLDGS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02012.HK,SUNSHINE OIL,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02012.HK,SUNSHINE OIL,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1865,17 +1857,13 @@
 02380.HK,CHINA POWER,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02380.HK,CHINA POWER,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02380.HK,CHINA POWER,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-02386.HK,SINOPEC SEG,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02386.HK,SINOPEC SEG,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02386.HK,SINOPEC SEG,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02386.HK,SINOPEC SEG,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02386.HK,SINOPEC SEG,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+02386.HK,SINOPEC SEG,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02386.HK,SINOPEC SEG,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-02688.HK,ENN ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02688.HK,ENN ENERGY,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-02688.HK,ENN ENERGY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-02688.HK,ENN ENERGY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-02688.HK,ENN ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02688.HK,ENN ENERGY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02688.HK,ENN ENERGY,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 02688.HK,ENN ENERGY,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1903,7 +1891,6 @@
 03303.HK,JUTAL OIL SER,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 03303.HK,JUTAL OIL SER,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 03303.HK,JUTAL OIL SER,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-03303.HK,JUTAL OIL SER,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 03303.HK,JUTAL OIL SER,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 03303.HK,JUTAL OIL SER,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 03303.HK,JUTAL OIL SER,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -1977,16 +1964,13 @@
 06828.HK,BG BLUE SKY,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-06828.HK,BG BLUE SKY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06828.HK,BG BLUE SKY,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-06885.HK,JINMA ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,JINMA ENERGY,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,JINMA ENERGY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-06885.HK,JINMA ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,JINMA ENERGY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,JINMA ENERGY,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 06885.HK,JINMA ENERGY,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -5330,6 +5314,7 @@
 003035.SZ,南网能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,21|39,0.9,candidate_available,review_candidates,1
 003035.SZ,南网能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,60|216,0.94,candidate_available,review_candidates,1
 00346.HK,YANCHANG PETRO,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,60,0.94,candidate_available,review_candidates,1
+00392.HK,BEIJING ENT,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,100,0.94,candidate_available,review_candidates,1
 00451.HK,DYNASTY DIGITAL,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,3,2025,6|46|74,0.9,candidate_available,review_candidates,1
 00451.HK,DYNASTY DIGITAL,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,2,2025,43|74,0.92,candidate_available,review_candidates,1
 00451.HK,DYNASTY DIGITAL,Q_E_WATER_INTENSITY,水资源使用强度,E,True,2,2025,48|74,0.9,candidate_available,review_candidates,1
@@ -5349,15 +5334,22 @@
 01407.HK,JY GAS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,12,0.92,candidate_available,review_candidates,1
 01407.HK,JY GAS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,67,0.94,candidate_available,review_candidates,1
 01555.HK,MIE HOLDINGS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,123,0.94,candidate_available,review_candidates,1
+01600.HK,TIAN LUN GAS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,34,0.95,candidate_available,review_candidates,1
 01600.HK,TIAN LUN GAS,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,1,2025,34,0.91,candidate_available,review_candidates,1
+01600.HK,TIAN LUN GAS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,34,0.95,candidate_available,review_candidates,1
+01600.HK,TIAN LUN GAS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,91,0.94,candidate_available,review_candidates,1
 01623.HK,HILONG,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,83,0.94,candidate_available,review_candidates,1
 01713.HK,SICHUAN EN INV,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,79,0.94,candidate_available,review_candidates,1
 01738.HK,FS ANTHRACITE,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,69,0.94,candidate_available,review_candidates,1
+01798.HK,DATANG RENEW,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,163,0.95,candidate_available,review_candidates,1
+01798.HK,DATANG RENEW,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,1,2025,164,0.95,candidate_available,review_candidates,1
+01798.HK,DATANG RENEW,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,164,0.95,candidate_available,review_candidates,1
 01798.HK,DATANG RENEW,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,212,0.94,candidate_available,review_candidates,1
 01798.HK,DATANG RENEW,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,1,2025,165,0.94,candidate_available,review_candidates,1
 01799.HK,XINTE ENERGY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,100,0.94,candidate_available,review_candidates,1
 01799.HK,XINTE ENERGY,Q_S_RD_RATE,研发费用占比,S,True,1,2025,105,0.93,candidate_available,review_candidates,1
 01878.HK,SOUTHGOBI,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,200,0.94,candidate_available,review_candidates,1
+01940.HK,CGII HLDGS,Q_S_RD_RATE,研发费用占比,S,True,1,2025,114,0.93,candidate_available,review_candidates,1
 02012.HK,SUNSHINE OIL,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,57,0.94,candidate_available,review_candidates,1
 02178.HK,PETRO-KING,Q_S_RD_RATE,研发费用占比,S,True,1,2025,90,0.93,candidate_available,review_candidates,1
 02236.HK,WISON ENGRG,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,72,0.92,candidate_available,review_candidates,1
@@ -5365,20 +5357,28 @@
 02236.HK,WISON ENGRG,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,84,0.9,candidate_available,review_candidates,1
 02380.HK,CHINA POWER,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,161,0.94,candidate_available,review_candidates,1
 02380.HK,CHINA POWER,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,276,0.95,candidate_available,review_candidates,1
+02386.HK,SINOPEC SEG,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,22,0.95,candidate_available,review_candidates,1
 02386.HK,SINOPEC SEG,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,52,0.92,candidate_available,review_candidates,1
 02386.HK,SINOPEC SEG,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,111,0.94,candidate_available,review_candidates,1
 02386.HK,SINOPEC SEG,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,12,0.96,candidate_available,review_candidates,1
-02386.HK,SINOPEC SEG,Q_S_RD_RATE,研发费用占比,S,True,1,2025,108,0.93,candidate_available,review_candidates,1
+02688.HK,ENN ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,68,0.95,candidate_available,review_candidates,1
 02688.HK,ENN ENERGY,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,1,2025,68,0.91,candidate_available,review_candidates,1
+02688.HK,ENN ENERGY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,1,2025,68,0.95,candidate_available,review_candidates,1
+02688.HK,ENN ENERGY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,1,2025,68,0.95,candidate_available,review_candidates,1
+02688.HK,ENN ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,68,0.95,candidate_available,review_candidates,1
 02728.HK,JINTAI ENERGY H,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,42,0.94,candidate_available,review_candidates,1
+03303.HK,JUTAL OIL SER,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,1,2025,11,0.91,candidate_available,review_candidates,1
 03337.HK,ANTON OILFIELD,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,80,0.94,candidate_available,review_candidates,1
 03395.HK,JX ENERGY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,112,0.94,candidate_available,review_candidates,1
 03668.HK,YANCOAL AUS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,52,0.94,candidate_available,review_candidates,1
 03800.HK,GCL TECH,Q_S_RD_RATE,研发费用占比,S,True,1,2025,102,0.93,candidate_available,review_candidates,1
 03868.HK,XINYI ENERGY,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,57,0.94,candidate_available,review_candidates,1
 03899.HK,CIMC ENRIC,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,128,0.94,candidate_available,review_candidates,1
+06828.HK,BG BLUE SKY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,1,2025,90,0.95,candidate_available,review_candidates,1
+06885.HK,JINMA ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,66,0.96,candidate_available,review_candidates,1
 06885.HK,JINMA ENERGY,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,1,2025,58,0.91,candidate_available,review_candidates,1
 06885.HK,JINMA ENERGY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,1,2025,58,0.91,candidate_available,review_candidates,1
+06885.HK,JINMA ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,66,0.96,candidate_available,review_candidates,1
 09689.HK,JTF INTL,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,92,0.94,candidate_available,review_candidates,1
 300001.SZ,特锐德,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,62|280,0.94,candidate_available,review_candidates,1
 300014.SZ,亿纬锂能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,81|82,0.9,candidate_available,review_candidates,1
@@ -6176,7 +6176,6 @@
 00002.HK,CLP HOLDINGS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,CLP HOLDINGS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,CLP HOLDINGS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00002.HK,CLP HOLDINGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,CLP HOLDINGS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,CLP HOLDINGS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00002.HK,CLP HOLDINGS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6228,9 +6227,7 @@
 00003.HK,HK & CHINA GAS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00003.HK,HK & CHINA GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00003.HK,HK & CHINA GAS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00003.HK,HK & CHINA GAS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6732,7 +6729,6 @@
 00061.HK,GREEN LEAD-NEW,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00061.HK,GREEN LEAD-NEW,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6743,7 +6739,6 @@
 00061.HK,GREEN LEAD-NEW,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00061.HK,GREEN LEAD-NEW,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00061.HK,GREEN LEAD-NEW,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -7509,20 +7504,14 @@
 00135.HK,KUNLUN ENERGY,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00135.HK,KUNLUN ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00135.HK,KUNLUN ENERGY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -7562,7 +7551,6 @@
 00182.HK,CONCORD NE,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00182.HK,CONCORD NE,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -7571,7 +7559,6 @@
 00182.HK,CONCORD NE,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00182.HK,CONCORD NE,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00182.HK,CONCORD NE,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -7614,10 +7601,8 @@
 00196.HK,HONGHUA GROUP,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00196.HK,HONGHUA GROUP,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00196.HK,HONGHUA GROUP,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00196.HK,HONGHUA GROUP,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10005,7 +9990,6 @@
 00353.HK,ENERGY INTINV,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00353.HK,ENERGY INTINV,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00353.HK,ENERGY INTINV,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00353.HK,ENERGY INTINV,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00353.HK,ENERGY INTINV,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00353.HK,ENERGY INTINV,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00353.HK,ENERGY INTINV,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10051,14 +10035,11 @@
 00384.HK,CHINA GAS HOLD,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00384.HK,CHINA GAS HOLD,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00384.HK,CHINA GAS HOLD,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00384.HK,CHINA GAS HOLD,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00384.HK,CHINA GAS HOLD,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10071,21 +10052,14 @@
 00392.HK,BEIJING ENT,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00392.HK,BEIJING ENT,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00392.HK,BEIJING ENT,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10155,7 +10129,6 @@
 00554.HK,HANS GP HLDGS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00554.HK,HANS GP HLDGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00554.HK,HANS GP HLDGS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00554.HK,HANS GP HLDGS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00554.HK,HANS GP HLDGS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00554.HK,HANS GP HLDGS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00554.HK,HANS GP HLDGS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10226,7 +10199,6 @@
 00607.HK,FULLSHARE,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00607.HK,FULLSHARE,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00607.HK,FULLSHARE,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00607.HK,FULLSHARE,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00607.HK,FULLSHARE,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00607.HK,FULLSHARE,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00607.HK,FULLSHARE,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10264,20 +10236,11 @@
 00639.HK,SHOUGANG RES,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00639.HK,SHOUGANG RES,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00639.HK,SHOUGANG RES,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10295,12 +10258,10 @@
 00645.HK,ARES ASIA,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00645.HK,ARES ASIA,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00645.HK,ARES ASIA,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00645.HK,ARES ASIA,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10496,19 +10457,13 @@
 00866.HK,CHINA QINFA,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00866.HK,CHINA QINFA,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00866.HK,CHINA QINFA,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10545,18 +10500,12 @@
 00934.HK,SINOPEC KANTONS,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00934.HK,SINOPEC KANTONS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00934.HK,SINOPEC KANTONS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10569,20 +10518,14 @@
 00951.HK,CHAOWEI POWER,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-00951.HK,CHAOWEI POWER,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 00951.HK,CHAOWEI POWER,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10628,9 +10571,7 @@
 01080.HK,SHENGLI PIPE,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01080.HK,SHENGLI PIPE,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01080.HK,SHENGLI PIPE,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10640,7 +10581,6 @@
 01080.HK,SHENGLI PIPE,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01080.HK,SHENGLI PIPE,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01080.HK,SHENGLI PIPE,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10666,7 +10606,6 @@
 01083.HK,TG SMART ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01083.HK,TG SMART ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01083.HK,TG SMART ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01083.HK,TG SMART ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01083.HK,TG SMART ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01083.HK,TG SMART ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01083.HK,TG SMART ENERGY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10708,19 +10647,13 @@
 01193.HK,CHINA RES GAS,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01193.HK,CHINA RES GAS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01193.HK,CHINA RES GAS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10743,7 +10676,6 @@
 01205.HK,CITIC RESOURCES,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,CITIC RESOURCES,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,CITIC RESOURCES,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01205.HK,CITIC RESOURCES,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,CITIC RESOURCES,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,CITIC RESOURCES,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01205.HK,CITIC RESOURCES,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10810,7 +10742,6 @@
 01251.HK,SPT ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01251.HK,SPT ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01251.HK,SPT ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01251.HK,SPT ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01251.HK,SPT ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01251.HK,SPT ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01251.HK,SPT ENERGY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10825,16 +10756,11 @@
 01277.HK,KINETIC DEV,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01277.HK,KINETIC DEV,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01277.HK,KINETIC DEV,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01277.HK,KINETIC DEV,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01277.HK,KINETIC DEV,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01277.HK,KINETIC DEV,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01277.HK,KINETIC DEV,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10852,13 +10778,10 @@
 01303.HK,HUILI RES,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01303.HK,HUILI RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01303.HK,HUILI RES,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01303.HK,HUILI RES,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01303.HK,HUILI RES,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10872,7 +10795,6 @@
 01393.HK,HIDILI INDUSTRY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01393.HK,HIDILI INDUSTRY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10881,7 +10803,6 @@
 01393.HK,HIDILI INDUSTRY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01393.HK,HIDILI INDUSTRY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01393.HK,HIDILI INDUSTRY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10919,12 +10840,10 @@
 01555.HK,MIE HOLDINGS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01555.HK,MIE HOLDINGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01555.HK,MIE HOLDINGS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01555.HK,MIE HOLDINGS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10935,20 +10854,14 @@
 01600.HK,TIAN LUN GAS,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01600.HK,TIAN LUN GAS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01600.HK,TIAN LUN GAS,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10966,15 +10879,10 @@
 01608.HK,VPOWER GROUP,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01608.HK,VPOWER GROUP,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01608.HK,VPOWER GROUP,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01608.HK,VPOWER GROUP,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01608.HK,VPOWER GROUP,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01608.HK,VPOWER GROUP,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01608.HK,VPOWER GROUP,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11038,9 +10946,12 @@
 01713.HK,SICHUAN EN INV,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
+01713.HK,SICHUAN EN INV,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
+01713.HK,SICHUAN EN INV,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
+01713.HK,SICHUAN EN INV,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01713.HK,SICHUAN EN INV,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11054,19 +10965,11 @@
 01733.HK,E-COMMODITIES,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01733.HK,E-COMMODITIES,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01733.HK,E-COMMODITIES,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11096,7 +10999,6 @@
 01798.HK,DATANG RENEW,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01798.HK,DATANG RENEW,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11110,7 +11012,6 @@
 01798.HK,DATANG RENEW,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01798.HK,DATANG RENEW,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01798.HK,DATANG RENEW,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,XINTE ENERGY,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01799.HK,XINTE ENERGY,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11155,16 +11056,13 @@
 01878.HK,SOUTHGOBI,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01878.HK,SOUTHGOBI,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01878.HK,SOUTHGOBI,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01878.HK,SOUTHGOBI,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01878.HK,SOUTHGOBI,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11224,19 +11122,13 @@
 01940.HK,CGII HLDGS,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-01940.HK,CGII HLDGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 01940.HK,CGII HLDGS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11340,6 +11232,7 @@
 02386.HK,SINOPEC SEG,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
+02386.HK,SINOPEC SEG,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11348,13 +11241,9 @@
 02386.HK,SINOPEC SEG,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02386.HK,SINOPEC SEG,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02688.HK,ENN ENERGY,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02688.HK,ENN ENERGY,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02688.HK,ENN ENERGY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02688.HK,ENN ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11364,7 +11253,6 @@
 02688.HK,ENN ENERGY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-02688.HK,ENN ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 02688.HK,ENN ENERGY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11418,7 +11306,6 @@
 03303.HK,JUTAL OIL SER,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,JUTAL OIL SER,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,JUTAL OIL SER,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03303.HK,JUTAL OIL SER,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,JUTAL OIL SER,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,JUTAL OIL SER,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03303.HK,JUTAL OIL SER,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11468,13 +11355,11 @@
 03395.HK,JX ENERGY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03395.HK,JX ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03395.HK,JX ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03395.HK,JX ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11490,7 +11375,6 @@
 03633.HK,ZHONGYU ENERGY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03633.HK,ZHONGYU ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11501,7 +11385,6 @@
 03633.HK,ZHONGYU ENERGY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03633.HK,ZHONGYU ENERGY,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03633.HK,ZHONGYU ENERGY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11515,16 +11398,13 @@
 03668.HK,YANCOAL AUS,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03668.HK,YANCOAL AUS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03668.HK,YANCOAL AUS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-03668.HK,YANCOAL AUS,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 03668.HK,YANCOAL AUS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11598,18 +11478,14 @@
 06828.HK,BG BLUE SKY,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-06828.HK,BG BLUE SKY,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-06828.HK,BG BLUE SKY,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-06828.HK,BG BLUE SKY,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-06828.HK,BG BLUE SKY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 06828.HK,BG BLUE SKY,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11646,7 +11522,6 @@
 08132.HK,CENTURY EN INTL,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-08132.HK,CENTURY EN INTL,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11656,7 +11531,6 @@
 08132.HK,CENTURY EN INTL,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-08132.HK,CENTURY EN INTL,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 08132.HK,CENTURY EN INTL,Q_S_DONATION_RATE,社会公益投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11764,18 +11638,14 @@
 09689.HK,JTF INTL,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-09689.HK,JTF INTL,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_CASH_REALIZATION,营业收现率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_COST_REVENUE_RATE,成本费用占营业收入比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-09689.HK,JTF INTL,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_OPERATING_MARGIN,营业利润率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_QUICK_RATIO,速动比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-09689.HK,JTF INTL,Q_G_REVENUE_GROWTH,营业增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
-09689.HK,JTF INTL,Q_G_ROA,总资产报酬率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_ROE,净资产收益率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 09689.HK,JTF INTL,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -19423,6 +19293,7 @@
 000009.SZ,中国宝安,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 000009.SZ,中国宝安,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 00002.HK,CLP HOLDINGS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,233,0.94,candidate_available,review_candidates,3
+00002.HK,CLP HOLDINGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,182,0.94,candidate_available,review_candidates,3
 00002.HK,CLP HOLDINGS,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,1,2025,166,0.94,candidate_available,review_candidates,3
 00002.HK,CLP HOLDINGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,17,0.93,candidate_available,review_candidates,3
 00002.HK,CLP HOLDINGS,Q_G_ROE,净资产收益率,G,False,1,2025,233,0.94,candidate_available,review_candidates,3
@@ -19430,6 +19301,8 @@
 000027.SZ,深圳能源,Q_G_ROE,净资产收益率,G,False,3,2025,8|317,0.92,candidate_available,review_candidates,3
 000027.SZ,深圳能源,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,132,0.94,candidate_available,review_candidates,3
 00003.HK,HK & CHINA GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,120,0.94,candidate_available,review_candidates,3
+00003.HK,HK & CHINA GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,179,0.93,candidate_available,review_candidates,3
+00003.HK,HK & CHINA GAS,Q_G_ROE,净资产收益率,G,False,1,2025,120,0.94,candidate_available,review_candidates,3
 000037.SZ,深南电A,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 000049.SZ,德赛电池,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,61,0.94,candidate_available,review_candidates,3
 000049.SZ,德赛电池,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
@@ -19456,7 +19329,9 @@
 000600.SZ,建投能源,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
 000600.SZ,建投能源,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,111,0.94,candidate_available,review_candidates,3
 000601.SZ,韶能股份,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
+00061.HK,GREEN LEAD-NEW,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,182,0.94,candidate_available,review_candidates,3
 00061.HK,GREEN LEAD-NEW,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
+00061.HK,GREEN LEAD-NEW,Q_G_ROE,净资产收益率,G,False,1,2025,182,0.94,candidate_available,review_candidates,3
 000637.SZ,茂化实华,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 00065.HK,GRAND OCEAN AR,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 00065.HK,GRAND OCEAN AR,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
@@ -19487,19 +19362,29 @@
 001269.SZ,欧晶科技,Q_G_ROE,净资产收益率,G,False,1,2025,8,0.92,candidate_available,review_candidates,3
 001299.SZ,美能能源,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 001301.SZ,尚太科技,Q_G_ROE,净资产收益率,G,False,2,2025,11|64,0.92,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
 00135.HK,KUNLUN ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,99,0.94,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,99,0.93,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_ROA,总资产报酬率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+00135.HK,KUNLUN ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
 001376.SZ,百通能源,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
+00182.HK,CONCORD NE,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,140,0.94,candidate_available,review_candidates,3
 00182.HK,CONCORD NE,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,60,0.94,candidate_available,review_candidates,3
 00182.HK,CONCORD NE,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,55,0.94,candidate_available,review_candidates,3
+00182.HK,CONCORD NE,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,140,0.93,candidate_available,review_candidates,3
 00182.HK,CONCORD NE,Q_G_ROA,总资产报酬率,G,False,1,2025,58,0.94,candidate_available,review_candidates,3
 00182.HK,CONCORD NE,Q_G_ROE,净资产收益率,G,False,1,2025,60,0.94,candidate_available,review_candidates,3
 001896.SZ,豫能控股,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,2,2025,35|74,0.91,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
+00196.HK,HONGHUA GROUP,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,125,0.94,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00196.HK,HONGHUA GROUP,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
+00196.HK,HONGHUA GROUP,Q_G_ROA,总资产报酬率,G,False,1,2025,125,0.94,candidate_available,review_candidates,3
 002015.SZ,协鑫能科,Q_G_ROE,净资产收益率,G,False,1,2025,8,0.92,candidate_available,review_candidates,3
 002039.SZ,黔源电力,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 002056.SZ,横店东磁,Q_G_ROE,净资产收益率,G,False,2,2025,8|36,0.92,candidate_available,review_candidates,3
@@ -19597,7 +19482,18 @@
 00346.HK,YANCHANG PETRO,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 00346.HK,YANCHANG PETRO,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,57,0.93,candidate_available,review_candidates,3
 00353.HK,ENERGY INTINV,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+00353.HK,ENERGY INTINV,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 00384.HK,CHINA GAS HOLD,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+00384.HK,CHINA GAS HOLD,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+00384.HK,CHINA GAS HOLD,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,98,0.93,candidate_available,review_candidates,3
+00384.HK,CHINA GAS HOLD,Q_G_ROE,净资产收益率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,99,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,96,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,96,0.93,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_ROA,总资产报酬率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+00392.HK,BEIJING ENT,Q_G_ROE,净资产收益率,G,False,1,2025,99,0.94,candidate_available,review_candidates,3
 00451.HK,DYNASTY DIGITAL,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,74,0.91,candidate_available,review_candidates,3
 00451.HK,DYNASTY DIGITAL,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
 00451.HK,DYNASTY DIGITAL,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
@@ -19609,6 +19505,7 @@
 00467.HK,UNITEDENERGY GP,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,58,0.94,candidate_available,review_candidates,3
 00467.HK,UNITEDENERGY GP,Q_G_ROE,净资产收益率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 00554.HK,HANS GP HLDGS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,109,0.94,candidate_available,review_candidates,3
+00554.HK,HANS GP HLDGS,Q_G_ROE,净资产收益率,G,False,1,2025,109,0.94,candidate_available,review_candidates,3
 00579.HK,JNCEC,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
 00579.HK,JNCEC,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
 00579.HK,JNCEC,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,1,2025,106,0.94,candidate_available,review_candidates,3
@@ -19617,13 +19514,25 @@
 00579.HK,JNCEC,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,98,0.93,candidate_available,review_candidates,3
 00579.HK,JNCEC,Q_G_ROE,净资产收益率,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
 00600.HK,AXERA,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,77,0.93,candidate_available,review_candidates,3
+00607.HK,FULLSHARE,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,73,0.95,candidate_available,review_candidates,3
 00632.HK,CHK OIL,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,30,0.93,candidate_available,review_candidates,3
 00632.HK,CHK OIL,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 00632.HK,CHK OIL,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 00632.HK,CHK OIL,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,4,0.93,candidate_available,review_candidates,3
-00639.HK,SHOUGANG RES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,359,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,270,0.94,candidate_available,review_candidates,3
 00639.HK,SHOUGANG RES,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,359,0.93,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,267,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,267,0.93,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_ROA,总资产报酬率,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_ROE,净资产收益率,G,False,1,2025,270,0.94,candidate_available,review_candidates,3
+00639.HK,SHOUGANG RES,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,269,0.94,candidate_available,review_candidates,3
 00645.HK,ARES ASIA,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,65,0.94,candidate_available,review_candidates,3
+00645.HK,ARES ASIA,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,64,0.94,candidate_available,review_candidates,3
+00645.HK,ARES ASIA,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,64,0.93,candidate_available,review_candidates,3
 00650.HK,PRODUCTIVE TECH,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,219,0.94,candidate_available,review_candidates,3
 00650.HK,PRODUCTIVE TECH,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,221,0.94,candidate_available,review_candidates,3
 00650.HK,PRODUCTIVE TECH,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,216,0.94,candidate_available,review_candidates,3
@@ -19659,16 +19568,34 @@
 00836.HK,CHINA RES POWER,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,84,0.94,candidate_available,review_candidates,3
 00836.HK,CHINA RES POWER,Q_G_ROA,总资产报酬率,G,False,1,2025,86,0.94,candidate_available,review_candidates,3
 00836.HK,CHINA RES POWER,Q_G_ROE,净资产收益率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,194,0.94,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,195,0.94,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,191,0.94,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,191,0.93,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,191,0.93,candidate_available,review_candidates,3
+00866.HK,CHINA QINFA,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,191,0.93,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,73,0.94,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,75,0.93,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,72,0.94,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,72,0.94,candidate_available,review_candidates,3
 00931.HK,CHINA HK POWER,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,70,0.93,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,132,0.94,candidate_available,review_candidates,3
 00934.HK,SINOPEC KANTONS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 00934.HK,SINOPEC KANTONS,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,91,0.93,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,132,0.94,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,132,0.94,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,132,0.93,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_ROA,总资产报酬率,G,False,1,2025,132,0.94,candidate_available,review_candidates,3
+00934.HK,SINOPEC KANTONS,Q_G_ROE,净资产收益率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,89,0.94,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,89,0.94,candidate_available,review_candidates,3
 00951.HK,CHAOWEI POWER,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,89,0.94,candidate_available,review_candidates,3
 00951.HK,CHAOWEI POWER,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,8,0.93,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_ROE,净资产收益率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
+00951.HK,CHAOWEI POWER,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,89,0.94,candidate_available,review_candidates,3
 00968.HK,XINYI SOLAR,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,XINYI SOLAR,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
 00968.HK,XINYI SOLAR,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
@@ -19689,17 +19616,28 @@
 00975.HK,MONGOL MINING,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 00975.HK,MONGOL MINING,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,82,0.93,candidate_available,review_candidates,3
 00975.HK,MONGOL MINING,Q_G_ROE,净资产收益率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+01080.HK,SHENGLI PIPE,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,112,0.94,candidate_available,review_candidates,3
+01080.HK,SHENGLI PIPE,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,113,0.94,candidate_available,review_candidates,3
 01080.HK,SHENGLI PIPE,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 01080.HK,SHENGLI PIPE,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,110,0.93,candidate_available,review_candidates,3
+01080.HK,SHENGLI PIPE,Q_G_ROE,净资产收益率,G,False,1,2025,113,0.94,candidate_available,review_candidates,3
 01083.HK,TG SMART ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,97,0.94,candidate_available,review_candidates,3
+01083.HK,TG SMART ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,97,0.94,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,99,0.94,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,99,0.93,candidate_available,review_candidates,3
+01193.HK,CHINA RES GAS,Q_G_ROE,净资产收益率,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
 01205.HK,CITIC RESOURCES,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,2,2025,33|64,0.93,candidate_available,review_candidates,3
 01205.HK,CITIC RESOURCES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 01205.HK,CITIC RESOURCES,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,71,0.93,candidate_available,review_candidates,3
 01205.HK,CITIC RESOURCES,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
+01205.HK,CITIC RESOURCES,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 01205.HK,CITIC RESOURCES,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01229.HK,NAN NAN RES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,80,0.94,candidate_available,review_candidates,3
-01229.HK,NAN NAN RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
-01229.HK,NAN NAN RES,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,78,0.93,candidate_available,review_candidates,3
+01229.HK,NAN NAN RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,5,0.94,candidate_available,review_candidates,3
+01229.HK,NAN NAN RES,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,5,0.93,candidate_available,review_candidates,3
 01229.HK,NAN NAN RES,Q_G_ROE,净资产收益率,G,False,1,2025,80,0.94,candidate_available,review_candidates,3
 01250.HK,SDHS NEW ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
 01250.HK,SDHS NEW ENERGY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,100,0.93,candidate_available,review_candidates,3
@@ -19710,16 +19648,27 @@
 01250.HK,SDHS NEW ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
 01250.HK,SDHS NEW ENERGY,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,1,2025,56,0.94,candidate_available,review_candidates,3
 01251.HK,SPT ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,128,0.94,candidate_available,review_candidates,3
+01251.HK,SPT ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,131,0.94,candidate_available,review_candidates,3
+01277.HK,KINETIC DEV,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,120,0.94,candidate_available,review_candidates,3
+01277.HK,KINETIC DEV,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,119,0.94,candidate_available,review_candidates,3
+01277.HK,KINETIC DEV,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,117,0.94,candidate_available,review_candidates,3
 01277.HK,KINETIC DEV,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
 01277.HK,KINETIC DEV,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
+01277.HK,KINETIC DEV,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,119,0.94,candidate_available,review_candidates,3
 01277.HK,KINETIC DEV,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,117,0.93,candidate_available,review_candidates,3
+01277.HK,KINETIC DEV,Q_G_ROE,净资产收益率,G,False,1,2025,120,0.94,candidate_available,review_candidates,3
 01303.HK,HUILI RES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,55,0.94,candidate_available,review_candidates,3
 01303.HK,HUILI RES,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,57,0.93,candidate_available,review_candidates,3
+01303.HK,HUILI RES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
 01303.HK,HUILI RES,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,54,0.94,candidate_available,review_candidates,3
+01303.HK,HUILI RES,Q_G_ROA,总资产报酬率,G,False,1,2025,54,0.94,candidate_available,review_candidates,3
+01303.HK,HUILI RES,Q_G_ROE,净资产收益率,G,False,1,2025,55,0.94,candidate_available,review_candidates,3
 01393.HK,HIDILI INDUSTRY,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,53,0.93,candidate_available,review_candidates,3
+01393.HK,HIDILI INDUSTRY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,85,0.94,candidate_available,review_candidates,3
 01393.HK,HIDILI INDUSTRY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
 01393.HK,HIDILI INDUSTRY,Q_G_EBITDA_MARGIN,EBITDA利润率,G,False,1,2025,142,0.94,candidate_available,review_candidates,3
 01393.HK,HIDILI INDUSTRY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
+01393.HK,HIDILI INDUSTRY,Q_G_ROE,净资产收益率,G,False,1,2025,142,0.94,candidate_available,review_candidates,3
 01407.HK,JY GAS,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01407.HK,JY GAS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01407.HK,JY GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
@@ -19729,28 +19678,46 @@
 01407.HK,JY GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,64,0.93,candidate_available,review_candidates,3
 01407.HK,JY GAS,Q_G_ROA,总资产报酬率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 01407.HK,JY GAS,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+01555.HK,MIE HOLDINGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,125,0.94,candidate_available,review_candidates,3
 01555.HK,MIE HOLDINGS,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,123,0.94,candidate_available,review_candidates,3
+01555.HK,MIE HOLDINGS,Q_G_ROA,总资产报酬率,G,False,1,2025,125,0.94,candidate_available,review_candidates,3
 01555.HK,MIE HOLDINGS,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,122,0.94,candidate_available,review_candidates,3
 01600.HK,TIAN LUN GAS,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
 01600.HK,TIAN LUN GAS,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
 01600.HK,TIAN LUN GAS,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,34,0.91,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,88,0.93,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,88,0.93,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,88,0.93,candidate_available,review_candidates,3
+01600.HK,TIAN LUN GAS,Q_G_ROE,净资产收益率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
 01608.HK,VPOWER GROUP,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
+01608.HK,VPOWER GROUP,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
+01608.HK,VPOWER GROUP,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
+01608.HK,VPOWER GROUP,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
+01608.HK,VPOWER GROUP,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,68,0.93,candidate_available,review_candidates,3
+01608.HK,VPOWER GROUP,Q_G_ROE,净资产收益率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 01621.HK,VICO INTL HLDGS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,167,0.94,candidate_available,review_candidates,3
 01621.HK,VICO INTL HLDGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,165,0.94,candidate_available,review_candidates,3
 01621.HK,VICO INTL HLDGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,165,0.93,candidate_available,review_candidates,3
 01623.HK,HILONG,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,82,0.94,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
+01713.HK,SICHUAN EN INV,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
+01713.HK,SICHUAN EN INV,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01713.HK,SICHUAN EN INV,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,87,0.93,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_CASH_REALIZATION,营业收现率,G,False,1,2025,87,0.93,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,83,0.94,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
+01713.HK,SICHUAN EN INV,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01713.HK,SICHUAN EN INV,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,79,0.94,candidate_available,review_candidates,3
-01713.HK,SICHUAN EN INV,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,83,0.93,candidate_available,review_candidates,3
+01713.HK,SICHUAN EN INV,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,16,0.93,candidate_available,review_candidates,3
 01713.HK,SICHUAN EN INV,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01713.HK,SICHUAN EN INV,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,1,2025,151,0.95,candidate_available,review_candidates,3
 01713.HK,SICHUAN EN INV,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,1,2025,151,0.95,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,74,0.94,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,77,0.94,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,74,0.93,candidate_available,review_candidates,3
+01733.HK,E-COMMODITIES,Q_G_ROE,净资产收益率,G,False,1,2025,78,0.94,candidate_available,review_candidates,3
 01738.HK,FS ANTHRACITE,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
 01738.HK,FS ANTHRACITE,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,71,0.93,candidate_available,review_candidates,3
 01738.HK,FS ANTHRACITE,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
@@ -19758,6 +19725,7 @@
 01738.HK,FS ANTHRACITE,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
 01738.HK,FS ANTHRACITE,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,66,0.93,candidate_available,review_candidates,3
 01738.HK,FS ANTHRACITE,Q_G_ROA,总资产报酬率,G,False,1,2025,68,0.94,candidate_available,review_candidates,3
+01798.HK,DATANG RENEW,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,164,0.95,candidate_available,review_candidates,3
 01798.HK,DATANG RENEW,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,DATANG RENEW,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,212,0.94,candidate_available,review_candidates,3
 01798.HK,DATANG RENEW,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
@@ -19766,6 +19734,7 @@
 01798.HK,DATANG RENEW,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,211,0.94,candidate_available,review_candidates,3
 01798.HK,DATANG RENEW,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,209,0.93,candidate_available,review_candidates,3
 01798.HK,DATANG RENEW,Q_G_ROE,净资产收益率,G,False,1,2025,212,0.94,candidate_available,review_candidates,3
+01798.HK,DATANG RENEW,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,1,2025,164,0.95,candidate_available,review_candidates,3
 01799.HK,XINTE ENERGY,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,105,0.94,candidate_available,review_candidates,3
 01799.HK,XINTE ENERGY,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,105,0.94,candidate_available,review_candidates,3
 01799.HK,XINTE ENERGY,Q_G_CASH_REALIZATION,营业收现率,G,False,1,2025,110,0.93,candidate_available,review_candidates,3
@@ -19784,8 +19753,11 @@
 01811.HK,CGN NEW ENERGY,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,133,0.93,candidate_available,review_candidates,3
 01811.HK,CGN NEW ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,133,0.93,candidate_available,review_candidates,3
 01811.HK,CGN NEW ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,136,0.94,candidate_available,review_candidates,3
+01878.HK,SOUTHGOBI,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,200,0.94,candidate_available,review_candidates,3
 01878.HK,SOUTHGOBI,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,202,0.93,candidate_available,review_candidates,3
+01878.HK,SOUTHGOBI,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,200,0.94,candidate_available,review_candidates,3
 01878.HK,SOUTHGOBI,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,200,0.94,candidate_available,review_candidates,3
+01878.HK,SOUTHGOBI,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,199,0.93,candidate_available,review_candidates,3
 01921.HK,DALIPAL HLDG,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,238,0.94,candidate_available,review_candidates,3
 01921.HK,DALIPAL HLDG,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,237,0.93,candidate_available,review_candidates,3
 01921.HK,DALIPAL HLDG,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,237,0.93,candidate_available,review_candidates,3
@@ -19795,6 +19767,12 @@
 01938.HK,CHU KONG PIPE,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,136,0.94,candidate_available,review_candidates,3
 01938.HK,CHU KONG PIPE,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,138,0.94,candidate_available,review_candidates,3
 01938.HK,CHU KONG PIPE,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,136,0.93,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,115,0.94,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,116,0.94,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,114,0.94,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,114,0.93,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,114,0.93,candidate_available,review_candidates,3
+01940.HK,CGII HLDGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,114,0.93,candidate_available,review_candidates,3
 02012.HK,SUNSHINE OIL,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 02012.HK,SUNSHINE OIL,Q_G_ROA,总资产报酬率,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 02178.HK,PETRO-KING,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
@@ -19823,14 +19801,18 @@
 02386.HK,SINOPEC SEG,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 02386.HK,SINOPEC SEG,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 02386.HK,SINOPEC SEG,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
-02386.HK,SINOPEC SEG,Q_G_OPERATING_MARGIN,营业利润率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
 02386.HK,SINOPEC SEG,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
 02386.HK,SINOPEC SEG,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,111,0.94,candidate_available,review_candidates,3
-02386.HK,SINOPEC SEG,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,108,0.93,candidate_available,review_candidates,3
+02386.HK,SINOPEC SEG,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,104,0.93,candidate_available,review_candidates,3
 02386.HK,SINOPEC SEG,Q_G_ROE,净资产收益率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
+02688.HK,ENN ENERGY,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,1,2025,68,0.95,candidate_available,review_candidates,3
 02688.HK,ENN ENERGY,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,69,0.93,candidate_available,review_candidates,3
+02688.HK,ENN ENERGY,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,68,0.95,candidate_available,review_candidates,3
+02688.HK,ENN ENERGY,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,68,0.95,candidate_available,review_candidates,3
+02688.HK,ENN ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,94,0.94,candidate_available,review_candidates,3
 02688.HK,ENN ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 02688.HK,ENN ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,92,0.93,candidate_available,review_candidates,3
+02688.HK,ENN ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,94,0.94,candidate_available,review_candidates,3
 02728.HK,JINTAI ENERGY H,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,41,0.94,candidate_available,review_candidates,3
 02728.HK,JINTAI ENERGY H,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,41,0.94,candidate_available,review_candidates,3
 02728.HK,JINTAI ENERGY H,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,39,0.94,candidate_available,review_candidates,3
@@ -19841,6 +19823,7 @@
 02728.HK,JINTAI ENERGY H,Q_G_ROE,净资产收益率,G,False,1,2025,41,0.94,candidate_available,review_candidates,3
 02798.HK,PER ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,161,0.94,candidate_available,review_candidates,3
 02798.HK,PER ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,159,0.93,candidate_available,review_candidates,3
+03303.HK,JUTAL OIL SER,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,11,0.91,candidate_available,review_candidates,3
 03303.HK,JUTAL OIL SER,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
 03303.HK,JUTAL OIL SER,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,53,0.94,candidate_available,review_candidates,3
 03303.HK,JUTAL OIL SER,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,50,0.94,candidate_available,review_candidates,3
@@ -19855,9 +19838,16 @@
 03337.HK,ANTON OILFIELD,Q_G_ROE,净资产收益率,G,False,1,2025,81,0.94,candidate_available,review_candidates,3
 03337.HK,ANTON OILFIELD,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,53,0.94,candidate_available,review_candidates,3
 03395.HK,JX ENERGY,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,116,0.93,candidate_available,review_candidates,3
+03395.HK,JX ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,114,0.94,candidate_available,review_candidates,3
+03395.HK,JX ENERGY,Q_G_ROA,总资产报酬率,G,False,1,2025,114,0.94,candidate_available,review_candidates,3
+03633.HK,ZHONGYU ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 03633.HK,ZHONGYU ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,64,0.94,candidate_available,review_candidates,3
+03633.HK,ZHONGYU ENERGY,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+03668.HK,YANCOAL AUS,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
 03668.HK,YANCOAL AUS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
 03668.HK,YANCOAL AUS,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,54,0.93,candidate_available,review_candidates,3
+03668.HK,YANCOAL AUS,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,52,0.94,candidate_available,review_candidates,3
+03668.HK,YANCOAL AUS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,46,0.93,candidate_available,review_candidates,3
 03800.HK,GCL TECH,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,106,0.94,candidate_available,review_candidates,3
 03800.HK,GCL TECH,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,102,0.94,candidate_available,review_candidates,3
 03800.HK,GCL TECH,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,102,0.93,candidate_available,review_candidates,3
@@ -19880,16 +19870,22 @@
 03899.HK,CIMC ENRIC,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,125,0.93,candidate_available,review_candidates,3
 03899.HK,CIMC ENRIC,Q_G_ROA,总资产报酬率,G,False,1,2025,127,0.94,candidate_available,review_candidates,3
 03899.HK,CIMC ENRIC,Q_G_ROE,净资产收益率,G,False,1,2025,128,0.94,candidate_available,review_candidates,3
+06828.HK,BG BLUE SKY,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 06828.HK,BG BLUE SKY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+06828.HK,BG BLUE SKY,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 06828.HK,BG BLUE SKY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,65,0.94,candidate_available,review_candidates,3
+06828.HK,BG BLUE SKY,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
 06828.HK,BG BLUE SKY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,65,0.93,candidate_available,review_candidates,3
 06828.HK,BG BLUE SKY,Q_G_ROE,净资产收益率,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+06828.HK,BG BLUE SKY,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,66,0.94,candidate_available,review_candidates,3
 06885.HK,JINMA ENERGY,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,1,2025,58,0.91,candidate_available,review_candidates,3
 06885.HK,JINMA ENERGY,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,134,0.94,candidate_available,review_candidates,3
 06885.HK,JINMA ENERGY,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,12,0.94,candidate_available,review_candidates,3
 06885.HK,JINMA ENERGY,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,12,0.93,candidate_available,review_candidates,3
+08132.HK,CENTURY EN INTL,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,135,0.94,candidate_available,review_candidates,3
 08132.HK,CENTURY EN INTL,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,59,0.94,candidate_available,review_candidates,3
 08132.HK,CENTURY EN INTL,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,59,0.93,candidate_available,review_candidates,3
+08132.HK,CENTURY EN INTL,Q_G_ROE,净资产收益率,G,False,1,2025,135,0.94,candidate_available,review_candidates,3
 08270.HK,CHINA CBM,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 08270.HK,CHINA CBM,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 08270.HK,CHINA CBM,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
@@ -19904,7 +19900,11 @@
 08536.HK,TL NATURAL GAS,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,64,0.94,candidate_available,review_candidates,3
 08536.HK,TL NATURAL GAS,Q_G_ROE,净资产收益率,G,False,1,2025,64,0.94,candidate_available,review_candidates,3
 08631.HK,SUN KONG HLDGS,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,145,0.93,candidate_available,review_candidates,3
+09689.HK,JTF INTL,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 09689.HK,JTF INTL,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
+09689.HK,JTF INTL,Q_G_EBITDA_INTEREST,EBITDA利息倍数,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
+09689.HK,JTF INTL,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,90,0.93,candidate_available,review_candidates,3
+09689.HK,JTF INTL,Q_G_ROA,总资产报酬率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 300001.SZ,特锐德,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 300014.SZ,亿纬锂能,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
 300035.SZ,中科电气,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3

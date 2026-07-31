@@ -9,7 +9,7 @@ from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
 
-from aegis_esg.io import write_ranking_csv
+from aegis_esg.io import read_observations, write_observations, write_ranking_csv
 from aegis_esg.methodology import load_methodology
 from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, ValueStatus
 from aegis_esg.scoring import PopulationStats, ScoringEngine
@@ -214,6 +214,17 @@ class MethodologyTests(unittest.TestCase):
             path.write_text("\n=== PAGE 7 ===\n披露文本\n", encoding="utf-8")
             self.assertEqual([PageText(7, "披露文本\n")], read_page_text_export(path))
 
+    def test_observation_csv_preserves_small_environmental_values(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "observations.csv"
+            original = Observation(
+                "A", "甲", 2025, "Q_E_CLEAN_ENERGY_INTENSITY", 0.0000218081042751,
+                ValueStatus.PENDING, "url", "esg.pdf", 68, "same-table evidence", .95,
+            )
+            write_observations(path, [original])
+            restored = read_observations(path, self.methodology)[0]
+            self.assertAlmostEqual(original.value, restored.value, places=15)
+
     def test_batch_text_extraction_reports_company_coverage(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -412,6 +423,15 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(6, values["Q_E_ENERGY_INTENSITY"])
         self.assertAlmostEqual(349.5, values["Q_E_WATER_INTENSITY"])
 
+    def test_english_energy_intensity_accepts_explicit_per_unit_revenue_sentence(self):
+        pages = [PageText(22,
+            "The comprehensive energy intensity per unit of revenue was 75.30 tonnes of "
+            "standard coal equivalent per RMB 100 million of revenue."
+        )]
+        items = extract_indicator_candidates(pages, "02386.HK", "SINOPEC SEG", 2025, "url", "esg_report.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_ENERGY_INTENSITY"]
+        self.assertEqual([7.53], values)
+
     def test_english_revenue_intensities_reject_non_revenue_denominators(self):
         pages = [PageText(
             20,
@@ -432,6 +452,16 @@ class MethodologyTests(unittest.TestCase):
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
         values = [item.value for item in items if item.indicator_code == "Q_E_ENERGY_INTENSITY"]
         self.assertEqual([6], values)
+
+    def test_english_waste_intensity_accepts_parenthesized_revenue_unit(self):
+        pages = [PageText(11,
+            "Hazardous waste intensity (tonnes/RMB million revenue) 0.19\n"
+            "Non-hazardous waste intensityNote1 (tonnes/RMB million revenue) 0.61"
+        )]
+        items = extract_indicator_candidates(pages, "03303.HK", "JUTAL", 2025, "url", "esg_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1.9, values["Q_E_HAZ_WASTE_INTENSITY"])
+        self.assertAlmostEqual(6.1, values["Q_E_SOLID_WASTE_INTENSITY"])
 
     def test_english_ghg_revenue_intensity_converts_rmb_scales(self):
         pages = [
@@ -609,6 +639,136 @@ class MethodologyTests(unittest.TestCase):
         )]
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
         self.assertFalse([item for item in items if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"])
+
+    def test_english_current_first_direct_rows_convert_rmb_million_units(self):
+        pages = [PageText(164,
+            "Environmental\nIndicator Unit 2025 2024 2023\n"
+            "Intensity of Scope 1&2 GHG emissions Ton/RMB million 11.20 9.95 8.58\n"
+            "Intensity of non-hazardous waste kg/RMB million 38.27 34.84 35.43\n"
+            "Intensity of hazardous waste kg/RMB million 15.06 13.85 14.12\n"
+            "Intensity of total water consumption Ton/RMB million 16.72 15.36 14.78\n"
+            "Total Environmental protection investment\n% 0.56 1.13 0.93\nas % of revenue\n"
+        )]
+        items = extract_indicator_candidates(pages, "01798.HK", "DATANG RENEW", 2025, "url", "annual_report.pdf")
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(112, values["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(.3827, values["Q_E_SOLID_WASTE_INTENSITY"])
+        self.assertAlmostEqual(.1506, values["Q_E_HAZ_WASTE_INTENSITY"])
+        self.assertAlmostEqual(167.2, values["Q_E_WATER_INTENSITY"])
+        self.assertAlmostEqual(.56, values["Q_S_ENV_INVEST_RATE"])
+
+    def test_english_current_year_interleaved_waste_row_uses_intensity_not_total(self):
+        pages = [PageText(90,
+            "Non-hazardous waste generation data Unit Year 2025\n"
+            "Total discharge of non-hazardous waste Tons Intensity Ton/ten thousand RMB\n"
+            "13.87\nrevenue 0.000072"
+        )]
+        items = extract_indicator_candidates(pages, "06828.HK", "BEIJING GAS BLUE SKY", 2025, "url", "esg_report.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_SOLID_WASTE_INTENSITY"]
+        self.assertAlmostEqual(.072, values[0])
+
+    def test_english_current_first_million_yuan_rows_map_to_methodology_units(self):
+        pages = [PageText(34,
+            "Environmental Performance Indicators\nIndicator Name Unit 2025 2024 2023\n"
+            "GHG emissions intensity (Scope 1 and Scope 2) Tons of Carbon Dioxide Equivalent per "
+            "Million Yuan of Revenue 3.23 3.84 4.14\n"
+            "Particulate emissions intensity Kg per Million Yuan of Revenue 0.0029 0.0039 0.0130\n"
+            "Water consumption intensity Tons per Million Yuan of Revenue 9.96 10.58 11.84\n"
+        )]
+        items = extract_indicator_candidates(pages, "01600.HK", "TIAN LUN GAS", 2025, "url", "esg_report.pdf")
+        by_code = {}
+        for item in items:
+            by_code.setdefault(item.indicator_code, []).append(item.value)
+        self.assertEqual([32.3], by_code["Q_E_GHG_INTENSITY"])
+        self.assertEqual(1, len(by_code["Q_E_PM_INTENSITY"]))
+        self.assertAlmostEqual(.029, by_code["Q_E_PM_INTENSITY"][0])
+        self.assertAlmostEqual(99.6, by_code["Q_E_WATER_INTENSITY"][0])
+
+    def test_english_current_first_resource_table_converts_tce_and_freshwater(self):
+        pages = [PageText(66,
+            "2023-2025 Resource Usage Data\nType of resources Unit 2025 2024 2023\n"
+            "Total volume of integrated Ton of standard coal 1,651,569.72 1,490,274.14 1,331,963.35\n"
+            "energy consumption\n"
+            "Intensity of integrated energy\nTon of standard coal/\n2.0 1.3 1.10\n"
+            "consumption\nRMB10,000\n"
+            "Total volume of freshwater\nMillion ton 4.39 5.42 4.85\nconsumption\n"
+            "Intensity of freshwater\nconsumption\nRecycling rate of water for\nindustrial use\n"
+            "Ton/RMB10,000 5.41 4.67 4.02\n% 98.28 98.28 98.28\n"
+            "The intensity data above is calculated by dividing consumption volume by revenue.\n"
+        )]
+        items = extract_indicator_candidates(
+            pages, "06885.HK", "JINMA ENERGY", 2025, "url", "annual_report.pdf",
+        )
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(2_000, values["Q_E_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(5_410, values["Q_E_WATER_INTENSITY"])
+
+    def test_english_current_first_resource_table_requires_explicit_revenue_note(self):
+        pages = [PageText(66,
+            "Type of resources Unit 2025 2024 2023\n"
+            "Intensity of integrated energy Ton of standard coal/ 2.0 1.3 1.10 "
+            "consumption RMB10,000\n"
+            "Intensity of freshwater consumption Recycling rate of water for industrial use "
+            "Ton/RMB10,000 5.41 4.67 4.02 % 98.28 98.28 98.28\n"
+        )]
+        items = extract_indicator_candidates(
+            pages, "A", "甲", 2025, "url", "annual_report.pdf",
+        )
+        self.assertFalse([item for item in items if item.indicator_code in {
+            "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY",
+        }])
+
+    def test_english_statement_titles_allow_line_breaks_and_bilingual_row_prefixes(self):
+        pages = [
+            PageText(70,
+                "合并财务状况表 Consolidated Statement of\nFinancial Position\n"
+                "资产总额 Total assets 1,000,000 900,000\n"
+                "负债总额 Total liabilities 400,000 360,000\n"
+                "流动资产 Total current assets 300,000 270,000\n"
+                "流动负债 Total current liabilities 120,000 100,000\n"
+                "存货 Inventories 30,000 25,000\n"
+                "应收账款 Trade receivables 50,000 45,000\n"
+                "权益总额 Total equity 600,000 540,000\n"),
+            PageText(72,
+                "合并损益表 Consolidated Statement of\nProfit or Loss\n"
+                "收入 Revenue 500,000 400,000\n"
+                "经营利润 Operating profit 80,000 60,000\n"),
+        ]
+        items = extract_indicator_candidates(
+            pages, "01733.HK", "E-COMMODITIES", 2025, "url", "annual_report.pdf",
+        )
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(40, values["Q_G_DEBT_ASSET_RATE"])
+        self.assertAlmostEqual(25, values["Q_G_REVENUE_GROWTH"])
+        self.assertAlmostEqual(16, values["Q_G_OPERATING_MARGIN"])
+
+    def test_collapsed_english_income_row_recovers_only_deterministic_revenue_growth(self):
+        pages = [PageText(73,
+            "Consolidated Statement of Profit or Loss and Other Comprehensive Income\n"
+            "Revenue 7 Cost of sales and services provided 11 Gross profit "
+            "20,364,482 (15,883,625) 23,147,916 (19,654,507) "
+            "4,480,857 3,493,409\n"
+        )]
+        items = extract_indicator_candidates(
+            pages, "00607.HK", "FULLSHARE", 2025, "url", "annual_report.pdf",
+        )
+        matches = [item for item in items if item.indicator_code == "Q_G_REVENUE_GROWTH"]
+        self.assertEqual(1, len(matches))
+        self.assertAlmostEqual(-12.0245554719, matches[0].value)
+        self.assertTrue(
+            matches[0].evidence_text.startswith("English collapsed statement row derived:"),
+        )
+
+    def test_collapsed_english_income_row_rejects_missing_statement_title(self):
+        pages = [PageText(73,
+            "Revenue 7 Cost of sales and services provided 11 Gross profit "
+            "20,364,482 (15,883,625) 23,147,916 (19,654,507) "
+            "4,480,857 3,493,409\n"
+        )]
+        items = extract_indicator_candidates(
+            pages, "A", "甲", 2025, "url", "annual_report.pdf",
+        )
+        self.assertFalse([item for item in items if item.indicator_code == "Q_G_REVENUE_GROWTH"])
 
     def test_english_donation_rate_accepts_explicit_revenue_share(self):
         pages = [PageText(20, "Proportion of donation total in revenue 0.03 %")]
@@ -845,6 +1005,22 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual([160], [item.value for item in unresolved])
         self.assertEqual("public-disclosure-v4", decisions[0].policy_version)
         self.assertEqual("strict_extraction_evidence_consistent", decisions[0].reason)
+
+    def test_pending_resolver_accepts_strict_annual_resource_intensity_row(self):
+        energy = Observation(
+            "A", "甲", 2025, "Q_E_ENERGY_INTENSITY", 2_000, ValueStatus.PENDING,
+            source_file="annual_report.pdf", confidence=.96,
+            evidence_text="English current-first revenue resource row: "
+                          "Intensity of integrated energy Ton of standard coal/ 2.0 1.3 1.10",
+        )
+        unverified = Observation(
+            "B", "乙", 2025, "Q_E_ENERGY_INTENSITY", 3_000, ValueStatus.PENDING,
+            source_file="annual_report.pdf", confidence=.96,
+            evidence_text="Energy intensity 3.0",
+        )
+        confirmed, unresolved, _ = resolve_pending_candidates([energy, unverified])
+        self.assertEqual([2_000], [item.value for item in confirmed])
+        self.assertEqual([3_000], [item.value for item in unresolved])
 
     def test_resolution_preview_audit_closes_auto_and_manual_groups(self):
         auto = Observation("A", "甲", 2025, "Q_G_ROE", 10, ValueStatus.PENDING,
