@@ -75,8 +75,6 @@
 000155.SZ,川能动力,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000155.SZ,川能动力,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000155.SZ,川能动力,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000400.SZ,许继电气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000400.SZ,许继电气,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000400.SZ,许继电气,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000400.SZ,许继电气,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000400.SZ,许继电气,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -176,7 +174,6 @@
 000593.SZ,德龙汇能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000593.SZ,德龙汇能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000593.SZ,德龙汇能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000600.SZ,建投能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000600.SZ,建投能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000600.SZ,建投能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000600.SZ,建投能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -296,7 +293,6 @@
 000791.SZ,甘肃能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000791.SZ,甘肃能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000819.SZ,岳阳兴长,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000819.SZ,岳阳兴长,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000819.SZ,岳阳兴长,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000819.SZ,岳阳兴长,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000819.SZ,岳阳兴长,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -338,8 +334,6 @@
 000899.SZ,赣能股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000899.SZ,赣能股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000899.SZ,赣能股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000922.SZ,佳电股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-000922.SZ,佳电股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000922.SZ,佳电股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000922.SZ,佳电股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 000922.SZ,佳电股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -2127,7 +2121,6 @@
 300191.SZ,潜能恒信,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300191.SZ,潜能恒信,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300207.SZ,欣旺达,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-300207.SZ,欣旺达,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300207.SZ,欣旺达,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300207.SZ,欣旺达,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300207.SZ,欣旺达,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -2545,7 +2538,6 @@
 300842.SZ,帝科股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300842.SZ,帝科股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300842.SZ,帝科股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-300850.SZ,新强联,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300850.SZ,新强联,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300850.SZ,新强联,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 300850.SZ,新强联,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -2846,11 +2838,9 @@
 301295.SZ,美硕科技,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301295.SZ,美硕科技,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-301325.SZ,曼恩斯特,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-301325.SZ,曼恩斯特,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 301325.SZ,曼恩斯特,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3076,14 +3066,12 @@
 600157.SH,永泰能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600157.SH,永泰能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600163.SH,中闽能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600163.SH,中闽能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600167.SH,联美控股,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600167.SH,联美控股,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600167.SH,联美控股,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600167.SH,联美控股,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600167.SH,联美控股,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3117,8 +3105,6 @@
 600212.SH,绿能慧充,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600212.SH,绿能慧充,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600212.SH,绿能慧充,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600236.SH,桂冠电力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600236.SH,桂冠电力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600236.SH,桂冠电力,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600236.SH,桂冠电力,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600236.SH,桂冠电力,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3281,7 +3267,6 @@
 600478.SH,科力远,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600478.SH,科力远,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600478.SH,科力远,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600481.SH,双良节能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600481.SH,双良节能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600481.SH,双良节能,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600481.SH,双良节能,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3289,7 +3274,6 @@
 600481.SH,双良节能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600481.SH,双良节能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600481.SH,双良节能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600482.SH,中国动力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600482.SH,中国动力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600482.SH,中国动力,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600482.SH,中国动力,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3432,7 +3416,6 @@
 600726.SH,华电能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600726.SH,华电能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600732.SH,爱旭股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600732.SH,爱旭股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600732.SH,爱旭股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600732.SH,爱旭股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600732.SH,爱旭股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3440,7 +3423,6 @@
 600732.SH,爱旭股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600732.SH,爱旭股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600744.SH,华银电力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600744.SH,华银电力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600744.SH,华银电力,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600744.SH,华银电力,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600744.SH,华银电力,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3464,7 +3446,6 @@
 600777.SH,新潮能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600777.SH,新潮能源,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600777.SH,新潮能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600780.SH,XD通宝能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600780.SH,XD通宝能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600780.SH,XD通宝能,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600780.SH,XD通宝能,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3487,11 +3468,9 @@
 600803.SH,新奥股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600803.SH,新奥股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600821.SH,金开新能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600821.SH,金开新能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600821.SH,金开新能,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600821.SH,金开新能,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600821.SH,金开新能,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600821.SH,金开新能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600821.SH,金开新能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600847.SH,万里股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600847.SH,万里股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3528,7 +3507,6 @@
 600871.SH,石化油服,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600871.SH,石化油服,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600871.SH,石化油服,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600871.SH,石化油服,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600871.SH,石化油服,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600875.SH,东方电气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600875.SH,东方电气,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3570,14 +3548,12 @@
 600903.SH,贵州燃气,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600903.SH,贵州燃气,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600903.SH,贵州燃气,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600905.SH,三峡能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600905.SH,三峡能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-600917.SH,重庆燃气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600917.SH,重庆燃气,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600917.SH,重庆燃气,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 600917.SH,重庆燃气,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3771,7 +3747,6 @@
 601619.SH,嘉泽新能,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601619.SH,嘉泽新能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601619.SH,嘉泽新能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-601666.SH,平煤股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601666.SH,平煤股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601666.SH,平煤股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601666.SH,平煤股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3802,7 +3777,6 @@
 601727.SH,上海电气,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601727.SH,上海电气,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601778.SH,晶科科技,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-601778.SH,晶科科技,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601778.SH,晶科科技,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601778.SH,晶科科技,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601778.SH,晶科科技,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3840,7 +3814,6 @@
 601868.SH,中国能建,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601868.SH,中国能建,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601868.SH,中国能建,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-601877.SH,正泰电器,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601877.SH,正泰电器,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601877.SH,正泰电器,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601877.SH,正泰电器,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -3881,7 +3854,6 @@
 601991.SH,大唐发电,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601991.SH,大唐发电,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601991.SH,大唐发电,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-601991.SH,大唐发电,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 601991.SH,大唐发电,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603016.SH,新宏泰,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603016.SH,新宏泰,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4045,7 +4017,6 @@
 603393.SH,新天然气,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603393.SH,新天然气,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603396.SH,金辰股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-603396.SH,金辰股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603396.SH,金辰股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603396.SH,金辰股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603396.SH,金辰股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4184,7 +4155,6 @@
 603829.SH,洛凯股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603829.SH,洛凯股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603829.SH,洛凯股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-603861.SH,白云电器,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603861.SH,白云电器,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603861.SH,白云电器,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603861.SH,白云电器,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4206,8 +4176,6 @@
 603906.SH,龙蟠科技,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603906.SH,龙蟠科技,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603906.SH,龙蟠科技,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-603985.SH,恒润股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-603985.SH,恒润股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603985.SH,恒润股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603985.SH,恒润股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603985.SH,恒润股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4220,19 +4188,16 @@
 603988.SH,中电电机,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603988.SH,中电电机,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 603988.SH,中电电机,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-605011.SH,杭州热电,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605011.SH,杭州热电,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605011.SH,杭州热电,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605011.SH,杭州热电,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605011.SH,杭州热电,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-605011.SH,杭州热电,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605011.SH,杭州热电,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-605028.SH,世茂能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605028.SH,世茂能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 605066.SH,天正电气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4404,7 +4369,6 @@
 688275.SH,万润新能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688275.SH,万润新能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688275.SH,万润新能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-688303.SH,大全能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688303.SH,大全能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688303.SH,大全能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688303.SH,大全能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4583,7 +4547,6 @@
 688598.SH,金博股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688598.SH,金博股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688598.SH,金博股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
-688599.SH,天合光能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688599.SH,天合光能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688599.SH,天合光能,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688599.SH,天合光能,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4700,7 +4663,6 @@
 688779.SH,五矿新能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688779.SH,五矿新能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688819.SH,天能股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
-688819.SH,天能股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688819.SH,天能股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688819.SH,天能股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
 688819.SH,天能股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
@@ -4965,11 +4927,13 @@
 000096.SZ,广聚能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,66,0.94,candidate_available,review_candidates,1
 000155.SZ,川能动力,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,110,0.9,candidate_available,review_candidates,1
 000155.SZ,川能动力,Q_S_RD_RATE,研发费用占比,S,True,1,2025,119,0.94,candidate_available,review_candidates,1
+000400.SZ,许继电气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,41,0.9,candidate_available,review_candidates,1
+000400.SZ,许继电气,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,25,0.9,candidate_available,review_candidates,1
 000400.SZ,许继电气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,48|189,0.94,candidate_available,review_candidates,1
 000407.SZ,胜利股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,41,0.94,candidate_available,review_candidates,1
 000421.SZ,南京公用,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,60|214,0.94,candidate_available,review_candidates,1
-000531.SZ,穗恒运Ａ,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,34,0.82,candidate_available,review_candidates,1
-000531.SZ,穗恒运Ａ,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,24,0.82,candidate_available,review_candidates,1
+000531.SZ,穗恒运Ａ,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,2,2025,34|58,0.9,candidate_available,review_candidates,1
+000531.SZ,穗恒运Ａ,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,2,2025,24|58,0.9,candidate_available,review_candidates,1
 000531.SZ,穗恒运Ａ,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,37|136,0.94,candidate_available,review_candidates,1
 000531.SZ,穗恒运Ａ,Q_S_RD_RATE,研发费用占比,S,True,1,2025,60,0.94,candidate_available,review_candidates,1
 000533.SZ,顺钠股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,75,0.94,candidate_available,review_candidates,1
@@ -4984,6 +4948,7 @@
 000591.SZ,太阳能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,87,0.9,candidate_available,review_candidates,1
 000591.SZ,太阳能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,43,0.94,candidate_available,review_candidates,1
 000593.SZ,德龙汇能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,75,0.94,candidate_available,review_candidates,1
+000600.SZ,建投能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,55,0.9,candidate_available,review_candidates,1
 000600.SZ,建投能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,21|105,0.9,candidate_available,review_candidates,1
 000600.SZ,建投能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,68|309,0.94,candidate_available,review_candidates,1
 000600.SZ,建投能源,Q_S_RD_RATE,研发费用占比,S,True,2,2025,53|115,0.94,candidate_available,review_candidates,1
@@ -5005,6 +4970,7 @@
 000791.SZ,甘肃能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,80,0.9,candidate_available,review_candidates,1
 000791.SZ,甘肃能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,46|176,0.94,candidate_available,review_candidates,1
 000791.SZ,甘肃能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,33,0.82,candidate_available,review_candidates,1
+000819.SZ,岳阳兴长,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,27,0.9,candidate_available,review_candidates,1
 000875.SZ,电投绿能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,99,0.9,candidate_available,review_candidates,1
 000875.SZ,电投绿能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,43|251,0.94,candidate_available,review_candidates,1
 000883.SZ,湖北能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,104,0.9,candidate_available,review_candidates,1
@@ -5012,6 +4978,8 @@
 000899.SZ,赣能股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,14|77,0.9,candidate_available,review_candidates,1
 000899.SZ,赣能股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,49|162,0.94,candidate_available,review_candidates,1
 000899.SZ,赣能股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,85,0.94,candidate_available,review_candidates,1
+000922.SZ,佳电股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,34,0.9,candidate_available,review_candidates,1
+000922.SZ,佳电股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,37,0.9,candidate_available,review_candidates,1
 000922.SZ,佳电股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,66|247,0.94,candidate_available,review_candidates,1
 000922.SZ,佳电股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,39,0.9,candidate_available,review_candidates,1
 000937.SZ,冀中能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,61,0.9,candidate_available,review_candidates,1
@@ -5139,8 +5107,8 @@
 002692.SZ,远程股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,39|166,0.94,candidate_available,review_candidates,1
 002692.SZ,远程股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,67,0.94,candidate_available,review_candidates,1
 002700.SZ,万憬能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,47|149,0.94,candidate_available,review_candidates,1
-002706.SZ,良信股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,63,0.9,candidate_available,review_candidates,1
-002706.SZ,良信股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,63,0.9,candidate_available,review_candidates,1
+002706.SZ,良信股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,2,2025,43|63,0.9,candidate_available,review_candidates,1
+002706.SZ,良信股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,2,2025,47|63,0.9,candidate_available,review_candidates,1
 002706.SZ,良信股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,3,2025,38|190,0.94,candidate_available,review_candidates,1
 002709.SZ,天赐材料,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,75|81|180,0.94,candidate_available,review_candidates,1
 002709.SZ,天赐材料,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,46|189,0.94,candidate_available,review_candidates,1
@@ -5284,6 +5252,7 @@
 300185.SZ,通裕重工,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,74,0.9,candidate_available,review_candidates,1
 300185.SZ,通裕重工,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,44|176,0.94,candidate_available,review_candidates,1
 300191.SZ,潜能恒信,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,44|163,0.94,candidate_available,review_candidates,1
+300207.SZ,欣旺达,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,91,0.9,candidate_available,review_candidates,1
 300207.SZ,欣旺达,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,102,0.9,candidate_available,review_candidates,1
 300207.SZ,欣旺达,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,58|261,0.94,candidate_available,review_candidates,1
 300222.SZ,科大智能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,49,0.94,candidate_available,review_candidates,1
@@ -5385,6 +5354,7 @@
 300827.SZ,上能电气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,51|244,0.94,candidate_available,review_candidates,1
 300842.SZ,帝科股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,215,0.94,candidate_available,review_candidates,1
 300842.SZ,帝科股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,110,0.94,candidate_available,review_candidates,1
+300850.SZ,新强联,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,24,0.9,candidate_available,review_candidates,1
 300850.SZ,新强联,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,2,2025,20|46,0.9,candidate_available,review_candidates,1
 300850.SZ,新强联,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,101,0.9,candidate_available,review_candidates,1
 300850.SZ,新强联,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,69|239,0.94,candidate_available,review_candidates,1
@@ -5455,6 +5425,8 @@
 301291.SZ,明阳电气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,49|190,0.94,candidate_available,review_candidates,1
 301295.SZ,美硕科技,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,98,0.94,candidate_available,review_candidates,1
 301295.SZ,美硕科技,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,2,2025,41|173,0.94,candidate_available,review_candidates,1
+301325.SZ,曼恩斯特,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,20,0.9,candidate_available,review_candidates,1
+301325.SZ,曼恩斯特,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,24,0.9,candidate_available,review_candidates,1
 301325.SZ,曼恩斯特,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,60,0.94,candidate_available,review_candidates,1
 301327.SZ,华宝新能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,65,0.94,candidate_available,review_candidates,1
 301349.SZ,信德新材,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,87,0.94,candidate_available,review_candidates,1
@@ -5525,9 +5497,11 @@
 600157.SH,永泰能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,15|79,0.94,candidate_available,review_candidates,1
 600157.SH,永泰能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,50,0.94,candidate_available,review_candidates,1
 600157.SH,永泰能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,24,0.96,candidate_available,review_candidates,1
+600163.SH,中闽能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,18,0.9,candidate_available,review_candidates,1
 600163.SH,中闽能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,12|58,0.94,candidate_available,review_candidates,1
 600163.SH,中闽能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,36,0.94,candidate_available,review_candidates,1
 600163.SH,中闽能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,16,0.96,candidate_available,review_candidates,1
+600167.SH,联美控股,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,17,0.9,candidate_available,review_candidates,1
 600167.SH,联美控股,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,72,0.94,candidate_available,review_candidates,1
 600167.SH,联美控股,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,38,0.94,candidate_available,review_candidates,1
 600167.SH,联美控股,Q_S_RD_RATE,研发费用占比,S,True,1,2025,18,0.96,candidate_available,review_candidates,1
@@ -5543,6 +5517,8 @@
 600207.SH,安彩高科,Q_S_RD_RATE,研发费用占比,S,True,2,2025,18|32,0.96,candidate_available,review_candidates,1
 600212.SH,绿能慧充,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,86|100,0.94,candidate_available,review_candidates,1
 600212.SH,绿能慧充,Q_S_RD_RATE,研发费用占比,S,True,1,2025,40,0.96,candidate_available,review_candidates,1
+600236.SH,桂冠电力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,62,0.9,candidate_available,review_candidates,1
+600236.SH,桂冠电力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,30,0.9,candidate_available,review_candidates,1
 600236.SH,桂冠电力,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,11|103,0.94,candidate_available,review_candidates,1
 600236.SH,桂冠电力,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,54,0.94,candidate_available,review_candidates,1
 600236.SH,桂冠电力,Q_S_RD_RATE,研发费用占比,S,True,3,2025,13|15|20,0.96,candidate_available,review_candidates,1
@@ -5599,8 +5575,10 @@
 600475.SH,华光环能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,37,0.96,candidate_available,review_candidates,1
 600478.SH,科力远,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,20|80,0.94,candidate_available,review_candidates,1
 600478.SH,科力远,Q_S_RD_RATE,研发费用占比,S,True,1,2025,27,0.96,candidate_available,review_candidates,1
+600481.SH,双良节能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,24,0.9,candidate_available,review_candidates,1
 600481.SH,双良节能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,87,0.94,candidate_available,review_candidates,1
 600481.SH,双良节能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,22,0.96,candidate_available,review_candidates,1
+600482.SH,中国动力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,28,0.9,candidate_available,review_candidates,1
 600482.SH,中国动力,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,94,0.94,candidate_available,review_candidates,1
 600482.SH,中国动力,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,51,0.94,candidate_available,review_candidates,1
 600482.SH,中国动力,Q_S_RD_RATE,研发费用占比,S,True,1,2025,29,0.96,candidate_available,review_candidates,1
@@ -5649,13 +5627,16 @@
 600725.SH,云维股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,4,2025,7|9|11|67,0.94,candidate_available,review_candidates,1
 600726.SH,华电能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,136,0.94,candidate_available,review_candidates,1
 600726.SH,华电能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,23,0.96,candidate_available,review_candidates,1
+600732.SH,爱旭股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,130,0.9,candidate_available,review_candidates,1
 600732.SH,爱旭股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,96,0.94,candidate_available,review_candidates,1
 600732.SH,爱旭股份,Q_S_RD_RATE,研发费用占比,S,True,2,2025,28|118,0.96,candidate_available,review_candidates,1
+600744.SH,华银电力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,35,0.9,candidate_available,review_candidates,1
 600744.SH,华银电力,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,4,2025,9|10|35|71,0.94,candidate_available,review_candidates,1
 600744.SH,华银电力,Q_S_RD_RATE,研发费用占比,S,True,1,2025,14,0.96,candidate_available,review_candidates,1
 600758.SH,辽宁能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,53,0.94,candidate_available,review_candidates,1
 600758.SH,辽宁能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,30,0.94,candidate_available,review_candidates,1
 600777.SH,新潮能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,5|13|85,0.94,candidate_available,review_candidates,1
+600780.SH,XD通宝能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,16,0.9,candidate_available,review_candidates,1
 600780.SH,XD通宝能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,64,0.94,candidate_available,review_candidates,1
 600780.SH,XD通宝能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,41,0.94,candidate_available,review_candidates,1
 600780.SH,XD通宝能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,16,0.96,candidate_available,review_candidates,1
@@ -5664,6 +5645,8 @@
 600795.SH,国电电力,Q_S_RD_RATE,研发费用占比,S,True,1,2025,19,0.96,candidate_available,review_candidates,1
 600803.SH,新奥股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,68,0.94,candidate_available,review_candidates,1
 600803.SH,新奥股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,34,0.96,candidate_available,review_candidates,1
+600821.SH,金开新能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,19,0.9,candidate_available,review_candidates,1
+600821.SH,金开新能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,22,0.9,candidate_available,review_candidates,1
 600821.SH,金开新能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,87,0.94,candidate_available,review_candidates,1
 600821.SH,金开新能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,52,0.94,candidate_available,review_candidates,1
 600821.SH,金开新能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,21,0.96,candidate_available,review_candidates,1
@@ -5677,6 +5660,7 @@
 600869.SH,远东股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,73,0.94,candidate_available,review_candidates,1
 600869.SH,远东股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,43,0.94,candidate_available,review_candidates,1
 600869.SH,远东股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,19,0.96,candidate_available,review_candidates,1
+600871.SH,石化油服,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,48,0.9,candidate_available,review_candidates,1
 600871.SH,石化油服,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,13|36,0.9,candidate_available,review_candidates,1
 600871.SH,石化油服,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,48,0.94,candidate_available,review_candidates,1
 600871.SH,石化油服,Q_S_RD_RATE,研发费用占比,S,True,1,2025,26,0.96,candidate_available,review_candidates,1
@@ -5700,9 +5684,11 @@
 600903.SH,贵州燃气,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,96|102,0.94,candidate_available,review_candidates,1
 600903.SH,贵州燃气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,52,0.94,candidate_available,review_candidates,1
 600903.SH,贵州燃气,Q_S_RD_RATE,研发费用占比,S,True,1,2025,17,0.96,candidate_available,review_candidates,1
+600905.SH,三峡能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,36,0.9,candidate_available,review_candidates,1
 600905.SH,三峡能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,20|90|112,0.94,candidate_available,review_candidates,1
 600905.SH,三峡能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,58,0.94,candidate_available,review_candidates,1
 600905.SH,三峡能源,Q_S_RD_RATE,研发费用占比,S,True,2,2025,22|24,0.96,candidate_available,review_candidates,1
+600917.SH,重庆燃气,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,34,0.9,candidate_available,review_candidates,1
 600917.SH,重庆燃气,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,58,0.94,candidate_available,review_candidates,1
 600917.SH,重庆燃气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,33,0.94,candidate_available,review_candidates,1
 600917.SH,重庆燃气,Q_S_RD_RATE,研发费用占比,S,True,1,2025,61,0.94,candidate_available,review_candidates,1
@@ -5779,6 +5765,7 @@
 601619.SH,嘉泽新能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,62|69|74,0.94,candidate_available,review_candidates,1
 601619.SH,嘉泽新能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,45,0.94,candidate_available,review_candidates,1
 601619.SH,嘉泽新能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,42,0.9,candidate_available,review_candidates,1
+601666.SH,平煤股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,15,0.9,candidate_available,review_candidates,1
 601666.SH,平煤股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,102,0.94,candidate_available,review_candidates,1
 601666.SH,平煤股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,16,0.96,candidate_available,review_candidates,1
 601666.SH,平煤股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,1,2025,31,0.9,candidate_available,review_candidates,1
@@ -5789,6 +5776,7 @@
 601700.SH,风范股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,19,0.96,candidate_available,review_candidates,1
 601727.SH,上海电气,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,45,0.94,candidate_available,review_candidates,1
 601727.SH,上海电气,Q_S_RD_RATE,研发费用占比,S,True,2,2025,20|57,0.96,candidate_available,review_candidates,1
+601778.SH,晶科科技,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,25,0.9,candidate_available,review_candidates,1
 601778.SH,晶科科技,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,92|106|115,0.94,candidate_available,review_candidates,1
 601778.SH,晶科科技,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,52,0.94,candidate_available,review_candidates,1
 601778.SH,晶科科技,Q_S_RD_RATE,研发费用占比,S,True,1,2025,20,0.96,candidate_available,review_candidates,1
@@ -5800,6 +5788,7 @@
 601868.SH,中国能建,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,34,0.9,candidate_available,review_candidates,1
 601868.SH,中国能建,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,75,0.94,candidate_available,review_candidates,1
 601868.SH,中国能建,Q_S_RD_RATE,研发费用占比,S,True,1,2025,31,0.96,candidate_available,review_candidates,1
+601877.SH,正泰电器,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,120,0.9,candidate_available,review_candidates,1
 601877.SH,正泰电器,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,102,0.94,candidate_available,review_candidates,1
 601877.SH,正泰电器,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,65,0.94,candidate_available,review_candidates,1
 601877.SH,正泰电器,Q_S_RD_RATE,研发费用占比,S,True,1,2025,31,0.96,candidate_available,review_candidates,1
@@ -5814,6 +5803,7 @@
 601985.SH,中国核电,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,125,0.94,candidate_available,review_candidates,1
 601985.SH,中国核电,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,65,0.94,candidate_available,review_candidates,1
 601985.SH,中国核电,Q_S_RD_RATE,研发费用占比,S,True,1,2025,24,0.96,candidate_available,review_candidates,1
+601991.SH,大唐发电,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,25,0.9,candidate_available,review_candidates,1
 601991.SH,大唐发电,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,11,0.9,candidate_available,review_candidates,1
 601991.SH,大唐发电,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,45,0.94,candidate_available,review_candidates,1
 601991.SH,大唐发电,Q_S_RD_RATE,研发费用占比,S,True,2,2025,15|38,0.96,candidate_available,review_candidates,1
@@ -5876,6 +5866,7 @@
 603353.SH,和顺石油,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,76,0.94,candidate_available,review_candidates,1
 603353.SH,和顺石油,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,38,0.94,candidate_available,review_candidates,1
 603393.SH,新天然气,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,68,0.94,candidate_available,review_candidates,1
+603396.SH,金辰股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,47,0.9,candidate_available,review_candidates,1
 603396.SH,金辰股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,105,0.94,candidate_available,review_candidates,1
 603396.SH,金辰股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,54,0.94,candidate_available,review_candidates,1
 603396.SH,金辰股份,Q_S_RD_RATE,研发费用占比,S,True,2,2025,28|47,0.96,candidate_available,review_candidates,1
@@ -5936,6 +5927,7 @@
 603829.SH,洛凯股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,86,0.94,candidate_available,review_candidates,1
 603829.SH,洛凯股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,50,0.94,candidate_available,review_candidates,1
 603829.SH,洛凯股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,24,0.96,candidate_available,review_candidates,1
+603861.SH,白云电器,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,49,0.9,candidate_available,review_candidates,1
 603861.SH,白云电器,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,117,0.94,candidate_available,review_candidates,1
 603861.SH,白云电器,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,69,0.94,candidate_available,review_candidates,1
 603861.SH,白云电器,Q_S_RD_RATE,研发费用占比,S,True,1,2025,34,0.96,candidate_available,review_candidates,1
@@ -5944,15 +5936,20 @@
 603897.SH,长城科技,Q_S_RD_RATE,研发费用占比,S,True,1,2025,14,0.96,candidate_available,review_candidates,1
 603906.SH,龙蟠科技,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,130|142,0.94,candidate_available,review_candidates,1
 603906.SH,龙蟠科技,Q_S_RD_RATE,研发费用占比,S,True,1,2025,34,0.96,candidate_available,review_candidates,1
+603985.SH,恒润股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,6,0.9,candidate_available,review_candidates,1
+603985.SH,恒润股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,17,0.9,candidate_available,review_candidates,1
 603985.SH,恒润股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,78,0.94,candidate_available,review_candidates,1
 603985.SH,恒润股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,50,0.94,candidate_available,review_candidates,1
 603985.SH,恒润股份,Q_S_RD_RATE,研发费用占比,S,True,1,2025,24,0.96,candidate_available,review_candidates,1
 603988.SH,中电电机,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,62,0.94,candidate_available,review_candidates,1
 603988.SH,中电电机,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,36,0.94,candidate_available,review_candidates,1
 603988.SH,中电电机,Q_S_RD_RATE,研发费用占比,S,True,1,2025,16,0.96,candidate_available,review_candidates,1
+605011.SH,杭州热电,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,11,0.9,candidate_available,review_candidates,1
+605011.SH,杭州热电,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,18,0.9,candidate_available,review_candidates,1
 605011.SH,杭州热电,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,68,0.94,candidate_available,review_candidates,1
 605011.SH,杭州热电,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,35,0.94,candidate_available,review_candidates,1
 605011.SH,杭州热电,Q_S_RD_RATE,研发费用占比,S,True,1,2025,18,0.96,candidate_available,review_candidates,1
+605028.SH,世茂能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,1,2025,16,0.9,candidate_available,review_candidates,1
 605028.SH,世茂能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,49,0.94,candidate_available,review_candidates,1
 605028.SH,世茂能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,21,0.96,candidate_available,review_candidates,1
 605066.SH,天正电气,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,79,0.94,candidate_available,review_candidates,1
@@ -6016,6 +6013,7 @@
 688248.SH,南网科技,Q_S_RD_RATE,研发费用占比,S,True,2,2025,9|43,0.96,candidate_available,review_candidates,1
 688275.SH,万润新能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,4,2025,132|144|257,0.94,candidate_available,review_candidates,1
 688275.SH,万润新能,Q_S_RD_RATE,研发费用占比,S,True,2,2025,11|38,0.96,candidate_available,review_candidates,1
+688303.SH,大全能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,6,0.9,candidate_available,review_candidates,1
 688303.SH,大全能源,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,17|118,0.94,candidate_available,review_candidates,1
 688303.SH,大全能源,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,60,0.94,candidate_available,review_candidates,1
 688303.SH,大全能源,Q_S_RD_RATE,研发费用占比,S,True,1,2025,8,0.96,candidate_available,review_candidates,1
@@ -6077,6 +6075,7 @@
 688597.SH,煜邦电力,Q_S_RD_RATE,研发费用占比,S,True,2,2025,10|45,0.96,candidate_available,review_candidates,1
 688598.SH,金博股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,93|105,0.94,candidate_available,review_candidates,1
 688598.SH,金博股份,Q_S_RD_RATE,研发费用占比,S,True,2,2025,8|27,0.96,candidate_available,review_candidates,1
+688599.SH,天合光能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,1,2025,105,0.9,candidate_available,review_candidates,1
 688599.SH,天合光能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,131|145,0.94,candidate_available,review_candidates,1
 688599.SH,天合光能,Q_S_RD_RATE,研发费用占比,S,True,1,2025,148,0.94,candidate_available,review_candidates,1
 688611.SH,杭州柯林,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,1,2025,110,0.94,candidate_available,review_candidates,1
@@ -6121,6 +6120,7 @@
 688779.SH,五矿新能,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,3,2025,83|98,0.94,candidate_available,review_candidates,1
 688779.SH,五矿新能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,51,0.94,candidate_available,review_candidates,1
 688779.SH,五矿新能,Q_S_RD_RATE,研发费用占比,S,True,2,2025,8|18,0.96,candidate_available,review_candidates,1
+688819.SH,天能股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,1,2025,56,0.9,candidate_available,review_candidates,1
 688819.SH,天能股份,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,2,2025,34|124,0.94,candidate_available,review_candidates,1
 688819.SH,天能股份,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,1,2025,67,0.94,candidate_available,review_candidates,1
 688819.SH,天能股份,Q_S_RD_RATE,研发费用占比,S,True,3,2025,11|34|57,0.96,candidate_available,review_candidates,1

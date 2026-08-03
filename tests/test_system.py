@@ -16,6 +16,7 @@ from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, V
 from aegis_esg.scoring import PopulationStats, ScoringEngine
 from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, _extract_chinese_env_table_rows, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
+from aegis_esg.env_intensity import CompanyDocument, derive_env_intensity_candidates
 from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import (
     QualitativeEvidenceCandidate, collect_annual_qualitative_evidence,
@@ -3353,6 +3354,268 @@ class MethodologyTests(unittest.TestCase):
         self.assertFalse(_extract_chinese_env_table_rows(scope_only, 2025))
         collapsed = "指标 单位 2025 2024\n温室气体排放强度 吨二氧化碳当量 / 万元 2.613 清洁能源发电折合碳减排量 吨 7174787\n"
         self.assertFalse(_extract_chinese_env_table_rows(collapsed, 2025))
+
+    def _annual_doc(self, revenue_text: str) -> "CompanyDocument":
+        return CompanyDocument(
+            "annual_report", [PageText(8, revenue_text)], "https://a", "data/raw/A/2025/annual_report.pdf",
+        )
+
+    def _esg_doc(self, text: str) -> "CompanyDocument":
+        return CompanyDocument(
+            "esg_report", [PageText(12, text)], "https://e", "data/raw/A/2025/esg_report.pdf",
+        )
+
+    _CN_REVENUE = (
+        "主要会计数据和财务指标\n营业收入 17,050,000,000.00 16,200,000,000.00\n"
+        "利润总额 2,000,000,000.00 1,800,000,000.00\n"
+    )
+
+    def test_env_intensity_derives_from_chinese_table_total_and_summary_revenue(self):
+        esg = self._esg_doc(
+            "指标 单位 2023 年 2024 年 2025 年\n"
+            "温室气体排放总量（含范围一及范围二） 万吨二氧化碳当量 2.50 2.90 2.95\n"
+            "范围一温室气体排放总量 万吨二氧化碳当量 0.06 0.21 0.15\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertEqual("Q_E_GHG_INTENSITY", items[0].indicator_code)
+        self.assertAlmostEqual(2.95e7 * 1e4 / 1.705e10, items[0].value)
+        self.assertEqual("pending", items[0].status.value)
+        self.assertTrue(items[0].evidence_text.startswith("中文跨表派生: "))
+        self.assertIn("annual_report.pdf 第8页", items[0].evidence_text)
+
+    def test_env_intensity_derives_from_freeform_highlight_total(self):
+        esg = self._esg_doc("实际行动。\n温室气体排放总量\n2.95万吨二氧化碳当量\n员工总数\n5,987人\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(2.95e7 * 1e4 / 1.705e10, items[0].value)
+
+    def test_env_intensity_derives_energy_and_water_totals(self):
+        esg = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "能源消耗总量 吨标准煤 6,216.97 7,585.57\n"
+            "总用水量 吨 596,001.30 580,000\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(6216.97 * 1e3 * 1e4 / 1.705e10, values["Q_E_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(596001.30 * 1e3 * 1e4 / 1.705e10, values["Q_E_WATER_INTENSITY"])
+
+    def test_env_intensity_rejects_partial_scope_and_macro_narrative(self):
+        esg = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "范围一温室气体排放总量 万吨二氧化碳当量 0.15 0.21\n"
+            "直接能源消耗总量 吨标准煤 2,053,921.82 2,000,000\n"
+            "循环用水总量 吨 888,000 850,000\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertFalse(items)
+        macro = self._esg_doc("增加温室气体排放总量约 30 亿吨，覆盖全国碳市场。\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), macro])
+        self.assertFalse(items)
+        reduced = self._esg_doc("减排措施直接减少的温室气体排放总量\n吨二氧化碳当量\n15.67\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), reduced])
+        self.assertFalse(items)
+
+    def test_env_intensity_suppressed_by_disclosed_revenue_intensity(self):
+        # 公司已按收入口径披露强度（即使版式未被直接规则解析）时抑制派生；
+        # 同年份表头保证总量本身可抽取，断言为空即抑制生效
+        esg = self._esg_doc(
+            "Indicator Unit 2023 2024 2025\n"
+            "Total GHG Emissions (Scope 1 + Scope 2) tCO₂e 1,618,370 1,594,055 1,498,435\n"
+            "Total GHG Emission Economic Intensity (Scope 1 + Scope 2) tCO₂e /\n10,000 yuan 0.062 0.059 0.050\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertFalse(items)
+        # 对照：移除收入口径强度披露后派生正常生成
+        no_intensity = self._esg_doc(
+            "Indicator Unit 2023 2024 2025\n"
+            "Total GHG Emissions (Scope 1 + Scope 2) tCO₂e 1,618,370 1,594,055 1,498,435\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), no_intensity])
+        self.assertEqual(1, len(items))
+        # 产值口径披露不抑制：方法论只认营业收入分母
+        output_value = self._esg_doc(
+            "指标 单位 2023 年 2024 年 2025 年\n"
+            "温室气体排放总量（含范围一及范围二） 万吨二氧化碳当量 2.50 2.90 2.95\n"
+            "温室气体排放强度（万元产值温室气体排放强度） 吨二氧化碳当量 / 万元 0.02 0.01 0.016\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), output_value])
+        self.assertEqual(1, len(items))
+
+    def test_env_intensity_cn_narrative_group_anchored_total(self):
+        # 叙述式：报告主体锚定的句中总量（真实样例：600163.SH）
+        esg = self._esg_doc(
+            "2025年关键绩效：\n"
+            "2025 年，公司下属各项目累计完成发电量28.75亿千瓦时\n"
+            "2025 年，公司温室气体排放总量5532.27吨\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(5532.27 * 1e3 * 1e4 / 17.05e9, items[0].value)
+
+    def test_env_intensity_cn_narrative_rejects_targets_and_macro(self):
+        # 目标句（较基准年降低/控制在…以内）与宏观叙述不得抽取
+        for text in (
+            "2025 年，公司温室气体排放总量较2023年降低42%\n",
+            "2025 年，公司温室气体排放总量同比减少4.35%\n",
+            "到2030年，公司温室气体排放总量控制在100吨以内\n",
+            "2025年扩容企业超过1300家，增加温室气体排放总量约30亿吨\n",
+        ):
+            esg = self._esg_doc(text)
+            self.assertFalse(
+                derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]),
+                text,
+            )
+
+    def test_env_intensity_million_tonnes_unit_with_scope_closure(self):
+        # 百万吨二氧化碳当量单位 + 范围一/二闭环核验（真实样例：600167.SH）
+        esg = self._esg_doc(
+            "直接温室气体排放（范围1） 百万吨二氧化碳当量\n0.0264\n"
+            "间接温室气体排放（范围2） 百万吨二氧化碳当量\n0.0004\n"
+            "温室气体排放总量（范围1+范围2） 百万吨二氧化碳当量\n0.0268\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(0.0268 * 1e9 * 1e4 / 17.05e9, items[0].value)
+
+    def test_env_intensity_spaced_scope_annotation(self):
+        # 带空格的范围标注（真实样例：300880.SZ “（范围 1+ 范围 2）”）
+        esg = self._esg_doc("温室气体排放总量\n（范围 1+ 范围 2）\n2.95万吨二氧化碳当量\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+
+    def test_chinese_env_table_disclosure_item_header_and_wanyuan_revenue_unit(self):
+        # “披露项 单位”表头 + 万元营收单位（真实样例：300207.SZ 欣旺达）
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "披露项 单位 2023 2024 2025\n"
+            "温室气体排放强度 吨二氧化碳当量 / 万元营收 0.21 0.18 0.23\n",
+            2025,
+        )
+        self.assertEqual(1, len(rows))
+        code, value, _ = rows[0]
+        self.assertEqual("Q_E_GHG_INTENSITY", code)
+        self.assertAlmostEqual(230.0, value)
+
+    def test_env_intensity_skips_existing_candidates_and_conflicts(self):
+        esg = self._esg_doc("温室气体排放总量\n2.95万吨二氧化碳当量\n")
+        documents = [self._annual_doc(self._CN_REVENUE), esg]
+        skipped = derive_env_intensity_candidates(
+            "A", "甲", 2025, documents, frozenset({"Q_E_GHG_INTENSITY"}),
+        )
+        self.assertFalse(skipped)
+        conflict = [
+            self._annual_doc(self._CN_REVENUE),
+            self._esg_doc("温室气体排放总量\n2.95万吨二氧化碳当量\n"),
+            CompanyDocument("esg_report", [PageText(20, "温室气体排放总量\n3.10万吨二氧化碳当量\n")], "https://e2", "data/raw/A/2025/esg_report2.pdf"),
+        ]
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, conflict))
+
+    def test_env_intensity_requires_revenue_and_plausible_value(self):
+        esg = self._esg_doc("温室气体排放总量\n2.95万吨二氧化碳当量\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [esg]))
+        # 总量相对营收超出量级防护区间时拒绝（拦截单位错配）
+        huge = self._esg_doc("温室气体排放总量\n50,000万吨二氧化碳当量\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), huge]))
+
+    def test_env_intensity_derives_from_english_group_total_and_rmb_statement(self):
+        annual = CompanyDocument("annual_report", [PageText(99, (
+            "Consolidated Statement of Comprehensive Income\n"
+            "For the year ended 31 December 2025\n"
+            "2025 2024\nNote RMB'million RMB'million\n"
+            "Revenue 收入 5 5,000 4,800\n"
+            "Profit for the year 620 590\n"
+        ))], "https://a", "data/raw/A/2025/annual_report.pdf")
+        esg = self._esg_doc(
+            "During the Reporting Period, the Group's total GHG emissions were "
+            "154,166.64 tonnes of carbon dioxide equivalent.\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(154166.64 * 1e3 * 1e4 / 5e9, items[0].value)
+        self.assertTrue(items[0].evidence_text.startswith("English cross-document derived: "))
+
+    def test_env_intensity_rejects_equity_basis_and_foreign_currency(self):
+        annual_hkd = CompanyDocument("annual_report", [PageText(99, (
+            "Consolidated Statement of Profit or Loss\n"
+            "2025 2024\nHK$'000 HK$'000\n"
+            "Revenue 5,000,000 4,800,000\n"
+        ))], "https://a", "data/raw/A/2025/annual_report.pdf")
+        esg = self._esg_doc("The Group's total GHG emissions were 154,166.64 tonnes of carbon dioxide equivalent.\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual_hkd, esg]))
+        equity = self._esg_doc(
+            "The Group's total GHG emissions were 45,783 kilotonnes of carbon dioxide "
+            "equivalent (CO2e) on an equity basis.\n"
+        )
+        annual_rmb = CompanyDocument("annual_report", [PageText(99, (
+            "Consolidated Statement of Comprehensive Income\n"
+            "2025 2024\nRMB'million RMB'million\n"
+            "Revenue 5,000 4,800\n"
+        ))], "https://a", "data/raw/A/2025/annual_report.pdf")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual_rmb, equity]))
+
+    def test_env_intensity_english_year_header_table(self):
+        annual = CompanyDocument("annual_report", [PageText(99, (
+            "Consolidated Statement of Comprehensive Income\n"
+            "2025 2024\nRMB'million RMB'million\n"
+            "Revenue 5,000 4,800\n"
+        ))], "https://a", "data/raw/A/2025/annual_report.pdf")
+        esg = self._esg_doc(
+            "Indicator Unit 2023 2024 2025\n"
+            "Total GHG Emissions (Scope 1 + Scope 2) tCO₂e 1,618,370 1,594,055 1,498,435\n"
+            "Total water consumption tonnes 800,000 790,000 750,000\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1498435 * 1e3 * 1e4 / 5e9, values["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(750000 * 1e3 * 1e4 / 5e9, values["Q_E_WATER_INTENSITY"])
+        # 无年份表头时拒绝猜列
+        no_header = self._esg_doc("Total GHG Emissions (Scope 1 + Scope 2) tCO₂e 1,618,370 1,594,055 1,498,435\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual, no_header]))
+
+    def test_env_intensity_ghg_total_scope_closure(self):
+        # 范围一+范围二闭环时接受总量
+        closing = self._esg_doc(
+            "指标 单位 2023 年 2024 年 2025 年\n"
+            "温室气体排放总量 吨二氧化碳当量 227,656 221,495 157,996\n"
+            "直接温室气体排放量（范围一） 吨二氧化碳当量 3,725.44 3,142.65 3,081.89\n"
+            "间接温室气体排放量（范围二） 吨二氧化碳当量 223,930.56 218,353 154,914.11\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), closing])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(157996 * 1e3 * 1e4 / 1.705e10, items[0].value)
+        # 总量含范围三（范围一+范围二不闭环）时拒绝
+        scope3 = self._esg_doc(
+            "Indicator Unit 2023 2024 2025\n"
+            "Scope 1 Greenhouse Gas Emissions tCO2e 58,333.53 109,895.55 137,645.38\n"
+            "Scope 2 Greenhouse Gas Emissions tCO2e 367,858.05 488,540.24 511,814.87\n"
+            "Scope 3 Greenhouse Gas Emissions tCO2e - 3,614,426.24 4,110,318.06\n"
+            "Total Greenhouse Gas Emissions tCO2e 426,191.57 4,212,862.03 4,759,778.31\n"
+        )
+        annual = CompanyDocument("annual_report", [PageText(99, (
+            "Consolidated Statement of Comprehensive Income\n"
+            "2025 2024\nRMB'million RMB'million\n"
+            "Revenue 5,000 4,800\n"
+        ))], "https://a", "data/raw/A/2025/annual_report.pdf")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual, scope3]))
+        # 显式标注范围一+范围二的总量不受同页范围三披露影响
+        annotated = self._esg_doc(
+            "Indicator Unit 2023 2024 2025\n"
+            "Total GHG Emissions (Scope 1 + Scope 2) tCO2e 1,618,370 1,594,055 1,498,435\n"
+            "Scope 3 GHG emissions tCO2e - - 12,345\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, annotated])
+        self.assertEqual(1, len(items))
+
+    def test_env_intensity_derived_candidates_auto_confirm(self):
+        from aegis_esg.resolution import resolve_pending_candidates
+        esg = self._esg_doc("温室气体排放总量\n2.95万吨二氧化碳当量\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        confirmed, unresolved, _ = resolve_pending_candidates(items)
+        self.assertEqual(1, len(confirmed))
+        self.assertFalse(unresolved)
+        self.assertEqual("confirmed", confirmed[0].status.value)
 
     def test_merge_confirmed_observations_dedupes_and_rejects_conflicts(self):
         with tempfile.TemporaryDirectory() as directory:

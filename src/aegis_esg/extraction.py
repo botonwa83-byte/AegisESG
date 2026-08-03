@@ -435,12 +435,15 @@ def extract_batch_text_exports(
     text_root: str | Path,
     report_year: int | None = None,
 ) -> tuple[list[Observation], dict[str, dict[str, int]]]:
+    from .env_intensity import CompanyDocument, derive_env_intensity_candidates
+
     candidates: list[Observation] = []
     candidate_counts: Counter[str] = Counter()
     company_coverage: dict[str, set[str]] = defaultdict(set)
     text_root = Path(text_root)
     with Path(document_index).open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
+    companies: dict[tuple[str, int], list[tuple[dict, list[PageText]]]] = defaultdict(list)
     for row in rows:
         if report_year is not None and int(row["report_year"]) != report_year:
             continue
@@ -452,13 +455,28 @@ def extract_batch_text_exports(
         text_path = (text_root / relative).with_suffix(".txt")
         if not text_path.exists():
             continue
-        items = extract_indicator_candidates(
-            read_page_text_export(text_path), row["company_code"], row["company_name"],
-            int(row["report_year"]), row["source_url"], row["local_path"],
+        pages = read_page_text_export(text_path)
+        companies[(row["company_code"], int(row["report_year"]))].append((row, pages))
+    for (company_code, year), documents in sorted(companies.items()):
+        company_candidates: list[Observation] = []
+        company_documents: list[CompanyDocument] = []
+        for row, pages in documents:
+            items = extract_indicator_candidates(
+                pages, row["company_code"], row["company_name"],
+                int(row["report_year"]), row["source_url"], row["local_path"],
+            )
+            company_candidates.extend(items)
+            company_documents.append(CompanyDocument(
+                row["document_type"], pages, row["source_url"], row["local_path"],
+            ))
+        derived = derive_env_intensity_candidates(
+            company_code, documents[0][0]["company_name"], year, company_documents,
+            frozenset(item.indicator_code for item in company_candidates),
         )
-        candidates.extend(items)
-        candidate_counts.update(item.indicator_code for item in items)
-        for item in items:
+        company_candidates.extend(derived)
+        candidates.extend(company_candidates)
+        candidate_counts.update(item.indicator_code for item in company_candidates)
+        for item in company_candidates:
             company_coverage[item.indicator_code].add(item.company_code)
     coverage = {
         code: {"candidate_count": candidate_counts[code], "company_count": len(companies)}
@@ -1166,18 +1184,22 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
     ("Q_E_GHG_INTENSITY", r"温室气体排放强度(?:\s*[（(]范围[一1]\s*[、和+]\s*范围[二2][）)])?", (
         ("万吨二氧化碳当量/百万元营业收入", 100000.0), ("万吨二氧化碳当量/百万元营收", 100000.0),
         ("吨二氧化碳当量/百万元营业收入", 1000.0), ("吨二氧化碳当量/百万元营收", 1000.0),
-        ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/亿元", 0.1),
+        ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
+        ("吨二氧化碳当量/万元营业收入", 1000.0),
+        ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/亿元", 0.1),
         ("千克二氧化碳当量/万元", 1.0), ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
     )),
     ("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度|综合能耗强度", (
         ("万吨标准煤/百万元营业收入", 100000.0), ("万吨标准煤/百万元营收", 100000.0),
         ("吨标准煤/百万元营业收入", 1000.0), ("吨标准煤/百万元营收", 1000.0),
-        ("吨标准煤/万元", 1000.0), ("吨标准煤/百万元", 10.0), ("吨标准煤/亿元", 0.1),
+        ("吨标准煤/万元", 1000.0), ("吨标准煤/万元营收", 1000.0), ("吨标准煤/万元营业收入", 1000.0),
+        ("吨标准煤/百万元", 10.0), ("吨标准煤/亿元", 0.1),
         ("千克标准煤/万元", 1.0),
     )),
     ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|用水强度", (
-        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("立方米/万元", 1000.0), ("立方米/百万元", 10.0),
-        ("千克/万元", 1.0),
+        ("吨/万元", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元营业收入", 1000.0),
+        ("吨/百万元", 10.0), ("立方米/万元", 1000.0), ("立方米/万元营收", 1000.0),
+        ("立方米/百万元", 10.0), ("千克/万元", 1.0),
     )),
     ("Q_E_SO2_INTENSITY", r"二氧化硫排放强度", (
         ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
@@ -1222,19 +1244,23 @@ def _normalize_kangxi(text: str) -> str:
     return "".join(chars)
 
 
+def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
+    """Detect the year-column layout of a Chinese KPI table from its explicit header."""
+    previous_year = report_year - 1
+    header = r"(?:指标|项目|披露项)(?:名称)?\s*单位"
+    if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
+        return "current-first"
+    if re.search(rf"{header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?", text):
+        return "current-last"
+    if re.search(rf"{header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
+        return "single-year"
+    return None
+
+
 def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[str, float, str]]:
     """Read methodology-compatible rows from Chinese KPI tables with explicit year headers."""
     text = _normalize_kangxi(text)
-    previous_year = report_year - 1
-    header = r"(?:指标|项目)(?:名称)?\s*单位"
-    if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
-        mode = "current-first"
-    elif re.search(rf"{header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?", text):
-        mode = "current-last"
-    elif re.search(rf"{header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
-        mode = "single-year"
-    else:
-        mode = None
+    mode = _chinese_year_table_mode(text, report_year)
     results: list[tuple[str, float, str]] = []
     for code, label, units in _CN_TABLE_RULES:
         factors = dict(units)
