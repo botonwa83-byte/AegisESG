@@ -1,0 +1,10 @@
+{
+  "policy_version": "rank-impact-v1",
+  "top_n_boundary": 200,
+  "task_count": 275,
+  "conflict_task_count": 257,
+  "crosses_boundary_count": 111,
+  "high_impact_count": 127,
+  "maximum_impact_score": 87.85,
+  "applicable": false
+}

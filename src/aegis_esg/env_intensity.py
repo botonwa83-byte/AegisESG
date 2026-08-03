@@ -606,3 +606,140 @@ def derive_env_intensity_candidates(
             evidence_text=evidence[:500], confidence=.9,
         ))
     return results
+
+
+# 温室气体减排率：同一显式年份表头总量行的本期/上期两值派生（上期-本期）/上期。
+# 公司直接披露同口径减排率/同比下降时抑制派生；目标/计划措辞不构成披露。
+_CN_REDUCTION_SUPPRESS = re.compile(
+    r"(?:温室气体|碳排放)[\s\S]{0,24}(?:排放)?(?:总量)?[\s\S]{0,12}"
+    r"(?:减排率|下降率|同比下降|同比减少|较上年下降)[\s\S]{0,8}%"
+)
+_CN_REDUCTION_TARGET_WORDS = re.compile(r"目标|计划|规划|力争|预计|预测")
+
+# 两期口径断裂说明（如“2023年-2024年温室气体排放量仅统计了集团本部数据，不含子公司”）
+# 使上期值与本期值不可比，整页减排率拒绝派生
+_CN_PERIOD_BREAK = re.compile(
+    r"仅(?:统计|涵盖|包括)[^。\n]{0,20}(?:集团本部|本部|总部)|不含子公司"
+)
+
+
+def _cn_reduction_disclosed(text: str) -> bool:
+    return any(
+        not _CN_REDUCTION_TARGET_WORDS.search(match.group(0))
+        for match in _CN_REDUCTION_SUPPRESS.finditer(text)
+    )
+
+
+@dataclass(frozen=True)
+class _GhgReduction:
+    rate: float
+    source_file: str
+    source_page: int
+    evidence: str
+
+
+def _scope_pair(
+    text: str, label: str, units: tuple[tuple[str, float], ...], mode: str,
+) -> tuple[float, float] | None:
+    """Read (current, previous) of a scope row with the same column discipline as totals."""
+    factors = dict(units)
+    unit_pattern = "(?:" + "|".join(re.escape(unit) for unit, _ in units) + ")"
+    if mode == "current-first":
+        row = rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s+(?P<previous>{_CN_NUMBER})(?:\s+(?:{_CN_NUMBER}|/))?\s*$"
+    else:
+        row = rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?:{_CN_NUMBER}\s+)?(?P<previous>{_CN_NUMBER})\s+(?P<current>{_CN_NUMBER})\s*$"
+    match = re.search(row, text)
+    if not match:
+        return None
+    factor = factors.get(re.sub(r"\s+", "", match.group("unit")))
+    if factor is None:
+        return None
+    return (
+        float(match.group("current").replace(",", "")) * factor,
+        float(match.group("previous").replace(",", "")) * factor,
+    )
+
+
+def _cn_ghg_reduction_rows(text: str, report_year: int, source_file: str, page: int) -> list[_GhgReduction]:
+    """Derive GHG reduction rates from two-period explicit-year-header total rows.
+
+    Both values come from the same row/unit so the caliber is closed by construction;
+    when scope rows parse with two periods, closure is verified for both periods,
+    otherwise the current-period total must pass the standard scope acceptance.
+    """
+    text = _normalize_kangxi(text)
+    mode = _chinese_year_table_mode(text, report_year)
+    if mode not in {"current-first", "current-last"}:
+        return []
+    if _CN_PERIOD_BREAK.search(text):
+        return []
+    _code, label, units, _bounds = _CN_TOTAL_RULES[0]
+    factors = dict(units)
+    unit_pattern = "(?:" + "|".join(re.escape(unit) for unit, _ in units) + ")"
+    if mode == "current-first":
+        row = rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s+(?P<previous>{_CN_NUMBER})(?:\s+{_CN_NUMBER})?\s*$"
+    else:
+        row = rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?:{_CN_NUMBER}\s+)?(?P<previous>{_CN_NUMBER})\s+(?P<current>{_CN_NUMBER})\s*$"
+    results: list[_GhgReduction] = []
+    for match in re.finditer(row, text):
+        prefix = text[max(0, match.start() - 24):match.start()]
+        if _CN_BAD_PREFIX.search(prefix):
+            continue
+        factor = factors.get(re.sub(r"\s+", "", match.group("unit")))
+        if factor is None:
+            continue
+        current = float(match.group("current").replace(",", "")) * factor
+        previous = float(match.group("previous").replace(",", "")) * factor
+        if current < 0 or previous <= 0:
+            continue
+        scope1 = _scope_pair(text, _CN_SCOPE12_LABELS[0], units, mode)
+        scope2 = _scope_pair(text, _CN_SCOPE12_LABELS[1], units, mode)
+        if scope1 is not None and scope2 is not None:
+            if abs(current - scope1[0] - scope2[0]) > max(abs(current), 1.0) * 0.01:
+                continue
+            if abs(previous - scope1[1] - scope2[1]) > max(abs(previous), 1.0) * 0.01:
+                continue
+        elif not _ghg_total_acceptable(match.group(0), text, mode, units, current, english=False):
+            continue
+        rate = (previous - current) / previous * 100
+        if not -1000 <= rate <= 100:
+            continue
+        evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+        results.append(_GhgReduction(
+            rate, source_file, page,
+            f"Chinese two-period GHG table row: {evidence[:220]}",
+        ))
+    return results
+
+
+def derive_ghg_reduction_candidates(
+    company_code: str,
+    company_name: str,
+    report_year: int,
+    documents: list[CompanyDocument],
+    skip_indicators: frozenset[str] = frozenset(),
+) -> list[Observation]:
+    """Derive 温室气体减排率 from same-table two-period totals for one company."""
+    code = "Q_E_GHG_REDUCTION_RATE"
+    if code in skip_indicators:
+        return []
+    full_text = "\n".join(page.text for doc in documents for page in doc.pages)
+    if _cn_reduction_disclosed(full_text):
+        return []
+    rows: list[_GhgReduction] = []
+    for doc in documents:
+        for page in doc.pages:
+            rows.extend(_cn_ghg_reduction_rows(page.text, report_year, doc.source_file, page.page))
+    if not rows or _distinct([item.rate for item in rows]):
+        return []
+    item = rows[0]
+    evidence = f"中文两期总量表派生: {item.evidence} ({item.source_file} 第{item.source_page}页)"
+    return [Observation(
+        company_code=company_code, company_name=company_name, report_year=report_year,
+        indicator_code=code, value=item.rate, status=ValueStatus.PENDING,
+        source_url=next(
+            doc.source_url for doc in documents if doc.source_file == item.source_file
+        ),
+        source_file=item.source_file, source_page=item.source_page,
+        evidence_text=evidence[:500], confidence=.9,
+    )]

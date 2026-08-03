@@ -370,6 +370,7 @@
 000155.SZ,川能动力,2025,Q_S_DONATION_RATE,1,0.0001399,185,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000155.SZ,川能动力,2025,Q_S_RD_RATE,1,0.820008,119,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000400.SZ,许继电气,2025,Q_E_GHG_INTENSITY,1,19.6773,25,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+000400.SZ,许继电气,2025,Q_E_GHG_REDUCTION_RATE,1,-1.72414,28,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000400.SZ,许继电气,2025,Q_E_NOX_INTENSITY,1,0.940507,31,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000400.SZ,许继电气,2025,Q_E_PM_INTENSITY,1,0.578979,31,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000400.SZ,许继电气,2025,Q_E_WASTEWATER_INTENSITY,1,12.354,31,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
@@ -446,6 +447,7 @@
 000543.SZ,皖能电力,2025,Q_G_ROE,2,12.95,9|237,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000543.SZ,皖能电力,2025,Q_S_DIVIDEND_PER_SHARE,2,0.379,45|225,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000543.SZ,皖能电力,2025,Q_S_DONATION_RATE,1,0.00451608,191,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
+000554.SZ,泰山石油,2025,Q_E_GHG_REDUCTION_RATE,1,-22.5102,44,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000554.SZ,泰山石油,2025,Q_G_ROE,1,14.22,8,0.92,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000591.SZ,太阳能,2025,Q_G_CAPITAL_ACCUMULATION,1,1.62338,93,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000591.SZ,太阳能,2025,Q_G_DEBT_ASSET_RATE,1,53.89,87,0.9,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -566,6 +568,7 @@
 000791.SZ,甘肃能源,2025,Q_S_DIVIDEND_PER_SHARE,2,0.23,46|176,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000791.SZ,甘肃能源,2025,Q_S_SAFETY_INVEST_RATE,1,0.850489,51,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000819.SZ,岳阳兴长,2025,Q_E_GHG_INTENSITY,1,425.868,27,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+000819.SZ,岳阳兴长,2025,Q_E_GHG_REDUCTION_RATE,1,28.6684,27,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000819.SZ,岳阳兴长,2025,Q_G_AR_TURNOVER,1,31.2808,107,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000819.SZ,岳阳兴长,2025,Q_G_CAPITAL_ACCUMULATION,1,-3.19776,110,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000819.SZ,岳阳兴长,2025,Q_G_CURRENT_ASSET_TURNOVER,1,2.68557,110,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -612,6 +615,7 @@
 000899.SZ,赣能股份,2025,Q_S_RD_RATE,1,1.63626,85,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 000922.SZ,佳电股份,2025,Q_E_ENERGY_INTENSITY,1,25.6727,34,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 000922.SZ,佳电股份,2025,Q_E_GHG_INTENSITY,1,73.2906,37,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+000922.SZ,佳电股份,2025,Q_E_GHG_REDUCTION_RATE,1,6.62062,37,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000922.SZ,佳电股份,2025,Q_E_HAZ_WASTE_INTENSITY,1,1.00018,37,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000922.SZ,佳电股份,2025,Q_E_SOLID_WASTE_INTENSITY,1,22.0726,37,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 000922.SZ,佳电股份,2025,Q_E_WASTEWATER_INTENSITY,1,234.939,35,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
@@ -1405,6 +1409,7 @@
 002700.SZ,万憬能源,2025,Q_G_ROE,2,5.96,8|157,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 002700.SZ,万憬能源,2025,Q_S_DIVIDEND_PER_SHARE,2,0.025,47|149,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 002706.SZ,良信股份,2025,Q_E_GHG_INTENSITY,2,51.1,43|63,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+002706.SZ,良信股份,2025,Q_E_GHG_REDUCTION_RATE,1,-9.70116,63,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 002706.SZ,良信股份,2025,Q_E_WATER_INTENSITY,2,616.6,47|63,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 002706.SZ,良信股份,2025,Q_G_AR_TURNOVER,1,6.15947,70,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 002706.SZ,良信股份,2025,Q_G_CAPITAL_ACCUMULATION,1,8.89072,70,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -2415,6 +2420,7 @@
 300191.SZ,潜能恒信,2025,Q_S_EDU_PER_EMPLOYEE,1,1.70042,135,0.95,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300191.SZ,潜能恒信,2025,Q_S_PAY_PER_EMPLOYEE,1,49.526,135,0.95,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300207.SZ,欣旺达,2025,Q_E_GHG_INTENSITY,1,230,91,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+300207.SZ,欣旺达,2025,Q_E_GHG_REDUCTION_RATE,1,-48.5245,91,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300207.SZ,欣旺达,2025,Q_E_SOLID_WASTE_INTENSITY,1,12.2117,39,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300207.SZ,欣旺达,2025,Q_E_WASTEWATER_INTENSITY,1,35.2852,39,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300207.SZ,欣旺达,2025,Q_G_AR_TURNOVER,1,7.20703,110,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -2980,6 +2986,7 @@
 300772.SZ,运达股份,2025,Q_S_DIVIDEND_PER_SHARE,2,0.06,50|241,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 300772.SZ,运达股份,2025,Q_S_DONATION_RATE,1,0.00248279,189,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300776.SZ,帝尔激光,2025,Q_E_GHG_INTENSITY,1,11.5972,68,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+300776.SZ,帝尔激光,2025,Q_E_GHG_REDUCTION_RATE,1,4.35,9,0.94,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300776.SZ,帝尔激光,2025,Q_E_SOLID_WASTE_INTENSITY,1,0.155919,67,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 300776.SZ,帝尔激光,2025,Q_G_AR_TURNOVER,1,2.05307,101,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 300776.SZ,帝尔激光,2025,Q_G_ASSET_TURNOVER,1,0.306333,101,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -3965,6 +3972,7 @@
 600212.SH,绿能慧充,2025,Q_S_RD_RATE,1,5.63,40,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600236.SH,桂冠电力,2025,Q_E_ENERGY_INTENSITY,1,327.344,62,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 600236.SH,桂冠电力,2025,Q_E_GHG_INTENSITY,1,2880,30,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+600236.SH,桂冠电力,2025,Q_E_GHG_REDUCTION_RATE,1,56.5097,62,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600236.SH,桂冠电力,2025,Q_E_HAZ_WASTE_INTENSITY,1,0.0990481,62,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600236.SH,桂冠电力,2025,Q_E_NOX_INTENSITY,1,163.573,62,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600236.SH,桂冠电力,2025,Q_E_SOLID_WASTE_INTENSITY,1,234.198,62,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
@@ -4345,6 +4353,7 @@
 600481.SH,双良节能,2025,Q_S_RD_RATE,1,3.2,22,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600481.SH,双良节能,2025,Q_S_SAFETY_INVEST_RATE,1,0.235829,63,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600482.SH,中国动力,2025,Q_E_ENERGY_INTENSITY,1,28.0157,28,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+600482.SH,中国动力,2025,Q_E_GHG_REDUCTION_RATE,1,-6.96378,26,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600482.SH,中国动力,2025,Q_E_NOX_INTENSITY,1,17.7907,42,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600482.SH,中国动力,2025,Q_G_AR_TURNOVER,1,4.299,92,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600482.SH,中国动力,2025,Q_G_ASSET_TURNOVER,1,0.512087,93,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -4774,6 +4783,7 @@
 600803.SH,新奥股份,2025,Q_S_ENV_INVEST_RATE,1,0.00723432,50,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600803.SH,新奥股份,2025,Q_S_RD_RATE,1,0.74,34,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600821.SH,金开新能,2025,Q_E_GHG_INTENSITY,1,10.1491,19,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+600821.SH,金开新能,2025,Q_E_GHG_REDUCTION_RATE,1,12.1408,19,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600821.SH,金开新能,2025,Q_E_WATER_INTENSITY,1,137.462,22,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 600821.SH,金开新能,2025,Q_G_AR_TURNOVER,1,0.44952,86,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600821.SH,金开新能,2025,Q_G_ASSET_TURNOVER,1,0.0869431,87,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -5122,6 +5132,7 @@
 600982.SH,宁波能源,2025,Q_S_DIVIDEND_PER_SHARE,1,0.17,45,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600982.SH,宁波能源,2025,Q_S_RD_RATE,1,1.4,17,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600995.SH,南网储能,2025,Q_E_GHG_INTENSITY,1,30,22,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+600995.SH,南网储能,2025,Q_E_GHG_REDUCTION_RATE,1,-22.7813,22,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600995.SH,南网储能,2025,Q_E_NOX_INTENSITY,1,8.59395,28,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 600995.SH,南网储能,2025,Q_G_AR_TURNOVER,1,14.4836,87,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 600995.SH,南网储能,2025,Q_G_ASSET_TURNOVER,1,0.134658,88,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -5143,6 +5154,7 @@
 600995.SH,南网储能,2025,Q_S_RD_RATE,1,1.18,18,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 601001.SH,晋控煤业,2025,Q_E_ENERGY_INTENSITY,1,85.5972,32,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 601001.SH,晋控煤业,2025,Q_E_GHG_INTENSITY,1,2678.55,27,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+601001.SH,晋控煤业,2025,Q_E_GHG_REDUCTION_RATE,1,4.29103,31,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 601001.SH,晋控煤业,2025,Q_E_HAZ_WASTE_INTENSITY,1,0.065825,49,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 601001.SH,晋控煤业,2025,Q_G_AR_TURNOVER,1,25.186,64,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 601001.SH,晋控煤业,2025,Q_G_ASSET_TURNOVER,1,0.356931,65,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -5602,6 +5614,7 @@
 601985.SH,中国核电,2025,Q_G_TWO_FUNDS_RATE,1,71.6737,123,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 601985.SH,中国核电,2025,Q_S_DIVIDEND_PER_SHARE,1,0.16,65,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 601985.SH,中国核电,2025,Q_S_RD_RATE,1,2.84,24,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
+601991.SH,大唐发电,2025,Q_E_GHG_REDUCTION_RATE,1,6.63,22,0.94,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 601991.SH,大唐发电,2025,Q_E_WASTEWATER_INTENSITY,1,92348.9,25,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 601991.SH,大唐发电,2025,Q_E_WATER_INTENSITY,1,15880,25,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
 601991.SH,大唐发电,2025,Q_G_DEBT_ASSET_RATE,1,70.15,11,0.9,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -5717,6 +5730,7 @@
 603053.SH,成都燃气,2025,Q_G_TWO_FUNDS_RATE,1,3.74604,58,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603053.SH,成都燃气,2025,Q_S_DIVIDEND_PER_SHARE,1,0.3,34,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603053.SH,成都燃气,2025,Q_S_RD_RATE,1,0.17,15,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
+603063.SH,禾望电气,2025,Q_E_GHG_REDUCTION_RATE,1,-9.46975,80,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 603063.SH,禾望电气,2025,Q_E_WASTEWATER_INTENSITY,1,228.677,80,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 603063.SH,禾望电气,2025,Q_G_AR_TURNOVER,1,1.8623,89,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603063.SH,禾望电气,2025,Q_G_ASSET_TURNOVER,1,0.890368,90,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -5973,6 +5987,7 @@
 603393.SH,新天然气,2025,Q_G_ROE,1,9.43,7,0.92,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603393.SH,新天然气,2025,Q_G_TWO_FUNDS_RATE,1,14.4552,67,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603396.SH,金辰股份,2025,Q_E_GHG_INTENSITY,1,12.6557,47,0.9,auto_policy_eligible,run_resolve_pending,official_esg_direct_consistent
+603396.SH,金辰股份,2025,Q_E_GHG_REDUCTION_RATE,1,42.0448,47,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 603396.SH,金辰股份,2025,Q_E_SOLID_WASTE_INTENSITY,1,0.293217,21,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 603396.SH,金辰股份,2025,Q_G_AR_TURNOVER,1,2.95921,103,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 603396.SH,金辰股份,2025,Q_G_ASSET_TURNOVER,1,0.535559,104,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
@@ -6499,6 +6514,7 @@
 605117.SH,德业股份,2025,Q_G_TWO_FUNDS_RATE,1,23.6313,109,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 605117.SH,德业股份,2025,Q_S_DIVIDEND_PER_SHARE,1,1.8,54,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 605117.SH,德业股份,2025,Q_S_RD_RATE,1,4.6,25,0.96,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
+605162.SH,新中港,2025,Q_E_GHG_REDUCTION_RATE,1,15.9335,35,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 605162.SH,新中港,2025,Q_E_WASTEWATER_INTENSITY,1,1654.51,36,0.9,auto_policy_eligible,run_resolve_pending,strict_extraction_evidence_consistent
 605162.SH,新中港,2025,Q_G_AR_TURNOVER,1,4.89856,72,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent
 605162.SH,新中港,2025,Q_G_ASSET_TURNOVER,1,0.3793,73,0.94,auto_policy_eligible,run_resolve_pending,official_annual_direct_consistent

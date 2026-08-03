@@ -435,7 +435,9 @@ def extract_batch_text_exports(
     text_root: str | Path,
     report_year: int | None = None,
 ) -> tuple[list[Observation], dict[str, dict[str, int]]]:
-    from .env_intensity import CompanyDocument, derive_env_intensity_candidates
+    from .env_intensity import (
+        CompanyDocument, derive_env_intensity_candidates, derive_ghg_reduction_candidates,
+    )
     from .social_invest import derive_social_invest_candidates
 
     candidates: list[Observation] = []
@@ -480,6 +482,11 @@ def extract_batch_text_exports(
             frozenset(item.indicator_code for item in company_candidates),
         )
         company_candidates.extend(derived_social)
+        derived_reduction = derive_ghg_reduction_candidates(
+            company_code, documents[0][0]["company_name"], year, company_documents,
+            frozenset(item.indicator_code for item in company_candidates),
+        )
+        company_candidates.extend(derived_reduction)
         candidates.extend(company_candidates)
         candidate_counts.update(item.indicator_code for item in company_candidates)
         for item in company_candidates:
@@ -603,6 +610,18 @@ def extract_indicator_candidates(
                     indicator_code="Q_E_GHG_REDUCTION_RATE", value=value,
                     status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
                     source_page=page.page, evidence_text=evidence, confidence=.93,
+                ))
+        cn_reduction = _extract_chinese_ghg_reduction_direct(page.text, report_year)
+        if cn_reduction:
+            value, evidence = cn_reduction
+            identity = ("Q_E_GHG_REDUCTION_RATE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_E_GHG_REDUCTION_RATE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.94,
                 ))
         env_investment = _extract_english_env_investment_rate(text, report_year)
         if env_investment:
@@ -876,6 +895,42 @@ def _extract_english_ghg_reduction(text: str, report_year: int) -> tuple[float, 
         return None
     evidence = re.sub(r"\s+", " ", match.group(0)).strip()
     return reduction, "English same-scope GHG table derived: " + evidence
+
+
+# 中文减排率直接披露：仅接受方法论口径（报告期同比、排放总量、公司实际值）的两种版式——
+# 单年表头KPI表“同比下降 %”行与公司锚定“同比减少/下降X%”叙述；目标/峰值/累计/强度口径拒绝。
+_CN_GHG_REDUCTION_NUM = r"[\d,]+(?:\.\d+)?"
+_CN_GHG_REDUCTION_TABLE_ROW = re.compile(
+    rf"(?m)^\s*温室气体排放(?:总量|总排放量)?(?:同比)?(?:下降|减少)(?:率)?\s*%\s*(?P<value>{_CN_GHG_REDUCTION_NUM})\s*$"
+)
+_CN_GHG_REDUCTION_NARRATIVE = re.compile(
+    rf"(?:公司|本集团|集团)[\s\S]{{0,16}}?温室气体(?:排放总量|总排放量|排放量)[\s\S]{{0,8}}?"
+    rf"同比(?:减少|下降)[\s\S]{{0,8}}?(?P<value>{_CN_GHG_REDUCTION_NUM})\s*%"
+)
+_CN_GHG_REDUCTION_BAD = re.compile(r"目标|计划|规划|力争|预计|预测|强度|密度|较|峰值|累计|净排放")
+
+
+def _extract_chinese_ghg_reduction_direct(text: str, report_year: int) -> tuple[float, str] | None:
+    """Read a directly disclosed YoY total-GHG reduction rate (strict layouts only)."""
+    if _chinese_year_table_mode(text, report_year) == "single-year":
+        match = _CN_GHG_REDUCTION_TABLE_ROW.search(text)
+        if match:
+            value = float(match.group("value").replace(",", ""))
+            if 0 < value <= 100:
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                return value, "中文减排率直接披露: " + evidence
+    for match in _CN_GHG_REDUCTION_NARRATIVE.finditer(text):
+        span = match.group(0)
+        if _CN_GHG_REDUCTION_BAD.search(span):
+            continue
+        if str(report_year) not in span and "报告期内" not in span and "本年度" not in span:
+            continue
+        value = float(match.group("value").replace(",", ""))
+        if not 0 < value <= 100:
+            continue
+        evidence = re.sub(r"\s+", " ", span).strip()
+        return value, "中文减排率直接披露: " + evidence
+    return None
 
 
 def _extract_english_env_investment_rate(text: str, report_year: int) -> tuple[float, str] | None:

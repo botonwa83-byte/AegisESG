@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, supersede_documents, write_document_index
+from .completion import audit_project_completion, write_completion_report
 from .continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates, write_continuity_review_batch, write_continuity_review_guide, write_continuity_review_packets, write_finalized_continuity_reviews
 from .extraction import ReviewSummary, extract_batch_text_exports, extract_indicator_candidates, extract_pdf_text, read_page_text_export, summarize_review_candidates
 from .esg_disclosure import (
@@ -13,6 +15,7 @@ from .esg_disclosure import (
     scan_annual_esg_disclosure, write_annual_esg_evidence,
     write_qualitative_candidates, write_qualitative_evidence_candidates,
 )
+from .evidence_graph import build_evidence_constraint_graph, write_evidence_constraint_graph
 from .financial import derive_financial_observations, read_financial_facts
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write_candidate_coverage, write_indicator_plan
@@ -36,15 +39,17 @@ from .review_batch import (
     apply_review_batch, create_review_batch, read_batch_ledger, read_batch_rows,
     read_review_progress, update_ledger_entry, write_batch_ledger, write_review_progress,
 )
+from .review_priority import prioritize_review_by_impact, write_impact_review_plan
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
+from .ranking_analysis import analyze_missing_sensitivity, validate_ranking_mode, write_sensitivity_report
 from .repository import SQLiteRepository
 from .resolution import audit_resolution_preview, plan_review_tiers, read_resolution_decisions, read_review_tiers, resolve_pending_candidates, select_manual_review_candidates, write_review_tiers
 from .review import apply_conflict_review_instructions, apply_review_instructions, read_review_instructions, write_review_audit, write_review_template
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
-from .scoring import ScoringEngine
+from .scoring import MissingStrategy, ScoringEngine
 from .sources.sse import discover_reports
 from .sources.szse import discover_batch as discover_szse_batch, discover_reports as discover_szse_reports
 from .sources.listings import collect_listing_pages, fetch_json
@@ -66,13 +71,26 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
     template = sub.add_parser("template", help="生成观测数据CSV模板")
     template.add_argument("output")
+    completion = sub.add_parser("audit-completion", help="汇总六道项目完成与正式发布门禁")
+    completion.add_argument("--documents", required=True, help="文档覆盖摘要JSON")
+    completion.add_argument("--quantitative", required=True, help="定量候选任务摘要JSON")
+    completion.add_argument("--qualitative", required=True, help="定性复核计划摘要JSON")
+    completion.add_argument("--resolution", required=True, help="定量冻结审计摘要JSON")
+    completion.add_argument("--expected-companies", type=int, default=632)
+    completion.add_argument("--output", required=True)
+    evidence_graph = sub.add_parser("build-evidence-graph", help="构建多源证据约束图及质量摘要")
+    evidence_graph.add_argument("input")
+    evidence_graph.add_argument("--output", required=True)
+    evidence_graph.add_argument("--summary", required=True)
     score = sub.add_parser("score", help="从CSV自动计算并导出排名")
     score.add_argument("input")
     score.add_argument("--output-dir", default="output")
     score.add_argument("--title", default="中国能源上市公司可持续发展（ESG）评价前200名单")
     score.add_argument("--universe", help="正式发布时使用的公司池CSV")
     score.add_argument("--expected-companies", type=int, help="正式发布目标公司主体数")
-    score.add_argument("--release", action="store_true", help="启用完整样本发布门槛")
+    score.add_argument("--mode", choices=("preview", "research", "release"), default="preview")
+    score.add_argument("--missing-strategy", choices=tuple(item.value for item in MissingStrategy))
+    score.add_argument("--release", action="store_true", help="兼容旧调用，等同于--mode release")
     universe_audit = sub.add_parser("universe-audit", help="审计公司池及已完成数据覆盖")
     universe_audit.add_argument("universe")
     universe_audit.add_argument("--observations")
@@ -448,6 +466,12 @@ def main() -> None:
     review_tiers.add_argument("input")
     review_tiers.add_argument("--output", required=True)
     review_tiers.add_argument("--summary", required=True)
+    impact_review = sub.add_parser("prioritize-review-impact", help="按排名敏感性和证据风险重排人工审核")
+    impact_review.add_argument("tiers")
+    impact_review.add_argument("sensitivity")
+    impact_review.add_argument("--top-n", type=int, default=200)
+    impact_review.add_argument("--output", required=True)
+    impact_review.add_argument("--summary", required=True)
     resolution_audit = sub.add_parser("audit-resolution-preview", help="校验自动确认预览批次能否冻结")
     resolution_audit.add_argument("candidates")
     resolution_audit.add_argument("confirmed")
@@ -753,6 +777,22 @@ def main() -> None:
             methodology, args.report_year,
         )
         write_indicator_plan(args.output, args.summary, tasks, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-completion":
+        report = audit_project_completion(
+            args.documents, args.quantitative, args.qualitative, args.resolution,
+            args.expected_companies,
+        )
+        write_completion_report(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "build-evidence-graph":
+        methodology = load_methodology(args.methodology)
+        graph, summary = build_evidence_constraint_graph(
+            read_observations(args.input, methodology), methodology,
+        )
+        write_evidence_constraint_graph(args.output, args.summary, graph, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "plan-candidate-coverage":
@@ -1092,6 +1132,14 @@ def main() -> None:
         write_review_tiers(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
+    if args.command == "prioritize-review-impact":
+        rows, summary = prioritize_review_by_impact(
+            read_review_tiers(args.tiers), args.sensitivity,
+            load_methodology(args.methodology), args.top_n,
+        )
+        write_impact_review_plan(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
     if args.command == "audit-resolution-preview":
         report = audit_resolution_preview(
             read_observations(args.candidates, methodology),
@@ -1133,7 +1181,14 @@ def main() -> None:
         print(f"conflict decisions {len(audits)}; confirmed {len(confirmed)}; unresolved {len(unresolved)}")
         return
     observations = read_observations(args.input, methodology)
-    if args.release:
+    mode = "release" if args.release else args.mode
+    if args.release and args.mode != "preview":
+        raise SystemExit("--release不能与显式--mode同时使用")
+    try:
+        strategy = validate_ranking_mode(mode, observations, args.missing_strategy).value
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+    if mode == "release":
         if not args.universe or not args.expected_companies:
             raise SystemExit("正式发布必须同时指定 --universe 和 --expected-companies")
         audit = audit_universe(
@@ -1147,13 +1202,34 @@ def main() -> None:
                 f"已有数据 {audit.completed_company_count}/{audit.expected_company_count}，"
                 f"缺少交易所 {','.join(audit.missing_exchanges) or '无'}"
             )
-    results = ScoringEngine(methodology).evaluate(observations)
+    results = ScoringEngine(methodology).evaluate(observations, strategy)
     output = Path(args.output_dir)
     output.mkdir(parents=True, exist_ok=True)
+    title = args.title + ("（自动预排名·非正式）" if mode == "research" else "")
     write_ranking_csv(output / "ranking.csv", results, methodology)
     write_ranking_json(output / "ranking.json", results)
-    write_ranking_html(output / "ranking.html", results, methodology, args.title)
-    print(f"scored {len(results)} companies; files written to {output}")
+    write_ranking_html(output / "ranking.html", results, methodology, title)
+    metadata = {
+        "ranking_mode": mode,
+        "algorithm_version": "auto_prerank_v1" if mode == "research" else "energy_esg_2025",
+        "missing_strategy_version": strategy,
+        "company_count": len(results),
+        "input_path": str(Path(args.input)),
+        "input_sha256": _sha256_file(args.input),
+        "methodology_path": str(Path(args.methodology)),
+        "methodology_sha256": _sha256_file(args.methodology),
+        "official_release": mode == "release",
+        "notice": "正式审计版" if mode == "release" else "自动研究结果，不得作为正式榜单",
+    }
+    (output / "ranking_metadata.json").write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+    )
+    if mode == "research":
+        write_sensitivity_report(
+            output / "ranking_sensitivity.json",
+            analyze_missing_sensitivity(observations, methodology),
+        )
+    print(f"scored {len(results)} companies in {mode} mode; files written to {output}")
 
 
 def _read_code_maps(paths: list[str]) -> dict[str, str]:
@@ -1170,6 +1246,14 @@ def _read_code_maps(paths: list[str]) -> dict[str, str]:
                 raise ValueError(f"代码映射冲突: {old}")
             aliases[old] = new
     return aliases
+
+
+def _sha256_file(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 if __name__ == "__main__":

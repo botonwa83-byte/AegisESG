@@ -6304,7 +6304,6 @@
 000155.SZ,川能动力,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000400.SZ,许继电气,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000400.SZ,许继电气,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-000400.SZ,许继电气,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000400.SZ,许继电气,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000400.SZ,许继电气,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000400.SZ,许继电气,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6486,7 +6485,6 @@
 000543.SZ,皖能电力,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000554.SZ,泰山石油,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000554.SZ,泰山石油,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-000554.SZ,泰山石油,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000554.SZ,泰山石油,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000554.SZ,泰山石油,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000554.SZ,泰山石油,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6849,7 +6847,6 @@
 000791.SZ,甘肃能源,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000819.SZ,岳阳兴长,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000819.SZ,岳阳兴长,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-000819.SZ,岳阳兴长,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000819.SZ,岳阳兴长,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000819.SZ,岳阳兴长,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000819.SZ,岳阳兴长,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -6947,7 +6944,6 @@
 000899.SZ,赣能股份,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000922.SZ,佳电股份,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000922.SZ,佳电股份,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-000922.SZ,佳电股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000922.SZ,佳电股份,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000922.SZ,佳电股份,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 000922.SZ,佳电股份,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -8457,7 +8453,6 @@
 002700.SZ,万憬能源,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 002706.SZ,良信股份,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 002706.SZ,良信股份,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-002706.SZ,良信股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 002706.SZ,良信股份,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 002706.SZ,良信股份,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 002706.SZ,良信股份,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -10944,7 +10939,6 @@
 300191.SZ,潜能恒信,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300207.SZ,欣旺达,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300207.SZ,欣旺达,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-300207.SZ,欣旺达,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300207.SZ,欣旺达,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300207.SZ,欣旺达,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300207.SZ,欣旺达,Q_G_ASSET_TURNOVER,总资产周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -11763,7 +11757,6 @@
 300772.SZ,运达股份,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300776.SZ,帝尔激光,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300776.SZ,帝尔激光,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-300776.SZ,帝尔激光,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300776.SZ,帝尔激光,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300776.SZ,帝尔激光,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 300776.SZ,帝尔激光,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -13006,7 +12999,6 @@
 600212.SH,绿能慧充,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600236.SH,桂冠电力,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600236.SH,桂冠电力,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-600236.SH,桂冠电力,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600236.SH,桂冠电力,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600236.SH,桂冠电力,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600236.SH,桂冠电力,Q_G_OPERATING_PROFIT_GROWTH,营业利润增长率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -13293,7 +13285,6 @@
 600481.SH,双良节能,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600482.SH,中国动力,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600482.SH,中国动力,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-600482.SH,中国动力,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600482.SH,中国动力,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600482.SH,中国动力,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600482.SH,中国动力,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -13626,7 +13617,6 @@
 600803.SH,新奥股份,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600821.SH,金开新能,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600821.SH,金开新能,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-600821.SH,金开新能,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600821.SH,金开新能,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600821.SH,金开新能,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600821.SH,金开新能,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -13925,7 +13915,6 @@
 600982.SH,宁波能源,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600995.SH,南网储能,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600995.SH,南网储能,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-600995.SH,南网储能,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600995.SH,南网储能,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600995.SH,南网储能,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 600995.SH,南网储能,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -13936,7 +13925,6 @@
 600995.SH,南网储能,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601001.SH,晋控煤业,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601001.SH,晋控煤业,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-601001.SH,晋控煤业,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601001.SH,晋控煤业,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601001.SH,晋控煤业,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601001.SH,晋控煤业,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -14381,7 +14369,6 @@
 601985.SH,中国核电,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601991.SH,大唐发电,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601991.SH,大唐发电,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-601991.SH,大唐发电,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601991.SH,大唐发电,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601991.SH,大唐发电,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 601991.SH,大唐发电,Q_G_AR_TURNOVER,应收账款周转率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -14473,7 +14460,6 @@
 603053.SH,成都燃气,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603063.SH,禾望电气,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603063.SH,禾望电气,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-603063.SH,禾望电气,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603063.SH,禾望电气,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603063.SH,禾望电气,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603063.SH,禾望电气,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -14680,7 +14666,6 @@
 603393.SH,新天然气,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603396.SH,金辰股份,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603396.SH,金辰股份,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-603396.SH,金辰股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603396.SH,金辰股份,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603396.SH,金辰股份,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 603396.SH,金辰股份,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -15046,7 +15031,6 @@
 605117.SH,德业股份,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,0,,,0,missing_candidate,extend_extraction_rules,2
 605162.SH,新中港,Q_E_ALTERNATIVE_WATER_RATE,再生水或其他替代水源占比,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 605162.SH,新中港,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
-605162.SH,新中港,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 605162.SH,新中港,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 605162.SH,新中港,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
 605162.SH,新中港,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,0,,,0,missing_candidate,extend_extraction_rules,2
@@ -16504,6 +16488,7 @@
 000155.SZ,川能动力,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,9,0.91,candidate_available,review_candidates,3
 000155.SZ,川能动力,Q_G_ROE,净资产收益率,G,False,2,2025,9|219,0.94,candidate_available,review_candidates,3
 000155.SZ,川能动力,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,185,0.9,candidate_available,review_candidates,3
+000400.SZ,许继电气,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,28,0.9,candidate_available,review_candidates,3
 000400.SZ,许继电气,Q_E_PM_INTENSITY,颗粒物排放强度,E,False,1,2025,31,0.9,candidate_available,review_candidates,3
 000400.SZ,许继电气,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,31,0.9,candidate_available,review_candidates,3
 000400.SZ,许继电气,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,84,0.94,candidate_available,review_candidates,3
@@ -16565,6 +16550,7 @@
 000543.SZ,皖能电力,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,9,0.91,candidate_available,review_candidates,3
 000543.SZ,皖能电力,Q_G_ROE,净资产收益率,G,False,2,2025,9|237,0.94,candidate_available,review_candidates,3
 000543.SZ,皖能电力,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,191,0.9,candidate_available,review_candidates,3
+000554.SZ,泰山石油,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,44,0.9,candidate_available,review_candidates,3
 000554.SZ,泰山石油,Q_G_ROE,净资产收益率,G,False,1,2025,8,0.92,candidate_available,review_candidates,3
 000591.SZ,太阳能,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,93,0.94,candidate_available,review_candidates,3
 000591.SZ,太阳能,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,8,0.91,candidate_available,review_candidates,3
@@ -16661,6 +16647,7 @@
 000791.SZ,甘肃能源,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 000791.SZ,甘肃能源,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,8,0.91,candidate_available,review_candidates,3
 000791.SZ,甘肃能源,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
+000819.SZ,岳阳兴长,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,27,0.9,candidate_available,review_candidates,3
 000819.SZ,岳阳兴长,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,107,0.94,candidate_available,review_candidates,3
 000819.SZ,岳阳兴长,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 000819.SZ,岳阳兴长,Q_G_CURRENT_ASSET_TURNOVER,流动资产周转率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
@@ -16698,6 +16685,7 @@
 000899.SZ,赣能股份,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,143,0.9,candidate_available,review_candidates,3
 000899.SZ,赣能股份,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,1,2025,135,0.95,candidate_available,review_candidates,3
 000899.SZ,赣能股份,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,1,2025,135,0.95,candidate_available,review_candidates,3
+000922.SZ,佳电股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,37,0.9,candidate_available,review_candidates,3
 000922.SZ,佳电股份,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,37,0.9,candidate_available,review_candidates,3
 000922.SZ,佳电股份,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,35,0.9,candidate_available,review_candidates,3
 000922.SZ,佳电股份,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,104,0.94,candidate_available,review_candidates,3
@@ -17375,6 +17363,7 @@
 002700.SZ,万憬能源,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,71,0.94,candidate_available,review_candidates,3
 002700.SZ,万憬能源,Q_G_REVENUE_GROWTH,营业增长率,G,False,1,2025,8,0.91,candidate_available,review_candidates,3
 002700.SZ,万憬能源,Q_G_ROE,净资产收益率,G,False,2,2025,8|157,0.94,candidate_available,review_candidates,3
+002706.SZ,良信股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,63,0.9,candidate_available,review_candidates,3
 002706.SZ,良信股份,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 002706.SZ,良信股份,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,70,0.94,candidate_available,review_candidates,3
 002706.SZ,良信股份,Q_G_CASH_REALIZATION,营业收现率,G,False,1,2025,76,0.94,candidate_available,review_candidates,3
@@ -18263,6 +18252,7 @@
 300191.SZ,潜能恒信,Q_S_BENEFIT_PER_EMPLOYEE,员工福利、社保和公积金费用,S,False,1,2025,135,0.95,candidate_available,review_candidates,3
 300191.SZ,潜能恒信,Q_S_EDU_PER_EMPLOYEE,工会和职工教育经费,S,False,1,2025,135,0.95,candidate_available,review_candidates,3
 300191.SZ,潜能恒信,Q_S_PAY_PER_EMPLOYEE,员工薪酬,S,False,1,2025,135,0.95,candidate_available,review_candidates,3
+300207.SZ,欣旺达,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,91,0.9,candidate_available,review_candidates,3
 300207.SZ,欣旺达,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,39,0.9,candidate_available,review_candidates,3
 300207.SZ,欣旺达,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
 300207.SZ,欣旺达,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,110,0.94,candidate_available,review_candidates,3
@@ -18740,6 +18730,7 @@
 300772.SZ,运达股份,Q_G_ROE,净资产收益率,G,False,2,2025,7|260,0.94,candidate_available,review_candidates,3
 300772.SZ,运达股份,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,96,0.94,candidate_available,review_candidates,3
 300772.SZ,运达股份,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,189,0.9,candidate_available,review_candidates,3
+300776.SZ,帝尔激光,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,9,0.94,candidate_available,review_candidates,3
 300776.SZ,帝尔激光,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
 300776.SZ,帝尔激光,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
 300776.SZ,帝尔激光,Q_G_CAPITAL_ACCUMULATION,资本积累率,G,False,1,2025,103,0.94,candidate_available,review_candidates,3
@@ -19576,6 +19567,7 @@
 600212.SH,绿能慧充,Q_G_QUICK_RATIO,速动比率,G,False,1,2025,99,0.94,candidate_available,review_candidates,3
 600212.SH,绿能慧充,Q_G_ROE,净资产收益率,G,False,1,2025,6,0.92,candidate_available,review_candidates,3
 600212.SH,绿能慧充,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,98,0.94,candidate_available,review_candidates,3
+600236.SH,桂冠电力,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,62,0.9,candidate_available,review_candidates,3
 600236.SH,桂冠电力,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,62,0.9,candidate_available,review_candidates,3
 600236.SH,桂冠电力,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,62,0.9,candidate_available,review_candidates,3
 600236.SH,桂冠电力,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
@@ -19910,6 +19902,7 @@
 600481.SH,双良节能,Q_G_ROA,总资产报酬率,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
 600481.SH,双良节能,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 600481.SH,双良节能,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,86,0.94,candidate_available,review_candidates,3
+600482.SH,中国动力,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,26,0.9,candidate_available,review_candidates,3
 600482.SH,中国动力,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,92,0.94,candidate_available,review_candidates,3
 600482.SH,中国动力,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,93,0.94,candidate_available,review_candidates,3
 600482.SH,中国动力,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,101,0.94,candidate_available,review_candidates,3
@@ -20279,6 +20272,7 @@
 600803.SH,新奥股份,Q_G_ROE,净资产收益率,G,False,1,2025,9,0.92,candidate_available,review_candidates,3
 600803.SH,新奥股份,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,242,0.9,candidate_available,review_candidates,3
 600803.SH,新奥股份,Q_S_ENV_INVEST_RATE,环保投入占比,S,False,1,2025,50,0.9,candidate_available,review_candidates,3
+600821.SH,金开新能,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,19,0.9,candidate_available,review_candidates,3
 600821.SH,金开新能,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,86,0.94,candidate_available,review_candidates,3
 600821.SH,金开新能,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
 600821.SH,金开新能,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,93,0.94,candidate_available,review_candidates,3
@@ -20574,6 +20568,7 @@
 600982.SH,宁波能源,Q_G_ROA,总资产报酬率,G,False,1,2025,96,0.94,candidate_available,review_candidates,3
 600982.SH,宁波能源,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 600982.SH,宁波能源,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,91,0.94,candidate_available,review_candidates,3
+600995.SH,南网储能,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,22,0.9,candidate_available,review_candidates,3
 600995.SH,南网储能,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
 600995.SH,南网储能,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,88,0.94,candidate_available,review_candidates,3
 600995.SH,南网储能,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,96,0.94,candidate_available,review_candidates,3
@@ -20590,6 +20585,7 @@
 600995.SH,南网储能,Q_G_ROE,净资产收益率,G,False,2,2025,7|11,0.92,candidate_available,review_candidates,3
 600995.SH,南网储能,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,87,0.94,candidate_available,review_candidates,3
 600995.SH,南网储能,Q_S_DONATION_RATE,社会公益投入占比,S,False,1,2025,173,0.9,candidate_available,review_candidates,3
+601001.SH,晋控煤业,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,31,0.9,candidate_available,review_candidates,3
 601001.SH,晋控煤业,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,1,2025,49,0.9,candidate_available,review_candidates,3
 601001.SH,晋控煤业,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,64,0.94,candidate_available,review_candidates,3
 601001.SH,晋控煤业,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,65,0.94,candidate_available,review_candidates,3
@@ -20982,6 +20978,7 @@
 601985.SH,中国核电,Q_G_ROA,总资产报酬率,G,False,1,2025,128,0.94,candidate_available,review_candidates,3
 601985.SH,中国核电,Q_G_ROE,净资产收益率,G,False,1,2025,8,0.92,candidate_available,review_candidates,3
 601985.SH,中国核电,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,123,0.94,candidate_available,review_candidates,3
+601991.SH,大唐发电,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,22,0.94,candidate_available,review_candidates,3
 601991.SH,大唐发电,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,25,0.9,candidate_available,review_candidates,3
 601991.SH,大唐发电,Q_G_REVENUE_GROWTH,营业增长率,G,False,2,2025,6|8,0.91,candidate_available,review_candidates,3
 601991.SH,大唐发电,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
@@ -21079,6 +21076,7 @@
 603053.SH,成都燃气,Q_G_ROA,总资产报酬率,G,False,1,2025,62,0.94,candidate_available,review_candidates,3
 603053.SH,成都燃气,Q_G_ROE,净资产收益率,G,False,1,2025,6,0.92,candidate_available,review_candidates,3
 603053.SH,成都燃气,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,58,0.94,candidate_available,review_candidates,3
+603063.SH,禾望电气,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,80,0.9,candidate_available,review_candidates,3
 603063.SH,禾望电气,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,80,0.9,candidate_available,review_candidates,3
 603063.SH,禾望电气,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,89,0.94,candidate_available,review_candidates,3
 603063.SH,禾望电气,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,90,0.94,candidate_available,review_candidates,3
@@ -21304,6 +21302,7 @@
 603393.SH,新天然气,Q_G_ROA,总资产报酬率,G,False,1,2025,72,0.94,candidate_available,review_candidates,3
 603393.SH,新天然气,Q_G_ROE,净资产收益率,G,False,1,2025,7,0.92,candidate_available,review_candidates,3
 603393.SH,新天然气,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,67,0.94,candidate_available,review_candidates,3
+603396.SH,金辰股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,47,0.9,candidate_available,review_candidates,3
 603396.SH,金辰股份,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,103,0.94,candidate_available,review_candidates,3
 603396.SH,金辰股份,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,104,0.94,candidate_available,review_candidates,3
 603396.SH,金辰股份,Q_G_CASH_CURRENT_LIABILITY,现金流动负债比率,G,False,1,2025,112,0.94,candidate_available,review_candidates,3
@@ -21748,6 +21747,7 @@
 605117.SH,德业股份,Q_G_ROA,总资产报酬率,G,False,1,2025,114,0.94,candidate_available,review_candidates,3
 605117.SH,德业股份,Q_G_ROE,净资产收益率,G,False,1,2025,8,0.92,candidate_available,review_candidates,3
 605117.SH,德业股份,Q_G_TWO_FUNDS_RATE,两金占流动资产比例,G,False,1,2025,109,0.94,candidate_available,review_candidates,3
+605162.SH,新中港,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,1,2025,35,0.9,candidate_available,review_candidates,3
 605162.SH,新中港,Q_E_WASTEWATER_INTENSITY,废水/污水排放强度,E,False,1,2025,36,0.9,candidate_available,review_candidates,3
 605162.SH,新中港,Q_G_AR_TURNOVER,应收账款周转率,G,False,1,2025,72,0.94,candidate_available,review_candidates,3
 605162.SH,新中港,Q_G_ASSET_TURNOVER,总资产周转率,G,False,1,2025,73,0.94,candidate_available,review_candidates,3

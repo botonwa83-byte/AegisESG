@@ -4,6 +4,7 @@ import math
 import statistics
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
 
 from .methodology import Methodology
 from .models import (
@@ -28,6 +29,14 @@ class PopulationStats:
     stddev: float
 
 
+class MissingStrategy(str, Enum):
+    """Versioned missing-value behavior used by ranking modes."""
+
+    LEGACY_ZERO_V1 = "legacy_zero_v1"
+    INDICATOR_NEUTRAL_V1 = "indicator_neutral_v1"
+    DISCLOSED_WEIGHT_V1 = "disclosed_weight_v1"
+
+
 class ScoringEngine:
     """可复现评分引擎。
 
@@ -40,7 +49,11 @@ class ScoringEngine:
     def __init__(self, methodology: Methodology):
         self.methodology = methodology
 
-    def evaluate(self, observations: list[Observation]) -> list[CompanyResult]:
+    def evaluate(
+        self, observations: list[Observation],
+        missing_strategy: MissingStrategy | str = MissingStrategy.LEGACY_ZERO_V1,
+    ) -> list[CompanyResult]:
+        strategy = MissingStrategy(missing_strategy)
         years = {item.report_year for item in observations}
         if len(years) > 1:
             raise ValueError("一次评分批次只能包含一个报告期")
@@ -57,7 +70,7 @@ class ScoringEngine:
             companies[key][1][obs.indicator_code] = obs
 
         results = [
-            self._evaluate_company(code, name, year, values, stats)
+            self._evaluate_company(code, name, year, values, stats, strategy)
             for (code, year), (name, values) in companies.items()
         ]
         results.sort(key=lambda x: (-x.total_score, x.company_code))
@@ -90,11 +103,15 @@ class ScoringEngine:
         year: int,
         observations: dict[str, Observation],
         stats: dict[str, PopulationStats],
+        missing_strategy: MissingStrategy,
     ) -> CompanyResult:
         details: list[IndicatorResult] = []
         dimension_weighted = defaultdict(float)
         dimension_max = defaultdict(float)
         kind_scores = defaultdict(float)
+        kind_confirmed_weight = defaultdict(float)
+        kind_total_weight = defaultdict(float)
+        dimension_confirmed_weight = defaultdict(float)
         confirmed_count = 0
 
         for indicator in self.methodology.indicators:
@@ -104,12 +121,17 @@ class ScoringEngine:
             if status == ValueStatus.CONFIRMED and raw is not None:
                 confirmed_count += 1
                 normalized = self._score_value(indicator, float(raw), stats.get(indicator.code))
+                kind_confirmed_weight[indicator.kind] += indicator.weight
+                dimension_confirmed_weight[(indicator.kind, indicator.dimension)] += indicator.weight
             elif status == ValueStatus.NOT_APPLICABLE:
                 normalized = 0.0
+            elif missing_strategy == MissingStrategy.INDICATOR_NEUTRAL_V1:
+                normalized = 50.0
             else:
                 normalized = 0.0
             weighted = normalized * indicator.weight / 100.0
             kind_scores[indicator.kind] += weighted
+            kind_total_weight[indicator.kind] += indicator.weight
             dimension_weighted[(indicator.kind, indicator.dimension)] += weighted
             dimension_max[(indicator.kind, indicator.dimension)] += indicator.weight
             stat = stats.get(indicator.code)
@@ -125,6 +147,19 @@ class ScoringEngine:
                 stddev=round(stat.stddev, 6) if stat else None,
                 benchmark=indicator.benchmark,
             ))
+
+        if missing_strategy == MissingStrategy.DISCLOSED_WEIGHT_V1:
+            for kind in IndicatorKind:
+                confirmed_weight = kind_confirmed_weight[kind]
+                kind_scores[kind] = (
+                    kind_scores[kind] * kind_total_weight[kind] / confirmed_weight
+                    if confirmed_weight else 0.0
+                )
+            for key, score in tuple(dimension_weighted.items()):
+                confirmed_weight = dimension_confirmed_weight[key]
+                dimension_weighted[key] = (
+                    score * dimension_max[key] / confirmed_weight if confirmed_weight else 0.0
+                )
 
         quantitative = kind_scores[IndicatorKind.QUANTITATIVE]
         qualitative = kind_scores[IndicatorKind.QUALITATIVE]

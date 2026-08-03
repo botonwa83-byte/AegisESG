@@ -1,0 +1,23 @@
+{
+  "graph_version": "evidence-constraint-graph-v1",
+  "observation_count": 8399,
+  "node_count": 22110,
+  "edge_count": 46746,
+  "constraint_count": 57991,
+  "failed_constraint_count": 257,
+  "node_kind_counts": {
+    "candidate": 8399,
+    "candidate_group": 7597,
+    "company": 612,
+    "document": 713,
+    "indicator": 37,
+    "page": 4751,
+    "report_year": 1
+  },
+  "failed_constraint_counts": {
+    "value_consistency": 257
+  },
+  "conflicting_group_count": 257,
+  "applicable": false,
+  "graph_sha256": "36e0f480be0139045c9affdf73e251d2d50ec098bafa904e382d1fe4ef22a753"
+}

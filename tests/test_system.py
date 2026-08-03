@@ -13,15 +13,19 @@ from pathlib import Path
 from aegis_esg.io import read_observations, write_observations, write_ranking_csv
 from aegis_esg.methodology import load_methodology
 from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, ValueStatus
-from aegis_esg.scoring import PopulationStats, ScoringEngine
+from aegis_esg.scoring import MissingStrategy, PopulationStats, ScoringEngine
+from aegis_esg.ranking_analysis import analyze_missing_sensitivity, validate_ranking_mode
 from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, _extract_chinese_env_table_rows, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
-from aegis_esg.env_intensity import CompanyDocument, derive_env_intensity_candidates
+from aegis_esg.env_intensity import (
+    CompanyDocument, derive_env_intensity_candidates, derive_ghg_reduction_candidates,
+)
 from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.esg_disclosure import (
     QualitativeEvidenceCandidate, collect_annual_qualitative_evidence,
     collect_esg_qualitative_evidence, scan_annual_esg_disclosure,
 )
+from aegis_esg.evidence_graph import build_evidence_constraint_graph
 from aegis_esg.qualitative_review import (
     QualitativeReviewAudit, QualitativeReviewDecision, apply_qualitative_review_decisions,
     merge_qualitative_candidate_files, plan_qualitative_review,
@@ -40,6 +44,8 @@ from aegis_esg.review_batch import (
 )
 from aegis_esg.quality import evaluate_quality
 from aegis_esg.resolution import ResolutionDecision, audit_resolution_preview, plan_review_tiers, resolve_pending_candidates, select_manual_review_candidates
+from aegis_esg.resolution import ReviewTier
+from aegis_esg.review_priority import prioritize_review_by_impact
 from aegis_esg.review import ReviewInstruction, apply_conflict_review_instructions, apply_review_instructions, read_review_instructions
 from aegis_esg.sources.sse import classify_title, discover_reports, parse_response
 from aegis_esg.sources.szse import SZSEDisclosure, classify_title as classify_szse_title, discover_batch as discover_szse_batch, discover_reports as discover_szse_reports, parse_response as parse_szse_response
@@ -49,6 +55,7 @@ from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_h
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, _fetch, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page, parse_bse_disclosures, classify_disclosure_title, discover_bse_reports, discover_bse_annual_report
 from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, supersede_documents, write_document_index
+from aegis_esg.completion import audit_project_completion
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
 from aegis_esg.universe_builder import ExchangeSecurity, audit_snapshot, build_energy_universe, normalize_exchange_export, normalize_stock_code, read_exchange_snapshot, write_universe
@@ -77,6 +84,47 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(100, sum(i.weight for i in self.methodology.quantitative))
         self.assertAlmostEqual(100, sum(i.weight for i in self.methodology.qualitative))
         self.assertEqual(10, sum(i.key_indicator for i in self.methodology.quantitative))
+
+    def test_completion_audit_exposes_release_blockers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = {
+                "documents.json": {"annual_coverage_count": 612},
+                "quantitative.json": {"company_count": 614, "quantitative_indicator_count": 37,
+                                      "candidate_task_count": 7597},
+                "qualitative.json": {"qualitative_indicator_count": 43,
+                                     "review_packet_count": 10538, "auto_confirmed_count": 0},
+                "resolution.json": {"manual_required_group_count": 145,
+                                    "freeze_ready": False, "applicable": False},
+            }
+            for name, value in values.items():
+                (root / name).write_text(json.dumps(value), encoding="utf-8")
+            report = audit_project_completion(
+                root / "documents.json", root / "quantitative.json",
+                root / "qualitative.json", root / "resolution.json",
+            )
+            self.assertFalse(report["publishable"])
+            self.assertEqual("universe", report["next_gate"])
+            self.assertEqual(18, report["gates"]["universe"]["target"] - report["gates"]["universe"]["current"])
+            self.assertEqual(145, report["gates"]["review"]["quantitative_manual_groups"])
+
+    def test_completion_audit_requires_all_six_gates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = (
+                {"annual_coverage_count": 2},
+                {"company_count": 2, "quantitative_indicator_count": 37, "candidate_task_count": 74},
+                {"qualitative_indicator_count": 43, "review_packet_count": 86, "auto_confirmed_count": 86},
+                {"manual_required_group_count": 0, "freeze_ready": True, "applicable": True},
+            )
+            paths = []
+            for index, value in enumerate(values):
+                path = root / f"{index}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            report = audit_project_completion(*paths, expected_companies=2)
+            self.assertTrue(report["publishable"])
+            self.assertEqual(6, report["completed_gate_count"])
 
     def test_normal_direction(self):
         engine = ScoringEngine(self.methodology)
@@ -111,6 +159,106 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("数值类别", rows[0][3])
             self.assertEqual("指标数值", rows[1][3])
             self.assertEqual("指标分值", rows[2][3])
+
+    def test_versioned_missing_strategies_do_not_silently_share_zero_behavior(self):
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 10, ValueStatus.CONFIRMED),
+            Observation("B", "乙", 2025, indicator.code, None, ValueStatus.PENDING),
+        ]
+        engine = ScoringEngine(self.methodology)
+        zero = {item.company_code: item for item in engine.evaluate(
+            observations, MissingStrategy.LEGACY_ZERO_V1,
+        )}
+        neutral = {item.company_code: item for item in engine.evaluate(
+            observations, MissingStrategy.INDICATOR_NEUTRAL_V1,
+        )}
+        disclosed = {item.company_code: item for item in engine.evaluate(
+            observations, MissingStrategy.DISCLOSED_WEIGHT_V1,
+        )}
+        self.assertEqual(0, zero["B"].total_score)
+        self.assertGreater(neutral["B"].total_score, zero["B"].total_score)
+        self.assertGreater(disclosed["A"].total_score, zero["A"].total_score)
+        self.assertEqual(0, disclosed["B"].total_score)
+
+    def test_missing_strategy_sensitivity_reports_rank_span(self):
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 10, ValueStatus.CONFIRMED),
+            Observation("B", "乙", 2025, indicator.code, None, ValueStatus.MISSING),
+        ]
+        report = analyze_missing_sensitivity(observations, self.methodology)
+        self.assertEqual(2, report["company_count"])
+        self.assertEqual(3, len(report["strategy_versions"]))
+        self.assertIn("rank_span", report["companies"][0])
+        self.assertEqual(3, len(report["strategy_comparisons"]))
+        self.assertEqual(2, sum(report["credibility_grade_counts"].values()))
+        self.assertTrue(all("top_200_overlap_rate" in item for item in report["strategy_comparisons"]))
+
+    def test_release_mode_requires_explicit_strategy_and_rejects_pending(self):
+        indicator = self.methodology.quantitative[0]
+        pending = [Observation("A", "甲", 2025, indicator.code, None, ValueStatus.PENDING)]
+        with self.assertRaisesRegex(ValueError, "显式指定"):
+            validate_ranking_mode("release", [], None)
+        with self.assertRaisesRegex(ValueError, "pending"):
+            validate_ranking_mode("release", pending, MissingStrategy.LEGACY_ZERO_V1.value)
+        selected = validate_ranking_mode(
+            "release",
+            [Observation("A", "甲", 2025, indicator.code, 1, ValueStatus.CONFIRMED)],
+            MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+        )
+        self.assertEqual(MissingStrategy.INDICATOR_NEUTRAL_V1, selected)
+
+    def test_review_impact_prioritizes_conflict_crossing_rank_boundary(self):
+        indicators = self.methodology.quantitative[:2]
+        tiers = [
+            ReviewTier("A", "甲", 2025, indicators[0].code, 2, "1|2", "1|2", .9,
+                       "manual_signature_required", "review_conflict_candidates", "conflicting_values"),
+            ReviewTier("B", "乙", 2025, indicators[1].code, 1, "3", "3", .8,
+                       "single_candidate_review", "manual_spot_check", "not_auto"),
+        ]
+        sensitivity = {
+            "companies": [
+                {"company_code": "A", "best_rank": 150, "worst_rank": 250,
+                 "rank_span": 100, "ranks": {"indicator_neutral_v1": 190}},
+                {"company_code": "B", "best_rank": 400, "worst_rank": 410,
+                 "rank_span": 10, "ranks": {"indicator_neutral_v1": 405}},
+            ]
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "sensitivity.json"
+            path.write_text(json.dumps(sensitivity), encoding="utf-8")
+            tasks, summary = prioritize_review_by_impact(tiers, path, self.methodology)
+        self.assertEqual("A", tasks[0].company_code)
+        self.assertTrue(tasks[0].crosses_top_200)
+        self.assertGreater(tasks[0].impact_score, tasks[1].impact_score)
+        self.assertEqual(1, summary["crosses_boundary_count"])
+
+    def test_evidence_constraint_graph_is_stable_and_detects_conflicts(self):
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 1, ValueStatus.PENDING,
+                        "https://example.test/a.pdf", "a.pdf", 3, "证据一", .9),
+            Observation("A", "甲", 2025, indicator.code, 2, ValueStatus.PENDING,
+                        "https://example.test/a.pdf", "a.pdf", 4, "证据二", .9),
+        ]
+        first, summary = build_evidence_constraint_graph(observations, self.methodology)
+        second, _ = build_evidence_constraint_graph(observations, self.methodology)
+        self.assertEqual(first, second)
+        self.assertEqual(1, summary["conflicting_group_count"])
+        self.assertEqual(2, summary["node_kind_counts"]["candidate"])
+        self.assertTrue(any(edge["relation"] == "member_of" for edge in first["edges"]))
+
+    def test_evidence_graph_keeps_company_identity_stable_across_name_variants(self):
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲公司", 2025, indicator.code, 1, source_file="a.pdf"),
+            Observation("A", "甲", 2025, indicator.code, 1, source_file="a.pdf"),
+        ]
+        graph, summary = build_evidence_constraint_graph(observations, self.methodology)
+        companies = [item for item in graph["nodes"] if item["kind"] == "company"]
+        self.assertEqual(1, len(companies))
+        self.assertEqual(1, summary["node_kind_counts"]["company"])
 
     def test_observation_revision_keeps_audit_history(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -3587,6 +3735,142 @@ class MethodologyTests(unittest.TestCase):
         by_code = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(10860 * 1e3 * 1e4 / 17.05e9, by_code["Q_E_SOLID_WASTE_INTENSITY"])
         self.assertAlmostEqual(492.1 * 1e3 * 1e4 / 17.05e9, by_code["Q_E_HAZ_WASTE_INTENSITY"])
+
+    def test_ghg_reduction_current_first_two_period_table(self):
+        # 当前年优先两期总量行派生减排率，两期范围闭环均通过（真实样例：603396.SH版式）
+        esg = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+            "范围1温室气体排放总量 吨二氧化碳当量 300.60 307.28\n"
+            "范围2温室气体排放总量 吨二氧化碳当量 3,281.82 5,874.08\n"
+        )
+        items = derive_ghg_reduction_candidates("A", "甲", 2025, [esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual((6181.36 - 3582.42) / 6181.36 * 100, items[0].value)
+
+    def test_ghg_reduction_current_last_three_year_table(self):
+        # 当前年靠后三年表取末两列；排放量上升时减排率为负（真实样例：000400.SZ版式）
+        esg = self._esg_doc(
+            "指标 单位 2023 年 2024 年 2025 年\n"
+            "温室气体排放总量 吨二氧化碳当量 2.50 2.90 2.95\n"
+        )
+        items = derive_ghg_reduction_candidates("A", "甲", 2025, [esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual((2.90 - 2.95) / 2.90 * 100, items[0].value)
+
+    def test_ghg_reduction_scope_closure_failure_rejected(self):
+        # 本期或上期任一时期不满足范围一+二闭环即拒绝
+        for scope2_row in (
+            "范围2温室气体排放总量 吨二氧化碳当量 3,281.82 5,874.08\n",
+            "范围2温室气体排放总量 吨二氧化碳当量 3,000.00 5,874.08\n",
+        ):
+            esg = self._esg_doc(
+                "指标 单位 2025 2024\n"
+                "温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+                "范围1温室气体排放总量 吨二氧化碳当量 300.60 307.28\n"
+                + scope2_row
+            )
+            items = derive_ghg_reduction_candidates("A", "甲", 2025, [esg])
+            if scope2_row.startswith("范围2温室气体排放总量 吨二氧化碳当量 3,281.82"):
+                self.assertEqual(1, len(items))
+            else:
+                self.assertFalse(items)
+
+    def test_ghg_reduction_scope3_contamination_rejected(self):
+        # 同页范围三正值且总量未标注范围一+二时拒绝（真实样例：600803.SH口径）
+        esg = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+            "范围三温室气体排放量 吨二氧化碳当量 415.80 390.20\n"
+        )
+        self.assertFalse(derive_ghg_reduction_candidates("A", "甲", 2025, [esg]))
+
+    def test_ghg_reduction_direct_disclosure_suppresses(self):
+        # 公司已披露同口径减排率/同比下降时抑制派生；目标措辞不构成披露
+        disclosed = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+            "2025年，公司温室气体排放总量同比下降 42.05%。\n"
+        )
+        self.assertFalse(derive_ghg_reduction_candidates("A", "甲", 2025, [disclosed]))
+        target = self._esg_doc(
+            "指标 单位 2025 2024\n"
+            "温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+            "公司设定温室气体减排率目标 5%。\n"
+        )
+        self.assertEqual(1, len(derive_ghg_reduction_candidates("A", "甲", 2025, [target])))
+
+    def test_ghg_reduction_conflicting_tables_skipped(self):
+        # 两表减排率不一致时放弃，不静默选值
+        annual = self._annual_doc(
+            "指标 单位 2025 2024\n温室气体排放总量 吨二氧化碳当量 3,582.42 6,181.36\n"
+        )
+        esg = self._esg_doc(
+            "指标 单位 2025 2024\n温室气体排放总量 吨二氧化碳当量 3,500.00 6,181.36\n"
+        )
+        self.assertFalse(derive_ghg_reduction_candidates("A", "甲", 2025, [annual, esg]))
+
+    def test_ghg_reduction_single_year_mode_no_derivation(self):
+        # 单年表头只有本期值，不能派生两期减排率
+        esg = self._esg_doc(
+            "指标 单位 2025 年数据\n温室气体排放总量 吨二氧化碳当量 3,582.42\n"
+        )
+        self.assertFalse(derive_ghg_reduction_candidates("A", "甲", 2025, [esg]))
+
+    def test_ghg_reduction_period_boundary_break_rejected(self):
+        # 附注明示上年仅统计集团本部/不含子公司时两期不可比（真实样例：600903.SH注2）
+        esg = self._esg_doc(
+            "指标 单位 2023 2024 2025\n"
+            "温室气体排放总量（范围一+范围二） 吨二氧化碳当量 1,997.56 2,010.71 17,421.38\n"
+            "注2：2023年-2024年温室气体排放量仅统计了集团本部数据，不含子公司。\n"
+        )
+        self.assertFalse(derive_ghg_reduction_candidates("A", "甲", 2025, [esg]))
+
+    def test_ghg_reduction_direct_single_year_table_row(self):
+        # 单年表头“同比下降 %”行直接披露（真实样例：601991.SH），强度行不匹配
+        from aegis_esg.extraction import _extract_chinese_ghg_reduction_direct
+        text = (
+            "指标 单位 2025 年\n"
+            "温室气体排放总量 万吨 19694.26\n"
+            "温室气体排放同比下降 % 6.63\n"
+            "综合碳排放强度同比下降 % 5.14\n"
+        )
+        self.assertEqual((6.63, "中文减排率直接披露: 温室气体排放同比下降 % 6.63"),
+                         _extract_chinese_ghg_reduction_direct(text, 2025))
+
+    def test_ghg_reduction_direct_narrative_yoy(self):
+        # 公司锚定同比减少叙述（真实样例：300776.SZ）
+        from aegis_esg.extraction import _extract_chinese_ghg_reduction_direct
+        text = "公司2025年温室气体排放总量同比减少4.35%。公司通过优化生产交付规划，科学调整出货时间。\n"
+        value, evidence = _extract_chinese_ghg_reduction_direct(text, 2025)
+        self.assertEqual(4.35, value)
+        self.assertTrue(evidence.startswith("中文减排率直接披露: "))
+
+    def test_ghg_reduction_direct_rejects_non_yoy_and_target(self):
+        # 目标/峰值/累计/较基准年/强度口径与净排放一律拒绝，非报告期锚定拒绝
+        from aegis_esg.extraction import _extract_chinese_ghg_reduction_direct
+        for text in (
+            "公司计划2026年温室气体排放总量同比减少5%。\n",
+            "温室气体净排放量比峰值下降 7%-10%。\n",
+            "温室气体盘查与产品碳足迹认证，累计下降 25.41%。\n",
+            "公司温室气体排放量较 2019 年下降 48%。\n",
+            "公司2025年温室气体排放强度同比下降 3.0%。\n",
+            "公司2030年温室气体排放总量同比减少 6%。\n",
+            "温室气体排放强度，2030 年减少 6%，直至到 2050 年减少 80%。\n",
+        ):
+            self.assertIsNone(_extract_chinese_ghg_reduction_direct(text, 2025), text)
+
+    def test_ghg_reduction_direct_auto_confirm_closed_loop(self):
+        # 直接披露候选经严格前缀自动确认闭环
+        candidate = Observation(
+            "A", "甲", 2025, "Q_E_GHG_REDUCTION_RATE", 6.63, ValueStatus.PENDING,
+            source_file="esg_report.pdf", confidence=.94,
+            evidence_text="中文减排率直接披露: 温室气体排放同比下降 % 6.63",
+        )
+        confirmed, unresolved, decisions = resolve_pending_candidates([candidate])
+        self.assertEqual([6.63], [item.value for item in confirmed])
+        self.assertFalse(unresolved)
+        self.assertEqual("strict_extraction_evidence_consistent", decisions[0].reason)
 
     def test_social_invest_note_table_donation(self):
         # 营业外支出附注：本期发生额首列即当期对外捐赠（真实样例：000400.SZ/000531.SZ）
