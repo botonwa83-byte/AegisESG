@@ -775,3 +775,99 @@ PYTHONPATH=src python3 -m aegis_esg.cli build-evidence-graph \
 `evidence-constraint-graph-v1`包含公司、文档、页码、报告期、指标、候选和候选组节点，以及来源、
 归属、期间、度量和组成员关系；逐候选验证来源、页码、数值、年份、置信度和证据完整性，逐组验证
 数值一致性。主体节点以证券代码为稳定身份，简称变化不得覆盖或拆分主体。
+
+文档、候选或审核决定发生变化后，可先沿依赖图生成最小重算计划：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli plan-incremental-recompute \
+  output/audit/all_markets_evidence_constraint_graph_2025.json \
+  --changed-document data/raw/hkex_reports/01205.HK/2025/esg_report.pdf \
+  --output output/audit/e3_incremental_recompute_01205_2025.json
+```
+
+`evidence-dependency-recompute-v1`会冻结证据图和变更文档SHA-256，先定位直接候选，再扩散到同一
+指标的统计总体和受影响公司。排名仍须全局重排，但无需重新扫描无关候选或重算无关公司。计划只
+证明重算边界，E3完成仍要求测量CPU、峰值内存，并验证增量结果与全量结果逐字段一致。
+
+动态缓存变更实验可在不改写源CSV的前提下运行：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli benchmark-cache-change \
+  output/audit/all_markets_auto_confirmed_preview_2025.csv \
+  --company-code 000400.SZ --indicator Q_E_GHG_REDUCTION_RATE --new-value -1.5 \
+  --missing-strategy indicator_neutral_v1 --repetitions 7 \
+  --output output/audit/e3_dynamic_cache_change_2025.json
+```
+
+该命令始终标记`simulation_only=true`。正式审核决定必须从签名审核流水线进入，不能使用基准命令
+写回观测。等价性覆盖排名、分值、指标明细及总体统计审计字段，并用规范JSON的SHA-256复核。
+
+正式发布前先生成未签名授权模板：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-release-authorization FROZEN.csv \
+  --missing-strategy indicator_neutral_v1 \
+  --output data/review/release_authorization.json
+```
+
+模板必须由不同真实人员分别以`methodology_owner`和`data_reviewer`角色填写姓名、带时区时间及理由。
+正式评分还必须传入`--release-manifest`；空白、机器身份、研究算法版本或任一Hash不匹配都会拒绝。
+
+全自动定性预排名观测只在研究域生成：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli build-research-qualitative \
+  data/review/all_markets_qualitative_review_packets_2025.csv \
+  output/audit/all_markets_qualitative_evidence_gaps_2025.csv \
+  --output output/research/2025/qualitative_observations.csv \
+  --summary output/research/2025/qualitative_observations_summary.json
+```
+
+证据包按可解释特征输出20/50/80估计，证据缺口输出0；所有记录均带研究域标记且置信度不超过
+0.79。它们可用于全自动预排名与敏感性分析，但不能替代正式定性双签。
+
+定性证据缺口按排名影响重排：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prioritize-qualitative-gap-impact \
+  output/audit/all_markets_qualitative_evidence_gaps_2025.csv \
+  output/research/2025/full_auto/ranking_sensitivity.json \
+  output/audit/all_markets_document_coverage_2025.csv --top-n 200 \
+  --output output/audit/all_markets_qualitative_gap_rank_impact_2025.csv \
+  --summary output/audit/all_markets_qualitative_gap_rank_impact_summary_2025.json
+```
+
+该队列只决定补证顺序，不生成分值或审核签名；每轮新增证据后必须重建敏感性报告并重新排序。
+
+定量缺口使用独立的影响队列和批次：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli prioritize-quantitative-gap-impact \
+  output/audit/all_markets_quantitative_candidate_tasks_2025.csv \
+  output/research/2025/full_auto_v2/ranking_sensitivity.json --top-n 200 \
+  --output output/audit/all_markets_quantitative_gap_rank_impact_2025.csv \
+  --summary output/audit/all_markets_quantitative_gap_rank_impact_summary_2025.json
+
+PYTHONPATH=src python3 -m aegis_esg.cli build-quantitative-gap-batch \
+  output/audit/all_markets_quantitative_gap_rank_impact_2025.csv \
+  --company-limit 25 --tasks-per-company 10 \
+  --companies data/review/quantitative_gap_batch_01_companies_2025.csv \
+  --tasks data/review/quantitative_gap_batch_01_tasks_2025.csv \
+  --summary output/audit/quantitative_gap_batch_01_summary_2025.json
+```
+
+队列同时记录前200边界风险、策略跨度、指标权重、关键指标、样本稀缺度和中性分相对0分的最大
+综合分差。批次仍不授权评分；必须继续诊断真实未披露、口径不兼容或抽取漏召回。
+
+批次缺口诊断命令：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli diagnose-quantitative-gap-batch \
+  data/review/quantitative_gap_batch_01_tasks_2025.csv \
+  data/raw/all_markets_document_index.csv --text-root data/text \
+  --output output/audit/quantitative_gap_batch_01_diagnostics_2025.csv \
+  --summary output/audit/quantitative_gap_batch_01_diagnostics_summary_2025.json
+```
+
+诊断结果仅用于路由：人民币营收兼容格式才可进入严格规则开发；外币、生产量分母、模糊披露和
+未披露不得自动赋值。每项新规则必须执行全市场新旧候选集合差分，证明旧候选零丢失并审计新增冲突。

@@ -1,0 +1,57 @@
+{
+  "plan_version": "evidence-dependency-recompute-v1",
+  "graph_path": "output/audit/all_markets_evidence_constraint_graph_2025.json",
+  "graph_sha256": "36e0f480be0139045c9affdf73e251d2d50ec098bafa904e382d1fe4ef22a753",
+  "changed_document_sha256": {
+    "data/raw/hkex_reports/01205.HK/2025/esg_report.pdf": "bc478e569fe9b9d29848bc267a30d25086f4160bb456eedc7d5e06f77252b1ab"
+  },
+  "changed_node_ids": [
+    "document:0d3f2939f123fc3bdcf3e84a"
+  ],
+  "seed_candidate_ids": [
+    "candidate:546c309d02dfb58af72559b0",
+    "candidate:c948169bbb8c548ba32c3ee2"
+  ],
+  "affected_group_ids": [
+    "candidate_group:ff0c02326a23aca58af38d0e"
+  ],
+  "affected_indicator_ids": [
+    "indicator:362d15caa80291ba00a0f40e"
+  ],
+  "affected_company_ids": [
+    "company:09b7a48767a4e9d675cd76e4",
+    "company:2008e15cdcd0b377c10d697a",
+    "company:22d6f2650cffccb86b9f9f1a",
+    "company:2ed5286062aaef6b8c920cc6",
+    "company:346756ba9609001616abe655",
+    "company:3b4fc88e8af43c9b6a9f88fa",
+    "company:4f79754eaaf731a4fa126d46",
+    "company:61bc3e98b7c65dae167f04fb",
+    "company:6ab0e0f8e6f76427e9409e48",
+    "company:7732c80879326d978a1f06e2",
+    "company:7d019dc7c4044863c06fb0d7",
+    "company:9310257e8807757ba56ab3f3",
+    "company:9ddae712fbd6049f6364e413",
+    "company:aa67ec41499289f18b8cbd7c",
+    "company:ad01fe736fba2a3371b94ab8",
+    "company:be60ac81ec774aea2e7cb433",
+    "company:c519854c4db2d4daf45c1cce",
+    "company:c75dfa72564b6bb79df54aa5",
+    "company:d633c36eb16d0f9707d53c72",
+    "company:dead4decfcd41ba5f32e103a",
+    "company:e8aeaf6302471b2dabf530d9",
+    "company:eaf648159bb941f3b1a077bf",
+    "company:f71ee3671d90ea798fc6a4e0"
+  ],
+  "seed_candidate_count": 2,
+  "affected_group_count": 1,
+  "affected_indicator_count": 1,
+  "affected_company_count": 23,
+  "full_candidate_count": 8399,
+  "planned_candidate_scan_count": 24,
+  "full_company_count": 612,
+  "candidate_scan_reduction_rate": 0.997143,
+  "company_score_reduction_rate": 0.962418,
+  "ranking_resort_required": true,
+  "applicable": true
+}

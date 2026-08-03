@@ -6,6 +6,7 @@ import unittest
 import gzip
 import urllib.parse
 import urllib.request
+from dataclasses import replace
 from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
@@ -15,17 +16,25 @@ from aegis_esg.methodology import load_methodology
 from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, ValueStatus
 from aegis_esg.scoring import MissingStrategy, PopulationStats, ScoringEngine
 from aegis_esg.ranking_analysis import analyze_missing_sensitivity, validate_ranking_mode
+from aegis_esg.release_guard import FORMAL_ALGORITHM_VERSION, prepare_release_authorization, validate_release_authorization
 from aegis_esg.repository import SQLiteRepository
 from aegis_esg.extraction import PageText, _extract_chinese_env_table_rows, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
 from aegis_esg.env_intensity import (
     CompanyDocument, derive_env_intensity_candidates, derive_ghg_reduction_candidates,
 )
 from aegis_esg.financial import FinancialFact, derive_financial_observations
+from aegis_esg.gap_priority import prioritize_qualitative_gaps
+from aegis_esg.gap_diagnostics import _classify as classify_quantitative_gap
+from aegis_esg.embedded_coverage import recognize_embedded_esg_coverage
+from aegis_esg.quantitative_gap_priority import prioritize_quantitative_gaps
 from aegis_esg.esg_disclosure import (
     QualitativeEvidenceCandidate, collect_annual_qualitative_evidence,
     collect_esg_qualitative_evidence, scan_annual_esg_disclosure,
 )
 from aegis_esg.evidence_graph import build_evidence_constraint_graph
+from aegis_esg.evidence_experiment import (
+    evaluate_e1_validation, prepare_e1_validation_sample, write_e1_validation_sample,
+)
 from aegis_esg.qualitative_review import (
     QualitativeReviewAudit, QualitativeReviewDecision, apply_qualitative_review_decisions,
     merge_qualitative_candidate_files, plan_qualitative_review,
@@ -65,6 +74,7 @@ from aegis_esg.planning import audit_document_coverage, collection_summary, merg
 from aegis_esg.historical import import_historical_workbook
 from aegis_esg.migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_candidate_universe
 from aegis_esg.indicator_plan import plan_candidate_coverage, plan_indicator_tasks
+from aegis_esg.incremental import benchmark_incremental_scoring, plan_incremental_recompute
 from aegis_esg.dashboard import load_progress_dashboard, render_conflict_review_template, render_progress_dashboard
 from aegis_esg.issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks
 from aegis_esg.universe_review import apply_universe_evidence, merge_universe_evidence_batches, plan_universe_evidence
@@ -84,6 +94,35 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(100, sum(i.weight for i in self.methodology.quantitative))
         self.assertAlmostEqual(100, sum(i.weight for i in self.methodology.qualitative))
         self.assertEqual(10, sum(i.key_indicator for i in self.methodology.quantitative))
+
+    def test_specialized_gap_diagnostic_requires_numeric_physical_total(self):
+        revenue = "营业收入（元）725,540,857.14。"
+        self.assertEqual(
+            "related_fields_incomplete",
+            classify_quantitative_gap(
+                "Q_E_CLEAN_ENERGY_INTENSITY",
+                "陕西美能清洁能源集团股份有限公司积极探索绿电业务。" + revenue,
+            )[0],
+        )
+        self.assertEqual(
+            "possible_clean_energy_revenue_closure",
+            classify_quantitative_gap(
+                "Q_E_CLEAN_ENERGY_INTENSITY",
+                "清洁能源使用总量36,635.24兆瓦时。" + revenue,
+            )[0],
+        )
+        self.assertEqual(
+            "related_fields_incomplete",
+            classify_quantitative_gap(
+                "Q_E_HAZ_WASTE_INTENSITY", "公司依法管理危险废物。" + revenue,
+            )[0],
+        )
+        self.assertEqual(
+            "possible_hazardous_waste_revenue_closure",
+            classify_quantitative_gap(
+                "Q_E_HAZ_WASTE_INTENSITY", "危险废物产生量12.5吨。" + revenue,
+            )[0],
+        )
 
     def test_completion_audit_exposes_release_blockers(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -208,6 +247,68 @@ class MethodologyTests(unittest.TestCase):
             MissingStrategy.INDICATOR_NEUTRAL_V1.value,
         )
         self.assertEqual(MissingStrategy.INDICATOR_NEUTRAL_V1, selected)
+        research = Observation(
+            "A", "甲", 2025, indicator.code, 50, ValueStatus.CONFIRMED,
+            evidence_text="heuristic [research-only:auto-qualitative-v1;not-formal]",
+        )
+        with self.assertRaisesRegex(ValueError, "研究域机器观测"):
+            validate_ranking_mode(
+                "release", [research], MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+            )
+
+    def test_release_authorization_rejects_tamper_machine_and_stale_algorithm(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            observations = root / "observations.csv"
+            methodology = root / "methodology.json"
+            manifest = root / "release.json"
+            observations.write_text("frozen observations\n", encoding="utf-8")
+            methodology.write_text("{}\n", encoding="utf-8")
+            unsigned = prepare_release_authorization(
+                observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+            )
+            manifest.write_text(json.dumps(unsigned), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "审批人"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                )
+            payload = {
+                "manifest_version": "release-authorization-v1",
+                "algorithm_version": FORMAL_ALGORITHM_VERSION,
+                "scope": "official_release",
+                "input_sha256": hashlib.sha256(observations.read_bytes()).hexdigest(),
+                "methodology_sha256": hashlib.sha256(methodology.read_bytes()).hexdigest(),
+                "missing_strategy_version": MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                "approvals": [
+                    {"reviewer": "reviewer-a", "role": "methodology_owner", "reviewed_at": "2026-08-03T10:00:00+08:00", "note": "method frozen"},
+                    {"reviewer": "reviewer-b", "role": "data_reviewer", "reviewed_at": "2026-08-03T10:05:00+08:00", "note": "data frozen"},
+                ],
+            }
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            report = validate_release_authorization(
+                manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+            )
+            self.assertTrue(report["authorized"])
+
+            observations.write_text("tampered\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "input_sha256"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                )
+            observations.write_text("frozen observations\n", encoding="utf-8")
+            payload["algorithm_version"] = "auto_prerank_v1"
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "算法版本"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                )
+            payload["algorithm_version"] = FORMAL_ALGORITHM_VERSION
+            payload["approvals"][1]["reviewer"] = "system"
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "机器身份"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                )
 
     def test_review_impact_prioritizes_conflict_crossing_rank_boundary(self):
         indicators = self.methodology.quantitative[:2]
@@ -259,6 +360,144 @@ class MethodologyTests(unittest.TestCase):
         companies = [item for item in graph["nodes"] if item["kind"] == "company"]
         self.assertEqual(1, len(companies))
         self.assertEqual(1, summary["node_kind_counts"]["company"])
+
+    def test_e1_validation_requires_signed_truth_and_compares_baseline(self):
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 1, ValueStatus.PENDING,
+                        source_file="a.pdf", source_page=1, evidence_text="证据", confidence=.9),
+            Observation("A", "甲", 2025, indicator.code, 2, ValueStatus.PENDING,
+                        source_file="a.pdf", source_page=2, evidence_text="错误", confidence=.9),
+            Observation("B", "乙", 2025, indicator.code, 3, ValueStatus.PENDING,
+                        source_file="b.pdf", source_page=1, evidence_text="证据", confidence=.9),
+        ]
+        graph, graph_summary = build_evidence_constraint_graph(observations, self.methodology)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            graph_path = root / "graph.json"
+            graph_path.write_text(json.dumps(graph), encoding="utf-8")
+            rows, summary = prepare_e1_validation_sample(graph_path, 1)
+            validation = root / "validation.csv"
+            write_e1_validation_sample(validation, root / "summary.json", rows, summary)
+            with self.assertRaisesRegex(ValueError, "缺少true/false"):
+                evaluate_e1_validation(validation)
+            with validation.open(encoding="utf-8-sig", newline="") as stream:
+                raw = list(csv.DictReader(stream))
+            for index, row in enumerate(raw):
+                row["ground_truth_valid"] = "true" if index == len(raw) - 1 else "false"
+                row["reviewer"] = "审核员"
+                row["reviewed_at"] = "2026-08-03T12:00:00+08:00"
+                row["review_note"] = "人工核验PDF原页"
+            with validation.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=raw[0].keys(), lineterminator="\n")
+                writer.writeheader(); writer.writerows(raw)
+            report = evaluate_e1_validation(validation)
+        self.assertTrue(report["applicable"])
+        self.assertEqual(len(raw), report["labeled_count"])
+        self.assertIn("precision_improvement", report)
+
+    def test_dependency_graph_limits_recompute_to_affected_indicator_population(self):
+        indicator, other = self.methodology.quantitative[:2]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 1, source_file="a.pdf"),
+            Observation("B", "乙", 2025, indicator.code, 2, source_file="b.pdf"),
+            Observation("C", "丙", 2025, other.code, 3, source_file="c.pdf"),
+        ]
+        graph, _ = build_evidence_constraint_graph(observations, self.methodology)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "graph.json"
+            path.write_text(json.dumps(graph), encoding="utf-8")
+            report = plan_incremental_recompute(path, changed_documents=["a.pdf"])
+        self.assertTrue(report["applicable"])
+        self.assertEqual(64, len(report["graph_sha256"]))
+        self.assertEqual(1, report["seed_candidate_count"])
+        self.assertEqual(1, report["affected_indicator_count"])
+        self.assertEqual(2, report["affected_company_count"])
+        self.assertGreater(report["company_score_reduction_rate"], 0)
+
+    def test_cached_recompute_is_field_equivalent_to_full_scoring(self):
+        indicator, other = self.methodology.quantitative[:2]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 1),
+            Observation("B", "乙", 2025, indicator.code, 2),
+            Observation("A", "甲", 2025, other.code, 3),
+            Observation("B", "乙", 2025, other.code, 4),
+            Observation("C", "丙", 2025, other.code, 5),
+        ]
+        engine = ScoringEngine(self.methodology)
+        full = engine.evaluate(observations, MissingStrategy.INDICATOR_NEUTRAL_V1)
+        cache = engine.build_cache(observations, MissingStrategy.INDICATOR_NEUTRAL_V1)
+        incremental = engine.evaluate_from_cache(cache, {indicator.code})
+        self.assertEqual(
+            [item.to_dict() for item in full],
+            [item.to_dict() for item in incremental],
+        )
+
+        benchmark = benchmark_incremental_scoring(
+            engine, observations, {indicator.code},
+            MissingStrategy.INDICATOR_NEUTRAL_V1, repetitions=1,
+        )
+        self.assertTrue(benchmark["field_equivalent"])
+        self.assertEqual(benchmark["full_output_sha256"], benchmark["incremental_output_sha256"])
+
+        changed = replace(observations[0], value=9.5, evidence_text="signed simulation")
+        dynamic, audit = engine.apply_cache_changes(cache, [changed])
+        expected = engine.evaluate(
+            [changed, *observations[1:]], MissingStrategy.INDICATOR_NEUTRAL_V1,
+        )
+        self.assertTrue(audit["committed"])
+        self.assertEqual(
+            [item.to_dict() for item in expected],
+            [item.to_dict() for item in dynamic],
+        )
+
+    def test_qualitative_gap_priority_favors_boundary_high_weight_gap(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gaps = root / "gaps.csv"; sensitivity = root / "sensitivity.json"; coverage = root / "coverage.csv"
+            gaps.write_text(
+                "company_code,company_name,report_year,indicator_code,indicator_name,indicator_weight,priority,status,next_action\n"
+                "A,甲,2025,X1,高权重,10,1,evidence_missing,collect\n"
+                "B,乙,2025,X2,低权重,1,1,evidence_missing,collect\n", encoding="utf-8",
+            )
+            sensitivity.write_text(json.dumps({"companies": [
+                {"company_code": "A", "best_rank": 190, "worst_rank": 210, "rank_span": 20},
+                {"company_code": "B", "best_rank": 500, "worst_rank": 510, "rank_span": 10},
+            ]}), encoding="utf-8")
+            coverage.write_text("stock_code,esg_status\nA,missing\nB,collected\n", encoding="utf-8")
+            rows, summary = prioritize_qualitative_gaps(gaps, sensitivity, coverage)
+        self.assertEqual("A", rows[0]["company_code"])
+        self.assertEqual(1, summary["crosses_boundary_count"])
+
+    def test_embedded_esg_coverage_preserves_completion_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); coverage = root / "coverage.csv"; evidence = root / "evidence.csv"
+            coverage.write_text(
+                "stock_code,annual_status,esg_status,next_action\nA,collected,missing,discover_esg_report\n",
+                encoding="utf-8",
+            )
+            evidence.write_text("company_code\nA\n", encoding="utf-8")
+            rows, summary = recognize_embedded_esg_coverage(coverage, evidence)
+        self.assertEqual("embedded_in_annual", rows[0]["esg_status"])
+        self.assertEqual(1, summary["annual_coverage_count"])
+        self.assertEqual(1, summary["esg_coverage_count"])
+
+    def test_quantitative_gap_priority_favors_key_boundary_gap(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); tasks = root / "tasks.csv"; sensitivity = root / "sensitivity.json"
+            key, other = self.methodology.quantitative[:2]
+            fields = "company_code,company_name,indicator_code,indicator_name,dimension,key_indicator,candidate_count,report_years,source_pages,max_confidence,status,next_action,priority\n"
+            tasks.write_text(fields +
+                f"A,甲,{key.code},{key.name},E,True,0,,,0,missing_candidate,extend_extraction_rules,0\n" +
+                f"B,乙,{other.code},{other.name},E,False,0,,,0,missing_candidate,extend_extraction_rules,2\n",
+                encoding="utf-8")
+            sensitivity.write_text(json.dumps({"companies": [
+                {"company_code": "A", "best_rank": 190, "worst_rank": 210, "rank_span": 20},
+                {"company_code": "B", "best_rank": 500, "worst_rank": 510, "rank_span": 10},
+            ]}), encoding="utf-8")
+            rows, summary = prioritize_quantitative_gaps(tasks, sensitivity, self.methodology)
+        self.assertEqual("A", rows[0]["company_code"])
+        self.assertEqual(1, summary["key_indicator_gap_count"])
 
     def test_observation_revision_keeps_audit_history(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -466,6 +705,16 @@ class MethodologyTests(unittest.TestCase):
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "a.pdf")
         self.assertEqual([58.2], [item.value for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
 
+    def test_english_debt_asset_ratio_direct_disclosure_is_current_actual_only(self):
+        pages = [PageText(1, "The ratio of total liabilities to total assets of the Group was approximately 18.0% (2024: 21.1%).")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual.pdf")
+        self.assertEqual([18.0], [item.value for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+        rejected = extract_indicator_candidates(
+            [PageText(2, "The ratio of total liabilities to total assets of the Group is expected to be below 20.0%. The ratio is calculated as total liabilities to total assets.")],
+            "A", "甲", 2025, "url", "annual.pdf",
+        )
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+
     def test_intensity_excludes_table_footnote_as_value(self):
         pages = [PageText(1, "温室气体排放强度3 吨二氧化碳当量/万元 0.02 0.03")]
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg.pdf")
@@ -478,6 +727,11 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual(15.9, values["Q_G_ROE"])
         self.assertEqual(1, values["Q_S_DIVIDEND_PER_SHARE"])
         self.assertEqual(2.85, values["Q_S_RD_RATE"])
+        no_particle = extract_indicator_candidates(
+            [PageText(9, "研发投入占营业收入比例 6.04% 7.18% -1.14%")],
+            "A", "甲", 2025, "url", "annual.pdf",
+        )
+        self.assertEqual([6.04], [item.value for item in no_particle if item.indicator_code == "Q_S_RD_RATE"])
 
     def test_revenue_growth_uses_main_accounting_table(self):
         pages = [PageText(6, "近三年主要会计数据和财务指标\n（一）主要会计数据\n营业收入 120.00 100.00 20.00\n利润总额 30.00 20.00")]
@@ -526,6 +780,27 @@ class MethodologyTests(unittest.TestCase):
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(140, values["Q_G_QUICK_RATIO"])
         self.assertAlmostEqual(100 / 11, values["Q_G_CAPITAL_ACCUMULATION"])
+
+    def test_chinese_total_liabilities_and_equity_closes_detached_total_assets(self):
+        pages = [PageText(10, """1、合并资产负债
+表：元
+资产总计
+流动负债：
+负债合计 400.00 350.00
+归属于母公
+司所有者权益合计 580.00 530.00
+少数股东权益 20.00 20.00
+所有者权益合计 600.00 550.00
+负债和所有者权益总计 1,000.00 900.00""")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual.pdf")
+        debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
+        self.assertEqual(1, len(debt))
+        self.assertAlmostEqual(40, debt[0].value)
+        self.assertIn("资产等价闭合行", debt[0].evidence_text)
+
+        broken = PageText(10, pages[0].text.replace("1,000.00 900.00", "900.00 800.00"))
+        rejected = extract_indicator_candidates([broken], "A", "甲", 2025, "url", "annual.pdf")
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
 
     def test_chinese_ebitda_margin_requires_complete_supplementary_da(self):
         balance = "合并资产负债表\n流动负债合计 25.00 20.00\n资产总计 200.00 180.00\n股东权益合计 120.00 110.00"
@@ -641,6 +916,46 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(160 / 1900 * 100, values["Q_G_ROA"])
         self.assertAlmostEqual(8, values["Q_G_EBITDA_INTEREST"])
         self.assertAlmostEqual(200 / 1200 * 100, values["Q_G_EBITDA_MARGIN"])
+
+    def test_english_implicit_section_totals_require_two_year_identity_closure(self):
+        valid = PageText(100, """Consolidated Statement of Financial Position
+as at 31 December 2025
+2025 2024
+Current assets
+Cash 10 9
+22,838 26,839
+Current liabilities
+Payables (20,000) (21,000)
+(38,414) (44,804)
+Net current liabilities (15,576) (17,965)
+Total assets less current liabilities 200,230 188,909
+Equity
+117,425 110,118
+Non-current liabilities
+Borrowings 50,000 49,000
+82,805 78,791
+Equity and non-current liabilities 200,230 188,909""")
+        items = extract_indicator_candidates([valid], "A", "甲", 2025, "url", "annual.pdf")
+        debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
+        self.assertEqual(1, len(debt))
+        self.assertAlmostEqual((38_414 + 82_805) / 238_644 * 100, debt[0].value)
+
+        broken = PageText(100, valid.text.replace("117,425 110,118", "117,000 110,118"))
+        rejected = extract_indicator_candidates([broken], "A", "甲", 2025, "url", "annual.pdf")
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+
+    def test_english_statement_explicit_ascending_year_columns_are_normalized(self):
+        pages = [
+            PageText(10, """Statement of Profit or Loss
+2024 2025
+Revenue 1,000 1,200
+Profit for the year 100 120"""),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual.pdf")
+        growth = [item for item in items if item.indicator_code == "Q_G_REVENUE_GROWTH"]
+        self.assertEqual(1, len(growth))
+        self.assertAlmostEqual(20, growth[0].value)
+        self.assertIn("ascending year columns normalized", growth[0].evidence_text)
 
     def test_english_balance_sheet_rejects_mixed_receivables_for_ar_metrics(self):
         pages = [
@@ -3490,6 +3805,18 @@ class MethodologyTests(unittest.TestCase):
 
         wrong_unit = "能源消耗强度\n0.266\n兆瓦时 / 百万元\n2025 年\n"
         self.assertFalse(_extract_chinese_env_table_rows(wrong_unit, 2025))
+
+        direct_revenue = (
+            "指标 单位 2025 2024 2023\n"
+            "单位营收温室气体排放强度（范围 1、2） tCO2e / 百万元 3.41 3.82 2.92\n"
+            "单位营收综合能源消耗密度 吉焦 / 百万元 28.10 22.90 21.39\n"
+            "单位营收耗水强度 吨 / 百万元 0.35 0.08 0.10\n"
+        )
+        rows = _extract_chinese_env_table_rows(direct_revenue, 2025)
+        values = {code: value for code, value, _ in rows}
+        self.assertEqual(34.1, values["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(9.5879448, values["Q_E_ENERGY_INTENSITY"])
+        self.assertEqual(3.5, values["Q_E_WATER_INTENSITY"])
 
     def test_chinese_env_table_rows_reject_ambiguous_or_wrong_denominator(self):
         no_header = "温室气体排放强度 吨二氧化碳当量 / 万元 1.94\n"

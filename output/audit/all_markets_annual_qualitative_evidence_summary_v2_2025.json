@@ -1,0 +1,14 @@
+{
+  "report_year": 2025,
+  "target_company_count": 612,
+  "annual_document_count": 612,
+  "qualitative_indicator_count": 43,
+  "candidate_count": 16635,
+  "candidate_group_count": 7898,
+  "candidate_company_count": 612,
+  "expected_group_count": 26316,
+  "missing_group_count": 18418,
+  "missing_text_count": 0,
+  "missing_text_files": [],
+  "scoring_authorized": false
+}

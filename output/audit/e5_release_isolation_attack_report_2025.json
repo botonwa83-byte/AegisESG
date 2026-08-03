@@ -1,0 +1,20 @@
+{
+  "experiment_version": "dual-domain-isolation-e5-v1",
+  "research_algorithm_version": "auto_prerank_v1",
+  "formal_algorithm_version": "formal_rank_fixed_v1",
+  "input_sha256": "6ea41fa82a8b87b4b47737544318f9cd81fd30e10b52dec4d58cb60478eb9ce1",
+  "methodology_sha256": "73f0cf5be3aac1faa3ce8d65cdca30f40da75e5b427eef5ee8ca696c5e3de052",
+  "attacks": [
+    {"scenario": "machine_identity_approval", "blocked": true, "control": "reviewer must not be system/auto/placeholder"},
+    {"scenario": "research_algorithm_promotion", "blocked": true, "control": "formal_rank_fixed_v1 required"},
+    {"scenario": "input_content_tamper", "blocked": true, "control": "input SHA-256 bound to authorization"},
+    {"scenario": "methodology_content_tamper", "blocked": true, "control": "methodology SHA-256 bound to authorization"},
+    {"scenario": "missing_strategy_substitution", "blocked": true, "control": "versioned strategy bound to authorization"},
+    {"scenario": "research_scope_promotion", "blocked": true, "control": "official_release scope required"}
+  ],
+  "dependency_localization_evidence": "output/audit/e3_incremental_recompute_01205_2025.json",
+  "unsigned_template": "data/review/release_authorization_template_2025.json",
+  "authorized_control_available": false,
+  "applicable": false,
+  "blocker": "requires two distinct real reviewers for methodology_owner and data_reviewer approvals"
+}

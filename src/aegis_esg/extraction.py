@@ -86,6 +86,16 @@ RULES = (
 
 DIRECT_RULES = (
     DirectRule(
+        "Q_G_DEBT_ASSET_RATE",
+        re.compile(
+            r"(?:the\s+)?ratio\s+of\s+total\s+liabilities\s+to\s+total\s+assets"
+            r"(?:\s+of\s+the\s+(?:Group|Company))?\s+(?:was|is)\s+(?:approximately\s+)?"
+            + NUMBER + r"\s*%", re.I,
+        ),
+        1.0,
+        .96,
+    ),
+    DirectRule(
         "Q_S_DONATION_RATE",
         re.compile(
             r"Proportion\s+of\s+(?:the\s+)?donation\s+total\s+in\s+revenue"
@@ -178,6 +188,12 @@ DIRECT_RULES = (
     DirectRule(
         "Q_S_RD_RATE",
         re.compile(r"研发投入占营业收入的比例\s*\(\s*%\s*\)\s*" + NUMBER, re.I),
+        1.0,
+        .96,
+    ),
+    DirectRule(
+        "Q_S_RD_RATE",
+        re.compile(r"研发投入占营业收入(?:的)?比例\s*" + NUMBER + r"\s*%", re.I),
         1.0,
         .96,
     ),
@@ -1242,22 +1258,23 @@ def _extract_english_yuan_current_first_rows(
 _CN_NUMBER = r"[\d,]+(?:\.\d+)?"
 
 _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
-    ("Q_E_GHG_INTENSITY", r"温室气体排放强度(?:\s*[（(]范围[一1]\s*[、和+]\s*范围[二2][）)])?", (
+    ("Q_E_GHG_INTENSITY", r"(?:单位营收)?温室气体排放强度(?:\s*[（(]范围\s*[一1]\s*[、和+]\s*(?:范围\s*)?[二2]\s*[）)])?", (
         ("万吨二氧化碳当量/百万元营业收入", 100000.0), ("万吨二氧化碳当量/百万元营收", 100000.0),
         ("吨二氧化碳当量/百万元营业收入", 1000.0), ("吨二氧化碳当量/百万元营收", 1000.0),
         ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
         ("吨二氧化碳当量/万元营业收入", 1000.0),
         ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/亿元", 0.1),
-        ("千克二氧化碳当量/万元", 1.0), ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
+        ("千克二氧化碳当量/万元", 1.0), ("tCO2e/百万元", 10.0),
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
     )),
-    ("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度|综合能耗强度", (
+    ("Q_E_ENERGY_INTENSITY", r"(?:单位营收)?(?:综合)?能源(?:消耗|消费)(?:强度|密度)|综合能耗强度", (
         ("万吨标准煤/百万元营业收入", 100000.0), ("万吨标准煤/百万元营收", 100000.0),
         ("吨标准煤/百万元营业收入", 1000.0), ("吨标准煤/百万元营收", 1000.0),
         ("吨标准煤/万元", 1000.0), ("吨标准煤/万元营收", 1000.0), ("吨标准煤/万元营业收入", 1000.0),
         ("吨标准煤/百万元", 10.0), ("吨标准煤/亿元", 0.1),
-        ("千克标准煤/万元", 1.0),
+        ("千克标准煤/万元", 1.0), ("吉焦/百万元", 0.341208),
     )),
-    ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|用水强度", (
+    ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|(?:单位营收)?(?:用水|耗水|取水)强度", (
         ("吨/万元", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元营业收入", 1000.0),
         ("吨/百万元", 10.0), ("立方米/万元", 1000.0), ("立方米/万元营收", 1000.0),
         ("立方米/百万元", 10.0), ("千克/万元", 1.0),
@@ -1574,8 +1591,10 @@ _STATEMENT_TITLE_PREFIX = r"(?:\d{1,2}、|[（(][一二三四五六七八九十]
 
 
 def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:
-    title = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并资产负债表\s*$")
-    profit_title = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并利润表\s*$")
+    title = re.compile(
+        rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并资产负债[ \t\r\n]*表(?:[ \t]*[：:]?[ \t]*元)?[ \t]*$",
+    )
+    profit_title = re.compile(rf"(?m)^\s*{_STATEMENT_TITLE_PREFIX}\s*合并利润[ \t\r\n]*表[ \t]*$")
     start = next((index for index, page in enumerate(pages) if title.search(page.text)), None)
     if start is None:
         return []
@@ -1594,6 +1613,18 @@ def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, 
     }
     facts = {name: _find_statement_fact(statement_pages, pattern) for name, pattern in labels.items()}
     facts["equity"] = _find_equity_fact(statement_pages)
+    equivalent_assets = _find_statement_fact(statement_pages, r"负债和所有者权益总计")
+    if equivalent_assets and (
+        facts.get("assets") is None or not _accounting_identity_holds(
+            facts.get("assets"), facts.get("liabilities"), facts.get("equity"),
+        )
+    ):
+        # Definitionally equal to total assets; useful when a band-split PDF
+        # detaches the 资产总计 label from its numeric cells.
+        facts["assets"] = StatementFact(
+            equivalent_assets.values, equivalent_assets.page,
+            "资产等价闭合行: " + equivalent_assets.evidence,
+        )
     if not _accounting_identity_holds(facts.get("assets"), facts.get("liabilities"), facts.get("equity")):
         return []
     for larger_name, smaller_name in (
@@ -1707,8 +1738,8 @@ def _find_equity_fact(pages: list[PageText]) -> StatementFact | None:
     for page in pages:
         repaired = _repair_wrapped_numbers(page.text)
         for match in label.finditer(repaired):
-            prefix = repaired[max(0, match.start() - 8):match.start()]
-            if "母公司" in prefix:
+            prefix = re.sub(r"\s+", "", repaired[max(0, match.start() - 30):match.start()])
+            if "母公司" in prefix or "归属于母公" in prefix:
                 continue
             fragment = repaired[match.start():match.end() + 180]
             raw_values = money.findall(fragment)
@@ -1750,6 +1781,13 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
             _find_english_statement_fact(statement_pages, r"Total equity(?!\s+and)")
             or _find_cas_english_equity_fact(statement_pages)
         )
+        implicit = _find_english_implicit_balance_facts(statement_pages)
+        if implicit:
+            assets = assets or implicit["assets"]
+            liabilities = liabilities or implicit["liabilities"]
+            current_assets = current_assets or implicit["current_assets"]
+            current_liabilities = current_liabilities or implicit["current_liabilities"]
+            equity = equity or implicit["equity"]
         revenue = _find_english_revenue_fact(pages)
         profit = _find_english_income_fact(
             pages, r"(?:(?:Profit|Loss) for the year|(?:[IV]{1,3}\s*[.:]?\s*)?Net profit(?!\s+attributable))",
@@ -2015,9 +2053,93 @@ def _find_english_statement_fact(pages: list[PageText], label_pattern: str) -> S
             if original_count == 2 and abs(values[0]) <= 100 and abs(values[1]) > 1000:
                 continue
             if len(values) == 2:
+                # Some report summaries present explicit ascending columns (2024 2025).
+                # Normalize to current-first only when a two-year header is present on
+                # the same page before the row; never infer order from document dates.
+                prefix = repaired[:match.start()]
+                year_headers = list(re.finditer(
+                    r"(?m)^\s*(20\d{2})\s+(20\d{2})(?:\s|$)", prefix,
+                ))
+                reordered = False
+                if year_headers:
+                    first_year, second_year = map(int, year_headers[-1].groups())
+                    if first_year < second_year and second_year - first_year == 1:
+                        values.reverse(); reordered = True
                 evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                if reordered:
+                    evidence += " [ascending year columns normalized current-first]"
                 return StatementFact(tuple(values[:2]), page.page, evidence[:220])
     return None
+
+
+def _find_english_implicit_balance_facts(pages: list[PageText]) -> dict[str, StatementFact] | None:
+    """Recover a two-column balance sheet whose section totals are unlabeled.
+
+    Some IFRS layouts print section subtotals immediately before the next heading.  They
+    are accepted only when all five subtotals are present and both years independently
+    satisfy assets = equity + current liabilities + non-current liabilities.
+    """
+    value = r"\(?[\d,]+(?:\.\d+)?\)?"
+
+    def before(heading: str) -> StatementFact | None:
+        pattern = re.compile(
+            rf"(?mi)^\s*(?P<current>{value})\s+(?P<prior>{value})\s*$\n\s*{heading}\b",
+        )
+        for page in pages:
+            match = pattern.search(page.text)
+            if not match:
+                continue
+            parsed = []
+            for name in ("current", "prior"):
+                raw = match.group(name)
+                number = float(raw.strip("()").replace(",", ""))
+                parsed.append(-number if raw.startswith("(") else number)
+            evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+            return StatementFact(tuple(parsed), page.page, "implicit section subtotal: " + evidence[:180])
+        return None
+
+    current_assets = before(r"Current liabilities")
+    current_liabilities = before(r"Net current (?:assets|liabilities)")
+    equity = before(r"Non-current liabilities")
+    non_current_liabilities = before(r"Equity and non-current liabilities")
+    assets_less_current_liabilities = _find_english_statement_fact(
+        pages, r"Total assets less current liabilities",
+    )
+    required = (
+        current_assets, current_liabilities, equity,
+        non_current_liabilities, assets_less_current_liabilities,
+    )
+    if not all(required):
+        return None
+    assert current_assets and current_liabilities and equity
+    assert non_current_liabilities and assets_less_current_liabilities
+    asset_values = []
+    liability_values = []
+    for index in range(2):
+        current_debt = abs(current_liabilities.values[index])
+        non_current_debt = abs(non_current_liabilities.values[index])
+        assets = assets_less_current_liabilities.values[index] + current_debt
+        liabilities = current_debt + non_current_debt
+        if assets <= 0 or equity.values[index] <= 0:
+            return None
+        if abs(assets - equity.values[index] - liabilities) / assets > 0.001:
+            return None
+        asset_values.append(assets); liability_values.append(liabilities)
+    page = max(item.page for item in required if item)
+    closure = (
+        "implicit IFRS section totals; two-year accounting identity closure: "
+        + " | ".join(item.evidence for item in required if item)
+    )
+    return {
+        "assets": StatementFact(tuple(asset_values), page, closure[:500]),
+        "liabilities": StatementFact(tuple(liability_values), page, closure[:500]),
+        "current_assets": current_assets,
+        "current_liabilities": StatementFact(
+            tuple(abs(item) for item in current_liabilities.values),
+            current_liabilities.page, current_liabilities.evidence,
+        ),
+        "equity": equity,
+    }
 
 
 def _extract_english_income_indicators(pages: list[PageText]) -> list[tuple[str, float, int, str]]:

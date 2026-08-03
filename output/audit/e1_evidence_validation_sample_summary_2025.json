@@ -1,0 +1,11 @@
+{
+  "experiment_version": "e1-evidence-constraint-validation-v1",
+  "graph_version": "evidence-constraint-graph-v1",
+  "population_candidate_count": 8399,
+  "sample_count": 713,
+  "constraint_failed_sample_count": 605,
+  "constraint_passed_sample_count": 108,
+  "indicator_count": 37,
+  "signed_count": 0,
+  "applicable": false
+}

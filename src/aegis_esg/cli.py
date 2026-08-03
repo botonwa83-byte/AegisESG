@@ -4,6 +4,7 @@ import argparse
 import csv
 import hashlib
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from .collector import collect_batch, collect_from_manifest, supersede_documents, write_document_index
@@ -16,9 +17,18 @@ from .esg_disclosure import (
     write_qualitative_candidates, write_qualitative_evidence_candidates,
 )
 from .evidence_graph import build_evidence_constraint_graph, write_evidence_constraint_graph
+from .embedded_coverage import recognize_embedded_esg_coverage, write_embedded_esg_coverage
+from .evidence_experiment import (
+    evaluate_e1_validation, prepare_e1_validation_sample,
+    write_e1_evaluation, write_e1_validation_sample,
+)
+from .evidence_batch import build_evidence_collection_batch, write_evidence_collection_batch
 from .financial import derive_financial_observations, read_financial_facts
+from .gap_priority import prioritize_qualitative_gaps, write_gap_priority
+from .gap_diagnostics import diagnose_quantitative_gap_batch, write_gap_diagnostics
 from .historical import import_historical_workbook, write_historical_import
 from .indicator_plan import plan_candidate_coverage, plan_indicator_tasks, write_candidate_coverage, write_indicator_plan
+from .incremental import benchmark_cache_change, benchmark_incremental_scoring, plan_incremental_recompute, write_incremental_recompute_plan
 from .issuer_continuity import apply_issuer_continuity_decisions, audit_hkex_issuer_continuity, plan_continuity_evidence_tasks, write_applied_continuity_decisions, write_continuity_evidence_tasks, write_issuer_continuity_audit
 from .dual_review import (
     apply_arbitration_decisions, apply_dual_review_decisions, read_arbitration_cases,
@@ -35,11 +45,14 @@ from .qualitative_review import (
     reprioritize_evidence_gaps, write_qualitative_review_plan, write_qualitative_review_results,
     write_qualitative_review_template, write_reprioritized_gaps,
 )
+from .quantitative_gap_priority import build_quantitative_gap_batch, prioritize_quantitative_gaps, write_quantitative_gap_priority
 from .review_batch import (
     apply_review_batch, create_review_batch, read_batch_ledger, read_batch_rows,
     read_review_progress, update_ledger_entry, write_batch_ledger, write_review_progress,
 )
 from .review_priority import prioritize_review_by_impact, write_impact_review_plan
+from .release_guard import FORMAL_ALGORITHM_VERSION, prepare_release_authorization, validate_release_authorization
+from .research_qualitative import build_research_qualitative_observations
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
 from .quality import evaluate_quality
@@ -82,6 +95,79 @@ def main() -> None:
     evidence_graph.add_argument("input")
     evidence_graph.add_argument("--output", required=True)
     evidence_graph.add_argument("--summary", required=True)
+    e1_sample = sub.add_parser("prepare-e1-validation", help="生成证据约束图E1空白人工标注样本")
+    e1_sample.add_argument("graph")
+    e1_sample.add_argument("--per-indicator-passed", type=int, default=3)
+    e1_sample.add_argument("--output", required=True)
+    e1_sample.add_argument("--summary", required=True)
+    e1_evaluate = sub.add_parser("evaluate-e1-validation", help="用已签名真值评估约束图技术效果")
+    e1_evaluate.add_argument("input")
+    e1_evaluate.add_argument("--output", required=True)
+    incremental = sub.add_parser("plan-incremental-recompute", help="按证据依赖图定位变更后的最小重算范围")
+    incremental.add_argument("graph")
+    incremental.add_argument("--changed-id", action="append", default=[])
+    incremental.add_argument("--changed-document", action="append", default=[])
+    incremental.add_argument("--output", required=True)
+    incremental_benchmark = sub.add_parser("benchmark-incremental-scoring", help="对比全量与依赖域增量评分的性能和逐字段等价性")
+    incremental_benchmark.add_argument("input")
+    incremental_benchmark.add_argument("--affected-indicator", action="append", required=True)
+    incremental_benchmark.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], default=MissingStrategy.INDICATOR_NEUTRAL_V1.value)
+    incremental_benchmark.add_argument("--repetitions", type=int, default=7)
+    incremental_benchmark.add_argument("--output", required=True)
+    dynamic_benchmark = sub.add_parser("benchmark-cache-change", help="模拟审核值变化并比较事务式缓存与全量评分")
+    dynamic_benchmark.add_argument("input")
+    dynamic_benchmark.add_argument("--company-code", required=True)
+    dynamic_benchmark.add_argument("--indicator", required=True)
+    dynamic_benchmark.add_argument("--new-value", required=True, type=float)
+    dynamic_benchmark.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], default=MissingStrategy.INDICATOR_NEUTRAL_V1.value)
+    dynamic_benchmark.add_argument("--repetitions", type=int, default=7)
+    dynamic_benchmark.add_argument("--output", required=True)
+    release_template = sub.add_parser("prepare-release-authorization", help="生成绑定输入和方法论Hash的未签名正式发布授权模板")
+    release_template.add_argument("input")
+    release_template.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], required=True)
+    release_template.add_argument("--output", required=True)
+    research_qualitative = sub.add_parser("build-research-qualitative", help="从证据包和缺口生成仅限自动预排名的定性观测")
+    research_qualitative.add_argument("packets")
+    research_qualitative.add_argument("gaps")
+    research_qualitative.add_argument("--output", required=True)
+    research_qualitative.add_argument("--summary", required=True)
+    gap_impact = sub.add_parser("prioritize-qualitative-gap-impact", help="按预排名不确定性和前N边界重排定性证据缺口")
+    gap_impact.add_argument("gaps")
+    gap_impact.add_argument("sensitivity")
+    gap_impact.add_argument("coverage")
+    gap_impact.add_argument("--top-n", type=int, default=200)
+    gap_impact.add_argument("--output", required=True)
+    gap_impact.add_argument("--summary", required=True)
+    evidence_batch = sub.add_parser("build-evidence-collection-batch", help="把排名影响缺口聚合为公司级补证批次")
+    evidence_batch.add_argument("impact")
+    evidence_batch.add_argument("--company-limit", type=int, default=25)
+    evidence_batch.add_argument("--companies", required=True)
+    evidence_batch.add_argument("--tasks", required=True)
+    evidence_batch.add_argument("--summary", required=True)
+    embedded_coverage = sub.add_parser("recognize-embedded-esg", help="用年报ESG证据修正内嵌ESG章节覆盖状态")
+    embedded_coverage.add_argument("coverage")
+    embedded_coverage.add_argument("evidence")
+    embedded_coverage.add_argument("--output", required=True)
+    embedded_coverage.add_argument("--summary", required=True)
+    quantitative_gap = sub.add_parser("prioritize-quantitative-gap-impact", help="按排名敏感性和指标稀缺度重排定量缺口")
+    quantitative_gap.add_argument("tasks")
+    quantitative_gap.add_argument("sensitivity")
+    quantitative_gap.add_argument("--top-n", type=int, default=200)
+    quantitative_gap.add_argument("--output", required=True)
+    quantitative_gap.add_argument("--summary", required=True)
+    quantitative_batch = sub.add_parser("build-quantitative-gap-batch", help="从定量影响队列切分公司级补证批次")
+    quantitative_batch.add_argument("impact")
+    quantitative_batch.add_argument("--company-limit", type=int, default=25)
+    quantitative_batch.add_argument("--tasks-per-company", type=int, default=10)
+    quantitative_batch.add_argument("--companies", required=True)
+    quantitative_batch.add_argument("--tasks", required=True)
+    quantitative_batch.add_argument("--summary", required=True)
+    gap_diagnostic = sub.add_parser("diagnose-quantitative-gap-batch", help="把定量缺口分类为未披露、口径冲突或规则漏召回")
+    gap_diagnostic.add_argument("tasks")
+    gap_diagnostic.add_argument("document_index")
+    gap_diagnostic.add_argument("--text-root", default="data/text")
+    gap_diagnostic.add_argument("--output", required=True)
+    gap_diagnostic.add_argument("--summary", required=True)
     score = sub.add_parser("score", help="从CSV自动计算并导出排名")
     score.add_argument("input")
     score.add_argument("--output-dir", default="output")
@@ -91,6 +177,7 @@ def main() -> None:
     score.add_argument("--mode", choices=("preview", "research", "release"), default="preview")
     score.add_argument("--missing-strategy", choices=tuple(item.value for item in MissingStrategy))
     score.add_argument("--release", action="store_true", help="兼容旧调用，等同于--mode release")
+    score.add_argument("--release-manifest", help="正式发布所需的双人签名冻结授权清单JSON")
     universe_audit = sub.add_parser("universe-audit", help="审计公司池及已完成数据覆盖")
     universe_audit.add_argument("universe")
     universe_audit.add_argument("--observations")
@@ -795,6 +882,119 @@ def main() -> None:
         write_evidence_constraint_graph(args.output, args.summary, graph, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
+    if args.command == "prepare-e1-validation":
+        rows, summary = prepare_e1_validation_sample(args.graph, args.per_indicator_passed)
+        write_e1_validation_sample(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "evaluate-e1-validation":
+        report = evaluate_e1_validation(args.input)
+        write_e1_evaluation(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "plan-incremental-recompute":
+        report = plan_incremental_recompute(args.graph, args.changed_id, args.changed_document)
+        write_incremental_recompute_plan(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "benchmark-incremental-scoring":
+        observations = read_observations(args.input, methodology)
+        report = benchmark_incremental_scoring(
+            ScoringEngine(methodology), observations, set(args.affected_indicator),
+            args.missing_strategy, args.repetitions,
+        )
+        report["input_path"] = args.input
+        report["input_sha256"] = hashlib.sha256(Path(args.input).read_bytes()).hexdigest()
+        report["methodology_path"] = args.methodology
+        report["methodology_sha256"] = hashlib.sha256(Path(args.methodology).read_bytes()).hexdigest()
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "benchmark-cache-change":
+        observations = read_observations(args.input, methodology)
+        original = next((
+            item for item in observations
+            if item.company_code == args.company_code and item.indicator_code == args.indicator
+        ), None)
+        if original is None:
+            raise ValueError("未找到待模拟变更的公司指标观测")
+        change = replace(
+            original, value=args.new_value,
+            evidence_text=f"{original.evidence_text} [E3 simulation; not a review decision]",
+        )
+        report = benchmark_cache_change(
+            ScoringEngine(methodology), observations, change,
+            args.missing_strategy, args.repetitions,
+        )
+        report["input_path"] = args.input
+        report["input_sha256"] = hashlib.sha256(Path(args.input).read_bytes()).hexdigest()
+        report["methodology_sha256"] = hashlib.sha256(Path(args.methodology).read_bytes()).hexdigest()
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-release-authorization":
+        manifest = prepare_release_authorization(
+            args.input, args.methodology, args.missing_strategy,
+        )
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        return
+    if args.command == "build-research-qualitative":
+        observations, summary = build_research_qualitative_observations(args.packets, args.gaps)
+        write_observations(args.output, observations)
+        summary_path = Path(args.summary)
+        summary_path.parent.mkdir(parents=True, exist_ok=True)
+        summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prioritize-qualitative-gap-impact":
+        rows, summary = prioritize_qualitative_gaps(
+            args.gaps, args.sensitivity, args.coverage, args.top_n,
+        )
+        write_gap_priority(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "build-evidence-collection-batch":
+        companies, tasks, summary = build_evidence_collection_batch(args.impact, args.company_limit)
+        write_evidence_collection_batch(
+            args.companies, args.tasks, args.summary, companies, tasks, summary,
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "recognize-embedded-esg":
+        rows, summary = recognize_embedded_esg_coverage(args.coverage, args.evidence)
+        write_embedded_esg_coverage(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prioritize-quantitative-gap-impact":
+        rows, summary = prioritize_quantitative_gaps(
+            args.tasks, args.sensitivity, methodology, args.top_n,
+        )
+        write_quantitative_gap_priority(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "build-quantitative-gap-batch":
+        companies, tasks, summary = build_quantitative_gap_batch(
+            args.impact, args.company_limit, args.tasks_per_company,
+        )
+        write_evidence_collection_batch(
+            args.companies, args.tasks, args.summary, companies, tasks, summary,
+        )
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "diagnose-quantitative-gap-batch":
+        rows, summary = diagnose_quantitative_gap_batch(
+            args.tasks, args.document_index, args.text_root,
+        )
+        write_gap_diagnostics(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
     if args.command == "plan-candidate-coverage":
         rows, summary = plan_candidate_coverage(
             args.companies, read_observations(args.candidates, methodology), methodology,
@@ -1191,6 +1391,8 @@ def main() -> None:
     if mode == "release":
         if not args.universe or not args.expected_companies:
             raise SystemExit("正式发布必须同时指定 --universe 和 --expected-companies")
+        if not args.release_manifest:
+            raise SystemExit("正式发布必须指定 --release-manifest")
         audit = audit_universe(
             read_universe(args.universe), args.expected_companies,
             {item.company_code for item in observations},
@@ -1202,6 +1404,14 @@ def main() -> None:
                 f"已有数据 {audit.completed_company_count}/{audit.expected_company_count}，"
                 f"缺少交易所 {','.join(audit.missing_exchanges) or '无'}"
             )
+        try:
+            release_authorization = validate_release_authorization(
+                args.release_manifest, args.input, args.methodology, strategy,
+            )
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
+    else:
+        release_authorization = None
     results = ScoringEngine(methodology).evaluate(observations, strategy)
     output = Path(args.output_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -1211,7 +1421,10 @@ def main() -> None:
     write_ranking_html(output / "ranking.html", results, methodology, title)
     metadata = {
         "ranking_mode": mode,
-        "algorithm_version": "auto_prerank_v1" if mode == "research" else "energy_esg_2025",
+        "algorithm_version": (
+            "auto_prerank_v1" if mode == "research"
+            else FORMAL_ALGORITHM_VERSION if mode == "release" else "energy_esg_2025"
+        ),
         "missing_strategy_version": strategy,
         "company_count": len(results),
         "input_path": str(Path(args.input)),
@@ -1220,6 +1433,7 @@ def main() -> None:
         "methodology_sha256": _sha256_file(args.methodology),
         "official_release": mode == "release",
         "notice": "正式审计版" if mode == "release" else "自动研究结果，不得作为正式榜单",
+        "release_authorization": release_authorization,
     }
     (output / "ranking_metadata.json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",

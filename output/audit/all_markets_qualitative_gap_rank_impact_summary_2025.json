@@ -1,0 +1,9 @@
+{
+  "policy_version": "qualitative-gap-rank-impact-v1",
+  "top_n_boundary": 200,
+  "gap_count": 15778,
+  "company_count": 612,
+  "crosses_boundary_count": 4703,
+  "high_impact_count": 966,
+  "applicable": true
+}

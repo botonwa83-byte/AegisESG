@@ -1,0 +1,17 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v1",
+  "task_count": 250,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 30,
+    "disclosed_foreign_currency_denominator": 2,
+    "disclosed_non_revenue_denominator": 9,
+    "likely_methodology_compatible_rule_gap": 2,
+    "no_matching_disclosure_in_text": 52,
+    "possible_total_plus_rmb_revenue_derivation": 54,
+    "related_disclosure_without_compatible_intensity": 1,
+    "requires_formula_or_social_diagnostic": 59,
+    "requires_specialized_environmental_diagnostic": 41
+  },
+  "scoring_authorized": false,
+  "complete": true
+}

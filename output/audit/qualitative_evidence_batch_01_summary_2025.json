@@ -1,0 +1,9 @@
+{
+  "policy_version": "evidence-collection-batch-v1",
+  "company_limit": 25,
+  "selected_company_count": 25,
+  "selected_gap_count": 772,
+  "selected_high_impact_gap_count": 177,
+  "requires_human_scoring": false,
+  "scoring_authorized": false
+}

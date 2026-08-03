@@ -1,0 +1,10 @@
+{
+  "policy_version": "embedded-esg-coverage-v1",
+  "company_count": 614,
+  "embedded_evidence_company_count": 612,
+  "upgraded_company_count": 433,
+  "annual_coverage_count": 612,
+  "esg_coverage_count": 612,
+  "independent_esg_coverage_count": 179,
+  "complete": true
+}

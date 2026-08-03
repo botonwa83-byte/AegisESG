@@ -1,0 +1,26 @@
+{
+  "manifest_version": "release-authorization-v1",
+  "algorithm_version": "formal_rank_fixed_v1",
+  "scope": "official_release",
+  "input_path": "output/audit/all_markets_auto_confirmed_preview_2025.csv",
+  "input_sha256": "6ea41fa82a8b87b4b47737544318f9cd81fd30e10b52dec4d58cb60478eb9ce1",
+  "methodology_path": "data/methodologies/energy_esg_2025.json",
+  "methodology_sha256": "73f0cf5be3aac1faa3ce8d65cdca30f40da75e5b427eef5ee8ca696c5e3de052",
+  "missing_strategy_version": "indicator_neutral_v1",
+  "approvals": [
+    {
+      "reviewer": "",
+      "role": "methodology_owner",
+      "reviewed_at": "",
+      "note": ""
+    },
+    {
+      "reviewer": "",
+      "role": "data_reviewer",
+      "reviewed_at": "",
+      "note": ""
+    }
+  ],
+  "authorized": false,
+  "notice": "未签名模板；系统不得填写审核人或提升为正式发布"
+}

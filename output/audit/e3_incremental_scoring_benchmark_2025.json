@@ -1,0 +1,24 @@
+{
+  "benchmark_version": "incremental-scoring-e3-v1",
+  "repetitions": 7,
+  "observation_count": 7452,
+  "company_count": 612,
+  "affected_indicators": [
+    "Q_E_GHG_REDUCTION_RATE"
+  ],
+  "affected_company_count": 22,
+  "full_median_seconds": 0.273330541,
+  "incremental_median_seconds": 0.008788208,
+  "elapsed_reduction_rate": 0.967848,
+  "full_peak_bytes": 14100292,
+  "incremental_peak_bytes": 523240,
+  "peak_memory_reduction_rate": 0.962892,
+  "full_output_sha256": "3f68d24076f831ca506026928aab292ec0896bfcff89a618064f3198394e35df",
+  "incremental_output_sha256": "3f68d24076f831ca506026928aab292ec0896bfcff89a618064f3198394e35df",
+  "field_equivalent": true,
+  "applicable": true,
+  "input_path": "output/audit/all_markets_auto_confirmed_preview_2025.csv",
+  "input_sha256": "6ea41fa82a8b87b4b47737544318f9cd81fd30e10b52dec4d58cb60478eb9ce1",
+  "methodology_path": "data/methodologies/energy_esg_2025.json",
+  "methodology_sha256": "73f0cf5be3aac1faa3ce8d65cdca30f40da75e5b427eef5ee8ca696c5e3de052"
+}

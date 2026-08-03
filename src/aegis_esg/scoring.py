@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 import statistics
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 
 from .methodology import Methodology
@@ -35,6 +35,17 @@ class MissingStrategy(str, Enum):
     LEGACY_ZERO_V1 = "legacy_zero_v1"
     INDICATOR_NEUTRAL_V1 = "indicator_neutral_v1"
     DISCLOSED_WEIGHT_V1 = "disclosed_weight_v1"
+
+
+@dataclass
+class ScoringCache:
+    """Exact, in-memory scoring state used for dependency-scoped recomputation."""
+
+    results: dict[tuple[str, int], CompanyResult]
+    stats: dict[str, PopulationStats]
+    observations: dict[tuple[str, int], tuple[str, dict[str, Observation]]]
+    companies_by_indicator: dict[str, set[tuple[str, int]]]
+    missing_strategy: MissingStrategy
 
 
 class ScoringEngine:
@@ -83,6 +94,146 @@ class ScoringEngine:
                 previous_score = rounded
             result.rank = previous_rank
         return results
+
+    def build_cache(
+        self, observations: list[Observation],
+        missing_strategy: MissingStrategy | str = MissingStrategy.LEGACY_ZERO_V1,
+    ) -> ScoringCache:
+        strategy = MissingStrategy(missing_strategy)
+        confirmed = [o for o in observations if o.status == ValueStatus.CONFIRMED and o.value is not None]
+        stats = self._population_stats(confirmed)
+        companies: dict[tuple[str, int], tuple[str, dict[str, Observation]]] = {}
+        by_indicator: dict[str, set[tuple[str, int]]] = defaultdict(set)
+        for obs in observations:
+            key = (obs.company_code, obs.report_year)
+            if key not in companies:
+                companies[key] = (obs.company_name, {})
+            companies[key][1][obs.indicator_code] = obs
+            by_indicator[obs.indicator_code].add(key)
+        results = self.evaluate(observations, strategy)
+        return ScoringCache(
+            results={(item.company_code, item.report_year): item for item in results},
+            stats=stats, observations=companies, companies_by_indicator=dict(by_indicator),
+            missing_strategy=strategy,
+        )
+
+    def evaluate_from_cache(
+        self, cache: ScoringCache, affected_indicators: set[str],
+    ) -> list[CompanyResult]:
+        """Recompute the affected indicator population and rerank cached company scores."""
+        affected_companies = set().union(
+            *(cache.companies_by_indicator.get(code, set()) for code in affected_indicators)
+        ) if affected_indicators else set()
+        results = {
+            key: value for key, value in cache.results.items()
+            if key not in affected_companies
+        }
+        for key in affected_companies:
+            name, values = cache.observations[key]
+            results[key] = self._evaluate_company(
+                key[0], name, key[1], values, cache.stats, cache.missing_strategy,
+            )
+        ranked = sorted(results.values(), key=lambda item: (-item.total_score, item.company_code))
+        previous_score: float | None = None
+        previous_rank = 0
+        for result in ranked:
+            rounded = round(result.total_score, 2)
+            if previous_score is None or rounded != previous_score:
+                previous_rank += 1
+                previous_score = rounded
+            result.rank = previous_rank
+        return ranked
+
+    def apply_cache_changes(
+        self, cache: ScoringCache, changes: list[Observation],
+    ) -> tuple[list[CompanyResult], dict]:
+        """Atomically replace observations, invalidate exact stats, and rerank."""
+        if not changes:
+            raise ValueError("增量事务至少包含一条观测变更")
+        identities = [(item.company_code, item.report_year, item.indicator_code) for item in changes]
+        if len(identities) != len(set(identities)):
+            raise ValueError("同一公司、年度和指标在事务中只能变更一次")
+        existing_years = {year for _, year in cache.observations}
+        if existing_years and any(item.report_year not in existing_years for item in changes):
+            raise ValueError("增量事务不能混入新的报告期")
+
+        staged_observations = {
+            key: (name, dict(values)) for key, (name, values) in cache.observations.items()
+        }
+        staged_by_indicator = {
+            code: set(companies) for code, companies in cache.companies_by_indicator.items()
+        }
+        affected_indicators = {item.indicator_code for item in changes}
+        affected_companies = set().union(
+            *(staged_by_indicator.get(code, set()) for code in affected_indicators)
+        )
+        for item in changes:
+            key = (item.company_code, item.report_year)
+            if key not in staged_observations:
+                staged_observations[key] = (item.company_name, {})
+            staged_observations[key][1][item.indicator_code] = item
+            staged_by_indicator.setdefault(item.indicator_code, set()).add(key)
+            affected_companies.add(key)
+
+        staged_stats = dict(cache.stats)
+        for code in affected_indicators:
+            confirmed = [
+                values[code] for _, values in staged_observations.values()
+                if code in values and values[code].status == ValueStatus.CONFIRMED
+                and values[code].value is not None
+            ]
+            replacement = self._population_stats(confirmed)
+            if code in replacement:
+                staged_stats[code] = replacement[code]
+            else:
+                staged_stats.pop(code, None)
+
+        staged_results = {
+            key: value for key, value in cache.results.items() if key not in affected_companies
+        }
+        for key, result in tuple(staged_results.items()):
+            details = []
+            changed_metadata = False
+            for detail in result.details:
+                if detail.indicator_code not in affected_indicators:
+                    details.append(detail)
+                    continue
+                stat = staged_stats.get(detail.indicator_code)
+                details.append(replace(
+                    detail,
+                    population_count=stat.count if stat else 0,
+                    mean=round(stat.mean, 6) if stat else None,
+                    stddev=round(stat.stddev, 6) if stat else None,
+                ))
+                changed_metadata = True
+            if changed_metadata:
+                staged_results[key] = replace(result, details=details)
+        for key in affected_companies:
+            name, values = staged_observations[key]
+            staged_results[key] = self._evaluate_company(
+                key[0], name, key[1], values, staged_stats, cache.missing_strategy,
+            )
+        ranked = sorted(staged_results.values(), key=lambda item: (-item.total_score, item.company_code))
+        previous_score: float | None = None
+        previous_rank = 0
+        for result in ranked:
+            rounded = round(result.total_score, 2)
+            if previous_score is None or rounded != previous_score:
+                previous_rank += 1
+                previous_score = rounded
+            result.rank = previous_rank
+
+        cache.observations = staged_observations
+        cache.companies_by_indicator = staged_by_indicator
+        cache.stats = staged_stats
+        cache.results = staged_results
+        return ranked, {
+            "transaction_version": "scoring-cache-change-v1",
+            "change_count": len(changes),
+            "affected_indicators": sorted(affected_indicators),
+            "affected_company_count": len(affected_companies),
+            "committed": True,
+        }
 
     def _population_stats(self, observations: list[Observation]) -> dict[str, PopulationStats]:
         grouped: dict[str, list[float]] = defaultdict(list)

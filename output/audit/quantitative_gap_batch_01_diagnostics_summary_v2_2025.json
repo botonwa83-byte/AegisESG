@@ -1,0 +1,24 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v1",
+  "task_count": 250,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 30,
+    "disclosed_foreign_currency_denominator": 2,
+    "disclosed_non_revenue_denominator": 9,
+    "dividend_disclosed_foreign_currency": 2,
+    "likely_methodology_compatible_rule_gap": 2,
+    "no_dividend_per_share_disclosure": 5,
+    "no_matching_disclosure_in_text": 52,
+    "possible_balance_sheet_formula_closure": 8,
+    "possible_clean_energy_revenue_closure": 7,
+    "possible_hazardous_waste_revenue_closure": 2,
+    "possible_rd_revenue_formula_closure": 12,
+    "possible_safety_revenue_formula_closure": 1,
+    "possible_total_plus_rmb_revenue_derivation": 54,
+    "possible_two_year_ghg_formula_closure": 3,
+    "related_disclosure_without_compatible_intensity": 1,
+    "related_fields_incomplete": 60
+  },
+  "scoring_authorized": false,
+  "complete": true
+}

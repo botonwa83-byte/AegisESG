@@ -1,0 +1,31 @@
+{
+  "benchmark_version": "dynamic-cache-change-e3-v1",
+  "simulation_only": true,
+  "repetitions": 7,
+  "change": {
+    "company_code": "000400.SZ",
+    "report_year": 2025,
+    "indicator_code": "Q_E_GHG_REDUCTION_RATE",
+    "new_value": -1.5
+  },
+  "transaction_version": "scoring-cache-change-v1",
+  "change_count": 1,
+  "affected_indicators": [
+    "Q_E_GHG_REDUCTION_RATE"
+  ],
+  "affected_company_count": 22,
+  "committed": true,
+  "full_median_seconds": 0.290807708,
+  "incremental_median_seconds": 0.02617325,
+  "elapsed_reduction_rate": 0.909998,
+  "full_peak_bytes": 14104188,
+  "incremental_peak_bytes": 1925768,
+  "peak_memory_reduction_rate": 0.863461,
+  "full_output_sha256": "6a8b674fb3360680b9f651139a06f4f1f34f36a9cac341298808ab01cf63fa91",
+  "incremental_output_sha256": "6a8b674fb3360680b9f651139a06f4f1f34f36a9cac341298808ab01cf63fa91",
+  "field_equivalent": true,
+  "applicable": true,
+  "input_path": "output/audit/all_markets_auto_confirmed_preview_2025.csv",
+  "input_sha256": "6ea41fa82a8b87b4b47737544318f9cd81fd30e10b52dec4d58cb60478eb9ce1",
+  "methodology_sha256": "73f0cf5be3aac1faa3ce8d65cdca30f40da75e5b427eef5ee8ca696c5e3de052"
+}

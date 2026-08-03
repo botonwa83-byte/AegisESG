@@ -1,0 +1,773 @@
+﻿batch_task_rank,impact_rank,impact_score,best_rank,worst_rank,rank_span,crosses_top_n,boundary_risk,instability_risk,weight_risk,missing_esg_document,esg_status,company_code,company_name,report_year,indicator_code,indicator_name,indicator_weight,priority,status,next_action
+1,1,90.0,151,337,186,True,1.0,1.0,1.0,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+2,2,90.0,139,353,214,True,1.0,1.0,1.0,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+3,4,90.0,164,270,106,True,1.0,1.0,1.0,False,collected,000690.SZ,宝新能源,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+4,5,90.0,167,448,281,True,1.0,1.0,1.0,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+5,6,90.0,119,268,149,True,1.0,1.0,1.0,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+6,7,90.0,127,285,158,True,1.0,1.0,1.0,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+7,8,90.0,12,302,290,True,1.0,1.0,1.0,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+8,12,90.0,113,423,310,True,1.0,1.0,1.0,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+9,13,90.0,135,310,175,True,1.0,1.0,1.0,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+10,14,90.0,118,325,207,True,1.0,1.0,1.0,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+11,15,90.0,43,305,262,True,1.0,1.0,1.0,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+12,16,90.0,106,418,312,True,1.0,1.0,1.0,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+13,17,90.0,168,273,105,True,1.0,1.0,1.0,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+14,18,90.0,125,260,135,True,1.0,1.0,1.0,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+15,20,90.0,124,410,286,True,1.0,1.0,1.0,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+16,22,90.0,7,391,384,True,1.0,1.0,1.0,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+17,25,90.0,5,541,536,True,1.0,1.0,1.0,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+18,26,90.0,74,490,416,True,1.0,1.0,1.0,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+19,38,90.0,131,510,379,True,1.0,1.0,1.0,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+20,42,90.0,124,379,255,True,1.0,1.0,1.0,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+21,44,90.0,37,512,475,True,1.0,1.0,1.0,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+22,46,90.0,160,446,286,True,1.0,1.0,1.0,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+23,48,90.0,129,404,275,True,1.0,1.0,1.0,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+24,49,90.0,169,335,166,True,1.0,1.0,1.0,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+25,51,90.0,166,424,258,True,1.0,1.0,1.0,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_BIODIVERSITY,生物多样性保护,7.5,1,evidence_missing,locate_additional_public_evidence
+26,147,81.666667,151,337,186,True,1.0,1.0,0.666667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+27,149,81.666667,139,353,214,True,1.0,1.0,0.666667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+28,154,81.666667,164,270,106,True,1.0,1.0,0.666667,False,collected,000690.SZ,宝新能源,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+29,156,81.666667,167,448,281,True,1.0,1.0,0.666667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+30,157,81.666667,119,268,149,True,1.0,1.0,0.666667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+31,158,81.666667,127,285,158,True,1.0,1.0,0.666667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+32,159,81.666667,12,302,290,True,1.0,1.0,0.666667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+33,161,81.666667,113,423,310,True,1.0,1.0,0.666667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+34,162,81.666667,135,310,175,True,1.0,1.0,0.666667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+35,163,81.666667,118,325,207,True,1.0,1.0,0.666667,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+36,164,81.666667,43,305,262,True,1.0,1.0,0.666667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+37,165,81.666667,106,418,312,True,1.0,1.0,0.666667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+38,166,81.666667,168,273,105,True,1.0,1.0,0.666667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+39,167,81.666667,125,260,135,True,1.0,1.0,0.666667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+40,171,81.666667,124,410,286,True,1.0,1.0,0.666667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+41,174,81.666667,7,391,384,True,1.0,1.0,0.666667,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+42,177,81.666667,5,541,536,True,1.0,1.0,0.666667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_DISCLOSURE,信息披露,5.0,1,evidence_missing,locate_additional_public_evidence
+43,179,81.666667,74,490,416,True,1.0,1.0,0.666667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_DISCLOSURE,信息披露,5.0,1,evidence_missing,locate_additional_public_evidence
+44,180,81.666667,74,490,416,True,1.0,1.0,0.666667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+45,189,81.666667,131,510,379,True,1.0,1.0,0.666667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_DISCLOSURE,信息披露,5.0,1,evidence_missing,locate_additional_public_evidence
+46,190,81.666667,131,510,379,True,1.0,1.0,0.666667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+47,193,81.666667,124,379,255,True,1.0,1.0,0.666667,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_G_DISCLOSURE,信息披露,5.0,1,evidence_missing,locate_additional_public_evidence
+48,194,81.666667,124,379,255,True,1.0,1.0,0.666667,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+49,195,81.666667,37,512,475,True,1.0,1.0,0.666667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+50,197,81.666667,160,446,286,True,1.0,1.0,0.666667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+51,198,81.666667,129,404,275,True,1.0,1.0,0.666667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+52,199,81.666667,169,335,166,True,1.0,1.0,0.666667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+53,201,81.666667,166,424,258,True,1.0,1.0,0.666667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_INTEGRITY,诚信合规,5.0,1,evidence_missing,locate_additional_public_evidence
+54,312,78.333333,5,541,536,True,1.0,1.0,0.533333,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_TAX,纳税情况,4.0,1,evidence_missing,locate_additional_public_evidence
+55,334,78.333333,131,510,379,True,1.0,1.0,0.533333,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_TAX,纳税情况,4.0,1,evidence_missing,locate_additional_public_evidence
+56,343,78.333333,124,379,255,True,1.0,1.0,0.533333,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_G_TAX,纳税情况,4.0,1,evidence_missing,locate_additional_public_evidence
+57,346,78.333333,37,512,475,True,1.0,1.0,0.533333,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_TAX,纳税情况,4.0,1,evidence_missing,locate_additional_public_evidence
+58,351,78.333333,160,446,286,True,1.0,1.0,0.533333,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_TAX,纳税情况,4.0,1,evidence_missing,locate_additional_public_evidence
+59,360,77.5,151,337,186,True,1.0,1.0,0.5,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+60,361,77.5,151,337,186,True,1.0,1.0,0.5,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+61,362,77.5,139,353,214,True,1.0,1.0,0.5,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+62,363,77.5,139,353,214,True,1.0,1.0,0.5,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+63,367,77.5,164,270,106,True,1.0,1.0,0.5,False,collected,000690.SZ,宝新能源,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+64,368,77.5,164,270,106,True,1.0,1.0,0.5,False,collected,000690.SZ,宝新能源,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+65,369,77.5,167,448,281,True,1.0,1.0,0.5,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+66,370,77.5,167,448,281,True,1.0,1.0,0.5,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+67,371,77.5,119,268,149,True,1.0,1.0,0.5,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+68,372,77.5,119,268,149,True,1.0,1.0,0.5,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+69,373,77.5,127,285,158,True,1.0,1.0,0.5,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+70,374,77.5,127,285,158,True,1.0,1.0,0.5,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+71,375,77.5,12,302,290,True,1.0,1.0,0.5,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+72,376,77.5,12,302,290,True,1.0,1.0,0.5,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+73,380,77.5,113,423,310,True,1.0,1.0,0.5,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+74,381,77.5,113,423,310,True,1.0,1.0,0.5,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+75,382,77.5,135,310,175,True,1.0,1.0,0.5,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+76,383,77.5,135,310,175,True,1.0,1.0,0.5,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+77,384,77.5,118,325,207,True,1.0,1.0,0.5,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+78,385,77.5,118,325,207,True,1.0,1.0,0.5,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+79,386,77.5,43,305,262,True,1.0,1.0,0.5,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+80,387,77.5,43,305,262,True,1.0,1.0,0.5,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+81,388,77.5,106,418,312,True,1.0,1.0,0.5,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+82,389,77.5,106,418,312,True,1.0,1.0,0.5,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+83,390,77.5,168,273,105,True,1.0,1.0,0.5,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+84,391,77.5,168,273,105,True,1.0,1.0,0.5,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+85,392,77.5,125,260,135,True,1.0,1.0,0.5,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+86,393,77.5,125,260,135,True,1.0,1.0,0.5,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+87,395,77.5,124,410,286,True,1.0,1.0,0.5,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+88,396,77.5,124,410,286,True,1.0,1.0,0.5,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+89,398,77.5,7,391,384,True,1.0,1.0,0.5,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+90,399,77.5,7,391,384,True,1.0,1.0,0.5,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+91,402,77.5,5,541,536,True,1.0,1.0,0.5,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+92,403,77.5,5,541,536,True,1.0,1.0,0.5,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+93,404,77.5,74,490,416,True,1.0,1.0,0.5,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+94,405,77.5,74,490,416,True,1.0,1.0,0.5,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+95,409,77.5,37,512,475,True,1.0,1.0,0.5,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+96,410,77.5,160,446,286,True,1.0,1.0,0.5,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+97,411,77.5,129,404,275,True,1.0,1.0,0.5,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+98,412,77.5,129,404,275,True,1.0,1.0,0.5,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+99,413,77.5,169,335,166,True,1.0,1.0,0.5,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+100,414,77.5,169,335,166,True,1.0,1.0,0.5,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+101,416,77.5,166,424,258,True,1.0,1.0,0.5,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_CLIMATE_ACTION,应对气候变化,3.75,1,evidence_missing,locate_additional_public_evidence
+102,417,77.5,166,424,258,True,1.0,1.0,0.5,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_CLIMATE_RISK,气候风险水平,3.75,1,evidence_missing,locate_additional_public_evidence
+103,571,75.0,151,337,186,True,1.0,1.0,0.4,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+104,572,75.0,151,337,186,True,1.0,1.0,0.4,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+105,573,75.0,151,337,186,True,1.0,1.0,0.4,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+106,574,75.0,139,353,214,True,1.0,1.0,0.4,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+107,575,75.0,139,353,214,True,1.0,1.0,0.4,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+108,576,75.0,139,353,214,True,1.0,1.0,0.4,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+109,577,75.0,139,353,214,True,1.0,1.0,0.4,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+110,590,75.0,164,270,106,True,1.0,1.0,0.4,False,collected,000690.SZ,宝新能源,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+111,591,75.0,164,270,106,True,1.0,1.0,0.4,False,collected,000690.SZ,宝新能源,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+112,592,75.0,164,270,106,True,1.0,1.0,0.4,False,collected,000690.SZ,宝新能源,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+113,596,75.0,167,448,281,True,1.0,1.0,0.4,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+114,597,75.0,167,448,281,True,1.0,1.0,0.4,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+115,598,75.0,167,448,281,True,1.0,1.0,0.4,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+116,599,75.0,167,448,281,True,1.0,1.0,0.4,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+117,600,75.0,119,268,149,True,1.0,1.0,0.4,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+118,601,75.0,119,268,149,True,1.0,1.0,0.4,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+119,602,75.0,119,268,149,True,1.0,1.0,0.4,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+120,603,75.0,119,268,149,True,1.0,1.0,0.4,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+121,604,75.0,127,285,158,True,1.0,1.0,0.4,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+122,605,75.0,127,285,158,True,1.0,1.0,0.4,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+123,606,75.0,127,285,158,True,1.0,1.0,0.4,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+124,609,75.0,12,302,290,True,1.0,1.0,0.4,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+125,610,75.0,12,302,290,True,1.0,1.0,0.4,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+126,611,75.0,12,302,290,True,1.0,1.0,0.4,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+127,612,75.0,12,302,290,True,1.0,1.0,0.4,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+128,620,75.0,113,423,310,True,1.0,1.0,0.4,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+129,621,75.0,113,423,310,True,1.0,1.0,0.4,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+130,622,75.0,113,423,310,True,1.0,1.0,0.4,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+131,623,75.0,135,310,175,True,1.0,1.0,0.4,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+132,624,75.0,135,310,175,True,1.0,1.0,0.4,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+133,625,75.0,135,310,175,True,1.0,1.0,0.4,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+134,626,75.0,135,310,175,True,1.0,1.0,0.4,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+135,627,75.0,118,325,207,True,1.0,1.0,0.4,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+136,628,75.0,118,325,207,True,1.0,1.0,0.4,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+137,629,75.0,118,325,207,True,1.0,1.0,0.4,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+138,630,75.0,118,325,207,True,1.0,1.0,0.4,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+139,631,75.0,43,305,262,True,1.0,1.0,0.4,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+140,632,75.0,43,305,262,True,1.0,1.0,0.4,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+141,633,75.0,43,305,262,True,1.0,1.0,0.4,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+142,634,75.0,106,418,312,True,1.0,1.0,0.4,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+143,635,75.0,106,418,312,True,1.0,1.0,0.4,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+144,636,75.0,106,418,312,True,1.0,1.0,0.4,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+145,637,75.0,106,418,312,True,1.0,1.0,0.4,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+146,638,75.0,168,273,105,True,1.0,1.0,0.4,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+147,639,75.0,168,273,105,True,1.0,1.0,0.4,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+148,640,75.0,168,273,105,True,1.0,1.0,0.4,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+149,641,75.0,168,273,105,True,1.0,1.0,0.4,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+150,644,75.0,125,260,135,True,1.0,1.0,0.4,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+151,645,75.0,125,260,135,True,1.0,1.0,0.4,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+152,646,75.0,125,260,135,True,1.0,1.0,0.4,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+153,655,75.0,124,410,286,True,1.0,1.0,0.4,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+154,656,75.0,124,410,286,True,1.0,1.0,0.4,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+155,657,75.0,124,410,286,True,1.0,1.0,0.4,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+156,664,75.0,7,391,384,True,1.0,1.0,0.4,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+157,665,75.0,7,391,384,True,1.0,1.0,0.4,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+158,666,75.0,7,391,384,True,1.0,1.0,0.4,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+159,667,75.0,7,391,384,True,1.0,1.0,0.4,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+160,674,75.0,5,541,536,True,1.0,1.0,0.4,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+161,675,75.0,5,541,536,True,1.0,1.0,0.4,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+162,676,75.0,74,490,416,True,1.0,1.0,0.4,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+163,680,75.0,131,510,379,True,1.0,1.0,0.4,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+164,681,75.0,131,510,379,True,1.0,1.0,0.4,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+165,685,75.0,124,379,255,True,1.0,1.0,0.4,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+166,686,75.0,37,512,475,True,1.0,1.0,0.4,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+167,687,75.0,160,446,286,True,1.0,1.0,0.4,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+168,690,75.0,129,404,275,True,1.0,1.0,0.4,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_ENERGY_MANAGEMENT,能源管理,3.0,1,evidence_missing,locate_additional_public_evidence
+169,691,75.0,129,404,275,True,1.0,1.0,0.4,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+170,692,75.0,129,404,275,True,1.0,1.0,0.4,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+171,693,75.0,129,404,275,True,1.0,1.0,0.4,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+172,694,75.0,169,335,166,True,1.0,1.0,0.4,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+173,695,75.0,169,335,166,True,1.0,1.0,0.4,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+174,696,75.0,169,335,166,True,1.0,1.0,0.4,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+175,700,75.0,166,424,258,True,1.0,1.0,0.4,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_AUDIT,会计审计,3.0,1,evidence_missing,locate_additional_public_evidence
+176,701,75.0,166,424,258,True,1.0,1.0,0.4,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_ESG_MANAGEMENT,可持续发展管理,3.0,1,evidence_missing,locate_additional_public_evidence
+177,702,75.0,166,424,258,True,1.0,1.0,0.4,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_PERFORMANCE,经营表现,3.0,1,evidence_missing,locate_additional_public_evidence
+178,1045,72.5,151,337,186,True,1.0,1.0,0.3,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+179,1046,72.5,151,337,186,True,1.0,1.0,0.3,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+180,1047,72.5,151,337,186,True,1.0,1.0,0.3,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+181,1049,72.5,139,353,214,True,1.0,1.0,0.3,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+182,1050,72.5,139,353,214,True,1.0,1.0,0.3,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+183,1051,72.5,139,353,214,True,1.0,1.0,0.3,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+184,1052,72.5,139,353,214,True,1.0,1.0,0.3,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+185,1057,72.5,167,448,281,True,1.0,1.0,0.3,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+186,1058,72.5,167,448,281,True,1.0,1.0,0.3,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+187,1059,72.5,167,448,281,True,1.0,1.0,0.3,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+188,1060,72.5,119,268,149,True,1.0,1.0,0.3,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+189,1061,72.5,119,268,149,True,1.0,1.0,0.3,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+190,1062,72.5,119,268,149,True,1.0,1.0,0.3,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+191,1063,72.5,119,268,149,True,1.0,1.0,0.3,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+192,1064,72.5,127,285,158,True,1.0,1.0,0.3,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+193,1065,72.5,127,285,158,True,1.0,1.0,0.3,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+194,1066,72.5,127,285,158,True,1.0,1.0,0.3,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+195,1067,72.5,12,302,290,True,1.0,1.0,0.3,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+196,1068,72.5,12,302,290,True,1.0,1.0,0.3,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+197,1069,72.5,12,302,290,True,1.0,1.0,0.3,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+198,1076,72.5,113,423,310,True,1.0,1.0,0.3,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+199,1077,72.5,113,423,310,True,1.0,1.0,0.3,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+200,1078,72.5,113,423,310,True,1.0,1.0,0.3,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+201,1079,72.5,135,310,175,True,1.0,1.0,0.3,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+202,1080,72.5,135,310,175,True,1.0,1.0,0.3,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+203,1081,72.5,135,310,175,True,1.0,1.0,0.3,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+204,1082,72.5,118,325,207,True,1.0,1.0,0.3,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+205,1083,72.5,118,325,207,True,1.0,1.0,0.3,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+206,1084,72.5,118,325,207,True,1.0,1.0,0.3,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+207,1085,72.5,43,305,262,True,1.0,1.0,0.3,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+208,1086,72.5,43,305,262,True,1.0,1.0,0.3,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+209,1087,72.5,43,305,262,True,1.0,1.0,0.3,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+210,1088,72.5,106,418,312,True,1.0,1.0,0.3,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+211,1089,72.5,106,418,312,True,1.0,1.0,0.3,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+212,1090,72.5,106,418,312,True,1.0,1.0,0.3,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+213,1091,72.5,168,273,105,True,1.0,1.0,0.3,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+214,1092,72.5,168,273,105,True,1.0,1.0,0.3,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+215,1093,72.5,168,273,105,True,1.0,1.0,0.3,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+216,1094,72.5,168,273,105,True,1.0,1.0,0.3,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+217,1095,72.5,125,260,135,True,1.0,1.0,0.3,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+218,1096,72.5,125,260,135,True,1.0,1.0,0.3,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+219,1102,72.5,124,410,286,True,1.0,1.0,0.3,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+220,1103,72.5,124,410,286,True,1.0,1.0,0.3,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+221,1104,72.5,124,410,286,True,1.0,1.0,0.3,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+222,1105,72.5,124,410,286,True,1.0,1.0,0.3,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+223,1110,72.5,7,391,384,True,1.0,1.0,0.3,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+224,1111,72.5,7,391,384,True,1.0,1.0,0.3,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+225,1112,72.5,7,391,384,True,1.0,1.0,0.3,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+226,1113,72.5,7,391,384,True,1.0,1.0,0.3,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+227,1120,72.5,5,541,536,True,1.0,1.0,0.3,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+228,1121,72.5,5,541,536,True,1.0,1.0,0.3,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+229,1122,72.5,5,541,536,True,1.0,1.0,0.3,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+230,1123,72.5,5,541,536,True,1.0,1.0,0.3,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+231,1124,72.5,74,490,416,True,1.0,1.0,0.3,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+232,1125,72.5,74,490,416,True,1.0,1.0,0.3,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+233,1126,72.5,74,490,416,True,1.0,1.0,0.3,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+234,1127,72.5,74,490,416,True,1.0,1.0,0.3,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+235,1155,72.5,37,512,475,True,1.0,1.0,0.3,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+236,1156,72.5,37,512,475,True,1.0,1.0,0.3,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+237,1160,72.5,160,446,286,True,1.0,1.0,0.3,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+238,1161,72.5,160,446,286,True,1.0,1.0,0.3,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+239,1162,72.5,160,446,286,True,1.0,1.0,0.3,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+240,1163,72.5,129,404,275,True,1.0,1.0,0.3,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+241,1164,72.5,129,404,275,True,1.0,1.0,0.3,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+242,1165,72.5,169,335,166,True,1.0,1.0,0.3,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+243,1166,72.5,169,335,166,True,1.0,1.0,0.3,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+244,1167,72.5,169,335,166,True,1.0,1.0,0.3,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+245,1168,72.5,169,335,166,True,1.0,1.0,0.3,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+246,1172,72.5,166,424,258,True,1.0,1.0,0.3,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_OTHER_RESOURCE,其他资源,2.25,2,evidence_missing,locate_additional_public_evidence
+247,1173,72.5,166,424,258,True,1.0,1.0,0.3,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_WASTEWATER,废水,2.25,2,evidence_missing,locate_additional_public_evidence
+248,1174,72.5,166,424,258,True,1.0,1.0,0.3,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_WASTE_GAS,废气,2.25,2,evidence_missing,locate_additional_public_evidence
+249,1175,72.5,166,424,258,True,1.0,1.0,0.3,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_WATER,水资源,2.25,2,evidence_missing,locate_additional_public_evidence
+250,1423,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+251,1424,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+252,1425,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+253,1426,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+254,1427,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+255,1428,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+256,1429,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+257,1430,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+258,1431,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+259,1432,71.666667,151,337,186,True,1.0,1.0,0.266667,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+260,1437,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+261,1438,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+262,1439,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+263,1440,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+264,1441,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+265,1442,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+266,1443,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+267,1444,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+268,1445,71.666667,139,353,214,True,1.0,1.0,0.266667,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+269,1468,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+270,1469,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+271,1470,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+272,1471,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+273,1472,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+274,1473,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+275,1474,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+276,1475,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+277,1476,71.666667,164,270,106,True,1.0,1.0,0.266667,False,collected,000690.SZ,宝新能源,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+278,1483,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+279,1484,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+280,1485,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+281,1486,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+282,1487,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+283,1488,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+284,1489,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+285,1490,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+286,1491,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+287,1492,71.666667,167,448,281,True,1.0,1.0,0.266667,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+288,1493,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+289,1494,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+290,1495,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+291,1496,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+292,1497,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+293,1498,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+294,1499,71.666667,119,268,149,True,1.0,1.0,0.266667,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+295,1500,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+296,1501,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+297,1502,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+298,1503,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+299,1504,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+300,1505,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+301,1506,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+302,1507,71.666667,127,285,158,True,1.0,1.0,0.266667,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+303,1513,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+304,1514,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+305,1515,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+306,1516,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+307,1517,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+308,1518,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+309,1519,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+310,1520,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+311,1521,71.666667,12,302,290,True,1.0,1.0,0.266667,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+312,1539,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+313,1540,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+314,1541,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+315,1542,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+316,1543,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+317,1544,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+318,1545,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+319,1546,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+320,1547,71.666667,113,423,310,True,1.0,1.0,0.266667,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+321,1548,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+322,1549,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+323,1550,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+324,1551,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+325,1552,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+326,1553,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+327,1554,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+328,1555,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+329,1556,71.666667,135,310,175,True,1.0,1.0,0.266667,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+330,1557,71.666667,118,325,207,True,1.0,1.0,0.266667,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+331,1558,71.666667,118,325,207,True,1.0,1.0,0.266667,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+332,1559,71.666667,118,325,207,True,1.0,1.0,0.266667,False,embedded_in_annual,002276.SZ,万马股份,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+333,1560,71.666667,118,325,207,True,1.0,1.0,0.266667,False,embedded_in_annual,002276.SZ,万马股份,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+334,1564,71.666667,43,305,262,True,1.0,1.0,0.266667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+335,1565,71.666667,43,305,262,True,1.0,1.0,0.266667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+336,1566,71.666667,43,305,262,True,1.0,1.0,0.266667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+337,1567,71.666667,43,305,262,True,1.0,1.0,0.266667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+338,1568,71.666667,43,305,262,True,1.0,1.0,0.266667,False,embedded_in_annual,002335.SZ,科华数据,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+339,1569,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+340,1570,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+341,1571,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+342,1572,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+343,1573,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+344,1574,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+345,1575,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+346,1576,71.666667,106,418,312,True,1.0,1.0,0.266667,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+347,1577,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+348,1578,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+349,1579,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+350,1580,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+351,1581,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+352,1582,71.666667,168,273,105,True,1.0,1.0,0.266667,False,embedded_in_annual,002452.SZ,长高电气,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+353,1586,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+354,1587,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+355,1588,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+356,1589,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+357,1590,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+358,1591,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+359,1592,71.666667,125,260,135,True,1.0,1.0,0.266667,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+360,1609,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+361,1610,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+362,1611,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+363,1612,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+364,1613,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+365,1614,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+366,1615,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+367,1616,71.666667,124,410,286,True,1.0,1.0,0.266667,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+368,1629,71.666667,7,391,384,True,1.0,1.0,0.266667,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+369,1630,71.666667,7,391,384,True,1.0,1.0,0.266667,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+370,1631,71.666667,7,391,384,True,1.0,1.0,0.266667,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+371,1632,71.666667,7,391,384,True,1.0,1.0,0.266667,False,embedded_in_annual,002850.SZ,科达利,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+372,1633,71.666667,7,391,384,True,1.0,1.0,0.266667,False,embedded_in_annual,002850.SZ,科达利,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+373,1648,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+374,1649,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+375,1650,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+376,1651,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+377,1652,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+378,1653,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+379,1654,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+380,1655,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+381,1656,71.666667,5,541,536,True,1.0,1.0,0.266667,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+382,1663,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+383,1664,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+384,1665,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+385,1666,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+386,1667,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+387,1668,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+388,1669,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_PRODUCT_QUALITY,产品质量,2.0,2,evidence_missing,locate_additional_public_evidence
+389,1670,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+390,1671,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+391,1672,71.666667,74,490,416,True,1.0,1.0,0.266667,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+392,1751,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+393,1752,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+394,1753,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+395,1754,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+396,1755,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+397,1756,71.666667,131,510,379,True,1.0,1.0,0.266667,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+398,1788,71.666667,124,379,255,True,1.0,1.0,0.266667,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+399,1789,71.666667,124,379,255,True,1.0,1.0,0.266667,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+400,1790,71.666667,124,379,255,True,1.0,1.0,0.266667,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+401,1797,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+402,1798,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+403,1799,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+404,1800,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+405,1801,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+406,1802,71.666667,37,512,475,True,1.0,1.0,0.266667,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+407,1814,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+408,1815,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+409,1816,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+410,1817,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_G_SAFETY,安全生产,2.0,2,evidence_missing,locate_additional_public_evidence
+411,1818,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+412,1819,71.666667,160,446,286,True,1.0,1.0,0.266667,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+413,1824,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+414,1825,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+415,1826,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+416,1827,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+417,1828,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+418,1829,71.666667,129,404,275,True,1.0,1.0,0.266667,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+419,1830,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+420,1831,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+421,1832,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_GOVERNANCE_MECHANISM,治理机制,2.0,2,evidence_missing,locate_additional_public_evidence
+422,1833,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+423,1834,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+424,1835,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+425,1836,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+426,1837,71.666667,169,335,166,True,1.0,1.0,0.266667,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_SUPPLY_CHAIN,供应链管理,2.0,2,evidence_missing,locate_additional_public_evidence
+427,1844,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_ANTI_BRIBERY,反商业贿赂、反贪污及反不正当竞争,2.0,2,evidence_missing,locate_additional_public_evidence
+428,1845,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_CORPORATE_STRUCTURE,公司架构,2.0,2,evidence_missing,locate_additional_public_evidence
+429,1846,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_G_MANAGEMENT,管理层机制,2.0,2,evidence_missing,locate_additional_public_evidence
+430,1847,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_CUSTOMER_SERVICE,客户服务,2.0,2,evidence_missing,locate_additional_public_evidence
+431,1848,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_JUST_TRANSITION,公正转型,2.0,2,evidence_missing,locate_additional_public_evidence
+432,1849,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_PUBLIC_WELFARE,社会公益,2.0,2,evidence_missing,locate_additional_public_evidence
+433,1850,71.666667,166,424,258,True,1.0,1.0,0.266667,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_RD_INNOVATION,研发创新,2.0,2,evidence_missing,locate_additional_public_evidence
+434,2451,70.333333,151,337,186,True,1.0,1.0,0.213333,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+435,2452,70.333333,151,337,186,True,1.0,1.0,0.213333,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+436,2453,70.333333,151,337,186,True,1.0,1.0,0.213333,False,embedded_in_annual,000037.SZ,深南电A,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+437,2454,70.333333,139,353,214,True,1.0,1.0,0.213333,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+438,2455,70.333333,139,353,214,True,1.0,1.0,0.213333,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_DIVERSITY,职业平等与多元化,1.6,2,evidence_missing,locate_additional_public_evidence
+439,2456,70.333333,139,353,214,True,1.0,1.0,0.213333,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+440,2457,70.333333,139,353,214,True,1.0,1.0,0.213333,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+441,2458,70.333333,139,353,214,True,1.0,1.0,0.213333,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+442,2466,70.333333,164,270,106,True,1.0,1.0,0.213333,False,collected,000690.SZ,宝新能源,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+443,2467,70.333333,164,270,106,True,1.0,1.0,0.213333,False,collected,000690.SZ,宝新能源,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+444,2468,70.333333,167,448,281,True,1.0,1.0,0.213333,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_DIVERSITY,职业平等与多元化,1.6,2,evidence_missing,locate_additional_public_evidence
+445,2469,70.333333,167,448,281,True,1.0,1.0,0.213333,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+446,2470,70.333333,167,448,281,True,1.0,1.0,0.213333,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+447,2471,70.333333,167,448,281,True,1.0,1.0,0.213333,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+448,2472,70.333333,119,268,149,True,1.0,1.0,0.213333,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+449,2473,70.333333,119,268,149,True,1.0,1.0,0.213333,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+450,2474,70.333333,119,268,149,True,1.0,1.0,0.213333,False,embedded_in_annual,001258.SZ,立新能源,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+451,2475,70.333333,127,285,158,True,1.0,1.0,0.213333,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+452,2476,70.333333,127,285,158,True,1.0,1.0,0.213333,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+453,2477,70.333333,127,285,158,True,1.0,1.0,0.213333,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+454,2478,70.333333,127,285,158,True,1.0,1.0,0.213333,False,embedded_in_annual,001299.SZ,美能能源,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+455,2479,70.333333,12,302,290,True,1.0,1.0,0.213333,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+456,2480,70.333333,12,302,290,True,1.0,1.0,0.213333,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_DIVERSITY,职业平等与多元化,1.6,2,evidence_missing,locate_additional_public_evidence
+457,2481,70.333333,12,302,290,True,1.0,1.0,0.213333,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+458,2482,70.333333,12,302,290,True,1.0,1.0,0.213333,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+459,2483,70.333333,12,302,290,True,1.0,1.0,0.213333,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+460,2490,70.333333,113,423,310,True,1.0,1.0,0.213333,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+461,2491,70.333333,113,423,310,True,1.0,1.0,0.213333,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+462,2492,70.333333,113,423,310,True,1.0,1.0,0.213333,False,embedded_in_annual,002128.SZ,电投能源,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+463,2493,70.333333,135,310,175,True,1.0,1.0,0.213333,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+464,2494,70.333333,135,310,175,True,1.0,1.0,0.213333,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+465,2495,70.333333,135,310,175,True,1.0,1.0,0.213333,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+466,2496,70.333333,135,310,175,True,1.0,1.0,0.213333,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+467,2497,70.333333,118,325,207,True,1.0,1.0,0.213333,False,embedded_in_annual,002276.SZ,万马股份,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+468,2498,70.333333,118,325,207,True,1.0,1.0,0.213333,False,embedded_in_annual,002276.SZ,万马股份,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+469,2501,70.333333,43,305,262,True,1.0,1.0,0.213333,False,embedded_in_annual,002335.SZ,科华数据,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+470,2502,70.333333,43,305,262,True,1.0,1.0,0.213333,False,embedded_in_annual,002335.SZ,科华数据,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+471,2503,70.333333,106,418,312,True,1.0,1.0,0.213333,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+472,2504,70.333333,106,418,312,True,1.0,1.0,0.213333,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+473,2505,70.333333,168,273,105,True,1.0,1.0,0.213333,False,embedded_in_annual,002452.SZ,长高电气,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+474,2506,70.333333,168,273,105,True,1.0,1.0,0.213333,False,embedded_in_annual,002452.SZ,长高电气,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+475,2507,70.333333,168,273,105,True,1.0,1.0,0.213333,False,embedded_in_annual,002452.SZ,长高电气,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+476,2508,70.333333,125,260,135,True,1.0,1.0,0.213333,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+477,2509,70.333333,125,260,135,True,1.0,1.0,0.213333,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_DIVERSITY,职业平等与多元化,1.6,2,evidence_missing,locate_additional_public_evidence
+478,2510,70.333333,125,260,135,True,1.0,1.0,0.213333,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+479,2511,70.333333,125,260,135,True,1.0,1.0,0.213333,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+480,2512,70.333333,125,260,135,True,1.0,1.0,0.213333,False,embedded_in_annual,002479.SZ,富春环保,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+481,2517,70.333333,124,410,286,True,1.0,1.0,0.213333,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+482,2518,70.333333,124,410,286,True,1.0,1.0,0.213333,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+483,2519,70.333333,124,410,286,True,1.0,1.0,0.213333,False,embedded_in_annual,002692.SZ,远程股份,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+484,2522,70.333333,7,391,384,True,1.0,1.0,0.213333,False,embedded_in_annual,002850.SZ,科达利,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+485,2523,70.333333,7,391,384,True,1.0,1.0,0.213333,False,embedded_in_annual,002850.SZ,科达利,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+486,2524,70.333333,7,391,384,True,1.0,1.0,0.213333,False,embedded_in_annual,002850.SZ,科达利,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+487,2532,70.333333,5,541,536,True,1.0,1.0,0.213333,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+488,2533,70.333333,5,541,536,True,1.0,1.0,0.213333,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+489,2534,70.333333,5,541,536,True,1.0,1.0,0.213333,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+490,2535,70.333333,5,541,536,True,1.0,1.0,0.213333,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+491,2536,70.333333,74,490,416,True,1.0,1.0,0.213333,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+492,2537,70.333333,74,490,416,True,1.0,1.0,0.213333,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+493,2538,70.333333,74,490,416,True,1.0,1.0,0.213333,False,collected,00554.HK,HANS GP HLDGS,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+494,2562,70.333333,131,510,379,True,1.0,1.0,0.213333,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+495,2563,70.333333,131,510,379,True,1.0,1.0,0.213333,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+496,2573,70.333333,124,379,255,True,1.0,1.0,0.213333,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+497,2574,70.333333,124,379,255,True,1.0,1.0,0.213333,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+498,2578,70.333333,37,512,475,True,1.0,1.0,0.213333,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+499,2579,70.333333,37,512,475,True,1.0,1.0,0.213333,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+500,2585,70.333333,160,446,286,True,1.0,1.0,0.213333,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+501,2587,70.333333,129,404,275,True,1.0,1.0,0.213333,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+502,2588,70.333333,129,404,275,True,1.0,1.0,0.213333,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+503,2589,70.333333,169,335,166,True,1.0,1.0,0.213333,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+504,2590,70.333333,169,335,166,True,1.0,1.0,0.213333,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+505,2594,70.333333,166,424,258,True,1.0,1.0,0.213333,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_CAREER,员工职业发展,1.6,2,evidence_missing,locate_additional_public_evidence
+506,2595,70.333333,166,424,258,True,1.0,1.0,0.213333,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_DIVERSITY,职业平等与多元化,1.6,2,evidence_missing,locate_additional_public_evidence
+507,2596,70.333333,166,424,258,True,1.0,1.0,0.213333,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_EMPLOYEE_RIGHTS,员工权益保障,1.6,2,evidence_missing,locate_additional_public_evidence
+508,2597,70.333333,166,424,258,True,1.0,1.0,0.213333,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_FEEDBACK,员工沟通与反馈,1.6,2,evidence_missing,locate_additional_public_evidence
+509,2598,70.333333,166,424,258,True,1.0,1.0,0.213333,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_S_OCCUPATIONAL_HEALTH,员工职业健康,1.6,2,evidence_missing,locate_additional_public_evidence
+510,2848,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+511,2849,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+512,2850,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+513,2851,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+514,2852,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+515,2853,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+516,2854,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+517,2855,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+518,2856,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+519,2857,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+520,2858,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+521,2859,70.0,151,337,186,True,1.0,1.0,0.2,False,embedded_in_annual,000037.SZ,深南电A,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+522,2867,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+523,2868,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+524,2869,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+525,2870,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+526,2871,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+527,2872,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+528,2873,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+529,2874,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+530,2875,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+531,2876,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+532,2877,70.0,139,353,214,True,1.0,1.0,0.2,False,embedded_in_annual,000096.SZ,广聚能源,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+533,2897,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+534,2898,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+535,2899,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+536,2900,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+537,2901,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+538,2902,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+539,2903,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+540,2904,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+541,2905,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+542,2906,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+543,2907,70.0,164,270,106,True,1.0,1.0,0.2,False,collected,000690.SZ,宝新能源,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+544,2909,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+545,2910,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+546,2911,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+547,2912,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+548,2913,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+549,2914,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+550,2915,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+551,2916,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+552,2917,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+553,2918,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+554,2919,70.0,167,448,281,True,1.0,1.0,0.2,False,embedded_in_annual,000968.SZ,蓝焰控股,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+555,2920,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+556,2921,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+557,2922,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+558,2923,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+559,2924,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+560,2925,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+561,2926,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+562,2927,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+563,2928,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+564,2929,70.0,119,268,149,True,1.0,1.0,0.2,False,embedded_in_annual,001258.SZ,立新能源,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+565,2930,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+566,2931,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+567,2932,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+568,2933,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+569,2934,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+570,2935,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+571,2936,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+572,2937,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+573,2938,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+574,2939,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+575,2940,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+576,2941,70.0,127,285,158,True,1.0,1.0,0.2,False,embedded_in_annual,001299.SZ,美能能源,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+577,2951,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+578,2952,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+579,2953,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+580,2954,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+581,2955,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+582,2956,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+583,2957,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+584,2958,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+585,2959,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+586,2960,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+587,2961,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+588,2962,70.0,12,302,290,True,1.0,1.0,0.2,False,embedded_in_annual,002039.SZ,黔源电力,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+589,2988,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+590,2989,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+591,2990,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+592,2991,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+593,2992,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+594,2993,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+595,2994,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+596,2995,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+597,2996,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+598,2997,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+599,2998,70.0,113,423,310,True,1.0,1.0,0.2,False,embedded_in_annual,002128.SZ,电投能源,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+600,2999,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+601,3000,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+602,3001,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+603,3002,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+604,3003,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+605,3004,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+606,3005,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+607,3006,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+608,3007,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+609,3008,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+610,3009,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+611,3010,70.0,135,310,175,True,1.0,1.0,0.2,False,embedded_in_annual,002267.SZ,陕天然气,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+612,3011,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+613,3012,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+614,3013,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+615,3014,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+616,3015,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+617,3016,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+618,3017,70.0,118,325,207,True,1.0,1.0,0.2,False,embedded_in_annual,002276.SZ,万马股份,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+619,3025,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+620,3026,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+621,3027,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+622,3028,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+623,3029,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+624,3030,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+625,3031,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+626,3032,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+627,3033,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+628,3034,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+629,3035,70.0,43,305,262,True,1.0,1.0,0.2,False,embedded_in_annual,002335.SZ,科华数据,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+630,3036,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+631,3037,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+632,3038,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+633,3039,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+634,3040,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+635,3041,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+636,3042,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+637,3043,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+638,3044,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+639,3045,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+640,3046,70.0,106,418,312,True,1.0,1.0,0.2,False,embedded_in_annual,002346.SZ,柘中股份,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+641,3047,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+642,3048,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+643,3049,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+644,3050,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+645,3051,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+646,3052,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+647,3053,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+648,3054,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+649,3055,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+650,3056,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+651,3057,70.0,168,273,105,True,1.0,1.0,0.2,False,embedded_in_annual,002452.SZ,长高电气,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+652,3061,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+653,3062,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+654,3063,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+655,3064,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+656,3065,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+657,3066,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+658,3067,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+659,3068,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+660,3069,70.0,125,260,135,True,1.0,1.0,0.2,False,embedded_in_annual,002479.SZ,富春环保,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+661,3091,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+662,3092,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+663,3093,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+664,3094,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+665,3095,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+666,3096,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+667,3097,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+668,3098,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+669,3099,70.0,124,410,286,True,1.0,1.0,0.2,False,embedded_in_annual,002692.SZ,远程股份,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+670,3110,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+671,3111,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+672,3112,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+673,3113,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+674,3114,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+675,3115,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+676,3116,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+677,3117,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+678,3118,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+679,3119,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+680,3120,70.0,7,391,384,True,1.0,1.0,0.2,False,embedded_in_annual,002850.SZ,科达利,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+681,3141,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+682,3142,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+683,3143,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+684,3144,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+685,3145,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+686,3146,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+687,3147,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+688,3148,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+689,3149,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+690,3150,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+691,3151,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+692,3152,70.0,5,541,536,True,1.0,1.0,0.2,False,embedded_in_annual,00353.HK,ENERGY INTINV,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+693,3161,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+694,3162,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+695,3163,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+696,3164,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+697,3165,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+698,3166,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+699,3167,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+700,3168,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+701,3169,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+702,3170,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+703,3171,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+704,3172,70.0,74,490,416,True,1.0,1.0,0.2,False,collected,00554.HK,HANS GP HLDGS,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+705,3299,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+706,3300,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+707,3301,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+708,3302,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+709,3303,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+710,3304,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+711,3305,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+712,3306,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+713,3307,70.0,131,510,379,True,1.0,1.0,0.2,False,embedded_in_annual,01621.HK,VICO INTL HLDGS,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+714,3357,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+715,3358,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+716,3359,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+717,3360,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+718,3361,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+719,3362,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+720,3363,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+721,3364,70.0,124,379,255,True,1.0,1.0,0.2,False,embedded_in_annual,02178.HK,PETRO-KING,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+722,3377,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+723,3378,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+724,3379,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+725,3380,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+726,3381,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+727,3382,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+728,3383,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+729,3384,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+730,3385,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+731,3386,70.0,37,512,475,True,1.0,1.0,0.2,False,embedded_in_annual,03395.HK,JX ENERGY,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+732,3404,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+733,3405,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+734,3406,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+735,3407,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+736,3408,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+737,3409,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+738,3410,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+739,3411,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+740,3412,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+741,3413,70.0,160,446,286,True,1.0,1.0,0.2,False,embedded_in_annual,08347.HK,F8 ENT,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+742,3421,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+743,3422,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+744,3423,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+745,3424,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+746,3425,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+747,3426,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+748,3427,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+749,3428,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+750,3429,70.0,129,404,275,True,1.0,1.0,0.2,False,embedded_in_annual,300037.SZ,新宙邦,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+751,3430,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+752,3431,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+753,3432,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+754,3433,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+755,3434,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+756,3435,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+757,3436,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+758,3437,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_HAZ_WASTE,危险废物,1.5,2,evidence_missing,locate_additional_public_evidence
+759,3438,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+760,3439,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+761,3440,70.0,169,335,166,True,1.0,1.0,0.2,False,embedded_in_annual,300040.SZ,九洲集团,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
+762,3451,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_CLEAN_PRODUCTION,清洁生产,1.5,2,evidence_missing,locate_additional_public_evidence
+763,3452,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_COMPLIANCE,环境合规,1.5,2,evidence_missing,locate_additional_public_evidence
+764,3453,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_EMERGENCY,应急管理,1.5,2,evidence_missing,locate_additional_public_evidence
+765,3454,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_ENV_SYSTEM,环保体系,1.5,2,evidence_missing,locate_additional_public_evidence
+766,3455,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_GREEN_FINANCE,绿色融资,1.5,2,evidence_missing,locate_additional_public_evidence
+767,3456,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_GREEN_OFFICE,绿色办公,1.5,2,evidence_missing,locate_additional_public_evidence
+768,3457,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_GREEN_SUPPLY_CHAIN,绿色供应链,1.5,2,evidence_missing,locate_additional_public_evidence
+769,3458,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_GREEN_TRANSITION,绿色转型,1.5,2,evidence_missing,locate_additional_public_evidence
+770,3459,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_IMPACT,环境影响,1.5,2,evidence_missing,locate_additional_public_evidence
+771,3460,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_SOLID_WASTE,固体废物,1.5,2,evidence_missing,locate_additional_public_evidence
+772,3461,70.0,166,424,258,True,1.0,1.0,0.2,False,embedded_in_annual,300105.SZ,龙源技术,2025,X_E_TRAINING,环保培训,1.5,2,evidence_missing,locate_additional_public_evidence
