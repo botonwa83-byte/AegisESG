@@ -3498,6 +3498,163 @@ class MethodologyTests(unittest.TestCase):
         self.assertEqual("Q_E_GHG_INTENSITY", code)
         self.assertAlmostEqual(230.0, value)
 
+    def test_env_intensity_pollutant_statement_rows_gram_canonical(self):
+        # 法定披露分号终止总量句；SO2/NOx/PM方法论口径为克/万元（真实样例：000600.SZ）
+        esg = self._esg_doc(
+            "优于国家超低排放标准。氮氧化物排放总量 4,697.8 吨；"
+            "二氧化硫排放总量 2,724.11 吨；烟尘排放总量 391.06 吨。\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(4697.8 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(2724.11 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(391.06 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_PM_INTENSITY"])
+
+    def test_env_intensity_partial_scope_sentence_rejected(self):
+        # 句首部分口径锚点覆盖全句（真实样例：000883.SZ“4 家火电企业二氧化硫…氮氧化物…烟尘…”）
+        esg = self._esg_doc(
+            "脱硫和除尘设施投运率 100%。4 家火电企业二氧化硫排放量为 1,074.22 吨，"
+            "氮氧化物排放量为 2,632.63 吨，烟尘排放量为 149.26 吨。\n"
+        )
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]))
+
+    def test_env_intensity_scope3_prefixed_statement_rejected(self):
+        # 范围三前缀总量不得当作范围一+二口径（真实样例：002506.SZ）
+        esg = self._esg_doc("报告期内，公司范围三温室气体排放总量为 26,410,296.89 吨二氧化碳当量。\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]))
+
+    def test_env_intensity_scope_rows_arabic_numeral_not_total(self):
+        # 阿拉伯数字范围标签的子项不得当作集团总量；拼版残块不制造假冲突（真实样例：603396.SH）
+        esg = self._esg_doc(
+            "公司总部与金辰自动化温室气体排放数据\n"
+            "温室气体排放总量\n范围1温室气体排放总量\n3,582.42\n300.60\n吨二氧化碳当量\n"
+            "范围2温室气体排放总量\n3,281.82\n吨二氧化碳当量\n"
+            "指标 单位 2024年 2025年\n"
+            "温室气体排放总量 吨二氧化碳当量 6,181.36 3,582.42\n"
+            "范围1温室气体排放总量 吨二氧化碳当量 307.28 300.60\n"
+            "范围2温室气体排放总量 吨二氧化碳当量 5,874.08 3,281.82\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(3582.42 * 1e3 * 1e4 / 17.05e9, items[0].value)
+
+    def test_env_intensity_revenue_prefixed_disclosure_suppresses(self):
+        # “单位营收/每百万营收”前缀即收入口径披露，抑制派生（真实样例：002506.SZ、000600.SZ）
+        for text in (
+            "单位营收温室气体排放量（基于位置） 吨二氧化碳当量 / 万元 0.16 0.29 0.30\n温室气体排放总量（含范围一及范围二） 万吨二氧化碳当量 2.95\n",
+            "每百万营收能源消耗总量 万吨标准煤 0.0775 0.0792 0.0789\n能源消耗总量 万吨标准煤 1,797.17\n",
+        ):
+            esg = self._esg_doc(text)
+            self.assertFalse(
+                derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]),
+                text[:30],
+            )
+
+    def test_env_intensity_production_value_disclosure_not_suppressing(self):
+        # 产值口径强度披露不抑制派生（真实样例：000600.SZ 千克/万元产值）
+        esg = self._esg_doc(
+            "氮氧化物（NOx）排放强度 千克/万元产值 2.0144 2.1299 2.2803\n"
+            "氮氧化物排放总量 4,697.8 吨。\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+
+    def test_env_intensity_year_column_precedence_over_stray_single_value(self):
+        # 年列表列定位值优先；同页单值行捕获首年列的拼版残片不制造假冲突（真实样例：000027.SZ）
+        esg = self._esg_doc(
+            "指标 单位 2023 年 2024 年 2025 年\n"
+            "废水排放量 万立方米 36.28 50.93 58.24\n"
+            "废水排放量 万立方米 36.28\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(58.24 * 1e7 * 1e4 / 17.05e9, items[0].value)
+
+    def test_env_intensity_emission_reduction_compound_prefix_allowed(self):
+        # “减排标准/减排任务”等复合名词不是目标措辞（真实样例：000600.SZ“深度减排标准。氮氧化物…”）
+        esg = self._esg_doc("优于国家超低排放标准和河北省深度减排标准。氮氧化物排放总量 4,697.8 吨；\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+
+    def test_env_intensity_solid_and_haz_waste_current_first_table(self):
+        # 一般固废/危废产生量年列表派生（真实样例：000922.SZ）
+        esg = self._esg_doc(
+            "指标名称 单位 2025年 2024年\n"
+            "一般工业固体废物产生量 吨 10860 11367.87\n"
+            "危险废物产生量 吨 492.1 456.45\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(10860 * 1e3 * 1e4 / 17.05e9, by_code["Q_E_SOLID_WASTE_INTENSITY"])
+        self.assertAlmostEqual(492.1 * 1e3 * 1e4 / 17.05e9, by_code["Q_E_HAZ_WASTE_INTENSITY"])
+
+    def test_social_invest_note_table_donation(self):
+        # 营业外支出附注：本期发生额首列即当期对外捐赠（真实样例：000400.SZ/000531.SZ）
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        annual = self._annual_doc(
+            self._CN_REVENUE +
+            "\n56、营业外支出\n单位：元\n项目 本期发生额 上期发生额 计入当期非经常性损益的金额\n"
+            "对外捐赠 224,016.92 97,606.72 224,016.92\n非流动资产毁损报废损失 4,377,443.43 3,438,525.72 4,377,443.43\n"
+        )
+        items = derive_social_invest_candidates("A", "甲", 2025, [annual])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(224016.92 * 100 / 17.05e9, items[0].value)
+
+    def test_social_invest_note_glued_requires_page_unit(self):
+        # 附注行首值=第三值为结构锚点，但单位须本页“单位：元”明示（000407跨页场景不猜单位）
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        annual = self._annual_doc(
+            self._CN_REVENUE +
+            "\n罚款支出 69,393.67 60,000.00 69,393.67\n对外捐赠 169,500.00 69,585.00 169,500.00\n其他 1,535,543.01 4,688,451.41 1,535,543.01\n"
+        )
+        self.assertFalse(derive_social_invest_candidates("A", "甲", 2025, [annual]))
+
+    def test_social_invest_value_first_and_narrative(self):
+        # ESG亮点块值先式与公司锚定叙述式（真实样例：000531.SZ、000027.SZ）
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        esg = self._esg_doc(
+            "环保投入 4,153.91万元 环境领域违法违规事件 0件\n"
+            "2025年，公司安全生产投入为 2,636.20 万元。\n"
+        )
+        items = derive_social_invest_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(4153.91e4 * 100 / 17.05e9, by_code["Q_S_ENV_INVEST_RATE"])
+        self.assertAlmostEqual(2636.2e4 * 100 / 17.05e9, by_code["Q_S_SAFETY_INVEST_RATE"])
+
+    def test_social_invest_suppressed_by_disclosed_rate(self):
+        # 公司已披露占营收比例时抑制派生（真实样例：000543.SZ、000400.SZ）
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        esg = self._esg_doc("环保总投入 3.67 亿元 环保总投入占营业收入比例 1.35%\n")
+        self.assertFalse(derive_social_invest_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]))
+
+    def test_social_invest_conflicting_totals_skipped(self):
+        # 年报营业外支出与ESG披露不一致时放弃（真实样例：000400.SZ 22.4万 vs 10万）
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        annual = self._annual_doc(
+            self._CN_REVENUE +
+            "\n营业外支出\n单位：元\n项目 本期发生额 上期发生额 计入当期非经常性损益的金额\n"
+            "对外捐赠 224,016.92 97,606.72 224,016.92\n"
+        )
+        esg = self._esg_doc("公司对外捐赠 10 万元。\n")
+        self.assertFalse(derive_social_invest_candidates("A", "甲", 2025, [annual, esg]))
+
+    def test_social_invest_rejects_cumulative_plan_and_non_invest_labels(self):
+        # 累计口径/预算计划/费用计提/接受捐赠/税会差异一律拒绝
+        from aegis_esg.social_invest import derive_social_invest_candidates
+        annual = self._annual_doc(self._CN_REVENUE)
+        for text in (
+            "累计环保投入 5,000 万元。\n",
+            "公司计划环保投入 5,000 万元。\n",
+            "足额计提安全生产费用共计 1,105 万元。\n",
+            "接受捐赠 500 万元。\n",
+            "公益捐赠支出超出标准部分 699,613.13 174,903.28\n",
+            "下一年度环保投入预算 5,000 万元。\n",
+        ):
+            self.assertFalse(
+                derive_social_invest_candidates("A", "甲", 2025, [annual, self._esg_doc(text)]),
+                text,
+            )
+
     def test_env_intensity_skips_existing_candidates_and_conflicts(self):
         esg = self._esg_doc("温室气体排放总量\n2.95万吨二氧化碳当量\n")
         documents = [self._annual_doc(self._CN_REVENUE), esg]

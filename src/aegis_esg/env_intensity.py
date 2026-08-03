@@ -57,7 +57,7 @@ _CN_NUMBER = r"[\d,]+(?:\.\d+)?"
 _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[float, float]], ...] = (
     (
         "Q_E_GHG_INTENSITY",
-        r"(?<!范围一)(?<!范围二)(?<!减少的)(?<!直接)(?<!间接)温室气体排放总量(?:\s*[（(]含?范围\s*[一1]\s*[、和+及]\s*范围\s*[二2][）)])?|温室气体总排放量",
+        r"(?<!范围一)(?<!范围二)(?<!范围三)(?<!范围1)(?<!范围2)(?<!范围3)(?<!范畴一)(?<!范畴二)(?<!范畴三)(?<!范畴1)(?<!范畴2)(?<!范畴3)(?<!每百万营收)(?<!单位营收)(?<!减少的)(?<!直接)(?<!间接)温室气体排放总量(?:\s*[（(]含?范围\s*[一1]\s*[、和+及]\s*范围\s*[二2][）)])?|(?<!范围一)(?<!范围二)(?<!范围三)(?<!范围1)(?<!范围2)(?<!范围3)(?<!范畴一)(?<!范畴二)(?<!范畴三)(?<!范畴1)(?<!范畴2)(?<!范畴3)温室气体总排放量",
         (("百万吨二氧化碳当量", 1_000_000_000.0), ("万吨二氧化碳当量", 10_000_000.0), ("吨二氧化碳当量", 1_000.0), ("万吨", 10_000_000.0), ("吨", 1_000.0)),
         (0.001, 200_000.0),
     ),
@@ -130,8 +130,8 @@ _EN_SCOPE3_POSITIVE = re.compile(
     re.I,
 )
 _CN_SCOPE12_LABELS = (
-    r"范围\s*一\s*温室气体排放(?:总)?量|直接温室气体排放(?:总)?量?\s*[（(]\s*范围\s*[一1]\s*[)）]",
-    r"范围\s*二\s*温室气体排放(?:总)?量|间接温室气体排放(?:总)?量?\s*[（(]\s*范围\s*[二2]\s*[)）]",
+    r"范围\s*[一1]\s*温室气体排放(?:总)?量|直接温室气体排放(?:总)?量?\s*[（(]\s*范围\s*[一1]\s*[)）]",
+    r"范围\s*[二2]\s*温室气体排放(?:总)?量|间接温室气体排放(?:总)?量?\s*[（(]\s*范围\s*[二2]\s*[)）]",
 )
 _EN_SCOPE12_LABELS = (
     r"Scope\s*1\s+(?:Greenhouse\s+Gas|GHG)\s+[Ee]missions?|Direct\s+(?:GHG\s+)?[Ee]missions?\s*\(?\s*Scope\s*1\s*\)?",
@@ -188,6 +188,7 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
     text = _normalize_kangxi(text)
     mode = _chinese_year_table_mode(text, report_year)
     results: list[_EnvTotal] = []
+    forms: list[str] = []
     for code, label, units, _bounds in _CN_TOTAL_RULES:
         factors = dict(units)
         unit_pattern = "(?:" + "|".join(re.escape(unit) for unit, _ in units) + ")"
@@ -209,7 +210,7 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
         ))
         row_patterns.append((
             "value-first",
-            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?:为|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})(?![ \t]*(?:{_CN_NUMBER}|%))\s*$",
+            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?:为|达到|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})(?![ \t]*(?:{_CN_NUMBER}|%))\s*[。；;，,、]?\s*$",
         ))
         # 叙述式：报告主体锚定的句中总量（如“2025年，公司温室气体排放总量5532.27吨”）。
         # 锚词与前后措辞防护保证这是报告期实际总量而非目标/宏观叙述
@@ -239,10 +240,13 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                     if _CN_BAD_PREFIX.search(prefix):
                         continue
                 if form == "statement":
-                    # 行首情形已由value-first覆盖，避免同值双证据
+                    # 行首情形仅当value-first确实覆盖（单位后仅剩终止符到行尾）时让位，
+                    # 行首胶粘行仍由statement承接
                     line_start = text.rfind("\n", 0, match.start()) + 1
                     if not text[line_start:match.start()].strip():
-                        continue
+                        rest = text[match.end():text.find("\n", match.end()) if "\n" in text[match.end():] else len(text)]
+                        if re.fullmatch(r"\s*[。；;，,、]?\s*", rest):
+                            continue
                 between = text[match.start():match.start("current")]
                 if _CN_BAD_BETWEEN.search(between):
                     continue
@@ -262,7 +266,26 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                     code, total_kg, source_file, page,
                     f"Chinese {form} environmental total row: {evidence[:220]}",
                 ))
-    return results
+                forms.append(form)
+    # 年列表行有列定位锚点；同页单值/叙述/陈述行与年列值不一致时多为上年列或拼版
+    # 残片（如“废水排放量 万立方米 36.28”为首年列断行），按年列值剔除，不制造假冲突
+    keep = [True] * len(results)
+    for code in {item.indicator_code for item in results}:
+        anchored = [
+            item.total_kg for item, form in zip(results, forms)
+            if item.indicator_code == code and form in {"current-first", "current-last"}
+        ]
+        if not anchored:
+            continue
+        for index, (item, form) in enumerate(zip(results, forms)):
+            if item.indicator_code != code or form in {"current-first", "current-last"}:
+                continue
+            if all(
+                abs(item.total_kg - value) > max(abs(item.total_kg), abs(value), 1.0) * 1e-4
+                for value in anchored
+            ):
+                keep[index] = False
+    return [item for item, retained in zip(results, keep) if retained]
 
 
 _EN_BAD_CONTEXT = re.compile(
@@ -343,39 +366,42 @@ _EN_YEAR_HEADER = re.compile(
 _SUPPRESS_RULES = {
     "Q_E_GHG_INTENSITY": re.compile(
         r"(?:温室气体|碳|GHG|greenhouse\s+gas)[\s\S]{0,60}?(?:排放)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
+        r"|(?:单位营收|每百万营收)\s*(?:温室气体|碳|GHG)[^。\n]{0,12}(?:排放量|总量)", re.I,
     ),
     "Q_E_ENERGY_INTENSITY": re.compile(
         r"(?:能源|能耗|energy)[\s\S]{0,60}?(?:消耗|消费|consumption)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
+        r"|(?:单位营收|每百万营收)\s*(?:综合)?能源(?:消耗|消费)[^。\n]{0,12}(?:量|总量)", re.I,
     ),
     "Q_E_WATER_INTENSITY": re.compile(
         r"(?:水|water)[\s\S]{0,60}?(?:使用|消耗|consumption)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
+        r"|(?:单位营收|每百万营收)\s*用水[^。\n]{0,8}量", re.I,
     ),
     "Q_E_SO2_INTENSITY": re.compile(
         r"(?:二氧化硫|SO2|sulphur\s+dioxide|sulfur\s+dioxide)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_NOX_INTENSITY": re.compile(
         r"(?:氮氧化物|NOx|nitrogen\s+oxides?)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_PM_INTENSITY": re.compile(
         r"(?:颗粒物|烟尘|particulate\s+matter)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_WASTEWATER_INTENSITY": re.compile(
         r"(?:废水|wastewater)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_SOLID_WASTE_INTENSITY": re.compile(
         r"(?:一般(?:工业)?固体废物|一般固废|无害废弃物|non-hazardous\s+waste)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_HAZ_WASTE_INTENSITY": re.compile(
         r"(?:危险废物|危废|hazardous\s+waste)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|(?<!每)百万营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
 }
 

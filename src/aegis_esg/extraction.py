@@ -436,6 +436,7 @@ def extract_batch_text_exports(
     report_year: int | None = None,
 ) -> tuple[list[Observation], dict[str, dict[str, int]]]:
     from .env_intensity import CompanyDocument, derive_env_intensity_candidates
+    from .social_invest import derive_social_invest_candidates
 
     candidates: list[Observation] = []
     candidate_counts: Counter[str] = Counter()
@@ -474,6 +475,11 @@ def extract_batch_text_exports(
             frozenset(item.indicator_code for item in company_candidates),
         )
         company_candidates.extend(derived)
+        derived_social = derive_social_invest_candidates(
+            company_code, documents[0][0]["company_name"], year, company_documents,
+            frozenset(item.indicator_code for item in company_candidates),
+        )
+        company_candidates.extend(derived_social)
         candidates.extend(company_candidates)
         candidate_counts.update(item.indicator_code for item in company_candidates)
         for item in company_candidates:
