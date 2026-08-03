@@ -35,7 +35,8 @@ STRICT_EVIDENCE_PREFIXES = {
         "中文跨表派生: ", "English cross-document derived: ",
     ),
     "Q_E_GHG_REDUCTION_RATE": (
-        "English same-scope GHG table derived:", "中文两期总量表派生: ", "中文减排率直接披露: ",
+        "English same-scope GHG table derived:", "English total-GHG YoY direct: ",
+        "中文两期总量表派生: ", "中文减排率直接披露: ",
     ),
     "Q_E_NOX_INTENSITY": (
         "English revenue intensity:", "English current-first environmental table derived:",

@@ -1,0 +1,13 @@
+{
+  "policy_version": "public-disclosure-v4",
+  "candidate_group_count": 8041,
+  "candidate_observation_count": 8911,
+  "decision_count": 8041,
+  "auto_confirmed_group_count": 7904,
+  "manual_required_group_count": 137,
+  "confirmed_preview_count": 7904,
+  "unresolved_observation_count": 285,
+  "freeze_ready": false,
+  "valid": true,
+  "applicable": false
+}

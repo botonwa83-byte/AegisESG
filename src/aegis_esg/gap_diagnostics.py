@@ -18,6 +18,12 @@ _SUBJECTS = {
 _INTENSITY = r"(?:intensit(?:y|ies)|强度|密度)"
 _FOREIGN = re.compile(r"(?:HK\s*\$|HKD|US\s*\$|USD|港元|美元)", re.I)
 _RMB = re.compile(r"(?:RMB|人民币|万元|million\s+RMB|RMB\s*['’]?000)", re.I)
+_RMB_REVENUE_DENOMINATOR = re.compile(
+    r"(?:每|单位|/|per\s+)(?:营业收入|营收|revenue)?[^。；;\n]{0,20}"
+    r"(?:万元|百万元|亿元|RMB|人民币|million\s+RMB)"
+    r"|(?:万元|百万元|亿元|million\s+RMB)[^。；;\n]{0,20}(?:营业收入|营收|revenue)",
+    re.I,
+)
 _NON_REVENUE = re.compile(r"(?:production|output|product|MWh|kWh|GJ|tonne\s+product|产量|发电量|产品)", re.I)
 
 
@@ -77,9 +83,10 @@ def _classify(indicator_code: str, text: str) -> tuple[str, str]:
         context = text[max(0, match.start() - 250):match.end() + 250]
         excerpt = re.sub(r"\s+", " ", context).strip()[:500]
         matched = match.group(0)
-        if _FOREIGN.search(matched): return "disclosed_foreign_currency_denominator", excerpt
-        if _RMB.search(matched): return "likely_methodology_compatible_rule_gap", excerpt
-        if _NON_REVENUE.search(matched): return "disclosed_non_revenue_denominator", excerpt
+        metric_context = text[match.start():match.end() + 180]
+        if _FOREIGN.search(metric_context): return "disclosed_foreign_currency_denominator", excerpt
+        if _RMB_REVENUE_DENOMINATOR.search(metric_context): return "likely_methodology_compatible_rule_gap", excerpt
+        if _NON_REVENUE.search(metric_context): return "disclosed_non_revenue_denominator", excerpt
         return "ambiguous_intensity_disclosure", excerpt
     total = re.search(subject, text, re.I)
     if total:
@@ -106,7 +113,10 @@ def _classify_specialized(indicator_code: str, text: str) -> tuple[str, str] | N
             "possible_safety_revenue_formula_closure",
         ),
         "Q_E_GHG_REDUCTION_RATE": (
-            r"(?:温室气体|GHG|greenhouse\s+gas)", r"(?:2025[\s\S]{0,120}2024|2024[\s\S]{0,120}2025)",
+            r"(?:温室气体(?:排放)?总量|(?:total\s+)?(?:GHG|greenhouse\s+gas)\s+emissions?)"
+            r"(?=[^。；;\n]{0,140}(?:吨|千克|kg|tonnes?|tCO2e))"
+            r"[^。；;\n]{0,180}[\d,]+(?:\.\d+)?[^。；;\n]{0,80}[\d,]+(?:\.\d+)?",
+            r"(?:2025[\s\S]{0,120}2024|2024[\s\S]{0,120}2025)",
             "possible_two_year_ghg_formula_closure",
         ),
         "Q_E_HAZ_WASTE_INTENSITY": (

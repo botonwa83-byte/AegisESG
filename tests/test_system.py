@@ -123,6 +123,32 @@ class MethodologyTests(unittest.TestCase):
                 "Q_E_HAZ_WASTE_INTENSITY", "危险废物产生量12.5吨。" + revenue,
             )[0],
         )
+        self.assertNotEqual(
+            "likely_methodology_compatible_rule_gap",
+            classify_quantitative_gap(
+                "Q_E_SO2_INTENSITY",
+                "公司环保投入5,543.47万元，持续推动二氧化硫减排，实现污染物排放强度下降。",
+            )[0],
+        )
+        self.assertEqual(
+            "likely_methodology_compatible_rule_gap",
+            classify_quantitative_gap(
+                "Q_E_SO2_INTENSITY", "二氧化硫排放强度 克/万元营业收入 2.5。",
+            )[0],
+        )
+        self.assertEqual(
+            "related_fields_incomplete",
+            classify_quantitative_gap(
+                "Q_E_GHG_REDUCTION_RATE", "公司在2025年持续推进温室气体管理，较2024年加强治理。",
+            )[0],
+        )
+        self.assertEqual(
+            "possible_two_year_ghg_formula_closure",
+            classify_quantitative_gap(
+                "Q_E_GHG_REDUCTION_RATE",
+                "2025 2024\n温室气体排放总量 吨 900 1,000。",
+            )[0],
+        )
 
     def test_completion_audit_exposes_release_blockers(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -944,6 +970,29 @@ Equity and non-current liabilities 200,230 188,909""")
         rejected = extract_indicator_candidates([broken], "A", "甲", 2025, "url", "annual.pdf")
         self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
 
+    def test_english_audited_financial_summary_debt_rate_requires_identity(self):
+        valid = PageText(20, """FIVE-YEAR FINANCIAL SUMMARY
+ASSETS AND LIABILITIES
+2025 2024 2023 2022 2021
+Total assets 總資產 334,957 310,370 326,301 278,674 229,897
+Total liabilities 總負債 (151,600) (131,123) (150,477) (109,648) (81,319)
+Net assets 資產淨值 183,357 179,247 175,824 169,026 148,578""")
+        items = extract_indicator_candidates([valid], "A", "甲", 2025, "url", "annual.pdf")
+        debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
+        self.assertEqual(1, len(debt))
+        self.assertAlmostEqual(151_600 / 334_957 * 100, debt[0].value)
+        self.assertIn("two-year assets = liabilities + net assets", debt[0].evidence_text)
+
+        broken = PageText(20, valid.text.replace("183,357 179,247", "180,000 170,000"))
+        rejected = extract_indicator_candidates([broken], "A", "甲", 2025, "url", "annual.pdf")
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+        associate = PageText(21, valid.text.replace(
+            "FIVE-YEAR FINANCIAL SUMMARY\nASSETS AND LIABILITIES",
+            "NOTES TO THE FINANCIAL STATEMENTS\nSummarised information of an associate",
+        ))
+        rejected = extract_indicator_candidates([associate], "A", "甲", 2025, "url", "annual.pdf")
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+
     def test_english_statement_explicit_ascending_year_columns_are_normalized(self):
         pages = [
             PageText(10, """Statement of Profit or Loss
@@ -1456,14 +1505,26 @@ Profit for the year 100 120"""),
         values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
         self.assertEqual([20], values)
 
-    def test_english_ghg_reduction_rejects_ambiguous_year_order(self):
+    def test_english_ghg_reduction_normalizes_explicit_ascending_year_order(self):
         pages = [PageText(
             20,
             "Environmental Indicators\nIndicator Unit 2024 2025\n"
             "Total GHG emissions tCO2e 100,000 80,000",
         )]
         items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
-        self.assertFalse([item for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"])
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
+        self.assertEqual([20], values)
+
+    def test_english_total_ghg_yoy_narrative_requires_group_actual_and_report_year(self):
+        pages = [PageText(20, "In 2025, the Group’s total GHG emissions declined by 9.7% year-on-year to 45,783 kilotonnes CO2e.")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
+        self.assertEqual([9.7], values)
+        rejected = extract_indicator_candidates(
+            [PageText(21, "By 2030, the Group’s total GHG emissions are expected to decrease by 20% year-on-year.")],
+            "A", "甲", 2025, "https://source", "esg.pdf",
+        )
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"])
 
     def test_english_ghg_intensity_rejects_non_rmb_denominators(self):
         pages = [PageText(
@@ -4084,6 +4145,18 @@ Profit for the year 100 120"""),
         items = derive_ghg_reduction_candidates("A", "甲", 2025, [esg])
         self.assertEqual(1, len(items))
         self.assertAlmostEqual((2.90 - 2.95) / 2.90 * 100, items[0].value)
+
+    def test_ghg_reduction_scope12_location_based_total_with_market_row(self):
+        esg = self._esg_doc(
+            "披露项 单位 2023 年 2024 年 2025 年\n"
+            "范围一温室气体排放量 吨二氧化碳当量 1,309.95 1,295.60 5,205.78\n"
+            "范围二温室气体排放量（基于位置） 吨二氧化碳当量 250,992.40 475,748.90 460,318.65\n"
+            "范围一及范围二温室气体排放总量（基于位置） 吨二氧化碳当量 252,302.35 477,044.50 465,524.43\n"
+            "范围一及范围二温室气体排放总量（基于市场） 吨二氧化碳当量 250,177.45 324,256.22 168,299.90\n"
+        )
+        items = derive_ghg_reduction_candidates("A", "甲", 2025, [esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual((477044.50 - 465524.43) / 477044.50 * 100, items[0].value)
 
     def test_ghg_reduction_scope_closure_failure_rejected(self):
         # 本期或上期任一时期不满足范围一+二闭环即拒绝

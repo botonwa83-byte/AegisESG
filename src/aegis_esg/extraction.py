@@ -615,7 +615,7 @@ def extract_indicator_candidates(
                 source_url=source_url, source_file=source_file, source_page=page.page,
                 evidence_text=evidence, confidence=confidence,
             ))
-        reduction = _extract_english_ghg_reduction(text, report_year)
+        reduction = _extract_english_ghg_reduction(page.text, report_year)
         if reduction:
             value, evidence = reduction
             identity = ("Q_E_GHG_REDUCTION_RATE", page.page, round(value, 8))
@@ -889,6 +889,42 @@ def _extract_english_revenue_intensities(text: str) -> list[tuple[str, float, st
 
 def _extract_english_ghg_reduction(text: str, report_year: int) -> tuple[float, str] | None:
     previous_year = report_year - 1
+    narrative = re.search(
+        rf"(?i)\bIn\s+{report_year}\b[^.\n]{{0,100}}?\b(?:the\s+)?Group['’]s\s+total\s+"
+        rf"(?:GHG|greenhouse\s+gas)\s+emissions?\s+(?:declined|decreased|fell)\s+by\s+"
+        rf"(?P<value>[\d,]+(?:\.\d+)?)\s*%\s+year-on-year",
+        text,
+    )
+    if narrative:
+        value = float(narrative.group("value").replace(",", ""))
+        if 0 <= value <= 100:
+            evidence = re.sub(r"\s+", " ", narrative.group(0)).strip()
+            return value, "English total-GHG YoY direct: " + evidence
+
+    ascending_header = re.search(
+        rf"(?mi)^\s*[^\n]*\b{previous_year}\b[^\n]{{0,30}}\b{report_year}\b\s*$",
+        text,
+    )
+    if ascending_header:
+        ascending_row = re.search(
+            r"(?mi)^\s*(?:"
+            r"Total\s+(?:GHG|greenhouse\s+gas)\s+emissions?(?:\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*\))?"
+            r"|(?:GHG|greenhouse\s+gas)\s+emissions?\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*\)"
+            r")\s*"
+            r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+(?:of\s+)?CO2e)\s+(?P<body>[^\n]+)$",
+            text,
+        )
+        if ascending_row:
+            values = [
+                float(raw.replace(",", "")) for raw in
+                re.findall(r"[\d,]+(?:\.\d+)?", ascending_row.group("body"))
+            ]
+            if len(values) >= 2 and values[-2] > 0:
+                current, previous = values[-1], values[-2]
+                reduction = (previous - current) / previous * 100
+                if -1000 <= reduction <= 100:
+                    evidence = re.sub(r"\s+", " ", ascending_row.group(0)).strip()
+                    return reduction, "English same-scope GHG table derived: " + evidence
     if not re.search(rf"\b{report_year}\b[^\n]{{0,40}}\b{previous_year}\b", text):
         return None
     row = re.compile(
@@ -1934,7 +1970,57 @@ def _extract_english_balance_sheet_indicators(pages: list[PageText]) -> list[tup
                 ))
         if len(result) > len(best_result):
             best_result = result
+    summary_debt = _extract_english_summary_debt_rate(pages)
+    if summary_debt and not any(code == "Q_G_DEBT_ASSET_RATE" for code, *_ in best_result):
+        best_result.append(summary_debt)
     return best_result
+
+
+def _extract_english_summary_debt_rate(pages: list[PageText]) -> tuple[str, float, int, str] | None:
+    """Use an audited multi-year financial summary only with three-line identity closure."""
+    number = re.compile(r"\(?[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\)?")
+
+    def row(page_text: str, label: str) -> tuple[float, float] | None:
+        match = re.search(rf"(?mi)^\s*{label}(?:\s+[^\d(\n][^\n]*)?\s+(?P<body>[^\n]+)$", page_text)
+        if not match:
+            return None
+        values = []
+        for raw in number.findall(match.group("body")):
+            parsed = float(raw.strip("()").replace(",", ""))
+            values.append(-parsed if raw.startswith("(") else parsed)
+        return tuple(values[:2]) if len(values) >= 2 else None
+
+    for page in pages:
+        if not re.search(
+            r"(?:Five[- ]Year Financial Summary|Financial Summary|五年(?:財務|财务)(?:概要|摘要))",
+            page.text, re.I,
+        ):
+            continue
+        header = re.search(r"(?m)^\s*(20\d{2})\s+(20\d{2})(?:\s+20\d{2}){0,4}\s*$", page.text)
+        if not header or int(header.group(1)) <= int(header.group(2)):
+            continue
+        assets = row(page.text, r"Total assets(?:\s+總資產)?")
+        liabilities = row(page.text, r"Total liabilities(?:\s+總負債)?")
+        net_assets = row(page.text, r"Net assets(?:\s+資產淨值)?")
+        if not (assets and liabilities and net_assets):
+            continue
+        if any(value <= 0 for value in assets + net_assets):
+            continue
+        if any(
+            abs(assets[i] - abs(liabilities[i]) - net_assets[i]) / assets[i] > 0.001
+            for i in range(2)
+        ):
+            continue
+        value = abs(liabilities[0]) / assets[0] * 100
+        if not 0.5 <= value <= 200:
+            continue
+        evidence = (
+            "English audited financial summary derived: two-year assets = liabilities + net assets; "
+            f"assets={assets[0]:g},{assets[1]:g}; liabilities={liabilities[0]:g},{liabilities[1]:g}; "
+            f"net_assets={net_assets[0]:g},{net_assets[1]:g}"
+        )
+        return "Q_G_DEBT_ASSET_RATE", value, page.page, evidence
+    return None
 
 
 def _find_english_revenue_fact(pages: list[PageText]) -> StatementFact | None:

@@ -1,0 +1,22 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v2",
+  "task_count": 250,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 33,
+    "disclosed_foreign_currency_denominator": 2,
+    "disclosed_non_revenue_denominator": 10,
+    "dividend_disclosed_foreign_currency": 2,
+    "likely_methodology_compatible_rule_gap": 1,
+    "no_dividend_per_share_disclosure": 6,
+    "no_matching_disclosure_in_text": 50,
+    "possible_balance_sheet_formula_closure": 2,
+    "possible_rd_revenue_formula_closure": 4,
+    "possible_safety_revenue_formula_closure": 1,
+    "possible_total_plus_rmb_revenue_derivation": 53,
+    "possible_two_year_ghg_formula_closure": 6,
+    "related_disclosure_without_compatible_intensity": 1,
+    "related_fields_incomplete": 79
+  },
+  "scoring_authorized": false,
+  "complete": true
+}
