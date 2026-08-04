@@ -116,6 +116,8 @@ def dashboard() -> HTMLResponse:
 @app.get("/demo", response_class=HTMLResponse, include_in_schema=False)
 def system_demo() -> HTMLResponse:
     page = render_system_menu(progress_data())
+    page = page.replace("aegisESP · ESG科学决策系统", "万绿信评 · ESG科学决策系统")
+    page = page.replace("</main>", '<p style="color:#9cb1c8;font-size:13px;margin-top:28px">品牌参考：北京万家绿色信用评级有限公司（万绿信评） · <a href="https://www.greenrank.com.cn/" target="_blank" style="color:#63c9ff">访问官方站点</a></p></main>')
     # Keep raw JSON endpoints for integrations, but expose only human-readable pages from the executive demo.
     for raw, friendly in {
         "/api/v1/methodology": "/demo/methodology",

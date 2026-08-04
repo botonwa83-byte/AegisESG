@@ -51,6 +51,9 @@ def main() -> None:
     # Make navigation relative for Pages and remove server-only local PDF endpoints.
     for path in OUT.rglob("*.html"):
         text = path.read_text(encoding="utf-8")
+        text = text.replace("aegisESP · ESG科学决策系统", "万绿信评 · ESG科学决策系统")
+        if path == OUT / "index.html":
+            text = text.replace("</main>", '<p style="color:#9cb1c8;font-size:13px;margin-top:28px">品牌参考：北京万家绿色信用评级有限公司（万绿信评） · <a href="https://www.greenrank.com.cn/" target="_blank" style="color:#63c9ff">访问官方站点</a></p></main>')
         prefix = "../" * (len(path.relative_to(OUT).parts) - 1)
         text = text.replace('href="/demo"', f'href="{prefix}"')
         replacements = {
