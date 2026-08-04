@@ -71,6 +71,88 @@ D2.3已生成`thin_population_gate_assessment_v1_2025.json`：替代水率（当
 D2.4已自动切出9条证据预览（1条清洁能源可能营收闭合、7条SO2相关披露、1条SO2模糊强度），产物为
 `thin_evidence_preview_v1_2025.csv`及摘要；均为`pending_basis_review`，不得直接计入指标人口。
 
+D2.5完成来源审计：9条均有原文和可映射的本地PDF，但当前诊断记录没有带回PDF页码，因此全部标记
+`provenance_incomplete`，不得进入候选确认。已修正文本路径到PDF索引的Hash映射，下一步自动补齐页码定位。
+
+D2.6已从文本化PDF的分页标记定位出8/9条页码，8条达到`ready_for_basis_review`；剩余1条页码未定位，继续保留
+`provenance_incomplete`。产物为`thin_evidence_page_located_v1_2025.csv`及摘要，全部仍不授权评分。
+
+D2.7已完成口径一致性审计：8条进入`needs_manual_basis_confirmation`，1条因来源页码未定位保持阻塞；当前未检测到
+外币标记，但仍需人工确认指标分母、物理单位和统计边界。产物为`thin_basis_consistency_audit_v1_2025.csv`及摘要。
+
+D2.8已生成`thin_basis_review_template_v1_2025.csv`，包含值、单位、分母、边界、审核人、时间和理由字段；空白模板不产生
+任何确认观测，`scoring_authorized=false`。
+
+D2.9已校验人工复核模板：9条记录字段完整且全部保持空白，模板本身有效但状态为
+`blocked_until_complete_signed_review`，不允许以空白模板解除评分门禁。
+
+D2.10已生成`output/audit/thin_basis_review_manifest_v1_2025.json`，将复核模板、模板校验结果、口径一致性审计和
+全市场PDF索引以SHA-256绑定；清单明确`blocked_external_review`、`scoring_authorized=false`和不可发布状态，后续审核只能
+在证据链不变或重新生成清单的前提下推进。
+
+D2.11已生成只读状态页`output/audit/thin_basis_review_status_v1_2025.html`，以审核工作台形式展示9条待审核证据、页码和
+当前门禁；该页面只读，不接受未签署数据，不改变正式排名。
+
+D2.12已实现`apply_thin_basis_review.py`安全接入校验，当前检测9/9条记录缺少审核字段，输出
+`thin_basis_review_application_v1_2025.json`并保持`blocked_external_review`；即使模板被部分填写，也不会自动写入候选观测，
+完整签署后仍需独立二次授权。
+
+D2.13新增审核接入异常回归测试，覆盖空白模板、完整模板和非法审核决定三种场景；所有场景均不会直接授权正式评分。
+
+D2.14收紧审核决定门：仅允许确认、拒绝或保留缺失等白名单值，非法决定直接输出`reject_template`，不得进入二次授权队列；
+当前真实模板仍为9条空白记录，状态保持`blocked_external_review`。
+
+D2.15收到`/approve auto-review`后执行自动复核链：模板校验、审核接入校验、来源清单重建和只读状态页刷新均已完成；
+由于9条记录没有人工审核值和签名，自动复核依法保持阻塞，不生成候选观测或正式排名。
+
+D2.16新增`scripts/run_auto_thin_review.py`统一自动复核入口，按固定顺序执行四个只读步骤并输出汇总状态；当前汇总仍为
+`blocked_external_review`，未授权评分、未写入候选观测。
+
+D2.17已将自动复核状态接入`/demo/review-workbench`，审核工作台现在直接显示模板条数、待补全条数、候选写入和正式评分授权，
+避免界面与审计产物脱节；接口只读，不会通过页面操作绕过签名门禁。
+
+### D3：研究预排名刷新
+
+D3.1已生成`output/audit/research_snapshot_manifest_v1_2025.json`，绑定研究预排名、敏感性、观测摘要、缺口基线和自动复核状态；
+当前排名200条、快照可复现、正式发布仍为否。新增`/demo/research-snapshot`只读页面展示产物路径和SHA-256，便于领导演示时解释排名来源。
+
+D3.2已生成`output/audit/research_stability_gate_v1_2025.json`：612家公司中612家被敏感性分析标记为不稳定，最高名次跨度509；
+研究预排名可继续用于演示，但稳定性门禁为`blocked_stability`，正式发布保持关闭。该门禁结果已纳入研究快照哈希链。
+
+D3.3已将稳定性门禁接入`/demo/research-snapshot`，页面同时展示排名条数、不稳定企业数、最大名次跨度和正式发布状态，
+保证演示结论与实验审计一致。
+
+D3.4已生成`research_stability_priority_queue_v1_2025.csv`及摘要，将612家不稳定企业按名次跨度与披露不足程度排序，
+切出前50家优先补证队列；队列仅用于研究改进，`formal_publishable=false`。
+
+D3.5已生成`research_stability_priority_packet_v1_2025.html`，将前50家任务转换为可浏览任务包，展示最好/最差名次、跨度、
+披露率、优先级和下一动作；页面明确不代表正式排名，并纳入研究快照留痕。
+
+D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成“预排名→稳定性门禁→优先补证任务包”的演示链路；
+该入口只读，不修改排名或审核签名。
+
+## D4：原始数据采集主线（重新置顶）
+
+用户评审确认当前最重要任务是补足ESP评级支持数据，因此D4优先级高于继续扩展排名展示：交易所披露数据只作为一类来源，
+公司官方网站披露的年度报告、ESG/可持续发展报告、环境与社会专项报告也必须纳入同一证据链。
+
+- D4.1已生成`output/audit/official_website_source_queue_v1_2025.csv`及摘要：614家公司、802个报告任务，全部标记为
+  `issuer_official_website/pending_official_url`，不混入现有交易所文档索引。
+- D4.2已生成`official_website_source_queue_validation_v1_2025.json`：当前0条可下载，原因是尚未登记并确认公司官网域名；
+  验证规则拒绝交易所域名、第三方镜像、非HTTPS链接及跨域候选URL，下载和评分均未授权。
+- D4后续顺序：官网域名登记→域名归属核验→官网报告链接发现→PDF下载与Hash→文本抽取→来源去重→指标候选诊断→研究排名刷新。
+  在官网来源链稳定前，排名稳定性工作仅保留为审计和演示，不作为主研发目标。
+- D4.3已将官网采集任务接入`/demo/data-readiness`并新增`/demo/official-source-queue`，数据底座现在同时展示交易所文档层
+  与官网来源缺口，形成下载任务可视化入口。
+- D4.4已新增`scripts/prepare_official_download_manifest.py`，只允许`domain_verification=verified`且同域HTTPS链接进入
+  下载清单；当前802条任务中0条合格，生成空清单并明确未启动下载，避免误把非官网链接写入数据底座。
+- D4.5已新增`scripts/run_scheduled_collection.py`和`.github/workflows/collect-official-data.yml`：GitHub Actions支持每周定时或手工
+  触发，使用审核后的下载清单下载文档、写入Hash索引并上传30天数据Artifact；当前清单为空时安全空跑，不伪造下载结果。
+- D4.6已新增`scripts/sync_ci_data.sh`：本地通过GitHub CLI下载最新Artifact，先校验运行摘要再复制到本地暂存数据目录，避免失败包覆盖
+  现有数据。完整数据链仍依赖官网域名/报告链接进入审核清单。
+- D4.7已新增`scripts/build_scheduled_collection_manifest.py`，合并去重上交所、深交所、北交所、港交所和再发现清单，当前形成
+  1,044条、覆盖612家公司的定时下载清单；GitHub Workflow改为使用该清单，官网来源在验证后追加，不影响交易所更新。
+
 ### D2：低覆盖指标专项
 
 - 清洁能源强度、SO2强度、替代水率分别建立口径诊断；

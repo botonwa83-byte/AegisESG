@@ -1015,6 +1015,66 @@ python3 -m aegis_esg.cli plan-indicators \
   SO2人口13需证据复核；三项均未达20，`scoring_authorized=false`。
 - 用户再次要求无需等待指令后，已立即执行D2.4：生成`output/audit/thin_evidence_preview_v1_2025.csv`，包含1条清洁能源
   可能闭合、7条SO2相关披露和1条SO2模糊强度，全部`pending_basis_review`，不计入正式指标人口。
+- D2.5自动来源审计发现9条线索均有原文和可映射本地PDF，但诊断记录缺PDF页码，全部`provenance_incomplete`；已修正文本路径
+  到PDF索引的Hash映射，下一步自动补齐页码定位，不进入候选确认。
+- D2.6已自动定位薄样本证据页码：9条中8条成功定位并达到`ready_for_basis_review`，1条页码仍未定位继续阻塞；产物为
+  `output/audit/thin_evidence_page_located_v1_2025.csv`及摘要，全部不授权评分。
+- D2.7完成口径一致性审计：8条进入`needs_manual_basis_confirmation`，1条来源页码阻塞；未检测到外币标记，但仍需人工确认
+  分母、物理单位和统计边界。产物为`output/audit/thin_basis_consistency_audit_v1_2025.csv`及摘要。
+- D2.8生成`output/audit/thin_basis_review_template_v1_2025.csv`，预填证据和口径检查项，空白字段包括值、单位、分母、边界、
+  审核人、时间和理由；模板不产生确认观测，`scoring_authorized=false`。
+
+- D2.9已自动校验薄样本人工复核模板，生成`output/audit/thin_basis_review_template_validation_v1_2025.json`：9条记录、
+  必填字段完整、部分填写0条，模板结构有效但决定为`blocked_until_complete_signed_review`，评分仍未授权。
+- D2.10已生成`output/audit/thin_basis_review_manifest_v1_2025.json`，绑定复核模板、校验结果、口径审计和全市场文档索引的
+  SHA-256；状态为`blocked_external_review`，明确来源链完整但必须由外部审核人补全值/单位/分母/边界/签名时间/理由，
+  不写入正式排名、不改变发布门禁。
+- D2.11已生成`output/audit/thin_basis_review_status_v1_2025.html`只读状态页，展示9条待审核证据、页码和评分授权状态，
+  供审核人员使用；页面不接受未签署数据，不改变正式排名。
+- D2.12已实现`scripts/apply_thin_basis_review.py`安全接入门，生成`output/audit/thin_basis_review_application_v1_2025.json`：
+  当前9/9条记录缺少审核字段，状态`blocked_external_review`；部分填写不会产生候选观测，完整签署后仍需独立二次授权。
+- D2.13新增`tests/test_thin_basis_review_gate.py`，覆盖空白、完整和非法审核决定场景；审核接入门回归通过，正式评分仍不会被
+  自动授权。全量测试由320项增至323项，全部通过。
+- D2.14收紧审核决定白名单：确认/拒绝/保留缺失之外的值直接`reject_template`，不进入二次授权队列；真实9条模板仍为空白、
+  `blocked_external_review`。全量测试323项通过。
+- D2.15用户批准`/approve auto-review`后，自动执行模板校验、审核接入、来源清单重建和只读状态页刷新；因9条记录均缺少人工
+  值与签名，流程安全保持`blocked_external_review`，未写入候选观测或正式排名。
+- D2.16新增`scripts/run_auto_thin_review.py`统一自动复核入口，固定串联四个只读步骤并输出汇总；当前仍为
+  `blocked_external_review`，`scoring_authorized=false`、`candidate_observations_written=false`。
+- D2.17已将`thin_basis_review_application_v1_2025.json`状态接入`/demo/review-workbench`，界面显示自动复核状态、待补全记录和
+  授权状态；页面保持只读，不能绕过人工签名门禁。全量测试323项通过。
+
+## 2026-08-04 D3研究预排名实验留痕
+
+- D3.1已生成`output/audit/research_snapshot_manifest_v1_2025.json`，以SHA-256绑定`ranking.json`、排名元数据、敏感性结果、
+  v19观测、缺口基线和自动复核状态；快照包含200条研究预排名，`reproducible=true`、`formal_publishable=false`。
+- 新增`/demo/research-snapshot`只读页面，展示研究快照产物路径和哈希，明确研究演示与正式发布隔离。全量测试323项通过。
+- D3.2已生成`output/audit/research_stability_gate_v1_2025.json`，基于敏感性结果评估研究排名稳定性：612/612家公司不稳定，
+  最大名次跨度509，状态`blocked_stability`；预排名可演示但不可正式发布，并已纳入研究快照清单。
+- D3.3已将稳定性门禁接入`/demo/research-snapshot`，展示排名条数、不稳定企业数、最大名次跨度和正式发布状态；全量测试323项通过。
+- D3.4已生成`output/audit/research_stability_priority_queue_v1_2025.csv`及摘要，按名次跨度和披露不足程度排序612家不稳定企业，
+  提取前50家优先补证；队列不写正式评分，`formal_publishable=false`。
+- D3.5已生成`output/audit/research_stability_priority_packet_v1_2025.html`，将前50家不稳定企业队列渲染为可浏览任务包，
+  展示名次跨度、披露率和下一动作，并纳入研究快照哈希链。
+- D3.6新增`/demo/stability-priority`，并从`/demo/research-snapshot`链接到任务包，形成预排名→稳定性门禁→优先补证的只读演示链路。
+
+## 2026-08-04 D4原始数据采集主线重排
+
+- 根据用户确认，主研发目标重新置顶为“下载ESP评级所需支持数据”，交易所披露与公司官方网站披露并列纳入，排名稳定性降为依赖项。
+- D4.1新增`scripts/build_official_website_source_queue.py`，生成`output/audit/official_website_source_queue_v1_2025.csv`及摘要：
+  614家公司、802个年度报告/ESG报告任务，均等待官网域名登记，`scoring_authorized=false`。
+- D4.2新增`scripts/validate_official_website_source_queue.py`，生成`official_website_source_queue_validation_v1_2025.json`：
+  当前0条可下载；验证器拒绝交易所域名、第三方镜像、非HTTPS和跨注册域名链接，`download_authorized=false`。
+- D4后续自动顺序固定为：官网域名登记→归属核验→报告发现→PDF下载Hash→抽取去重→指标诊断→排名刷新。
+- D4.3已将官网采集队列接入`/demo/data-readiness`，新增`/demo/official-source-queue`只读页面，展示802条公司×报告任务及
+  官网域名待登记状态；交易所与官网来源缺口在数据底座中并列呈现。
+- D4.4新增`scripts/prepare_official_download_manifest.py`和`output/audit/official_download_manifest_v1_2025.csv`，仅允许已验证
+  官网域名下的HTTPS链接进入下载器；当前ready_rows=0，未启动下载、未授权评分。
+- D4.5新增`scripts/run_scheduled_collection.py`和`.github/workflows/collect-official-data.yml`，GitHub Actions每周定时/手工运行，
+  对审核清单执行可断点下载并上传`aegis-official-data` Artifact；空清单安全空跑。D4.6新增`scripts/sync_ci_data.sh`，本地用
+  GitHub CLI下载Artifact并校验运行摘要后同步到`data/raw/ci_collection`，不覆盖现有正式数据。
+- D4.7新增`scripts/build_scheduled_collection_manifest.py`，合并去重SSE/SZSE/BSE/HKEX/再发现清单，生成1,044条、覆盖612家的
+  `scheduled_collection_manifest_v1_2025.csv`；Workflow现在优先定时更新交易所披露数据，官网来源验证后再追加。
 
 ## 2026-08-04发布模板安全同步
 

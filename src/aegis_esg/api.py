@@ -29,6 +29,10 @@ PROGRESS_TASKS_PATH = Path(os.getenv(
 REVIEW_SUMMARY_PATH = Path(os.getenv(
     "AEGIS_REVIEW_SUMMARY", ROOT / "data/review/hkex_indicator_candidates_review_2026-07-29.csv",
 ))
+AUTO_REVIEW_STATUS_PATH = ROOT / "output/audit/thin_basis_review_application_v1_2025.json"
+RESEARCH_SNAPSHOT_PATH = ROOT / "output/audit/research_snapshot_manifest_v1_2025.json"
+OFFICIAL_QUEUE_PATH = ROOT / "output/audit/official_website_source_queue_v1_2025.csv"
+OFFICIAL_QUEUE_SUMMARY_PATH = ROOT / "output/audit/official_website_source_queue_v1_2025_summary.json"
 CANDIDATES_PATH = Path(os.getenv(
     "AEGIS_CANDIDATES", ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
 ))
@@ -197,8 +201,22 @@ def demo_data_readiness() -> HTMLResponse:
     annual = by_type.get("annual_report", 0)
     esg = by_type.get("esg_report", 0)
     missing = len(rows) - exists
-    body = f'''<div class="eyebrow">数据底座</div><h1>原始文档与证据来源</h1><p class="lead">排名之前先确认数据从哪里来、文件是否在本地、能否回到原始 PDF。</p><div class="steps"><span class="active">① 文档发现</span><span class="active">② 本地下载</span><span class="active">③ Hash索引</span><span>④ 证据抽取</span><span>⑤ 评分排名</span></div><div class="cards"><div><b>索引文档</b><strong>{len(rows)}</strong></div><div><b>覆盖企业</b><strong>{companies}</strong></div><div><b>年报 PDF</b><strong>{annual}</strong></div><div><b>ESG PDF</b><strong>{esg}</strong></div><div><b>本地文件</b><strong>{exists}/{len(rows)}</strong></div><div><b>已登记Hash</b><strong>{hash_registered}/{len(rows)}</strong></div></div><p class="status"><b>{"本地文档层完整" if missing == 0 else f"仍有 {missing} 份文档未落地"}</b>　索引来源：全市场文档索引。外部链接不可访问时，优先使用企业详情中的本地 PDF。</p><h2>来源使用规则</h2><div class="action-panel"><p>每个排名指标必须尽量连接到公司、报告期、PDF文件、页码、证据原文和文件Hash。外部交易所 URL 只作为原始发布地址；本地文件是演示和审计的稳定入口。</p><a class="result-link" href="/demo/complete-chain">进入完整数据链企业排名 →</a><a class="result-link" href="/demo/ranking-center">进入排名中心 →</a></div>'''
+    official = json.loads(OFFICIAL_QUEUE_SUMMARY_PATH.read_text(encoding="utf-8")) if OFFICIAL_QUEUE_SUMMARY_PATH.is_file() else {}
+    body = f'''<div class="eyebrow">数据底座</div><h1>原始文档与证据来源</h1><p class="lead">排名之前先确认数据从哪里来、文件是否在本地、能否回到原始 PDF。</p><div class="steps"><span class="active">① 文档发现</span><span class="active">② 本地下载</span><span class="active">③ Hash索引</span><span>④ 证据抽取</span><span>⑤ 评分排名</span></div><div class="cards"><div><b>索引文档</b><strong>{len(rows)}</strong></div><div><b>覆盖企业</b><strong>{companies}</strong></div><div><b>年报 PDF</b><strong>{annual}</strong></div><div><b>ESG PDF</b><strong>{esg}</strong></div><div><b>本地文件</b><strong>{exists}/{len(rows)}</strong></div><div><b>已登记Hash</b><strong>{hash_registered}/{len(rows)}</strong></div><div><b>官网来源任务</b><strong>{official.get("company_document_tasks", "-")}</strong></div><div><b>官网待登记</b><strong>{official.get("pending_official_url", "-")}</strong></div></div><p class="status"><b>{"本地文档层完整" if missing == 0 else f"仍有 {missing} 份文档未落地"}</b>　交易所文档已落地；公司官网来源仍需登记域名和报告链接。<a href="/demo/official-source-queue">查看官网采集队列</a></p><h2>来源使用规则</h2><div class="action-panel"><p>每个排名指标必须尽量连接到公司、报告期、PDF文件、页码、证据原文和文件Hash。交易所和公司官网是并列来源；搜索结果与第三方镜像不能直接作为官方来源。</p><a class="result-link" href="/demo/complete-chain">进入完整数据链企业排名 →</a><a class="result-link" href="/demo/ranking-center">进入排名中心 →</a></div>'''
     return HTMLResponse(_demo_document("原始文档与证据来源", body))
+
+
+@app.get("/demo/official-source-queue", response_class=HTMLResponse, include_in_schema=False)
+def demo_official_source_queue() -> HTMLResponse:
+    if not OFFICIAL_QUEUE_PATH.is_file():
+        raise HTTPException(404, "官网采集队列不存在")
+    import csv
+    with OFFICIAL_QUEUE_PATH.open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    preview = rows[:100]
+    table = "".join(f'<tr><td>{html.escape(row.get("company_code", ""))}</td><td>{html.escape(row.get("company_name", ""))}</td><td>{html.escape(row.get("document_type", ""))}</td><td>{html.escape(row.get("download_status", ""))}</td><td>{html.escape(row.get("next_action", ""))}</td></tr>' for row in preview)
+    body = f'<h1>公司官网数据采集队列</h1><p class="status">共{len(rows)}条公司×报告任务；当前全部等待官网域名登记，下载和评分均未授权。</p><p class="hint">登记官网域名后，必须先完成域名归属核验，再发现同域名HTTPS报告链接；交易所链接和第三方镜像不会被当作官网来源。</p><table><tr><th>代码</th><th>企业</th><th>报告类型</th><th>状态</th><th>下一动作</th></tr>{table}</table>'
+    return HTMLResponse(_demo_document("公司官网数据采集队列", body))
 
 
 @app.get("/demo/ranking", response_class=HTMLResponse, include_in_schema=False)
@@ -232,6 +250,35 @@ def demo_metadata() -> HTMLResponse:
     return HTMLResponse(_demo_document("算法与输入元数据", f'<h1>算法与输入元数据</h1><table>{rows}</table>'))
 
 
+@app.get("/demo/research-snapshot", response_class=HTMLResponse, include_in_schema=False)
+def demo_research_snapshot() -> HTMLResponse:
+    if not RESEARCH_SNAPSHOT_PATH.is_file():
+        raise HTTPException(404, "研究快照清单不存在")
+    data = json.loads(RESEARCH_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+    stability_path = ROOT / "output/audit/research_stability_gate_v1_2025.json"
+    stability = json.loads(stability_path.read_text(encoding="utf-8")) if stability_path.is_file() else {}
+    artifact_rows = "".join(
+        f'<tr><td>{html.escape(str(key))}</td><td>{html.escape(str(item.get("path", "")))}</td>'
+        f'<td><code>{html.escape(str(item.get("sha256", "")))}</code></td></tr>'
+        for key, item in data.get("artifacts", {}).items()
+    )
+    body = (f'<h1>研究预排名实验快照</h1><p class="status">可复现：{"是" if data.get("reproducible") else "否"}；'
+            f'排名条数：{data.get("ranking_rows", "-")}；不稳定企业：{stability.get("unstable_company_count", "-")}；'
+            f'最大名次跨度：{stability.get("max_rank_span", "-")}；稳定性门禁：{html.escape(str(stability.get("status", "未评估")))}；正式发布：否。</p>'
+            f'<p class="hint">该快照绑定排名、敏感性、观测、缺口和自动复核结果，仅用于研究演示与实验留痕，不能替代正式双审发布。'
+            f'<a href="/demo/stability-priority">查看优先补证任务包</a></p>'
+            f'<table><tr><th>产物</th><th>路径</th><th>SHA-256</th></tr>{artifact_rows}</table>')
+    return HTMLResponse(_demo_document("研究预排名实验快照", body))
+
+
+@app.get("/demo/stability-priority", response_class=HTMLResponse, include_in_schema=False)
+def demo_stability_priority() -> HTMLResponse:
+    packet = ROOT / "output/audit/research_stability_priority_packet_v1_2025.html"
+    if not packet.is_file():
+        raise HTTPException(404, "稳定性补证任务包不存在")
+    return HTMLResponse(packet.read_text(encoding="utf-8"))
+
+
 @app.get("/demo/readiness", include_in_schema=False)
 def demo_readiness() -> HTMLResponse:
     if not DEMO_READINESS_PATH.is_file():
@@ -258,6 +305,17 @@ def demo_review_workbench() -> HTMLResponse:
     with DEMO_IMPACT_REVIEW_PATH.open(encoding="utf-8-sig", newline="") as stream:
         rows = list(csv.DictReader(stream))
     rows.sort(key=lambda item: float(item.get("impact_score", 0) or 0), reverse=True)
+    auto_review = {}
+    if AUTO_REVIEW_STATUS_PATH.is_file():
+        try:
+            auto_review = json.loads(AUTO_REVIEW_STATUS_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            auto_review = {}
+    auto_status = html.escape(str(auto_review.get("status", "未运行")))
+    auto_incomplete = html.escape(str(auto_review.get("incomplete_rows", "-")))
+    auto_panel = (f'<div class="status"><b>自动复核状态：{auto_status}</b><br>'
+                  f'模板记录 {html.escape(str(auto_review.get("row_count", "-")))} 条，待补全 {auto_incomplete} 条；'
+                  '候选观测写入：否；正式评分授权：否。自动复核只做完整性检查，不替代人工签名。</div>')
     body_rows = "".join(
         f'<tr><td>{i}</td><td><a href="/demo/company/{html.escape(row.get("company_code", ""))}">{html.escape(row.get("company_code", ""))}</a><br><small>{html.escape(row.get("company_name", ""))}</small></td>'
         f'<td>{html.escape(_indicator_label(row.get("indicator_code", "")))}</td><td>{html.escape({"manual_signature_required": "必须人工签名", "consistent_multi_review": "多来源抽查", "single_candidate_review": "单候选抽查"}.get(row.get("tier", ""), "自动策略"))}</td>'
@@ -265,7 +323,7 @@ def demo_review_workbench() -> HTMLResponse:
         f'<td><b>{html.escape(row.get("impact_score", "-"))}</b></td><td>{html.escape(row.get("next_action", ""))}</td>'
         f'<td><button disabled>模拟审核</button></td></tr>' for i, row in enumerate(rows[:40], 1)
     )
-    body = f'<div class="eyebrow">02 · 风险处理</div><h1>审核工作台</h1><p class="lead">先处理最可能改变排名的任务，再决定哪些结果可以进入正式流程。</p><div class="steps"><span class="active">① 选择任务</span><span>② 查看证据</span><span>③ 记录决定</span><span>④ 重新计算</span></div><p class="status"><b>{len(rows)}组待处理任务</b>　按排名影响分排序。当前为只读演示，不会产生正式签名。</p><p class="hint">建议从影响分最高的任务开始：查看企业详情，核验报告页码、口径和候选值，再返回记录审核结论。</p><table><tr><th>#</th><th>企业</th><th>指标</th><th>审核层级</th><th>名次区间</th><th>影响分</th><th>下一动作</th><th>操作</th></tr>{body_rows}</table>'
+    body = f'<div class="eyebrow">02 · 风险处理</div><h1>审核工作台</h1><p class="lead">先处理最可能改变排名的任务，再决定哪些结果可以进入正式流程。</p><div class="steps"><span class="active">① 选择任务</span><span>② 查看证据</span><span>③ 记录决定</span><span>④ 重新计算</span></div>{auto_panel}<p class="status"><b>{len(rows)}组待处理任务</b>　按排名影响分排序。当前为只读演示，不会产生正式签名。</p><p class="hint">建议从影响分最高的任务开始：查看企业详情，核验报告页码、口径和候选值，再返回记录审核结论。</p><table><tr><th>#</th><th>企业</th><th>指标</th><th>审核层级</th><th>名次区间</th><th>影响分</th><th>下一动作</th><th>操作</th></tr>{body_rows}</table>'
     return HTMLResponse(_demo_document("审核工作台", body))
 
 
