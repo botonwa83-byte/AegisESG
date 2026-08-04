@@ -3,7 +3,7 @@ name: Collect reviewed disclosure ESG data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "23 3 * * 1"
+    - cron: "*/10 * * * *"
 
 permissions:
   contents: read
@@ -30,6 +30,15 @@ jobs:
           python scripts/build_official_website_source_queue.py
           python scripts/validate_official_website_source_queue.py
           python scripts/prepare_official_download_manifest.py
+      - name: Restore collection cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/raw/ci_collection
+            output/sync
+          key: aegis-ci-data-${{ hashFiles('output/audit/scheduled_collection_manifest_v1_2025.csv', 'output/audit/official_download_manifest_v1_2025.csv') }}
+          restore-keys: |
+            aegis-ci-data-
       - name: Collect documents
         env:
           PYTHONPATH: src
