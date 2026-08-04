@@ -1,0 +1,16 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v6",
+  "task_count": 150,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 8,
+    "disclosed_non_revenue_denominator": 4,
+    "likely_methodology_compatible_rule_gap": 2,
+    "no_matching_disclosure_in_text": 17,
+    "possible_clean_energy_revenue_closure": 1,
+    "related_disclosure_without_compatible_intensity": 19,
+    "related_fields_incomplete": 49,
+    "requires_specialized_environmental_diagnostic": 50
+  },
+  "scoring_authorized": false,
+  "complete": true
+}

@@ -1,0 +1,251 @@
+﻿batch_task_rank,batch_action,impact_rank,impact_score,best_rank,worst_rank,rank_span,crosses_top_n,boundary_risk,instability_risk,weight_risk,key_indicator_risk,population_scarcity_risk,indicator_population,neutral_vs_zero_total_score_delta,company_code,company_name,indicator_code,indicator_name,dimension,key_indicator,candidate_count,report_years,source_pages,max_confidence,status,next_action,priority
+1,inspect_esg_tables,1,99.322917,70,219,149,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00002.HK,CLP HOLDINGS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+2,inspect_esg_tables,2,99.322917,48,355,307,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00003.HK,HK & CHINA GAS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+3,inspect_esg_tables,3,99.322917,53,433,380,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00006.HK,POWER ASSETS,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+4,inspect_esg_tables,4,99.322917,108,290,182,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,000096.SZ,广聚能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+5,inspect_esg_tables,6,99.322917,193,488,295,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,000554.SZ,泰山石油,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+6,inspect_esg_tables,7,99.322917,151,413,262,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,000682.SZ,东方电子,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+7,inspect_esg_tables,9,99.322917,136,319,183,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,001208.SZ,华菱线缆,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+8,inspect_esg_tables,10,99.322917,122,258,136,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,001258.SZ,立新能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+9,inspect_esg_tables,11,99.322917,112,240,128,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,001299.SZ,美能能源,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+10,inspect_esg_tables,12,99.322917,136,285,149,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00182.HK,CONCORD NE,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+11,inspect_esg_tables,13,99.322917,24,287,263,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002039.SZ,黔源电力,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+12,inspect_esg_tables,14,99.322917,27,369,342,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002056.SZ,横店东磁,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+13,inspect_esg_tables,15,99.322917,28,385,357,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00206.HK,CM-ENERGY,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+14,inspect_esg_tables,16,99.322917,165,276,111,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002074.SZ,国轩高科,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+15,inspect_esg_tables,17,99.322917,196,307,111,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002090.SZ,金智科技,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+16,inspect_esg_tables,18,99.322917,121,327,206,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002276.SZ,万马股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+17,inspect_esg_tables,19,99.322917,174,359,185,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,00228.HK,CHINA ENERGY,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+18,inspect_esg_tables,20,99.322917,77,284,207,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002335.SZ,科华数据,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+19,inspect_esg_tables,22,99.322917,135,250,115,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002479.SZ,富春环保,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+20,inspect_esg_tables,23,99.322917,176,281,105,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002487.SZ,大金重工,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+21,inspect_esg_tables,24,99.322917,121,315,194,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002506.SZ,协鑫集成,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+22,inspect_esg_tables,25,99.322917,177,376,199,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002531.SZ,天顺风能,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+23,inspect_esg_tables,26,99.322917,149,436,287,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002608.SZ,江苏国信,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+24,inspect_esg_tables,27,99.322917,128,395,267,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002692.SZ,远程股份,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+25,inspect_esg_tables,28,99.322917,90,217,127,True,1.0,1.0,1.0,1.0,0.932292,39,3.6,002709.SZ,天赐材料,Q_E_GHG_INTENSITY,温室气体排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+26,inspect_esg_tables,186,92.361111,70,219,149,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00002.HK,CLP HOLDINGS,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+27,inspect_esg_tables,187,92.361111,48,355,307,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00003.HK,HK & CHINA GAS,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+28,inspect_esg_tables,188,92.361111,53,433,380,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00006.HK,POWER ASSETS,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+29,inspect_esg_tables,189,92.361111,108,290,182,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,000096.SZ,广聚能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+30,inspect_esg_tables,191,92.361111,193,488,295,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,000554.SZ,泰山石油,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+31,inspect_esg_tables,192,92.361111,151,413,262,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,000682.SZ,东方电子,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+32,inspect_esg_tables,194,92.361111,136,319,183,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,001208.SZ,华菱线缆,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+33,inspect_esg_tables,195,92.361111,122,258,136,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,001258.SZ,立新能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+34,inspect_esg_tables,196,92.361111,112,240,128,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,001299.SZ,美能能源,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+35,inspect_esg_tables,197,92.361111,136,285,149,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00182.HK,CONCORD NE,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+36,inspect_esg_tables,198,92.361111,24,287,263,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002039.SZ,黔源电力,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+37,inspect_esg_tables,199,92.361111,27,369,342,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002056.SZ,横店东磁,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+38,inspect_esg_tables,200,92.361111,28,385,357,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00206.HK,CM-ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+39,inspect_esg_tables,201,92.361111,165,276,111,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002074.SZ,国轩高科,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+40,inspect_esg_tables,202,92.361111,196,307,111,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002090.SZ,金智科技,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+41,inspect_esg_tables,203,92.361111,121,327,206,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002276.SZ,万马股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+42,inspect_esg_tables,204,92.361111,174,359,185,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,00228.HK,CHINA ENERGY,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+43,inspect_esg_tables,205,92.361111,77,284,207,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002335.SZ,科华数据,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+44,inspect_esg_tables,207,92.361111,135,250,115,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002479.SZ,富春环保,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+45,inspect_esg_tables,208,92.361111,176,281,105,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002487.SZ,大金重工,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+46,inspect_esg_tables,209,92.361111,121,315,194,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002506.SZ,协鑫集成,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+47,inspect_esg_tables,210,92.361111,177,376,199,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002531.SZ,天顺风能,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+48,inspect_esg_tables,211,92.361111,149,436,287,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002608.SZ,江苏国信,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+49,inspect_esg_tables,212,92.361111,128,395,267,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002692.SZ,远程股份,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+50,inspect_esg_tables,214,92.361111,90,217,127,True,1.0,1.0,0.716667,1.0,0.944444,32,2.58,002709.SZ,天赐材料,Q_E_ENERGY_INTENSITY,综合能源消耗强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+51,inspect_esg_tables,461,85.177083,70,219,149,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00002.HK,CLP HOLDINGS,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+52,inspect_esg_tables,462,85.177083,48,355,307,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00003.HK,HK & CHINA GAS,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+53,inspect_esg_tables,463,85.177083,53,433,380,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00006.HK,POWER ASSETS,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+54,inspect_esg_tables,464,85.177083,108,290,182,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,000096.SZ,广聚能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+55,inspect_esg_tables,466,85.177083,193,488,295,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,000554.SZ,泰山石油,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+56,inspect_esg_tables,467,85.177083,151,413,262,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,000682.SZ,东方电子,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+57,inspect_esg_tables,468,85.177083,136,319,183,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,001208.SZ,华菱线缆,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+58,inspect_esg_tables,469,85.177083,122,258,136,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,001258.SZ,立新能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+59,inspect_esg_tables,470,85.177083,112,240,128,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,001299.SZ,美能能源,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+60,inspect_esg_tables,471,85.177083,136,285,149,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00182.HK,CONCORD NE,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+61,inspect_esg_tables,472,85.177083,24,287,263,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002039.SZ,黔源电力,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+62,inspect_esg_tables,473,85.177083,27,369,342,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002056.SZ,横店东磁,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+63,inspect_esg_tables,474,85.177083,28,385,357,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00206.HK,CM-ENERGY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+64,inspect_esg_tables,475,85.177083,165,276,111,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002074.SZ,国轩高科,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+65,inspect_esg_tables,476,85.177083,196,307,111,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002090.SZ,金智科技,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+66,inspect_esg_tables,477,85.177083,121,327,206,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002276.SZ,万马股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+67,inspect_esg_tables,478,85.177083,174,359,185,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,00228.HK,CHINA ENERGY,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+68,inspect_esg_tables,479,85.177083,77,284,207,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002335.SZ,科华数据,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+69,inspect_esg_tables,480,85.177083,135,250,115,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002479.SZ,富春环保,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+70,inspect_esg_tables,481,85.177083,176,281,105,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002487.SZ,大金重工,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+71,inspect_esg_tables,482,85.177083,121,315,194,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002506.SZ,协鑫集成,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+72,inspect_esg_tables,483,85.177083,177,376,199,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002531.SZ,天顺风能,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+73,inspect_esg_tables,484,85.177083,149,436,287,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002608.SZ,江苏国信,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+74,inspect_esg_tables,485,85.177083,128,395,267,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002692.SZ,远程股份,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+75,inspect_esg_tables,487,85.177083,90,217,127,True,1.0,1.0,0.424444,1.0,0.956597,25,1.528,002709.SZ,天赐材料,Q_E_SOLID_WASTE_INTENSITY,一般固体废物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+76,inspect_esg_tables,737,81.767361,70,219,149,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00002.HK,CLP HOLDINGS,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+77,inspect_esg_tables,738,81.767361,48,355,307,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00003.HK,HK & CHINA GAS,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+78,inspect_esg_tables,739,81.767361,53,433,380,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00006.HK,POWER ASSETS,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+79,inspect_esg_tables,740,81.767361,108,290,182,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,000096.SZ,广聚能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+80,inspect_esg_tables,743,81.767361,193,488,295,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,000554.SZ,泰山石油,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+81,inspect_esg_tables,744,81.767361,151,413,262,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,000682.SZ,东方电子,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+82,inspect_esg_tables,746,81.767361,136,319,183,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,001208.SZ,华菱线缆,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+83,inspect_esg_tables,747,81.767361,122,258,136,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,001258.SZ,立新能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+84,inspect_esg_tables,748,81.767361,112,240,128,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,001299.SZ,美能能源,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+85,inspect_esg_tables,749,81.767361,136,285,149,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00182.HK,CONCORD NE,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+86,inspect_esg_tables,750,81.767361,24,287,263,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002039.SZ,黔源电力,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+87,inspect_esg_tables,751,81.767361,27,369,342,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002056.SZ,横店东磁,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+88,inspect_esg_tables,752,81.767361,28,385,357,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00206.HK,CM-ENERGY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+89,inspect_esg_tables,753,81.767361,165,276,111,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002074.SZ,国轩高科,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+90,inspect_esg_tables,754,81.767361,196,307,111,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002090.SZ,金智科技,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+91,inspect_esg_tables,755,81.767361,121,327,206,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002276.SZ,万马股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+92,inspect_esg_tables,756,81.767361,174,359,185,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,00228.HK,CHINA ENERGY,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+93,inspect_esg_tables,757,81.767361,77,284,207,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002335.SZ,科华数据,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+94,inspect_esg_tables,759,81.767361,135,250,115,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002479.SZ,富春环保,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+95,inspect_esg_tables,760,81.767361,176,281,105,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002487.SZ,大金重工,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+96,inspect_esg_tables,761,81.767361,121,315,194,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002506.SZ,协鑫集成,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+97,inspect_esg_tables,762,81.767361,177,376,199,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002531.SZ,天顺风能,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+98,inspect_esg_tables,763,81.767361,149,436,287,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002608.SZ,江苏国信,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+99,inspect_esg_tables,764,81.767361,128,395,267,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002692.SZ,远程股份,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+100,inspect_esg_tables,766,81.767361,90,217,127,True,1.0,1.0,0.275556,1.0,0.987847,7,0.992,002709.SZ,天赐材料,Q_E_SO2_INTENSITY,二氧化硫排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+101,inspect_esg_tables,903,81.611111,70,219,149,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00002.HK,CLP HOLDINGS,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+102,inspect_esg_tables,904,81.611111,48,355,307,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00003.HK,HK & CHINA GAS,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+103,inspect_esg_tables,905,81.611111,53,433,380,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00006.HK,POWER ASSETS,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+104,inspect_esg_tables,906,81.611111,108,290,182,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,000096.SZ,广聚能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+105,inspect_esg_tables,909,81.611111,193,488,295,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,000554.SZ,泰山石油,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+106,inspect_esg_tables,910,81.611111,151,413,262,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,000682.SZ,东方电子,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+107,inspect_esg_tables,912,81.611111,136,319,183,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,001208.SZ,华菱线缆,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+108,inspect_esg_tables,913,81.611111,122,258,136,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,001258.SZ,立新能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+109,inspect_esg_tables,914,81.611111,112,240,128,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,001299.SZ,美能能源,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+110,inspect_esg_tables,915,81.611111,136,285,149,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00182.HK,CONCORD NE,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+111,inspect_esg_tables,916,81.611111,24,287,263,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002039.SZ,黔源电力,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+112,inspect_esg_tables,917,81.611111,27,369,342,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002056.SZ,横店东磁,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+113,inspect_esg_tables,918,81.611111,28,385,357,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00206.HK,CM-ENERGY,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+114,inspect_esg_tables,919,81.611111,165,276,111,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002074.SZ,国轩高科,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+115,inspect_esg_tables,920,81.611111,196,307,111,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002090.SZ,金智科技,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+116,inspect_esg_tables,921,81.611111,121,327,206,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002276.SZ,万马股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+117,inspect_esg_tables,922,81.611111,174,359,185,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,00228.HK,CHINA ENERGY,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+118,inspect_esg_tables,923,81.611111,77,284,207,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002335.SZ,科华数据,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+119,inspect_esg_tables,925,81.611111,135,250,115,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002479.SZ,富春环保,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+120,inspect_esg_tables,926,81.611111,176,281,105,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002487.SZ,大金重工,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+121,inspect_esg_tables,927,81.611111,121,315,194,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002506.SZ,协鑫集成,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+122,inspect_esg_tables,928,81.611111,177,376,199,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002531.SZ,天顺风能,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+123,inspect_esg_tables,929,81.611111,149,436,287,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002608.SZ,江苏国信,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+124,inspect_esg_tables,930,81.611111,128,395,267,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002692.SZ,远程股份,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+125,inspect_esg_tables,932,81.611111,90,217,127,True,1.0,1.0,0.275556,1.0,0.972222,16,0.992,002709.SZ,天赐材料,Q_E_NOX_INTENSITY,氮氧化物排放强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+126,inspect_esg_tables,1066,81.506944,70,219,149,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00002.HK,CLP HOLDINGS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+127,inspect_esg_tables,1067,81.506944,48,355,307,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00003.HK,HK & CHINA GAS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+128,inspect_esg_tables,1068,81.506944,53,433,380,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00006.HK,POWER ASSETS,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+129,inspect_esg_tables,1069,81.506944,108,290,182,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,000096.SZ,广聚能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+130,inspect_esg_tables,1072,81.506944,193,488,295,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,000554.SZ,泰山石油,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+131,inspect_esg_tables,1073,81.506944,151,413,262,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,000682.SZ,东方电子,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+132,inspect_esg_tables,1075,81.506944,136,319,183,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,001208.SZ,华菱线缆,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+133,inspect_esg_tables,1076,81.506944,122,258,136,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,001258.SZ,立新能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+134,inspect_esg_tables,1077,81.506944,112,240,128,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,001299.SZ,美能能源,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+135,inspect_esg_tables,1078,81.506944,136,285,149,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00182.HK,CONCORD NE,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+136,inspect_esg_tables,1079,81.506944,24,287,263,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002039.SZ,黔源电力,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+137,inspect_esg_tables,1080,81.506944,27,369,342,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002056.SZ,横店东磁,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+138,inspect_esg_tables,1081,81.506944,28,385,357,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00206.HK,CM-ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+139,inspect_esg_tables,1082,81.506944,165,276,111,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002074.SZ,国轩高科,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+140,inspect_esg_tables,1083,81.506944,196,307,111,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002090.SZ,金智科技,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+141,inspect_esg_tables,1084,81.506944,121,327,206,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002276.SZ,万马股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+142,inspect_esg_tables,1085,81.506944,174,359,185,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,00228.HK,CHINA ENERGY,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+143,inspect_esg_tables,1086,81.506944,77,284,207,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002335.SZ,科华数据,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+144,inspect_esg_tables,1088,81.506944,135,250,115,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002479.SZ,富春环保,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+145,inspect_esg_tables,1089,81.506944,176,281,105,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002487.SZ,大金重工,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+146,inspect_esg_tables,1090,81.506944,121,315,194,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002506.SZ,协鑫集成,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+147,inspect_esg_tables,1091,81.506944,177,376,199,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002531.SZ,天顺风能,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+148,inspect_esg_tables,1092,81.506944,149,436,287,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002608.SZ,江苏国信,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+149,inspect_esg_tables,1093,81.506944,128,395,267,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002692.SZ,远程股份,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+150,inspect_esg_tables,1094,81.506944,90,217,127,True,1.0,1.0,0.275556,1.0,0.961806,22,0.992,002709.SZ,天赐材料,Q_E_WATER_INTENSITY,水资源使用强度,E,True,0,,,0,missing_candidate,extend_extraction_rules,0
+151,inspect_social_disclosures,1223,81.423611,70,219,149,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00002.HK,CLP HOLDINGS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+152,inspect_social_disclosures,1224,81.423611,48,355,307,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00003.HK,HK & CHINA GAS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+153,inspect_social_disclosures,1225,81.423611,53,433,380,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00006.HK,POWER ASSETS,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+154,inspect_social_disclosures,1226,81.423611,108,290,182,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,000096.SZ,广聚能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+155,inspect_social_disclosures,1228,81.423611,193,488,295,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,000554.SZ,泰山石油,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+156,inspect_social_disclosures,1229,81.423611,151,413,262,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,000682.SZ,东方电子,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+157,inspect_social_disclosures,1230,81.423611,136,319,183,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,001208.SZ,华菱线缆,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+158,inspect_social_disclosures,1231,81.423611,122,258,136,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,001258.SZ,立新能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+159,inspect_social_disclosures,1232,81.423611,112,240,128,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,001299.SZ,美能能源,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+160,inspect_social_disclosures,1233,81.423611,136,285,149,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00182.HK,CONCORD NE,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+161,inspect_social_disclosures,1234,81.423611,24,287,263,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002039.SZ,黔源电力,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+162,inspect_social_disclosures,1235,81.423611,27,369,342,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002056.SZ,横店东磁,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+163,inspect_social_disclosures,1236,81.423611,28,385,357,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00206.HK,CM-ENERGY,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+164,inspect_social_disclosures,1237,81.423611,165,276,111,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002074.SZ,国轩高科,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+165,inspect_social_disclosures,1238,81.423611,196,307,111,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002090.SZ,金智科技,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+166,inspect_social_disclosures,1239,81.423611,121,327,206,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002276.SZ,万马股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+167,inspect_social_disclosures,1240,81.423611,174,359,185,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,00228.HK,CHINA ENERGY,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+168,inspect_social_disclosures,1241,81.423611,77,284,207,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002335.SZ,科华数据,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+169,inspect_social_disclosures,1243,81.423611,135,250,115,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002479.SZ,富春环保,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+170,inspect_social_disclosures,1244,81.423611,176,281,105,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002487.SZ,大金重工,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+171,inspect_social_disclosures,1245,81.423611,177,376,199,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002531.SZ,天顺风能,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+172,inspect_social_disclosures,1246,81.423611,149,436,287,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002608.SZ,江苏国信,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+173,inspect_social_disclosures,1247,81.423611,128,395,267,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002692.SZ,远程股份,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+174,inspect_social_disclosures,1249,81.423611,90,217,127,True,1.0,1.0,0.277778,1.0,0.947917,30,1.0,002709.SZ,天赐材料,Q_S_SAFETY_INVEST_RATE,安全生产投入占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+175,inspect_social_disclosures,1643,76.753472,70,219,149,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00002.HK,CLP HOLDINGS,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+176,inspect_social_disclosures,1644,76.753472,48,355,307,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00003.HK,HK & CHINA GAS,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+177,inspect_social_disclosures,1645,76.753472,53,433,380,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00006.HK,POWER ASSETS,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+178,inspect_social_disclosures,1646,76.753472,136,285,149,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00182.HK,CONCORD NE,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+179,inspect_social_disclosures,1647,76.753472,28,385,357,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00206.HK,CM-ENERGY,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+180,inspect_social_disclosures,1648,76.753472,174,359,185,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,00228.HK,CHINA ENERGY,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+181,inspect_social_disclosures,1650,76.753472,121,315,194,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,002506.SZ,协鑫集成,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+182,inspect_social_disclosures,1651,76.753472,177,376,199,True,1.0,1.0,0.333333,1.0,0.342014,379,1.2,002531.SZ,天顺风能,Q_S_DIVIDEND_PER_SHARE,现金分红,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+183,inspect_social_disclosures,1850,75.052083,70,219,149,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00002.HK,CLP HOLDINGS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+184,inspect_social_disclosures,1851,75.052083,48,355,307,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00003.HK,HK & CHINA GAS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+185,inspect_social_disclosures,1852,75.052083,53,433,380,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00006.HK,POWER ASSETS,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+186,inspect_social_disclosures,1853,75.052083,193,488,295,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,000554.SZ,泰山石油,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+187,inspect_social_disclosures,1854,75.052083,136,285,149,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00182.HK,CONCORD NE,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+188,inspect_social_disclosures,1855,75.052083,24,287,263,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,002039.SZ,黔源电力,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+189,inspect_social_disclosures,1856,75.052083,28,385,357,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00206.HK,CM-ENERGY,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+190,inspect_social_disclosures,1857,75.052083,174,359,185,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,00228.HK,CHINA ENERGY,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+191,inspect_social_disclosures,1858,75.052083,121,315,194,True,1.0,1.0,0.333333,1.0,0.171875,477,1.2,002506.SZ,协鑫集成,Q_S_RD_RATE,研发费用占比,S,True,0,,,0,missing_candidate,extend_extraction_rules,0
+192,rerun_financial_derivation,1999,73.975694,48,355,307,True,1.0,1.0,0.311111,1.0,0.119792,507,1.12,00003.HK,HK & CHINA GAS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
+193,rerun_financial_derivation,2000,73.975694,53,433,380,True,1.0,1.0,0.311111,1.0,0.119792,507,1.12,00006.HK,POWER ASSETS,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
+194,rerun_financial_derivation,2002,73.975694,121,315,194,True,1.0,1.0,0.311111,1.0,0.119792,507,1.12,002506.SZ,协鑫集成,Q_G_DEBT_ASSET_RATE,资产负债率,G,True,0,,,0,missing_candidate,extend_extraction_rules,0
+195,inspect_esg_tables,2240,71.979167,108,290,182,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,000096.SZ,广聚能源,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+196,inspect_esg_tables,2243,71.979167,151,413,262,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,000682.SZ,东方电子,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+197,inspect_esg_tables,2245,71.979167,136,319,183,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,001208.SZ,华菱线缆,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+198,inspect_esg_tables,2246,71.979167,122,258,136,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,001258.SZ,立新能源,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+199,inspect_esg_tables,2247,71.979167,112,240,128,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,001299.SZ,美能能源,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+200,inspect_esg_tables,2248,71.979167,24,287,263,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002039.SZ,黔源电力,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+201,inspect_esg_tables,2249,71.979167,27,369,342,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002056.SZ,横店东磁,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+202,inspect_esg_tables,2250,71.979167,28,385,357,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,00206.HK,CM-ENERGY,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+203,inspect_esg_tables,2251,71.979167,165,276,111,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002074.SZ,国轩高科,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+204,inspect_esg_tables,2252,71.979167,196,307,111,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002090.SZ,金智科技,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+205,inspect_esg_tables,2253,71.979167,121,327,206,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002276.SZ,万马股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+206,inspect_esg_tables,2254,71.979167,174,359,185,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,00228.HK,CHINA ENERGY,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+207,inspect_esg_tables,2255,71.979167,77,284,207,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002335.SZ,科华数据,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+208,inspect_esg_tables,2257,71.979167,135,250,115,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002479.SZ,富春环保,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+209,inspect_esg_tables,2258,71.979167,176,281,105,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002487.SZ,大金重工,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+210,inspect_esg_tables,2259,71.979167,177,376,199,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002531.SZ,天顺风能,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+211,inspect_esg_tables,2260,71.979167,149,436,287,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002608.SZ,江苏国信,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+212,inspect_esg_tables,2261,71.979167,128,395,267,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002692.SZ,远程股份,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+213,inspect_esg_tables,2262,71.979167,90,217,127,True,1.0,1.0,0.5,0.0,0.947917,30,1.8,002709.SZ,天赐材料,Q_E_GHG_REDUCTION_RATE,温室气体减排率,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+214,inspect_esg_tables,2535,70.420139,70,219,149,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,00002.HK,CLP HOLDINGS,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+215,inspect_esg_tables,2538,70.420139,108,290,182,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,000096.SZ,广聚能源,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+216,inspect_esg_tables,2541,70.420139,193,488,295,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,000554.SZ,泰山石油,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+217,inspect_esg_tables,2542,70.420139,151,413,262,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,000682.SZ,东方电子,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+218,inspect_esg_tables,2544,70.420139,136,319,183,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,001208.SZ,华菱线缆,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+219,inspect_esg_tables,2545,70.420139,122,258,136,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,001258.SZ,立新能源,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+220,inspect_esg_tables,2546,70.420139,112,240,128,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,001299.SZ,美能能源,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+221,inspect_esg_tables,2547,70.420139,136,285,149,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,00182.HK,CONCORD NE,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+222,inspect_esg_tables,2548,70.420139,24,287,263,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002039.SZ,黔源电力,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+223,inspect_esg_tables,2549,70.420139,27,369,342,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002056.SZ,横店东磁,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+224,inspect_esg_tables,2551,70.420139,165,276,111,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002074.SZ,国轩高科,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+225,inspect_esg_tables,2552,70.420139,196,307,111,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002090.SZ,金智科技,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+226,inspect_esg_tables,2553,70.420139,121,327,206,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002276.SZ,万马股份,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+227,inspect_esg_tables,2555,70.420139,77,284,207,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002335.SZ,科华数据,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+228,inspect_esg_tables,2557,70.420139,135,250,115,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002479.SZ,富春环保,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+229,inspect_esg_tables,2558,70.420139,176,281,105,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002487.SZ,大金重工,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+230,inspect_esg_tables,2559,70.420139,121,315,194,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002506.SZ,协鑫集成,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+231,inspect_esg_tables,2560,70.420139,177,376,199,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002531.SZ,天顺风能,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+232,inspect_esg_tables,2561,70.420139,149,436,287,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002608.SZ,江苏国信,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+233,inspect_esg_tables,2562,70.420139,128,395,267,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002692.SZ,远程股份,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+234,inspect_esg_tables,2564,70.420139,90,217,127,True,1.0,1.0,0.424444,0.0,0.980903,11,1.528,002709.SZ,天赐材料,Q_E_HAZ_WASTE_INTENSITY,危险固体废物排放强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+235,inspect_esg_tables,3025,67.065972,108,290,182,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,000096.SZ,广聚能源,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+236,inspect_esg_tables,3028,67.065972,193,488,295,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,000554.SZ,泰山石油,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+237,inspect_esg_tables,3029,67.065972,151,413,262,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,000682.SZ,东方电子,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+238,inspect_esg_tables,3031,67.065972,136,319,183,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,001208.SZ,华菱线缆,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+239,inspect_esg_tables,3032,67.065972,122,258,136,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,001258.SZ,立新能源,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+240,inspect_esg_tables,3033,67.065972,112,240,128,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,001299.SZ,美能能源,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+241,inspect_esg_tables,3036,67.065972,27,369,342,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002056.SZ,横店东磁,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+242,inspect_esg_tables,3038,67.065972,165,276,111,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002074.SZ,国轩高科,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+243,inspect_esg_tables,3039,67.065972,196,307,111,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002090.SZ,金智科技,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+244,inspect_esg_tables,3040,67.065972,121,327,206,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002276.SZ,万马股份,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+245,inspect_esg_tables,3042,67.065972,77,284,207,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002335.SZ,科华数据,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+246,inspect_esg_tables,3044,67.065972,135,250,115,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002479.SZ,富春环保,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+247,inspect_esg_tables,3045,67.065972,176,281,105,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002487.SZ,大金重工,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+248,inspect_esg_tables,3048,67.065972,149,436,287,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002608.SZ,江苏国信,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+249,inspect_esg_tables,3049,67.065972,128,395,267,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002692.SZ,远程股份,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2
+250,inspect_esg_tables,3051,67.065972,90,217,127,True,1.0,1.0,0.283333,0.0,0.998264,1,1.02,002709.SZ,天赐材料,Q_E_CLEAN_ENERGY_INTENSITY,绿色/可再生/清洁能源生产/使用强度,E,False,0,,,0,missing_candidate,extend_extraction_rules,2

@@ -807,11 +807,13 @@ PYTHONPATH=src python3 -m aegis_esg.cli benchmark-cache-change \
 ```bash
 PYTHONPATH=src python3 -m aegis_esg.cli prepare-release-authorization FROZEN.csv \
   --missing-strategy indicator_neutral_v1 \
+  --completion-report output/audit/project_completion_final.json \
   --output data/review/release_authorization.json
 ```
 
-模板必须由不同真实人员分别以`methodology_owner`和`data_reviewer`角色填写姓名、带时区时间及理由。
-正式评分还必须传入`--release-manifest`；空白、机器身份、研究算法版本或任一Hash不匹配都会拒绝。
+模板必须绑定六道完成门禁报告，并由不同真实人员分别以`methodology_owner`和`data_reviewer`角色填写
+姓名、带时区时间及理由。正式评分还必须传入`--release-manifest`和`--completion-report`；空白、机器
+身份、研究算法版本、门禁未完成或任一Hash不匹配都会拒绝。
 
 全自动定性预排名观测只在研究域生成：
 

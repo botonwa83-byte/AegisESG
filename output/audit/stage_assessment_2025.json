@@ -1,0 +1,13 @@
+{
+  "orchestrator_version": "stage-orchestrator-v1",
+  "status": "blocked_external",
+  "next_stage": "M3",
+  "gate": "universe",
+  "external_input_required": "完整632主体表、行业证据和A/H审核",
+  "blocker": "冻结公司主体、行业证据及A/H映射",
+  "automatic_actions": [
+    "等待登记的真实外部输入",
+    "输入到达后重新运行本命令并执行该阶段校验"
+  ],
+  "publishable": false
+}

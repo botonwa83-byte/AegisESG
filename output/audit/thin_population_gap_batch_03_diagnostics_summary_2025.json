@@ -1,0 +1,19 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v6",
+  "task_count": 600,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 40,
+    "disclosed_foreign_currency_denominator": 5,
+    "disclosed_non_revenue_denominator": 21,
+    "likely_methodology_compatible_rule_gap": 3,
+    "no_matching_disclosure_in_text": 53,
+    "possible_clean_energy_revenue_closure": 1,
+    "possible_hazardous_waste_revenue_closure": 8,
+    "possible_total_plus_rmb_revenue_derivation": 6,
+    "related_disclosure_without_compatible_intensity": 72,
+    "related_fields_incomplete": 191,
+    "requires_specialized_environmental_diagnostic": 200
+  },
+  "scoring_authorized": false,
+  "complete": true
+}

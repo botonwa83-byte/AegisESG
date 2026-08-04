@@ -162,6 +162,10 @@ def plan_candidate_coverage(
             ))
     population = Counter(task.indicator_code for task in tasks if task.candidate_count)
     zero_coverage = [item.code for item in quantitative if population[item.code] == 0]
+    minimum_population_threshold = 20
+    below_minimum = [
+        item.code for item in quantitative if population[item.code] < minimum_population_threshold
+    ]
     summary = {
         "company_count": len(expected),
         "quantitative_indicator_count": len(quantitative),
@@ -175,6 +179,10 @@ def plan_candidate_coverage(
         "indicator_population": {item.code: population[item.code] for item in quantitative},
         "zero_coverage_indicator_count": len(zero_coverage),
         "zero_coverage_indicator_codes": zero_coverage,
+        "minimum_population_threshold": minimum_population_threshold,
+        "below_minimum_population_indicator_count": len(below_minimum),
+        "below_minimum_population_indicator_codes": below_minimum,
+        "minimum_population_gate_passed": not below_minimum,
         "complete": all(task.candidate_count > 0 for task in tasks),
         "applicable": False,
     }

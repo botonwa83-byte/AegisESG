@@ -34,6 +34,21 @@ def audit_project_completion(
     qualitative_candidates = int(qualitative.get("review_packet_count", 0))
     qualitative_confirmed = int(qualitative.get("auto_confirmed_count", 0))
     quantitative_manual = int(resolution.get("manual_required_group_count", 0))
+    quantitative_exhaustive = quantitative_total > 0 and quantitative_candidate == quantitative_total
+    quantitative_risk_evidence = {
+        "all_indicators_have_population": int(quantitative.get("zero_coverage_indicator_count", -1)) == 0,
+        "minimum_population_gate_passed": quantitative.get("minimum_population_gate_passed") is True,
+        "sampling_accuracy_passed": quantitative.get("sampling_accuracy_passed") is True,
+    }
+    quantitative_risk_complete = all(quantitative_risk_evidence.values())
+    qualitative_exhaustive = qualitative_total > 0 and qualitative_confirmed == qualitative_total
+    qualitative_risk_evidence = {
+        "classification_thresholds_validated": qualitative.get("classification_thresholds_validated") is True,
+        "sampling_accuracy_passed": qualitative.get("sampling_accuracy_passed") is True,
+        "high_risk_open_count_zero": int(qualitative.get("high_risk_open_count", -1)) == 0,
+        "open_arbitration_count_zero": int(qualitative.get("open_arbitration_count", -1)) == 0,
+    }
+    qualitative_risk_complete = all(qualitative_risk_evidence.values())
 
     gates = {
         "universe": {
@@ -47,18 +62,22 @@ def audit_project_completion(
             "blocker": "闭环每家公司的目标年度年报状态",
         },
         "quantitative": {
-            "complete": quantitative_total > 0 and quantitative_candidate == quantitative_total,
+            "complete": quantitative_exhaustive or quantitative_risk_complete,
             "current": quantitative_candidate, "target": quantitative_total,
-            "blocker": "补齐候选或将真实空窗签名为缺失/不适用",
+            "completion_basis": "exhaustive" if quantitative_exhaustive else "risk_gate",
+            "risk_evidence": quantitative_risk_evidence,
+            "blocker": "验证最低统计人口和自动规则抽样准确率；真实空窗由冻结缺失策略处理",
         },
         "qualitative": {
-            "complete": qualitative_total > 0 and qualitative_confirmed == qualitative_total,
+            "complete": qualitative_exhaustive or qualitative_risk_complete,
             "current": qualitative_confirmed, "candidate": qualitative_candidates,
             "target": qualitative_total,
-            "blocker": "完成定性证据判断、双签与必要仲裁",
+            "completion_basis": "exhaustive" if qualitative_exhaustive else "risk_gate",
+            "risk_evidence": qualitative_risk_evidence,
+            "blocker": "用真实标注验证分类阈值和抽样准确率，并清零高风险审核与仲裁",
         },
         "review": {
-            "complete": quantitative_manual == 0 and qualitative_confirmed == qualitative_total,
+            "complete": quantitative_manual == 0 and (qualitative_exhaustive or qualitative_risk_complete),
             "quantitative_manual_groups": quantitative_manual,
             "qualitative_unconfirmed_groups": max(qualitative_total - qualitative_confirmed, 0),
             "blocker": "由真实审核人完成签名，系统不得代签",
@@ -72,6 +91,7 @@ def audit_project_completion(
     }
     completed = sum(item["complete"] for item in gates.values())
     return {
+        "policy_version": "project-completion-risk-v2",
         "expected_company_count": expected_companies,
         "completed_gate_count": completed,
         "gate_count": len(gates),

@@ -11,7 +11,8 @@ _SUBJECTS = {
     "Q_E_GHG_INTENSITY": r"(?:GHG|greenhouse\s+gas|温室气体|碳排放)",
     "Q_E_ENERGY_INTENSITY": r"(?:energy|能源|综合能耗)",
     "Q_E_SOLID_WASTE_INTENSITY": r"(?:non[- ]hazardous\s+waste|solid\s+waste|一般固体废物|固体废物)",
-    "Q_E_SO2_INTENSITY": r"(?:SOx?|sulphur\s+dioxide|二氧化硫)",
+    # The fixed methodology names SO2, not the broader SOx family.
+    "Q_E_SO2_INTENSITY": r"(?:SO2|sulphur\s+dioxide|sulfur\s+dioxide|二氧化硫)",
     "Q_E_NOX_INTENSITY": r"(?:NOx|nitrogen\s+oxides?|氮氧化物)",
     "Q_E_WATER_INTENSITY": r"(?:water\s+(?:consumption|withdrawal)|耗水|用水)",
 }
@@ -25,6 +26,32 @@ _RMB_REVENUE_DENOMINATOR = re.compile(
     re.I,
 )
 _NON_REVENUE = re.compile(r"(?:production|output|product|MWh|kWh|GJ|tonne\s+product|产量|发电量|产品)", re.I)
+_PHYSICAL_TOTALS = {
+    "Q_E_GHG_INTENSITY": re.compile(
+        r"(?:温室气体(?:排放)?总量|碳排放总量|total\s+(?:GHG|greenhouse\s+gas)\s+emissions?)"
+        r"[^。；;\n]{0,120}?[\d,]+(?:\.\d+)?\s*(?:吨|千克|公斤|kg|tonnes?|tCO2e)", re.I,
+    ),
+    "Q_E_ENERGY_INTENSITY": re.compile(
+        r"(?:能源|能耗)(?:消耗|消费)?总量[^。；;\n]{0,120}?[\d,]+(?:\.\d+)?\s*"
+        r"(?:吨标准煤|tce|千瓦时|兆瓦时|kWh|MWh|吉焦|GJ)", re.I,
+    ),
+    "Q_E_SOLID_WASTE_INTENSITY": re.compile(
+        r"(?:一般固体废物|固体废物|non[- ]hazardous\s+waste|solid\s+waste)(?:产生|排放|处置)?(?:总)?量?"
+        r"[^。；;\n]{0,100}?[\d,]+(?:\.\d+)?\s*(?:吨|千克|公斤|kg|tonnes?)", re.I,
+    ),
+    "Q_E_SO2_INTENSITY": re.compile(
+        r"(?:SO2|sulphur\s+dioxide|sulfur\s+dioxide|二氧化硫)(?:排放)?(?:总)?量?[^。；;\n]{0,100}?"
+        r"[\d,]+(?:\.\d+)?\s*(?:吨|千克|公斤|kg|tonnes?)", re.I,
+    ),
+    "Q_E_NOX_INTENSITY": re.compile(
+        r"(?:NOx|nitrogen\s+oxides?|氮氧化物)(?:排放)?(?:总)?量?[^。；;\n]{0,100}?"
+        r"[\d,]+(?:\.\d+)?\s*(?:吨|千克|公斤|kg|tonnes?)", re.I,
+    ),
+    "Q_E_WATER_INTENSITY": re.compile(
+        r"(?:耗水|用水|water\s+(?:consumption|withdrawal))(?:总)?量?[^。；;\n]{0,100}?"
+        r"[\d,]+(?:\.\d+)?\s*(?:立方米|吨|m[³3]|tonnes?)", re.I,
+    ),
+}
 
 
 def diagnose_quantitative_gap_batch(
@@ -62,7 +89,7 @@ def diagnose_quantitative_gap_batch(
             "scoring_authorized": False,
         })
     return output, {
-        "policy_version": "quantitative-gap-diagnostic-v2", "task_count": len(output),
+        "policy_version": "quantitative-gap-diagnostic-v6", "task_count": len(output),
         "category_counts": dict(sorted(counts.items())), "scoring_authorized": False,
         "complete": True,
     }
@@ -92,24 +119,70 @@ def _classify(indicator_code: str, text: str) -> tuple[str, str]:
     if total:
         context = text[max(0, total.start() - 150):total.end() + 350]
         excerpt = re.sub(r"\s+", " ", context).strip()[:500]
-        if _RMB.search(text) and re.search(r"(?:revenue|营业收入)", text, re.I):
-            return "possible_total_plus_rmb_revenue_derivation", excerpt
+        physical = _PHYSICAL_TOTALS.get(indicator_code)
+        physical_match = physical.search(text) if physical else None
+        rmb_revenue = (
+            _RMB.search(text) and re.search(r"(?:revenue|营业收入)", text, re.I)
+        ) or re.search(r"营业收入[^。；;\n]{0,16}(?:人民币)?元", text)
+        if physical_match and rmb_revenue:
+            physical_context = text[max(0, physical_match.start() - 120):physical_match.end() + 180]
+            if re.search(
+                r"(?:核算|统计|披露|报告)(?:边界|范围)[^。；;\n]{0,80}(?:基地|子公司|场所|sites?|facilit(?:y|ies))",
+                physical_context, re.I,
+            ):
+                excerpt = re.sub(r"\s+", " ", physical_context).strip()[:500]
+                return "disclosed_scope_mismatch_requires_review", excerpt
+            if not re.search(
+                r"(?:累计|减少|减排|避免|交易|配额|目标|计划|预计|reduction|saving|avoided|capacity)",
+                physical_context, re.I,
+            ):
+                excerpt = re.sub(r"\s+", " ", physical_context).strip()[:500]
+                return "possible_total_plus_rmb_revenue_derivation", excerpt
         return "related_disclosure_without_compatible_intensity", excerpt
     return "no_matching_disclosure_in_text", ""
 
 
 def _classify_specialized(indicator_code: str, text: str) -> tuple[str, str] | None:
+    if indicator_code == "Q_E_ALTERNATIVE_WATER_RATE":
+        subject = r"(?:再生水|回用水|中水|循环水|替代水源|recycled\s+water|reused\s+water|alternative\s+water)"
+        direct = re.search(
+            rf"(?:{subject})[^。；;\n]{{0,100}}?(?:占比|比例|rate|percentage)"
+            rf"[^。；;\n]{{0,60}}?[\d,]+(?:\.\d+)?\s*%"
+            rf"|(?:占比|比例|rate|percentage)[^。；;\n]{{0,80}}?(?:{subject})"
+            rf"[^。；;\n]{{0,60}}?[\d,]+(?:\.\d+)?\s*%",
+            text, re.I,
+        )
+        if direct:
+            return "possible_direct_alternative_water_rate", re.sub(r"\s+", " ", direct.group(0)).strip()[:500]
+        numerator = re.search(
+            rf"(?:{subject})(?:使用|用|消耗|取用|量|consumption|used|use)?"
+            rf"[^。；;\n]{{0,100}}?[\d,]+(?:\.\d+)?\s*(?:立方米|吨|m[³3]|tonnes?)",
+            text, re.I,
+        )
+        denominator = re.search(
+            r"(?:总用水量|用水总量|总耗水量|total\s+water\s+(?:consumption|use|withdrawal))"
+            r"[^。；;\n]{0,100}?[\d,]+(?:\.\d+)?\s*(?:立方米|吨|m[³3]|tonnes?)",
+            text, re.I,
+        )
+        if numerator and denominator:
+            start = min(numerator.start(), denominator.start())
+            return "possible_alternative_water_formula_closure", re.sub(r"\s+", " ", text[start:start + 500]).strip()
+        return "related_fields_incomplete", ""
     patterns = {
         "Q_G_DEBT_ASSET_RATE": (
             r"(?:资产总计|Total\s+assets)", r"(?:负债合计|Total\s+liabilities)",
             "possible_balance_sheet_formula_closure",
         ),
         "Q_S_RD_RATE": (
-            r"(?:研发(?:投入|费用)|R&D\s+(?:investment|expenses?))", r"(?:营业收入|revenue)",
+            r"(?:研发(?:投入|费用)|R&D\s+(?:investment|expenses?))"
+            r"[^。；;\n]{0,160}[\d,]+(?:\.\d+)?\s*(?:元|万元|百万元|RMB|CNY|HKD|HK\$|US\$)",
+            r"(?:营业收入|revenue)[^。；;\n]{0,160}[\d,]+(?:\.\d+)?",
             "possible_rd_revenue_formula_closure",
         ),
         "Q_S_SAFETY_INVEST_RATE": (
-            r"(?:安全生产投入|work\s+safety\s+investment|safety\s+investment)", r"(?:营业收入|revenue)",
+            r"(?:安全生产投入|work\s+safety\s+investment|safety\s+investment)"
+            r"[^。；;\n]{0,160}[\d,]+(?:\.\d+)?\s*(?:元|万元|百万元|RMB|CNY|HKD|HK\$|US\$)",
+            r"(?:营业收入|revenue)[^。；;\n]{0,160}[\d,]+(?:\.\d+)?",
             "possible_safety_revenue_formula_closure",
         ),
         "Q_E_GHG_REDUCTION_RATE": (

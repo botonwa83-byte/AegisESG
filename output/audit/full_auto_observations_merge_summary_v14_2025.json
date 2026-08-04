@@ -1,0 +1,16 @@
+{
+  "input_files": [
+    {
+      "path": "data/review/all_markets_indicator_confirmed_v16_2025.csv",
+      "observation_count": 7940
+    },
+    {
+      "path": "output/research/2025/qualitative_observations_v2.csv",
+      "observation_count": 26316
+    }
+  ],
+  "merged_observation_count": 34256,
+  "company_count": 612,
+  "duplicate_conflicts": 0,
+  "publishable": false
+}

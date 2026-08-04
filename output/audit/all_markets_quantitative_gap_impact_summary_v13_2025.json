@@ -1,0 +1,13 @@
+{
+  "policy_version": "quantitative-gap-rank-impact-v1",
+  "top_n_boundary": 200,
+  "gap_count": 14575,
+  "excluded_company_codes": [
+    "00702.HK",
+    "01101.HK"
+  ],
+  "crosses_boundary_count": 4864,
+  "high_impact_count": 1941,
+  "key_indicator_gap_count": 4567,
+  "applicable": true
+}

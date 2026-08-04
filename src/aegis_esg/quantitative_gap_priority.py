@@ -76,6 +76,52 @@ def write_quantitative_gap_priority(output_path: str | Path, summary_path: str |
     summary_output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def build_thin_population_gap_batch(
+    rows_path: str | Path, minimum_population: int = 20, per_indicator: int = 25,
+) -> tuple[list[dict], dict]:
+    """Select a balanced, reproducible diagnostic batch for indicators below the population gate."""
+    if minimum_population <= 0 or per_indicator <= 0:
+        raise ValueError("最低人口和每指标任务数必须大于0")
+    with Path(rows_path).open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    populations: dict[str, int] = {}
+    for row in rows:
+        population = int(row["indicator_population"])
+        populations[row["indicator_code"]] = population
+        if population < minimum_population:
+            grouped[row["indicator_code"]].append(row)
+    selected = []
+    for indicator_code in sorted(grouped):
+        items = sorted(
+            grouped[indicator_code],
+            key=lambda item: (int(item["impact_rank"]), item["company_code"]),
+        )[:per_indicator]
+        for item in items:
+            selected.append({
+                "thin_batch_rank": 0,
+                "population_deficit": minimum_population - populations[indicator_code],
+                **item,
+            })
+    selected.sort(key=lambda item: (
+        -int(item["population_deficit"]), int(item["impact_rank"]),
+        item["indicator_code"], item["company_code"],
+    ))
+    for index, item in enumerate(selected, 1):
+        item["thin_batch_rank"] = index
+    thin_codes = sorted(grouped)
+    return selected, {
+        "policy_version": "thin-population-gap-batch-v1",
+        "minimum_population_threshold": minimum_population,
+        "per_indicator_limit": per_indicator,
+        "thin_indicator_count": len(thin_codes),
+        "thin_indicator_codes": thin_codes,
+        "selected_task_count": len(selected),
+        "selected_counts": dict(sorted(Counter(item["indicator_code"] for item in selected).items())),
+        "scoring_authorized": False,
+    }
+
+
 def build_quantitative_gap_batch(rows_path: str | Path, company_limit: int = 25,
                                  tasks_per_company: int = 10) -> tuple[list[dict], list[dict], dict]:
     with Path(rows_path).open(encoding="utf-8-sig", newline="") as stream:

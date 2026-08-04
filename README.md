@@ -86,7 +86,7 @@ PYTHONPATH=src python3 -m aegis_esg.cli plan-review-tiers \
 ```
 
 该命令区分现行策略可自动确认、冲突强制签名、一致多候选抽查和单候选抽查，不修改候选状态。
-当前`public-disclosure-v4`还要求新指标同时通过官方报告类型、证据前缀和置信度门槛。可将结果
+当前`public-disclosure-v6`还要求新指标同时通过官方报告类型、严格证据前缀和置信度门槛。可将结果
 输出到明确的预览文件，供正式批次冻结前核验：
 
 ```bash
@@ -184,6 +184,15 @@ PYTHONPATH=src python3 -m aegis_esg.cli collect-esg-qualitative-evidence \
 
 从当前状态推进到正式发布的里程碑、依赖和逐阶段验收标准见
 [开发完成路线图](docs/development-plan.md)。项目进度以六道机器门禁为准，不以候选数量替代正式确认。
+工程能力与正式发布差距的逐项状态见
+[工程完工与正式发布差距审计](docs/engineering-completion-audit.md)。
+可用`advance-stage`按门禁自动判定下一研发阶段：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli advance-stage \
+  output/audit/project_completion_v16_2025.json \
+  --output output/audit/stage_assessment_2025.json
+```
 拟申请发明专利的核心技术方案、模块化申请方向、商业秘密边界和对照实验见
 [发明专利技术方案与研发取证计划](docs/patent-strategy.md)。
 

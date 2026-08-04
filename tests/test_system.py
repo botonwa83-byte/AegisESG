@@ -13,6 +13,11 @@ from pathlib import Path
 
 from aegis_esg.io import read_observations, write_observations, write_ranking_csv
 from aegis_esg.methodology import load_methodology
+from aegis_esg.methodology_review import (
+    evaluate_thin_population_methodology_review,
+    prepare_thin_population_methodology_review,
+    write_methodology_review_packet,
+)
 from aegis_esg.models import Direction, Indicator, IndicatorKind, Observation, ValueStatus
 from aegis_esg.scoring import MissingStrategy, PopulationStats, ScoringEngine
 from aegis_esg.ranking_analysis import analyze_missing_sensitivity, validate_ranking_mode
@@ -26,7 +31,7 @@ from aegis_esg.financial import FinancialFact, derive_financial_observations
 from aegis_esg.gap_priority import prioritize_qualitative_gaps
 from aegis_esg.gap_diagnostics import _classify as classify_quantitative_gap
 from aegis_esg.embedded_coverage import recognize_embedded_esg_coverage
-from aegis_esg.quantitative_gap_priority import prioritize_quantitative_gaps
+from aegis_esg.quantitative_gap_priority import build_thin_population_gap_batch, prioritize_quantitative_gaps
 from aegis_esg.esg_disclosure import (
     QualitativeEvidenceCandidate, collect_annual_qualitative_evidence,
     collect_esg_qualitative_evidence, scan_annual_esg_disclosure,
@@ -34,6 +39,10 @@ from aegis_esg.esg_disclosure import (
 from aegis_esg.evidence_graph import build_evidence_constraint_graph
 from aegis_esg.evidence_experiment import (
     evaluate_e1_validation, prepare_e1_validation_sample, write_e1_validation_sample,
+)
+from aegis_esg.quantitative_validation import (
+    apply_quantitative_validation, evaluate_quantitative_validation,
+    prepare_quantitative_validation_sample, write_quantitative_validation_sample,
 )
 from aegis_esg.qualitative_review import (
     QualitativeReviewAudit, QualitativeReviewDecision, apply_qualitative_review_decisions,
@@ -95,6 +104,70 @@ class MethodologyTests(unittest.TestCase):
         self.assertAlmostEqual(100, sum(i.weight for i in self.methodology.qualitative))
         self.assertEqual(10, sum(i.key_indicator for i in self.methodology.quantitative))
 
+    def test_thin_methodology_review_freezes_inputs_and_requires_real_signature(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            summary_path = root / "summary.json"
+            diagnostics_path = root / "diagnostics.csv"
+            packet_path = root / "packet.csv"
+            manifest_path = root / "manifest.json"
+            summary_path.write_text(json.dumps({
+                "minimum_population_threshold": 20,
+                "below_minimum_population_indicator_codes": ["Q_E_SO2_INTENSITY"],
+                "indicator_population": {"Q_E_SO2_INTENSITY": 13},
+            }), encoding="utf-8")
+            with diagnostics_path.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=["indicator_code", "diagnostic_category"])
+                writer.writeheader()
+                writer.writerow({"indicator_code": "Q_E_SO2_INTENSITY", "diagnostic_category": "no_matching_disclosure_in_text"})
+            rows, manifest = prepare_thin_population_methodology_review(summary_path, diagnostics_path)
+            self.assertEqual(7, rows[0]["population_deficit"])
+            self.assertFalse(manifest["applicable"])
+            write_methodology_review_packet(packet_path, manifest_path, rows, manifest)
+            with self.assertRaisesRegex(ValueError, "决定无效"):
+                evaluate_thin_population_methodology_review(packet_path, manifest_path)
+            rows[0].update({
+                "decision": "retain_threshold_with_thin_sample_warning",
+                "reviewer": "方法论负责人甲",
+                "reviewed_at": "2026-08-03T20:00:00+08:00",
+                "rationale": "公开披露不足，保留阈值并明确薄样本风险。",
+            })
+            write_methodology_review_packet(packet_path, manifest_path, rows, manifest)
+            report = evaluate_thin_population_methodology_review(packet_path, manifest_path)
+            self.assertTrue(report["all_decisions_signed"])
+            self.assertFalse(report["methodology_change_authorized"])
+            self.assertFalse(report["scoring_authorized"])
+
+    def test_thin_methodology_review_rejects_placeholder_and_manifest_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            summary_path = root / "summary.json"
+            diagnostics_path = root / "diagnostics.csv"
+            packet_path = root / "packet.csv"
+            manifest_path = root / "manifest.json"
+            summary_path.write_text(json.dumps({
+                "minimum_population_threshold": 20,
+                "below_minimum_population_indicator_codes": ["Q_E_ALTERNATIVE_WATER_RATE"],
+                "indicator_population": {"Q_E_ALTERNATIVE_WATER_RATE": 7},
+            }), encoding="utf-8")
+            diagnostics_path.write_text(
+                "indicator_code,diagnostic_category\nQ_E_ALTERNATIVE_WATER_RATE,related_fields_incomplete\n",
+                encoding="utf-8-sig",
+            )
+            rows, manifest = prepare_thin_population_methodology_review(summary_path, diagnostics_path)
+            rows[0].update({
+                "decision": "commission_additional_data", "reviewer": "system",
+                "reviewed_at": "2026-08-03T20:00:00+08:00", "rationale": "需要补充外部数据后再决定。",
+            })
+            write_methodology_review_packet(packet_path, manifest_path, rows, manifest)
+            with self.assertRaisesRegex(ValueError, "真实审核人"):
+                evaluate_thin_population_methodology_review(packet_path, manifest_path)
+            rows[0]["review_id"] = "tampered"
+            rows[0]["reviewer"] = "方法论负责人乙"
+            write_methodology_review_packet(packet_path, manifest_path, rows, manifest)
+            with self.assertRaisesRegex(ValueError, "冻结清单"):
+                evaluate_thin_population_methodology_review(packet_path, manifest_path)
+
     def test_specialized_gap_diagnostic_requires_numeric_physical_total(self):
         revenue = "营业收入（元）725,540,857.14。"
         self.assertEqual(
@@ -121,6 +194,130 @@ class MethodologyTests(unittest.TestCase):
             "possible_hazardous_waste_revenue_closure",
             classify_quantitative_gap(
                 "Q_E_HAZ_WASTE_INTENSITY", "危险废物产生量12.5吨。" + revenue,
+            )[0],
+        )
+
+    def test_gap_diagnostic_keeps_sox_separate_and_classifies_alternative_water(self):
+        self.assertEqual(
+            "no_matching_disclosure_in_text",
+            classify_quantitative_gap(
+                "Q_E_SO2_INTENSITY", "Sulfur oxides (SOx) Tonnes 0.78 1.28",
+            )[0],
+        )
+        self.assertEqual(
+            "possible_direct_alternative_water_rate",
+            classify_quantitative_gap(
+                "Q_E_ALTERNATIVE_WATER_RATE", "再生水使用量占总用水量比例为 18.6%。",
+            )[0],
+        )
+        self.assertEqual(
+            "possible_alternative_water_formula_closure",
+            classify_quantitative_gap(
+                "Q_E_ALTERNATIVE_WATER_RATE",
+                "再生水使用量 12,000 立方米。总用水量 80,000 立方米。",
+            )[0],
+        )
+
+    def test_alternative_water_rate_reads_group_narrative_and_explicit_year_tables(self):
+        pages = [
+            PageText(10, "2025 年，公司循环水用量 13,785.74 吨，循环水用量占比 6.81%。"),
+            PageText(11, "指标 单位 2023年数据 2024年数据 2025年数据\n替代水源占比4 % - 27 38"),
+            PageText(12, "水资源利用指标 2024年\n单位\n2025年\n替代水源用水量占比1\n%\n2.63\n5.15"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"]
+        self.assertEqual([6.81, 38, 5.15], values)
+        confirmed, unresolved, _ = resolve_pending_candidates(items)
+        self.assertFalse([
+            item for item in confirmed if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"
+        ])
+        self.assertEqual(3, len([
+            item for item in unresolved if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"
+        ]))
+
+    def test_alternative_water_rate_rejects_site_kpi_and_hydropower_name_collision(self):
+        pages = [
+            PageText(20, "义乌基地 ESG 指标绩效\n替代水源占比 % 94.42"),
+            PageText(21, "中水电装机 113.28 万千瓦，占比 16.4%"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
+        self.assertFalse([
+            item for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"
+        ])
+
+    def test_split_chinese_so2_intensity_table_converts_tonnes_per_rmb_million(self):
+        pages = [PageText(129, """废气污染物减排情况
+指标 单位 2025年
+二氧化硫
+排放总量
+吨
+611.85
+排放强度
+吨/百万元营收
+0.0072""")]
+        items = extract_indicator_candidates(
+            pages, "600438.SH", "通威股份", 2025, "url", "esg_report.pdf",
+        )
+        so2 = [item for item in items if item.indicator_code == "Q_E_SO2_INTENSITY"]
+        self.assertEqual([72], [item.value for item in so2])
+        confirmed, unresolved, _ = resolve_pending_candidates(items)
+        self.assertEqual([72], [
+            item.value for item in confirmed if item.indicator_code == "Q_E_SO2_INTENSITY"
+        ])
+        self.assertFalse([
+            item for item in unresolved if item.indicator_code == "Q_E_SO2_INTENSITY"
+        ])
+        rejected = extract_indicator_candidates(
+            [PageText(130, "废气污染物减排情况\n指标 单位 2025年\n硫氧化物\n排放强度\n吨/百万元营收\n0.0072")],
+            "A", "甲", 2025, "url", "esg_report.pdf",
+        )
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_E_SO2_INTENSITY"])
+
+    def test_environmental_gap_diagnostic_requires_actual_physical_total(self):
+        revenue = "营业收入（元）725,540,857.14。"
+        self.assertEqual(
+            "related_disclosure_without_compatible_intensity",
+            classify_quantitative_gap(
+                "Q_E_GHG_INTENSITY", "公司建设光伏项目，累计减少二氧化碳排放103.22万吨。" + revenue,
+            )[0],
+        )
+        self.assertEqual(
+            "possible_total_plus_rmb_revenue_derivation",
+            classify_quantitative_gap(
+                "Q_E_GHG_INTENSITY", "温室气体排放总量为12,345.6吨二氧化碳当量。" + revenue,
+            )[0],
+        )
+        self.assertEqual(
+            "related_disclosure_without_compatible_intensity",
+            classify_quantitative_gap(
+                "Q_E_NOX_INTENSITY", "NOx Emission Reduction Tonnes 2,117. Revenue RMB million 725.5.",
+            )[0],
+        )
+        self.assertEqual(
+            "disclosed_scope_mismatch_requires_review",
+            classify_quantitative_gap(
+                "Q_E_WATER_INTENSITY",
+                "总耗水量769,323.80吨。披露范围包括三家生产基地。营业收入（元）725,540,857.14。",
+            )[0],
+        )
+
+    def test_specialized_formula_diagnostic_requires_local_numeric_amounts(self):
+        self.assertEqual(
+            "related_fields_incomplete",
+            classify_quantitative_gap(
+                "Q_S_RD_RATE", "公司重视研发创新。营业收入（元）725,540,857.14。",
+            )[0],
+        )
+        self.assertEqual(
+            "possible_rd_revenue_formula_closure",
+            classify_quantitative_gap(
+                "Q_S_RD_RATE", "研发投入金额12,500万元。营业收入725,540万元。",
+            )[0],
+        )
+        self.assertEqual(
+            "related_fields_incomplete",
+            classify_quantitative_gap(
+                "Q_S_SAFETY_INVEST_RATE", "公司完善安全生产投入制度。营业收入725,540万元。",
             )[0],
         )
         self.assertNotEqual(
@@ -190,6 +387,69 @@ class MethodologyTests(unittest.TestCase):
             report = audit_project_completion(*paths, expected_companies=2)
             self.assertTrue(report["publishable"])
             self.assertEqual(6, report["completed_gate_count"])
+
+    def test_completion_audit_v2_accepts_validated_risk_gates_without_dense_grid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = (
+                {"annual_coverage_count": 2},
+                {"company_count": 2, "quantitative_indicator_count": 37, "candidate_task_count": 20,
+                 "zero_coverage_indicator_count": 0, "minimum_population_gate_passed": True,
+                 "sampling_accuracy_passed": True},
+                {"qualitative_indicator_count": 43, "review_packet_count": 30, "auto_confirmed_count": 10,
+                 "classification_thresholds_validated": True, "sampling_accuracy_passed": True,
+                 "high_risk_open_count": 0, "open_arbitration_count": 0},
+                {"manual_required_group_count": 0, "freeze_ready": True, "applicable": True},
+            )
+            paths = []
+            for index, value in enumerate(values):
+                path = root / f"risk-{index}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            report = audit_project_completion(*paths, expected_companies=2)
+            self.assertTrue(report["publishable"])
+            self.assertEqual("project-completion-risk-v2", report["policy_version"])
+            self.assertEqual("risk_gate", report["gates"]["quantitative"]["completion_basis"])
+            self.assertEqual("risk_gate", report["gates"]["qualitative"]["completion_basis"])
+
+    def test_completion_audit_v2_does_not_infer_missing_validation_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = (
+                {"annual_coverage_count": 2},
+                {"company_count": 2, "quantitative_indicator_count": 37, "candidate_task_count": 20,
+                 "zero_coverage_indicator_count": 0},
+                {"qualitative_indicator_count": 43, "review_packet_count": 30, "auto_confirmed_count": 10,
+                 "high_risk_open_count": 0, "open_arbitration_count": 0},
+                {"manual_required_group_count": 0, "freeze_ready": True, "applicable": True},
+            )
+            paths = []
+            for index, value in enumerate(values):
+                path = root / f"missing-{index}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            report = audit_project_completion(*paths, expected_companies=2)
+        self.assertFalse(report["gates"]["quantitative"]["complete"])
+        self.assertFalse(report["gates"]["qualitative"]["complete"])
+
+    def test_stage_orchestrator_reports_first_external_gate_without_mutation(self):
+        from aegis_esg.stage_orchestrator import assess_next_stage
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "completion.json"
+            path.write_text(json.dumps({
+                "publishable": False,
+                "gates": {
+                    "universe": {"complete": False, "blocker": "主体待审核"},
+                    "documents": {"complete": False}, "quantitative": {"complete": False},
+                    "qualitative": {"complete": False}, "review": {"complete": False},
+                    "release": {"complete": False},
+                },
+            }), encoding="utf-8")
+            result = assess_next_stage(path)
+            self.assertEqual("blocked_external", result["status"])
+            self.assertEqual("M3", result["next_stage"])
+            self.assertEqual("universe", result["gate"])
+            self.assertFalse(result["publishable"])
 
     def test_normal_direction(self):
         engine = ScoringEngine(self.methodology)
@@ -336,6 +596,35 @@ class MethodologyTests(unittest.TestCase):
                     manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
                 )
 
+    def test_release_authorization_binds_all_six_completion_gates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            observations = root / "observations.csv"
+            methodology = root / "methodology.json"
+            completion = root / "completion.json"
+            manifest = root / "release.json"
+            observations.write_text("frozen\n", encoding="utf-8")
+            methodology.write_text("{}\n", encoding="utf-8")
+            completion.write_text(json.dumps({
+                "publishable": False,
+                "gates": {name: {"complete": False} for name in (
+                    "universe", "documents", "quantitative", "qualitative", "review", "release",
+                )},
+            }), encoding="utf-8")
+            payload = prepare_release_authorization(
+                observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value, completion,
+            )
+            payload["approvals"] = [
+                {"reviewer": "a", "role": "methodology_owner", "reviewed_at": "2026-08-04T10:00:00+08:00", "note": "x"},
+                {"reviewer": "b", "role": "data_reviewer", "reviewed_at": "2026-08-04T10:01:00+08:00", "note": "y"},
+            ]
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "六道完成门禁"):
+                validate_release_authorization(
+                    manifest, observations, methodology,
+                    MissingStrategy.INDICATOR_NEUTRAL_V1.value, completion,
+                )
+
     def test_review_impact_prioritizes_conflict_crossing_rank_boundary(self):
         indicators = self.methodology.quantitative[:2]
         tiers = [
@@ -421,6 +710,65 @@ class MethodologyTests(unittest.TestCase):
         self.assertTrue(report["applicable"])
         self.assertEqual(len(raw), report["labeled_count"])
         self.assertIn("precision_improvement", report)
+
+    def test_quantitative_auto_decision_validation_is_stratified_signed_and_bound(self):
+        indicators = self.methodology.quantitative[:2]
+        observations = [
+            Observation("A", "甲", 2025, indicators[0].code, 1, ValueStatus.CONFIRMED,
+                        source_file="a.pdf", source_page=1, evidence_text="中文跨表派生: 总量与营收", confidence=.9),
+            Observation("B", "乙", 2025, indicators[0].code, 2, ValueStatus.CONFIRMED,
+                        source_file="b.pdf", source_page=2, evidence_text="表格直接披露", confidence=.95),
+            Observation("C", "丙", 2025, indicators[1].code, 3, ValueStatus.CONFIRMED,
+                        source_file="c.pdf", source_page=3, evidence_text="direct disclosure", confidence=.95),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            confirmed = root / "confirmed.csv"
+            write_observations(confirmed, observations)
+            rows, summary = prepare_quantitative_validation_sample(confirmed, 1)
+            self.assertEqual(3, summary["stratum_count"])
+            self.assertEqual(2, summary["indicator_count"])
+            sample = root / "sample.csv"
+            manifest = root / "sample.json"
+            write_quantitative_validation_sample(sample, manifest, rows, summary)
+            with self.assertRaisesRegex(ValueError, "缺少true/false"):
+                evaluate_quantitative_validation(sample)
+            with sample.open(encoding="utf-8-sig", newline="") as stream:
+                raw = list(csv.DictReader(stream))
+            for row in raw:
+                row["ground_truth_valid"] = "true"
+                row["ground_truth_value"] = row["value"]
+                row["reviewer"] = "真实审核员"
+                row["reviewed_at"] = "2026-08-03T15:00:00+08:00"
+                row["review_note"] = "核验PDF原页和计算口径"
+            with sample.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=raw[0].keys(), lineterminator="\n")
+                writer.writeheader(); writer.writerows(raw)
+            evaluation = evaluate_quantitative_validation(sample, manifest_path=manifest)
+            self.assertTrue(evaluation["sampling_accuracy_passed"])
+            evaluation_path = root / "evaluation.json"
+            evaluation_path.write_text(json.dumps(evaluation), encoding="utf-8")
+            coverage_path = root / "coverage.json"
+            coverage_path.write_text(json.dumps({"quantitative_indicator_count": 2}), encoding="utf-8")
+            applied = apply_quantitative_validation(coverage_path, evaluation_path, confirmed)
+            self.assertTrue(applied["sampling_accuracy_passed"])
+
+    def test_quantitative_validation_rejects_partial_indicator_coverage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "coverage.json").write_text(json.dumps({"quantitative_indicator_count": 37}), encoding="utf-8")
+            (root / "evaluation.json").write_text(json.dumps({
+                "validation_version": "quantitative-auto-decision-validation-v1",
+                "applicable": True, "indicator_count": 0, "sampling_accuracy_passed": True,
+                "sample_complete": True,
+            }), encoding="utf-8")
+            confirmed = root / "confirmed.csv"
+            confirmed.write_text("x", encoding="utf-8")
+            evaluation = json.loads((root / "evaluation.json").read_text())
+            evaluation["confirmed_input_sha256"] = hashlib.sha256(confirmed.read_bytes()).hexdigest()
+            (root / "evaluation.json").write_text(json.dumps(evaluation), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "未覆盖自动决定"):
+                apply_quantitative_validation(root / "coverage.json", root / "evaluation.json", confirmed)
 
     def test_dependency_graph_limits_recompute_to_affected_indicator_population(self):
         indicator, other = self.methodology.quantitative[:2]
@@ -524,6 +872,23 @@ class MethodologyTests(unittest.TestCase):
             rows, summary = prioritize_quantitative_gaps(tasks, sensitivity, self.methodology)
         self.assertEqual("A", rows[0]["company_code"])
         self.assertEqual(1, summary["key_indicator_gap_count"])
+
+    def test_thin_population_batch_balances_indicators_below_gate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            impact = Path(directory) / "impact.csv"
+            impact.write_text(
+                "impact_rank,impact_score,company_code,company_name,indicator_code,indicator_population,status\n"
+                "1,99,A,甲,Q1,1,missing_candidate\n"
+                "2,98,B,乙,Q1,1,missing_candidate\n"
+                "3,97,C,丙,Q2,19,missing_candidate\n"
+                "4,96,D,丁,Q3,20,missing_candidate\n",
+                encoding="utf-8",
+            )
+            rows, summary = build_thin_population_gap_batch(impact, 20, 1)
+        self.assertEqual(["Q1", "Q2"], sorted(item["indicator_code"] for item in rows))
+        self.assertEqual({"Q1": 1, "Q2": 1}, summary["selected_counts"])
+        self.assertEqual(2, summary["thin_indicator_count"])
+        self.assertEqual(19, rows[0]["population_deficit"])
 
     def test_observation_revision_keeps_audit_history(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -743,7 +1108,7 @@ class MethodologyTests(unittest.TestCase):
 
     def test_intensity_excludes_table_footnote_as_value(self):
         pages = [PageText(1, "温室气体排放强度3 吨二氧化碳当量/万元 0.02 0.03")]
-        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg.pdf")
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
         self.assertFalse([item for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"])
 
     def test_standard_annual_report_direct_metrics(self):
@@ -826,6 +1191,24 @@ class MethodologyTests(unittest.TestCase):
 
         broken = PageText(10, pages[0].text.replace("1,000.00 900.00", "900.00 800.00"))
         rejected = extract_indicator_candidates([broken], "A", "甲", 2025, "url", "annual.pdf")
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
+
+    def test_chinese_equivalent_assets_and_equity_recover_detached_liabilities(self):
+        pages = [PageText(10, """1、合并资产负债表：元
+资产总计
+负债合计"""), PageText(11, """所有者权益合计 100.00 90.00
+负债和所有者权益总计 500.00 450.00""")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "annual.pdf")
+        debt = [item for item in items if item.indicator_code == "Q_G_DEBT_ASSET_RATE"]
+        self.assertEqual(1, len(debt))
+        self.assertAlmostEqual(80, debt[0].value)
+        self.assertIn("资产负债恒等式派生", debt[0].evidence_text)
+
+        ordinary_assets = PageText(10, """1、合并资产负债表：元
+资产总计 500.00 450.00
+负债合计
+所有者权益合计 100.00 90.00""")
+        rejected = extract_indicator_candidates([ordinary_assets], "A", "甲", 2025, "url", "annual.pdf")
         self.assertFalse([item for item in rejected if item.indicator_code == "Q_G_DEBT_ASSET_RATE"])
 
     def test_chinese_ebitda_margin_requires_complete_supplementary_da(self):
@@ -1505,6 +1888,56 @@ Profit for the year 100 120"""),
         values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
         self.assertEqual([20], values)
 
+    def test_chinese_ghg_reduction_rejects_first_time_scope3_boundary_change(self):
+        pages = [PageText(
+            65,
+            "指标名称 指标单位 2024 年数值 2025 年数值\n"
+            "温室气体排放总量 吨二氧化碳当量 435,889.44 4,465,680.936\n"
+            "注：2025 年温室气体排放总量首次增加了范围三的统计。",
+        )]
+        items = extract_indicator_candidates(
+            pages, "600481.SH", "双良节能", 2025, "https://source", "esg.pdf",
+        )
+        self.assertFalse([
+            item for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"
+        ])
+
+    def test_strict_chinese_hazardous_waste_intensity_is_auto_confirmed(self):
+        pages = [PageText(
+            31,
+            "指标 单位 2025 年\n危险废弃物产生强度 吨 / 万元营收 0.0006",
+        )]
+        items = extract_indicator_candidates(
+            pages, "000531.SZ", "穗恒运A", 2025, "https://source", "esg_report.pdf",
+        )
+        confirmed, unresolved, decisions = resolve_pending_candidates(items)
+        hazardous = [
+            item for item in confirmed if item.indicator_code == "Q_E_HAZ_WASTE_INTENSITY"
+        ]
+        self.assertEqual([0.6], [item.value for item in hazardous])
+        self.assertFalse([
+            item for item in unresolved if item.indicator_code == "Q_E_HAZ_WASTE_INTENSITY"
+        ])
+        self.assertEqual(
+            ["auto_confirmed"],
+            [item.decision for item in decisions if item.indicator_code == "Q_E_HAZ_WASTE_INTENSITY"],
+        )
+
+    def test_chinese_rd_rate_table_maps_explicit_ascending_years(self):
+        pages = [PageText(45, """披露项 单位 2023 年 2024 年 2025 年
+研发费用占营业收入比例 % 0.92 1.29 0.97""")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_S_RD_RATE"]
+        self.assertEqual([0.97], values)
+        confirmed, unresolved, _ = resolve_pending_candidates(items)
+        self.assertEqual([0.97], [item.value for item in confirmed if item.indicator_code == "Q_S_RD_RATE"])
+        self.assertFalse([item for item in unresolved if item.indicator_code == "Q_S_RD_RATE"])
+        rejected = extract_indicator_candidates(
+            [PageText(46, "2023-2025 年研发绩效\n研发费用占营业收入比例 % 0.92 1.29 0.97")],
+            "A", "甲", 2025, "url", "esg.pdf",
+        )
+        self.assertFalse([item for item in rejected if item.indicator_code == "Q_S_RD_RATE"])
+
     def test_english_ghg_reduction_normalizes_explicit_ascending_year_order(self):
         pages = [PageText(
             20,
@@ -1525,6 +1958,23 @@ Profit for the year 100 120"""),
             "A", "甲", 2025, "https://source", "esg.pdf",
         )
         self.assertFalse([item for item in rejected if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"])
+
+    def test_english_ghg_reduction_ignores_trailing_percentage_change_column(self):
+        pages = [PageText(20, """GHG Emissions Units 2024 2025
+Percentage change
+Total GHG emissions tCO2e 37.95 26.95 (28.99%)""")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "https://source", "esg.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
+        self.assertEqual(1, len(values))
+        self.assertAlmostEqual((37.95 - 26.95) / 37.95 * 100, values[0])
+
+    def test_english_ghg_reduction_accepts_equivalent_tonnes_unit_order(self):
+        pages = [PageText(124, """Indicator Note 2 Unit 2025 2024
+Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.07 2,069.83""")]
+        items = extract_indicator_candidates(pages, "00206.HK", "CM ENERGY", 2025, "https://source", "annual.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_GHG_REDUCTION_RATE"]
+        self.assertEqual(1, len(values))
+        self.assertAlmostEqual((2069.83 - 2058.07) / 2069.83 * 100, values[0])
 
     def test_english_ghg_intensity_rejects_non_rmb_denominators(self):
         pages = [PageText(
@@ -2023,7 +2473,7 @@ Profit for the year 100 120"""),
         self.assertEqual(3, summary["candidate_group_count"])
         self.assertFalse(summary["applicable"])
 
-    def test_pending_resolver_v4_requires_strict_evidence_prefix_for_new_metrics(self):
+    def test_pending_resolver_v6_requires_strict_evidence_prefix_for_new_metrics(self):
         eligible = Observation(
             "A", "甲", 2025, "Q_G_QUICK_RATIO", 150, ValueStatus.PENDING,
             source_file="annual_report.pdf", confidence=.94,
@@ -2037,7 +2487,7 @@ Profit for the year 100 120"""),
         confirmed, unresolved, decisions = resolve_pending_candidates([eligible, unverified])
         self.assertEqual([150], [item.value for item in confirmed])
         self.assertEqual([160], [item.value for item in unresolved])
-        self.assertEqual("public-disclosure-v4", decisions[0].policy_version)
+        self.assertEqual("public-disclosure-v6", decisions[0].policy_version)
         self.assertEqual("strict_extraction_evidence_consistent", decisions[0].reason)
 
     def test_pending_resolver_accepts_strict_annual_resource_intensity_row(self):
@@ -3205,6 +3655,9 @@ Profit for the year 100 120"""),
         self.assertEqual(73, summary["missing_task_count"])
         self.assertEqual(36, summary["zero_coverage_indicator_count"])
         self.assertNotIn(indicator.code, summary["zero_coverage_indicator_codes"])
+        self.assertEqual(20, summary["minimum_population_threshold"])
+        self.assertEqual(37, summary["below_minimum_population_indicator_count"])
+        self.assertFalse(summary["minimum_population_gate_passed"])
         self.assertFalse(summary["complete"])
         self.assertFalse(summary["applicable"])
         available = next(
@@ -3937,6 +4390,33 @@ Profit for the year 100 120"""),
         self.assertAlmostEqual(6216.97 * 1e3 * 1e4 / 1.705e10, values["Q_E_ENERGY_INTENSITY"])
         self.assertAlmostEqual(596001.30 * 1e3 * 1e4 / 1.705e10, values["Q_E_WATER_INTENSITY"])
 
+    def test_env_intensity_derives_bare_pollutants_only_in_explicit_year_matrix(self):
+        esg = self._esg_doc(
+            "废气污染物种类 2025年度 单位\n"
+            "氮氧化物 859.57 吨\n二氧化硫 353.16 吨\n烟尘 72.76 吨\n"
+            "废水排放强度 2.10 吨/万元营收\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        values = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(859.57e3 * 1000 * 1e4 / 1.705e10, values["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(353.16e3 * 1000 * 1e4 / 1.705e10, values["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(72.76e3 * 1000 * 1e4 / 1.705e10, values["Q_E_PM_INTENSITY"])
+        rejected = self._esg_doc("氮氧化物 859.57 吨\n二氧化硫 353.16 吨\n烟尘 72.76 吨\n")
+        self.assertFalse(derive_env_intensity_candidates(
+            "A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), rejected],
+        ))
+
+    def test_env_intensity_maps_zero_pollutant_from_explicit_ascending_section(self):
+        esg = self._esg_doc(
+            "披露指标 单位 2024 年 2025 年\n气体污染物排放\n"
+            "颗粒物 千克 2 2\n氮氧化物 千克 5 0\n硫氧化物 千克 4 0\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        values = {item.indicator_code: item.value for item in items}
+        self.assertEqual(0, values["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(2 * 1000 * 1e4 / 1.705e10, values["Q_E_PM_INTENSITY"])
+        self.assertNotIn("Q_E_SO2_INTENSITY", values)
+
     def test_env_intensity_rejects_partial_scope_and_macro_narrative(self):
         esg = self._esg_doc(
             "指标 单位 2025 2024\n"
@@ -4034,6 +4514,41 @@ Profit for the year 100 120"""),
         self.assertEqual("Q_E_GHG_INTENSITY", code)
         self.assertAlmostEqual(230.0, value)
 
+    def test_chinese_hazardous_waste_density_postfix_billion_revenue_unit(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "指标 2023 年 2024 年 2025 年 单位\n"
+            "危险废弃物密度 2.9 3.2 3.62 吨 / 亿元人民币营业收入\n",
+            2025,
+        )
+        self.assertEqual(1, len(rows))
+        self.assertEqual("Q_E_HAZ_WASTE_INTENSITY", rows[0][0])
+        self.assertAlmostEqual(.362, rows[0][1])
+
+    def test_chinese_hazardous_waste_revenue_unit_variants(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        cases = (
+            ("指标 单位 2025 年 2024 年\n危险废弃物产生强度 吨 / 万元营收 0.0006 0.0007\n", .6),
+            ("类别 2025 年 2024 年 单位\n危险废弃物产生强度 0.0002 0.0001 吨 / 万元人民币营业收入\n", .2),
+            ("指标 单位 2025 年 2024 年\n单位营收危险废物密度 吨 / 百万元 0.06 0.05\n", .6),
+        )
+        for text, expected in cases:
+            rows = _extract_chinese_env_table_rows(text, 2025)
+            self.assertEqual(1, len(rows), text)
+            self.assertAlmostEqual(expected, rows[0][1])
+
+    def test_chinese_hazardous_waste_named_header_and_single_revenue_value(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        named = _extract_chinese_env_table_rows(
+            "指标名称 指标单位 2024 年数值 2025 年数值\n"
+            "危险废物产生强度 吨 / 万元 0.00034 0.00235\n", 2025,
+        )
+        single = _extract_chinese_env_table_rows(
+            "危险废弃物产生强度 0.01 吨 / 百万元营业收入\n", 2025,
+        )
+        self.assertAlmostEqual(2.35, named[0][1])
+        self.assertAlmostEqual(.1, single[0][1])
+
     def test_env_intensity_pollutant_statement_rows_gram_canonical(self):
         # 法定披露分号终止总量句；SO2/NOx/PM方法论口径为克/万元（真实样例：000600.SZ）
         esg = self._esg_doc(
@@ -4111,6 +4626,117 @@ Profit for the year 100 120"""),
         esg = self._esg_doc("优于国家超低排放标准和河北省深度减排标准。氮氧化物排放总量 4,697.8 吨；\n")
         items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
         self.assertEqual(1, len(items))
+
+    def test_env_intensity_external_flue_gas_actual_rows_not_permit_limits(self):
+        # “外排废气中…量”是实际排放；紧邻的核定年度排放量是许可上限，不得混入（真实样例：600028.SH）
+        esg = self._esg_doc(
+            "指标 单位 2023 2024 2025\n"
+            "外排废气中二氧化硫量 吨 4,661 4,652 4,481\n"
+            "外排废气中氮氧化物量 吨 19,984 18,482 18,484\n"
+            "核定的年度二氧化硫排放量 吨 9,000 9,000 9,000\n"
+            "核定的年度氮氧化物排放量 吨 30,000 30,000 30,000\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertEqual({"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY"}, set(by_code))
+        self.assertAlmostEqual(18484 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(4481 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+
+    def test_env_intensity_external_flue_gas_split_pdf_table(self):
+        # PDF抽取将每个单元格拆行时，仍按显式年份列取本期值（真实样例：600028.SH）
+        esg = self._esg_doc(
+            "指标\n单位\n2024 2025\n"
+            "外排废气中二氧化硫量\n吨\n4,652\n4,481\n"
+            "外排废气中氮氧化物量\n吨\n18,482\n18,484\n"
+            "核定的年度二氧化硫排放总量\n吨\n46,258\n37,208\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertEqual({"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY"}, set(by_code))
+        self.assertAlmostEqual(18484 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(4481 * 1e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+
+    def test_env_intensity_single_year_split_nox_pm_not_sulfur_oxides(self):
+        # 单年拆行KPI只映射同名NOx和明确PM，不把硫氧化物等同SO2（真实样例：600023.SH）
+        esg = self._esg_doc(
+            "指标\n单位\n2025年\n氮氧化物排放量\n吨\n21242\n"
+            "硫氧化物排放量\n吨\n10865\n"
+            "悬浮粒子与颗粒物（PM）排放量\n吨\n1038\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertEqual({"Q_E_NOX_INTENSITY", "Q_E_PM_INTENSITY"}, set(by_code))
+        self.assertAlmostEqual(21242e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
+        self.assertAlmostEqual(1038e6 * 1e4 / 17.05e9, by_code["Q_E_PM_INTENSITY"])
+
+    def test_env_intensity_pm_parenthetical_and_year_infix_labels(self):
+        for label in ("颗粒物（PM）排放量", "颗粒物(PM)年排放量"):
+            esg = self._esg_doc(f"指标 单位 2025 年\n{label} 吨 7.55\n")
+            items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+            self.assertEqual(["Q_E_PM_INTENSITY"], [item.indicator_code for item in items], label)
+
+    def test_env_intensity_chinese_postfix_unit_year_table(self):
+        # 年份在前、单位在末的集团附录表按2025列取值（真实样例：601727.SH）
+        esg = self._esg_doc(
+            "指标 2023 年 2024 年 2025 年 单位\n"
+            "氮氧化物排放量 50.61 51.06 41.42 吨\n"
+            "硫氧化物排放量 0.71 0.92 0.54 吨\n"
+            "颗粒物排放量 26.36 39.31 48.54 吨\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertEqual({"Q_E_NOX_INTENSITY", "Q_E_PM_INTENSITY"}, set(by_code))
+        self.assertAlmostEqual(48.54e6 * 1e4 / 17.05e9, by_code["Q_E_PM_INTENSITY"])
+
+    def test_env_intensity_pollutant_table_order_proved_by_per_value_years(self):
+        # 区间标题本身不决定列序；首行逐值年份才锚定后续三值行（真实样例：600956.SH）
+        esg = self._esg_doc(
+            "2023-2025 年新天废气排放量\n"
+            "指标 硫氧化物排放量 单位 千克 2025 年 28.63 2024 年 37.23 2023 年 10.44\n"
+            "氮氧化物排放量 千克 11,564.93 14,191.81 5,314.12\n"
+            "颗粒物排放量 千克 1,046.07 1,360.38 509.19\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1046.07e3 * 1e4 / 17.05e9, by_code["Q_E_PM_INTENSITY"])
+        self.assertNotIn("Q_E_SO2_INTENSITY", by_code)
+        no_anchor = self._esg_doc("2023-2025 年新天废气排放量\n颗粒物排放量 千克 1,046.07 1,360.38 509.19\n")
+        self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), no_anchor]))
+
+    def test_env_intensity_summary_revenue_rmb_million_scale(self):
+        # 财务摘要常按列重复“人民币百万元”，分母必须还原为人民币元（真实样例：600028.SH）
+        annual = self._annual_doc(
+            "主要财务数据及指标\n1 按中国企业会计准则编制的主要会计数据和财务指标\n"
+            "项目 截至 12 月 31 日止年度\n2025 年 2024 年\n人民币\n百万元\n人民币\n百万元\n"
+            "营业收入 2,783,583 3,074,562\n利润总额 43,184 70,513\n"
+        )
+        esg = self._esg_doc(
+            "指标\n单位\n2024 2025\n外排废气中氮氧化物量\n吨\n18,482\n18,484\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(18484 * 1e6 * 1e4 / (2783583 * 1e6), items[0].value)
+
+    def test_env_intensity_summary_revenue_explicit_thousand_currency_scale(self):
+        annual = self._annual_doc(
+            "主要会计数据和财务指标\n单位：千元 币种：人民币\n"
+            "营业收入 125,958,695 115,456,181\n利润总额 8,000,000 7,000,000\n"
+        )
+        esg = self._esg_doc("指标 单位 2025 年\n颗粒物（PM）排放量 吨 48.54\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(48.54e6 * 1e4 / 125958695e3, items[0].value)
+
+    def test_env_intensity_chinese_consolidated_income_statement_revenue_fallback(self):
+        annual = CompanyDocument("annual_report", [PageText(101, (
+            "合并利润表\n2025 年 1—12 月\n单位：元 币种：人民币\n"
+            "项目 附注 2025 年度 2024 年度\n一、营业总收入 七、61 35,425,723,476.94 35,423,751,313.61\n"
+            "其中：营业收入 七、61 35,425,723,476.94 35,423,751,313.61\n"
+        ))], "url", "annual.pdf")
+        esg = self._esg_doc("指标 单位 2025 年\n颗粒物（PM）排放量 吨 814.30\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(814.3e6 * 1e4 / 35425723476.94, items[0].value)
 
     def test_env_intensity_solid_and_haz_waste_current_first_table(self):
         # 一般固废/危废产生量年列表派生（真实样例：000922.SZ）
@@ -4414,6 +5040,49 @@ Profit for the year 100 120"""),
         # 无年份表头时拒绝猜列
         no_header = self._esg_doc("Total GHG Emissions (Scope 1 + Scope 2) tCO₂e 1,618,370 1,594,055 1,498,435\n")
         self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual, no_header]))
+
+    def test_env_intensity_english_four_year_postfix_unit_and_rmb_unit_statement(self):
+        # 四年升序表、行尾单位及“Expressed in RMB”原币单位（真实样例：01713.HK）
+        annual = CompanyDocument("annual_report", [PageText(83, (
+            "Consolidated Statement of Profit or Loss\n2025\n(Expressed in RMB)\nNotes 2025 2024\n"
+            "I. Operating revenue V.33 4,968,130,028.88 4,775,571,527.88\n"
+        ))], "url", "annual.pdf")
+        esg = self._esg_doc(
+            "Emissions Year 2025 Year 2024 Year 2023 Year 2022 Unit\nAir Pollutant\n"
+            "Nitrogen oxides 2,384.50 2,210.72 1,486.56 2,223.87 kg\n"
+            "Sulphur oxides 8.00 8.78 5.12 4.74 kg\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(2384.5 * 1000 * 1e4 / 4968130028.88, by_code["Q_E_NOX_INTENSITY"])
+        # sulphur oxides不自动等同二氧化硫
+        self.assertNotIn("Q_E_SO2_INTENSITY", by_code)
+
+    def test_env_intensity_english_group_boiler_actual_so2_nox_statement(self):
+        # 报告年、集团主体、化学式和实际质量同时闭环（真实样例：01277.HK）
+        annual = CompanyDocument("annual_report", [PageText(117, (
+            "Consolidated Statement of Profit or Loss and Other Comprehensive Income\nRMB’000\n"
+            "Revenue 5 5,293,266 5,655,829\n"
+        ))], "url", "annual.pdf")
+        esg = self._esg_doc(
+            "In 2025, exhaust gas emission from boilers by the Group was 81.267 million standard cubic meters, "
+            "of which, sulfur dioxide (SO2) was 12.59 tonnes, and nitrogen oxide (NOx) was 13.01 tonnes. "
+            "The target for exhaust gas emissions in 2026 is to maintain the same level.\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [annual, esg])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(12.59e6 * 1e4 / 5.293266e9, by_code["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(13.01e6 * 1e4 / 5.293266e9, by_code["Q_E_NOX_INTENSITY"])
+
+    def test_env_intensity_english_boiler_target_or_product_sulfur_rejected(self):
+        annual = CompanyDocument("annual_report", [PageText(117, (
+            "Consolidated Statement of Profit or Loss\nRMB’000\nRevenue 5 5,293,266 5,655,829\n"
+        ))], "url", "annual.pdf")
+        for text in (
+            "The Group targets sulfur dioxide (SO2) emissions of 12.59 tonnes in 2026.",
+            "The Group's clean coal products have sulfur content below 0.6% to reduce sulfur dioxide emissions.",
+        ):
+            self.assertFalse(derive_env_intensity_candidates("A", "甲", 2025, [annual, self._esg_doc(text)]))
 
     def test_env_intensity_ghg_total_scope_closure(self):
         # 范围一+范围二闭环时接受总量

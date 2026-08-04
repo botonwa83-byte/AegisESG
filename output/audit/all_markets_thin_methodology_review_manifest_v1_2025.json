@@ -1,0 +1,29 @@
+{
+  "review_version": "thin-population-methodology-review-v1",
+  "quantitative_summary_path": "output/audit/all_markets_quantitative_candidate_tasks_summary_v22_2025.json",
+  "quantitative_summary_sha256": "cc5cc39c07255d1e48b76591528ef8bc3eb1c168874a7371517eac7b5891afac",
+  "diagnostics_path": "output/audit/thin_population_gap_batch_05_diagnostics_2025.csv",
+  "diagnostics_sha256": "6df4dc1b67fcf470788c462d99855bf5f04c87fad24e4c43d886808eafaa1b01",
+  "minimum_population_threshold": 20,
+  "review_count": 3,
+  "indicator_codes": [
+    "Q_E_ALTERNATIVE_WATER_RATE",
+    "Q_E_CLEAN_ENERGY_INTENSITY",
+    "Q_E_SO2_INTENSITY"
+  ],
+  "review_ids": [
+    "846263ea3197c757dda35c305a1d9bcd6eb0d85b4f9d1b80609db2f8cfc9f8ec",
+    "c876d82e6a79b3128a1d4f735d04eb1878f4429c1cdc4c918d12959e24f57001",
+    "ce817bfdcb1ff52194202b9dc74be7fb08c704e242855769f703c60d0a9fa89c"
+  ],
+  "allowed_decisions": [
+    "commission_additional_data",
+    "retain_threshold_with_thin_sample_warning",
+    "revise_indicator_definition",
+    "revise_minimum_population"
+  ],
+  "signed_count": 0,
+  "methodology_change_authorized": false,
+  "scoring_authorized": false,
+  "applicable": false
+}

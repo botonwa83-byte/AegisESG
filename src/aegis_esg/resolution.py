@@ -9,7 +9,7 @@ from pathlib import Path
 from .models import Observation, ValueStatus
 
 
-AUTO_POLICY_VERSION = "public-disclosure-v4"
+AUTO_POLICY_VERSION = "public-disclosure-v6"
 AUTO_INDICATORS = {
     "Q_G_ROE", "Q_G_REVENUE_GROWTH", "Q_S_DIVIDEND_PER_SHARE", "Q_S_RD_RATE",
     "Q_G_DEBT_ASSET_RATE", "Q_G_ASSET_TURNOVER", "Q_G_AR_TURNOVER",
@@ -20,6 +20,12 @@ AUTO_INDICATORS = {
 }
 ESG_AUTO_INDICATORS = {"Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY"}
 STRICT_EVIDENCE_PREFIXES = {
+    "Q_E_ALTERNATIVE_WATER_RATE": (
+        "Alternative-water direct group rate:",
+        "Alternative-water explicit-year table:",
+        "Alternative-water explicit-year vertical table:",
+    ),
+    "Q_S_RD_RATE": ("中文研发占收比显式年份表: ",),
     "Q_E_CLEAN_ENERGY_INTENSITY": ("English same-table renewable energy intensity derived:",),
     "Q_E_GHG_INTENSITY": (
         "English current-first direct intensity row:", "English current-first Million Yuan row:",
@@ -44,6 +50,7 @@ STRICT_EVIDENCE_PREFIXES = {
     ),
     "Q_E_SO2_INTENSITY": (
         "English revenue intensity:", "English current-first environmental table derived:",
+        "Chinese explicit-year split pollutant intensity row:",
         "中文跨表派生: ", "English cross-document derived: ",
     ),
     "Q_E_PM_INTENSITY": (
@@ -60,6 +67,12 @@ STRICT_EVIDENCE_PREFIXES = {
     ),
     "Q_E_HAZ_WASTE_INTENSITY": (
         "English revenue intensity:", "English current-first environmental table derived:", "English current-first direct intensity row:",
+        "Chinese current-first environmental table row:",
+        "Chinese current-last environmental table row:",
+        "Chinese current-first-postfix-unit environmental table row:",
+        "Chinese current-last-postfix-unit environmental table row:",
+        "Chinese single-year environmental table row:",
+        "Chinese single-value-revenue-unit environmental table row:",
         "中文跨表派生: ", "English cross-document derived: ",
     ),
     "Q_S_ENV_INVEST_RATE": (

@@ -604,6 +604,30 @@ def extract_indicator_candidates(
                     source_url=source_url, source_file=source_file, source_page=page.page,
                     evidence_text=text[start:end], confidence=rule.confidence,
                 ))
+        rd_table = _extract_chinese_rd_rate_year_table(page.text, report_year)
+        if rd_table:
+            value, evidence = rd_table
+            identity = ("Q_S_RD_RATE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_S_RD_RATE", value=value, status=ValueStatus.PENDING,
+                    source_url=source_url, source_file=source_file, source_page=page.page,
+                    evidence_text=evidence, confidence=.97,
+                ))
+        alternative_water = _extract_alternative_water_rate(page.text, report_year)
+        if alternative_water:
+            value, evidence = alternative_water
+            identity = ("Q_E_ALTERNATIVE_WATER_RATE", page.page, round(value, 8))
+            if identity not in seen:
+                seen.add(identity)
+                candidates.append(Observation(
+                    company_code=company_code, company_name=company_name, report_year=report_year,
+                    indicator_code="Q_E_ALTERNATIVE_WATER_RATE", value=value,
+                    status=ValueStatus.PENDING, source_url=source_url, source_file=source_file,
+                    source_page=page.page, evidence_text=evidence, confidence=.96,
+                ))
         for code, value, evidence, confidence in _extract_english_revenue_intensities(text):
             identity = (code, page.page, round(value, 8))
             if identity in seen:
@@ -855,6 +879,86 @@ def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text).replace("（", "(").replace("）", ")")
 
 
+def _extract_chinese_rd_rate_year_table(text: str, report_year: int) -> tuple[float, str] | None:
+    """Read an R&D/revenue percentage only when an explicit year header maps the row columns."""
+    header = re.search(r"(?m)^\s*[^\n]*(?:20\d{2}\s*年?[^\n]*){2,}\s*$", text)
+    row = re.search(
+        r"(?m)^\s*研发(?:投入|费用)(?:总额)?占营业收入(?:的)?(?:比例|比率)\s*%\s*(?P<body>[^\n]+)$",
+        text,
+    )
+    if not header or not row:
+        return None
+    years = [int(item) for item in re.findall(r"20\d{2}", header.group(0))]
+    values = [float(item.replace(",", "")) for item in re.findall(r"[+-]?[\d,]+(?:\.\d+)?", row.group("body"))]
+    if (
+        report_year not in years or len(values) != len(years)
+        or re.search(r"20\d{2}\s*[-—–至]\s*20\d{2}", header.group(0))
+    ):
+        return None
+    value = values[years.index(report_year)]
+    if not 0 <= value <= 100:
+        return None
+    evidence = re.sub(r"\s+", " ", header.group(0) + " | " + row.group(0)).strip()
+    return value, "中文研发占收比显式年份表: " + evidence
+
+
+def _extract_alternative_water_rate(text: str, report_year: int) -> tuple[float, str] | None:
+    """Read group/company alternative-water rates without treating site KPIs as group KPIs."""
+    if re.search(r"(?:基地|厂区|园区)\s*(?:ESG\s*)?指标绩效", text, re.I):
+        return None
+    narrative_patterns = (
+        rf"(?:{report_year}\s*年[^。；;\n]{{0,30}})?(?:公司[^。；;\n]{{0,20}})?"
+        r"(?:整体)?替代水源(?:使用|用水量)?占比(?:达到|达|为)\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        rf"(?:{report_year}\s*年[^。；;\n]{{0,40}})?(?:公司[^。；;\n]{{0,20}})?"
+        r"循环水用量占比(?:达到|达|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"(?:the\s+)?(?:Group|Company)['’]s?[^.\n]{0,80}?(?:recycled|reused|alternative)\s+water"
+        r"[^.\n]{0,120}?account(?:ed|ing)\s+for\s+(?P<value>[\d,]+(?:\.\d+)?)\s*%\s+of\s+"
+        r"total\s+water\s+(?:withdrawal|consumption|use)",
+    )
+    for pattern in narrative_patterns:
+        match = re.search(pattern, text, re.I)
+        if match:
+            value = float(match.group("value").replace(",", ""))
+            if 0 <= value <= 100:
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                return value, "Alternative-water direct group rate: " + evidence[:260]
+
+    # Horizontal explicit-year KPI tables, including a numeric footnote after the label.
+    mode = _chinese_year_table_mode(text, report_year)
+    if mode is None:
+        header = r"(?:指标|项目|披露项|披露指标)(?:名称)?\s*单位"
+        year_cell = r"\s*年?(?:数据|数值|值)?"
+        if re.search(rf"{header}\s*{report_year}{year_cell}\s*{report_year - 1}{year_cell}", text):
+            mode = "current-first"
+        elif re.search(rf"{header}\s*(?:20\d{{2}}{year_cell}\s*){{1,2}}{report_year}{year_cell}", text):
+            mode = "current-last"
+    if mode in {"current-first", "current-last"}:
+        label = r"(?:替代水源(?:使用|用水量)?占比|循环水用量占比)\d*"
+        match = re.search(rf"(?m)^\s*(?:{label})\s*%\s*(?P<body>[-—/\d,.\s]+)$", text)
+        if match:
+            values = re.findall(r"[+-]?[\d,]+(?:\.\d+)?", match.group("body"))
+            if len(values) < 2:
+                values = []
+            value = float((values[0] if mode == "current-first" else values[-1]).replace(",", "")) if values else -1
+            if 0 <= value <= 100:
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                return value, "Alternative-water explicit-year table: " + evidence[:260]
+
+    # A recurring PDF layout renders the two years, unit and values vertically.
+    if re.search(rf"水资源利用指标\s*{report_year - 1}\s*年\s*单位\s*{report_year}\s*年", text):
+        match = re.search(
+            r"替代水源(?:使用|用水量)?占比\d*\s*\n\s*%\s*\n\s*"
+            r"[\d,]+(?:\.\d+)?\s*\n\s*(?P<current>[\d,]+(?:\.\d+)?)",
+            text,
+        )
+        if match:
+            value = float(match.group("current").replace(",", ""))
+            if 0 <= value <= 100:
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                return value, "Alternative-water explicit-year vertical table: " + evidence[:260]
+    return None
+
+
 def _canonical_unit(unit: str) -> str:
     compact = unit.replace("二氧化碳当量", "").replace("CO2e", "")
     return compact
@@ -911,16 +1015,28 @@ def _extract_english_ghg_reduction(text: str, report_year: int) -> tuple[float, 
             r"Total\s+(?:GHG|greenhouse\s+gas)\s+emissions?(?:\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*\))?"
             r"|(?:GHG|greenhouse\s+gas)\s+emissions?\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*\)"
             r")\s*"
-            r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+(?:of\s+)?CO2e)\s+(?P<body>[^\n]+)$",
+            r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+(?:of\s+)?CO2e|Equivalent\s+of\s+carbon\s+dioxide\s+in\s+tonnes)\s+"
+            r"(?P<body>[^\n]+)$",
             text,
         )
         if ascending_row:
+            year_columns = [int(year) for year in re.findall(r"20\d{2}", ascending_header.group(0))]
+            metric_body = re.sub(
+                r"\(?[+-]?[\d,]+(?:\.\d+)?\s*%\)?", "", ascending_row.group("body"),
+            )
             values = [
                 float(raw.replace(",", "")) for raw in
-                re.findall(r"[\d,]+(?:\.\d+)?", ascending_row.group("body"))
+                re.findall(r"[\d,]+(?:\.\d+)?", metric_body)
             ]
-            if len(values) >= 2 and values[-2] > 0:
-                current, previous = values[-1], values[-2]
+            pair = None
+            if len(year_columns) == 2 and len(values) >= 2:
+                pair = values[1], values[0]
+            elif len(year_columns) >= 3 and len(values) >= len(year_columns):
+                pair = values[-1], values[-2]
+            elif len(year_columns) >= 3 and len(values) == 2:
+                pair = values[1], values[0]
+            if pair and pair[1] > 0:
+                current, previous = pair
                 reduction = (previous - current) / previous * 100
                 if -1000 <= reduction <= 100:
                     evidence = re.sub(r"\s+", " ", ascending_row.group(0)).strip()
@@ -928,10 +1044,11 @@ def _extract_english_ghg_reduction(text: str, report_year: int) -> tuple[float, 
     if not re.search(rf"\b{report_year}\b[^\n]{{0,40}}\b{previous_year}\b", text):
         return None
     row = re.compile(
-        r"(?i)\bTotal\s+(?:(?:Scope\s*1\s*(?:and|&|\+)\s*Scope\s*2\s*)?)"
+        r"(?i)\bTotal\s+(?:(?:Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*)?)"
         r"(?:GHG|greenhouse\s+gas)\s+emissions?"
-        r"(?:\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*Scope\s*2\s*\))?\s*"
-        r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+of\s+(?:carbon\s+dioxide\s+equivalent|CO2e))\s+"
+        r"(?:\s*\(\s*Scope\s*1\s*(?:and|&|\+)\s*(?:Scope\s*)?2\s*\))?\s*"
+        r"(?:tCO[₂2](?:e|-e)?|tonnes?\s+of\s+(?:carbon\s+dioxide\s+equivalent|CO2e)"
+        r"|Equivalent\s+of\s+carbon\s+dioxide\s+in\s+tonnes)\s+"
         r"(?P<current>[\d,]+(?:\.\d+)?)\s+(?P<previous>[\d,]+(?:\.\d+)?)\b"
         r"(?!\s+[\d,]+(?:\.\d+)?)",
     )
@@ -1316,6 +1433,8 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
         ("立方米/百万元", 10.0), ("千克/万元", 1.0),
     )),
     ("Q_E_SO2_INTENSITY", r"二氧化硫排放强度", (
+        ("吨/万元", 1_000_000.0), ("吨/百万元", 10_000.0),
+        ("吨/百万元营收", 10_000.0), ("吨/百万元营业收入", 10_000.0),
         ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
     )),
     ("Q_E_NOX_INTENSITY", r"氮氧化物排放强度", (
@@ -1330,8 +1449,12 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
     ("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物排放强度|一般固废排放强度", (
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
     )),
-    ("Q_E_HAZ_WASTE_INTENSITY", r"危险废物排放强度|危险废物产生强度|危废排放强度", (
-        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
+    ("Q_E_HAZ_WASTE_INTENSITY", r"危险废物排放强度|危险废物产生强度|危废排放强度|(?:单位营收)?危险废物密度|危险废弃物(?:排放|产生)?(?:强度|密度)", (
+        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元人民币营业收入", 0.1),
+        ("吨/万元收入", 1000.0), ("吨/万元营收", 1000.0), ("吨/营收万元", 1000.0),
+        ("吨/万元人民币营业收入", 1000.0), ("吨/百万元营收", 10.0),
+        ("吨/百万元营业收入", 10.0), ("吨/百万营收", 10.0),
+        ("吨/亿元营业收入", 0.1), ("吨/亿元", 0.1), ("千克/万元", 1.0),
     )),
     ("Q_S_ENV_INVEST_RATE", r"环保(?:总)?投入占营业收入(?:的)?比例", (("%", 1.0),)),
     ("Q_S_SAFETY_INVEST_RATE", r"安全生产投入占营业收入(?:的)?比例", (("%", 1.0),)),
@@ -1361,12 +1484,23 @@ def _normalize_kangxi(text: str) -> str:
 def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
     """Detect the year-column layout of a Chinese KPI table from its explicit header."""
     previous_year = report_year - 1
-    header = r"(?:指标|项目|披露项)(?:名称)?\s*单位"
+    if re.search(
+        rf"指标名称\s*指标单位\s*{previous_year}\s*年数值\s*{report_year}\s*年数值", text,
+    ):
+        return "current-last"
+    header = r"(?:指标|项目|披露项|披露指标)(?:名称)?\s*单位"
     if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
         return "current-first"
     if re.search(rf"{header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?", text):
         return "current-last"
     if re.search(rf"{header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
+        return "single-year"
+    postfix_header = r"(?:指标|项目|类别|披露项|披露指标)(?:名称)?"
+    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*{previous_year}\s*年?\s*单位", text):
+        return "current-first"
+    if re.search(rf"{postfix_header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?\s*单位", text):
+        return "current-last"
+    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*单位", text):
         return "single-year"
     return None
 
@@ -1386,10 +1520,18 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                 "current-first",
                 rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s+(?:{_CN_NUMBER}|/)(?:\s+(?:{_CN_NUMBER}|/))?\s*$",
             ))
+            patterns.append((
+                "current-first-postfix-unit",
+                rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s+(?:{_CN_NUMBER}|/)(?:\s+(?:{_CN_NUMBER}|/))?\s*(?P<unit>{unit_pattern})\s*$",
+            ))
         elif mode == "current-last":
             patterns.append((
                 "current-last",
                 rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
+            ))
+            patterns.append((
+                "current-last-postfix-unit",
+                rf"^\s*{label_group}\s*{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
             ))
         elif mode == "single-year":
             patterns.append((
@@ -1400,6 +1542,15 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
             "row-year-suffix",
             rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*{report_year}\s*年\s*$",
         ))
+        if code == "Q_E_HAZ_WASTE_INTENSITY" and mode is None:
+            patterns.append((
+                "single-value-revenue-unit",
+                rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
+            ))
+            patterns.append((
+                "single-unit-value-revenue",
+                rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s*$",
+            ))
         for pattern_mode, row in patterns:
             for match in re.finditer(row, text, re.M):
                 unit_key = re.sub(r"\s+", "", match.group("unit")).strip("（）()")
@@ -1412,6 +1563,24 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                 results.append((
                     code, value,
                     f"Chinese {pattern_mode} environmental table row: " + re.sub(r"\s+", " ", match.group(0)).strip(),
+                ))
+    # Some ESG KPI tables split one pollutant into label / total / unit / value / intensity /
+    # unit / value bands. Accept only an explicit report-year emissions-performance table and
+    # the exact SO2 substance label; SOx and permit/target tables cannot enter this branch.
+    if re.search(rf"(?:废气污染物(?:排放|减排)情况|污染物排放)[\s\S]{{0,120}}指标\s*单位\s*{report_year}\s*年", text):
+        match = re.search(
+            r"二氧化硫\s*\n\s*排放总量\s*\n\s*吨\s*\n\s*[\d,]+(?:\.\d+)?\s*\n\s*"
+            r"排放强度\s*\n\s*吨\s*/\s*百万元(?:营收|营业收入)\s*\n\s*"
+            r"(?P<current>[\d,]+(?:\.\d+)?)",
+            text,
+        )
+        if match:
+            value = float(match.group("current").replace(",", "")) * 10_000
+            if _plausible_value("Q_E_SO2_INTENSITY", value):
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                results.append((
+                    "Q_E_SO2_INTENSITY", value,
+                    "Chinese explicit-year split pollutant intensity row: " + evidence[:260],
                 ))
     return results
 
@@ -1610,7 +1779,14 @@ def _extract_summary_revenue(raw_text: str, in_summary_section: bool = False) ->
     values = [float(item.replace(",", "")) for item in number.findall(evidence)]
     if len(values) < 2 or values[1] == 0:
         return None
-    scale = 10_000 if re.search(r"单位\s*[：:]\s*万元", raw_text) else 1
+    if re.search(r"人民币\s*百万元|单位\s*[：:]\s*百万元(?:\s*币种\s*[：:]\s*人民币)?", raw_text):
+        scale = 1_000_000
+    elif re.search(r"人民币\s*千元|单位\s*[：:]\s*千元(?:\s*币种\s*[：:]\s*人民币)?", raw_text):
+        scale = 1_000
+    elif re.search(r"单位\s*[：:]\s*万元", raw_text):
+        scale = 10_000
+    else:
+        scale = 1
     return values[0] * scale, values[1] * scale, re.sub(r"\s+", " ", evidence)[:400]
 
 
@@ -1661,6 +1837,24 @@ def _extract_balance_sheet_indicators(pages: list[PageText]) -> list[tuple[str, 
             equivalent_assets.values, equivalent_assets.page,
             "资产等价闭合行: " + equivalent_assets.evidence,
         )
+    if facts.get("liabilities") is None and facts.get("assets") and facts.get("equity"):
+        assets = facts["assets"]
+        equity = facts["equity"]
+        if (
+            assets.evidence.startswith("资产等价闭合行: ")
+            and len(assets.values) >= 2 and len(equity.values) >= 2
+            and all(asset > equity_value >= 0 for asset, equity_value in zip(assets.values[:2], equity.values[:2]))
+        ):
+            # A band-split PDF may detach the explicit 负债合计 row from its values while retaining
+            # the audited total-equity and liabilities-plus-equity rows. Recover both periods only
+            # from that exact accounting identity; ordinary asset rows never enable this fallback.
+            liability_values = tuple(
+                asset - equity_value for asset, equity_value in zip(assets.values[:2], equity.values[:2])
+            )
+            facts["liabilities"] = StatementFact(
+                liability_values, max(assets.page, equity.page),
+                "资产负债恒等式派生: " + assets.evidence + " | " + equity.evidence,
+            )
     if not _accounting_identity_holds(facts.get("assets"), facts.get("liabilities"), facts.get("equity")):
         return []
     for larger_name, smaller_name in (

@@ -1,0 +1,61 @@
+{
+  "policy_version": "project-completion-risk-v2",
+  "expected_company_count": 632,
+  "completed_gate_count": 0,
+  "gate_count": 6,
+  "completion_rate": 0.0,
+  "publishable": false,
+  "gates": {
+    "universe": {
+      "complete": false,
+      "current": 614,
+      "target": 632,
+      "blocker": "冻结公司主体、行业证据及A/H映射"
+    },
+    "documents": {
+      "complete": false,
+      "current": 612,
+      "target": 632,
+      "blocker": "闭环每家公司的目标年度年报状态"
+    },
+    "quantitative": {
+      "complete": false,
+      "current": 8082,
+      "target": 23384,
+      "completion_basis": "risk_gate",
+      "risk_evidence": {
+        "all_indicators_have_population": true,
+        "minimum_population_gate_passed": false,
+        "sampling_accuracy_passed": false
+      },
+      "blocker": "验证最低统计人口和自动规则抽样准确率；真实空窗由冻结缺失策略处理"
+    },
+    "qualitative": {
+      "complete": false,
+      "current": 0,
+      "candidate": 11023,
+      "target": 27176,
+      "completion_basis": "risk_gate",
+      "risk_evidence": {
+        "classification_thresholds_validated": false,
+        "sampling_accuracy_passed": false,
+        "high_risk_open_count_zero": false,
+        "open_arbitration_count_zero": false
+      },
+      "blocker": "用真实标注验证分类阈值和抽样准确率，并清零高风险审核与仲裁"
+    },
+    "review": {
+      "complete": false,
+      "quantitative_manual_groups": 137,
+      "qualitative_unconfirmed_groups": 27176,
+      "blocker": "由真实审核人完成签名，系统不得代签"
+    },
+    "release": {
+      "complete": false,
+      "freeze_ready": false,
+      "applicable": false,
+      "blocker": "冻结正式观测并通过score --release质量门禁"
+    }
+  },
+  "next_gate": "universe"
+}

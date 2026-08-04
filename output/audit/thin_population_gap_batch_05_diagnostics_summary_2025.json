@@ -1,0 +1,18 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v6",
+  "task_count": 1822,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 8,
+    "disclosed_non_revenue_denominator": 6,
+    "likely_methodology_compatible_rule_gap": 7,
+    "no_matching_disclosure_in_text": 466,
+    "possible_alternative_water_formula_closure": 1,
+    "possible_clean_energy_revenue_closure": 3,
+    "possible_direct_alternative_water_rate": 12,
+    "possible_total_plus_rmb_revenue_derivation": 1,
+    "related_disclosure_without_compatible_intensity": 112,
+    "related_fields_incomplete": 1206
+  },
+  "scoring_authorized": false,
+  "complete": true
+}

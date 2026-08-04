@@ -38,6 +38,11 @@ from .dual_review import (
 )
 from .io import merge_confirmed_observations, read_observations, write_observation_template, write_observations, write_ranking_csv, write_ranking_html, write_ranking_json
 from .methodology import load_methodology
+from .methodology_review import (
+    evaluate_thin_population_methodology_review,
+    prepare_thin_population_methodology_review,
+    write_methodology_review_packet,
+)
 from .qualitative_review import (
     apply_qualitative_review_decisions, merge_qualitative_candidate_files,
     plan_qualitative_review, read_qualitative_candidates,
@@ -45,7 +50,12 @@ from .qualitative_review import (
     reprioritize_evidence_gaps, write_qualitative_review_plan, write_qualitative_review_results,
     write_qualitative_review_template, write_reprioritized_gaps,
 )
-from .quantitative_gap_priority import build_quantitative_gap_batch, prioritize_quantitative_gaps, write_quantitative_gap_priority
+from .quantitative_validation import (
+    apply_quantitative_validation, evaluate_quantitative_validation,
+    prepare_quantitative_validation_sample, write_json,
+    write_quantitative_validation_sample,
+)
+from .quantitative_gap_priority import build_quantitative_gap_batch, build_thin_population_gap_batch, prioritize_quantitative_gaps, write_quantitative_gap_priority
 from .review_batch import (
     apply_review_batch, create_review_batch, read_batch_ledger, read_batch_rows,
     read_review_progress, update_ledger_entry, write_batch_ledger, write_review_progress,
@@ -63,6 +73,7 @@ from .review import apply_conflict_review_instructions, apply_review_instruction
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
 from .scoring import MissingStrategy, ScoringEngine
+from .stage_orchestrator import assess_next_stage, write_stage_assessment
 from .sources.sse import discover_reports
 from .sources.szse import discover_batch as discover_szse_batch, discover_reports as discover_szse_reports
 from .sources.listings import collect_listing_pages, fetch_json
@@ -91,6 +102,9 @@ def main() -> None:
     completion.add_argument("--resolution", required=True, help="定量冻结审计摘要JSON")
     completion.add_argument("--expected-companies", type=int, default=632)
     completion.add_argument("--output", required=True)
+    advance = sub.add_parser("advance-stage", help="按六道门禁自动判定下一研发阶段或外部阻塞")
+    advance.add_argument("completion_report", help="audit-completion生成的完成度报告")
+    advance.add_argument("--output", required=True)
     evidence_graph = sub.add_parser("build-evidence-graph", help="构建多源证据约束图及质量摘要")
     evidence_graph.add_argument("input")
     evidence_graph.add_argument("--output", required=True)
@@ -103,6 +117,31 @@ def main() -> None:
     e1_evaluate = sub.add_parser("evaluate-e1-validation", help="用已签名真值评估约束图技术效果")
     e1_evaluate.add_argument("input")
     e1_evaluate.add_argument("--output", required=True)
+    quant_sample = sub.add_parser("prepare-quantitative-validation", help="按指标和证据方法生成自动决定分层抽样模板")
+    quant_sample.add_argument("confirmed")
+    quant_sample.add_argument("--per-stratum", type=int, default=3)
+    quant_sample.add_argument("--output", required=True)
+    quant_sample.add_argument("--summary", required=True)
+    quant_evaluate = sub.add_parser("evaluate-quantitative-validation", help="用真实签名真值评估自动定量决定准确率")
+    quant_evaluate.add_argument("input")
+    quant_evaluate.add_argument("--manifest", required=True, help="prepare命令生成的冻结抽样摘要JSON")
+    quant_evaluate.add_argument("--minimum-accuracy", type=float, default=.98)
+    quant_evaluate.add_argument("--relative-tolerance", type=float, default=.001)
+    quant_evaluate.add_argument("--output", required=True)
+    quant_apply = sub.add_parser("apply-quantitative-validation", help="将可应用的抽样评估绑定到定量覆盖摘要")
+    quant_apply.add_argument("summary")
+    quant_apply.add_argument("evaluation")
+    quant_apply.add_argument("--confirmed", required=True)
+    quant_apply.add_argument("--output", required=True)
+    thin_review = sub.add_parser("prepare-thin-methodology-review", help="冻结薄样本指标方法论裁决包")
+    thin_review.add_argument("quantitative_summary")
+    thin_review.add_argument("diagnostics")
+    thin_review.add_argument("--output", required=True)
+    thin_review.add_argument("--manifest", required=True)
+    thin_review_evaluate = sub.add_parser("evaluate-thin-methodology-review", help="验证真实签名的薄样本方法论裁决")
+    thin_review_evaluate.add_argument("decisions")
+    thin_review_evaluate.add_argument("--manifest", required=True)
+    thin_review_evaluate.add_argument("--output", required=True)
     incremental = sub.add_parser("plan-incremental-recompute", help="按证据依赖图定位变更后的最小重算范围")
     incremental.add_argument("graph")
     incremental.add_argument("--changed-id", action="append", default=[])
@@ -125,6 +164,7 @@ def main() -> None:
     release_template = sub.add_parser("prepare-release-authorization", help="生成绑定输入和方法论Hash的未签名正式发布授权模板")
     release_template.add_argument("input")
     release_template.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], required=True)
+    release_template.add_argument("--completion-report", help="绑定六道完成门禁报告JSON")
     release_template.add_argument("--output", required=True)
     research_qualitative = sub.add_parser("build-research-qualitative", help="从证据包和缺口生成仅限自动预排名的定性观测")
     research_qualitative.add_argument("packets")
@@ -162,6 +202,12 @@ def main() -> None:
     quantitative_batch.add_argument("--companies", required=True)
     quantitative_batch.add_argument("--tasks", required=True)
     quantitative_batch.add_argument("--summary", required=True)
+    thin_population_batch = sub.add_parser("build-thin-population-gap-batch", help="为低于最低人口门的指标生成均衡专项诊断批次")
+    thin_population_batch.add_argument("impact")
+    thin_population_batch.add_argument("--minimum-population", type=int, default=20)
+    thin_population_batch.add_argument("--per-indicator", type=int, default=25)
+    thin_population_batch.add_argument("--output", required=True)
+    thin_population_batch.add_argument("--summary", required=True)
     gap_diagnostic = sub.add_parser("diagnose-quantitative-gap-batch", help="把定量缺口分类为未披露、口径冲突或规则漏召回")
     gap_diagnostic.add_argument("tasks")
     gap_diagnostic.add_argument("document_index")
@@ -178,6 +224,7 @@ def main() -> None:
     score.add_argument("--missing-strategy", choices=tuple(item.value for item in MissingStrategy))
     score.add_argument("--release", action="store_true", help="兼容旧调用，等同于--mode release")
     score.add_argument("--release-manifest", help="正式发布所需的双人签名冻结授权清单JSON")
+    score.add_argument("--completion-report", help="正式发布所需的六道完成门禁报告JSON")
     universe_audit = sub.add_parser("universe-audit", help="审计公司池及已完成数据覆盖")
     universe_audit.add_argument("universe")
     universe_audit.add_argument("--observations")
@@ -874,6 +921,11 @@ def main() -> None:
         write_completion_report(args.output, report)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
+    if args.command == "advance-stage":
+        assessment = assess_next_stage(args.completion_report)
+        write_stage_assessment(args.output, assessment)
+        print(json.dumps(assessment, ensure_ascii=False, indent=2))
+        return
     if args.command == "build-evidence-graph":
         methodology = load_methodology(args.methodology)
         graph, summary = build_evidence_constraint_graph(
@@ -890,6 +942,35 @@ def main() -> None:
     if args.command == "evaluate-e1-validation":
         report = evaluate_e1_validation(args.input)
         write_e1_evaluation(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-quantitative-validation":
+        rows, summary = prepare_quantitative_validation_sample(args.confirmed, args.per_stratum)
+        write_quantitative_validation_sample(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "evaluate-quantitative-validation":
+        report = evaluate_quantitative_validation(
+            args.input, args.minimum_accuracy, args.relative_tolerance, args.manifest,
+        )
+        write_json(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-quantitative-validation":
+        report = apply_quantitative_validation(args.summary, args.evaluation, args.confirmed)
+        write_json(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-thin-methodology-review":
+        rows, manifest = prepare_thin_population_methodology_review(
+            args.quantitative_summary, args.diagnostics,
+        )
+        write_methodology_review_packet(args.output, args.manifest, rows, manifest)
+        print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        return
+    if args.command == "evaluate-thin-methodology-review":
+        report = evaluate_thin_population_methodology_review(args.decisions, args.manifest)
+        write_json(args.output, report)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
     if args.command == "plan-incremental-recompute":
@@ -938,7 +1019,7 @@ def main() -> None:
         return
     if args.command == "prepare-release-authorization":
         manifest = prepare_release_authorization(
-            args.input, args.methodology, args.missing_strategy,
+            args.input, args.methodology, args.missing_strategy, args.completion_report,
         )
         output = Path(args.output)
         output.parent.mkdir(parents=True, exist_ok=True)
@@ -986,6 +1067,13 @@ def main() -> None:
         write_evidence_collection_batch(
             args.companies, args.tasks, args.summary, companies, tasks, summary,
         )
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "build-thin-population-gap-batch":
+        rows, summary = build_thin_population_gap_batch(
+            args.impact, args.minimum_population, args.per_indicator,
+        )
+        write_quantitative_gap_priority(args.output, args.summary, rows, summary)
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return
     if args.command == "diagnose-quantitative-gap-batch":
@@ -1393,6 +1481,8 @@ def main() -> None:
             raise SystemExit("正式发布必须同时指定 --universe 和 --expected-companies")
         if not args.release_manifest:
             raise SystemExit("正式发布必须指定 --release-manifest")
+        if not args.completion_report:
+            raise SystemExit("正式发布必须指定 --completion-report")
         audit = audit_universe(
             read_universe(args.universe), args.expected_companies,
             {item.company_code for item in observations},
@@ -1407,6 +1497,7 @@ def main() -> None:
         try:
             release_authorization = validate_release_authorization(
                 args.release_manifest, args.input, args.methodology, strategy,
+                args.completion_report,
             )
         except ValueError as error:
             raise SystemExit(str(error)) from error

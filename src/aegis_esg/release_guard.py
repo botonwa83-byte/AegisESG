@@ -17,7 +17,7 @@ def sha256_file(path: str | Path) -> str:
 
 def validate_release_authorization(
     manifest_path: str | Path, input_path: str | Path, methodology_path: str | Path,
-    missing_strategy: str,
+    missing_strategy: str, completion_report_path: str | Path | None = None,
 ) -> dict:
     with Path(manifest_path).open(encoding="utf-8") as stream:
         manifest = json.load(stream)
@@ -33,6 +33,22 @@ def validate_release_authorization(
     for field, actual in expected.items():
         if manifest.get(field) != actual:
             raise ValueError(f"正式发布授权清单{field}不匹配")
+    if completion_report_path is not None:
+        completion_path = Path(completion_report_path)
+        try:
+            with completion_path.open(encoding="utf-8") as stream:
+                completion = json.load(stream)
+        except (OSError, json.JSONDecodeError) as error:
+            raise ValueError("正式发布完成度报告无效") from error
+        gates = completion.get("gates") if isinstance(completion, dict) else None
+        if not isinstance(completion, dict) or completion.get("publishable") is not True:
+            raise ValueError("六道完成门禁未全部通过，不得授权正式发布")
+        if not isinstance(gates, dict) or len(gates) != 6 or not all(
+            isinstance(gate, dict) and gate.get("complete") is True for gate in gates.values()
+        ):
+            raise ValueError("六道完成门禁未全部通过，不得授权正式发布")
+        if manifest.get("completion_report_sha256") != sha256_file(completion_path):
+            raise ValueError("正式发布授权清单completion_report_sha256不匹配")
     if manifest.get("scope") != "official_release":
         raise ValueError("授权清单不得从研究或预览域提升为正式发布")
     approvals = manifest.get("approvals")
@@ -69,8 +85,9 @@ def validate_release_authorization(
 
 def prepare_release_authorization(
     input_path: str | Path, methodology_path: str | Path, missing_strategy: str,
+    completion_report_path: str | Path | None = None,
 ) -> dict:
-    return {
+    manifest = {
         "manifest_version": RELEASE_MANIFEST_VERSION,
         "algorithm_version": FORMAL_ALGORITHM_VERSION,
         "scope": "official_release",
@@ -86,3 +103,7 @@ def prepare_release_authorization(
         "authorized": False,
         "notice": "未签名模板；系统不得填写审核人或提升为正式发布",
     }
+    if completion_report_path is not None:
+        manifest["completion_report_path"] = str(completion_report_path)
+        manifest["completion_report_sha256"] = sha256_file(completion_report_path)
+    return manifest
