@@ -1088,6 +1088,8 @@ python3 -m aegis_esg.cli plan-indicators \
   同步到Mac后造成来源失效；全量测试326项通过。
 - D4.13新增并接入`scripts/build_collection_coverage_report.py`，本地与GitHub每轮生成按域名/报告类型的覆盖报告；首轮实测
   1,044条中已登记125条、缺919条、失败0条，正式评分未授权。
+- D4.14本地定时脚本增加`swift scripts/extract_pdf_batch.swift`，将新增PDF抽取到`data/text/ci_collection`；抽取失败只记录日志，
+  不影响原始PDF与Hash索引，GitHub Linux任务不执行Swift抽取。
 
 ## 2026-08-04发布模板安全同步
 

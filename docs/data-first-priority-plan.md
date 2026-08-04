@@ -166,6 +166,8 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
   本地后仍可正确追溯PDF，不受GitHub Runner目录影响。
 - D4.13新增`scripts/build_collection_coverage_report.py`并接入本地/ GitHub定时任务，按下载索引、来源域名、报告类型和失败清单
   输出覆盖报告；当前首轮实测已登记125/1,044条、缺919条、失败0条，避免用文件数量误判完整性。
+- D4.14本地LaunchAgent新增PDF文本抽取步骤，使用PDFKit将新增`data/raw/ci_collection`文件转换到`data/text/ci_collection`，
+  仅处理新增文本且抽取失败不回滚PDF下载；GitHub Linux任务暂不执行Swift抽取，后续由本地同步后完成。
 
 ### D2：低覆盖指标专项
 

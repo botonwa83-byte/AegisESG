@@ -22,5 +22,10 @@ export PYTHONPATH="$repo_root/src"
   "$python_bin" scripts/prepare_official_download_manifest.py
   "$python_bin" scripts/run_scheduled_collection.py
   "$python_bin" scripts/build_collection_coverage_report.py
+  if command -v swift >/dev/null 2>&1; then
+    swift scripts/extract_pdf_batch.swift data/raw/ci_collection data/text/ci_collection || echo "text extraction reported failures; download remains valid"
+  else
+    echo "swift unavailable; defer local PDF text extraction"
+  fi
   echo "$(date -u +%FT%TZ) collection finished"
 } >> "$log_dir/scheduler.log" 2>&1
