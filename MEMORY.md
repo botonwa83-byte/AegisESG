@@ -1077,6 +1077,9 @@ python3 -m aegis_esg.cli plan-indicators \
   `scheduled_collection_manifest_v1_2025.csv`；Workflow现在优先定时更新交易所披露数据，官网来源验证后再追加。
 - D4.8已启用GitHub Actions并手工触发：首次运行`30886331569`因CI未生成官网队列失败，已在`9f4e86a`修复；第二次运行
   `30886410395`已通过队列和验证步骤，正在下载1,044条披露文档并上传`aegis-official-data` Artifact。
+- D4.9新增`scripts/discover_official_domains_from_documents.py`，从本地已下载报告反向提取官网候选域名，生成
+  `output/audit/official_domain_candidates_from_documents_v1_2025.csv`，701条候选、覆盖408家公司；状态为报告自披露候选，
+  仍须域名归属/HTTPS核验，未自动授权下载或评分。
 
 ## 2026-08-04发布模板安全同步
 

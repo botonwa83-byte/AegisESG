@@ -154,6 +154,9 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
   1,044条、覆盖612家公司的定时下载清单；GitHub Workflow改为使用该清单，官网来源在验证后追加，不影响交易所更新。
 - D4.8已在GitHub Actions启用并手工触发首次运行；首次运行发现官网队列需在CI内生成，已修复Workflow并推送`9f4e86a`。
   第二次运行编号为`30886410395`，已通过清单生成和来源验证，正在下载1,044条披露文档并准备Artifact。
+- D4.9新增`scripts/discover_official_domains_from_documents.py`，从已下载年报/ESG文本提取报告中自披露的官网候选域名，
+  生成`official_domain_candidates_from_documents_v1_2025.csv`：701条候选、覆盖408家公司。候选仍需域名归属和HTTPS核验，
+  不会自动当作正式来源或评分数据。
 
 ### D2：低覆盖指标专项
 
