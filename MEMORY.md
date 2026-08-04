@@ -1011,6 +1011,10 @@ python3 -m aegis_esg.cli plan-indicators \
   7项不兼容口径、1项模糊强度。没有足够依据扩展规则或解除门禁，唯一清洁能源线索进入人工口径复核。
 - 已切换自动开发模式，D2.2生成`output/audit/thin_population_review_packet_v1_2025.html`，供薄样本口径复核使用；
   明确不降门、不混用SOx/SO2、不强行换算分母、不把缺失记零。全量测试320项通过。
+- D2.3生成`output/audit/thin_population_gate_assessment_v1_2025.json`：替代水率人口7需方法论决定，清洁能源强度人口1、
+  SO2人口13需证据复核；三项均未达20，`scoring_authorized=false`。
+- 用户再次要求无需等待指令后，已立即执行D2.4：生成`output/audit/thin_evidence_preview_v1_2025.csv`，包含1条清洁能源
+  可能闭合、7条SO2相关披露和1条SO2模糊强度，全部`pending_basis_review`，不计入正式指标人口。
 
 ## 2026-08-04发布模板安全同步
 

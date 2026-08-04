@@ -1,0 +1,50 @@
+{
+  "policy_version": "thin-population-gate-assessment-v1",
+  "minimum_population": 20,
+  "indicator_count": 3,
+  "scoring_authorized": false,
+  "indicators": [
+    {
+      "indicator_code": "Q_E_ALTERNATIVE_WATER_RATE",
+      "indicator_name": "再生水或其他替代水源占比",
+      "diagnostic_task_count": 25,
+      "diagnostic_categories": {
+        "related_fields_incomplete": 25
+      },
+      "gate_status": "methodology_review_required",
+      "minimum_population": 20,
+      "current_population": 7,
+      "scoring_authorized": false,
+      "required_decision": "确认同口径公开数据是否足以达到最低人口；否则保留薄样本警告并冻结缺失策略"
+    },
+    {
+      "indicator_code": "Q_E_CLEAN_ENERGY_INTENSITY",
+      "indicator_name": "绿色/可再生/清洁能源生产/使用强度",
+      "diagnostic_task_count": 25,
+      "diagnostic_categories": {
+        "related_fields_incomplete": 24,
+        "possible_clean_energy_revenue_closure": 1
+      },
+      "gate_status": "evidence_review_required",
+      "minimum_population": 20,
+      "current_population": 1,
+      "scoring_authorized": false,
+      "required_decision": "确认同口径公开数据是否足以达到最低人口；否则保留薄样本警告并冻结缺失策略"
+    },
+    {
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "indicator_name": "二氧化硫排放强度",
+      "diagnostic_task_count": 25,
+      "diagnostic_categories": {
+        "related_disclosure_without_compatible_intensity": 7,
+        "no_matching_disclosure_in_text": 17,
+        "ambiguous_intensity_disclosure": 1
+      },
+      "gate_status": "evidence_review_required",
+      "minimum_population": 20,
+      "current_population": 13,
+      "scoring_authorized": false,
+      "required_decision": "确认同口径公开数据是否足以达到最低人口；否则保留薄样本警告并冻结缺失策略"
+    }
+  ]
+}

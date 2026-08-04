@@ -1,0 +1,10 @@
+{
+  "policy_version": "thin-evidence-preview-v1",
+  "preview_count": 9,
+  "category_counts": {
+    "possible_clean_energy_revenue_closure": 1,
+    "related_disclosure_without_compatible_intensity": 7,
+    "ambiguous_intensity_disclosure": 1
+  },
+  "scoring_authorized": false
+}
