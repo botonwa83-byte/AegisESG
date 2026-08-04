@@ -1,0 +1,17 @@
+{
+  "policy_version": "scheduled-collection-coverage-v1",
+  "manifest_rows": 1044,
+  "downloaded_rows": 125,
+  "missing_rows": 919,
+  "failure_rows": 0,
+  "downloaded_by_host": {
+    "disc.static.szse.cn": 103,
+    "www1.hkexnews.hk": 22
+  },
+  "missing_by_document_type": {
+    "esg_report": 325,
+    "annual_report": 594
+  },
+  "scoring_authorized": false,
+  "formal_publishable": false
+}

@@ -1,0 +1,139 @@
+{
+  "policy_version": "thin-basis-review-application-v1",
+  "row_count": 9,
+  "incomplete_rows": 9,
+  "confirmed_rows": 0,
+  "incomplete_examples": [
+    {
+      "company_code": "00006.HK",
+      "indicator_code": "Q_E_CLEAN_ENERGY_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "00002.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "00003.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "00006.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "000543.SZ",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "000682.SZ",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "000791.SZ",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "00182.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    },
+    {
+      "company_code": "002479.SZ",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "fields": [
+        "basis_decision",
+        "selected_value",
+        "selected_unit",
+        "selected_denominator",
+        "scope_decision",
+        "reviewer",
+        "reviewed_at",
+        "review_note"
+      ]
+    }
+  ],
+  "invalid_decisions": [],
+  "status": "blocked_external_review",
+  "candidate_observations_written": false,
+  "scoring_authorized": false,
+  "decision": "complete_all_required_review_fields"
+}

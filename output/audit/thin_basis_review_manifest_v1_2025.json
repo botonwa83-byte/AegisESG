@@ -1,0 +1,48 @@
+{
+  "policy_version": "thin-basis-review-manifest-v1",
+  "generated_at_utc": "2026-08-04T06:29:24+00:00",
+  "scope": {
+    "report_year": 2025,
+    "purpose": "薄样本证据口径复核，不产生正式评分"
+  },
+  "inputs": {
+    "review_template": {
+      "path": "output/audit/thin_basis_review_template_v1_2025.csv",
+      "sha256": "4525420cfb257da15b4e81c1c11c85e424e651756583290052999af5461727c6"
+    },
+    "template_validation": {
+      "path": "output/audit/thin_basis_review_template_validation_v1_2025.json",
+      "sha256": "409cf1863bdffd7af0f597a6227d126f3fff5d1a8954d88f846fb975adeb9cc5"
+    },
+    "consistency_audit": {
+      "path": "output/audit/thin_basis_consistency_audit_v1_2025.csv",
+      "sha256": "b6423019ecfca75cd1972fa72a21a6c07f4eb9c4d41c70c8bd5c9dcdc3f62420"
+    },
+    "document_index": {
+      "path": "data/raw/all_markets_document_index.csv",
+      "sha256": "664c2eb8c0cfcc7b086ceea94b077e5de9ddca4ff12f1b5bb5ec83be476a2977"
+    }
+  },
+  "validation": {
+    "policy_version": "thin-basis-review-template-validation-v1",
+    "row_count": 9,
+    "missing_required_fields": [],
+    "partially_filled_rows": 0,
+    "template_valid": true,
+    "scoring_authorized": false,
+    "decision": "blocked_until_complete_signed_review"
+  },
+  "review_status": {
+    "row_count": 9,
+    "completed_signed_rows": 0,
+    "status": "blocked_external_review",
+    "scoring_authorized": false,
+    "required_external_action": "由具备权限的审核人补全每条证据的值、单位、分母、边界、审核人、时间和理由，并复核未定位页码项"
+  },
+  "integrity": {
+    "source_chain_bound": true,
+    "hash_algorithm": "SHA-256",
+    "formal_ranking_write": false,
+    "publishable": false
+  }
+}

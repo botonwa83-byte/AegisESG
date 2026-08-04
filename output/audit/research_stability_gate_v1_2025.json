@@ -1,0 +1,38 @@
+{
+  "policy_version": "research-stability-gate-v1",
+  "report_year": 2025,
+  "company_count": 612,
+  "unstable_company_count": 612,
+  "unstable_rate": 1.0,
+  "max_rank_span": 509.0,
+  "strategy_comparisons": [
+    {
+      "left": "legacy_zero_v1",
+      "right": "indicator_neutral_v1",
+      "spearman_rank_correlation": 0.627152,
+      "top_50_overlap_rate": 0.576923,
+      "top_100_overlap_rate": 0.684685,
+      "top_200_overlap_rate": 0.649057
+    },
+    {
+      "left": "legacy_zero_v1",
+      "right": "disclosed_weight_v1",
+      "spearman_rank_correlation": 0.380622,
+      "top_50_overlap_rate": 0.230769,
+      "top_100_overlap_rate": 0.361111,
+      "top_200_overlap_rate": 0.506787
+    },
+    {
+      "left": "indicator_neutral_v1",
+      "right": "disclosed_weight_v1",
+      "spearman_rank_correlation": 0.897259,
+      "top_50_overlap_rate": 0.288462,
+      "top_100_overlap_rate": 0.567568,
+      "top_200_overlap_rate": 0.739623
+    }
+  ],
+  "status": "blocked_stability",
+  "research_preview_allowed": true,
+  "formal_publishable": false,
+  "required_action": "补充可审计观测并复核缺失策略敏感性；稳定性未达标前不得正式发布"
+}

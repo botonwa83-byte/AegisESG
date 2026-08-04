@@ -1,0 +1,9 @@
+{
+  "policy_version": "official-download-manifest-v1",
+  "input_rows": 802,
+  "ready_rows": 0,
+  "download_started": false,
+  "download_authorized": false,
+  "scoring_authorized": false,
+  "decision": "no_verified_official_urls"
+}

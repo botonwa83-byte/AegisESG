@@ -1,0 +1,8 @@
+{
+  "policy_version": "research-stability-priority-v1",
+  "company_count": 612,
+  "top_priority_count": 50,
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "source": "output/research/2025/ranking_sensitivity.json"
+}

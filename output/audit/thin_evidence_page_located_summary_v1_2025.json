@@ -1,0 +1,8 @@
+{
+  "policy_version": "thin-evidence-page-location-v1",
+  "task_count": 9,
+  "page_located": 8,
+  "page_not_located": 1,
+  "ready_for_basis_review": 8,
+  "scoring_authorized": false
+}

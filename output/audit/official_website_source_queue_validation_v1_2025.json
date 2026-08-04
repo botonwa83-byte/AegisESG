@@ -1,0 +1,10 @@
+{
+  "policy_version": "official-website-source-validation-v1",
+  "row_count": 802,
+  "ready_for_download": 0,
+  "invalid_rows": 0,
+  "invalid_examples": [],
+  "download_authorized": false,
+  "scoring_authorized": false,
+  "decision": "await_official_domain_registration"
+}

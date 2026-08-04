@@ -1,0 +1,10 @@
+{
+  "policy_version": "thin-basis-consistency-audit-v1",
+  "task_count": 9,
+  "basis_status_counts": {
+    "needs_manual_basis_confirmation": 8,
+    "blocked_provenance": 1
+  },
+  "foreign_currency_count": 0,
+  "scoring_authorized": false
+}

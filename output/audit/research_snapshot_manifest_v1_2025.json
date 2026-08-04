@@ -1,0 +1,61 @@
+{
+  "policy_version": "research-snapshot-manifest-v1",
+  "generated_at_utc": "2026-08-04T06:42:06+00:00",
+  "report_year": 2025,
+  "snapshot_type": "research_preview_only",
+  "ranking_rows": 200,
+  "artifacts": {
+    "ranking": {
+      "path": "output/research/2025/ranking.json",
+      "sha256": "d81fb2d12db3cddb66f36719f7d6c86151bd7999526b7b85316d3796cd50dcdf"
+    },
+    "ranking_metadata": {
+      "path": "output/research/2025/ranking_metadata.json",
+      "sha256": "25f747e4a7597c2f5718da979978f64606abfe351bb324ef70f2b11c732f808f"
+    },
+    "ranking_sensitivity": {
+      "path": "output/research/2025/ranking_sensitivity.json",
+      "sha256": "3025fc143db92c6be125499f7ca7e18a6d46142c5e1596d551d129f3b450057a"
+    },
+    "observations": {
+      "path": "output/research/2025/full_auto_observations_v19.csv",
+      "sha256": "fe64df5618f0151e1acf1d8795df5565ea163901d81e8a942ddfa789eab316c4"
+    },
+    "observation_summary": {
+      "path": "output/research/2025/full_auto_observations_summary_v8.json",
+      "sha256": "45ba3be0255ef401c9343832f87154f4bf7a064bf72909af74c29dd65f58496b"
+    },
+    "gap_baseline": {
+      "path": "output/audit/data_gap_baseline_summary_v1_2025.json",
+      "sha256": "b248d63c8c690fa5b55cf229f17275efa58879a2ece48330ad77b5b6fcb2336f"
+    },
+    "auto_review": {
+      "path": "output/audit/thin_basis_review_application_v1_2025.json",
+      "sha256": "e6cab0db96bfae689632abed149d3251d9727ee829808ca1ff1965e8cd23963f"
+    },
+    "stability_gate": {
+      "path": "output/audit/research_stability_gate_v1_2025.json",
+      "sha256": "fe6b8110ad88bd120af043d0dee7488212664f26d0e7a456c67739fe97bd99ff"
+    },
+    "stability_priority_queue": {
+      "path": "output/audit/research_stability_priority_queue_v1_2025.csv",
+      "sha256": "e2fd6e696b9042475b0b276a51dbaa946914f9a5872f1cc8842dbb7e6ed6c7f9"
+    },
+    "stability_priority_summary": {
+      "path": "output/audit/research_stability_priority_queue_v1_2025_summary.json",
+      "sha256": "2f8aed2eed4e2c0ff255a489f4b93204635fa007fd5752d7f728aab5778edc9d"
+    },
+    "stability_priority_packet": {
+      "path": "output/audit/research_stability_priority_packet_v1_2025.html",
+      "sha256": "f08577716b9d5c8bbdde5ad2c18a2d1e63ae876b185aa74d8a63104dc988e1d2"
+    }
+  },
+  "missing_artifacts": [],
+  "review_gate": {
+    "status": "blocked_external_review",
+    "scoring_authorized": false
+  },
+  "formal_publishable": false,
+  "reproducible": true,
+  "write_to_formal_ranking": false
+}

@@ -1,0 +1,9 @@
+{
+  "policy_version": "thin-basis-review-template-validation-v1",
+  "row_count": 9,
+  "missing_required_fields": [],
+  "partially_filled_rows": 0,
+  "template_valid": true,
+  "scoring_authorized": false,
+  "decision": "blocked_until_complete_signed_review"
+}

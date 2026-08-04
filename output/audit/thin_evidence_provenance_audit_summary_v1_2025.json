@@ -1,0 +1,7 @@
+{
+  "policy_version": "thin-evidence-provenance-audit-v1",
+  "task_count": 9,
+  "ready_for_basis_review": 0,
+  "provenance_incomplete": 9,
+  "scoring_authorized": false
+}
