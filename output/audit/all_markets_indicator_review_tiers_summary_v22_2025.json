@@ -1,0 +1,12 @@
+{
+  "candidate_group_count": 8125,
+  "candidate_observation_count": 9015,
+  "tier_counts": {
+    "manual_signature_required": 317,
+    "consistent_multi_review": 2,
+    "single_candidate_review": 12,
+    "auto_policy_eligible": 7794
+  },
+  "auto_policy_version": "public-disclosure-v6",
+  "applicable": false
+}

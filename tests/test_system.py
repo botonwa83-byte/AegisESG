@@ -451,6 +451,111 @@ class MethodologyTests(unittest.TestCase):
             self.assertEqual("universe", result["gate"])
             self.assertFalse(result["publishable"])
 
+    def test_external_readiness_reports_unsigned_inputs(self):
+        from aegis_esg.external_readiness import audit_external_readiness
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            completion = root / "completion.json"
+            quantitative = root / "quantitative.json"
+            thin = root / "thin.json"
+            release = root / "release.json"
+            patent = root / "patent.md"
+            completion.write_text(json.dumps({"publishable": False, "completed_gate_count": 0, "gate_count": 6}), encoding="utf-8")
+            quantitative.write_text(json.dumps({"applicable": False, "signed_count": 0, "sample_count": 176}), encoding="utf-8")
+            thin.write_text(json.dumps({"applicable": False, "signed_count": 0, "review_count": 3}), encoding="utf-8")
+            release.write_text(json.dumps({"authorized": False}), encoding="utf-8")
+            patent.write_text("template", encoding="utf-8")
+            report = audit_external_readiness(completion, quantitative, thin, release, patent)
+            self.assertEqual("blocked_external", report["status"])
+            self.assertFalse(report["ready"])
+            self.assertEqual("0/176 signed", report["checks"]["quantitative_sampling"]["evidence"])
+
+    def test_external_readiness_can_include_unfinished_patent_experiments(self):
+        from aegis_esg.external_readiness import audit_external_readiness
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            paths = []
+            for name, value in (
+                ("completion", {"publishable": False, "completed_gate_count": 0, "gate_count": 6}),
+                ("quantitative", {"applicable": False, "signed_count": 0, "sample_count": 1}),
+                ("thin", {"applicable": False, "signed_count": 0, "review_count": 1}),
+                ("release", {"authorized": False}),
+                ("e1", {"applicable": False, "signed_count": 0, "sample_count": 1}),
+                ("e2", {"applicable": False, "task_count": 1}),
+            ):
+                path = root / f"{name}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            patent = root / "patent.md"
+            patent.write_text("template", encoding="utf-8")
+            report = audit_external_readiness(paths[0], paths[1], paths[2], paths[3], patent, paths[4], paths[5])
+            self.assertIn("e1_constraint_experiment", report["checks"])
+            self.assertIn("e2_review_scheduling_experiment", report["checks"])
+            self.assertFalse(report["ready"])
+
+    def test_auto_stage_combines_stage_and_external_state(self):
+        from aegis_esg.auto_stage import run_auto_stage
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            values = [
+                {"publishable": False, "completed_gate_count": 0, "gate_count": 6,
+                 "gates": {name: {"complete": False} for name in ("universe", "documents", "quantitative", "qualitative", "review", "release")}},
+                {"applicable": False, "signed_count": 0, "sample_count": 1},
+                {"applicable": False, "signed_count": 0, "review_count": 1},
+                {"authorized": False},
+            ]
+            paths = []
+            for index, value in enumerate(values):
+                path = root / f"{index}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            patent = root / "patent.md"
+            patent.write_text("template", encoding="utf-8")
+            report = run_auto_stage(paths[0], paths[1], paths[2], paths[3], patent)
+            self.assertEqual("M3", report["next_stage"])
+            self.assertFalse(report["continue_automatically"])
+
+    def test_auto_stage_does_not_continue_when_external_experiments_remain(self):
+        from aegis_esg.auto_stage import run_auto_stage
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gates = {name: {"complete": True} for name in (
+                "universe", "documents", "quantitative", "qualitative", "review", "release",
+            )}
+            values = [
+                {"publishable": True, "completed_gate_count": 6, "gate_count": 6, "gates": gates},
+                {"applicable": True, "signed_count": 1, "sample_count": 1},
+                {"applicable": True, "signed_count": 1, "review_count": 1},
+                {"authorized": True},
+            ]
+            paths = []
+            for index, value in enumerate(values):
+                path = root / f"{index}.json"
+                path.write_text(json.dumps(value), encoding="utf-8")
+                paths.append(path)
+            patent = root / "patent.md"
+            patent.write_text("template", encoding="utf-8")
+            e1 = root / "e1.json"
+            e1.write_text(json.dumps({"applicable": False, "signed_count": 0, "sample_count": 1}), encoding="utf-8")
+            report = run_auto_stage(paths[0], paths[1], paths[2], paths[3], patent, e1)
+            self.assertEqual("complete", report["next_stage"])
+            self.assertFalse(report["continue_automatically"])
+
+    def test_e2_validation_template_stays_unsigned_and_rejects_incomplete_rows(self):
+        from aegis_esg.e2_experiment import prepare_e2_validation_sample, write_e2_validation_sample, evaluate_e2_validation
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            impact = root / "impact.csv"
+            impact.write_text("priority,company_code,report_year,indicator_code,impact_score,crosses_top_200,baseline_confidence_rank,baseline_weight_rank\n1,A,2025,Q,80,True,4,2\n", encoding="utf-8")
+            rows, summary = prepare_e2_validation_sample(impact)
+            self.assertEqual(1, summary["task_count"])
+            self.assertFalse(summary["applicable"])
+            sample = root / "e2.csv"
+            summary_path = root / "summary.json"
+            write_e2_validation_sample(sample, summary_path, rows, summary)
+            with self.assertRaisesRegex(ValueError, "字段不完整"):
+                evaluate_e2_validation(sample)
+
     def test_normal_direction(self):
         engine = ScoringEngine(self.methodology)
         stat = PopulationStats(3, 10, 2)
@@ -3706,6 +3811,20 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         self.assertTrue(review_template.startswith("\ufeffcompany_code,"))
         self.assertIn("00196.HK", review_template)
         self.assertNotIn(",confirm,", review_template)
+
+    def test_system_demo_page_is_distinct_from_progress_dashboard(self):
+        data = {
+            "overview": {"company_count": 2, "candidate_observation_count": 4,
+                          "candidate_task_count": 3, "conflict_count": 1},
+            "review_tiers": {"summary": {"tier_counts": {"auto_policy_eligible": 2}}},
+            "resolution_freeze_audit": {"freeze_ready": False},
+        }
+        from aegis_esg.dashboard import render_system_demo
+        rendered = render_system_demo(data)
+        self.assertIn("系统演示总览", rendered)
+        self.assertIn("/demo/ranking", rendered)
+        self.assertIn("/demo/review-workbench", rendered)
+        self.assertNotIn("AegisESP 开发进度</h1>", rendered)
 
     def test_download_validation_decompresses_and_rejects_html(self):
         pdf = b"%PDF-1.7\n" + b"x" * 10_000

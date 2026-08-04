@@ -22,5 +22,7 @@
     }
   ],
   "authorized": false,
-  "notice": "未签名模板；系统不得填写审核人或提升为正式发布"
+  "notice": "未签名模板；系统不得填写审核人或提升为正式发布",
+  "completion_report_path": "output/audit/project_completion_v16_2025.json",
+  "completion_report_sha256": "bbb7c0527f63d33a0db4cb051ba3b0094aeaa2a0039b5593c04e2ccc4b996099"
 }

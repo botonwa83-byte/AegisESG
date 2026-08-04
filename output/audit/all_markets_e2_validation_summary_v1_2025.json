@@ -1,0 +1,9 @@
+{
+  "experiment_version": "e2-review-scheduling-validation-v1",
+  "input_path": "output/audit/all_markets_rank_impact_review_2025.csv",
+  "input_sha256": "6af8eaf5a76dc7290642fbd89904851efad251841c097b2a570d8276865fa638",
+  "task_count": 275,
+  "crossing_task_count": 111,
+  "signed_count": 0,
+  "applicable": false
+}

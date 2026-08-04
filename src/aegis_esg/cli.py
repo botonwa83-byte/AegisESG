@@ -74,6 +74,9 @@ from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
 from .scoring import MissingStrategy, ScoringEngine
 from .stage_orchestrator import assess_next_stage, write_stage_assessment
+from .external_readiness import audit_external_readiness, write_external_readiness
+from .e2_experiment import evaluate_e2_validation, prepare_e2_validation_sample, write_e2_validation_sample
+from .auto_stage import run_auto_stage, write_auto_stage
 from .sources.sse import discover_reports
 from .sources.szse import discover_batch as discover_szse_batch, discover_reports as discover_szse_reports
 from .sources.listings import collect_listing_pages, fetch_json
@@ -105,6 +108,24 @@ def main() -> None:
     advance = sub.add_parser("advance-stage", help="按六道门禁自动判定下一研发阶段或外部阻塞")
     advance.add_argument("completion_report", help="audit-completion生成的完成度报告")
     advance.add_argument("--output", required=True)
+    external = sub.add_parser("audit-external-readiness", help="审计不可替代外部输入是否已到位")
+    external.add_argument("--completion-report", required=True)
+    external.add_argument("--quantitative-manifest", required=True)
+    external.add_argument("--thin-methodology-manifest", required=True)
+    external.add_argument("--release-manifest", required=True)
+    external.add_argument("--patent-template", required=True)
+    external.add_argument("--e1-summary")
+    external.add_argument("--e2-summary")
+    external.add_argument("--output", required=True)
+    auto = sub.add_parser("auto-stage", help="一次刷新阶段判定与外部输入状态")
+    auto.add_argument("--completion-report", required=True)
+    auto.add_argument("--quantitative-manifest", required=True)
+    auto.add_argument("--thin-methodology-manifest", required=True)
+    auto.add_argument("--release-manifest", required=True)
+    auto.add_argument("--patent-template", required=True)
+    auto.add_argument("--e1-summary")
+    auto.add_argument("--e2-summary")
+    auto.add_argument("--output", required=True)
     evidence_graph = sub.add_parser("build-evidence-graph", help="构建多源证据约束图及质量摘要")
     evidence_graph.add_argument("input")
     evidence_graph.add_argument("--output", required=True)
@@ -117,6 +138,13 @@ def main() -> None:
     e1_evaluate = sub.add_parser("evaluate-e1-validation", help="用已签名真值评估约束图技术效果")
     e1_evaluate.add_argument("input")
     e1_evaluate.add_argument("--output", required=True)
+    e2_sample = sub.add_parser("prepare-e2-validation", help="生成E2审核调度实验签名模板")
+    e2_sample.add_argument("impact_csv")
+    e2_sample.add_argument("--output", required=True)
+    e2_sample.add_argument("--summary", required=True)
+    e2_evaluate = sub.add_parser("evaluate-e2-validation", help="验证E2审核调度实验真实标注")
+    e2_evaluate.add_argument("input")
+    e2_evaluate.add_argument("--output", required=True)
     quant_sample = sub.add_parser("prepare-quantitative-validation", help="按指标和证据方法生成自动决定分层抽样模板")
     quant_sample.add_argument("confirmed")
     quant_sample.add_argument("--per-stratum", type=int, default=3)
@@ -926,6 +954,24 @@ def main() -> None:
         write_stage_assessment(args.output, assessment)
         print(json.dumps(assessment, ensure_ascii=False, indent=2))
         return
+    if args.command == "audit-external-readiness":
+        report = audit_external_readiness(
+            args.completion_report, args.quantitative_manifest,
+            args.thin_methodology_manifest, args.release_manifest, args.patent_template,
+            args.e1_summary, args.e2_summary,
+        )
+        write_external_readiness(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "auto-stage":
+        report = run_auto_stage(
+            args.completion_report, args.quantitative_manifest,
+            args.thin_methodology_manifest, args.release_manifest,
+            args.patent_template, args.e1_summary, args.e2_summary,
+        )
+        write_auto_stage(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
     if args.command == "build-evidence-graph":
         methodology = load_methodology(args.methodology)
         graph, summary = build_evidence_constraint_graph(
@@ -942,6 +988,16 @@ def main() -> None:
     if args.command == "evaluate-e1-validation":
         report = evaluate_e1_validation(args.input)
         write_e1_evaluation(args.output, report)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-e2-validation":
+        rows, summary = prepare_e2_validation_sample(args.impact_csv)
+        write_e2_validation_sample(args.output, args.summary, rows, summary)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        return
+    if args.command == "evaluate-e2-validation":
+        report = evaluate_e2_validation(args.input)
+        write_json(args.output, report)
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
     if args.command == "prepare-quantitative-validation":

@@ -1,0 +1,43 @@
+{
+  "readiness_version": "external-input-readiness-v1",
+  "status": "blocked_external",
+  "ready": false,
+  "checks": {
+    "completion_gates": {
+      "ready": false,
+      "evidence": "0/6 gates",
+      "required_external_action": "完成六道门禁"
+    },
+    "quantitative_sampling": {
+      "ready": false,
+      "evidence": "0/176 signed",
+      "required_external_action": "完成真实定量抽样签名"
+    },
+    "thin_methodology": {
+      "ready": false,
+      "evidence": "0/3 signed",
+      "required_external_action": "完成薄样本方法论裁决"
+    },
+    "release_authorization": {
+      "ready": false,
+      "evidence": "authorized=False",
+      "required_external_action": "完成正式发布双签"
+    },
+    "patent_ownership": {
+      "ready": false,
+      "evidence": "template_present=True",
+      "required_external_action": "填写申请主体、发明人和贡献权属并经代理师确认"
+    },
+    "e1_constraint_experiment": {
+      "ready": false,
+      "evidence": "0/713 signed",
+      "required_external_action": "完成E1证据约束图真实标注"
+    },
+    "e2_review_scheduling_experiment": {
+      "ready": false,
+      "evidence": "applicable=False; tasks=275",
+      "required_external_action": "完成E2审核调度真实结果标注"
+    }
+  },
+  "notice": "该审计只识别真实输入状态，不代替审核或填写签名"
+}

@@ -69,3 +69,28 @@
 只有当剩余未完成项均能在本登记中找到对应外部责任人、空白模板、输入Hash和机器可验证验收条件，
 且代码测试、编译、差异检查和研究链路均通过时，才可认定“工程侧已完成、等待不可替代输入”。
 该状态不等于项目正式完成，也不等于榜单可发布。
+
+## 机器审计
+
+可用以下命令检查登记项是否已有真实输入：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli audit-external-readiness \
+  --completion-report output/audit/project_completion_v16_2025.json \
+  --quantitative-manifest output/audit/all_markets_quantitative_validation_sample_summary_v5_2025.json \
+  --thin-methodology-manifest output/audit/all_markets_thin_methodology_review_manifest_v1_2025.json \
+  --release-manifest data/review/release_authorization_template_2025.json \
+  --patent-template docs/patent-contribution-ownership-template.md \
+  --e1-summary output/audit/e1_evidence_validation_sample_summary_2025.json \
+  --e2-summary output/audit/all_markets_rank_impact_review_summary_2025.json \
+  --output output/audit/external_readiness_2025.json
+```
+
+该命令只读取并报告状态，不代替审核、不写入签名；当前结果为`blocked_external`。
+E1约束图真实标注和E2审核调度结果也纳入可选审计项；缺少它们不会被误判为专利技术效果已验证。
+E2签名模板为`data/review/all_markets_e2_validation_v1_2025.csv`，摘要为
+`output/audit/all_markets_e2_validation_summary_v1_2025.json`；当前275项任务、111项跨前200边界，
+签名0。
+
+推荐使用`auto-stage`作为自动续接入口；它同时刷新`stage_assessment`和本登记审计，当前产物为
+`output/audit/auto_stage_2025.json`，`next_stage=M3`且`continue_automatically=false`。

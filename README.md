@@ -193,6 +193,8 @@ PYTHONPATH=src python3 -m aegis_esg.cli advance-stage \
   output/audit/project_completion_v16_2025.json \
   --output output/audit/stage_assessment_2025.json
 ```
+外部输入是否到位可用`audit-external-readiness`统一检查，结果不会代替真实审核或签名。
+自动续接可使用`auto-stage`一次刷新两类状态，适合接入CI或定时任务。
 拟申请发明专利的核心技术方案、模块化申请方向、商业秘密边界和对照实验见
 [发明专利技术方案与研发取证计划](docs/patent-strategy.md)。
 
