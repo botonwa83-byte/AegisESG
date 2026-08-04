@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import csv
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -22,12 +23,29 @@ def main() -> None:
     SUMMARY.parent.mkdir(parents=True, exist_ok=True)
     if not MANIFEST.is_file():
         raise SystemExit(f"collection manifest not found: {MANIFEST}")
+    manifest_urls = set()
+    with MANIFEST.open(encoding="utf-8-sig", newline="") as stream:
+        manifest_urls = {row.get("source_url", "").strip() for row in csv.DictReader(stream) if row.get("source_url", "").strip()}
+    indexed_urls = set()
+    if INDEX.is_file():
+        with INDEX.open(encoding="utf-8-sig", newline="") as stream:
+            indexed_urls = {row.get("source_url", "").strip() for row in csv.DictReader(stream) if row.get("source_url", "").strip()}
+    new_urls = sorted(manifest_urls - indexed_urls)
+    if not new_urls:
+        result = {"policy_version": "scheduled-collection-v1", "run_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+                  "manifest": str(MANIFEST.relative_to(ROOT)) if MANIFEST.is_relative_to(ROOT) else str(MANIFEST),
+                  "manifest_rows": len(manifest_urls), "new_url_count": 0, "record_count": 0, "failure_count": 0,
+                  "download_started": False, "reason": "no_new_source_urls", "scoring_authorized": False, "formal_publishable": False}
+        SUMMARY.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(result, ensure_ascii=False))
+        return
     records, failures = collect_batch(MANIFEST, OUTPUT_ROOT, INDEX, FAILURES, delay_seconds=1.0, workers=2, reuse_existing=True)
     result = {
         "policy_version": "scheduled-collection-v1",
         "run_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "manifest": str(MANIFEST.relative_to(ROOT)) if MANIFEST.is_relative_to(ROOT) else str(MANIFEST),
         "record_count": len(records), "failure_count": len(failures),
+        "manifest_rows": len(manifest_urls), "new_url_count": len(new_urls),
         "index": str(INDEX.relative_to(ROOT)) if INDEX.is_relative_to(ROOT) else str(INDEX),
         "output_root": str(OUTPUT_ROOT.relative_to(ROOT)) if OUTPUT_ROOT.is_relative_to(ROOT) else str(OUTPUT_ROOT),
         "download_started": bool(records or failures), "scoring_authorized": False,
