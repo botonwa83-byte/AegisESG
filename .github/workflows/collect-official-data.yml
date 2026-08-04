@@ -26,7 +26,10 @@ jobs:
       - name: Prepare reviewed exchange manifest
         run: python scripts/build_scheduled_collection_manifest.py
       - name: Prepare reviewed official-website manifest
-        run: python scripts/prepare_official_download_manifest.py
+        run: |
+          python scripts/build_official_website_source_queue.py
+          python scripts/validate_official_website_source_queue.py
+          python scripts/prepare_official_download_manifest.py
       - name: Collect documents
         env:
           PYTHONPATH: src
