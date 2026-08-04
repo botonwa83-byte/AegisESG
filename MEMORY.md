@@ -979,6 +979,9 @@ python3 -m aegis_esg.cli plan-indicators \
   已将API统一改为优先读取全市场索引，来源缺失提示不再由旧索引造成。
 - 自动进入下一研发阶段：新增`/demo/data-readiness`数据底座页，展示809份全市场文档、覆盖企业、年报/ESG数量、
   本地文件和Hash登记情况，并在统一导航中提供入口；用于在排名前先确认原始资料链可靠性。
+- 已核验官方公开站点为`https://www.greenrank.com.cn/`，公司品牌为“万绿信评”。Demo主菜单已品牌化为“万绿信评 ·
+  ESG科学决策系统”，并添加官方站点入口；新增`docs/wanjia-greenrank-integration.md`说明子路径、子域名、链接和
+  iframe四种正式集成方式。未获官网授权前仅作为品牌化独立演示，不冒充官方生产系统。
 - `/demo`已改为交付式“系统主菜单”，直接提供排名中心、企业排名、数据底座、审核工作台、评价方法论和正式发布
   门禁六个模块入口；旧的全貌研发统计页面仍由`/dashboard`保留。`/demo/source/...`本地PDF响应改为浏览器内联打开，
   不再触发下载。
@@ -991,6 +994,23 @@ python3 -m aegis_esg.cli plan-indicators \
   研究排名和敏感性刷新。页面、正式治理和专利实验保留但暂不抢占数据主线。
 - 新增`docs/data-first-priority-plan.md`，明确数据缺口必须有`missing_reason`和`next_action`，新增候选必须带文件、页码、
   原文和Hash；目标是提升可审计观测和排名稳定性，不用候选数量冒充数据质量。
+- D0已执行：新增`scripts/build_data_gap_baseline.py`，生成`output/audit/data_gap_baseline_v1_2025.csv`及摘要。
+  22,718组任务中候选8,125组、文档存在但需抽取/披露诊断14,519组、文档缺失下载队列74组；未把缺口直接判为真实未披露。
+- D1已自动切出首批高影响补证队列：14,519个缺口中4,514个跨前200边界、1,826个高影响、4,546个关键指标缺口；
+  生成25家公司/250项任务的`output/audit/data_gap_high_impact_*_v1_2025.csv`，仅用于补证诊断，`scoring_authorized=false`。
+- D1.1已完成250项文本诊断：92项相关字段不完整、65项未命中披露、49项相关披露但强度口径不兼容、36项模糊强度/外币
+  分母/非营收分母/范围冲突；产物为`output/audit/data_gap_high_impact_diagnostics_v1_2025.csv`及摘要。下一步优先做可闭合
+  公式与口径复核，不把命中原文直接当作确认观测。
+- D1.2已生成`output/audit/data_gap_diagnostic_action_queue_v1_2025.csv`：141项检查原始PDF表格、38项人工核验单位/分母/边界、
+  71项保留缺失并继续扫描；全部保持`scoring_authorized=false`，未写入正式评分。
+- D1.3已生成`output/audit/data_gap_diagnostic_review_packet_v1_2025.html`，将250项任务按批次、企业、中文指标、影响分、
+  诊断类别、页码、原文片段和下一动作呈现为可读任务包，减少直接操作CSV的负担。
+- D1.4评估首批诊断后没有足够可直接授权的公式闭合项，未硬算；自动并行进入D2薄样本专项，生成`thin_population_gap_batch_v1_2025.csv`，
+  清洁能源强度、SO2强度、替代水率各25项，共75项，`scoring_authorized=false`。
+- D2.1完成75项薄样本文本诊断：替代水率25项均字段不完整；清洁能源24项字段不完整、1项可能营收闭合；SO2为17项无披露、
+  7项不兼容口径、1项模糊强度。没有足够依据扩展规则或解除门禁，唯一清洁能源线索进入人工口径复核。
+- 已切换自动开发模式，D2.2生成`output/audit/thin_population_review_packet_v1_2025.html`，供薄样本口径复核使用；
+  明确不降门、不混用SOx/SO2、不强行换算分母、不把缺失记零。全量测试320项通过。
 
 ## 2026-08-04发布模板安全同步
 

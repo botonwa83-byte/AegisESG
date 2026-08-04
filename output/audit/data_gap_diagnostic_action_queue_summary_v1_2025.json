@@ -1,0 +1,10 @@
+{
+  "policy_version": "diagnostic-action-queue-v1",
+  "task_count": 250,
+  "action_counts": {
+    "inspect_source_table": 141,
+    "manual_basis_review": 38,
+    "retain_missing_pending_scan": 71
+  },
+  "scoring_authorized": false
+}

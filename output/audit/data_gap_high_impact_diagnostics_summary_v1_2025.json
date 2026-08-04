@@ -1,0 +1,17 @@
+{
+  "policy_version": "quantitative-gap-diagnostic-v6",
+  "task_count": 250,
+  "category_counts": {
+    "ambiguous_intensity_disclosure": 17,
+    "disclosed_foreign_currency_denominator": 3,
+    "disclosed_non_revenue_denominator": 15,
+    "disclosed_scope_mismatch_requires_review": 1,
+    "dividend_disclosed_foreign_currency": 2,
+    "no_dividend_per_share_disclosure": 6,
+    "no_matching_disclosure_in_text": 65,
+    "related_disclosure_without_compatible_intensity": 49,
+    "related_fields_incomplete": 92
+  },
+  "scoring_authorized": false,
+  "complete": true
+}
