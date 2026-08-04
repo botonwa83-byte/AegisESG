@@ -1075,6 +1075,8 @@ python3 -m aegis_esg.cli plan-indicators \
   GitHub CLI下载Artifact并校验运行摘要后同步到`data/raw/ci_collection`，不覆盖现有正式数据。
 - D4.7新增`scripts/build_scheduled_collection_manifest.py`，合并去重SSE/SZSE/BSE/HKEX/再发现清单，生成1,044条、覆盖612家的
   `scheduled_collection_manifest_v1_2025.csv`；Workflow现在优先定时更新交易所披露数据，官网来源验证后再追加。
+- D4.8已启用GitHub Actions并手工触发：首次运行`30886331569`因CI未生成官网队列失败，已在`9f4e86a`修复；第二次运行
+  `30886410395`已通过队列和验证步骤，正在下载1,044条披露文档并上传`aegis-official-data` Artifact。
 
 ## 2026-08-04发布模板安全同步
 
