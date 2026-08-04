@@ -21,5 +21,6 @@ export PYTHONPATH="$repo_root/src"
   "$python_bin" scripts/validate_official_website_source_queue.py
   "$python_bin" scripts/prepare_official_download_manifest.py
   "$python_bin" scripts/run_scheduled_collection.py
+  "$python_bin" scripts/build_collection_coverage_report.py
   echo "$(date -u +%FT%TZ) collection finished"
 } >> "$log_dir/scheduler.log" 2>&1

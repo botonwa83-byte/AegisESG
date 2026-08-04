@@ -43,6 +43,10 @@ jobs:
         env:
           PYTHONPATH: src
         run: python scripts/run_scheduled_collection.py
+      - name: Build coverage report
+        env:
+          PYTHONPATH: src
+        run: python scripts/build_collection_coverage_report.py
       - name: Upload data artifact
         uses: actions/upload-artifact@v4
         with:
@@ -54,5 +58,6 @@ jobs:
             output/audit/official_download_manifest_v1_2025.csv
             output/audit/official_download_manifest_v1_2025_summary.json
             output/sync
+            output/audit/scheduled_collection_coverage_v1_2025.json
           retention-days: 30
           if-no-files-found: warn

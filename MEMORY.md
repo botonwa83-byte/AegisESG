@@ -1086,6 +1086,8 @@ python3 -m aegis_esg.cli plan-indicators \
   启动，日志在`var/local-data-collection/scheduler.log`，已落地23个下载文件并继续运行，锁机制防止并发覆盖。
 - D4.12修复`run_scheduled_collection.py`索引路径：下载后及每次无新增检查前统一写入项目相对路径，避免GitHub Runner绝对路径
   同步到Mac后造成来源失效；全量测试326项通过。
+- D4.13新增并接入`scripts/build_collection_coverage_report.py`，本地与GitHub每轮生成按域名/报告类型的覆盖报告；首轮实测
+  1,044条中已登记125条、缺919条、失败0条，正式评分未授权。
 
 ## 2026-08-04发布模板安全同步
 
