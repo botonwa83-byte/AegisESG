@@ -1084,6 +1084,8 @@ python3 -m aegis_esg.cli plan-indicators \
   无新URL时`download_started=false/reason=no_new_source_urls`，新增URL才下载；Workflow增加Actions缓存复用PDF和Hash索引，防止高频重复下载。
 - D4.11新增并安装Mac LaunchAgent `com.aegisesp.data-collection`，每600秒运行`scripts/run_local_data_scheduler.sh`；当前任务已
   启动，日志在`var/local-data-collection/scheduler.log`，已落地23个下载文件并继续运行，锁机制防止并发覆盖。
+- D4.12修复`run_scheduled_collection.py`索引路径：下载后及每次无新增检查前统一写入项目相对路径，避免GitHub Runner绝对路径
+  同步到Mac后造成来源失效；全量测试326项通过。
 
 ## 2026-08-04发布模板安全同步
 

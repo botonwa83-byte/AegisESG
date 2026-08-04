@@ -23,6 +23,7 @@ def main() -> None:
     SUMMARY.parent.mkdir(parents=True, exist_ok=True)
     if not MANIFEST.is_file():
         raise SystemExit(f"collection manifest not found: {MANIFEST}")
+    _normalize_index_paths()
     manifest_urls = set()
     with MANIFEST.open(encoding="utf-8-sig", newline="") as stream:
         manifest_urls = {row.get("source_url", "").strip() for row in csv.DictReader(stream) if row.get("source_url", "").strip()}
@@ -53,6 +54,25 @@ def main() -> None:
     }
     SUMMARY.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False))
+
+
+def _normalize_index_paths() -> None:
+    """Keep artifact indexes portable between GitHub runners and local Macs."""
+    if not INDEX.is_file():
+        return
+    with INDEX.open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    if not rows:
+        return
+    fields = list(rows[0])
+    for row in rows:
+        path = Path(row.get("local_path", ""))
+        try:
+            row["local_path"] = str(path.relative_to(ROOT)) if path.is_absolute() else str(path)
+        except ValueError:
+            row["local_path"] = str(path)
+    with INDEX.open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields); writer.writeheader(); writer.writerows(rows)
 
 
 if __name__ == "__main__":

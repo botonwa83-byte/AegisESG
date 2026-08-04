@@ -162,6 +162,8 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
 - D4.11已新增本地Mac LaunchAgent：`scripts/run_local_data_scheduler.sh`和`scripts/install_local_data_scheduler.sh`，本机每600秒
   执行同一套清单生成、官网验证、增量下载流程，并用锁避免并发；日志位于`var/local-data-collection/scheduler.log`，本地文件写入
   `data/raw/ci_collection`。
+- D4.12修复定时下载索引的可移植性：`run_scheduled_collection.py`现在将绝对文件路径规范化为项目相对路径，Artifact同步到
+  本地后仍可正确追溯PDF，不受GitHub Runner目录影响。
 
 ### D2：低覆盖指标专项
 
