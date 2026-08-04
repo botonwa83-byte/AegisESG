@@ -27,5 +27,6 @@ export PYTHONPATH="$repo_root/src"
   else
     echo "swift unavailable; defer local PDF text extraction"
   fi
+  "$python_bin" scripts/run_incremental_indicator_extraction.py
   echo "$(date -u +%FT%TZ) collection finished"
 } >> "$log_dir/scheduler.log" 2>&1

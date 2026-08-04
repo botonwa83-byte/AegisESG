@@ -168,6 +168,8 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
   输出覆盖报告；当前首轮实测已登记125/1,044条、缺919条、失败0条，避免用文件数量误判完整性。
 - D4.14本地LaunchAgent新增PDF文本抽取步骤，使用PDFKit将新增`data/raw/ci_collection`文件转换到`data/text/ci_collection`，
   仅处理新增文本且抽取失败不回滚PDF下载；GitHub Linux任务暂不执行Swift抽取，后续由本地同步后完成。
+- D4.15新增`scripts/run_incremental_indicator_extraction.py`并接入本地定时任务：从本地同步索引和文本中生成待审核指标候选、
+  指标覆盖摘要和复核摘要，候选不写入正式评分，形成“下载→抽取→缺口分析”的连续链路。
 
 ### D2：低覆盖指标专项
 

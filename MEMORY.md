@@ -1090,6 +1090,8 @@ python3 -m aegis_esg.cli plan-indicators \
   1,044条中已登记125条、缺919条、失败0条，正式评分未授权。
 - D4.14本地定时脚本增加`swift scripts/extract_pdf_batch.swift`，将新增PDF抽取到`data/text/ci_collection`；抽取失败只记录日志，
   不影响原始PDF与Hash索引，GitHub Linux任务不执行Swift抽取。
+- D4.15新增`scripts/run_incremental_indicator_extraction.py`，本地每轮在文本抽取后执行`extract-batch-text`，生成
+  `ci_incremental_candidates_v1_2025.csv`、覆盖摘要和复核摘要；所有候选保持待审核，不进入正式评分。
 
 ## 2026-08-04发布模板安全同步
 
