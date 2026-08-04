@@ -157,6 +157,8 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
 - D4.9新增`scripts/discover_official_domains_from_documents.py`，从已下载年报/ESG文本提取报告中自披露的官网候选域名，
   生成`official_domain_candidates_from_documents_v1_2025.csv`：701条候选、覆盖408家公司。候选仍需域名归属和HTTPS核验，
   不会自动当作正式来源或评分数据。
+- D4.10定时探测频率调整为每10分钟（`*/10 * * * *`），并新增清单URL差异检测与Actions缓存；无新增URL时任务直接结束，
+  有新增才下载，避免高频任务重复下载1,044份旧PDF。GitHub Actions最短支持5分钟间隔，但实际运行可能受队列影响。
 
 ### D2：低覆盖指标专项
 

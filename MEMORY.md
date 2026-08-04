@@ -1080,6 +1080,8 @@ python3 -m aegis_esg.cli plan-indicators \
 - D4.9新增`scripts/discover_official_domains_from_documents.py`，从本地已下载报告反向提取官网候选域名，生成
   `output/audit/official_domain_candidates_from_documents_v1_2025.csv`，701条候选、覆盖408家公司；状态为报告自披露候选，
   仍须域名归属/HTTPS核验，未自动授权下载或评分。
+- D4.10将`.github/workflows/collect-official-data.yml`改为每10分钟运行，并在`scripts/run_scheduled_collection.py`加入URL差异检测：
+  无新URL时`download_started=false/reason=no_new_source_urls`，新增URL才下载；Workflow增加Actions缓存复用PDF和Hash索引，防止高频重复下载。
 
 ## 2026-08-04发布模板安全同步
 
