@@ -159,6 +159,9 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
   不会自动当作正式来源或评分数据。
 - D4.10定时探测频率调整为每10分钟（`*/10 * * * *`），并新增清单URL差异检测与Actions缓存；无新增URL时任务直接结束，
   有新增才下载，避免高频任务重复下载1,044份旧PDF。GitHub Actions最短支持5分钟间隔，但实际运行可能受队列影响。
+- D4.11已新增本地Mac LaunchAgent：`scripts/run_local_data_scheduler.sh`和`scripts/install_local_data_scheduler.sh`，本机每600秒
+  执行同一套清单生成、官网验证、增量下载流程，并用锁避免并发；日志位于`var/local-data-collection/scheduler.log`，本地文件写入
+  `data/raw/ci_collection`。
 
 ### D2：低覆盖指标专项
 
