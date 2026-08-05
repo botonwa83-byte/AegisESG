@@ -11,10 +11,12 @@ from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Resp
 from pydantic import BaseModel, Field
 
 from .dashboard import load_progress_dashboard, render_conflict_review_template, render_progress_dashboard, render_system_demo, render_system_menu
+from .dlt_alignment import build_dlt_alignment_status
 from .methodology import load_methodology
 from .models import Observation, ValueStatus
 from .repository import SQLiteRepository
 from .scoring import ScoringEngine
+from .benchmarks import audit_governance_benchmarks
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,6 +35,18 @@ AUTO_REVIEW_STATUS_PATH = ROOT / "output/audit/thin_basis_review_application_v1_
 RESEARCH_SNAPSHOT_PATH = ROOT / "output/audit/research_snapshot_manifest_v1_2025.json"
 OFFICIAL_QUEUE_PATH = ROOT / "output/audit/official_website_source_queue_v1_2025.csv"
 OFFICIAL_QUEUE_SUMMARY_PATH = ROOT / "output/audit/official_website_source_queue_v1_2025_summary.json"
+CI_COVERAGE_PATH = ROOT / "output/audit/scheduled_collection_coverage_v1_2025.json"
+CI_TEXT_SUMMARY_PATH = ROOT / "output/audit/ci_text_extraction_summary_v1.json"
+CI_MERGE_PREVIEW_PATH = ROOT / "output/audit/ci_research_merge_preview_v1_2025.json"
+LIVE_STATUS_PATH = ROOT / "output/audit/live_collection_status_v1.json"
+CI_INDICATOR_SUMMARY_PATH = ROOT / "output/audit/ci_incremental_extraction_summary_v1.json"
+CI_COVERAGE_PACKET_PATH = ROOT / "output/audit/ci_incremental_coverage_packet_v1_2025.json"
+CI_THIN_TEXT_PATH = ROOT / "output/audit/ci_thin_text_exports_v1_2025.json"
+OFFICIAL_DOMAIN_PACKET_PATH = ROOT / "output/audit/official_domain_review_packet_v1_2025.html"
+OFFICIAL_DOMAIN_PACKET_SUMMARY_PATH = ROOT / "output/audit/official_domain_review_packet_v1_2025.json"
+OFFICIAL_DOMAIN_APPLICATION_PATH = ROOT / "output/audit/official_domain_review_application_v1_2025.json"
+OFFICIAL_REPORT_DISCOVERY_PATH = ROOT / "output/audit/official_report_discovery_packet_v1_2025.html"
+OFFICIAL_REPORT_DISCOVERY_SUMMARY_PATH = ROOT / "output/audit/official_report_discovery_packet_v1_2025.json"
 CANDIDATES_PATH = Path(os.getenv(
     "AEGIS_CANDIDATES", ROOT / "data/review/hkex_indicator_candidates_2026-07-29.csv",
 ))
@@ -157,7 +171,7 @@ def demo_ranking_center(generated: int = Query(0, ge=0, le=1)) -> HTMLResponse:
 <section class="action-panel"><h2>研究预排名</h2><p>系统使用当前版本化研究输入、指标方法论和缺失策略生成可复现的预排名。此操作不写入正式观测、不产生签名。</p><form method="post" action="/demo/generate-preview"><button class="primary" type="submit">一键生成 / 刷新研究预排名</button></form><a class="result-link" href="/demo/ranking">查看研究预排名结果 →</a></section>
 <h2>数据完整度检查</h2><div class="cards"><div><b>任务覆盖率</b><strong>{coverage}%</strong></div><div><b>待补数据任务</b><strong>{missing}</strong></div><div><b>证据冲突</b><strong>{conflicts}</strong></div><div><b>正式发布状态</b><strong class="warn">{formal}</strong></div></div>
 <p class="status"><b>结果解释：</b>数据不完整时，系统仍可生成研究预排名，但会保留缺失项、显示覆盖率并标记不确定性；只有完成审核、签名和冻结门禁后，才允许形成正式排名。</p>
-<div class="links"><a href="/demo/complete-chain">查看完整数据链企业</a><a href="/demo/review-workbench">处理高影响缺失与冲突</a><a href="/demo/sensitivity">查看缺失策略敏感性</a><a href="/demo/readiness">查看正式发布门禁</a></div>'''
+<div class="links"><a href="/demo/complete-chain?view=all">查看全部研究预排名</a><a href="/demo/review-workbench">处理高影响缺失与冲突</a><a href="/demo/sensitivity">查看缺失策略敏感性</a><a href="/demo/readiness">查看正式发布门禁</a></div>'''
     return HTMLResponse(_demo_document("排名中心", body))
 
 
@@ -202,7 +216,20 @@ def demo_data_readiness() -> HTMLResponse:
     esg = by_type.get("esg_report", 0)
     missing = len(rows) - exists
     official = json.loads(OFFICIAL_QUEUE_SUMMARY_PATH.read_text(encoding="utf-8")) if OFFICIAL_QUEUE_SUMMARY_PATH.is_file() else {}
-    body = f'''<div class="eyebrow">数据底座</div><h1>原始文档与证据来源</h1><p class="lead">排名之前先确认数据从哪里来、文件是否在本地、能否回到原始 PDF。</p><div class="steps"><span class="active">① 文档发现</span><span class="active">② 本地下载</span><span class="active">③ Hash索引</span><span>④ 证据抽取</span><span>⑤ 评分排名</span></div><div class="cards"><div><b>索引文档</b><strong>{len(rows)}</strong></div><div><b>覆盖企业</b><strong>{companies}</strong></div><div><b>年报 PDF</b><strong>{annual}</strong></div><div><b>ESG PDF</b><strong>{esg}</strong></div><div><b>本地文件</b><strong>{exists}/{len(rows)}</strong></div><div><b>已登记Hash</b><strong>{hash_registered}/{len(rows)}</strong></div><div><b>官网来源任务</b><strong>{official.get("company_document_tasks", "-")}</strong></div><div><b>官网待登记</b><strong>{official.get("pending_official_url", "-")}</strong></div></div><p class="status"><b>{"本地文档层完整" if missing == 0 else f"仍有 {missing} 份文档未落地"}</b>　交易所文档已落地；公司官网来源仍需登记域名和报告链接。<a href="/demo/official-source-queue">查看官网采集队列</a></p><h2>来源使用规则</h2><div class="action-panel"><p>每个排名指标必须尽量连接到公司、报告期、PDF文件、页码、证据原文和文件Hash。交易所和公司官网是并列来源；搜索结果与第三方镜像不能直接作为官方来源。</p><a class="result-link" href="/demo/complete-chain">进入完整数据链企业排名 →</a><a class="result-link" href="/demo/ranking-center">进入排名中心 →</a></div>'''
+    ci_coverage = json.loads(CI_COVERAGE_PATH.read_text(encoding="utf-8")) if CI_COVERAGE_PATH.is_file() else {}
+    ci_text = json.loads(CI_TEXT_SUMMARY_PATH.read_text(encoding="utf-8")) if CI_TEXT_SUMMARY_PATH.is_file() else {}
+    ci_merge = json.loads(CI_MERGE_PREVIEW_PATH.read_text(encoding="utf-8")) if CI_MERGE_PREVIEW_PATH.is_file() else {}
+    live = json.loads(LIVE_STATUS_PATH.read_text(encoding="utf-8")) if LIVE_STATUS_PATH.is_file() else {}
+    indicators = json.loads(CI_INDICATOR_SUMMARY_PATH.read_text(encoding="utf-8")) if CI_INDICATOR_SUMMARY_PATH.is_file() else {}
+    packet = json.loads(CI_COVERAGE_PACKET_PATH.read_text(encoding="utf-8")) if CI_COVERAGE_PACKET_PATH.is_file() else {}
+    thin_text = json.loads(CI_THIN_TEXT_PATH.read_text(encoding="utf-8")) if CI_THIN_TEXT_PATH.is_file() else {}
+    text_display = ci_text.get("text_count_current", ci_text.get("text_count_after", ci_text.get("text_count", "-")))
+    pdf_display = ci_text.get("pdf_count", live.get("pdf_count", "-"))
+    body = f'''<div class="eyebrow">数据底座</div><h1>原始文档与证据来源</h1><p class="lead">排名之前先确认数据从哪里来、文件是否在本地、能否回到原始 PDF。</p><div class="steps"><span class="active">① 文档发现</span><span class="active">② 本地下载</span><span class="active">③ Hash索引</span><span>④ 证据抽取</span><span>⑤ 评分排名</span></div><div class="cards"><div><b>索引文档</b><strong>{len(rows)}</strong></div><div><b>覆盖企业</b><strong>{companies}</strong></div><div><b>年报 PDF</b><strong>{annual}</strong></div><div><b>ESG PDF</b><strong>{esg}</strong></div><div><b>本地文件</b><strong>{exists}/{len(rows)}</strong></div><div><b>已登记Hash</b><strong>{hash_registered}/{len(rows)}</strong></div><div><b>官网来源任务</b><strong>{official.get("company_document_tasks", "-")}</strong></div><div><b>官网待登记</b><strong>{official.get("pending_official_url", "-")}</strong></div></div>
+<div class="cards"><div><b>定时下载已登记</b><strong>{ci_coverage.get("downloaded_identities", ci_coverage.get("downloaded_rows", "-"))}</strong></div><div><b>身份仍缺</b><strong>{ci_coverage.get("missing_identities", ci_coverage.get("missing_rows", "-"))}</strong></div><div><b>CI文本进度</b><strong>{text_display}/{pdf_display}</strong></div><div><b>相对研究索引可新增</b><strong>{ci_merge.get("would_add", "-")}</strong></div><div><b>增量指标候选</b><strong>{indicators.get("candidate_count", packet.get("candidate_rows", "-"))}</strong></div><div><b>薄样本指标</b><strong>{packet.get("thin_population_count", "-")}</strong></div><div><b>薄文本/扫描件</b><strong>{thin_text.get("flagged_rows", "-")}</strong></div><div><b>身份覆盖率</b><strong>{ci_coverage.get("identity_coverage_rate", "-")}</strong></div></div>
+<p class="status"><b>{"本地文档层完整" if missing == 0 else f"仍有 {missing} 份文档未落地"}</b>　交易所文档已落地；公司官网来源仍需登记域名和报告链接。<a href="/demo/official-source-queue">查看官网采集队列</a>　<a href="/demo/official-domain-review">打开域名核验工作包</a>　<a href="/demo/ci-incremental-coverage">打开CI增量覆盖包</a>　<a href="/demo/ci-thin-text">打开薄文本观测包</a>　<a href="/demo/scan-esg-annual-fallback">扫描ESG年报回退</a></p>
+<p class="hint">定时采集与研究索引隔离；合并预览不会覆盖研究底座。文本抽取可与下载并行；长下载占锁时仍刷新覆盖状态。CI候选全部待审核；薄文本包不启用OCR。</p>
+<h2>来源使用规则</h2><div class="action-panel"><p>每个排名指标必须尽量连接到公司、报告期、PDF文件、页码、证据原文和文件Hash。交易所和公司官网是并列来源；搜索结果与第三方镜像不能直接作为官方来源。</p><a class="result-link" href="/demo/complete-chain">进入完整数据链企业排名 →</a><a class="result-link" href="/demo/ranking-center">进入排名中心 →</a></div>'''
     return HTMLResponse(_demo_document("原始文档与证据来源", body))
 
 
@@ -215,8 +242,64 @@ def demo_official_source_queue() -> HTMLResponse:
         rows = list(csv.DictReader(stream))
     preview = rows[:100]
     table = "".join(f'<tr><td>{html.escape(row.get("company_code", ""))}</td><td>{html.escape(row.get("company_name", ""))}</td><td>{html.escape(row.get("document_type", ""))}</td><td>{html.escape(row.get("download_status", ""))}</td><td>{html.escape(row.get("next_action", ""))}</td></tr>' for row in preview)
-    body = f'<h1>公司官网数据采集队列</h1><p class="status">共{len(rows)}条公司×报告任务；当前全部等待官网域名登记，下载和评分均未授权。</p><p class="hint">登记官网域名后，必须先完成域名归属核验，再发现同域名HTTPS报告链接；交易所链接和第三方镜像不会被当作官网来源。</p><table><tr><th>代码</th><th>企业</th><th>报告类型</th><th>状态</th><th>下一动作</th></tr>{table}</table>'
+    domain_summary = (
+        json.loads(OFFICIAL_DOMAIN_PACKET_SUMMARY_PATH.read_text(encoding="utf-8"))
+        if OFFICIAL_DOMAIN_PACKET_SUMMARY_PATH.is_file() else {}
+    )
+    application = (
+        json.loads(OFFICIAL_DOMAIN_APPLICATION_PATH.read_text(encoding="utf-8"))
+        if OFFICIAL_DOMAIN_APPLICATION_PATH.is_file() else {}
+    )
+    verified = sum(1 for row in rows if (row.get("domain_verification") or "").strip().lower() == "verified")
+    body = (
+        f'<h1>公司官网数据采集队列</h1>'
+        f'<p class="status">共{len(rows)}条公司×报告任务；已核验域名任务{verified}条；下载和评分均未授权。</p>'
+        f'<p class="hint">报告自披露候选可先进入<a href="/demo/official-domain-review">域名核验工作包</a>'
+        f'（P0 {domain_summary.get("row_count", "-")}家；核验状态：'
+        f'{html.escape(str(application.get("status", domain_summary.get("status", "未生成"))))}）。'
+        f'核验通过后进入<a href="/demo/official-report-discovery">同域报告发现</a>；'
+        f'仍需人工确认后才能下载。</p>'
+        f'<table><tr><th>代码</th><th>企业</th><th>报告类型</th><th>状态</th><th>下一动作</th></tr>{table}</table>'
+    )
     return HTMLResponse(_demo_document("公司官网数据采集队列", body))
+
+
+@app.get("/demo/official-domain-review", response_class=HTMLResponse, include_in_schema=False)
+def demo_official_domain_review() -> HTMLResponse:
+    if not OFFICIAL_DOMAIN_PACKET_PATH.is_file():
+        raise HTTPException(404, "官网域名核验工作包不存在，请先运行 prepare-official-domain-review-packet")
+    return HTMLResponse(OFFICIAL_DOMAIN_PACKET_PATH.read_text(encoding="utf-8"))
+
+
+@app.get("/demo/ci-incremental-coverage", response_class=HTMLResponse, include_in_schema=False)
+def demo_ci_incremental_coverage() -> HTMLResponse:
+    path = ROOT / "output/audit/ci_incremental_coverage_packet_v1_2025.html"
+    if not path.is_file():
+        raise HTTPException(404, "CI增量覆盖包不存在，请先运行 scripts/build_ci_incremental_coverage_packet.py")
+    return HTMLResponse(path.read_text(encoding="utf-8"))
+
+
+@app.get("/demo/ci-thin-text", response_class=HTMLResponse, include_in_schema=False)
+def demo_ci_thin_text() -> HTMLResponse:
+    path = ROOT / "output/audit/ci_thin_text_exports_v1_2025.html"
+    if not path.is_file():
+        raise HTTPException(404, "CI薄文本观测包不存在，请先运行 scripts/build_ci_thin_text_packet.py")
+    return HTMLResponse(path.read_text(encoding="utf-8"))
+
+
+@app.get("/demo/scan-esg-annual-fallback", response_class=HTMLResponse, include_in_schema=False)
+def demo_scan_esg_annual_fallback() -> HTMLResponse:
+    path = ROOT / "output/audit/scan_esg_annual_fallback_v1_2025.html"
+    if not path.is_file():
+        raise HTTPException(404, "扫描ESG年报回退包不存在，请先运行 scripts/build_scan_esg_annual_fallback_packet.py")
+    return HTMLResponse(path.read_text(encoding="utf-8"))
+
+
+@app.get("/demo/official-report-discovery", response_class=HTMLResponse, include_in_schema=False)
+def demo_official_report_discovery() -> HTMLResponse:
+    if not OFFICIAL_REPORT_DISCOVERY_PATH.is_file():
+        raise HTTPException(404, "同域报告发现工作包不存在，请先运行 prepare-official-report-discovery-packet")
+    return HTMLResponse(OFFICIAL_REPORT_DISCOVERY_PATH.read_text(encoding="utf-8"))
 
 
 @app.get("/demo/ranking", response_class=HTMLResponse, include_in_schema=False)
@@ -285,15 +368,51 @@ def demo_readiness() -> HTMLResponse:
         raise HTTPException(404, "演示外部输入状态文件不存在")
     data = json.loads(DEMO_READINESS_PATH.read_text(encoding="utf-8"))
     rows = "".join(f'<tr><td>{html.escape(str(key))}</td><td>{"已就绪" if item.get("ready") else "待外部输入"}</td><td>{html.escape(str(item.get("evidence", "")))}</td><td>{html.escape(str(item.get("required_external_action", "")))}</td></tr>' for key, item in data.get("checks", {}).items())
-    body = f'<h1>正式发布门禁与外部输入</h1><p class="status">当前状态：{html.escape(str(data.get("status", "")))}</p><table><tr><th>检查项</th><th>状态</th><th>证据</th><th>下一动作</th></tr>{rows}</table>'
+    alignment = build_dlt_alignment_status(METHODOLOGY_PATH)
+    dlt_rows = "".join(
+        f'<tr><td>{html.escape(str(key))}</td><td>{"已对齐" if item.get("ready") else "阻塞"}</td>'
+        f'<td>{html.escape(str(item.get("evidence", "")))}</td>'
+        f'<td>{html.escape(str(item.get("required_external_action", "")))}</td></tr>'
+        for key, item in alignment.get("checks", {}).items()
+    )
+    body = (
+        f'<h1>正式发布门禁与外部输入</h1>'
+        f'<p class="status">当前状态：{html.escape(str(data.get("status", "")))}</p>'
+        f'<table><tr><th>检查项</th><th>状态</th><th>证据</th><th>下一动作</th></tr>{rows}</table>'
+        f'<h2>DL/T 2971—2025 工程对齐</h2>'
+        f'<p class="status">状态：{html.escape(str(alignment.get("status", "")))}　'
+        f'{alignment.get("ready_count", 0)}/{alignment.get("check_count", 0)} 项就绪　'
+        f'方法论：{html.escape(str(alignment.get("methodology_version", "")))}</p>'
+        f'<p class="hint">{html.escape(str(alignment.get("notice", "")))}</p>'
+        f'<table><tr><th>对齐项</th><th>状态</th><th>证据</th><th>下一动作</th></tr>{dlt_rows}</table>'
+        f'<p class="hint">治理优秀值录入：<a href="/demo/governance-benchmark-packet">打开工作包</a></p>'
+    )
     return HTMLResponse(_demo_document("正式发布门禁", body))
 
+
+
+
+@app.get("/demo/governance-benchmark-packet", response_class=HTMLResponse, include_in_schema=False)
+def demo_governance_benchmark_packet() -> HTMLResponse:
+    packet = ROOT / "output/audit/governance_benchmark_packet_v1_2025.html"
+    if not packet.is_file():
+        raise HTTPException(404, "治理优秀值录入工作包不存在，请先运行 prepare-governance-benchmark-packet")
+    return HTMLResponse(packet.read_text(encoding="utf-8"))
 
 @app.get("/demo/methodology", response_class=HTMLResponse, include_in_schema=False)
 def demo_methodology() -> HTMLResponse:
     data = get_methodology()
+    alignment = data.get("dlt_alignment") or {}
     rows = "".join(f'<tr><td>{html.escape(str(item.get("code", "")))}</td><td>{html.escape(str(item.get("name", "")))}</td><td>{html.escape(str(item.get("dimension", "")))}</td><td>{item.get("weight", "-")}</td></tr>' for item in data["indicators"])
-    return HTMLResponse(_demo_document("评价方法论", f'<h1>评价方法论</h1><p>版本：{html.escape(data["version"])}；共{len(data["indicators"])}项指标；定量权重{data["quantitative_ratio"]}%、定性权重{data["qualitative_ratio"]}%。</p><table><tr><th>编码</th><th>指标</th><th>维度</th><th>权重</th></tr>{rows}</table>'))
+    body = (
+        f'<h1>评价方法论</h1>'
+        f'<p>版本：{html.escape(data["version"])}；标准：{html.escape(str(data.get("standard_ref") or "兼容版"))}；'
+        f'共{len(data["indicators"])}项指标；定量权重{data["quantitative_ratio"]}、定性权重{data["qualitative_ratio"]}。</p>'
+        f'<p class="status">DL/T对齐：{html.escape(str(alignment.get("status", "-")))}　'
+        f'治理优秀值 {html.escape(str((alignment.get("governance_benchmark_audit") or {}).get("filled_count", "-")))}/17</p>'
+        f'<table><tr><th>编码</th><th>指标</th><th>维度</th><th>权重</th></tr>{rows}</table>'
+    )
+    return HTMLResponse(_demo_document("评价方法论", body))
 
 
 @app.get("/demo/review-workbench", response_class=HTMLResponse, include_in_schema=False)
@@ -328,32 +447,75 @@ def demo_review_workbench() -> HTMLResponse:
 
 
 @app.get("/demo/complete-chain", response_class=HTMLResponse, include_in_schema=False)
-def demo_complete_chain() -> HTMLResponse:
-    """Rank the real companies with the strongest currently available evidence chain."""
+def demo_complete_chain(view: str = "all") -> HTMLResponse:
+    """Show research ranking; optional curated cohort for evidence-dense demos."""
     ranking_path = DEMO_RANKING_PATH.with_name("ranking.json")
-    obs_path = ROOT / "output/research/2025/full_auto_observations_v19.csv"
+    meta_path = DEMO_RANKING_PATH.with_name("ranking_metadata.json")
+    obs_path = ROOT / "output/research/2025/full_auto_observations_v23_authority_fill.csv"
+    if not obs_path.is_file():
+        obs_path = ROOT / "output/research/2025/full_auto_observations_v21_exchange_zero.csv"
+    if not obs_path.is_file():
+        obs_path = ROOT / "output/research/2025/full_auto_observations_v20_ci.csv"
+    if not obs_path.is_file():
+        obs_path = ROOT / "output/research/2025/full_auto_observations_v19.csv"
     coverage_path = ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv"
-    if not ranking_path.is_file() or not obs_path.is_file() or not coverage_path.is_file():
+    if not ranking_path.is_file() or not obs_path.is_file():
         raise HTTPException(404, "完整数据链演示产物不存在")
     import csv
     observations = list(csv.DictReader(obs_path.open(encoding="utf-8-sig", newline="")))
-    counts = {}
+    counts: dict[str, int] = {}
     for row in observations:
         counts[row["company_code"]] = counts.get(row["company_code"], 0) + 1
-    coverage = {row["stock_code"]: row for row in csv.DictReader(coverage_path.open(encoding="utf-8-sig", newline=""))}
+    coverage = {}
+    if coverage_path.is_file():
+        coverage = {
+            row["stock_code"]: row
+            for row in csv.DictReader(coverage_path.open(encoding="utf-8-sig", newline=""))
+        }
     ranking = json.loads(ranking_path.read_text(encoding="utf-8"))
-    # A complete-chain demo means a collected annual report, at least 67 scored observations,
-    # and a traceable ranking detail record. It is a curated demo cohort, not a release gate.
-    cohort = [row for row in ranking if counts.get(row.get("company_code"), 0) >= 67 and coverage.get(row.get("company_code"), {}).get("annual_status") == "collected"]
-    cohort.sort(key=lambda row: row.get("total_score", 0), reverse=True)
+    meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.is_file() else {}
+    curated = [
+        row for row in ranking
+        if counts.get(row.get("company_code"), 0) >= 67
+        and coverage.get(row.get("company_code"), {}).get("annual_status") == "collected"
+    ]
+    # Default: full research ranking (all scored companies). Curated view is optional.
+    show_curated = view.strip().lower() in {"curated", "dense", "demo"}
+    cohort = curated if show_curated else list(ranking)
+    cohort.sort(key=lambda row: (-float(row.get("total_score") or 0), str(row.get("company_code") or "")))
     rows = "".join(
-        f'<tr><td>{i}</td><td><a href="/demo/company/{html.escape(row.get("company_code", ""))}">{html.escape(row.get("company_code", ""))}</a><br><small>{html.escape(row.get("company_name", ""))}</small></td>'
-        f'<td>{row.get("total_score", "-")}</td><td>{row.get("quantitative_score", "-")}</td><td>{row.get("qualitative_score", "-")}</td>'
-        f'<td>{counts.get(row.get("company_code"), 0)}</td><td>{html.escape(coverage.get(row.get("company_code"), {}).get("document_count", "-"))}</td><td>{row.get("disclosure_rate", "-")}%</td></tr>'
+        f'<tr><td>{row.get("rank", i)}</td><td><a href="/demo/company/{html.escape(row.get("company_code", ""))}">{html.escape(row.get("company_code", ""))}</a><br><small>{html.escape(row.get("company_name", ""))}</small></td>'
+        f'<td>{row.get("total_score", "-")}</td><td>{html.escape(str(row.get("grade") or "-"))}</td><td>{row.get("quantitative_score", "-")}</td><td>{row.get("qualitative_score", "-")}</td>'
+        f'<td>{counts.get(row.get("company_code"), 0)}</td><td>{html.escape(str(coverage.get(row.get("company_code"), {}).get("document_count", "-")))}</td><td>{row.get("disclosure_rate", "-")}%</td></tr>'
         for i, row in enumerate(cohort, 1)
     )
-    body = f'<div class="eyebrow">01 · 研究结果</div><h1>完整数据链企业排名</h1><p class="lead">优先展示资料、证据和计算链较完整的真实企业，帮助客户先理解系统如何得出结论。</p><div class="steps"><span class="active">① 企业排名</span><span>② 指标计算</span><span>③ 证据核验</span><span>④ 发布判断</span></div><p class="status"><b>{len(cohort)}家演示企业</b>　目标年度文档已采集、研究观测不少于67项、排名明细可下钻。此处是研究预排名，不是正式发布榜单。</p><p class="hint">点击企业名称，查看完整链路：排名 → E/S/G得分 → 中文指标 → 标准化与加权 → 缺失项 → 审核边界。</p><table><tr><th>演示名次</th><th>企业</th><th>总分</th><th>定量分</th><th>定性分</th><th>观测数</th><th>文档数</th><th>披露率</th></tr>{rows}</table>'
-    return HTMLResponse(_demo_document("完整数据链企业排名", body))
+    scored = int(meta.get("company_count") or len(ranking))
+    target = int(meta.get("target_universe_companies") or 632)
+    mode_note = (
+        f'当前为<strong>完整研究预排名</strong>（{len(cohort)}/{scored} 家已导出）。'
+        f'正式目标主体 {target} 家；缺口需补主体名录与观测，不是导出截断。'
+        if not show_curated else
+        f'当前为<strong>证据较完整子集</strong>（{len(cohort)} 家；年报已采集且观测≥67）。'
+        f'完整研究榜见 <a href="/demo/complete-chain?view=all">全部 {scored} 家</a>。'
+    )
+    toggle = (
+        f'<p class="hint">视图切换：'
+        f'<a href="/demo/complete-chain?view=all">全部已评分</a> · '
+        f'<a href="/demo/complete-chain?view=curated">证据较完整子集（{len(curated)}）</a> · '
+        f'<a href="/demo/ranking">打开 HTML 全表</a></p>'
+        f'<p class="hint">关键指标以交易所披露为准（研究模式不另确认原始值）；'
+        f'未见披露按 <code>legacy_zero_v1</code> 计 0 分。'
+        f'总分=定量分×80%+定性分×20%。</p>'
+    )
+    body = (
+        f'<div class="eyebrow">01 · 研究结果</div><h1>研究预排名（非正式）</h1>'
+        f'<p class="lead">展示当前可计算的全部能源上市公司研究排名；点击企业可下钻到指标与证据。</p>'
+        f'<div class="steps"><span class="active">① 企业排名</span><span>② 指标计算</span><span>③ 证据核验</span><span>④ 发布判断</span></div>'
+        f'<p class="status"><b>{len(cohort)} 家本页展示</b>　已评分 {scored} / 目标 {target}。{mode_note}</p>'
+        f'{toggle}'
+        f'<table><tr><th>名次</th><th>企业</th><th>总分</th><th>行标级别</th><th>定量分</th><th>定性分</th><th>观测数</th><th>文档数</th><th>披露率</th></tr>{rows}</table>'
+    )
+    return HTMLResponse(_demo_document("研究预排名", body))
 
 
 @app.get("/demo/company/{stock_code}", response_class=HTMLResponse, include_in_schema=False)
@@ -369,7 +531,13 @@ def demo_company(stock_code: str) -> HTMLResponse:
     # Join score details back to the actual research observation and document index.
     # A score without this join is deliberately shown as provenance-missing.
     provenance = {}
-    observation_path = ROOT / "output/research/2025/full_auto_observations_v19.csv"
+    observation_path = ROOT / "output/research/2025/full_auto_observations_v23_authority_fill.csv"
+    if not observation_path.is_file():
+        observation_path = ROOT / "output/research/2025/full_auto_observations_v21_exchange_zero.csv"
+    if not observation_path.is_file():
+        observation_path = ROOT / "output/research/2025/full_auto_observations_v20_ci.csv"
+    if not observation_path.is_file():
+        observation_path = ROOT / "output/research/2025/full_auto_observations_v19.csv"
     import csv
     if observation_path.is_file():
         with observation_path.open(encoding="utf-8-sig", newline="") as stream:
@@ -397,12 +565,12 @@ def demo_company(stock_code: str) -> HTMLResponse:
         f'<td>{provenance_html(str(d.get("indicator_code", "")))}</td></tr>' for d in details
     )
     missing = sum(1 for d in details if d.get("status") == "missing")
-    body = f'<div class="eyebrow">03 · 企业决策详情</div><h1>{html.escape(item.get("company_name", ""))} <small>{html.escape(stock_code)}</small></h1><p class="lead">把一个排名结论拆开，查看它由哪些指标、证据和不确定性共同构成。</p><div class="cards"><div><b>研究预排名</b><strong>#{item.get("rank", "-")}</strong></div><div><b>综合得分</b><strong>{item.get("total_score", "-")}</strong></div><div><b>披露率</b><strong>{item.get("disclosure_rate", "-")}%</strong></div><div><b>待补指标</b><strong>{missing}</strong></div></div><p class="status"><b>当前结论：可用于研究分析</b><br>正式发布仍需完成证据审核、签名和冻结门禁。</p><h2>一、维度得分</h2><table><tr><th>环境 E</th><th>社会 S</th><th>治理 G</th><th>定量评价</th><th>定性评价</th></tr><tr><td>{item.get("dimension_scores", {}).get("E", "-")}</td><td>{item.get("dimension_scores", {}).get("S", "-")}</td><td>{item.get("dimension_scores", {}).get("G", "-")}</td><td>{item.get("quantitative_score", "-")}</td><td>{item.get("qualitative_score", "-")}</td></tr></table><h2>二、指标计算与原始证据</h2><p class="hint">点击“查看原始证据”可打开 PDF、查看页码和抽取原文。来源缺失会明确标记，不会被当作已追溯。</p><table><tr><th>中文指标名称</th><th>数据状态</th><th>原始值</th><th>标准分</th><th>加权贡献</th><th>可比样本数</th><th>原始来源</th></tr>{detail_rows}</table>'
+    body = f'<div class="eyebrow">03 · 企业决策详情</div><h1>{html.escape(item.get("company_name", ""))} <small>{html.escape(stock_code)}</small></h1><p class="lead">把一个排名结论拆开，查看它由哪些指标、证据和不确定性共同构成。</p><div class="cards"><div><b>研究预排名</b><strong>#{item.get("rank", "-")}</strong></div><div><b>综合得分</b><strong>{item.get("total_score", "-")}</strong></div><div><b>行标级别</b><strong>{html.escape(str(item.get("grade") or "-"))}</strong></div><div><b>披露率</b><strong>{item.get("disclosure_rate", "-")}%</strong></div><div><b>待补指标</b><strong>{missing}</strong></div></div><p class="status"><b>当前结论：可用于研究分析</b><br>级别按 DL/T 2971—2025 表1映射（{html.escape(str(item.get("grade_reason") or "未计算"))}）；正式发布仍需完成证据审核、签名和冻结门禁。</p><h2>一、维度得分</h2><table><tr><th>环境 E</th><th>社会 S</th><th>治理 G</th><th>定量评价</th><th>定性评价</th></tr><tr><td>{item.get("dimension_scores", {}).get("E", "-")}</td><td>{item.get("dimension_scores", {}).get("S", "-")}</td><td>{item.get("dimension_scores", {}).get("G", "-")}</td><td>{item.get("quantitative_score", "-")}</td><td>{item.get("qualitative_score", "-")}</td></tr></table><h2>二、指标计算与原始证据</h2><p class="hint">点击“查看原始证据”可打开 PDF、查看页码和抽取原文。来源缺失会明确标记，不会被当作已追溯。</p><table><tr><th>中文指标名称</th><th>数据状态</th><th>原始值</th><th>标准分</th><th>加权贡献</th><th>可比样本数</th><th>原始来源</th></tr>{detail_rows}</table>'
     return HTMLResponse(_demo_document("企业决策详情", body))
 
 
 def _demo_document(title: str, body: str) -> str:
-    return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>万绿信评 · {html.escape(title)}</title><style>:root{{--bg:#f8f9fd;--panel:#fff;--ink:#24324a;--muted:#78869a;--blue:#4e79ff;--line:#e8edf5;--green:#20a486;--amber:#d78d28}}*{{box-sizing:border-box}}body{{margin:0;background:radial-gradient(circle at 8% 0%,#fff1f7 0,transparent 30%),radial-gradient(circle at 95% 10%,#e6f4ff 0,transparent 30%),var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}}main{{max-width:1180px;margin:auto;padding:0 22px 70px}}.topbar{{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--line);margin-bottom:32px}}.brand{{font-weight:800;letter-spacing:.4px;color:#ef6e9b}}.nav a{{display:inline-block;margin-left:16px;color:var(--muted);text-decoration:none;font-size:13px}}.nav a:hover{{color:var(--blue)}}h1{{font-size:32px;line-height:1.25;margin:4px 0 8px}}h2{{font-size:20px;margin:28px 0 10px}}small{{color:var(--muted)}}.eyebrow{{color:#ef6e9b;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}}.lead{{font-size:17px;color:#596b82;margin:0 0 20px}}.hint{{color:var(--muted);background:#fff;border-left:3px solid #b6a1ff;padding:10px 14px;border-radius:0 8px 8px 0}}.steps{{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}}.steps span{{padding:7px 12px;border-radius:20px;background:#edf0f8;color:#748398;font-size:13px}}.steps .active{{background:#d8f5ee;color:var(--green);font-weight:700}}table{{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px #53688712}}th,td{{padding:12px 13px;border-bottom:1px solid #edf0f5;text-align:left;vertical-align:top}}th{{background:#f7f8fc;color:#65758b;font-size:13px;font-weight:700}}tr:last-child td{{border-bottom:0}}a{{color:var(--blue);text-decoration:none}}a:hover{{text-decoration:underline}}.status{{padding:14px 16px;background:#fff7df;border:1px solid #f2d58d;border-radius:12px;color:#79530c}}.success{{padding:12px 15px;background:#dff7ef;border:1px solid #b1e4d2;border-radius:11px;color:var(--green)}}.action-panel{{background:linear-gradient(145deg,#fff,#eef5ff);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 8px 24px #53688712}}.primary{{background:var(--blue);border-color:var(--blue);color:#fff;padding:10px 17px;font-size:15px;font-weight:700;cursor:pointer;border-radius:9px}}.result-link{{display:inline-block;margin-left:15px}}.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}}.cards>div{{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:0 8px 20px #53688710}}.cards b{{display:block;color:var(--muted);font-size:13px;font-weight:500}}.cards strong{{display:block;font-size:25px;color:var(--blue);margin-top:3px}}.cards strong.warn{{color:var(--amber)}}.badge{{display:inline-block;padding:3px 8px;border-radius:12px;font-size:12px;background:#edf0f8;color:#63748a}}.badge.confirmed{{background:#dff7ef;color:var(--green)}}.badge.missing,.badge.pending{{background:#fff0c7;color:var(--amber)}}button{{border:1px solid var(--line);border-radius:7px;background:#f5f7fa;color:#8b98a8;padding:5px 9px}}</style></head><body><main><div class="topbar"><div class="brand">万绿信评 · ESG科学决策系统</div><div class="nav"><a href="/demo">系统总览</a><a href="/demo/ranking-center">排名中心</a><a href="/demo/data-readiness">数据底座</a><a href="/demo/complete-chain">企业排名</a><a href="/demo/review-workbench">审核工作台</a><a href="/demo/readiness">发布门禁</a></div></div>{body}</main></body></html>'''
+    return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>万绿信评 · {html.escape(title)}</title><style>:root{{--bg:#f8f9fd;--panel:#fff;--ink:#24324a;--muted:#78869a;--blue:#4e79ff;--line:#e8edf5;--green:#20a486;--amber:#d78d28}}*{{box-sizing:border-box}}body{{margin:0;background:radial-gradient(circle at 8% 0%,#fff1f7 0,transparent 30%),radial-gradient(circle at 95% 10%,#e6f4ff 0,transparent 30%),var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}}main{{max-width:1180px;margin:auto;padding:0 22px 70px}}.topbar{{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--line);margin-bottom:32px}}.brand{{font-weight:800;letter-spacing:.4px;color:#ef6e9b}}.nav a{{display:inline-block;margin-left:16px;color:var(--muted);text-decoration:none;font-size:13px}}.nav a:hover{{color:var(--blue)}}h1{{font-size:32px;line-height:1.25;margin:4px 0 8px}}h2{{font-size:20px;margin:28px 0 10px}}small{{color:var(--muted)}}.eyebrow{{color:#ef6e9b;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}}.lead{{font-size:17px;color:#596b82;margin:0 0 20px}}.hint{{color:var(--muted);background:#fff;border-left:3px solid #b6a1ff;padding:10px 14px;border-radius:0 8px 8px 0}}.steps{{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}}.steps span{{padding:7px 12px;border-radius:20px;background:#edf0f8;color:#748398;font-size:13px}}.steps .active{{background:#d8f5ee;color:var(--green);font-weight:700}}table{{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 8px 24px #53688712}}th,td{{padding:12px 13px;border-bottom:1px solid #edf0f5;text-align:left;vertical-align:top;white-space:normal;word-break:break-word}}th{{background:#f7f8fc;color:#65758b;font-size:13px;font-weight:700}}tr:last-child td{{border-bottom:0}}a{{color:var(--blue);text-decoration:none}}a:hover{{text-decoration:underline}}.status{{padding:14px 16px;background:#fff7df;border:1px solid #f2d58d;border-radius:12px;color:#79530c}}.success{{padding:12px 15px;background:#dff7ef;border:1px solid #b1e4d2;border-radius:11px;color:var(--green)}}.action-panel{{background:linear-gradient(145deg,#fff,#eef5ff);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 8px 24px #53688712}}.primary{{background:var(--blue);border-color:var(--blue);color:#fff;padding:10px 17px;font-size:15px;font-weight:700;cursor:pointer;border-radius:9px}}.result-link{{display:inline-block;margin-left:15px}}.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}}.cards>div{{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:0 8px 20px #53688710}}.cards b{{display:block;color:var(--muted);font-size:13px;font-weight:500}}.cards strong{{display:block;font-size:25px;color:var(--blue);margin-top:3px}}.cards strong.warn{{color:var(--amber)}}.badge{{display:inline-block;padding:3px 8px;border-radius:12px;font-size:12px;background:#edf0f8;color:#63748a}}.badge.confirmed{{background:#dff7ef;color:var(--green)}}.badge.missing,.badge.pending{{background:#fff0c7;color:var(--amber)}}button{{border:1px solid var(--line);border-radius:7px;background:#f5f7fa;color:#8b98a8;padding:5px 9px}}</style></head><body><main><div class="topbar"><div class="brand">万绿信评 · ESG科学决策系统</div><div class="nav"><a href="/demo">系统总览</a><a href="/demo/ranking-center">排名中心</a><a href="/demo/data-readiness">数据底座</a><a href="/demo/complete-chain">企业排名</a><a href="/demo/review-workbench">审核工作台</a><a href="/demo/readiness">发布门禁</a></div></div>{body}</main></body></html>'''
 
 
 @app.get("/health")
@@ -412,13 +580,22 @@ def health() -> dict:
 
 @app.get("/api/v1/methodology")
 def get_methodology() -> dict:
+    alignment = build_dlt_alignment_status(METHODOLOGY_PATH)
     return {
         "version": methodology.version,
         "name": methodology.name,
+        "standard_ref": "DL/T 2971—2025" if alignment.get("aligned") else "ENERGY-ESG-2025-COMPAT",
         "quantitative_ratio": methodology.quantitative_ratio,
         "qualitative_ratio": methodology.qualitative_ratio,
         "indicators": [vars(item) for item in methodology.indicators],
+        "dlt_alignment": alignment,
+        "governance_benchmarks": audit_governance_benchmarks(methodology),
     }
+
+
+@app.get("/api/v1/dlt-alignment")
+def dlt_alignment() -> dict:
+    return build_dlt_alignment_status(METHODOLOGY_PATH)
 
 
 @app.get("/api/v1/progress")

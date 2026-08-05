@@ -1,0 +1,74 @@
+{
+  "alignment_version": "dlt2971-alignment-status-v1",
+  "standard_ref": "DL/T 2971—2025",
+  "methodology_path": "data/methodologies/energy_esg_2025.json",
+  "methodology_version": "ENERGY-ESG-2025-COMPAT-v1",
+  "ready_count": 4,
+  "check_count": 6,
+  "aligned": false,
+  "status": "blocked_external",
+  "checks": {
+    "indicator_coverage": {
+      "ready": true,
+      "evidence": "quantitative=37; qualitative=43",
+      "required_external_action": "保持附录A/B的37+43项编码与权重"
+    },
+    "weight_structure": {
+      "ready": true,
+      "evidence": "q/x=0.8/0.2; E/S/G quantitative=45.00/20.00/35.00",
+      "required_external_action": "勿用AHP/熵权覆盖行标固定权重"
+    },
+    "grade_mapping": {
+      "ready": true,
+      "evidence": "rule=dlt2971-2025-table1-v1",
+      "required_external_action": "事故类NA仍需人工填写GradeFlags"
+    },
+    "release_validity_gate": {
+      "ready": true,
+      "evidence": "result_validity_days=365; standard_ref=DL/T 2971—2025",
+      "required_external_action": "正式发布启用--require-dlt-process并完成evaluation_lead签名"
+    },
+    "governance_benchmarks": {
+      "ready": false,
+      "evidence": "filled=0/17; blocker=需填入国资委企业绩效评价标准值工业领域优秀值后冻结DLT2971-2025-v1",
+      "required_external_action": "填入《企业绩效评价标准值》工业领域优秀值并执行apply-governance-benchmarks"
+    },
+    "formal_methodology_frozen": {
+      "ready": false,
+      "evidence": "methodology_version=ENERGY-ESG-2025-COMPAT-v1; target=DLT2971-2025-v1",
+      "required_external_action": "优秀值齐全后冻结为DLT2971-2025-v1"
+    }
+  },
+  "governance_benchmark_audit": {
+    "audit_version": "governance-benchmark-audit-v1",
+    "standard_ref": "DL/T 2971—2025",
+    "methodology_version": "ENERGY-ESG-2025-COMPAT-v1",
+    "governance_indicator_count": 17,
+    "filled_count": 0,
+    "missing_count": 17,
+    "missing_codes": [
+      "Q_G_ROE",
+      "Q_G_ROA",
+      "Q_G_OPERATING_MARGIN",
+      "Q_G_EBITDA_MARGIN",
+      "Q_G_CASH_REALIZATION",
+      "Q_G_COST_REVENUE_RATE",
+      "Q_G_ASSET_TURNOVER",
+      "Q_G_AR_TURNOVER",
+      "Q_G_CURRENT_ASSET_TURNOVER",
+      "Q_G_TWO_FUNDS_RATE",
+      "Q_G_DEBT_ASSET_RATE",
+      "Q_G_EBITDA_INTEREST",
+      "Q_G_QUICK_RATIO",
+      "Q_G_CASH_CURRENT_LIABILITY",
+      "Q_G_REVENUE_GROWTH",
+      "Q_G_OPERATING_PROFIT_GROWTH",
+      "Q_G_CAPITAL_ACCUMULATION"
+    ],
+    "complete": false,
+    "formal_ready": false,
+    "target_methodology_version": "DLT2971-2025-v1",
+    "blocker": "需填入国资委企业绩效评价标准值工业领域优秀值后冻结DLT2971-2025-v1"
+  },
+  "notice": "工程侧行标结构、级别映射与发布门禁已就绪；未注入经核验的国资委工业优秀值前不得宣称正式DL/T治理打分。"
+}

@@ -24,28 +24,26 @@ def build_research_qualitative_observations(
         )
         for item in packets
     ]
+    # Gaps stay absent (not confirmed-0). Fill scripts must recover from exchange /
+    # issuer sources before scoring treats them as missing under legacy_zero_v1.
+    gap_count = 0
     with Path(gap_path).open(encoding="utf-8-sig", newline="") as stream:
         reader = csv.DictReader(stream)
         required = {"company_code", "company_name", "report_year", "indicator_code"}
         if not required.issubset(reader.fieldnames or ()):
             raise ValueError("定性证据缺口文件字段不完整")
-        for row in reader:
-            observations.append(Observation(
-                row["company_code"].strip().upper(), row["company_name"].strip(),
-                int(row["report_year"]), row["indicator_code"].strip(), 0.0,
-                ValueStatus.CONFIRMED, evidence_text=(
-                    f"No qualifying public evidence in current collection {RESEARCH_QUALITATIVE_MARKER}"
-                ), confidence=0.0,
-            ))
+        gap_count = sum(1 for _ in reader)
     identities = {(item.company_code, item.report_year, item.indicator_code) for item in observations}
     if len(identities) != len(observations):
         raise ValueError("研究定性观测存在重复公司指标")
     return observations, {
-        "algorithm_version": "auto-qualitative-v1",
+        "algorithm_version": "auto-qualitative-v2-no-false-zero",
         "observation_count": len(observations),
         "evidence_estimate_count": len(packets),
-        "zero_evidence_gap_count": len(observations) - len(packets),
+        "zero_evidence_gap_count": gap_count,
+        "false_zero_placeholders": 0,
         "company_count": len({item.company_code for item in observations}),
         "research_only": True,
         "formal_scoring_authorized": False,
+        "notice": "定性缺口不写入确认0；须经交易所/官网权威补源后再计分",
     }

@@ -65,6 +65,7 @@ class IndicatorResult:
     mean: float | None = None
     stddev: float | None = None
     benchmark: float | None = None
+    thin_population: bool = False
 
 
 @dataclass
@@ -79,6 +80,8 @@ class CompanyResult:
     disclosure_rate: float
     details: list[IndicatorResult] = field(default_factory=list)
     rank: int | None = None
+    grade: str = ""
+    grade_reason: str = ""
 
     def to_dict(self, include_details: bool = True) -> dict[str, Any]:
         data = {
@@ -91,6 +94,8 @@ class CompanyResult:
             "total_score": self.total_score,
             "dimension_scores": self.dimension_scores,
             "disclosure_rate": self.disclosure_rate,
+            "grade": self.grade,
+            "grade_reason": self.grade_reason,
         }
         if include_details:
             data["details"] = [

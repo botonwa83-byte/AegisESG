@@ -1,6 +1,6 @@
 # AegisESP 项目记忆
 
-更新时间：2026-08-03（Asia/Shanghai）
+更新时间：2026-08-05（Asia/Shanghai）
 
 GitHub仓库：`https://github.com/botonwa83-byte/AegisESP`（完成本轮开发与验证后再提交）。
 
@@ -1092,6 +1092,139 @@ python3 -m aegis_esg.cli plan-indicators \
   不影响原始PDF与Hash索引，GitHub Linux任务不执行Swift抽取。
 - D4.15新增`scripts/run_incremental_indicator_extraction.py`，本地每轮在文本抽取后执行`extract-batch-text`，生成
   `ci_incremental_candidates_v1_2025.csv`、覆盖摘要和复核摘要；所有候选保持待审核，不进入正式评分。
+- D4.16新增`domain_verification.py`与CLI：`prepare-official-domain-review-packet` /
+  `audit-official-domain-review` / `apply-official-domain-review`。从701条/408家报告自披露候选中，
+  按缺独立ESG优先切出50家P0核验包（`data/review/official_domain_review_batch01_2025.csv`），
+  Demo页`/demo/official-domain-review`；空白模板保持`blocked_external_review`，完整签名后只登记
+  `domain_verification=verified`与域名，不授权下载/评分。外部输入登记新增第9项。测试基线329项。
+- D4.17域名卫生与同域报告发现：新增`domain_hygiene.py`，拒绝巨潮/路演/港交所新闻/排污披露平台/
+  截断OCR域名；候选重建为455条/361家。新增`official_report_discovery.py`与
+  `prepare-official-report-discovery-packet`：仅扫描`domain_verification=verified`域名的同域HTTPS
+  PDF，结果待审，不下载不评分；当前因0个已核验域名状态为`await_verified_domains`，Demo
+  `/demo/official-report-discovery`。新增`scripts/build_collection_retry_manifest.py`，生成290条
+  重试清单（ESG 277 + 年报13，含21条历史失败），覆盖报告已挂接路径。测试基线331项。
+- D4.18闭环加固：官网队列重建时保留已核验域名与候选URL；同域发现修复锚文本串窗误分类，支持
+  `--live-fetch`、`audit/apply-official-report-discovery`（接受后只写队列URL，不下载不评分）；
+  本地调度每轮生成重试清单并刷新发现工作包。测试基线332项。
+- D4.19采集可靠性：`collect_batch` 默认 ESG 优先、按预算惰性启动任务、`preserve_index=True` 写入
+  定时脚本，避免预算中断冲掉已下载索引；按公司/年/类型去重并丢弃非法年份；已索引URL跳过以
+  把预算留给缺口。GitHub workflow 同步生成并上传重试清单。测试基线333项。
+- D4.20文本与合并解耦：新增`scripts/run_ci_text_extraction.py`（独立锁，可与下载并行）与
+  `scripts/run_local_text_scheduler.sh` / LaunchAgent `com.aegisesp.text-extraction`；
+  `scripts/build_ci_research_merge_preview.py`仅预览CI相对研究索引的增量（不合并、不覆盖、
+  不授权评分）；本地下载调度每轮刷新合并预览并尝试文本抽取；`/demo/data-readiness`展示
+  定时覆盖、文本条数与可新增数。测试基线334项。
+- D4.21长任务可观测：`scripts/refresh_live_collection_status.py`在下载锁占用时仍刷新覆盖/
+  重试/合并预览；文本抽取改为流式心跳写入`text_count_current`；增量指标抽取独立锁，
+  文本未全部完成也可对已有txt生成待审核候选；Demo展示文本进度与锁状态。测试基线335项。
+- D4.22失败分型与大文件续传：`scripts/classify_collection_failures.py`把失败分为
+  `timeout_partial_resume`/`ssl_eof`/反爬HTML等；重试清单按分型优先（大文件分片续传优先）；
+  SZSE curl 默认超时升至600秒（`AEGIS_SZSE_CURL_MAX_TIME`）。测试基线336项。
+- D4.23锁卫生：`scripts/aegis_locks.py` + `reclaim_stale_locks.py`，PID/进程提示感知，
+  死锁可回收、在跑进程不误杀；下载占锁时调度仍会补跑文本 catch-up。测试基线337项。
+- D4.24 CI增量覆盖包：`scripts/build_ci_incremental_coverage_packet.py`汇总候选/薄样本/
+  尚无候选指标；Demo `/demo/ci-incremental-coverage`；明确全部pending且不授权评分。
+  测试基线338项。
+- D4.25 SSE/HKEX传输加固：urllib失败后自动curl续传回退；`AEGIS_HTTP_CURL_MAX_TIME`/
+  `AEGIS_HTTP_URLOPEN_TIMEOUT`可配；针对剩余缺口中上交所为主的失败。测试基线339项。
+- D4.26早间收口：修复root属主污染导致LaunchAgent无法写清单；SZSE续传默认超时升至1200s；
+  新增`audit_workspace_permissions.py`；重启补缺采集（剩余约30条，17条大文件分片）。
+  隔夜结果：下载约1014/1044，文本955/955，增量候选约8946。测试基线339项。
+- D4.27索引卫生：修复空`source_url`导致索引折叠丢失；拒绝非法年份下载；新增
+  `reindex_ci_collection_from_disk.py`从本地PDF重建索引（跳过year=0）。当前有效索引961/
+  盘上968PDF（跳过7个非法年）。测试基线340项。
+- D4.28身份口径覆盖：覆盖/重试改为按公司+年+类型计量；清单排除非法年份；过滤已收集
+  文档的备用URL。真实缺口曾降至8/976（身份覆盖率99.18%），均为深交所反爬HTML。
+  测试基线341项。
+- D4.29缺口备用渠道：`fill_identity_gaps_alternate_sources.py`增加巨潮法定披露查询
+  （orgId + hisAnnouncement）并下载`static.cninfo.com.cn` PDF；研究底座导入补齐
+  `002531.SZ` ESG与`002700.SZ`年报；其余6份ESG经巨潮补齐。身份覆盖976/976（100%），
+  真实身份重试0；URL口径仍可能有冗余备用链接。不宣称域名核验、不授权评分。
+- D4.30文本/候选收口与巨潮主链路：新补齐4份大ESG完成文本抽取（983/983 txt）；
+  修复`resolve_text_export_path`（CI `ci_collection` 双层路径与绝对路径），增量候选
+  恢复为约8,923条/599家（修复前误落到166条）；`sources/cninfo.py`固化并接入
+  `collect_batch`（深交所反爬自动巨潮回退）。测试基线344项。不授权评分。
+- D4.31薄文本/扫描件观测：`scripts/build_ci_thin_text_packet.py`按有效字符密度标记
+  missing/critical_thin/thin/large_pdf_low_text；产出CSV/JSON/HTML，Demo `/demo/ci-thin-text`，
+  已挂入 live 刷新与文本调度。明确`ocr_authorized=false`。测试基线345项。
+- D4.32薄文本分诊与截断修复：包升级v2，增加年报有效字符/CI候选/年报可回退与动作
+  （`prefer_annual_embedded_evidence`/`await_ocr_authorization`/`re_extract_text`）；
+  强制复抽确认8份ESG为扫描件且年报可回退；修复4份截断年报文本
+  （300274/001283/301386/002629/300870）。当前仅剩8份critical扫描ESG，均建议走年报
+  嵌入证据，OCR仍未授权。
+- D4.33截断防复发与扫描ESG年报回退包：修复`extract_pdf_batch.swift`相对路径
+  （`/tmp` symlink）；新增`repair_truncated_ci_text_exports.py`并挂入文本抽取后置；
+  `build_scan_esg_annual_fallback_packet.py`显示8/8扫描ESG已有年报候选；Demo
+  `/demo/scan-esg-annual-fallback`。OCR未授权。增量候选约9,001。测试基线346项。
+- D4.34研究排名快刷：`scripts/run_research_ranking_refresh.py`对CI候选`resolve-pending`
+  后叠加v19生成`full_auto_observations_v20_ci.csv`并`score --mode research`；产物
+  `output/research/2025/full_auto_v20_ci/`，已同步Demo；明确`official_release=false`。
+  冲突策略v2：交易所中文官方披露 > 英文版/派生；同权再取CI采集件。当前11项冲突均保留
+  中文年报口径（审计见`research_ci_conflict_resolution_v1_2025.csv`）。
+- D4.35全量导出与空值说明：`write_ranking_*`默认导出全部已评分公司（`--limit 0`）；
+  HTML/CSV增加披露率、定量/定性分及计分说明。Demo `/demo/complete-chain`默认展示全部
+  研究预排名（不再默认截成“证据完整子集”）；`?view=curated`可看旧子集。已重导
+  `full_auto_v20_ci`与Demo为**612家**。距目标632仍差主体名录缺口，非导出截断。
+- D4.36研究计分规则切换（用户指定）：关键指标以交易所披露直接采信、不另确认原始值；
+  未披露按`legacy_zero_v1`计0。刷新脚本输出`full_auto_observations_v21_exchange_zero.csv`
+  与`full_auto_v21_exchange_zero/`（612家，已同步Demo）；额外接受34项交易所关键指标候选。
+  正式发布仍未授权。
+- D4.37客户PDF算法合规（不严格贴榜）：确认我方`report_year=2025`→评价年2026，客户纸质
+  评价年2025/报告期2024，年差正常。从客户报告正文注入17项治理优秀值到研究方法论
+  `energy_esg_2025_research_sasac.json`（非国资委原表、非正式DLT冻结）。重算
+  `full_auto_v22_sasac/`（612家，Demo已同步）。审计
+  `output/audit/pdf_algorithm_alignment_v1.json`；YoY软对照
+  `output/audit/client_yoy_soft_check_v1.json`（Top200重合约0.53，异常跳变归因，不拟合）。
+  剩余偏离：范围三等奖励分未实现；定性档位仍偏启发式。
+- D4.38未披露补源政策：权威序交易所>公司官网>其他；冲突取高权威。模块
+  `source_authority.py`；脚本`fill_missing_from_authoritative_sources.py`从已下载交易所
+  文本补缺、去掉定性“无证据假0”（15293条），仍缺进官网队列
+  `issuer_website_gap_queue_v1_2025.csv`。产物`full_auto_observations_v23_authority_fill.csv`
+  与`full_auto_v23_authority/`（Demo已同步）。定性构建改为v2不再写确认0。
+- D4.39宇宙披露基准（客户算法对齐）：`ScoringEngine.evaluate`在`--universe`下仅用宇宙内
+  已披露样本算μ/σ；未披露不计基准、研究模式仍`legacy_zero_v1`计0；薄样本
+  `n<minimum_population`标记。CLI写出`population_baseline.json`；算法版本
+  `auto_prerank_universe_baseline_v1`。编排
+  `scripts/run_universe_baseline_ranking.py`→`full_auto_v24_universe_baseline/`（612家，
+  Demo已同步）。审计`universe_baseline_ranking_v1_2025.json`、
+  `universe_collection_gaps_v1_2025.csv`、`hkex_fy2025_gap_discovery_v1.json`。
+  现状：主体614/632；年报612/632；两家港股`00702.HK`/`01101.HK` HKEXnews最新年报仅到
+  2023、无FY2025；薄样本3项（清洁能源强度1、替代水率8、SO2强度14）；
+  `formal_baseline_ready=false`。18家名录仍`blocked_external`。
+
+## 2026-08-04过夜自动开发
+
+循环开发模式已启动：每25分钟 `AGENT_LOOP_TICK_aegis_overnight`，按本文件D4计划自动推进。
+硬约束：
+
+- 不得伪造域名核验、国资委优秀值、定量/定性/发布签名；
+- 不得自动 git commit / push；
+- 正式门禁仍 `blocked_external` 时，只做采集可靠性、观测、重试、文本/候选链路。
+
+### 模型额度回退（用户授权）
+
+- 过夜开发允许在当前模型额度不足时自动改用仍可用的模型继续推进，不必停工等待。
+- 优先顺序：当前会话模型 → Cursor **Auto（Optimize for Cost）** → **Composer 2.5（关闭 Fast）**。
+- Agent 无法可靠改写 IDE 模型选择器；若产品弹出额度错误，请在模型选择器中手动选
+  Auto/Cost 或 Composer 2.5（不要点错误横幅里可能写入非法值 `auto` 的按钮）。
+- 子代理/Task 若指定模型失败，改用列表内可用模型（如 `composer-2.5-fast` /
+  `cursor-grok-4.5-high-fast`）继续，不中断过夜循环。
+- 额度完全耗尽且无可用回退时：只刷新 live 状态与本地脚本，把阻塞记入 MEMORY，等额度恢复后继续。
+
+## 2026-08-05早间状态 / 续开发入口
+
+研究版排名：`output/research/2025/full_auto_v24_universe_baseline/`（评价年2026/报告期2025，
+612家；宇宙披露样本基准）。未披露先权威补源；行业μ/σ仅用宇宙内已披露。**非正式**。
+
+下一优先级：
+
+1. 外部提供完整632主体名录（当前614，差18）；无签字证据不得编造纳入；
+2. 监控两家港股FY2025年报（现仅有至2023）；不可跨年改标；
+3. 补采/增强抽取消化3项薄样本（清洁能源强度、替代水率、SO2）；
+4. 推进官网域名核验消化`issuer_website_gap_queue`；国资委原表核验后才可正式冻结DLT；
+5. 正式发布仍须双签与全部门禁，系统不得代签。
+
+除非用户再次明确要求，否则不要自动提交或推送。
 
 ## 2026-08-04发布模板安全同步
 

@@ -61,7 +61,30 @@ from .review_batch import (
     read_review_progress, update_ledger_entry, write_batch_ledger, write_review_progress,
 )
 from .review_priority import prioritize_review_by_impact, write_impact_review_plan
-from .release_guard import FORMAL_ALGORITHM_VERSION, prepare_release_authorization, validate_release_authorization
+from .benchmarks import (
+    apply_governance_benchmarks,
+    audit_governance_benchmarks,
+    prepare_governance_benchmark_packet,
+    require_governance_benchmarks,
+)
+from .domain_verification import (
+    apply_official_domain_review,
+    evaluate_official_domain_review,
+    prepare_official_domain_review_packet,
+)
+from .official_report_discovery import (
+    apply_official_report_discovery,
+    default_https_fetcher,
+    evaluate_official_report_discovery,
+    prepare_official_report_discovery_packet,
+)
+from .dlt_alignment import build_dlt_alignment_status
+from .release_guard import (
+    FORMAL_ALGORITHM_VERSION,
+    prepare_release_authorization,
+    validate_graded_ranking,
+    validate_release_authorization,
+)
 from .research_qualitative import build_research_qualitative_observations
 from .migration import augment_candidate_universe, bind_snapshot_provenance, plan_historical_migration, write_augmented_universe, write_candidate_universe, write_migration_plan, write_provenance_binding
 from .planning import audit_document_coverage, collection_summary, merge_document_indexes, plan_collection, read_document_records, write_collection_plan, write_collection_summary, write_document_coverage
@@ -72,7 +95,7 @@ from .resolution import audit_resolution_preview, plan_review_tiers, read_resolu
 from .review import apply_conflict_review_instructions, apply_review_instructions, read_review_instructions, write_review_audit, write_review_template
 from .reference import extract_reference_securities, write_reference_securities
 from .registry import reconcile_registry, write_registry_reconciliation
-from .scoring import MissingStrategy, ScoringEngine
+from .scoring import MissingStrategy, ScoringEngine, build_population_baseline_report
 from .stage_orchestrator import assess_next_stage, write_stage_assessment
 from .external_readiness import audit_external_readiness, write_external_readiness
 from .e2_experiment import evaluate_e2_validation, prepare_e2_validation_sample, write_e2_validation_sample
@@ -193,7 +216,102 @@ def main() -> None:
     release_template.add_argument("input")
     release_template.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], required=True)
     release_template.add_argument("--completion-report", help="绑定六道完成门禁报告JSON")
+    release_template.add_argument(
+        "--seal-validity", action="store_true",
+        help="按DL/T 2971写入一年有效期valid_from/valid_until",
+    )
     release_template.add_argument("--output", required=True)
+    release_validate = sub.add_parser(
+        "validate-release-authorization",
+        help="校验正式发布授权清单；可选强制DL/T有效期与评价组长签名",
+    )
+    release_validate.add_argument("manifest")
+    release_validate.add_argument("input")
+    release_validate.add_argument("--missing-strategy", choices=[item.value for item in MissingStrategy], required=True)
+    release_validate.add_argument("--completion-report")
+    release_validate.add_argument(
+        "--require-dlt-process", action="store_true",
+        help="要求一年有效期有效且evaluation_lead已签名",
+    )
+    release_validate.add_argument("--output", required=True)
+    governance_audit = sub.add_parser(
+        "audit-governance-benchmarks",
+        help="审计方法论中17项治理定量优秀值是否齐全",
+    )
+    governance_audit.add_argument("--output", required=True)
+    governance_apply = sub.add_parser(
+        "apply-governance-benchmarks",
+        help="将国资委工业优秀值表注入方法论并在齐全时冻结为DLT2971-2025-v1",
+    )
+    governance_apply.add_argument("benchmark_table")
+    governance_apply.add_argument("--output-methodology", required=True)
+    governance_apply.add_argument(
+        "--allow-incomplete", action="store_true",
+        help="允许写出未齐全草稿；默认齐全才允许冻结正式版本",
+    )
+    governance_apply.add_argument("--summary", required=True)
+    governance_packet = sub.add_parser(
+        "prepare-governance-benchmark-packet",
+        help="生成国资委优秀值人工录入CSV/HTML工作包（含表头别名与映射风险提示）",
+    )
+    governance_packet.add_argument("--csv", required=True)
+    governance_packet.add_argument("--html", required=True)
+    governance_packet.add_argument("--summary", required=True)
+    dlt_alignment = sub.add_parser(
+        "audit-dlt-alignment",
+        help="审计工程实现对DL/T 2971—2025的覆盖与剩余外部阻塞",
+    )
+    dlt_alignment.add_argument("--output", required=True)
+    domain_packet = sub.add_parser(
+        "prepare-official-domain-review-packet",
+        help="从报告自披露域名候选生成官网域名人工核验CSV/HTML工作包",
+    )
+    domain_packet.add_argument("candidates")
+    domain_packet.add_argument("document_index")
+    domain_packet.add_argument("--csv", required=True)
+    domain_packet.add_argument("--html", required=True)
+    domain_packet.add_argument("--summary", required=True)
+    domain_packet.add_argument("--limit", type=int, default=50)
+    domain_apply = sub.add_parser(
+        "apply-official-domain-review",
+        help="将已签名核验域名登记到官网来源队列；不授权下载或评分",
+    )
+    domain_apply.add_argument("review_csv")
+    domain_apply.add_argument("queue_csv")
+    domain_apply.add_argument("--output-queue")
+    domain_apply.add_argument("--application", required=True)
+    domain_audit = sub.add_parser(
+        "audit-official-domain-review",
+        help="审计官网域名核验模板是否完整签名（不写入队列）",
+    )
+    domain_audit.add_argument("review_csv")
+    domain_audit.add_argument("--output", required=True)
+    report_discovery = sub.add_parser(
+        "prepare-official-report-discovery-packet",
+        help="对已核验官网域名生成同域HTTPS报告发现工作包（默认不联网）",
+    )
+    report_discovery.add_argument("queue_csv")
+    report_discovery.add_argument("--csv", required=True)
+    report_discovery.add_argument("--html", required=True)
+    report_discovery.add_argument("--summary", required=True)
+    report_discovery.add_argument(
+        "--live-fetch", action="store_true",
+        help="对已核验域名发起HTTPS页面抓取（仅发现链接，不下载PDF）",
+    )
+    report_apply = sub.add_parser(
+        "apply-official-report-discovery",
+        help="将已签名接受的同域HTTPS报告URL写入官网队列；不下载不评分",
+    )
+    report_apply.add_argument("discovery_csv")
+    report_apply.add_argument("queue_csv")
+    report_apply.add_argument("--output-queue")
+    report_apply.add_argument("--application", required=True)
+    report_audit = sub.add_parser(
+        "audit-official-report-discovery",
+        help="审计同域报告发现模板是否完整签名（不写入队列）",
+    )
+    report_audit.add_argument("discovery_csv")
+    report_audit.add_argument("--output", required=True)
     research_qualitative = sub.add_parser("build-research-qualitative", help="从证据包和缺口生成仅限自动预排名的定性观测")
     research_qualitative.add_argument("packets")
     research_qualitative.add_argument("gaps")
@@ -245,14 +363,33 @@ def main() -> None:
     score = sub.add_parser("score", help="从CSV自动计算并导出排名")
     score.add_argument("input")
     score.add_argument("--output-dir", default="output")
-    score.add_argument("--title", default="中国能源上市公司可持续发展（ESG）评价前200名单")
-    score.add_argument("--universe", help="正式发布时使用的公司池CSV")
+    score.add_argument(
+        "--title",
+        default="中国能源上市公司可持续发展（ESG）评价排名",
+    )
+    score.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help="导出前N名；0或负数表示导出全部已评分公司（默认全部）",
+    )
+    score.add_argument("--universe", help="评价公司池CSV；研究/正式均用于宇宙内披露样本基准")
     score.add_argument("--expected-companies", type=int, help="正式发布目标公司主体数")
+    score.add_argument(
+        "--minimum-population",
+        type=int,
+        default=20,
+        help="行业基准最低披露家数；低于此值标记thin_population",
+    )
     score.add_argument("--mode", choices=("preview", "research", "release"), default="preview")
     score.add_argument("--missing-strategy", choices=tuple(item.value for item in MissingStrategy))
     score.add_argument("--release", action="store_true", help="兼容旧调用，等同于--mode release")
     score.add_argument("--release-manifest", help="正式发布所需的双人签名冻结授权清单JSON")
     score.add_argument("--completion-report", help="正式发布所需的六道完成门禁报告JSON")
+    score.add_argument(
+        "--require-dlt-process", action="store_true",
+        help="正式发布时强制校验DL/T 2971一年有效期与评价组长签名",
+    )
     universe_audit = sub.add_parser("universe-audit", help="审计公司池及已完成数据覆盖")
     universe_audit.add_argument("universe")
     universe_audit.add_argument("--observations")
@@ -1076,11 +1213,118 @@ def main() -> None:
     if args.command == "prepare-release-authorization":
         manifest = prepare_release_authorization(
             args.input, args.methodology, args.missing_strategy, args.completion_report,
+            seal_validity=args.seal_validity,
         )
         output = Path(args.output)
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        return
+    if args.command == "validate-release-authorization":
+        try:
+            report = validate_release_authorization(
+                args.manifest, args.input, args.methodology, args.missing_strategy,
+                args.completion_report, require_dlt_process=args.require_dlt_process,
+            )
+            if args.require_dlt_process:
+                report["governance_benchmarks"] = require_governance_benchmarks(args.methodology)
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-governance-benchmarks":
+        report = audit_governance_benchmarks(args.methodology)
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-governance-benchmarks":
+        try:
+            report = apply_governance_benchmarks(
+                args.methodology, args.benchmark_table,
+                output_path=args.output_methodology,
+                require_complete=not args.allow_incomplete,
+            )
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
+        summary = Path(args.summary)
+        summary.parent.mkdir(parents=True, exist_ok=True)
+        summary.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-governance-benchmark-packet":
+        report = prepare_governance_benchmark_packet(
+            args.methodology, csv_path=args.csv, html_path=args.html, summary_path=args.summary,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-dlt-alignment":
+        report = build_dlt_alignment_status(args.methodology)
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-official-domain-review-packet":
+        report = prepare_official_domain_review_packet(
+            args.candidates,
+            args.document_index,
+            csv_path=args.csv,
+            html_path=args.html,
+            summary_path=args.summary,
+            limit=args.limit,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-official-domain-review":
+        with Path(args.review_csv).open(encoding="utf-8-sig", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        report = evaluate_official_domain_review(rows)
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-official-domain-review":
+        report = apply_official_domain_review(
+            args.review_csv,
+            args.queue_csv,
+            output_queue_path=args.output_queue,
+            application_path=args.application,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "prepare-official-report-discovery-packet":
+        report = prepare_official_report_discovery_packet(
+            args.queue_csv,
+            csv_path=args.csv,
+            html_path=args.html,
+            summary_path=args.summary,
+            fetcher=default_https_fetcher if args.live_fetch else None,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "audit-official-report-discovery":
+        with Path(args.discovery_csv).open(encoding="utf-8-sig", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        report = evaluate_official_report_discovery(rows)
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return
+    if args.command == "apply-official-report-discovery":
+        report = apply_official_report_discovery(
+            args.discovery_csv,
+            args.queue_csv,
+            output_queue_path=args.output_queue,
+            application_path=args.application,
+        )
+        print(json.dumps(report, ensure_ascii=False, indent=2))
         return
     if args.command == "build-research-qualitative":
         observations, summary = build_research_qualitative_observations(args.packets, args.gaps)
@@ -1554,33 +1798,92 @@ def main() -> None:
             release_authorization = validate_release_authorization(
                 args.release_manifest, args.input, args.methodology, strategy,
                 args.completion_report,
+                require_dlt_process=bool(getattr(args, "require_dlt_process", False)),
             )
+            if getattr(args, "require_dlt_process", False):
+                release_authorization["governance_benchmarks"] = require_governance_benchmarks(
+                    methodology,
+                )
         except ValueError as error:
             raise SystemExit(str(error)) from error
     else:
         release_authorization = None
-    results = ScoringEngine(methodology).evaluate(observations, strategy)
+    universe_codes = None
+    universe_audit = None
+    if getattr(args, "universe", None):
+        universe_rows = read_universe(args.universe)
+        universe_codes = {item.stock_code for item in universe_rows if item.included}
+        expected = int(args.expected_companies or 632)
+        universe_audit = audit_universe(
+            universe_rows, expected, {item.company_code for item in observations},
+        ).as_dict()
+    min_pop = int(getattr(args, "minimum_population", 20) or 20)
+    engine = ScoringEngine(methodology, minimum_population=min_pop)
+    results = engine.evaluate(
+        observations, strategy, universe_codes=universe_codes, minimum_population=min_pop,
+    )
+    baseline = build_population_baseline_report(
+        observations, methodology,
+        universe_codes=universe_codes,
+        expected_companies=int(args.expected_companies or 632),
+        minimum_population=min_pop,
+    )
+    grade_audit = None
+    if mode == "release":
+        try:
+            grade_audit = validate_graded_ranking(results)
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
     output = Path(args.output_dir)
     output.mkdir(parents=True, exist_ok=True)
     title = args.title + ("（自动预排名·非正式）" if mode == "research" else "")
-    write_ranking_csv(output / "ranking.csv", results, methodology)
-    write_ranking_json(output / "ranking.json", results)
-    write_ranking_html(output / "ranking.html", results, methodology, title)
+    export_limit = None if int(getattr(args, "limit", 0) or 0) <= 0 else int(args.limit)
+    write_ranking_csv(output / "ranking.csv", results, methodology, limit=export_limit)
+    write_ranking_json(output / "ranking.json", results, limit=export_limit)
+    write_ranking_html(output / "ranking.html", results, methodology, title, limit=export_limit)
+    (output / "population_baseline.json").write_text(
+        json.dumps(baseline, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
+    )
+    report_years = {item.report_year for item in observations}
+    report_year = next(iter(report_years)) if len(report_years) == 1 else None
+    evaluation_year = None if report_year is None else int(report_year) + 1
     metadata = {
         "ranking_mode": mode,
         "algorithm_version": (
-            "auto_prerank_v1" if mode == "research"
+            "auto_prerank_universe_baseline_v1" if mode == "research"
             else FORMAL_ALGORITHM_VERSION if mode == "release" else "energy_esg_2025"
         ),
         "missing_strategy_version": strategy,
         "company_count": len(results),
+        "exported_company_count": len(results) if export_limit is None else min(export_limit, len(results)),
+        "export_limit": export_limit,
         "input_path": str(Path(args.input)),
         "input_sha256": _sha256_file(args.input),
         "methodology_path": str(Path(args.methodology)),
         "methodology_sha256": _sha256_file(args.methodology),
         "official_release": mode == "release",
         "notice": "正式审计版" if mode == "release" else "自动研究结果，不得作为正式榜单",
+        "score_formula": (
+            "总分=定量分×quantitative_ratio+定性分×qualitative_ratio；"
+            "行业基准=评价宇宙内同指标已披露样本的μ/σ（未披露不进基准）；"
+            "研究模式默认legacy_zero_v1：未披露计0；"
+            "薄样本(n<minimum_population)仍计分但标记thin_population"
+        ),
+        "evaluation_year": evaluation_year,
+        "report_year": report_year,
+        "year_rule": "evaluation_year = report_year + 1",
+        "target_universe_companies": int(args.expected_companies or 632),
+        "universe_path": str(Path(args.universe)) if getattr(args, "universe", None) else None,
+        "universe_company_count": len(universe_codes) if universe_codes is not None else None,
+        "minimum_population": min_pop,
+        "population_baseline": {
+            "thin_population_indicator_count": baseline["thin_population_indicator_count"],
+            "minimum_population_gate_passed": baseline["minimum_population_gate_passed"],
+            "formal_baseline_ready": baseline["formal_baseline_ready"],
+        },
+        "universe_audit": universe_audit,
         "release_authorization": release_authorization,
+        "grade_audit": grade_audit,
     }
     (output / "ranking_metadata.json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",

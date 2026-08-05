@@ -652,6 +652,20 @@ PYTHONPATH=src python3 -m aegis_esg.cli reconcile-registry incoming/companies.cs
 单向指标取满分，未达到部分按标准差距离衰减；双向指标以优秀值为峰值向两侧
 衰减。没有优秀值时，当前版本使用当年样本中心，输出必须标注为独立估计。
 
+优秀值注入与正式冻结：
+
+```bash
+PYTHONPATH=src python3 -m aegis_esg.cli audit-governance-benchmarks \
+  --output output/audit/governance_benchmark_audit.json
+PYTHONPATH=src python3 -m aegis_esg.cli apply-governance-benchmarks \
+  data/methodologies/governance_benchmarks_2025.csv \
+  --output-methodology data/methodologies/energy_esg_dlt2971_v1.json \
+  --summary output/audit/governance_benchmark_apply.json
+```
+
+总分按 DL/T 2971 表1映射为 AAA–C / NA（披露率&lt;50%或事故flag强制NA）。正式发布可加
+`--require-dlt-process`，校验一年有效期、evaluation_lead 与治理优秀值齐全。
+
 ## 排名模式与算法隔离
 
 - `preview`：允许pending参与开发诊断，不对外发布；

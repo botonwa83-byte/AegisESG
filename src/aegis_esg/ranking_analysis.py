@@ -28,10 +28,8 @@ def validate_ranking_mode(
         research_only = [item for item in observations if "[research-only:" in item.evidence_text]
         if research_only:
             raise ValueError(f"正式排名输入包含{len(research_only)}项研究域机器观测")
-    selected = missing_strategy or (
-        MissingStrategy.INDICATOR_NEUTRAL_V1.value
-        if mode == "research" else MissingStrategy.LEGACY_ZERO_V1.value
-    )
+    # Research default follows exchange-disclosure / undisclosed-zero policy.
+    selected = missing_strategy or MissingStrategy.LEGACY_ZERO_V1.value
     return MissingStrategy(selected)
 
 

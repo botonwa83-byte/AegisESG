@@ -23,7 +23,15 @@ from aegis_esg.scoring import MissingStrategy, PopulationStats, ScoringEngine
 from aegis_esg.ranking_analysis import analyze_missing_sensitivity, validate_ranking_mode
 from aegis_esg.release_guard import FORMAL_ALGORITHM_VERSION, prepare_release_authorization, validate_release_authorization
 from aegis_esg.repository import SQLiteRepository
-from aegis_esg.extraction import PageText, _extract_chinese_env_table_rows, extract_batch_text_exports, extract_indicator_candidates, read_page_text_export, summarize_review_candidates
+from aegis_esg.extraction import (
+    PageText,
+    _extract_chinese_env_table_rows,
+    extract_batch_text_exports,
+    extract_indicator_candidates,
+    read_page_text_export,
+    resolve_text_export_path,
+    summarize_review_candidates,
+)
 from aegis_esg.env_intensity import (
     CompanyDocument, derive_env_intensity_candidates, derive_ghg_reduction_candidates,
 )
@@ -72,7 +80,7 @@ from aegis_esg.sources.hkex import import_hkex_securities
 from aegis_esg.sources.hkex_profile import collect_hkex_issuer_profiles, parse_hkex_access_token, parse_hkex_quote_payload, prepare_hkex_evidence_drafts
 from aegis_esg.sources.hkex_disclosure import HKEXDisclosure, _fetch, classify_continuity_document, discover_hkex_continuity_batch, discover_hkex_continuity_documents, parse_stock_lookup, parse_title_search, select_continuity_downloads
 from aegis_esg.sources.bse import collect_bse_listings, parse_bse_code_mapping, parse_bse_page, parse_bse_disclosures, classify_disclosure_title, discover_bse_reports, discover_bse_annual_report
-from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, supersede_documents, write_document_index
+from aegis_esg.collector import DocumentRecord, _decode_document, _download_candidates, _read_document_index, collect_batch, dedupe_document_records, supersede_documents, write_document_index
 from aegis_esg.completion import audit_project_completion
 from aegis_esg.continuity_evidence import extract_continuity_evidence_candidates, finalize_continuity_reviews, prepare_continuity_review_packets, render_continuity_review_guide, select_continuity_review_batch, write_continuity_evidence_candidates
 from aegis_esg.universe import UniverseCompany, audit_universe
@@ -564,6 +572,54 @@ class MethodologyTests(unittest.TestCase):
         self.assertGreater(engine._score_value(positive, 12, stat), engine._score_value(positive, 8, stat))
         self.assertGreater(engine._score_value(negative, 8, stat), engine._score_value(negative, 12, stat))
 
+    def test_dlt2971_grade_bands_and_na_rules(self):
+        from aegis_esg.grade import GradeFlags, map_esg_grade
+        cases = [
+            (95, 80, "AAA"), (90, 80, "AAA"), (75, 80, "AA"), (60, 80, "A"),
+            (50, 80, "BBB"), (40, 80, "BB"), (30, 80, "B"), (20, 80, "C"),
+            (19.99, 80, "NA"), (0, 80, "NA"),
+        ]
+        for score, disclosure, expected in cases:
+            result = map_esg_grade(score, disclosure)
+            self.assertEqual(expected, result.grade, msg=(score, disclosure))
+            self.assertEqual("score_band", result.reason)
+        low_disclosure = map_esg_grade(95, 49.99)
+        self.assertEqual("NA", low_disclosure.grade)
+        self.assertEqual("disclosure_below_half", low_disclosure.reason)
+        half_disclosure = map_esg_grade(95, 50.0)
+        self.assertEqual("AAA", half_disclosure.grade)
+        incident = map_esg_grade(95, 90, GradeFlags(major_safety_incident=True))
+        self.assertEqual("NA", incident.grade)
+        self.assertEqual("major_safety_incident", incident.reason)
+
+    def test_scoring_engine_attaches_dlt2971_grade(self):
+        from aegis_esg.grade import GradeFlags
+        observations = []
+        for index, indicator in enumerate(self.methodology.indicators):
+            if indicator.kind == IndicatorKind.QUALITATIVE:
+                value = 100
+            elif indicator.direction == Direction.NEGATIVE:
+                value = 1
+            else:
+                value = 100 + index
+            observations.append(Observation("A", "甲", 2025, indicator.code, value))
+        # Sparse company: only first indicator confirmed → disclosure far below 50%.
+        sparse = [Observation("B", "乙", 2025, self.methodology.indicators[0].code, 10)]
+        engine = ScoringEngine(self.methodology)
+        dense = engine.evaluate(observations)[0]
+        self.assertIn(dense.grade, {"AAA", "AA", "A", "BBB", "BB", "B", "C", "NA"})
+        self.assertTrue(dense.grade)
+        self.assertIn("grade", dense.to_dict(include_details=False))
+        thin = engine.evaluate(sparse)[0]
+        self.assertLess(thin.disclosure_rate, 50)
+        self.assertEqual("NA", thin.grade)
+        self.assertEqual("disclosure_below_half", thin.grade_reason)
+        flagged = engine.evaluate(
+            observations, company_flags={"A": GradeFlags(accident_misreport=True)},
+        )[0]
+        self.assertEqual("NA", flagged.grade)
+        self.assertEqual("accident_misreport", flagged.grade_reason)
+
     def test_evaluation_dense_rank_and_export_shape(self):
         observations = []
         for code, name, offset in (("A", "甲公司", 0), ("B", "乙公司", 1), ("C", "丙公司", 1)):
@@ -585,10 +641,63 @@ class MethodologyTests(unittest.TestCase):
             with output.open(encoding="utf-8-sig") as stream:
                 rows = list(csv.reader(stream))
             self.assertEqual(7, len(rows))
-            self.assertEqual(15, len(rows[0]))
+            self.assertEqual(18, len(rows[0]))
             self.assertEqual("数值类别", rows[0][3])
+            self.assertEqual("披露率%", rows[0][4])
             self.assertEqual("指标数值", rows[1][3])
             self.assertEqual("指标分值", rows[2][3])
+
+    def test_universe_disclosed_population_baseline_excludes_outsiders_and_missing(self):
+        from aegis_esg.scoring import build_population_baseline_report
+
+        indicator = self.methodology.quantitative[0]
+        observations = [
+            Observation("A", "甲", 2025, indicator.code, 10, ValueStatus.CONFIRMED),
+            Observation("B", "乙", 2025, indicator.code, 30, ValueStatus.CONFIRMED),
+            Observation("C", "丙", 2025, indicator.code, 1000, ValueStatus.CONFIRMED),
+            Observation("D", "丁", 2025, indicator.code, None, ValueStatus.MISSING),
+        ]
+        engine = ScoringEngine(self.methodology, minimum_population=2)
+        results = {
+            item.company_code: item
+            for item in engine.evaluate(
+                observations,
+                MissingStrategy.LEGACY_ZERO_V1,
+                universe_codes={"A", "B", "D"},
+                minimum_population=2,
+            )
+        }
+        self.assertEqual({"A", "B", "D"}, set(results))
+        self.assertNotIn("C", results)
+        detail_a = next(item for item in results["A"].details if item.indicator_code == indicator.code)
+        self.assertEqual(2, detail_a.population_count)
+        self.assertEqual(20.0, detail_a.mean)
+        self.assertFalse(detail_a.thin_population)
+        self.assertEqual(0, results["D"].total_score)
+        baseline = build_population_baseline_report(
+            observations,
+            self.methodology,
+            universe_codes={"A", "B", "D"},
+            expected_companies=3,
+            minimum_population=2,
+        )
+        row = next(item for item in baseline["indicators"] if item["indicator_code"] == indicator.code)
+        self.assertEqual(2, row["disclosed_company_count"])
+        self.assertEqual(3, row["universe_company_count"])
+        self.assertEqual(3, row["observed_company_count"])
+        self.assertFalse(row["thin_population"])
+        # Other methodology quantitative indicators remain undisclosed → thin gate fails.
+        self.assertFalse(baseline["minimum_population_gate_passed"])
+        self.assertFalse(baseline["formal_baseline_ready"])
+        incomplete = build_population_baseline_report(
+            observations,
+            self.methodology,
+            universe_codes={"A", "B"},
+            expected_companies=3,
+            minimum_population=2,
+        )
+        self.assertEqual(2, incomplete["universe_company_count"])
+        self.assertLess(incomplete["universe_company_count"], incomplete["expected_companies"])
 
     def test_versioned_missing_strategies_do_not_silently_share_zero_behavior(self):
         indicator = self.methodology.quantitative[0]
@@ -729,6 +838,753 @@ class MethodologyTests(unittest.TestCase):
                     manifest, observations, methodology,
                     MissingStrategy.INDICATOR_NEUTRAL_V1.value, completion,
                 )
+
+    def test_dlt_release_validity_and_committee_gate(self):
+        from datetime import datetime, timedelta, timezone
+        from aegis_esg.release_guard import check_release_effective, seal_release_validity
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            observations = root / "observations.csv"
+            methodology = root / "methodology.json"
+            manifest = root / "release.json"
+            observations.write_text("frozen observations\n", encoding="utf-8")
+            methodology.write_text("{}\n", encoding="utf-8")
+            start = datetime(2026, 8, 4, 10, 0, tzinfo=timezone(timedelta(hours=8)))
+            payload = prepare_release_authorization(
+                observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                seal_validity=True, valid_from=start,
+            )
+            self.assertEqual("DL/T 2971—2025", payload["standard_ref"])
+            self.assertEqual(365, payload["result_validity_days"])
+            self.assertTrue(payload["valid_from"])
+            self.assertTrue(payload["valid_until"])
+            payload["approvals"] = [
+                {"reviewer": "a", "role": "methodology_owner", "reviewed_at": "2026-08-04T10:00:00+08:00", "note": "method"},
+                {"reviewer": "b", "role": "data_reviewer", "reviewed_at": "2026-08-04T10:01:00+08:00", "note": "data"},
+            ]
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            # Without require_dlt_process, sealed validity is checked but expiry does not block.
+            report = validate_release_authorization(
+                manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                as_of=start + timedelta(days=400),
+            )
+            self.assertTrue(report["authorized"])
+            self.assertTrue(report["validity"]["expired"])
+            with self.assertRaisesRegex(ValueError, "一年有效期"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                    require_dlt_process=True, as_of=start + timedelta(days=400),
+                )
+            with self.assertRaisesRegex(ValueError, "evaluation_lead"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                    require_dlt_process=True, as_of=start + timedelta(days=10),
+                )
+            payload["committee_approvals"] = [
+                {"reviewer": "a", "role": "evaluation_lead", "reviewed_at": "2026-08-04T10:02:00+08:00", "note": "committee"},
+            ]
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "同一人"):
+                validate_release_authorization(
+                    manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                    require_dlt_process=True, as_of=start + timedelta(days=10),
+                )
+            payload["committee_approvals"] = [
+                {"reviewer": "c", "role": "evaluation_lead", "reviewed_at": "2026-08-04T10:02:00+08:00", "note": "committee"},
+            ]
+            manifest.write_text(json.dumps(payload), encoding="utf-8")
+            ok = validate_release_authorization(
+                manifest, observations, methodology, MissingStrategy.INDICATOR_NEUTRAL_V1.value,
+                require_dlt_process=True, as_of=start + timedelta(days=10),
+            )
+            self.assertTrue(ok["authorized"])
+            self.assertEqual(1, ok["committee_approval_count"])
+            self.assertTrue(ok["validity"]["effective"])
+            sealed = seal_release_validity(start)
+            effective = check_release_effective({**payload, **sealed}, as_of=start)
+            self.assertTrue(effective["effective"])
+
+    def test_validate_graded_ranking_requires_table1_grades(self):
+        from aegis_esg.release_guard import validate_graded_ranking
+        with self.assertRaisesRegex(ValueError, "缺少DL/T 2971级别"):
+            validate_graded_ranking([{"company_code": "A", "grade": ""}])
+        report = validate_graded_ranking([
+            {"company_code": "A", "grade": "AAA"},
+            {"company_code": "B", "grade": "NA"},
+        ])
+        self.assertEqual(2, report["graded_company_count"])
+        self.assertEqual(1, report["na_count"])
+        self.assertTrue(report["complete"])
+
+    def test_official_domain_review_packet_and_safe_apply(self):
+        from aegis_esg.domain_verification import (
+            apply_official_domain_review,
+            evaluate_official_domain_review,
+            prepare_official_domain_review_packet,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidates = root / "candidates.csv"
+            index = root / "index.csv"
+            queue = root / "queue.csv"
+            candidates.write_text(
+                "company_code,company_name,official_domain,candidate_url,evidence_file,evidence_count,verification_status,next_action\n"
+                "000001.SZ,测试A,example-a.com,https://www.example-a.com/,a.txt,3,candidate_declared_in_issuer_report,核验\n"
+                "000001.SZ,测试A,mirror.example.net,http://mirror.example.net/,a2.txt,1,candidate_declared_in_issuer_report,核验\n"
+                "000002.SZ,测试B,example-b.com,https://www.example-b.com/esg,b.txt,5,candidate_declared_in_issuer_report,核验\n",
+                encoding="utf-8",
+            )
+            index.write_text(
+                "company_code,company_name,report_year,document_type,source_url,local_path,sha256,size\n"
+                "000001.SZ,测试A,2025,annual_report,https://x/a.pdf,a.pdf,aa,1\n"
+                "000002.SZ,测试B,2025,annual_report,https://x/b.pdf,b.pdf,bb,1\n"
+                "000002.SZ,测试B,2025,esg_report,https://x/be.pdf,be.pdf,cc,1\n",
+                encoding="utf-8",
+            )
+            queue.write_text(
+                "company_code,company_name,report_year,document_type,source_channel,official_domain,candidate_url,"
+                "domain_verification,download_status,next_action,scoring_authorized\n"
+                "000001.SZ,测试A,2025,annual_report,issuer_official_website,,,not_submitted,pending_official_url,登记,False\n"
+                "000001.SZ,测试A,2025,esg_report,issuer_official_website,,,not_submitted,pending_official_url,登记,False\n"
+                "000002.SZ,测试B,2025,annual_report,issuer_official_website,,,not_submitted,pending_official_url,登记,False\n",
+                encoding="utf-8",
+            )
+            summary = prepare_official_domain_review_packet(
+                candidates, index,
+                csv_path=root / "review.csv",
+                html_path=root / "review.html",
+                summary_path=root / "summary.json",
+                limit=10,
+            )
+            self.assertEqual(2, summary["row_count"])
+            self.assertEqual(1, summary["missing_esg_priority_count"])
+            self.assertFalse(summary["download_authorized"])
+            with (root / "review.csv").open(encoding="utf-8-sig", newline="") as stream:
+                review_rows = list(csv.DictReader(stream))
+            self.assertEqual("000001.SZ", review_rows[0]["company_code"])
+            blank = evaluate_official_domain_review(review_rows)
+            self.assertEqual("blocked_external_review", blank["status"])
+            self.assertFalse(blank["download_authorized"])
+            for row in review_rows:
+                row["verification_decision"] = "verify"
+                row["reviewer"] = "alice"
+                row["reviewed_at"] = "2026-08-04T17:00:00+08:00"
+                row["review_note"] = "与年报封面官网一致"
+            with (root / "review.csv").open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=review_rows[0].keys(), lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(review_rows)
+            output_queue = root / "queue_out.csv"
+            applied = apply_official_domain_review(
+                root / "review.csv", queue,
+                output_queue_path=output_queue,
+                application_path=root / "application.json",
+            )
+            self.assertEqual("ready_to_register_verified_domains", applied["status"])
+            self.assertTrue(applied["queue_updated"])
+            self.assertFalse(applied["download_authorized"])
+            self.assertFalse(applied["scoring_authorized"])
+            with output_queue.open(encoding="utf-8-sig", newline="") as stream:
+                updated = list(csv.DictReader(stream))
+            self.assertEqual("example-a.com", updated[0]["official_domain"])
+            self.assertEqual("verified", updated[0]["domain_verification"])
+            self.assertEqual("pending_report_discovery", updated[0]["download_status"])
+            self.assertEqual("", updated[0]["candidate_url"])
+            # Illegal decision is rejected and does not touch queue.
+            review_rows[0]["verification_decision"] = "auto-approve"
+            bad = evaluate_official_domain_review(review_rows)
+            self.assertEqual("reject_template", bad["status"])
+
+    def test_same_domain_report_discovery_requires_verified_https(self):
+        from aegis_esg.official_report_discovery import (
+            extract_same_domain_pdf_candidates,
+            prepare_official_report_discovery_packet,
+        )
+        html = '''
+        <a href="/files/2025-annual-report.pdf">2025年年度报告</a>
+        <a href="https://other.com/x.pdf">ESG报告</a>
+        <a href="https://issuer.example.com/esg/2025-sustainability-report.pdf">2025可持续发展报告</a>
+        <a href="http://issuer.example.com/old.pdf">2025年报</a>
+        '''
+        hits = extract_same_domain_pdf_candidates(
+            "https://issuer.example.com/investor/",
+            html,
+            official_domain="issuer.example.com",
+            report_year=2025,
+        )
+        urls = {item["source_url"] for item in hits}
+        self.assertIn("https://issuer.example.com/files/2025-annual-report.pdf", urls)
+        self.assertIn("https://issuer.example.com/esg/2025-sustainability-report.pdf", urls)
+        self.assertNotIn("https://other.com/x.pdf", urls)
+        self.assertTrue(all(item["source_url"].startswith("https://") for item in hits))
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            queue = root / "queue.csv"
+            queue.write_text(
+                "company_code,company_name,report_year,document_type,source_channel,official_domain,candidate_url,"
+                "domain_verification,download_status,next_action,scoring_authorized\n"
+                "A,甲,2025,esg_report,issuer_official_website,issuer.example.com,,not_submitted,pending,登记,False\n",
+                encoding="utf-8",
+            )
+            empty = prepare_official_report_discovery_packet(
+                queue,
+                csv_path=root / "disc.csv",
+                html_path=root / "disc.html",
+                summary_path=root / "disc.json",
+                fetcher=None,
+            )
+            self.assertEqual("await_verified_domains", empty["status"])
+            self.assertFalse(empty["download_authorized"])
+
+            queue.write_text(
+                "company_code,company_name,report_year,document_type,source_channel,official_domain,candidate_url,"
+                "domain_verification,download_status,next_action,scoring_authorized\n"
+                "A,甲,2025,esg_report,issuer_official_website,issuer.example.com,,verified,pending_report_discovery,发现,False\n",
+                encoding="utf-8",
+            )
+
+            def fake_fetch(url: str) -> str:
+                self.assertTrue(url.startswith("https://issuer.example.com"))
+                return html
+
+            scanned = prepare_official_report_discovery_packet(
+                queue,
+                csv_path=root / "disc2.csv",
+                html_path=root / "disc2.html",
+                summary_path=root / "disc2.json",
+                fetcher=fake_fetch,
+            )
+            self.assertEqual("candidates_pending_review", scanned["status"])
+            self.assertGreaterEqual(scanned["candidate_rows"], 2)
+            self.assertFalse(scanned["scoring_authorized"])
+
+            from aegis_esg.official_report_discovery import apply_official_report_discovery
+            with (root / "disc2.csv").open(encoding="utf-8-sig", newline="") as stream:
+                discovery_rows = list(csv.DictReader(stream))
+            for row in discovery_rows:
+                if not row.get("source_url"):
+                    continue
+                row["review_decision"] = "accept"
+                row["reviewer"] = "bob"
+                row["reviewed_at"] = "2026-08-04T17:30:00+08:00"
+                row["review_note"] = "同域HTTPS年报链接已人工确认"
+            with (root / "disc2.csv").open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=discovery_rows[0].keys(), lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(discovery_rows)
+            applied = apply_official_report_discovery(
+                root / "disc2.csv", queue,
+                output_queue_path=root / "queue_out.csv",
+                application_path=root / "app.json",
+            )
+            self.assertEqual("ready_to_register_report_urls", applied["status"])
+            self.assertTrue(applied["queue_updated"])
+            self.assertFalse(applied["download_authorized"])
+            with (root / "queue_out.csv").open(encoding="utf-8-sig", newline="") as stream:
+                out_rows = list(csv.DictReader(stream))
+            self.assertTrue(any(row["candidate_url"].startswith("https://issuer.example.com/") for row in out_rows))
+            self.assertEqual("pending_official_download", out_rows[0]["download_status"])
+
+    def test_official_website_queue_preserves_verified_domains(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            # Simulate previous verified queue and a tiny document index.
+            queue = root / "output/audit/official_website_source_queue_v1_2025.csv"
+            queue.parent.mkdir(parents=True)
+            queue.write_text(
+                "company_code,company_name,report_year,document_type,source_channel,official_domain,candidate_url,"
+                "domain_verification,download_status,next_action,scoring_authorized\n"
+                "A001.SZ,甲,2025,annual_report,issuer_official_website,issuer.example.com,,"
+                "verified,pending_report_discovery,发现,False\n"
+                "A001.SZ,甲,2025,esg_report,issuer_official_website,issuer.example.com,,"
+                "verified,pending_report_discovery,发现,False\n",
+                encoding="utf-8",
+            )
+            index = root / "data/raw/all_markets_document_index.csv"
+            index.parent.mkdir(parents=True)
+            index.write_text(
+                "company_code,company_name,report_year,document_type,source_url,local_path,sha256,size\n"
+                "A001.SZ,甲,2025,annual_report,https://x/a.pdf,a.pdf,aa,1\n"
+                "A001.SZ,甲,2025,esg_report,https://x/e.pdf,e.pdf,bb,1\n",
+                encoding="utf-8",
+            )
+            script = Path("scripts/build_official_website_source_queue.py").read_text(encoding="utf-8")
+            script = script.replace(
+                "ROOT = Path(__file__).resolve().parents[1]",
+                f"ROOT = Path(r'{root}')",
+            )
+            runner = root / "build_queue.py"
+            runner.write_text(script, encoding="utf-8")
+            subprocess.check_call([sys.executable, str(runner)], cwd=str(root))
+            with queue.open(encoding="utf-8-sig", newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertEqual(2, len(rows))
+            self.assertTrue(all(row["domain_verification"] == "verified" for row in rows))
+            self.assertTrue(all(row["official_domain"] == "issuer.example.com" for row in rows))
+            self.assertTrue(all(row["scoring_authorized"] == "False" for row in rows))
+
+    def test_domain_hygiene_rejects_platforms_and_truncation(self):
+        from aegis_esg.domain_hygiene import is_plausible_issuer_domain
+        self.assertFalse(is_plausible_issuer_domain("cninfo.com"))
+        self.assertFalse(is_plausible_issuer_domain("roadshow.sseinfo.com"))
+        self.assertFalse(is_plausible_issuer_domain("ir.p5w.net"))
+        self.assertFalse(is_plausible_issuer_domain("ir.p"))
+        self.assertFalse(is_plausible_issuer_domain("s.com"))
+        self.assertFalse(is_plausible_issuer_domain("qyxxpl.ywzh.lnsthj.cn"))
+        self.assertFalse(is_plausible_issuer_domain("www-app.gdeei.cn"))
+        self.assertFalse(is_plausible_issuer_domain("hkexnews.hk"))
+        self.assertTrue(is_plausible_issuer_domain("chinabaoan.com"))
+        self.assertTrue(is_plausible_issuer_domain("sanyre.com.cn"))
+
+    def test_ci_research_merge_preview_never_mutates_research(self):
+        import importlib.util
+        path = Path("scripts/build_ci_research_merge_preview.py")
+        spec = importlib.util.spec_from_file_location("ci_research_merge_preview", path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        research = {
+            ("000001.SZ", "2025", "annual"): {
+                "company_code": "000001.SZ", "report_year": "2025",
+                "document_type": "annual", "sha256": "aaa",
+            },
+            ("000002.SZ", "2025", "esg"): {
+                "company_code": "000002.SZ", "report_year": "2025",
+                "document_type": "esg", "sha256": "bbb",
+            },
+        }
+        ci = {
+            ("000001.SZ", "2025", "annual"): {
+                "company_code": "000001.SZ", "company_name": "A",
+                "report_year": "2025", "document_type": "annual",
+                "sha256": "aaa", "source_url": "https://ex/a.pdf", "local_path": "a.pdf",
+            },
+            ("000002.SZ", "2025", "esg"): {
+                "company_code": "000002.SZ", "company_name": "B",
+                "report_year": "2025", "document_type": "esg",
+                "sha256": "ccc", "source_url": "https://ex/b.pdf", "local_path": "b.pdf",
+            },
+            ("000003.SZ", "2025", "esg"): {
+                "company_code": "000003.SZ", "company_name": "C",
+                "report_year": "2025", "document_type": "esg",
+                "sha256": "ddd", "source_url": "https://ex/c.pdf", "local_path": "c.pdf",
+            },
+        }
+        preview, summary = module.build_merge_preview(research, ci)
+        actions = {row["company_code"]: row["action"] for row in preview}
+        self.assertNotIn("000001.SZ", actions)
+        self.assertEqual("conflict_or_different_hash", actions["000002.SZ"])
+        self.assertEqual("would_add", actions["000003.SZ"])
+        self.assertEqual(1, summary["would_add"])
+        self.assertEqual(1, summary["conflict_or_different_hash"])
+        self.assertFalse(summary["research_index_mutated"])
+        self.assertFalse(summary["scoring_authorized"])
+        self.assertEqual(research[("000001.SZ", "2025", "annual")]["sha256"], "aaa")
+
+    def test_live_collection_status_script_is_side_effect_safe(self):
+        script = Path("scripts/refresh_live_collection_status.py").read_text(encoding="utf-8")
+        compact = script.replace(" ", "")
+        self.assertIn('"scoring_authorized":False', compact)
+        self.assertIn("不启动下载", script)
+        self.assertIn("collection_lock_held", script)
+        self.assertNotIn("collect_batch", script)
+        self.assertNotIn("run_scheduled_collection", script)
+
+    def test_collection_failure_classification_prioritizes_partial_timeouts(self):
+        import importlib.util
+        path = Path("scripts/classify_collection_failures.py")
+        spec = importlib.util.spec_from_file_location("classify_collection_failures", path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        kind, retryable, action = module.classify_error(
+            "curl退出码28; 已保留42499461字节分片; Operation timed out after 180005 milliseconds"
+        )
+        self.assertEqual("timeout_partial_resume", kind)
+        self.assertTrue(retryable)
+        self.assertEqual("resume_with_longer_budget", action)
+        kind, retryable, action = module.classify_error(
+            '公开文档不是有效PDF; response="<html><script>\\n var arg1=\'ABC\';"'
+        )
+        self.assertEqual("exchange_antibot_html", kind)
+        self.assertTrue(retryable)
+
+    def test_aegis_locks_reclaim_dead_pid_and_keep_live_hint(self):
+        import importlib.util
+        import os
+        import sys
+        import tempfile
+        path = Path("scripts/aegis_locks.py")
+        spec = importlib.util.spec_from_file_location("aegis_locks", path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dead = root / "aegisesp-text-extraction.lock"
+            self.assertTrue(module.acquire_lock(dead, pid=os.getpid()))
+            # Simulate crash: rewrite pid to a non-existent process.
+            (dead / "pid").write_text("99999999\n", encoding="utf-8")
+            status = module.lock_status(dead)
+            self.assertTrue(status.stale)
+            self.assertTrue(status.reclaimable)
+            self.assertTrue(module.reclaim_lock(dead))
+            self.assertFalse(dead.exists())
+            # Fresh acquire works after reclaim.
+            self.assertTrue(module.acquire_lock(dead))
+            module.release_lock(dead)
+            self.assertFalse(dead.exists())
+
+    def test_ci_incremental_coverage_packet_never_authorizes_scoring(self):
+        script = Path("scripts/build_ci_incremental_coverage_packet.py").read_text(encoding="utf-8")
+        self.assertIn('"scoring_authorized": False', script)
+        self.assertIn('"formal_publishable": False', script)
+        self.assertIn("review_required", script)
+        self.assertNotIn("apply-governance-benchmarks", script)
+        self.assertNotIn("formal_rank_fixed", script)
+
+    def test_read_document_index_keeps_rows_with_empty_source_url(self):
+        from aegis_esg.collector import _read_document_index
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "index.csv"
+            path.write_text(
+                "company_code,company_name,report_year,document_type,source_url,retrieval_url,local_path,sha256,size\n"
+                "A001.SZ,甲,2025,annual_report,,,a.pdf,aa,1\n"
+                "A002.SZ,乙,2025,esg_report,,,e.pdf,bb,1\n"
+                "A003.SZ,丙,0,esg_report,,,bad.pdf,cc,1\n",
+                encoding="utf-8",
+            )
+            rows = _read_document_index(path)
+            self.assertEqual(2, len(rows))
+            self.assertIn("local://A001.SZ/2025/annual_report", rows)
+            self.assertIn("local://A002.SZ/2025/esg_report", rows)
+
+    def test_collector_http_referers_and_curl_fallback_helpers(self):
+        from aegis_esg.collector import (
+            _http_curl_max_time, _http_urlopen_timeout, _referer_for, _szse_curl_max_time,
+        )
+        self.assertIn("hkexnews", _referer_for("https://www1.hkexnews.hk/a.pdf"))
+        self.assertIn("sse.com.cn", _referer_for("https://www.sse.com.cn/a.pdf"))
+        self.assertIn("szse.cn", _referer_for("https://disc.static.szse.cn/a.pdf"))
+        self.assertIn("cninfo.com.cn", _referer_for("https://static.cninfo.com.cn/a.pdf"))
+        self.assertGreaterEqual(_http_curl_max_time(), 30)
+        self.assertGreaterEqual(_http_urlopen_timeout(), 10)
+        self.assertGreaterEqual(_szse_curl_max_time(), 600)
+
+    def test_collection_coverage_reports_identity_gaps(self):
+        script = Path("scripts/build_collection_coverage_report.py").read_text(encoding="utf-8")
+        self.assertIn("missing_identities", script)
+        self.assertIn("identity_coverage_rate", script)
+        self.assertIn("redundant_url_gaps", script)
+        retry = Path("scripts/build_collection_retry_manifest.py").read_text(encoding="utf-8")
+        self.assertIn("skipped_redundant_url_gaps", retry)
+        self.assertIn("true identity", retry.lower().replace("真实身份", "true identity"))
+
+    def test_identity_gap_fill_uses_cninfo_alternate_channel(self):
+        script = Path("scripts/fill_identity_gaps_alternate_sources.py").read_text(encoding="utf-8")
+        self.assertIn("downloaded_from_cninfo", script)
+        self.assertIn("find_disclosure_pdf", script)
+        module = Path("src/aegis_esg/sources/cninfo.py").read_text(encoding="utf-8")
+        self.assertIn("hisAnnouncement/query", module)
+        self.assertIn("static.cninfo.com.cn", module)
+
+    def test_source_authority_prefers_exchange_over_issuer_and_other(self):
+        from aegis_esg.source_authority import SourceTier, disclosure_authority, prefer, source_tier
+        exchange = Observation(
+            "A", "甲", 2025, "Q_G_ROE", 10.0, ValueStatus.CONFIRMED,
+            "https://www.sse.com.cn/a.pdf", "data/raw/ci_collection/A/2025/annual_report.pdf",
+            1, "净资产收益率 10", 0.9,
+        )
+        issuer = Observation(
+            "A", "甲", 2025, "Q_G_ROE", 11.0, ValueStatus.CONFIRMED,
+            "https://www.example-energy.com/esg.pdf", "data/raw/issuer_site/A/2025/esg_report.pdf",
+            1, "官网披露 净资产收益率 11", 0.9,
+        )
+        other = Observation(
+            "A", "甲", 2025, "Q_G_ROE", 12.0, ValueStatus.CONFIRMED,
+            "https://finance.sina.com.cn/x", "data/cache/third_party.txt",
+            1, "第三方转载 12", 0.5,
+        )
+        self.assertEqual(SourceTier.EXCHANGE, source_tier(exchange))
+        self.assertEqual(SourceTier.ISSUER_WEBSITE, source_tier(issuer))
+        self.assertEqual(SourceTier.OTHER, source_tier(other))
+        self.assertLess(disclosure_authority(exchange), disclosure_authority(issuer))
+        self.assertLess(disclosure_authority(issuer), disclosure_authority(other))
+        self.assertEqual(10.0, prefer(issuer, exchange).value)
+        script = Path("scripts/fill_missing_from_authoritative_sources.py").read_text(encoding="utf-8")
+        self.assertIn("exchange", script.lower())
+        self.assertIn("issuer", script.lower())
+        self.assertIn("False", Path("src/aegis_esg/research_qualitative.py").read_text(encoding="utf-8"))
+
+    def test_pdf_algorithm_alignment_and_yoy_soft_check_scripts(self):
+        align = Path("scripts/build_pdf_algorithm_alignment_audit.py").read_text(encoding="utf-8")
+        self.assertIn("g_sasac_benchmark", align)
+        self.assertIn("formal_release_authorized", align)
+        yoy = Path("scripts/compare_client_ranking_yoy.py").read_text(encoding="utf-8")
+        self.assertIn("client_top50_to_outside_our_top200", yoy)
+        self.assertIn("不要求严格对齐", yoy)
+        bench = Path("data/methodologies/governance_benchmarks_from_client_report_2024.csv")
+        self.assertTrue(bench.is_file())
+        research_m = Path("data/methodologies/energy_esg_2025_research_sasac.json")
+        if research_m.is_file():
+            payload = json.loads(research_m.read_text(encoding="utf-8"))
+            self.assertEqual("ENERGY-ESG-2025-RESEARCH-SASAC-v1", payload.get("version"))
+            self.assertNotEqual("DLT2971-2025-v1", payload.get("version"))
+            g = [i for i in payload["indicators"] if i["code"].startswith("Q_G_")]
+            self.assertTrue(all(i.get("benchmark") is not None for i in g))
+        report = Path("output/audit/pdf_algorithm_alignment_v1.json")
+        if report.is_file():
+            body = json.loads(report.read_text(encoding="utf-8"))
+            self.assertFalse(body.get("formal_release_authorized"))
+
+    def test_research_ranking_refresh_stays_non_formal(self):
+        script = Path("scripts/run_research_ranking_refresh.py").read_text(encoding="utf-8")
+        self.assertIn('--mode", "research"', script)
+        self.assertIn("scoring_authorized_formal", script)
+        self.assertIn("False", script)
+        self.assertIn("full_auto_v21_exchange_zero", script)
+        self.assertIn("legacy_zero_v1", script)
+        self.assertIn("exchange-key-accept-v1", script)
+        self.assertIn("prefer_exchange_chinese_direct_then_ci_harvest", script)
+        self.assertNotIn("--release", script)
+        meta = Path("output/research/2025/full_auto_v21_exchange_zero/ranking_metadata.json")
+        if meta.is_file():
+            payload = json.loads(meta.read_text(encoding="utf-8"))
+            self.assertEqual("research", payload.get("ranking_mode"))
+            self.assertFalse(payload.get("official_release"))
+            self.assertEqual("legacy_zero_v1", payload.get("missing_strategy_version"))
+
+        import importlib.util
+        module_path = Path("scripts/run_research_ranking_refresh.py")
+        spec = importlib.util.spec_from_file_location("run_research_ranking_refresh", module_path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        chinese = Observation(
+            "A", "甲", 2025, "Q_G_ROE", 10.0, ValueStatus.CONFIRMED,
+            "https://www.sse.com.cn/a.pdf", "data/raw/ci_collection/A/2025/annual_report.pdf",
+            1, "加权平均净资产收益率(%) 10.85", 0.9,
+        )
+        english = Observation(
+            "A", "甲", 2025, "Q_G_ROE", 11.0, ValueStatus.CONFIRMED,
+            "https://www.sse.com.cn/a.pdf", "data/raw/ci_collection/A/2025/annual_report.pdf",
+            1, "English consolidated statements derived: ROE", 0.9,
+        )
+        self.assertLess(module.disclosure_authority(chinese), module.disclosure_authority(english))
+        self.assertTrue(module.is_exchange_source(chinese))
+        self.assertEqual(
+            MissingStrategy.LEGACY_ZERO_V1,
+            validate_ranking_mode("research", [], None),
+        )
+
+    def test_truncated_text_repair_and_scan_fallback_packets(self):
+        repair = Path("scripts/repair_truncated_ci_text_exports.py").read_text(encoding="utf-8")
+        self.assertIn('"scoring_authorized": False', repair)
+        self.assertIn('"ocr_authorized": False', repair)
+        self.assertIn("page_markers_before", repair)
+        extract = Path("scripts/run_ci_text_extraction.py").read_text(encoding="utf-8")
+        self.assertIn("repair_truncated_ci_text_exports.py", extract)
+        self.assertIn("truncated_repaired", extract)
+        swift = Path("scripts/extract_pdf_batch.swift").read_text(encoding="utf-8")
+        self.assertIn("resolvingSymlinksInPath", swift)
+        self.assertIn("relativePath(of:", swift)
+        fallback = Path("scripts/build_scan_esg_annual_fallback_packet.py").read_text(encoding="utf-8")
+        self.assertIn('"ocr_authorized": False', fallback)
+        self.assertIn("candidates_from_annual", fallback)
+        api = Path("src/aegis_esg/api.py").read_text(encoding="utf-8")
+        self.assertIn("/demo/scan-esg-annual-fallback", api)
+
+    def test_ci_thin_text_packet_never_authorizes_ocr_or_scoring(self):
+        script = Path("scripts/build_ci_thin_text_packet.py").read_text(encoding="utf-8")
+        self.assertIn('"scoring_authorized": False', script)
+        self.assertIn('"ocr_authorized": False', script)
+        self.assertIn('"formal_publishable": False', script)
+        self.assertIn("critical_thin", script)
+        self.assertIn("prefer_annual_embedded_evidence", script)
+        self.assertIn("await_ocr_authorization", script)
+        self.assertIn("truncated_export", script)
+        self.assertNotIn("apply-governance-benchmarks", script)
+        api = Path("src/aegis_esg/api.py").read_text(encoding="utf-8")
+        self.assertIn("/demo/ci-thin-text", api)
+        live = Path("scripts/refresh_live_collection_status.py").read_text(encoding="utf-8")
+        self.assertIn("build_ci_thin_text_packet.py", live)
+
+        import importlib.util
+        module_path = Path("scripts/build_ci_thin_text_packet.py")
+        spec = importlib.util.spec_from_file_location("build_ci_thin_text_packet", module_path)
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        self.assertEqual("critical_thin", module.classify(0, 10_000_000, missing=False, page_markers=40))
+        self.assertEqual("thin", module.classify(800, 100_000, missing=False, page_markers=10))
+        self.assertEqual("truncated_export", module.classify(300, 5_000_000, missing=False, page_markers=1))
+        self.assertEqual("large_pdf_low_text", module.classify(3000, 8_000_000, missing=False, page_markers=40))
+        self.assertIsNone(module.classify(20_000, 8_000_000, missing=False, page_markers=40))
+        self.assertEqual("missing_text", module.classify(0, 0, missing=True))
+        self.assertEqual(
+            "prefer_annual_embedded_evidence",
+            module._triage_action(
+                klass="critical_thin", document_type="esg_report",
+                sibling_annual_non_ws=50_000, sibling_esg_non_ws=0, candidate_count=12,
+            ),
+        )
+        self.assertEqual(
+            "await_ocr_authorization",
+            module._triage_action(
+                klass="critical_thin", document_type="esg_report",
+                sibling_annual_non_ws=100, sibling_esg_non_ws=0, candidate_count=0,
+            ),
+        )
+
+    def test_cninfo_fallback_helpers_and_collect_batch(self):
+        from aegis_esg.sources.cninfo import find_disclosure_pdf, should_try_cninfo_fallback
+        self.assertTrue(
+            should_try_cninfo_fallback(
+                "https://disc.static.szse.cn/a.PDF",
+                "公开文档不是有效PDF: <!DOCTYPE html> Page Verification",
+            )
+        )
+        self.assertFalse(
+            should_try_cninfo_fallback("https://www.sse.com.cn/a.pdf", "timeout")
+        )
+
+        calls = {"n": 0}
+
+        def fake_fetcher(request):
+            calls["n"] += 1
+            url = request.full_url
+            if "topSearch" in url:
+                return json.dumps([
+                    {"code": "300073", "orgId": "9900011167", "zwjc": "当升科技"},
+                ]).encode()
+            return json.dumps({
+                "announcements": [{
+                    "announcementTitle": "2025年度可持续发展报告",
+                    "adjunctUrl": "finalpage/2026-03-31/1225057154.PDF",
+                }]
+            }).encode()
+
+        hit = find_disclosure_pdf("300073.SZ", 2025, "esg_report", fetcher=fake_fetcher, pause_seconds=0)
+        self.assertIsNotNone(hit)
+        self.assertIn("1225057154.PDF", hit[1])
+
+        body = b"%PDF-1.7\n" + b"z" * 10_000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            index, failures = root / "index.csv", root / "failures.csv"
+            write_document_index(index, [])
+            manifest = root / "manifest.csv"
+            manifest.write_text(
+                "company_code,company_name,report_year,document_type,source_url\n"
+                "B,乙,2025,esg_report,https://disc.static.szse.cn/need.PDF\n",
+                encoding="utf-8",
+            )
+            downloads: list[str] = []
+
+            def fake_download(url):
+                downloads.append(url)
+                if "disc.static.szse.cn" in url:
+                    raise ValueError("公开文档不是有效PDF: Page Verification")
+                return body, url
+
+            with patch("aegis_esg.collector._download_pdf", side_effect=fake_download), patch(
+                "aegis_esg.collector.find_disclosure_pdf",
+                return_value=("2025年度可持续发展报告", "https://static.cninfo.com.cn/alt.PDF"),
+            ):
+                rows, errors = collect_batch(
+                    manifest, root / "raw", index, failures,
+                    delay_seconds=0, reuse_existing=True, workers=1, preserve_index=True,
+                )
+            self.assertFalse(errors)
+            self.assertEqual(
+                ["https://disc.static.szse.cn/need.PDF", "https://static.cninfo.com.cn/alt.PDF"],
+                downloads,
+            )
+            self.assertEqual(1, len(rows))
+            self.assertIn("cninfo.com.cn", rows[0].source_url)
+            self.assertIn("cninfo_fallback", rows[0].retrieval_url)
+
+    def test_governance_benchmark_audit_and_apply_freeze(self):
+        from aegis_esg.benchmarks import (
+            apply_governance_benchmarks, audit_governance_benchmarks, require_governance_benchmarks,
+        )
+        audit = audit_governance_benchmarks(self.methodology)
+        self.assertEqual(17, audit["governance_indicator_count"])
+        self.assertEqual(17, audit["missing_count"])
+        self.assertFalse(audit["formal_ready"])
+        with self.assertRaisesRegex(ValueError, "17项优秀值"):
+            require_governance_benchmarks(self.methodology)
+        template = Path("data/methodologies/governance_benchmarks_template_2025.csv")
+        self.assertTrue(template.is_file())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            table = root / "benchmarks.csv"
+            with template.open(encoding="utf-8-sig", newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            for index, row in enumerate(rows):
+                row["benchmark"] = str(10 + index)
+            with table.open("w", encoding="utf-8-sig", newline="") as stream:
+                writer = csv.DictWriter(stream, fieldnames=rows[0].keys(), lineterminator="\n")
+                writer.writeheader()
+                writer.writerows(rows)
+            output = root / "energy_esg_dlt2971_v1.json"
+            report = apply_governance_benchmarks(
+                "data/methodologies/energy_esg_2025.json", table, output_path=output,
+            )
+            self.assertTrue(report["formal_ready"])
+            self.assertEqual("DLT2971-2025-v1", report["written_version"])
+            frozen = load_methodology(output)
+            self.assertEqual("DLT2971-2025-v1", frozen.version)
+            self.assertEqual(17, audit_governance_benchmarks(frozen)["filled_count"])
+            self.assertIsNotNone(frozen.by_code["Q_G_ROE"].benchmark)
+            # Incomplete table cannot freeze by default.
+            partial = root / "partial.csv"
+            partial.write_text(
+                "indicator_code,benchmark\nQ_G_ROE,12.5\n", encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "优秀值"):
+                apply_governance_benchmarks(
+                    "data/methodologies/energy_esg_2025.json", partial,
+                    output_path=root / "draft.json",
+                )
+
+    def test_dlt_alignment_status_reports_benchmark_blocker(self):
+        from aegis_esg.dlt_alignment import build_dlt_alignment_status
+        report = build_dlt_alignment_status("data/methodologies/energy_esg_2025.json")
+        self.assertEqual("DL/T 2971—2025", report["standard_ref"])
+        self.assertEqual(6, report["check_count"])
+        self.assertEqual(4, report["ready_count"])
+        self.assertFalse(report["aligned"])
+        self.assertFalse(report["checks"]["governance_benchmarks"]["ready"])
+        self.assertFalse(report["checks"]["formal_methodology_frozen"]["ready"])
+        self.assertTrue(report["checks"]["indicator_coverage"]["ready"])
+        self.assertTrue(report["checks"]["grade_mapping"]["ready"])
+
+    def test_prepare_governance_benchmark_packet_lists_mapping_risks(self):
+        from aegis_esg.benchmarks import prepare_governance_benchmark_packet
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            summary = prepare_governance_benchmark_packet(
+                "data/methodologies/energy_esg_2025.json",
+                csv_path=root / "intake.csv",
+                html_path=root / "packet.html",
+                summary_path=root / "summary.json",
+            )
+            self.assertEqual(17, summary["row_count"])
+            self.assertEqual(0, summary["filled_count"])
+            self.assertEqual(4, summary["mapping_risk_count"])
+            self.assertTrue((root / "intake.csv").is_file())
+            html_text = (root / "packet.html").read_text(encoding="utf-8")
+            self.assertIn("已获利息倍数", html_text)
+            self.assertIn("需口径确认", html_text)
+            with (root / "intake.csv").open(encoding="utf-8-sig", newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            self.assertEqual(17, len(rows))
+            self.assertIn("sasac_name", rows[0])
+            self.assertEqual("已获利息倍数", next(r["sasac_name"] for r in rows if r["indicator_code"] == "Q_G_EBITDA_INTEREST"))
 
     def test_review_impact_prioritizes_conflict_crossing_rank_boundary(self):
         indicators = self.methodology.quantitative[:2]
@@ -1195,6 +2051,29 @@ class MethodologyTests(unittest.TestCase):
             )
             filtered, _ = extract_batch_text_exports(index, root / "text", report_year=2024)
             self.assertFalse(filtered)
+
+    def test_resolve_text_export_path_supports_ci_collection_layout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            text_root = root / "data/text/ci_collection"
+            target = text_root / "002709.SZ/2025/esg_report.txt"
+            target.parent.mkdir(parents=True)
+            target.write_text("\n=== PAGE 1 ===\nok\n", encoding="utf-8")
+            row = {
+                "company_code": "002709.SZ",
+                "report_year": "2025",
+                "local_path": "data/raw/ci_collection/002709.SZ/2025/esg_report.pdf",
+            }
+            resolved = resolve_text_export_path(text_root, row)
+            self.assertIsNotNone(resolved)
+            self.assertTrue(target.samefile(resolved))
+            abs_row = {
+                **row,
+                "local_path": str(root / "data/raw/ci_collection/002709.SZ/2025/esg_report.pdf"),
+            }
+            self.assertTrue(target.samefile(resolve_text_export_path(text_root, abs_row)))
+            # text_root may also be the parent data/text directory
+            self.assertTrue(target.samefile(resolve_text_export_path(root / "data/text", row)))
 
     def test_debt_ratio_excludes_guarantee_threshold_and_formula(self):
         pages = [PageText(1, "资产负债率超过70%的被担保对象；资产负债率＝负债/资产×100%；期末资产负债率58.2%。")]
@@ -3895,6 +4774,79 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
                 rows, errors = collect_batch(manifest, root / "raw", index, failures, 0, True, 1, None, True)
             self.assertFalse(errors)
             self.assertEqual({"https://old", "https://new"}, {item.source_url for item in rows})
+
+    def test_soft_time_budget_stops_after_first_download_and_flushes_index(self):
+        body = b"%PDF-1.7\n" + b"y" * 10_000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            index, failures = root / "index.csv", root / "failures.csv"
+            manifest = root / "budget.csv"
+            manifest.write_text(
+                "company_code,company_name,report_year,document_type,source_url\n"
+                "A,甲,2025,esg_report,https://a\n"
+                "B,乙,2025,esg_report,https://b\n"
+                "C,丙,2025,esg_report,https://c\n",
+                encoding="utf-8",
+            )
+            calls: list[str] = []
+
+            def fake_download(url):
+                calls.append(url)
+                return (body, url)
+
+            # started=0.0; first launch budget check sees 0.0; after the first
+            # completion the next budget check sees 9999.0 and stops launching.
+            with patch("aegis_esg.collector._clock", side_effect=[0.0, 0.0, 9999.0, 9999.0, 9999.0]), \
+                 patch("aegis_esg.collector._download_pdf", side_effect=fake_download):
+                rows, errors = collect_batch(
+                    manifest, root / "raw", index, failures,
+                    delay_seconds=0, reuse_existing=False, workers=1,
+                    max_minutes=1,
+                )
+            self.assertGreaterEqual(len(calls), 1)
+            self.assertLess(len(calls), 3)  # budget stopped before all three ran
+            self.assertEqual(1, len(rows))  # only the first was checkpointed
+            self.assertEqual("https://a", rows[0].source_url)
+            self.assertFalse(errors)
+            indexed = _read_document_index(index)
+            self.assertEqual({"https://a"}, set(indexed))
+
+    def test_collect_batch_prefers_esg_and_dedupes_identity(self):
+        body = b"%PDF-1.7\n" + b"z" * 10_000
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            index, failures = root / "index.csv", root / "failures.csv"
+            # Seed a duplicate/invalid identity that should be compacted away after upsert.
+            write_document_index(index, [
+                DocumentRecord("A", "甲", 0, "annual_report", "https://bad", "https://bad", str(root / "bad.pdf"), "x", 1),
+                DocumentRecord("A", "甲", 2025, "annual_report", "https://old-annual", "https://old-annual", str(root / "old.pdf"), "y", 2),
+            ])
+            manifest = root / "manifest.csv"
+            manifest.write_text(
+                "company_code,company_name,report_year,document_type,source_url\n"
+                "A,甲,2025,annual_report,https://annual\n"
+                "B,乙,2025,esg_report,https://esg\n",
+                encoding="utf-8",
+            )
+            order: list[str] = []
+
+            def fake_download(url):
+                order.append(url)
+                return (body, url)
+
+            with patch("aegis_esg.collector._download_pdf", side_effect=fake_download):
+                rows, errors = collect_batch(
+                    manifest, root / "raw", index, failures,
+                    delay_seconds=0, reuse_existing=True, workers=1,
+                    preserve_index=True, document_priority="esg",
+                )
+            self.assertFalse(errors)
+            self.assertEqual(["https://esg", "https://annual"], order)
+            self.assertEqual(2, len(dedupe_document_records(rows)))
+            identities = {(item.company_code, item.report_year, item.document_type) for item in rows}
+            self.assertIn(("B", 2025, "esg_report"), identities)
+            self.assertIn(("A", 2025, "annual_report"), identities)
+            self.assertNotIn(("A", 0, "annual_report"), identities)
 
     def test_supersede_documents_archives_file_and_writes_ledger(self):
         body = b"%PDF-1.4\n" + b"z" * 5000

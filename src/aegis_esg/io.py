@@ -41,23 +41,36 @@ def read_observations(path: str | Path, methodology: Methodology) -> list[Observ
     return result
 
 
+def _ranking_slice(results: list[CompanyResult], limit: int | None) -> list[CompanyResult]:
+    """``limit is None`` or ``limit <= 0`` means export the full scored universe."""
+    if limit is None or limit <= 0:
+        return list(results)
+    return list(results[:limit])
+
+
 def write_ranking_csv(
     path: str | Path,
     results: list[CompanyResult],
     methodology: Methodology,
-    limit: int = 200,
+    limit: int | None = None,
 ) -> None:
     key_indicators = [i for i in methodology.quantitative if i.key_indicator]
-    headers = ["序号", "证券代码", "公司简称", "数值类别"]
+    headers = ["序号", "证券代码", "公司简称", "数值类别", "披露率%", "定量分", "定性分"]
     headers.extend(i.name for i in key_indicators)
     headers.append("可持续发展(ESG)分值")
     with Path(path).open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.writer(stream)
         writer.writerow(headers)
-        for result in results[:limit]:
+        for result in _ranking_slice(results, limit):
             detail = {d.indicator_code: d for d in result.details}
-            raw_row = [result.rank, result.company_code, result.company_name, "指标数值"]
-            score_row = [result.rank, result.company_code, result.company_name, "指标分值"]
+            raw_row = [
+                result.rank, result.company_code, result.company_name, "指标数值",
+                result.disclosure_rate, result.quantitative_score, result.qualitative_score,
+            ]
+            score_row = [
+                result.rank, result.company_code, result.company_name, "指标分值",
+                "", "", "",
+            ]
             for indicator in key_indicators:
                 item = detail[indicator.code]
                 raw_row.append("" if item.raw_value is None else _number(item.raw_value))
@@ -68,8 +81,8 @@ def write_ranking_csv(
             writer.writerow(score_row)
 
 
-def write_ranking_json(path: str | Path, results: list[CompanyResult], limit: int = 200) -> None:
-    data = [item.to_dict() for item in results[:limit]]
+def write_ranking_json(path: str | Path, results: list[CompanyResult], limit: int | None = None) -> None:
+    data = [item.to_dict() for item in _ranking_slice(results, limit)]
     Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -78,11 +91,12 @@ def write_ranking_html(
     results: list[CompanyResult],
     methodology: Methodology,
     title: str,
-    limit: int = 200,
+    limit: int | None = None,
 ) -> None:
     key_indicators = [i for i in methodology.quantitative if i.key_indicator]
+    exported = _ranking_slice(results, limit)
     rows = []
-    for result in results[:limit]:
+    for result in exported:
         detail = {d.indicator_code: d for d in result.details}
         cells = "".join(
             f"<td><div>{_number(detail[i.code].raw_value) if detail[i.code].raw_value is not None else '-'}</div>"
@@ -91,18 +105,30 @@ def write_ranking_html(
         )
         rows.append(
             f"<tr><td>{result.rank}</td><td>{_escape(result.company_code)}</td>"
-            f"<td>{_escape(result.company_name)}</td>{cells}<td class='score'>{result.total_score:.2f}</td></tr>"
+            f"<td>{_escape(result.company_name)}</td>"
+            f"<td>{result.disclosure_rate:.1f}%</td>"
+            f"<td>{result.quantitative_score:.2f}</td><td>{result.qualitative_score:.2f}</td>"
+            f"{cells}<td class='score'>{result.total_score:.2f}</td></tr>"
         )
     headers = "".join(f"<th>{_escape(i.name)}<br><small>数值/分值</small></th>" for i in key_indicators)
+    note = (
+        f"<p class='note'>本表共 <b>{len(exported)}</b> 家（引擎已评分 {len(results)} 家）。"
+        f"表中仅展示 <b>{len(key_indicators)}</b> 项定量关键指标；空值“-”表示交易所披露中未见该项，"
+        f"按研究规则<strong>计 0 分</strong>（缺失策略 <code>legacy_zero_v1</code>）。"
+        f"关键指标以相关证券交易所披露为准，研究模式不另做原始值人工确认。"
+        f"总分 = 定量分×{methodology.quantitative_ratio:.0%} + 定性分×{methodology.qualitative_ratio:.0%}。"
+        f"完整 80 项明细见 ranking.json 的 details。目标主体 632 家，当前研究池不足部分需补主体名录。</p>"
+    )
     html = f"""<!doctype html><html lang='zh-CN'><head><meta charset='utf-8'>
 <title>{_escape(title)}</title><style>
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;margin:24px;color:#173d45}}
-h1{{text-align:center;color:#174c72}} table{{border-collapse:collapse;width:100%;font-size:12px}}
+h1{{text-align:center;color:#174c72}} .note{{max-width:1200px;margin:0 auto 16px;line-height:1.6;color:#355}}
+table{{border-collapse:collapse;width:100%;font-size:12px}}
 th{{background:#207f8b;color:white;position:sticky;top:0}} th,td{{border:1px solid #aac9c7;padding:5px;text-align:center}}
 tr:nth-child(even){{background:#eef8f6}} td small{{color:#557d7c}} .score{{color:#d22;font-weight:700;font-size:14px}}
 @media print{{body{{margin:8mm}} th{{position:static}} @page{{size:A3 landscape}}}}
-</style></head><body><h1>{_escape(title)}</h1><table><thead><tr>
-<th>序号</th><th>证券代码</th><th>公司简称</th>{headers}<th>可持续发展<br>(ESG)分值</th>
+</style></head><body><h1>{_escape(title)}</h1>{note}<table><thead><tr>
+<th>序号</th><th>证券代码</th><th>公司简称</th><th>披露率</th><th>定量分</th><th>定性分</th>{headers}<th>可持续发展<br>(ESG)分值</th>
 </tr></thead><tbody>{''.join(rows)}</tbody></table></body></html>"""
     Path(path).write_text(html, encoding="utf-8")
 

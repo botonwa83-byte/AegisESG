@@ -3,9 +3,10 @@ from __future__ import annotations
 import math
 import statistics
 from collections import defaultdict
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from enum import Enum
 
+from .grade import GradeFlags, map_esg_grade
 from .methodology import Methodology
 from .models import (
     CompanyResult,
@@ -27,6 +28,10 @@ class PopulationStats:
     count: int
     mean: float
     stddev: float
+    thin_population: bool = False
+
+
+DEFAULT_MINIMUM_POPULATION = 20
 
 
 class MissingStrategy(str, Enum):
@@ -46,6 +51,7 @@ class ScoringCache:
     observations: dict[tuple[str, int], tuple[str, dict[str, Observation]]]
     companies_by_indicator: dict[str, set[tuple[str, int]]]
     missing_strategy: MissingStrategy
+    company_flags: dict[str, GradeFlags] = field(default_factory=dict)
 
 
 class ScoringEngine:
@@ -57,31 +63,55 @@ class ScoringEngine:
     写入明细，使结果可审计，但不宣称复刻第三方机构的未披露参数。
     """
 
-    def __init__(self, methodology: Methodology):
+    def __init__(
+        self,
+        methodology: Methodology,
+        *,
+        minimum_population: int = DEFAULT_MINIMUM_POPULATION,
+    ):
         self.methodology = methodology
+        self.minimum_population = int(minimum_population)
 
     def evaluate(
         self, observations: list[Observation],
         missing_strategy: MissingStrategy | str = MissingStrategy.LEGACY_ZERO_V1,
+        company_flags: dict[str, GradeFlags] | None = None,
+        *,
+        universe_codes: set[str] | None = None,
+        minimum_population: int | None = None,
     ) -> list[CompanyResult]:
+        """Score companies using client-aligned industry baselines.
+
+        When ``universe_codes`` is set (frozen energy sample), population μ/σ for
+        each quantitative indicator is computed only from confirmed disclosures
+        inside that universe — matching “同指标、样本池内已披露企业”测算基准.
+        Undisclosed values never enter the baseline. Thin populations
+        (n < minimum_population) are still scored but flagged for audit gates.
+        """
         strategy = MissingStrategy(missing_strategy)
+        flags = company_flags or {}
+        threshold = self.minimum_population if minimum_population is None else int(minimum_population)
         years = {item.report_year for item in observations}
         if len(years) > 1:
             raise ValueError("一次评分批次只能包含一个报告期")
+        scoped = (
+            [o for o in observations if o.company_code in universe_codes]
+            if universe_codes is not None else list(observations)
+        )
         confirmed = [
-            o for o in observations
+            o for o in scoped
             if o.status == ValueStatus.CONFIRMED and o.value is not None
         ]
-        stats = self._population_stats(confirmed)
+        stats = self._population_stats(confirmed, minimum_population=threshold)
         companies: dict[tuple[str, int], tuple[str, dict[str, Observation]]] = {}
-        for obs in observations:
+        for obs in scoped:
             key = (obs.company_code, obs.report_year)
             if key not in companies:
                 companies[key] = (obs.company_name, {})
             companies[key][1][obs.indicator_code] = obs
 
         results = [
-            self._evaluate_company(code, name, year, values, stats, strategy)
+            self._evaluate_company(code, name, year, values, stats, strategy, flags.get(code))
             for (code, year), (name, values) in companies.items()
         ]
         results.sort(key=lambda x: (-x.total_score, x.company_code))
@@ -98,8 +128,10 @@ class ScoringEngine:
     def build_cache(
         self, observations: list[Observation],
         missing_strategy: MissingStrategy | str = MissingStrategy.LEGACY_ZERO_V1,
+        company_flags: dict[str, GradeFlags] | None = None,
     ) -> ScoringCache:
         strategy = MissingStrategy(missing_strategy)
+        flags = company_flags or {}
         confirmed = [o for o in observations if o.status == ValueStatus.CONFIRMED and o.value is not None]
         stats = self._population_stats(confirmed)
         companies: dict[tuple[str, int], tuple[str, dict[str, Observation]]] = {}
@@ -110,11 +142,11 @@ class ScoringEngine:
                 companies[key] = (obs.company_name, {})
             companies[key][1][obs.indicator_code] = obs
             by_indicator[obs.indicator_code].add(key)
-        results = self.evaluate(observations, strategy)
+        results = self.evaluate(observations, strategy, flags)
         return ScoringCache(
             results={(item.company_code, item.report_year): item for item in results},
             stats=stats, observations=companies, companies_by_indicator=dict(by_indicator),
-            missing_strategy=strategy,
+            missing_strategy=strategy, company_flags=dict(flags),
         )
 
     def evaluate_from_cache(
@@ -132,6 +164,7 @@ class ScoringEngine:
             name, values = cache.observations[key]
             results[key] = self._evaluate_company(
                 key[0], name, key[1], values, cache.stats, cache.missing_strategy,
+                cache.company_flags.get(key[0]),
             )
         ranked = sorted(results.values(), key=lambda item: (-item.total_score, item.company_code))
         previous_score: float | None = None
@@ -204,6 +237,7 @@ class ScoringEngine:
                     population_count=stat.count if stat else 0,
                     mean=round(stat.mean, 6) if stat else None,
                     stddev=round(stat.stddev, 6) if stat else None,
+                    thin_population=bool(stat.thin_population) if stat else True,
                 ))
                 changed_metadata = True
             if changed_metadata:
@@ -212,6 +246,7 @@ class ScoringEngine:
             name, values = staged_observations[key]
             staged_results[key] = self._evaluate_company(
                 key[0], name, key[1], values, staged_stats, cache.missing_strategy,
+                cache.company_flags.get(key[0]),
             )
         ranked = sorted(staged_results.values(), key=lambda item: (-item.total_score, item.company_code))
         previous_score: float | None = None
@@ -235,7 +270,13 @@ class ScoringEngine:
             "committed": True,
         }
 
-    def _population_stats(self, observations: list[Observation]) -> dict[str, PopulationStats]:
+    def _population_stats(
+        self,
+        observations: list[Observation],
+        *,
+        minimum_population: int | None = None,
+    ) -> dict[str, PopulationStats]:
+        threshold = self.minimum_population if minimum_population is None else int(minimum_population)
         grouped: dict[str, list[float]] = defaultdict(list)
         for obs in observations:
             grouped[obs.indicator_code].append(float(obs.value))
@@ -244,7 +285,10 @@ class ScoringEngine:
             values = _winsorize(raw_values)
             mean = statistics.fmean(values)
             stddev = statistics.pstdev(values) if len(values) > 1 else 0.0
-            result[code] = PopulationStats(len(values), mean, stddev)
+            result[code] = PopulationStats(
+                len(values), mean, stddev,
+                thin_population=len(values) < threshold,
+            )
         return result
 
     def _evaluate_company(
@@ -255,6 +299,7 @@ class ScoringEngine:
         observations: dict[str, Observation],
         stats: dict[str, PopulationStats],
         missing_strategy: MissingStrategy,
+        flags: GradeFlags | None = None,
     ) -> CompanyResult:
         details: list[IndicatorResult] = []
         dimension_weighted = defaultdict(float)
@@ -297,6 +342,7 @@ class ScoringEngine:
                 mean=round(stat.mean, 6) if stat else None,
                 stddev=round(stat.stddev, 6) if stat else None,
                 benchmark=indicator.benchmark,
+                thin_population=bool(stat.thin_population) if stat else True,
             ))
 
         if missing_strategy == MissingStrategy.DISCLOSED_WEIGHT_V1:
@@ -327,16 +373,21 @@ class ScoringEngine:
                 + x * self.methodology.qualitative_ratio,
                 2,
             )
+        disclosure_rate = round(confirmed_count / len(self.methodology.indicators) * 100, 2)
+        total_score = round(total, 2)
+        grade = map_esg_grade(total_score, disclosure_rate, flags)
         return CompanyResult(
             company_code=code,
             company_name=name,
             report_year=year,
             quantitative_score=round(quantitative, 2),
             qualitative_score=round(qualitative, 2),
-            total_score=round(total, 2),
+            total_score=total_score,
             dimension_scores=dimensions,
-            disclosure_rate=round(confirmed_count / len(self.methodology.indicators) * 100, 2),
+            disclosure_rate=disclosure_rate,
             details=details,
+            grade=grade.grade,
+            grade_reason=grade.reason,
         )
 
     def _score_value(
@@ -381,3 +432,75 @@ def _quantile(ordered: list[float], probability: float) -> float:
         return ordered[left]
     fraction = position - left
     return ordered[left] * (1.0 - fraction) + ordered[right] * fraction
+
+
+def build_population_baseline_report(
+    observations: list[Observation],
+    methodology: Methodology,
+    *,
+    universe_codes: set[str] | None = None,
+    expected_companies: int = 632,
+    minimum_population: int = DEFAULT_MINIMUM_POPULATION,
+) -> dict:
+    """Audit per-indicator disclosed population used for industry baselines."""
+    scoped = (
+        [o for o in observations if o.company_code in universe_codes]
+        if universe_codes is not None else list(observations)
+    )
+    observed_company_count = len({o.company_code for o in scoped})
+    universe_company_count = (
+        len(universe_codes) if universe_codes is not None else observed_company_count
+    )
+    confirmed = [
+        o for o in scoped
+        if o.status == ValueStatus.CONFIRMED and o.value is not None
+    ]
+    stats = ScoringEngine(methodology, minimum_population=minimum_population)._population_stats(
+        confirmed, minimum_population=minimum_population,
+    )
+    rows = []
+    for indicator in methodology.quantitative:
+        stat = stats.get(indicator.code)
+        count = stat.count if stat else 0
+        rows.append({
+            "indicator_code": indicator.code,
+            "name": indicator.name,
+            "weight": indicator.weight,
+            "key_indicator": bool(indicator.key_indicator),
+            "disclosed_company_count": count,
+            "universe_company_count": universe_company_count,
+            "observed_company_count": observed_company_count,
+            "expected_company_count": expected_companies,
+            "disclosure_rate_in_universe": (
+                round(count / universe_company_count * 100, 2) if universe_company_count else 0.0
+            ),
+            "mean": None if not stat else round(stat.mean, 6),
+            "stddev": None if not stat else round(stat.stddev, 6),
+            "thin_population": True if not stat else bool(stat.thin_population),
+            "baseline_usable_for_formal": count >= minimum_population,
+        })
+    rows.sort(key=lambda item: (item["disclosed_company_count"], item["indicator_code"]))
+    thin = [row["indicator_code"] for row in rows if row["thin_population"]]
+    return {
+        "baseline_version": "universe-disclosed-population-v1",
+        "policy": "industry_baseline_from_disclosed_in_universe_only",
+        "expected_companies": expected_companies,
+        "universe_company_count": universe_company_count,
+        "observed_company_count": observed_company_count,
+        "universe_codes_provided": universe_codes is not None,
+        "minimum_population_threshold": minimum_population,
+        "quantitative_indicator_count": len(rows),
+        "thin_population_indicator_count": len(thin),
+        "thin_population_indicator_codes": thin,
+        "minimum_population_gate_passed": not thin,
+        "formal_baseline_ready": (
+            universe_codes is not None
+            and universe_company_count >= expected_companies
+            and not thin
+        ),
+        "indicators": rows,
+        "notice": (
+            "基准仅使用宇宙内已披露观测；未披露不进μ/σ。"
+            "主体未达632或存在薄样本时不得宣称正式行业基准。"
+        ),
+    }

@@ -1,0 +1,43 @@
+{
+  "policy_version": "universe-baseline-ranking-v1",
+  "run_at_utc": "2026-08-05T02:44:08+00:00",
+  "expected_companies": 632,
+  "universe": "data/universe/energy_historical_candidates_2026.csv",
+  "universe_audit": {
+    "security_count": 639,
+    "included_security_count": 614,
+    "included_company_count": 614,
+    "completed_company_count": 612,
+    "expected_company_count": 632,
+    "universe_coverage_rate": 0.9715189873417721,
+    "completed_coverage_rate": 0.9683544303797469,
+    "exchanges": {
+      "BSE": 26,
+      "HKEX": 92,
+      "SSE": 239,
+      "SZSE": 257
+    },
+    "missing_exchanges": [],
+    "unclassified_count": 614,
+    "missing_source_count": 0,
+    "missing_date_count": 0,
+    "missing_entity_count": 0,
+    "duplicate_included_entity_count": 0,
+    "excluded_without_reason_count": 0,
+    "included_with_exclusion_reason_count": 0,
+    "publishable": false
+  },
+  "collection_gaps": "output/audit/universe_collection_gaps_v1_2025.csv",
+  "annual_gap_retry_manifest": "output/audit/universe_annual_gap_retry_manifest_v1_2025.csv",
+  "annual_gap_count": 2,
+  "subject_shortfall": 18,
+  "ranking_dir": "output/research/2025/full_auto_v24_universe_baseline",
+  "population_baseline": {
+    "thin_population_indicator_count": 3,
+    "minimum_population_gate_passed": false,
+    "formal_baseline_ready": false
+  },
+  "score_cli": "scored 612 companies in research mode; files written to /Users/fengwang/Documents/trae_projects/aegisESP/output/research/2025/full_auto_v24_universe_baseline",
+  "official_release": false,
+  "notice": "已按宇宙内披露样本测算行业基准；主体未达632或薄样本未清零前不得正式发布。缺18家名录需外部输入；2家港股年报继续交易所重试。"
+}

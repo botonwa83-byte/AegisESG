@@ -4,11 +4,11 @@
   "quantitative_ratio": 0.8,
   "qualitative_ratio": 0.2,
   "missing_policy": "zero",
-  "notes": [
-    "依据目录内2025评价报告和行标定量指标整理：37项定量、43项定性。",
-    "第三方报告未公开正态分布具体参数、极值处理参数、治理优秀值及逐公司定性证据，本版本采用可审计的年度样本参数。",
-    "治理优秀值可在benchmark字段补齐后冻结为新方法论版本。"
-  ],
+    "notes": [
+      "依据DL/T 2971—2025附录A/B及目录内2025评价报告、行标定量指标整理：37项定量、43项定性。",
+      "第三方报告未公开正态分布具体参数、极值处理参数、治理优秀值及逐公司定性证据，本版本采用可审计的年度样本参数。",
+      "治理优秀值填入data/methodologies/governance_benchmarks_template_2025.csv后，用apply-governance-benchmarks冻结为DLT2971-2025-v1。"
+    ],
   "indicators": [
     {"code":"Q_E_GHG_INTENSITY","dimension":"E","level2":"温室气体","name":"温室气体排放强度","kind":"quantitative","weight":9.00,"direction":"negative","unit":"千克/万元","key_indicator":true,"formula":"范围一和范围二温室气体排放总量(千克CO2e)/营业收入(万元)"},
     {"code":"Q_E_GHG_REDUCTION_RATE","dimension":"E","level2":"温室气体","name":"温室气体减排率","kind":"quantitative","weight":4.50,"direction":"positive","unit":"%","formula":"温室气体减排量/温室气体排放总量*100"},

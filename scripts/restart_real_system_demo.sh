@@ -40,15 +40,16 @@ if command -v lsof >/dev/null 2>&1; then
 fi
 
 echo "启动 Demo: http://127.0.0.1:$PORT/demo"
-(
-    cd "$PROJECT_ROOT"
-    nohup env AEGIS_DEMO_PORT="$PORT" sh "$SCRIPT_DIR/run_real_system_demo.sh" >>"$LOG_FILE" 2>&1 &
-    echo $! > "$PID_FILE"
-)
+cd "$PROJECT_ROOT"
+# Avoid subshell-background SIGHUP: start with nohup+disown and record the real PID.
+nohup env AEGIS_DEMO_PORT="$PORT" sh "$SCRIPT_DIR/run_real_system_demo.sh" >>"$LOG_FILE" 2>&1 &
+DEMO_PID=$!
+echo "$DEMO_PID" > "$PID_FILE"
+disown "$DEMO_PID" 2>/dev/null || true
 
 sleep 1
 if [ -f "$PID_FILE" ] && kill -0 "$(sed -n '1p' "$PID_FILE")" 2>/dev/null; then
-    echo "Demo 已后台启动"
+    echo "Demo 已后台启动 (pid $(sed -n '1p' "$PID_FILE"))"
     echo "日志: $LOG_FILE"
     echo "停止: kill $(sed -n '1p' "$PID_FILE")"
 else

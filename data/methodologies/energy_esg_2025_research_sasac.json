@@ -1,0 +1,796 @@
+{
+  "version": "ENERGY-ESG-2025-RESEARCH-SASAC-v1",
+  "name": "2025能源ESG研究用方法论（客户报告公布优秀值·非正式）",
+  "quantitative_ratio": 0.8,
+  "qualitative_ratio": 0.2,
+  "missing_policy": "zero",
+  "notes": [
+    "依据DL/T 2971—2025附录A/B及目录内2025评价报告、行标定量指标整理：37项定量、43项定性。",
+    "第三方报告未公开正态分布具体参数、极值处理参数、治理优秀值及逐公司定性证据，本版本采用可审计的年度样本参数。",
+    "治理优秀值填入data/methodologies/governance_benchmarks_template_2025.csv后，用apply-governance-benchmarks冻结为DLT2971-2025-v1。",
+    "已注入国资委工业领域优秀值（来源表：governance_benchmarks_from_client_report_2024.csv），治理定量按DL/T 2971附录A优秀值峰打分。",
+    "治理优秀值摘自《2025中国能源上市公司可持续发展（ESG）评价报告》正文公布数值，用于研究合规打分与YoY诊断；非国资委原表核验，不得作为正式DLT2971冻结发布。EBITDA利润率正文存在25.6/27.5冲突，研究取25.6；速动比率按系统%口径将1.4写作140。"
+  ],
+  "indicators": [
+    {
+      "code": "Q_E_GHG_INTENSITY",
+      "dimension": "E",
+      "level2": "温室气体",
+      "name": "温室气体排放强度",
+      "kind": "quantitative",
+      "weight": 9.0,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "key_indicator": true,
+      "formula": "范围一和范围二温室气体排放总量(千克CO2e)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_GHG_REDUCTION_RATE",
+      "dimension": "E",
+      "level2": "温室气体",
+      "name": "温室气体减排率",
+      "kind": "quantitative",
+      "weight": 4.5,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "温室气体减排量/温室气体排放总量*100"
+    },
+    {
+      "code": "Q_E_ENERGY_INTENSITY",
+      "dimension": "E",
+      "level2": "能源",
+      "name": "综合能源消耗强度",
+      "kind": "quantitative",
+      "weight": 6.45,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "key_indicator": true,
+      "formula": "能源消耗总量(千克标准煤)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_CLEAN_ENERGY_INTENSITY",
+      "dimension": "E",
+      "level2": "能源",
+      "name": "绿色/可再生/清洁能源生产/使用强度",
+      "kind": "quantitative",
+      "weight": 2.55,
+      "direction": "positive",
+      "unit": "千克/万元",
+      "formula": "清洁能源生产或使用总量(千克标准煤)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_NOX_INTENSITY",
+      "dimension": "E",
+      "level2": "大气",
+      "name": "氮氧化物排放强度",
+      "kind": "quantitative",
+      "weight": 2.48,
+      "direction": "negative",
+      "unit": "克/万元",
+      "key_indicator": true,
+      "formula": "NOx排放总量(克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_SO2_INTENSITY",
+      "dimension": "E",
+      "level2": "大气",
+      "name": "二氧化硫排放强度",
+      "kind": "quantitative",
+      "weight": 2.48,
+      "direction": "negative",
+      "unit": "克/万元",
+      "key_indicator": true,
+      "formula": "SO2排放总量(克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_PM_INTENSITY",
+      "dimension": "E",
+      "level2": "大气",
+      "name": "颗粒物排放强度",
+      "kind": "quantitative",
+      "weight": 2.48,
+      "direction": "negative",
+      "unit": "克/万元",
+      "formula": "颗粒物排放总量(克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_WASTEWATER_INTENSITY",
+      "dimension": "E",
+      "level2": "水",
+      "name": "废水/污水排放强度",
+      "kind": "quantitative",
+      "weight": 2.48,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "formula": "废水/污水排放总量(千克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_WATER_INTENSITY",
+      "dimension": "E",
+      "level2": "水",
+      "name": "水资源使用强度",
+      "kind": "quantitative",
+      "weight": 2.48,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "key_indicator": true,
+      "formula": "总用水量(千克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_ALTERNATIVE_WATER_RATE",
+      "dimension": "E",
+      "level2": "水",
+      "name": "再生水或其他替代水源占比",
+      "kind": "quantitative",
+      "weight": 2.46,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "再生水或替代水源用量/总用水量*100"
+    },
+    {
+      "code": "Q_E_SOLID_WASTE_INTENSITY",
+      "dimension": "E",
+      "level2": "固体废物",
+      "name": "一般固体废物排放强度",
+      "kind": "quantitative",
+      "weight": 3.82,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "key_indicator": true,
+      "formula": "一般固体废物排放总量(千克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_E_HAZ_WASTE_INTENSITY",
+      "dimension": "E",
+      "level2": "固体废物",
+      "name": "危险固体废物排放强度",
+      "kind": "quantitative",
+      "weight": 3.82,
+      "direction": "negative",
+      "unit": "千克/万元",
+      "formula": "危险固体废物排放总量(千克)/营业收入(万元)"
+    },
+    {
+      "code": "Q_S_SAFETY_INVEST_RATE",
+      "dimension": "S",
+      "level2": "公共投入",
+      "name": "安全生产投入占比",
+      "kind": "quantitative",
+      "weight": 2.5,
+      "direction": "positive",
+      "unit": "%",
+      "key_indicator": true,
+      "formula": "安全生产投入/营业收入*100"
+    },
+    {
+      "code": "Q_S_ENV_INVEST_RATE",
+      "dimension": "S",
+      "level2": "公共投入",
+      "name": "环保投入占比",
+      "kind": "quantitative",
+      "weight": 1.5,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "环保投入/营业收入*100"
+    },
+    {
+      "code": "Q_S_RD_RATE",
+      "dimension": "S",
+      "level2": "公共投入",
+      "name": "研发费用占比",
+      "kind": "quantitative",
+      "weight": 3.0,
+      "direction": "positive",
+      "unit": "%",
+      "key_indicator": true,
+      "formula": "研发费用/营业收入*100"
+    },
+    {
+      "code": "Q_S_DONATION_RATE",
+      "dimension": "S",
+      "level2": "公共投入",
+      "name": "社会公益投入占比",
+      "kind": "quantitative",
+      "weight": 3.0,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "社会公益投入/营业收入*100"
+    },
+    {
+      "code": "Q_S_PAY_PER_EMPLOYEE",
+      "dimension": "S",
+      "level2": "员工福利",
+      "name": "员工薪酬",
+      "kind": "quantitative",
+      "weight": 3.0,
+      "direction": "positive",
+      "unit": "万元/人",
+      "formula": "员工薪酬总额(万元)/员工总人数"
+    },
+    {
+      "code": "Q_S_BENEFIT_PER_EMPLOYEE",
+      "dimension": "S",
+      "level2": "员工福利",
+      "name": "员工福利、社保和公积金费用",
+      "kind": "quantitative",
+      "weight": 2.5,
+      "direction": "positive",
+      "unit": "万元/人",
+      "formula": "员工福利社保公积金总额(万元)/员工总人数"
+    },
+    {
+      "code": "Q_S_EDU_PER_EMPLOYEE",
+      "dimension": "S",
+      "level2": "员工福利",
+      "name": "工会和职工教育经费",
+      "kind": "quantitative",
+      "weight": 1.5,
+      "direction": "positive",
+      "unit": "万元/人",
+      "formula": "工会和职工教育经费总额(万元)/员工总人数"
+    },
+    {
+      "code": "Q_S_DIVIDEND_PER_SHARE",
+      "dimension": "S",
+      "level2": "股东回报",
+      "name": "现金分红",
+      "kind": "quantitative",
+      "weight": 3.0,
+      "direction": "positive",
+      "unit": "元/股",
+      "key_indicator": true,
+      "formula": "现金分红总额(元)/总股数"
+    },
+    {
+      "code": "Q_G_ROE",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "净资产收益率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "净利润/平均净资产*100",
+      "benchmark": 13.8
+    },
+    {
+      "code": "Q_G_ROA",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "总资产报酬率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "息税前利润/平均资产总额*100",
+      "benchmark": 8.1
+    },
+    {
+      "code": "Q_G_OPERATING_MARGIN",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "营业利润率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "营业利润/营业收入*100",
+      "benchmark": 17.1
+    },
+    {
+      "code": "Q_G_EBITDA_MARGIN",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "EBITDA利润率",
+      "kind": "quantitative",
+      "weight": 1.4,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "EBITDA/营业收入*100",
+      "benchmark": 25.6
+    },
+    {
+      "code": "Q_G_CASH_REALIZATION",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "营业收现率",
+      "kind": "quantitative",
+      "weight": 1.4,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "经营活动收到的现金/营业收入*100",
+      "benchmark": 11.0
+    },
+    {
+      "code": "Q_G_COST_REVENUE_RATE",
+      "dimension": "G",
+      "level2": "盈利能力",
+      "name": "成本费用占营业收入比例",
+      "kind": "quantitative",
+      "weight": 1.4,
+      "direction": "negative",
+      "unit": "%",
+      "formula": "成本费用总额/营业收入*100",
+      "benchmark": 82.1
+    },
+    {
+      "code": "Q_G_ASSET_TURNOVER",
+      "dimension": "G",
+      "level2": "资产质量",
+      "name": "总资产周转率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "次",
+      "formula": "营业收入/平均资产总额",
+      "benchmark": 0.9
+    },
+    {
+      "code": "Q_G_AR_TURNOVER",
+      "dimension": "G",
+      "level2": "资产质量",
+      "name": "应收账款周转率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "次",
+      "formula": "营业收入/应收账款平均余额",
+      "benchmark": 18.3
+    },
+    {
+      "code": "Q_G_CURRENT_ASSET_TURNOVER",
+      "dimension": "G",
+      "level2": "资产质量",
+      "name": "流动资产周转率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "次",
+      "formula": "营业收入/平均流动资产",
+      "benchmark": 2.0
+    },
+    {
+      "code": "Q_G_TWO_FUNDS_RATE",
+      "dimension": "G",
+      "level2": "资产质量",
+      "name": "两金占流动资产比例",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "negative",
+      "unit": "%",
+      "formula": "(应收账款+存货)/流动资产*100",
+      "benchmark": 11.0
+    },
+    {
+      "code": "Q_G_DEBT_ASSET_RATE",
+      "dimension": "G",
+      "level2": "债务风险",
+      "name": "资产负债率",
+      "kind": "quantitative",
+      "weight": 2.8,
+      "direction": "bidirectional",
+      "unit": "%",
+      "key_indicator": true,
+      "formula": "负债总额/资产总额*100",
+      "benchmark": 48.3
+    },
+    {
+      "code": "Q_G_EBITDA_INTEREST",
+      "dimension": "G",
+      "level2": "债务风险",
+      "name": "EBITDA利息倍数",
+      "kind": "quantitative",
+      "weight": 2.8,
+      "direction": "bidirectional",
+      "unit": "倍",
+      "formula": "息税前利润/利息费用",
+      "benchmark": 9.0
+    },
+    {
+      "code": "Q_G_QUICK_RATIO",
+      "dimension": "G",
+      "level2": "债务风险",
+      "name": "速动比率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "bidirectional",
+      "unit": "%",
+      "formula": "速动资产/流动负债*100",
+      "benchmark": 140.0
+    },
+    {
+      "code": "Q_G_CASH_CURRENT_LIABILITY",
+      "dimension": "G",
+      "level2": "债务风险",
+      "name": "现金流动负债比率",
+      "kind": "quantitative",
+      "weight": 2.8,
+      "direction": "bidirectional",
+      "unit": "%",
+      "formula": "经营现金流量净额/年末流动负债*100",
+      "benchmark": 23.78
+    },
+    {
+      "code": "Q_G_REVENUE_GROWTH",
+      "dimension": "G",
+      "level2": "经营增长",
+      "name": "营业增长率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "(本年营业收入-上年营业收入)/上年营业收入*100",
+      "benchmark": 20.9
+    },
+    {
+      "code": "Q_G_OPERATING_PROFIT_GROWTH",
+      "dimension": "G",
+      "level2": "经营增长",
+      "name": "营业利润增长率",
+      "kind": "quantitative",
+      "weight": 2.1,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "(本年营业利润-上年营业利润)/上年营业利润*100",
+      "benchmark": 21.2
+    },
+    {
+      "code": "Q_G_CAPITAL_ACCUMULATION",
+      "dimension": "G",
+      "level2": "经营增长",
+      "name": "资本积累率",
+      "kind": "quantitative",
+      "weight": 1.4,
+      "direction": "positive",
+      "unit": "%",
+      "formula": "(年末所有者权益-年初所有者权益)/年初所有者权益*100",
+      "benchmark": 11.8
+    },
+    {
+      "code": "X_E_ENV_SYSTEM",
+      "dimension": "E",
+      "level2": "环境管理",
+      "name": "环保体系",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_EMERGENCY",
+      "dimension": "E",
+      "level2": "环境管理",
+      "name": "应急管理",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_TRAINING",
+      "dimension": "E",
+      "level2": "环境管理",
+      "name": "环保培训",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_COMPLIANCE",
+      "dimension": "E",
+      "level2": "环境管理",
+      "name": "环境合规",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_IMPACT",
+      "dimension": "E",
+      "level2": "环境管理",
+      "name": "环境影响",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_ENERGY_MANAGEMENT",
+      "dimension": "E",
+      "level2": "资源利用",
+      "name": "能源管理",
+      "kind": "qualitative",
+      "weight": 3.0
+    },
+    {
+      "code": "X_E_WATER",
+      "dimension": "E",
+      "level2": "资源利用",
+      "name": "水资源",
+      "kind": "qualitative",
+      "weight": 2.25
+    },
+    {
+      "code": "X_E_OTHER_RESOURCE",
+      "dimension": "E",
+      "level2": "资源利用",
+      "name": "其他资源",
+      "kind": "qualitative",
+      "weight": 2.25
+    },
+    {
+      "code": "X_E_WASTEWATER",
+      "dimension": "E",
+      "level2": "污染物管理",
+      "name": "废水",
+      "kind": "qualitative",
+      "weight": 2.25
+    },
+    {
+      "code": "X_E_WASTE_GAS",
+      "dimension": "E",
+      "level2": "污染物管理",
+      "name": "废气",
+      "kind": "qualitative",
+      "weight": 2.25
+    },
+    {
+      "code": "X_E_SOLID_WASTE",
+      "dimension": "E",
+      "level2": "污染物管理",
+      "name": "固体废物",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_HAZ_WASTE",
+      "dimension": "E",
+      "level2": "污染物管理",
+      "name": "危险废物",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_CLIMATE_RISK",
+      "dimension": "E",
+      "level2": "应对气候变化",
+      "name": "气候风险水平",
+      "kind": "qualitative",
+      "weight": 3.75
+    },
+    {
+      "code": "X_E_CLIMATE_ACTION",
+      "dimension": "E",
+      "level2": "应对气候变化",
+      "name": "应对气候变化",
+      "kind": "qualitative",
+      "weight": 3.75
+    },
+    {
+      "code": "X_E_BIODIVERSITY",
+      "dimension": "E",
+      "level2": "生物多样性保护",
+      "name": "生物多样性保护",
+      "kind": "qualitative",
+      "weight": 7.5
+    },
+    {
+      "code": "X_E_GREEN_TRANSITION",
+      "dimension": "E",
+      "level2": "绿色运营",
+      "name": "绿色转型",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_CLEAN_PRODUCTION",
+      "dimension": "E",
+      "level2": "绿色运营",
+      "name": "清洁生产",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_GREEN_SUPPLY_CHAIN",
+      "dimension": "E",
+      "level2": "绿色运营",
+      "name": "绿色供应链",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_GREEN_OFFICE",
+      "dimension": "E",
+      "level2": "绿色运营",
+      "name": "绿色办公",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_E_GREEN_FINANCE",
+      "dimension": "E",
+      "level2": "绿色运营",
+      "name": "绿色融资",
+      "kind": "qualitative",
+      "weight": 1.5
+    },
+    {
+      "code": "X_S_PUBLIC_WELFARE",
+      "dimension": "S",
+      "level2": "社会贡献",
+      "name": "社会公益",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_S_RD_INNOVATION",
+      "dimension": "S",
+      "level2": "社会贡献",
+      "name": "研发创新",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_S_JUST_TRANSITION",
+      "dimension": "S",
+      "level2": "公正转型",
+      "name": "公正转型",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_S_EMPLOYEE_RIGHTS",
+      "dimension": "S",
+      "level2": "员工权益",
+      "name": "员工权益保障",
+      "kind": "qualitative",
+      "weight": 1.6
+    },
+    {
+      "code": "X_S_OCCUPATIONAL_HEALTH",
+      "dimension": "S",
+      "level2": "员工权益",
+      "name": "员工职业健康",
+      "kind": "qualitative",
+      "weight": 1.6
+    },
+    {
+      "code": "X_S_CAREER",
+      "dimension": "S",
+      "level2": "员工权益",
+      "name": "员工职业发展",
+      "kind": "qualitative",
+      "weight": 1.6
+    },
+    {
+      "code": "X_S_DIVERSITY",
+      "dimension": "S",
+      "level2": "员工权益",
+      "name": "职业平等与多元化",
+      "kind": "qualitative",
+      "weight": 1.6
+    },
+    {
+      "code": "X_S_FEEDBACK",
+      "dimension": "S",
+      "level2": "员工权益",
+      "name": "员工沟通与反馈",
+      "kind": "qualitative",
+      "weight": 1.6
+    },
+    {
+      "code": "X_S_CUSTOMER_SERVICE",
+      "dimension": "S",
+      "level2": "客户责任",
+      "name": "客户服务",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_S_PRODUCT_QUALITY",
+      "dimension": "S",
+      "level2": "客户责任",
+      "name": "产品质量",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_S_SUPPLY_CHAIN",
+      "dimension": "S",
+      "level2": "供应商责任",
+      "name": "供应链管理",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_GOVERNANCE_MECHANISM",
+      "dimension": "G",
+      "level2": "治理体系",
+      "name": "治理机制",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_CORPORATE_STRUCTURE",
+      "dimension": "G",
+      "level2": "治理体系",
+      "name": "公司架构",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_MANAGEMENT",
+      "dimension": "G",
+      "level2": "治理体系",
+      "name": "管理层机制",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_ESG_MANAGEMENT",
+      "dimension": "G",
+      "level2": "治理体系",
+      "name": "可持续发展管理",
+      "kind": "qualitative",
+      "weight": 3.0
+    },
+    {
+      "code": "X_G_DISCLOSURE",
+      "dimension": "G",
+      "level2": "信息披露",
+      "name": "信息披露",
+      "kind": "qualitative",
+      "weight": 5.0
+    },
+    {
+      "code": "X_G_PERFORMANCE",
+      "dimension": "G",
+      "level2": "经营管理",
+      "name": "经营表现",
+      "kind": "qualitative",
+      "weight": 3.0
+    },
+    {
+      "code": "X_G_SAFETY",
+      "dimension": "G",
+      "level2": "经营管理",
+      "name": "安全生产",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_AUDIT",
+      "dimension": "G",
+      "level2": "审计内控",
+      "name": "会计审计",
+      "kind": "qualitative",
+      "weight": 3.0
+    },
+    {
+      "code": "X_G_INTERNAL_CONTROL",
+      "dimension": "G",
+      "level2": "审计内控",
+      "name": "内部风控",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_ANTI_BRIBERY",
+      "dimension": "G",
+      "level2": "审计内控",
+      "name": "反商业贿赂、反贪污及反不正当竞争",
+      "kind": "qualitative",
+      "weight": 2.0
+    },
+    {
+      "code": "X_G_TAX",
+      "dimension": "G",
+      "level2": "税务治理",
+      "name": "纳税情况",
+      "kind": "qualitative",
+      "weight": 4.0
+    },
+    {
+      "code": "X_G_INTEGRITY",
+      "dimension": "G",
+      "level2": "诚信合规",
+      "name": "诚信合规",
+      "kind": "qualitative",
+      "weight": 5.0
+    }
+  ],
+  "standard_ref": "DL/T 2971—2025 (research approximation)",
+  "governance_scoring": "client_report_narrative_benchmarks_research_only"
+}

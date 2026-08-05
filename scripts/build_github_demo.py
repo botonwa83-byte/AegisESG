@@ -38,14 +38,34 @@ def main() -> None:
     save(OUT / "methodology/index.html", static_page(api.demo_methodology()))
     save(OUT / "sensitivity/index.html", static_page(api.demo_sensitivity()))
     save(OUT / "ranking/index.html", api.DEMO_RANKING_PATH.read_text(encoding="utf-8"))
-    # Export the current complete-chain cohort as static drill-down pages.
-    obs = list(csv.DictReader((ROOT / "output/research/2025/full_auto_observations_v19.csv").open(encoding="utf-8-sig", newline="")))
+    # Export curated complete-chain drill-downs from the latest ranking cohort.
+    obs_candidates = sorted(
+        (ROOT / "output/research/2025").glob("full_auto_observations_v*.csv"),
+        key=lambda path: path.stat().st_mtime,
+        reverse=True,
+    )
+    if not obs_candidates:
+        raise SystemExit("missing research observations for company drill-down export")
+    obs = list(csv.DictReader(obs_candidates[0].open(encoding="utf-8-sig", newline="")))
     counts = {}
     for row in obs:
         counts[row["company_code"]] = counts.get(row["company_code"], 0) + 1
-    coverage = {row["stock_code"]: row for row in csv.DictReader((ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv").open(encoding="utf-8-sig", newline=""))}
+    coverage = {
+        row["stock_code"]: row
+        for row in csv.DictReader(
+            (ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv").open(
+                encoding="utf-8-sig", newline="",
+            )
+        )
+    }
     ranking = json.loads((ROOT / "output/demo/real_data_demo_2025/ranking.json").read_text(encoding="utf-8"))
-    codes = [row["company_code"] for row in ranking if counts.get(row.get("company_code"), 0) >= 67 and coverage.get(row.get("company_code"), {}).get("annual_status") == "collected"]
+    # After authority-fill strips false qualitative zeros, dense firms often sit ~55-61.
+    codes = [
+        row["company_code"]
+        for row in ranking
+        if counts.get(row.get("company_code"), 0) >= 50
+        and coverage.get(row.get("company_code"), {}).get("annual_status") == "collected"
+    ][:12]
     for code in codes:
         save(OUT / "company" / code / "index.html", static_page(api.demo_company(code)))
     # Make navigation relative for Pages and remove server-only local PDF endpoints.

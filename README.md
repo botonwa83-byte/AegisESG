@@ -1,17 +1,20 @@
 # 中国能源上市公司可持续发展（ESG）评价系统
 
-本项目依据目录内的《2025中国能源上市公司可持续发展（ESG）评价报告》和
-《行标定量指标》实现一套可审计、可复现的评价流水线。
+本项目依据《DL/T 2971—2025 能源企业环境保护、社会责任和公司治理披露指标体系与评价导则》、
+目录内《2025中国能源上市公司可持续发展（ESG）评价报告》和《行标定量指标》实现一套可审计、
+可复现的评价流水线。
 
 ## 已实现范围
 
-- 37项定量指标、43项定性指标和原报告权重；
+- 37项定量指标、43项定性指标和行标权重（定量/定性内 E45%·S20%·G35%）；
 - 定量80%、定性20%的总分合成；
 - 正向、负向、双向指标及1%/99%缩尾；
-- 定性指标0/20/50/80/100档评分；
+- 定性指标0/20/50/80/100档评分（行标达成率为20/50/80/100）；
+- DL/T 2971表1级别映射（AAA–C / NA）及披露不足一半不予评级；
 - 缺失、不适用、待复核和已确认状态；
 - 数据来源URL、文件、页码、证据文本和置信度；
 - 年度样本正态评分、E/S/G分项、披露率和并列排名；
+- 正式发布一年有效期、评价组长签名与治理优秀值齐全门禁（脚手架已就绪）；
 - 与PDF相同字段顺序的前200 CSV/HTML榜单；
 - FastAPI查询接口、本地审计库及MySQL 8.4生产表结构；
 - 公开文档URL清单下载、SHA-256审计留痕。
@@ -21,17 +24,33 @@
 
 ## 重要边界
 
-2025报告说明其原始数据还包括Choice终端和青绿数据，且没有公开以下内容：
+2025报告与行标本身未随文公开以下参数，系统不能凭空补齐：
 
 - 632家公司的全部80项原始观测；
 - 正态函数的具体参数和极端值剔除明细；
-- 公司治理所用国资委工业领域“优秀值”的年度参数；
+- 公司治理所用国资委工业领域“优秀值”的年度参数（见下方注入流程）；
 - 43项定性指标逐公司的判断证据；
 - 缺失数据的精确处理细则。
 
-因此本系统提供的是**公开方法论兼容、计算过程透明的独立评价**，不能声称与
-报告发布机构的官方分数完全一致。要精确复刻官方榜单，必须获得上述授权数据
-和参数并固化成新的方法论版本。
+因此当前默认方法论`ENERGY-ESG-2025-COMPAT-v1`是**公开方法论兼容、计算过程透明的独立评价**，
+不能声称与报告发布机构的官方分数完全一致。要按 DL/T 2971 出具正式级别并启用治理优秀值峰打分，
+须填入优秀值表并冻结`DLT2971-2025-v1`。
+
+```bash
+# 1) 生成录入工作包（含国资委表头别名与映射风险）
+PYTHONPATH=src python3 -m aegis_esg.cli prepare-governance-benchmark-packet \
+  --csv data/methodologies/governance_benchmarks_template_2025.csv \
+  --html output/audit/governance_benchmark_packet_v1_2025.html \
+  --summary output/audit/governance_benchmark_packet_v1_2025.json
+# 2) 审计当前方法论是否齐全
+PYTHONPATH=src python3 -m aegis_esg.cli audit-governance-benchmarks \
+  --output output/audit/governance_benchmark_audit.json
+# 3) 注入并冻结正式方法论（17项齐全后才会写成DLT2971-2025-v1）
+PYTHONPATH=src python3 -m aegis_esg.cli apply-governance-benchmarks \
+  data/methodologies/governance_benchmarks_2025.csv \
+  --output-methodology data/methodologies/energy_esg_dlt2971_v1.json \
+  --summary output/audit/governance_benchmark_apply.json
+```
 
 ## 双轨排名设计
 

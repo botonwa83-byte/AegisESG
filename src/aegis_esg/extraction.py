@@ -446,6 +446,45 @@ def read_page_text_export(path: str | Path) -> list[PageText]:
     return [PageText(int(parts[index]), parts[index + 1]) for index in range(1, len(parts), 2)]
 
 
+def resolve_text_export_path(text_root: str | Path, row: dict[str, str]) -> Path | None:
+    """Map a document-index row to its page-marked txt under ``text_root``.
+
+    Supports both research layout (``data/text/<code>/<year>/``) and CI layout
+    (``data/text/ci_collection/<code>/<year>/``), including absolute ``local_path``
+    values written by some collectors.
+    """
+    text_root = Path(text_root)
+    local = Path(row.get("local_path") or "")
+    code = (row.get("company_code") or "").strip()
+    year = str(row.get("report_year") or "").strip()
+    stem_name = local.with_suffix(".txt").name if local.name else ""
+    if not code or not year or not stem_name:
+        return None
+    candidates = [
+        text_root / code / year / stem_name,
+        text_root / "ci_collection" / code / year / stem_name,
+    ]
+    try:
+        relative = local.relative_to("data/raw")
+        candidates.append((text_root / relative).with_suffix(".txt"))
+        if relative.parts[:1] == ("ci_collection",):
+            candidates.append((text_root / Path(*relative.parts[1:])).with_suffix(".txt"))
+    except ValueError:
+        pass
+    parts = local.parts
+    if len(parts) >= 3:
+        candidates.append(text_root / parts[-3] / parts[-2] / stem_name)
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.is_file():
+            return path
+    return None
+
+
 def extract_batch_text_exports(
     document_index: str | Path,
     text_root: str | Path,
@@ -466,13 +505,8 @@ def extract_batch_text_exports(
     for row in rows:
         if report_year is not None and int(row["report_year"]) != report_year:
             continue
-        local = Path(row["local_path"])
-        try:
-            relative = local.relative_to("data/raw")
-        except ValueError:
-            relative = Path(row["company_code"]) / str(row["report_year"]) / local.name
-        text_path = (text_root / relative).with_suffix(".txt")
-        if not text_path.exists():
+        text_path = resolve_text_export_path(text_root, row)
+        if text_path is None:
             continue
         pages = read_page_text_export(text_path)
         companies[(row["company_code"], int(row["report_year"]))].append((row, pages))

@@ -1,0 +1,141 @@
+{
+  "audit_version": "pdf-algorithm-alignment-v1",
+  "run_at_utc": "2026-08-05T02:05:43+00:00",
+  "client_pdf": "2025中国能源上市公司可持续发展（ESG）评价报告.pdf",
+  "base_methodology": "data/methodologies/energy_esg_2025.json",
+  "research_methodology": "data/methodologies/energy_esg_2025_research_sasac.json",
+  "counts": {
+    "pass": 7,
+    "partial": 3,
+    "fail": 1,
+    "unknown": 0
+  },
+  "compliant_enough_for_research": true,
+  "formal_release_authorized": false,
+  "notice": "本审计用于方法合规与可续性检查；不授权正式发布。与客户纸质榜年差（我方report_year=2025 vs 客户report_year=2024）属正常，不要求严格贴名次。",
+  "items": [
+    {
+      "id": "structure_counts",
+      "requirement": "评价指标共80项：定量37、定性43",
+      "status": "pass",
+      "detail": "quantitative=37 qualitative=43",
+      "evidence": "data/methodologies/energy_esg_2025.json"
+    },
+    {
+      "id": "blend_ratio",
+      "requirement": "总分 S=80%×SL + 20%×Sx",
+      "status": "pass",
+      "detail": "quantitative_ratio=0.8 qualitative_ratio=0.2",
+      "evidence": "src/aegis_esg/scoring.py"
+    },
+    {
+      "id": "es_normal_scoring",
+      "requirement": "环境保护与社会责任定量：披露样本正态，正/负向方向打分",
+      "status": "pass",
+      "detail": "E/S 使用样本μ/σ与正态CDF/1-CDF；客户未公开具体参数，属可审计近似",
+      "evidence": "src/aegis_esg/scoring.py::_score_value"
+    },
+    {
+      "id": "g_sasac_benchmark",
+      "requirement": "公司治理定量参考国资委工业领域优秀值峰打分",
+      "status": "pass",
+      "detail": "base_filled=0/17；research_filled=17/17 (methodology=energy_esg_2025_research_sasac.json)。研究值摘自客户报告正文，非正式国资委原表冻结。",
+      "evidence": "data/methodologies/energy_esg_2025_research_sasac.json"
+    },
+    {
+      "id": "qualitative_tiers",
+      "requirement": "定性达成率档位 100/80/50/20",
+      "status": "partial",
+      "detail": "引擎接受100/80/50/20；当前研究观测多为启发式或缺失。PDF最低明示档为20%，系统定量缺失默认0（用户规则），定性缺失亦按0计入（严于PDF最低档）。",
+      "evidence": "src/aegis_esg/scoring.py"
+    },
+    {
+      "id": "missing_zero_quant",
+      "requirement": "未披露定量计分策略可审计且版本化",
+      "status": "pass",
+      "detail": "研究默认 legacy_zero_v1（未披露→标准化0后加权）",
+      "evidence": "src/aegis_esg/ranking_analysis.py"
+    },
+    {
+      "id": "bonus_scope3",
+      "requirement": "范围三披露/碳中和认证/集团ESG主责部门等酌情奖励分",
+      "status": "fail",
+      "detail": "PDF写明酌情奖励，系统尚未实现显式奖励分规则",
+      "evidence": "2025中国能源上市公司可持续发展（ESG）评价报告.pdf"
+    },
+    {
+      "id": "key_indicators",
+      "requirement": "纸质榜展示10项关键定量指标",
+      "status": "pass",
+      "detail": "key_indicator_count=10: Q_E_GHG_INTENSITY, Q_E_ENERGY_INTENSITY, Q_E_NOX_INTENSITY, Q_E_SO2_INTENSITY, Q_E_WATER_INTENSITY, Q_E_SOLID_WASTE_INTENSITY, Q_S_SAFETY_INVEST_RATE, Q_S_RD_RATE, Q_S_DIVIDEND_PER_SHARE, Q_G_DEBT_ASSET_RATE",
+      "evidence": "data/methodologies/energy_esg_2025.json"
+    },
+    {
+      "id": "data_year_labeling",
+      "requirement": "评价年与报告期分离标注（客户2025评价=报告期2024；我方当前库=报告期2025）",
+      "status": "partial",
+      "detail": "文档口径已定义评价年=报告期+1；交付元数据需同时写evaluation_year与report_year",
+      "evidence": "docs/data-pipeline.md"
+    },
+    {
+      "id": "winsorize",
+      "requirement": "剔除极端值后计算正态参数",
+      "status": "partial",
+      "detail": "实现对披露样本1%/99% winsorize；客户未公开阈值，属可审计近似",
+      "evidence": "src/aegis_esg/scoring.py::_winsorize"
+    },
+    {
+      "id": "traceability",
+      "requirement": "原始数据来自公开披露且可追溯",
+      "status": "pass",
+      "detail": "观测保留source_url/source_file/source_page/evidence；无Choice/青绿黑箱，客观性更强但覆盖可能更低",
+      "evidence": "output/research/2025/"
+    }
+  ],
+  "governance_benchmark_audit": {
+    "base": {
+      "audit_version": "governance-benchmark-audit-v1",
+      "standard_ref": "DL/T 2971—2025",
+      "methodology_version": "ENERGY-ESG-2025-COMPAT-v1",
+      "governance_indicator_count": 17,
+      "filled_count": 0,
+      "missing_count": 17,
+      "missing_codes": [
+        "Q_G_ROE",
+        "Q_G_ROA",
+        "Q_G_OPERATING_MARGIN",
+        "Q_G_EBITDA_MARGIN",
+        "Q_G_CASH_REALIZATION",
+        "Q_G_COST_REVENUE_RATE",
+        "Q_G_ASSET_TURNOVER",
+        "Q_G_AR_TURNOVER",
+        "Q_G_CURRENT_ASSET_TURNOVER",
+        "Q_G_TWO_FUNDS_RATE",
+        "Q_G_DEBT_ASSET_RATE",
+        "Q_G_EBITDA_INTEREST",
+        "Q_G_QUICK_RATIO",
+        "Q_G_CASH_CURRENT_LIABILITY",
+        "Q_G_REVENUE_GROWTH",
+        "Q_G_OPERATING_PROFIT_GROWTH",
+        "Q_G_CAPITAL_ACCUMULATION"
+      ],
+      "complete": false,
+      "formal_ready": false,
+      "target_methodology_version": "DLT2971-2025-v1",
+      "blocker": "需填入国资委企业绩效评价标准值工业领域优秀值后冻结DLT2971-2025-v1"
+    },
+    "research": {
+      "audit_version": "governance-benchmark-audit-v1",
+      "standard_ref": "DL/T 2971—2025",
+      "methodology_version": "ENERGY-ESG-2025-RESEARCH-SASAC-v1",
+      "governance_indicator_count": 17,
+      "filled_count": 17,
+      "missing_count": 0,
+      "missing_codes": [],
+      "complete": true,
+      "formal_ready": true,
+      "target_methodology_version": "DLT2971-2025-v1",
+      "blocker": null
+    }
+  }
+}

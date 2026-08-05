@@ -170,6 +170,27 @@ D3.6新增`/demo/stability-priority`并在研究快照页提供入口，完成�
   仅处理新增文本且抽取失败不回滚PDF下载；GitHub Linux任务暂不执行Swift抽取，后续由本地同步后完成。
 - D4.15新增`scripts/run_incremental_indicator_extraction.py`并接入本地定时任务：从本地同步索引和文本中生成待审核指标候选、
   指标覆盖摘要和复核摘要，候选不写入正式评分，形成“下载→抽取→缺口分析”的连续链路。
+- D4.16新增官网域名核验工作包：从701条报告自披露候选中按“缺独立ESG优先 + HTTPS + 证据强度”选出50家P0，
+  生成空白签名CSV/HTML；`apply-official-domain-review`仅在完整签名后登记域名到官网队列，明确
+  `download_authorized=false`/`scoring_authorized=false`，仍需同域HTTPS报告链接才能进入下载清单。
+  Demo入口：`/demo/official-domain-review`；当前应用状态`blocked_external_review`。
+- D4.17新增域名卫生过滤与同域HTTPS报告发现工作包：候选净化后455条/361家；发现器只扫描已核验域名，
+  默认不联网，状态`await_verified_domains`。另生成290条交易所下载重试清单
+  `scheduled_collection_retry_v1_2025.csv`（优先ESG缺口与历史失败）。
+- D4.18：队列重建保留已核验域名；发现结果可`apply-official-report-discovery`写入候选URL；
+  本地调度自动生成重试清单并刷新发现包；`--live-fetch`可选联网扫页（不下载PDF）。
+- D4.19：定时采集改为 ESG 优先、索引保活与去重、预算惰性启动；CI 上传重试清单。
+- D4.20：CI PDF 文本抽取与下载解耦（独立锁 `/tmp/aegisesp-text-extraction.lock` +
+  LaunchAgent `com.aegisesp.text-extraction`）；新增研究索引合并预览
+  `ci_research_merge_preview_v1_2025`（只预览、不覆盖）；`/demo/data-readiness` 展示定时覆盖与文本/合并预览。
+- D4.21：下载占锁时仍刷新 live 覆盖/重试/合并预览；文本抽取流式心跳；增量指标可对部分 txt 先行抽取。
+- D4.22：采集失败分型 + 大文件分片续传优先重试；SZSE curl 超时默认 600s。
+- D4.23：PID/进程提示感知锁 + stale lock 回收；下载占锁时仍可文本 catch-up。
+- D4.24：CI增量候选覆盖包（研究向）+ Demo `/demo/ci-incremental-coverage`。
+- D4.25：SSE/HKEX urllib失败后 curl 续传回退，覆盖剩余交易所缺口。
+- D4.26：workspace 属主审计 + SZSE 续传默认 1200s；隔夜后重启尾部补缺。
+- D4.27：空 source_url 索引折叠修复 + 磁盘重建索引；拒绝非法年份。
+- D4.28：身份口径覆盖/重试；真实缺口 8/976（99.18%），深交所反爬待官网通道。
 
 ### D2：低覆盖指标专项
 

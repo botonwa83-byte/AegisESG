@@ -1,0 +1,53 @@
+{
+  "policy_version": "hkex-fy2025-gap-discovery-v1",
+  "as_of": "2026-08-05",
+  "rows": [
+    {
+      "stock_code": "00702.HK",
+      "company_name": "SINO OIL & GAS",
+      "annual_years_found": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "esg_years_found": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "latest_annual_year": 2023,
+      "latest_annual_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2024/0426/2024042602791.pdf",
+      "has_fy2025_annual": false,
+      "blocker": "no_fy2025_annual_on_hkexnews",
+      "note": "停牌/未披露可能导致目标年年报缺失；不可用旧年报顶替2025评价年"
+    },
+    {
+      "stock_code": "01101.HK",
+      "company_name": "HUARONG ENERGY",
+      "annual_years_found": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "esg_years_found": [],
+      "latest_annual_year": 2023,
+      "latest_annual_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2024/0430/2024043001896.pdf",
+      "has_fy2025_annual": false,
+      "blocker": "no_fy2025_annual_on_hkexnews",
+      "note": "停牌/未披露可能导致目标年年报缺失；不可用旧年报顶替2025评价年"
+    }
+  ],
+  "notice": "两家港股HKEXnews未见FY2025年报；与614/632主体缺口一并阻塞正式发布。"
+}
