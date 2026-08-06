@@ -1268,14 +1268,11 @@
 001289.SZ,龙源电力,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001289.SZ,龙源电力,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001289.SZ,龙源电力,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001289.SZ,龙源电力,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_G_AR_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_G_CASH_CURRENT_LIABILITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -1292,7 +1289,6 @@
 001289.SZ,龙源电力,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_S_DONATION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_S_EDU_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001289.SZ,龙源电力,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_S_PAY_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001289.SZ,龙源电力,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001299.SZ,美能能源,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -1443,9 +1439,7 @@
 00182.HK,CONCORD NE,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001896.SZ,豫能控股,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001896.SZ,豫能控股,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -1457,9 +1451,7 @@
 001896.SZ,豫能控股,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_S_DONATION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_S_EDU_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001896.SZ,豫能控股,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 001896.SZ,豫能控股,Q_S_PAY_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-001896.SZ,豫能控股,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00196.HK,HONGHUA GROUP,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00196.HK,HONGHUA GROUP,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00196.HK,HONGHUA GROUP,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -1751,16 +1743,9 @@
 002121.SZ,科陆电子,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_G_CASH_CURRENT_LIABILITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_G_CASH_REALIZATION,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_G_COST_REVENUE_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -1772,7 +1757,6 @@
 002125.SZ,湘潭电化,Q_G_QUICK_RATIO,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_G_ROA,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_G_TWO_FUNDS_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-002125.SZ,湘潭电化,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002125.SZ,湘潭电化,Q_S_RD_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002128.SZ,电投能源,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 002128.SZ,电投能源,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -3751,7 +3735,6 @@
 00353.HK,ENERGY INTINV,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00353.HK,ENERGY INTINV,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00353.HK,ENERGY INTINV,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-00353.HK,ENERGY INTINV,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00353.HK,ENERGY INTINV,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00353.HK,ENERGY INTINV,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 00353.HK,ENERGY INTINV,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -6993,7 +6976,6 @@
 300118.SZ,东方日升,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-300118.SZ,东方日升,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -7012,7 +6994,6 @@
 300118.SZ,东方日升,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_S_DIVIDEND_PER_SHARE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_S_EDU_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-300118.SZ,东方日升,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_S_PAY_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300118.SZ,东方日升,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 300129.SZ,泰胜风能,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -8782,7 +8763,6 @@
 301121.SZ,紫建电子,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301150.SZ,中一科技,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -8791,12 +8771,10 @@
 301150.SZ,中一科技,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301150.SZ,中一科技,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_G_CASH_CURRENT_LIABILITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_G_QUICK_RATIO,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_G_ROA,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_G_TWO_FUNDS_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301150.SZ,中一科技,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301150.SZ,中一科技,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301152.SZ,天力锂能,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301152.SZ,天力锂能,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -9077,7 +9055,6 @@
 301238.SZ,瑞泰新材,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301266.SZ,宇邦新材,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301266.SZ,宇邦新材,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301266.SZ,宇邦新材,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301266.SZ,宇邦新材,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301266.SZ,宇邦新材,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301266.SZ,宇邦新材,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -9145,7 +9122,6 @@
 301291.SZ,明阳电气,Q_G_OPERATING_MARGIN,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301291.SZ,明阳电气,Q_G_OPERATING_PROFIT_GROWTH,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301291.SZ,明阳电气,Q_G_ROA,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301291.SZ,明阳电气,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301291.SZ,明阳电气,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301292.SZ,海科新源,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301292.SZ,海科新源,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -14389,9 +14365,7 @@
 920167.BJ,同享科技,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920167.BJ,同享科技,Q_S_RD_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920167.BJ,同享科技,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-920185.BJ,贝特瑞,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-920185.BJ,贝特瑞,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -14400,7 +14374,6 @@
 920185.BJ,贝特瑞,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-920185.BJ,贝特瑞,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_G_AR_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_G_ASSET_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 920185.BJ,贝特瑞,Q_G_CASH_CURRENT_LIABILITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other

@@ -5690,6 +5690,42 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), output_value])
         self.assertEqual(1, len(items))
 
+    def test_env_intensity_shenhua_style_wan_ton_and_operating_scope(self):
+        # 神华样例：万吨单位 + 换行陈述 + 所属生产经营类企业全口径（非局部子公司）
+        esg = self._esg_doc(
+            "一级指标 二级指标 2023年 2024年 2025年\n"
+            "二氧化硫排放总量（万吨） 2.27 2.22 1.99\n"
+            "氮氧化物排放总量（万吨） 4.82 4.78 4.25\n"
+            "2025年\n"
+            "二氧化硫排放总量为\n"
+            "1.99万吨\n"
+            "2025年，公司所属生产经营类企业能源消费总量为7,282.08万吨标煤。\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        codes = {item.indicator_code for item in items}
+        self.assertIn("Q_E_SO2_INTENSITY", codes)
+        self.assertIn("Q_E_NOX_INTENSITY", codes)
+        self.assertIn("Q_E_ENERGY_INTENSITY", codes)
+        so2 = next(item for item in items if item.indicator_code == "Q_E_SO2_INTENSITY")
+        self.assertAlmostEqual(1.99e7 * 1e3 * 1e4 / 1.705e10, so2.value)
+
+    def test_summary_revenue_cnpc_style_million_yuan(self):
+        from aegis_esg.extraction import _extract_summary_revenue
+
+        text = (
+            "按中国企业会计准则编制的主要财务数据\n"
+            "（1）主要会计数据及财务指标\n"
+            "单位：人民币百万元\n"
+            "项目 2025 年 2024 年\n"
+            "增减(%) 营业收入 2,864,469 2,937,981 (2.5) 3,012,812\n"
+            "营业利润 234,579 255,286 (8.1) 253,522\n"
+        )
+        parsed = _extract_summary_revenue(text, True)
+        self.assertIsNotNone(parsed)
+        current, previous, _evidence = parsed
+        self.assertEqual(2_864_469_000_000, current)
+        self.assertEqual(2_937_981_000_000, previous)
+
     def test_env_intensity_cn_narrative_group_anchored_total(self):
         # 叙述式：报告主体锚定的句中总量（真实样例：600163.SH）
         esg = self._esg_doc(

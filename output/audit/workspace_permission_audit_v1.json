@@ -1,8 +1,12 @@
 {
   "policy_version": "workspace-permission-audit-v1",
-  "run_at_utc": "2026-08-06T02:28:54+00:00",
-  "root_owned_count": 3,
+  "run_at_utc": "2026-08-06T05:15:47+00:00",
+  "root_owned_count": 7,
   "root_owned_examples": [
+    "output/audit/universe_baseline_ranking_v38_run.log",
+    "output/audit/ranking_disclosure_gap_report_v2_build.log",
+    "output/audit/universe_baseline_ranking_v37_run.log",
+    "output/audit/cninfo_esg_gap_text_extract_v2.log",
     "output/audit/missing_independent_esg_after_ci_merge_v1_2025.csv",
     "output/sync/issuer_official_website_document_index.csv",
     "output/sync/issuer_official_website_collection_failures.csv"

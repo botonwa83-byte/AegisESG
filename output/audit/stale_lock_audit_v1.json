@@ -1,15 +1,15 @@
 {
   "policy_version": "aegis-lock-audit-v1",
-  "run_at_utc": "2026-08-06T02:28:54+00:00",
+  "run_at_utc": "2026-08-06T05:15:47+00:00",
   "locks": [
     {
       "lock": "/tmp/aegisesp-data-collection.lock",
-      "held": false,
-      "pid": null,
+      "held": true,
+      "pid": 46137,
       "alive": false,
-      "stale": false,
-      "reclaimable": false,
-      "reason": "absent"
+      "stale": true,
+      "reclaimable": true,
+      "reason": "pid_dead"
     },
     {
       "lock": "/tmp/aegisesp-text-extraction.lock",
@@ -30,6 +30,6 @@
       "reason": "absent"
     }
   ],
-  "stale_count": 0,
+  "stale_count": 1,
   "scoring_authorized": false
 }

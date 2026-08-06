@@ -1499,6 +1499,13 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
         ("千克二氧化碳当量/万元", 1.0), ("tCO2e/百万元", 10.0),
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
     )),
+    # 神华等：碳排放强度（吨二氧化碳当量 ╱ 万元收入）
+    ("Q_E_GHG_INTENSITY", r"碳排放强度", (
+        ("吨二氧化碳当量/万元收入", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
+        ("吨二氧化碳当量/万元营业收入", 1000.0), ("吨二氧化碳当量/万元", 1000.0),
+        ("吨/万元收入", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元", 1000.0),
+        ("千克二氧化碳当量/万元", 1.0),
+    )),
     # 绩效表常见“每百万营收温室气体排放总量 + 吨二氧化碳当量”隐含强度（吨/百万元→千克/万元×10）
     ("Q_E_GHG_INTENSITY", r"每百万营收温室气体排放总量(?:\s*[（(]\s*范围\s*[一1]\s*[、和+及]\s*范围\s*[二2]\s*[）)])?", (
         ("吨二氧化碳当量", 10.0), ("吨", 10.0), ("tCO2e", 10.0),
@@ -1556,7 +1563,7 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
 def _cn_unit_fragment(unit: str) -> str:
     if unit == "%":
         return r"[（(]?\s*[%％]\s*[）)]?"
-    fragment = re.escape(unit).replace("/", r"\s*/\s*")
+    fragment = re.escape(unit).replace("/", r"\s*[／/╱]\s*")
     for prefix in ("吨二", "千克二", "吨标", "千克标"):
         if prefix in fragment:
             fragment = fragment.replace(prefix, prefix[:-1] + r"\s*" + prefix[-1])
@@ -1606,6 +1613,18 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
         return "current-last"
     if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*单位", text):
         return "single-year"
+    # 神华等附录绩效表：一级指标 二级指标 2023年 2024年 2025年
+    appendix_header = r"(?:一级指标\s*二级指标|指标\s*单位|二级指标)"
+    if re.search(
+        rf"{appendix_header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?",
+        text,
+    ):
+        return "current-last"
+    if re.search(
+        rf"(?:20\d{{2}}\s*年\s+){{2}}{report_year}\s*年",
+        text,
+    ) and re.search(r"(?:碳排放总量|二氧化硫排放总量|氮氧化物排放总量|能源消费总量|总耗水量)", text):
+        return "current-last"
     return None
 
 
@@ -1637,6 +1656,12 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                 "current-last-postfix-unit",
                 rf"^\s*{label_group}\s*{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
             ))
+            # 标签括号带单位：碳排放强度（吨二氧化碳当量 ╱ 万元收入） 5.59 5.89 6.78
+            patterns.append((
+                "current-last-paren-unit",
+                rf"^\s*{label_group}\s*[（(]\s*(?P<unit>{unit_pattern})\s*[）)]\s*"
+                rf"{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
+            ))
         elif mode == "single-year":
             patterns.append((
                 "single-year",
@@ -1658,6 +1683,7 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
         for pattern_mode, row in patterns:
             for match in re.finditer(row, text, re.M):
                 unit_key = re.sub(r"\s+", "", match.group("unit")).strip("（）()")
+                unit_key = unit_key.replace("／", "/").replace("╱", "/")
                 factor = factors.get(unit_key)
                 if factor is None:
                     continue
@@ -1873,7 +1899,13 @@ def _extract_revenue_growth(raw_text: str, in_summary_section: bool = False) -> 
     return [(growth, evidence)] if -100 <= growth <= 1000 else []
 
 
-_SUMMARY_SECTION_MARKERS = ("近三年主要会计数据", "主要会计数据和财务指标")
+_SUMMARY_SECTION_MARKERS = (
+    "近三年主要会计数据",
+    "主要会计数据和财务指标",
+    "主要会计数据及财务指标",
+    "会计数据和财务指标摘要",
+    "按中国企业会计准则编制的主要财务数据",
+)
 
 
 def _is_summary_section_page(text: str) -> bool:
@@ -1881,16 +1913,29 @@ def _is_summary_section_page(text: str) -> bool:
 
 
 def _extract_summary_revenue(raw_text: str, in_summary_section: bool = False) -> tuple[float, float, str] | None:
-    if not in_summary_section and not re.search(r"(?:近三年主要会计数据|[(（]一[)）]\s*主要会计数据|主要会计数据和财务指标)", raw_text):
+    if not in_summary_section and not re.search(
+        r"(?:近三年主要会计数据|[(（]一[)）]\s*主要会计数据|主要会计数据(?:和|及)财务指标|"
+        r"会计数据和财务指标摘要|按中国企业会计准则编制的主要财务数据)",
+        raw_text,
+    ):
         return None
     repaired = _repair_wrapped_numbers(raw_text)
     number = re.compile(r"[+-]?[\d,]+(?:\.\d+)?")
-    match = re.search(r"营业收入(?P<body>.{0,2000}?)(?:利润总额|归属于上市)", repaired, re.S)
+    match = re.search(
+        r"营业收入(?P<body>.{0,2000}?)(?:利润总额|营业利润|归属于母公司|归属于上市)",
+        repaired,
+        re.S,
+    )
     if not match:
         return None
     evidence = "营业收入" + match.group("body")
     values = [float(item.replace(",", "")) for item in number.findall(evidence)]
-    if len(values) < 2 or values[1] == 0:
+    # 跳过同比增减百分比列夹在两年数值之间的情形：取前两个绝对值较大的会计金额
+    if len(values) < 2:
+        return None
+    # 典型：营业收入 2,864,469 2,937,981 (2.5) 3,012,812 → 取前两列年度值
+    current, previous = values[0], values[1]
+    if previous == 0:
         return None
     if re.search(r"人民币\s*百万元|单位\s*[：:]\s*百万元(?:\s*币种\s*[：:]\s*人民币)?", raw_text):
         scale = 1_000_000
@@ -1900,7 +1945,7 @@ def _extract_summary_revenue(raw_text: str, in_summary_section: bool = False) ->
         scale = 10_000
     else:
         scale = 1
-    return values[0] * scale, values[1] * scale, re.sub(r"\s+", " ", evidence)[:400]
+    return current * scale, previous * scale, re.sub(r"\s+", " ", evidence)[:400]
 
 
 def _repair_wrapped_numbers(raw_text: str) -> str:

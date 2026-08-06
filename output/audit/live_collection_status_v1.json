@@ -1,7 +1,7 @@
 {
   "policy_version": "live-collection-status-v1",
-  "run_at_utc": "2026-08-06T02:29:12+00:00",
-  "collection_lock_held": false,
+  "run_at_utc": "2026-08-06T05:16:07+00:00",
+  "collection_lock_held": true,
   "text_lock_held": false,
   "pdf_count": 983,
   "text_count": 983,
@@ -55,22 +55,21 @@
     "manifest_valid_identities": 976,
     "downloaded_rows": 976,
     "downloaded_identities": 976,
-    "missing_rows": 84,
+    "missing_rows": 57,
     "missing_identities": 0,
-    "redundant_url_gaps": 84,
+    "redundant_url_gaps": 57,
     "invalid_year_identities": 0,
     "identity_coverage_rate": 1.0,
-    "failure_rows": 1,
+    "failure_rows": 0,
     "downloaded_by_host": {
-      "disc.static.szse.cn": 303,
+      "disc.static.szse.cn": 330,
       "www1.hkexnews.hk": 285,
-      "static.cninfo.com.cn": 27,
       "www.sse.com.cn": 335,
       "www.bse.cn": 26
     },
     "missing_by_document_type": {
-      "esg_report": 47,
-      "annual_report": 37
+      "esg_report": 35,
+      "annual_report": 22
     },
     "missing_identities_by_document_type": {},
     "retry_manifest": "output/audit/scheduled_collection_retry_v1_2025.csv",
@@ -80,10 +79,10 @@
   },
   "merge_preview": {
     "policy_version": "ci-research-merge-preview-v1",
-    "preview_rows": 23,
+    "preview_rows": 21,
     "would_add": 0,
     "would_add_by_type": {},
-    "conflict_or_different_hash": 23,
+    "conflict_or_different_hash": 21,
     "research_index_mutated": false,
     "scoring_authorized": false,
     "formal_publishable": false,

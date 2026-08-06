@@ -1,6 +1,6 @@
 {
   "policy_version": "universe-baseline-ranking-v1",
-  "run_at_utc": "2026-08-06T02:22:00+00:00",
+  "run_at_utc": "2026-08-06T04:01:44+00:00",
   "expected_companies": 632,
   "universe": "data/universe/energy_historical_candidates_2026.csv",
   "universe_audit": {

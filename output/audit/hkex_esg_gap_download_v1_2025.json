@@ -1,0 +1,8 @@
+{
+  "policy_version": "hkex-esg-gap-download-v1",
+  "targets": 36,
+  "discovered_esg_rows": 1,
+  "downloaded": 1,
+  "failures": [],
+  "scoring_authorized": false
+}

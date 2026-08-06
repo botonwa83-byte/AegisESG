@@ -1,6 +1,6 @@
 # AegisESP 项目记忆
 
-更新时间：2026-08-06（Asia/Shanghai）
+更新时间：2026-08-06 13:20（Asia/Shanghai）
 
 GitHub仓库：`https://github.com/botonwa83-byte/AegisESP`（完成本轮开发与验证后再提交）。
 
@@ -1262,7 +1262,7 @@ python3 -m aegis_esg.cli plan-indicators \
   缩写与`其中：`子集行；`current-last`缺测列允许`/`；行锚坏前缀改为同行为界（避免上一节
   “2025年目标”误杀）；清洁与可再生数值冲突放弃（000543）。新增22家+既有02688.HK共**23**家，
   薄样本**全部出清**（0项）。产物`full_auto_observations_v34_enriched.csv`与
-  `full_auto_v34_enriched/`（Demo/public-demo已同步；标题v34）。
+  `full_auto_v34_enriched/`（2026-08-06 13:01 已再同步 Demo/`public-demo`/`docs`；标题v34）。
   `minimum_population_gate_passed=true`，`formal_baseline_ready=false`（仍缺18主体+2港股年报）。
   YoY软对照v11 Top200重合**0.545**。港股缺口监控v2：00702/01101持续停牌、2026年内无年报/ESG。
   测试358项。禁止贴榜改分。
@@ -1315,24 +1315,35 @@ python3 -m aegis_esg.cli plan-indicators \
   仍无可用独立官网 **7家**（年报明示无/不适用，或旧链失效/集团站不匹配）：
   000554、001258、002128、600397、600617、600725、600758。
   当前队列约 **607** 家 verified；评分仍未授权。
-- **2026-08-06 10:00 转入集中下载/补数/排名完善**：
-  1. CI→研究索引合并：`scripts/merge_ci_into_research_index.py` 新增 **183** 行
-     （ESG100+年报83）；研究侧2025独立ESG约 **225**（原~179），文本已齐。
-  2. 官网战役：`scripts/run_verified_domain_download_campaign.py`（缺独立ESG优先，
-     郭海飞自动 accept 同域PDF后下载）；v2 日志
-     `output/audit/verified_domain_download_campaign_v2_run.log`。
-  3. 权威补数+宇宙基准重评分进行中：
-     `fill_missing_from_authoritative_sources.py` → `run_universe_baseline_ranking.py`
-     （`output/audit/universe_baseline_ranking_v35_run.log`）。
-  排名稀疏主因仍是披露口径（SO2/危废/能耗强度等），下载补ESG是主杠杆。
+- **2026-08-06 转入集中下载/补数/排名完善**（官网大部分已核验，主攻下载）：
+  1. CI→研究索引合并新增183行后，巨潮 A/B ESG缺口全量扫描完成：
+     `scripts/run_cninfo_esg_gap_download.py`（全年窗口+市场列），净增独立ESG PDF **12** 份
+     （`data/raw/cninfo_esg_gap_collection/`，已全部文本化）；研究侧2025独立ESG
+     **179→237**，覆盖表已同步；SH/BJ 复核扫描无额外命中（多数确无独立ESG）。
+  2. 官网同域战役产出近零（代理/反爬），法定披露通道更有效。
+  3. 权威补数 v11 + 宇宙基准重评（v36）：`filled_missing=60`（此前34），`replaced=1`，
+     `thin_indicators=0`，`formal_baseline_ready=false`；产物
+     `output/research/2025/full_auto_v34_enriched/`。
+  4. 缺口报告刷新：年报612/614，独立ESG237→238，内嵌约375；最稀缺仍是再生水/清洁能源强度/SO2强度等。
+  港股36家缺独立ESG经 HKEX 扫描仅新增 **00353.HK** 1份（多数无独立ESG文件）；
+  00702/01101年报真缺口未变。v37 补数重评分已完成：`filled_missing=61`，排名已刷新。
 - 早前 URL accept 已入 `data/raw/issuer_official_website_collection/`。
 - 测试已覆盖分批域名 apply。
 
+- **2026-08-06 13:15 转向排名企业缺数（数据优先）**：
+  主杠杆从“再下载”转为“已有文本规则召回”。修复环境强度抽取：
+  污染物万吨单位、绩效表`一级指标/二级指标/三年列`、标签括号单位、
+  `所属生产经营类企业`全口径放行、中石油百万元营收摘要、单位换行修复、
+  `碳排放强度（…/万元收入）`直接强度。神华可派生SO2/NOx/能耗/水等；中石油可派生GHG。
+  缺数队列：`scripts/build_ranked_company_data_gap_queue.py` →
+  `output/audit/ranked_company_key_data_gap_queue_v1_2025.csv`。
+  v38 权威补数+重评分+Demo同步进行中。
+
 下一优先级：
 
-1. 外部提供完整632主体名录（当前614，差18）；无签字证据不得编造纳入；
-2. 两家港股FY2025年报仍缺失且持续停牌（00702.HK、01101.HK）；文档门禁需签署真实缺失处置，不可跨年改标；
-3. 在本机终端跑协作签署程序处理`official_domain_review_batch01_2025.csv`，同时扩大研究扫描；
+1. 消费关键缺数队列：对`rule_recall_on_existing_text`公司继续扩规则/版式；
+2. 外部提供完整632主体名录（当前614，差18）；无签字证据不得编造纳入；
+3. 两家港股FY2025年报仍缺失（00702.HK、01101.HK）；文档门禁需签署真实缺失处置，不可跨年改标；
 4. 国资委原表核验后才可正式冻结DLT；正式发布仍须双签，系统不得代签。
 
 除非用户再次明确要求，否则不要自动提交或推送。

@@ -1,8 +1,8 @@
 {
   "policy_version": "official-website-source-validation-v1",
-  "row_count": 985,
+  "row_count": 998,
   "ready_for_download": 0,
-  "invalid_rows": 975,
+  "invalid_rows": 988,
   "invalid_examples": [
     {
       "company_code": "000009.SZ",

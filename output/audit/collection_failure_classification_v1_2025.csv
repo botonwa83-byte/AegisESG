@@ -1,2 +1,1 @@
 ﻿company_code,company_name,report_year,document_type,source_url,failure_class,retryable,next_action,error_excerpt
-002028.SZ,思源电气,2025,annual_report,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-18/3c22416d-40f1-4579-a548-54ec921787e2.PDF,timeout_empty,true,retry_later,<urlopen error _ssl.c:1112: The handshake operation timed out>
