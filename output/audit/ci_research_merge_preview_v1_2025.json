@@ -1,9 +1,9 @@
 {
   "policy_version": "ci-research-merge-preview-v1",
-  "preview_rows": 26,
+  "preview_rows": 22,
   "would_add": 0,
   "would_add_by_type": {},
-  "conflict_or_different_hash": 26,
+  "conflict_or_different_hash": 22,
   "research_index_mutated": false,
   "scoring_authorized": false,
   "formal_publishable": false,
