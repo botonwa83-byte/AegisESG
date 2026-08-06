@@ -1,6 +1,9 @@
 {
-  "status": "previous_indicator_extraction_still_running",
+  "status": "extracted",
+  "candidate_count": 17311,
   "text_count": 975,
+  "output": "output/audit/ci_incremental_candidates_v1_2025.csv",
+  "run_at_utc": "2026-08-06T15:51:01+00:00",
   "scoring_authorized": false,
-  "run_at_utc": "2026-08-06T15:11:29+00:00"
+  "notice": "可在文本抽取未全部完成时对已有 txt 跑增量候选；结果待审核。"
 }
