@@ -12,3 +12,4 @@ data/text/**/*.txt
 data/snapshots/raw/hkex_continuity_all_*.json
 2025中国能源上市公司可持续发展（ESG）评价报告.pdf
 .DS_Store
+*.log
