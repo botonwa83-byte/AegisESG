@@ -1,10 +1,14 @@
 {
   "policy_version": "scheduled-collection-retry-v2",
-  "retry_rows": 0,
-  "by_document_type": {},
-  "by_failure_class": {},
-  "previous_failure_rows": 0,
-  "skipped_redundant_url_gaps": 57,
+  "retry_rows": 1,
+  "by_document_type": {
+    "annual_report": 1
+  },
+  "by_failure_class": {
+    "other_download_error": 1
+  },
+  "previous_failure_rows": 1,
+  "skipped_redundant_url_gaps": 372,
   "skipped_invalid_year": 0,
   "timeout_partial_resume": 0,
   "download_authorized": true,

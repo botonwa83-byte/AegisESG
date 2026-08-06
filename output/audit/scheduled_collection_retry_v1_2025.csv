@@ -1,1 +1,2 @@
 ﻿company_code,company_name,report_year,document_type,source_url,retry_reason,failure_class,next_action
+920985.BJ,海泰新能,2025,annual_report,https://www.bse.cn/disclosure/2026/2026-04-28/03b5d97f82724fcababfdf745831515f.pdf,公开PDF下载失败；https://www.bse.cn/disclosure/2026/2026-04-28/03b5d97f82724fcababfdf745831515f.pdf: HTTP Error 403: Forbidden | https://www.bse.cn/disclosure/2026/202,other_download_error,retry_later

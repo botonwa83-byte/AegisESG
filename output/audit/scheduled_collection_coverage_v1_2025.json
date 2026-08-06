@@ -3,25 +3,28 @@
   "manifest_rows": 1033,
   "manifest_identities": 976,
   "manifest_valid_identities": 976,
-  "downloaded_rows": 976,
-  "downloaded_identities": 976,
-  "missing_rows": 57,
-  "missing_identities": 0,
-  "redundant_url_gaps": 57,
+  "downloaded_rows": 975,
+  "downloaded_identities": 975,
+  "missing_rows": 373,
+  "missing_identities": 1,
+  "redundant_url_gaps": 372,
   "invalid_year_identities": 0,
-  "identity_coverage_rate": 1.0,
-  "failure_rows": 0,
+  "identity_coverage_rate": 0.999,
+  "failure_rows": 1,
   "downloaded_by_host": {
-    "disc.static.szse.cn": 330,
+    "static.cninfo.com.cn": 315,
+    "disc.static.szse.cn": 15,
     "www1.hkexnews.hk": 285,
     "www.sse.com.cn": 335,
-    "www.bse.cn": 26
+    "www.bse.cn": 25
   },
   "missing_by_document_type": {
-    "esg_report": 35,
-    "annual_report": 22
+    "annual_report": 280,
+    "esg_report": 93
   },
-  "missing_identities_by_document_type": {},
+  "missing_identities_by_document_type": {
+    "annual_report": 1
+  },
   "retry_manifest": "output/audit/scheduled_collection_retry_v1_2025.csv",
   "scoring_authorized": false,
   "formal_publishable": false,

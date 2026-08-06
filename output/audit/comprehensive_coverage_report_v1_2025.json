@@ -1,0 +1,118 @@
+{
+  "policy_version": "comprehensive-coverage-v1",
+  "manifest_identities": 976,
+  "official_collection_identities": 975,
+  "cninfo_gap_identities": 12,
+  "cninfo_exclusive_identities": 12,
+  "total_collected_identities": 987,
+  "missing_identities": 1,
+  "identity_coverage_rate": 1.0113,
+  "data_sources": {
+    "official_exchanges": 975,
+    "cninfo_gap_supplement": 12
+  },
+  "cninfo_gap_files": [
+    {
+      "company_code": "920496.BJ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/920496.BJ/2025/esg_report.pdf",
+      "size_mb": 22.0
+    },
+    {
+      "company_code": "301150.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/301150.SZ/2025/esg_report.pdf",
+      "size_mb": 37.2
+    },
+    {
+      "company_code": "002125.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/002125.SZ/2025/esg_report.pdf",
+      "size_mb": 53.8
+    },
+    {
+      "company_code": "301266.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/301266.SZ/2025/esg_report.pdf",
+      "size_mb": 11.1
+    },
+    {
+      "company_code": "301291.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/301291.SZ/2025/esg_report.pdf",
+      "size_mb": 71.1
+    },
+    {
+      "company_code": "920185.BJ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/920185.BJ/2025/esg_report.pdf",
+      "size_mb": 9.1
+    },
+    {
+      "company_code": "000407.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/000407.SZ/2025/esg_report.pdf",
+      "size_mb": 6.7
+    },
+    {
+      "company_code": "000993.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/000993.SZ/2025/esg_report.pdf",
+      "size_mb": 1.7
+    },
+    {
+      "company_code": "920985.BJ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/920985.BJ/2025/esg_report.pdf",
+      "size_mb": 46.4
+    },
+    {
+      "company_code": "001896.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/001896.SZ/2025/esg_report.pdf",
+      "size_mb": 6.7
+    },
+    {
+      "company_code": "001289.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/001289.SZ/2025/esg_report.pdf",
+      "size_mb": 3.5
+    },
+    {
+      "company_code": "300118.SZ",
+      "report_year": "2025",
+      "document_type": "esg_report",
+      "path": "data/raw/cninfo_esg_gap_collection/300118.SZ/2025/esg_report.pdf",
+      "size_mb": 13.3
+    }
+  ],
+  "missing_by_document_type": {
+    "annual_report": 1
+  },
+  "missing_companies": [
+    {
+      "company_code": "920985.BJ",
+      "report_year": "2025",
+      "document_type": "annual_report"
+    }
+  ],
+  "coverage_improvement": {
+    "before_cninfo": 0.999,
+    "after_cninfo": 1.0113,
+    "improvement": 0.0123
+  },
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "整合了官方交易所和cninfo补充数据源的完整覆盖率"
+}

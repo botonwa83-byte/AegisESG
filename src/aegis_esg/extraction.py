@@ -72,15 +72,61 @@ def _rule(code: str, label: str, units: str, factors: dict[str, float], confiden
 
 
 RULES = (
-    _rule("Q_E_GHG_INTENSITY", r"(?:温室气体|碳)排放强度", r"千克(?:二氧化碳当量|CO2e)?/万元|吨(?:二氧化碳当量|CO2e)?/万元", {"千克/万元": 1, "吨/万元": 1000}),
-    _rule("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度", r"千克标准煤\s*/\s*万元(?:营收|营业收入)?|吨标准煤\s*/\s*万元(?:营收|营业收入)?", {"千克标准煤/万元": 1, "千克标准煤/万元营收": 1, "千克标准煤/万元营业收入": 1, "吨标准煤/万元": 1000, "吨标准煤/万元营收": 1000, "吨标准煤/万元营业收入": 1000}),
-    _rule("Q_E_NOX_INTENSITY", r"(?:氮氧化物|NOx)排放强度", r"克/万元|千克/万元", {"克/万元": 1, "千克/万元": 1000}),
-    _rule("Q_E_SO2_INTENSITY", r"(?:二氧化硫|SO2)排放强度", r"克/万元|千克/万元", {"克/万元": 1, "千克/万元": 1000}),
-    _rule("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度", r"千克/万元|吨/万元|立方米/万元", {"千克/万元": 1, "吨/万元": 1000, "立方米/万元": 1000}),
-    _rule("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物排放强度", r"千克/万元|吨/万元", {"千克/万元": 1, "吨/万元": 1000}),
-    _rule("Q_S_SAFETY_INVEST_RATE", r"安全生产投入占营业收入(?:的)?比例|安全生产投入(?:占比|比例)", r"%|％", {"%": 1, "％": 1}),
-    _rule("Q_S_RD_RATE", r"(?:研发(?:费用|投入)(?:占比|比例)|研发投入强度)", r"%|％", {"%": 1, "％": 1}),
-    _rule("Q_G_DEBT_ASSET_RATE", r"资产负债率", r"%|％", {"%": 1, "％": 1}, .9),
+    # Day 2 优化: 放宽环境指标规则，支持更多变体
+    _rule("Q_E_GHG_INTENSITY", r"(?:温室气体|GHG|碳|CO2)(?:排放)?强度",
+          r"(?:千克|kg|吨|t|公斤)(?:二氧化碳当量|CO2e?|CO₂)?[/／](?:万|百万)?元(?:营收|营业收入|收入|产值)?",
+          {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000, "公斤/万元": 1,
+           "千克/百万元": 0.01, "吨/百万元": 10, "千克CO2e/万元": 1, "kg CO2/万元": 1}, .83),
+    _rule("Q_E_ENERGY_INTENSITY", r"(?:综合|总)?能源(?:消耗|消费|使用)强度",
+          r"(?:千克|kg|吨|t|公斤)(?:标准煤|标煤|tce)?[/／](?:万|百万)?元(?:营收|营业收入|收入|产值)?",
+          {"千克标准煤/万元": 1, "kg标煤/万元": 1, "吨标准煤/万元": 1000, "t标煤/万元": 1000,
+           "千克/万元": 1, "吨/万元": 1000, "千克tce/万元": 1, "吨标煤/百万元": 10}, .83),
+    _rule("Q_E_NOX_INTENSITY", r"(?:氮氧化物|NOx|NO[xₓ])(?:排放)?强度",
+          r"(?:克|g|千克|kg|吨|t)[/／](?:万|百万)?元(?:营收|营业收入|收入)?",
+          {"克/万元": 1, "g/万元": 1, "千克/万元": 1000, "kg/万元": 1000, "吨/万元": 1000000, "克/百万元": 0.01}, .83),
+    _rule("Q_E_SO2_INTENSITY", r"(?:二氧化硫|SO2|SO₂)(?:排放)?强度",
+          r"(?:克|g|千克|kg|吨|t)[/／](?:万|百万)?元(?:营收|营业收入|收入)?",
+          {"克/万元": 1, "g/万元": 1, "千克/万元": 1000, "kg/万元": 1000, "吨/万元": 1000000, "克/百万元": 0.01}, .83),
+    _rule("Q_E_WATER_INTENSITY", r"水资源?(?:使用|消耗|消费)强度",
+          r"(?:千克|kg|吨|t|立方米|m³|升|L)[/／](?:万|百万)?元(?:营收|营业收入|收入|产值)?",
+          {"千克/万元": 1, "吨/万元": 1000, "立方米/万元": 1000, "m³/万元": 1000, "升/万元": 0.001, "吨/百万元": 10}, .83),
+    _rule("Q_E_SOLID_WASTE_INTENSITY", r"(?:一般)?固体废物(?:排放)?强度",
+          r"(?:千克|kg|吨|t)[/／](?:万|百万)?元(?:营收|营业收入|收入)?",
+          {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000, "吨/百万元": 10}, .83),
+    # Day 2 优化: 放宽社会和治理指标规则
+    _rule("Q_S_SAFETY_INVEST_RATE", r"(?:安全生产|生产安全)(?:投入|费用|支出)(?:占比|比例|占营业收入)",
+          r"[%％]", {"%": 1, "％": 1}, .85),
+    _rule("Q_S_RD_RATE", r"(?:研发|R&D)(?:费用|投入|支出)(?:占比|比例|强度|占营业收入)",
+          r"[%％]", {"%": 1, "％": 1}, .85),
+    _rule("Q_G_DEBT_ASSET_RATE", r"资产负债率|负债资产比率",
+          r"[%％]", {"%": 1, "％": 1}, .90),
+    # Day 1 新增规则: 高频指标
+    _rule("Q_S_PAY_PER_EMPLOYEE", r"(?:员工|职工)(?:平均)?(?:薪酬|工资|报酬|年薪)", r"(?:万|千)?元(?:/人|人均)?", {"元": 1, "千元": 1000, "万元": 10000, "元/人": 1, "千元/人": 1000, "万元/人": 10000}, .88),
+    _rule("Q_S_ENV_INVEST_RATE", r"环(?:境)?(?:保护|保)(?:投入|支出|投资|费用)(?:占比|比例|占营业收入)", r"%|％", {"%": 1, "％": 1}, .90),
+    _rule("Q_E_PM_INTENSITY", r"(?:颗粒物|PM|粉尘)(?:排放)?强度", r"(?:千克|kg|吨|t)/万元", {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000}, .85),
+    _rule("Q_E_HAZ_WASTE_INTENSITY", r"危险(?:固体)?废物(?:排放)?强度", r"(?:千克|kg|吨|t)/万元", {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000}, .85),
+    _rule("Q_E_WASTEWATER_INTENSITY", r"(?:废|污)水(?:排放)?强度", r"(?:千克|kg|吨|t|立方米|m³)/万元", {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000, "立方米/万元": 1000, "m³/万元": 1000}, .85),
+    _rule("Q_S_FEMALE_EMPLOYEE_RATE", r"女性员工(?:占比|比例)", r"%|％", {"%": 1, "％": 1}, .88),
+    _rule("Q_S_BENEFIT_PER_EMPLOYEE", r"(?:员工|职工)(?:福利|社保|公积金)(?:费用|支出)", r"(?:万|千)?元(?:/人)?", {"元": 1, "千元": 1000, "万元": 10000, "元/人": 1, "千元/人": 1000, "万元/人": 10000}, .86),
+    _rule("Q_S_EDU_PER_EMPLOYEE", r"(?:工会|职工教育)(?:经费|费用|支出)", r"(?:万|千)?元(?:/人)?", {"元": 1, "千元": 1000, "万元": 10000, "元/人": 1, "千元/人": 1000, "万元/人": 10000}, .86),
+    _rule("Q_E_GHG_REDUCTION_RATE", r"(?:温室气体|碳|GHG)(?:减排|减少)(?:率|比例)", r"%|％", {"%": 1, "％": 1}, .87),
+    _rule("Q_E_CLEAN_ENERGY_INTENSITY", r"(?:清洁|可再生|绿色)能源(?:使用|消费|消耗)?(?:占比|比例|强度)", r"%|％", {"%": 1, "％": 1}, .86),
+    # Day 1 晚上：补充剩余7个规则
+    _rule("Q_G_OPERATING_PROFIT_GROWTH", r"营业利润(?:增长|增幅)(?:率)?", r"[+-]?\d+(?:\.\d+)?%", {"%": 1.0}, .88),
+    _rule("Q_S_FEMALE_MANAGER_RATE", r"女性(?:管理|高管|领导)(?:人员|者)?(?:占比|比例)", r"\d+(?:\.\d+)?%", {"%": 1.0}, .87),
+    _rule("Q_S_EMPLOYEE_TRAINING_HOUR", r"(?:员工|职工)(?:人均)?培训(?:时长|时间|学时)", r"(?:小时|课时|学时)", {"小时": 1.0, "课时": 1.0, "学时": 1.0}, .86),
+    _rule("Q_S_SOCIAL_INSURANCE_RATE", r"社会?保险(?:缴纳|覆盖)?(?:率|比例)", r"%|％", {"%": 1, "％": 1}, .87),
+    _rule("Q_S_ACCIDENT_RATE", r"(?:安全)?事故(?:发生)?(?:率|次数)", r"(?:次|起)/", {"次": 1.0, "起": 1.0}, .85),
+    _rule("Q_E_WATER_CONSUMPTION", r"水资源?(?:消耗|用水)(?:总)?量", r"(?:万|千)?(?:吨|立方米|m³)", {"吨": 1.0, "万吨": 10000, "千吨": 1000, "立方米": 1.0, "万立方米": 10000, "m³": 1.0}, .86),
+    # 最后冲刺：补充财务指标
+    _rule("Q_G_CASH_CURRENT_LIABILITY", r"(?:经营活动)?现金流量?(?:净额)?[^\d]{0,30}流动负债", r"[\d,]+(?:\.\d+)?", {"": 1.0}, .88),
+    # 最后补充：剩余高价值指标
+    _rule("Q_E_ALTERNATIVE_WATER_RATE", r"(?:再生|循环|中水|替代)水(?:源)?(?:使用|利用)?(?:占比|比例|率)", r"%|％", {"%": 1, "％": 1}, .85),
+    _rule("Q_E_ENERGY_CONSUMPTION", r"(?:综合)?能源消耗(?:总)?量", r"(?:万|千)?(?:吨|千克)标准煤", {"吨标准煤": 1.0, "万吨标准煤": 10000, "千吨标准煤": 1000, "千克标准煤": 0.001}, .86),
+    _rule("Q_S_DONATION_RATE", r"(?:公益)?捐赠(?:支出)?(?:占比|比例|占营业收入)", r"%|％", {"%": 1, "％": 1}, .87),
+    _rule("Q_G_INDEPENDENT_DIRECTOR_RATE", r"独立董事(?:占比|比例|人数)", r"%|％|人", {"%": 1, "％": 1, "人": 1}, .88),
+    _rule("Q_G_BOARD_MEETING_FREQ", r"董事会(?:会议)?(?:召开)?次数", r"次", {"次": 1.0}, .89),
+    _rule("Q_G_AUDIT_FEE", r"审计费用", r"(?:万|千)?元", {"元": 1.0, "千元": 1000, "万元": 10000}, .87),
 )
 
 
@@ -585,6 +631,128 @@ def summarize_review_candidates(candidates: list[Observation]) -> list[ReviewSum
     return result
 
 
+def detect_simple_table_rows(text: str) -> list[tuple[str, list[str]]]:
+    """检测简单的多列对齐表格并提取行 - 增强版"""
+    lines = text.split('\n')
+    table_rows = []
+
+    # 检测包含3个以上连续空格的行（可能是表格）
+    for line in lines:
+        # 跳过空行和过短的行
+        if len(line.strip()) < 10:
+            continue
+        # 检测多列对齐（3+空格分隔）或Tab分隔
+        if re.search(r'\s{3,}.*\s{3,}', line) or '\t' in line:
+            # 分割列（支持空格或Tab）
+            if '\t' in line:
+                columns = line.split('\t')
+            else:
+                columns = re.split(r'\s{3,}', line.strip())
+
+            if len(columns) >= 2:
+                label = columns[0].strip()
+                values = [col.strip() for col in columns[1:]]
+                table_rows.append((label, values))
+
+    return table_rows
+
+
+def extract_unit_from_text(text: str) -> str:
+    """从文本中提取单位信息"""
+    # 检测常见单位模式
+    unit_patterns = [
+        r"单位[：:]\s*([^\s\n]+)",
+        r"\(([^)]+)\)$",
+        r"Unit:\s*([^\s\n]+)",
+    ]
+    for pattern in unit_patterns:
+        match = re.search(pattern, text)
+        if match:
+            return match.group(1)
+    return ""
+
+
+def extract_from_simple_tables(pages: list[PageText], company_code: str, company_name: str,
+                                report_year: int, source_url: str, local_path: str) -> list[Observation]:
+    """从简单表格中提取指标数据 - 增强版"""
+    observations = []
+
+    # 扩充指标标签映射（支持更多变体和新增指标）
+    indicator_keywords = {
+        "Q_E_GHG_INTENSITY": ["温室气体", "碳排放", "GHG", "CO2排放", "CO₂排放"],
+        "Q_E_ENERGY_INTENSITY": ["能源消耗", "能源强度", "综合能耗", "单位能耗"],
+        "Q_E_WATER_INTENSITY": ["水资源", "用水强度", "耗水强度", "单位水耗"],
+        "Q_E_NOX_INTENSITY": ["氮氧化物", "NOx", "NOₓ"],
+        "Q_E_SO2_INTENSITY": ["二氧化硫", "SO2", "SO₂"],
+        "Q_E_PM_INTENSITY": ["颗粒物", "PM", "粉尘", "烟尘"],
+        "Q_E_SOLID_WASTE_INTENSITY": ["固体废物", "固废", "一般固废"],
+        "Q_E_WASTEWATER_INTENSITY": ["废水", "污水"],
+        "Q_E_HAZ_WASTE_INTENSITY": ["危险废物", "危废"],
+        "Q_E_GHG_REDUCTION_RATE": ["温室气体减排", "碳减排", "减排率"],
+        "Q_E_CLEAN_ENERGY_INTENSITY": ["清洁能源", "可再生能源", "绿色能源"],
+        "Q_E_WATER_CONSUMPTION": ["水资源消耗", "用水量", "总用水"],
+        "Q_S_PAY_PER_EMPLOYEE": ["员工薪酬", "职工薪酬", "人均薪酬", "平均工资"],
+        "Q_S_BENEFIT_PER_EMPLOYEE": ["员工福利", "职工福利", "社保公积金"],
+        "Q_S_EDU_PER_EMPLOYEE": ["职工教育", "培训费用", "教育经费"],
+        "Q_S_SAFETY_INVEST_RATE": ["安全投入", "安全生产", "安全费用"],
+        "Q_S_RD_RATE": ["研发投入", "研发费用", "R&D", "研发支出"],
+        "Q_S_ENV_INVEST_RATE": ["环保投入", "环境投入", "环保费用"],
+        "Q_S_FEMALE_EMPLOYEE_RATE": ["女性员工", "女职工"],
+        "Q_S_FEMALE_MANAGER_RATE": ["女性管理", "女性高管", "女性领导"],
+        "Q_S_EMPLOYEE_TRAINING_HOUR": ["培训时长", "培训时间", "人均培训"],
+        "Q_S_SOCIAL_INSURANCE_RATE": ["社保", "社会保险"],
+        "Q_S_ACCIDENT_RATE": ["安全事故", "事故率"],
+        "Q_G_DEBT_ASSET_RATE": ["资产负债率", "负债率"],
+        "Q_G_OPERATING_PROFIT_GROWTH": ["营业利润增长", "利润增长"],
+    }
+
+    for page in pages:
+        rows = detect_simple_table_rows(page.text)
+
+        # 尝试从页面文本中提取单位信息
+        page_unit = extract_unit_from_text(page.text[:500])  # 检查页面前500字符
+
+        for label, values in rows:
+            # 尝试匹配指标
+            matched_indicator = None
+            for indicator_code, keywords in indicator_keywords.items():
+                if any(keyword in label for keyword in keywords):
+                    matched_indicator = indicator_code
+                    break
+
+            if not matched_indicator:
+                continue
+
+            # 提取数值（优先从当前年份列，否则取第一个数值）
+            for val in values:
+                # 匹配数字（支持百分比、小数、千分位）
+                number_match = re.search(r'([+-]?[\d,]+(?:\.\d+)?)\s*[%％]?', val)
+                if number_match:
+                    try:
+                        value = float(number_match.group(1).replace(',', ''))
+
+                        # 简单的合理性检查（扩大范围）
+                        if 0 <= value < 10_000_000:
+                            observations.append(Observation(
+                                company_code=company_code,
+                                company_name=company_name,
+                                report_year=report_year,
+                                indicator_code=matched_indicator,
+                                value=value,
+                                page_number=page.page,
+                                evidence=f"{label}: {val}",
+                                source_url=source_url,
+                                local_path=local_path,
+                                confidence=0.80,  # 提高表格置信度
+                                value_status=ValueStatus.CANDIDATE,
+                            ))
+                            break  # 找到一个有效值就停止
+                    except ValueError:
+                        continue
+
+    return observations
+
+
 def extract_indicator_candidates(
     pages: list[PageText],
     company_code: str,
@@ -923,6 +1091,15 @@ def extract_indicator_candidates(
                 item for item in candidates
                 if item.indicator_code != code or not item.evidence_text.startswith(_FALLBACK_PREFIX)
             ]
+    # Day 3: 添加简易表格数据提取
+    table_candidates = extract_from_simple_tables(pages, company_code, company_name,
+                                                   report_year, source_url, source_file)
+    for obs in table_candidates:
+        identity = (obs.indicator_code, obs.source_page, obs.value)
+        if identity not in seen:
+            seen.add(identity)
+            candidates.append(obs)
+
     return candidates
 
 

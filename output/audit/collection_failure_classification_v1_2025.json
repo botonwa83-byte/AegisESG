@@ -1,8 +1,10 @@
 {
   "policy_version": "collection-failure-classification-v1",
-  "failure_rows": 0,
-  "retryable_rows": 0,
-  "by_class": {},
+  "failure_rows": 1,
+  "retryable_rows": 1,
+  "by_class": {
+    "other_download_error": 1
+  },
   "timeout_partial_resume": 0,
   "scoring_authorized": false,
   "formal_publishable": false,

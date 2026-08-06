@@ -1,0 +1,2081 @@
+{
+  "total_pdfs": 1645,
+  "total_size_bytes": 16662176180,
+  "by_source": {
+    "00002.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 23951688,
+      "size_mb": 22.8,
+      "size_gb": 0.02
+    },
+    "00003.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 95239168,
+      "size_mb": 90.8,
+      "size_gb": 0.09
+    },
+    "00006.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 64761111,
+      "size_mb": 61.8,
+      "size_gb": 0.06
+    },
+    "00042.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 14233661,
+      "size_mb": 13.6,
+      "size_gb": 0.01
+    },
+    "00061.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 5604920,
+      "size_mb": 5.3,
+      "size_gb": 0.01
+    },
+    "00065.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 1988455,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "00135.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 37133224,
+      "size_mb": 35.4,
+      "size_gb": 0.03
+    },
+    "00182.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 20380185,
+      "size_mb": 19.4,
+      "size_gb": 0.02
+    },
+    "00196.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 25334408,
+      "size_mb": 24.2,
+      "size_gb": 0.02
+    },
+    "00206.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 10098060,
+      "size_mb": 9.6,
+      "size_gb": 0.01
+    },
+    "00276.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 35128908,
+      "size_mb": 33.5,
+      "size_gb": 0.03
+    },
+    "00332.HK": {
+      "pdf_count": 4,
+      "total_size_bytes": 38022401,
+      "size_mb": 36.3,
+      "size_gb": 0.04
+    },
+    "00346.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 34237505,
+      "size_mb": 32.7,
+      "size_gb": 0.03
+    },
+    "00353.HK": {
+      "pdf_count": 4,
+      "total_size_bytes": 15645988,
+      "size_mb": 14.9,
+      "size_gb": 0.01
+    },
+    "00384.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 32672784,
+      "size_mb": 31.2,
+      "size_gb": 0.03
+    },
+    "00451.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 20241551,
+      "size_mb": 19.3,
+      "size_gb": 0.02
+    },
+    "00467.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 45639872,
+      "size_mb": 43.5,
+      "size_gb": 0.04
+    },
+    "00554.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 5646086,
+      "size_mb": 5.4,
+      "size_gb": 0.01
+    },
+    "00579.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 30305544,
+      "size_mb": 28.9,
+      "size_gb": 0.03
+    },
+    "00600.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 10368421,
+      "size_mb": 9.9,
+      "size_gb": 0.01
+    },
+    "00607.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 17387561,
+      "size_mb": 16.6,
+      "size_gb": 0.02
+    },
+    "00639.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 9407291,
+      "size_mb": 9.0,
+      "size_gb": 0.01
+    },
+    "00645.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 10846957,
+      "size_mb": 10.3,
+      "size_gb": 0.01
+    },
+    "00650.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 14361829,
+      "size_mb": 13.7,
+      "size_gb": 0.01
+    },
+    "00666.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 21089309,
+      "size_mb": 20.1,
+      "size_gb": 0.02
+    },
+    "00686.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 109255499,
+      "size_mb": 104.2,
+      "size_gb": 0.1
+    },
+    "00689.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 2206003,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "00702.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 5879443,
+      "size_mb": 5.6,
+      "size_gb": 0.01
+    },
+    "00704.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 4734172,
+      "size_mb": 4.5,
+      "size_gb": 0.0
+    },
+    "00819.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 24779345,
+      "size_mb": 23.6,
+      "size_gb": 0.02
+    },
+    "00836.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 25536829,
+      "size_mb": 24.4,
+      "size_gb": 0.02
+    },
+    "00866.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 6863775,
+      "size_mb": 6.5,
+      "size_gb": 0.01
+    },
+    "00931.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 2331085,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "00951.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 26261484,
+      "size_mb": 25.0,
+      "size_gb": 0.02
+    },
+    "00968.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 15193248,
+      "size_mb": 14.5,
+      "size_gb": 0.01
+    },
+    "01080.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 4753043,
+      "size_mb": 4.5,
+      "size_gb": 0.0
+    },
+    "01083.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 46525712,
+      "size_mb": 44.4,
+      "size_gb": 0.04
+    },
+    "01101.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 5012718,
+      "size_mb": 4.8,
+      "size_gb": 0.0
+    },
+    "01193.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 24635165,
+      "size_mb": 23.5,
+      "size_gb": 0.02
+    },
+    "01205.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 27196955,
+      "size_mb": 25.9,
+      "size_gb": 0.03
+    },
+    "01229.HK": {
+      "pdf_count": 4,
+      "total_size_bytes": 12953080,
+      "size_mb": 12.4,
+      "size_gb": 0.01
+    },
+    "01251.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 5372615,
+      "size_mb": 5.1,
+      "size_gb": 0.01
+    },
+    "01277.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 8497119,
+      "size_mb": 8.1,
+      "size_gb": 0.01
+    },
+    "01303.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 7009332,
+      "size_mb": 6.7,
+      "size_gb": 0.01
+    },
+    "01393.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 2927510,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "01407.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 3445535,
+      "size_mb": 3.3,
+      "size_gb": 0.0
+    },
+    "01555.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 6652828,
+      "size_mb": 6.3,
+      "size_gb": 0.01
+    },
+    "01600.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 52753373,
+      "size_mb": 50.3,
+      "size_gb": 0.05
+    },
+    "01608.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 18281667,
+      "size_mb": 17.4,
+      "size_gb": 0.02
+    },
+    "01621.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 3381477,
+      "size_mb": 3.2,
+      "size_gb": 0.0
+    },
+    "01713.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 14607564,
+      "size_mb": 13.9,
+      "size_gb": 0.01
+    },
+    "01738.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 8525920,
+      "size_mb": 8.1,
+      "size_gb": 0.01
+    },
+    "01798.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 6385221,
+      "size_mb": 6.1,
+      "size_gb": 0.01
+    },
+    "01799.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 11685095,
+      "size_mb": 11.1,
+      "size_gb": 0.01
+    },
+    "01811.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 43646914,
+      "size_mb": 41.6,
+      "size_gb": 0.04
+    },
+    "01921.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 10722697,
+      "size_mb": 10.2,
+      "size_gb": 0.01
+    },
+    "01938.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 13928238,
+      "size_mb": 13.3,
+      "size_gb": 0.01
+    },
+    "02012.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 14661214,
+      "size_mb": 14.0,
+      "size_gb": 0.01
+    },
+    "02380.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 24900847,
+      "size_mb": 23.7,
+      "size_gb": 0.02
+    },
+    "02386.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 42317319,
+      "size_mb": 40.4,
+      "size_gb": 0.04
+    },
+    "02688.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 34878264,
+      "size_mb": 33.3,
+      "size_gb": 0.03
+    },
+    "02798.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 2424198,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "03303.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 17547904,
+      "size_mb": 16.7,
+      "size_gb": 0.02
+    },
+    "03337.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 23059253,
+      "size_mb": 22.0,
+      "size_gb": 0.02
+    },
+    "03668.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 9868781,
+      "size_mb": 9.4,
+      "size_gb": 0.01
+    },
+    "03800.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 33418325,
+      "size_mb": 31.9,
+      "size_gb": 0.03
+    },
+    "03868.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 21468209,
+      "size_mb": 20.5,
+      "size_gb": 0.02
+    },
+    "06828.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 14681557,
+      "size_mb": 14.0,
+      "size_gb": 0.01
+    },
+    "06885.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 15981903,
+      "size_mb": 15.2,
+      "size_gb": 0.01
+    },
+    "08132.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 2903434,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "08270.HK": {
+      "pdf_count": 2,
+      "total_size_bytes": 8191086,
+      "size_mb": 7.8,
+      "size_gb": 0.01
+    },
+    "08347.HK": {
+      "pdf_count": 4,
+      "total_size_bytes": 16757513,
+      "size_mb": 16.0,
+      "size_gb": 0.02
+    },
+    "08631.HK": {
+      "pdf_count": 3,
+      "total_size_bytes": 4630303,
+      "size_mb": 4.4,
+      "size_gb": 0.0
+    },
+    "09689.HK": {
+      "pdf_count": 1,
+      "total_size_bytes": 4544194,
+      "size_mb": 4.3,
+      "size_gb": 0.0
+    },
+    "600011.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2146617,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "600021.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2630554,
+      "size_mb": 2.5,
+      "size_gb": 0.0
+    },
+    "600023.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 95629398,
+      "size_mb": 91.2,
+      "size_gb": 0.09
+    },
+    "600025.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1580993,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600027.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 5120159,
+      "size_mb": 4.9,
+      "size_gb": 0.0
+    },
+    "600028.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 31070732,
+      "size_mb": 29.6,
+      "size_gb": 0.03
+    },
+    "600032.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 20607768,
+      "size_mb": 19.7,
+      "size_gb": 0.02
+    },
+    "600089.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 73166960,
+      "size_mb": 69.8,
+      "size_gb": 0.07
+    },
+    "600098.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 27326375,
+      "size_mb": 26.1,
+      "size_gb": 0.03
+    },
+    "600101.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 28576850,
+      "size_mb": 27.3,
+      "size_gb": 0.03
+    },
+    "600110.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2462807,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "600116.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2348410,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "600149.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1214621,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600151.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1686039,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "600152.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1417286,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600157.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1579935,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600163.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 12735797,
+      "size_mb": 12.1,
+      "size_gb": 0.01
+    },
+    "600167.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 11005724,
+      "size_mb": 10.5,
+      "size_gb": 0.01
+    },
+    "600188.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2096383,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "600192.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1263665,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600207.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 26631811,
+      "size_mb": 25.4,
+      "size_gb": 0.02
+    },
+    "600212.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2931305,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "600236.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 14271405,
+      "size_mb": 13.6,
+      "size_gb": 0.01
+    },
+    "600241.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1089958,
+      "size_mb": 1.0,
+      "size_gb": 0.0
+    },
+    "600256.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 27946921,
+      "size_mb": 26.7,
+      "size_gb": 0.03
+    },
+    "600268.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2412945,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "600310.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1487970,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600312.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 3195932,
+      "size_mb": 3.0,
+      "size_gb": 0.0
+    },
+    "600333.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1089382,
+      "size_mb": 1.0,
+      "size_gb": 0.0
+    },
+    "600339.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1719196,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "600346.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 35381028,
+      "size_mb": 33.7,
+      "size_gb": 0.03
+    },
+    "600379.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1446809,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600395.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 29353942,
+      "size_mb": 28.0,
+      "size_gb": 0.03
+    },
+    "600396.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1325290,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "600397.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1331550,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "600405.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1538832,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600406.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2945464,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "600416.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1508038,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600438.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 36928776,
+      "size_mb": 35.2,
+      "size_gb": 0.03
+    },
+    "600452.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1108786,
+      "size_mb": 1.1,
+      "size_gb": 0.0
+    },
+    "600458.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1945644,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "600468.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1370375,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "600475.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2457341,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "600478.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1590370,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600481.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 22707462,
+      "size_mb": 21.7,
+      "size_gb": 0.02
+    },
+    "600482.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 12999036,
+      "size_mb": 12.4,
+      "size_gb": 0.01
+    },
+    "600483.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 36905107,
+      "size_mb": 35.2,
+      "size_gb": 0.03
+    },
+    "600505.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1294972,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600508.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 101707018,
+      "size_mb": 97.0,
+      "size_gb": 0.09
+    },
+    "600509.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1801364,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "600550.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1278900,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600577.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1452982,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600578.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 30327104,
+      "size_mb": 28.9,
+      "size_gb": 0.03
+    },
+    "600580.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1714342,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "600617.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1517190,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600635.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 20779298,
+      "size_mb": 19.8,
+      "size_gb": 0.02
+    },
+    "600642.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1540840,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600644.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1603788,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600674.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 56570088,
+      "size_mb": 53.9,
+      "size_gb": 0.05
+    },
+    "600681.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1355046,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "600688.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 6350448,
+      "size_mb": 6.1,
+      "size_gb": 0.01
+    },
+    "600719.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1160340,
+      "size_mb": 1.1,
+      "size_gb": 0.0
+    },
+    "600725.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 2916687,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "600726.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1914941,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "600732.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 29467400,
+      "size_mb": 28.1,
+      "size_gb": 0.03
+    },
+    "600744.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 49023754,
+      "size_mb": 46.8,
+      "size_gb": 0.05
+    },
+    "600758.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1215740,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600777.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 1995093,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "600780.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 29327735,
+      "size_mb": 28.0,
+      "size_gb": 0.03
+    },
+    "600795.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 19249198,
+      "size_mb": 18.4,
+      "size_gb": 0.02
+    },
+    "600803.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 41549153,
+      "size_mb": 39.6,
+      "size_gb": 0.04
+    },
+    "600821.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 100490199,
+      "size_mb": 95.8,
+      "size_gb": 0.09
+    },
+    "600847.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 1207444,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "600863.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1670208,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "600868.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1316380,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "600869.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1468020,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600871.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 4263489,
+      "size_mb": 4.1,
+      "size_gb": 0.0
+    },
+    "600875.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 18275528,
+      "size_mb": 17.4,
+      "size_gb": 0.02
+    },
+    "600884.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 3254108,
+      "size_mb": 3.1,
+      "size_gb": 0.0
+    },
+    "600885.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 20143796,
+      "size_mb": 19.2,
+      "size_gb": 0.02
+    },
+    "600886.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 77748102,
+      "size_mb": 74.1,
+      "size_gb": 0.07
+    },
+    "600900.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 4219521,
+      "size_mb": 4.0,
+      "size_gb": 0.0
+    },
+    "600903.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 37309606,
+      "size_mb": 35.6,
+      "size_gb": 0.03
+    },
+    "600905.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 43691360,
+      "size_mb": 41.7,
+      "size_gb": 0.04
+    },
+    "600917.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 31321845,
+      "size_mb": 29.9,
+      "size_gb": 0.03
+    },
+    "600925.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1597728,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600938.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1511001,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600956.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 16882347,
+      "size_mb": 16.1,
+      "size_gb": 0.02
+    },
+    "600968.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 29107267,
+      "size_mb": 27.8,
+      "size_gb": 0.03
+    },
+    "600969.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 40112823,
+      "size_mb": 38.3,
+      "size_gb": 0.04
+    },
+    "600973.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1504360,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "600979.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1584800,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "600982.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1760889,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "600995.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 40363028,
+      "size_mb": 38.5,
+      "size_gb": 0.04
+    },
+    "601001.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 78361412,
+      "size_mb": 74.7,
+      "size_gb": 0.07
+    },
+    "601012.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 53504354,
+      "size_mb": 51.0,
+      "size_gb": 0.05
+    },
+    "601016.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1950349,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "601088.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 28604655,
+      "size_mb": 27.3,
+      "size_gb": 0.03
+    },
+    "601126.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 7492046,
+      "size_mb": 7.1,
+      "size_gb": 0.01
+    },
+    "601139.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 11194853,
+      "size_mb": 10.7,
+      "size_gb": 0.01
+    },
+    "601179.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1573121,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "601218.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1210822,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "601222.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1703565,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "601225.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 19059656,
+      "size_mb": 18.2,
+      "size_gb": 0.02
+    },
+    "601233.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 14970243,
+      "size_mb": 14.3,
+      "size_gb": 0.01
+    },
+    "601311.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1785080,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "601567.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 32760239,
+      "size_mb": 31.2,
+      "size_gb": 0.03
+    },
+    "601611.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1730668,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "601615.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 78442152,
+      "size_mb": 74.8,
+      "size_gb": 0.07
+    },
+    "601616.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1129481,
+      "size_mb": 1.1,
+      "size_gb": 0.0
+    },
+    "601619.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 20753040,
+      "size_mb": 19.8,
+      "size_gb": 0.02
+    },
+    "601666.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 18347826,
+      "size_mb": 17.5,
+      "size_gb": 0.02
+    },
+    "601669.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1957556,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "601700.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1695125,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "601727.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 13529995,
+      "size_mb": 12.9,
+      "size_gb": 0.01
+    },
+    "601778.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 49101782,
+      "size_mb": 46.8,
+      "size_gb": 0.05
+    },
+    "601808.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1577492,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "601857.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 27018476,
+      "size_mb": 25.8,
+      "size_gb": 0.03
+    },
+    "601865.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1468436,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "601868.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1930524,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "601877.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 41650304,
+      "size_mb": 39.7,
+      "size_gb": 0.04
+    },
+    "601898.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1660262,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "601908.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1395779,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "601918.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 28377461,
+      "size_mb": 27.1,
+      "size_gb": 0.03
+    },
+    "601985.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 43708724,
+      "size_mb": 41.7,
+      "size_gb": 0.04
+    },
+    "601991.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 53242631,
+      "size_mb": 50.8,
+      "size_gb": 0.05
+    },
+    "603016.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1316610,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "603026.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1704692,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "603031.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 59400444,
+      "size_mb": 56.6,
+      "size_gb": 0.06
+    },
+    "603032.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 91581636,
+      "size_mb": 87.3,
+      "size_gb": 0.09
+    },
+    "603050.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1369662,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "603053.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 14555203,
+      "size_mb": 13.9,
+      "size_gb": 0.01
+    },
+    "603063.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 42003044,
+      "size_mb": 40.1,
+      "size_gb": 0.04
+    },
+    "603070.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1633839,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "603080.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1395534,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "603097.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2198491,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "603105.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1747435,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "603185.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1524348,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "603191.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2121094,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "603212.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1837729,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "603218.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 24066457,
+      "size_mb": 23.0,
+      "size_gb": 0.02
+    },
+    "603312.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1472555,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "603318.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1680021,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "603320.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 2384244,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "603333.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2132529,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "603344.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1401655,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "603353.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1306047,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "603393.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1441630,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "603396.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 48087385,
+      "size_mb": 45.9,
+      "size_gb": 0.04
+    },
+    "603489.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1320155,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "603507.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 49387911,
+      "size_mb": 47.1,
+      "size_gb": 0.05
+    },
+    "603530.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1604997,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "603556.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1457981,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "603577.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2050296,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "603606.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2674136,
+      "size_mb": 2.6,
+      "size_gb": 0.0
+    },
+    "603618.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 7356208,
+      "size_mb": 7.0,
+      "size_gb": 0.01
+    },
+    "603619.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2437263,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "603628.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2235712,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "603659.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1740667,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "603689.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 55007311,
+      "size_mb": 52.5,
+      "size_gb": 0.05
+    },
+    "603693.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 53402537,
+      "size_mb": 50.9,
+      "size_gb": 0.05
+    },
+    "603706.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 1713228,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "603727.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2749405,
+      "size_mb": 2.6,
+      "size_gb": 0.0
+    },
+    "603728.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1757833,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "603798.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1462250,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "603806.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2507556,
+      "size_mb": 2.4,
+      "size_gb": 0.0
+    },
+    "603819.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1297570,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "603829.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1930014,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "603861.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 42343425,
+      "size_mb": 40.4,
+      "size_gb": 0.04
+    },
+    "603897.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1118385,
+      "size_mb": 1.1,
+      "size_gb": 0.0
+    },
+    "603906.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1884999,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "603985.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 17772269,
+      "size_mb": 16.9,
+      "size_gb": 0.02
+    },
+    "603988.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1280171,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "605011.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 35922382,
+      "size_mb": 34.3,
+      "size_gb": 0.03
+    },
+    "605028.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 2647275,
+      "size_mb": 2.5,
+      "size_gb": 0.0
+    },
+    "605066.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2794150,
+      "size_mb": 2.7,
+      "size_gb": 0.0
+    },
+    "605090.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 8160488,
+      "size_mb": 7.8,
+      "size_gb": 0.01
+    },
+    "605117.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 47905029,
+      "size_mb": 45.7,
+      "size_gb": 0.04
+    },
+    "605162.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 5105050,
+      "size_mb": 4.9,
+      "size_gb": 0.0
+    },
+    "605169.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1430419,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "605196.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 1985056,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "605222.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1377263,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "605368.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1405618,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "605378.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1239308,
+      "size_mb": 1.2,
+      "size_gb": 0.0
+    },
+    "605580.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 4862516,
+      "size_mb": 4.6,
+      "size_gb": 0.0
+    },
+    "688005.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 101540820,
+      "size_mb": 96.8,
+      "size_gb": 0.09
+    },
+    "688006.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 21513503,
+      "size_mb": 20.5,
+      "size_gb": 0.02
+    },
+    "688032.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 48693946,
+      "size_mb": 46.4,
+      "size_gb": 0.05
+    },
+    "688063.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 11142381,
+      "size_mb": 10.6,
+      "size_gb": 0.01
+    },
+    "688116.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 12795203,
+      "size_mb": 12.2,
+      "size_gb": 0.01
+    },
+    "688147.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2508729,
+      "size_mb": 2.4,
+      "size_gb": 0.0
+    },
+    "688148.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1441694,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "688155.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2161443,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "688191.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2505068,
+      "size_mb": 2.4,
+      "size_gb": 0.0
+    },
+    "688223.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1942177,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "688226.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2081323,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "688248.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 31454224,
+      "size_mb": 30.0,
+      "size_gb": 0.03
+    },
+    "688275.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1872672,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688303.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 39119439,
+      "size_mb": 37.3,
+      "size_gb": 0.04
+    },
+    "688330.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1863575,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688339.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 10979157,
+      "size_mb": 10.5,
+      "size_gb": 0.01
+    },
+    "688345.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2213705,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "688348.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2236446,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "688349.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1943327,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "688353.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2604997,
+      "size_mb": 2.5,
+      "size_gb": 0.0
+    },
+    "688388.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 18445717,
+      "size_mb": 17.6,
+      "size_gb": 0.02
+    },
+    "688390.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 23802652,
+      "size_mb": 22.7,
+      "size_gb": 0.02
+    },
+    "688392.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1797532,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "688408.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2848569,
+      "size_mb": 2.7,
+      "size_gb": 0.0
+    },
+    "688429.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1724614,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "688472.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 20416645,
+      "size_mb": 19.5,
+      "size_gb": 0.02
+    },
+    "688499.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 3917235,
+      "size_mb": 3.7,
+      "size_gb": 0.0
+    },
+    "688503.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1914554,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688516.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1746950,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "688517.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 25597304,
+      "size_mb": 24.4,
+      "size_gb": 0.02
+    },
+    "688551.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 11063452,
+      "size_mb": 10.6,
+      "size_gb": 0.01
+    },
+    "688556.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1738898,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "688560.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1844251,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688567.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1620482,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "688573.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2044454,
+      "size_mb": 1.9,
+      "size_gb": 0.0
+    },
+    "688597.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 3150803,
+      "size_mb": 3.0,
+      "size_gb": 0.0
+    },
+    "688598.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1596725,
+      "size_mb": 1.5,
+      "size_gb": 0.0
+    },
+    "688599.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 27577882,
+      "size_mb": 26.3,
+      "size_gb": 0.03
+    },
+    "688611.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1838159,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688616.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1419937,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "688638.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2119421,
+      "size_mb": 2.0,
+      "size_gb": 0.0
+    },
+    "688660.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 18323936,
+      "size_mb": 17.5,
+      "size_gb": 0.02
+    },
+    "688663.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2275785,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "688676.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 78093374,
+      "size_mb": 74.5,
+      "size_gb": 0.07
+    },
+    "688680.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1813157,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "688681.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2232994,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "688707.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1375198,
+      "size_mb": 1.3,
+      "size_gb": 0.0
+    },
+    "688717.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1794376,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "688719.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 2333465,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "688733.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1628639,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "688772.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1916604,
+      "size_mb": 1.8,
+      "size_gb": 0.0
+    },
+    "688778.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 40052296,
+      "size_mb": 38.2,
+      "size_gb": 0.04
+    },
+    "688779.SH": {
+      "pdf_count": 1,
+      "total_size_bytes": 1494134,
+      "size_mb": 1.4,
+      "size_gb": 0.0
+    },
+    "688819.SH": {
+      "pdf_count": 2,
+      "total_size_bytes": 62088258,
+      "size_mb": 59.2,
+      "size_gb": 0.06
+    },
+    "920010.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2938448,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "920046.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 1701443,
+      "size_mb": 1.6,
+      "size_gb": 0.0
+    },
+    "920062.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3507311,
+      "size_mb": 3.3,
+      "size_gb": 0.0
+    },
+    "920110.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3813123,
+      "size_mb": 3.6,
+      "size_gb": 0.0
+    },
+    "920152.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3972950,
+      "size_mb": 3.8,
+      "size_gb": 0.0
+    },
+    "920167.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2907941,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "920185.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2991249,
+      "size_mb": 2.9,
+      "size_gb": 0.0
+    },
+    "920237.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2203612,
+      "size_mb": 2.1,
+      "size_gb": 0.0
+    },
+    "920239.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2889084,
+      "size_mb": 2.8,
+      "size_gb": 0.0
+    },
+    "920252.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2500378,
+      "size_mb": 2.4,
+      "size_gb": 0.0
+    },
+    "920299.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2828113,
+      "size_mb": 2.7,
+      "size_gb": 0.0
+    },
+    "920368.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3911773,
+      "size_mb": 3.7,
+      "size_gb": 0.0
+    },
+    "920375.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3470804,
+      "size_mb": 3.3,
+      "size_gb": 0.0
+    },
+    "920414.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3790333,
+      "size_mb": 3.6,
+      "size_gb": 0.0
+    },
+    "920496.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2351210,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "920522.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2752097,
+      "size_mb": 2.6,
+      "size_gb": 0.0
+    },
+    "920523.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2314998,
+      "size_mb": 2.2,
+      "size_gb": 0.0
+    },
+    "920556.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3378673,
+      "size_mb": 3.2,
+      "size_gb": 0.0
+    },
+    "920627.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3126359,
+      "size_mb": 3.0,
+      "size_gb": 0.0
+    },
+    "920639.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2406517,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "920682.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2705945,
+      "size_mb": 2.6,
+      "size_gb": 0.0
+    },
+    "920770.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2452490,
+      "size_mb": 2.3,
+      "size_gb": 0.0
+    },
+    "920779.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3015181,
+      "size_mb": 2.9,
+      "size_gb": 0.0
+    },
+    "920809.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 2735974,
+      "size_mb": 2.6,
+      "size_gb": 0.0
+    },
+    "920914.BJ": {
+      "pdf_count": 1,
+      "total_size_bytes": 3387045,
+      "size_mb": 3.2,
+      "size_gb": 0.0
+    },
+    "ci_collection": {
+      "pdf_count": 975,
+      "total_size_bytes": 9553912918,
+      "size_mb": 9111.3,
+      "size_gb": 8.9
+    },
+    "cninfo_esg_gap_collection": {
+      "pdf_count": 12,
+      "total_size_bytes": 296291503,
+      "size_mb": 282.6,
+      "size_gb": 0.28
+    },
+    "hkex_esg_gap_collection": {
+      "pdf_count": 1,
+      "total_size_bytes": 3324154,
+      "size_mb": 3.2,
+      "size_gb": 0.0
+    },
+    "hkex_reports": {
+      "pdf_count": 155,
+      "total_size_bytes": 1750648177,
+      "size_mb": 1669.5,
+      "size_gb": 1.63
+    }
+  },
+  "sources_summary": {
+    "major_sources": [
+      {
+        "name": "ci_collection",
+        "pdf_count": 975,
+        "size_gb": 8.9
+      },
+      {
+        "name": "hkex_reports",
+        "pdf_count": 155,
+        "size_gb": 1.63
+      },
+      {
+        "name": "cninfo_esg_gap_collection",
+        "pdf_count": 12,
+        "size_gb": 0.28
+      }
+    ],
+    "major_sources_count": 3,
+    "company_directories": 339,
+    "total_sources": 342
+  },
+  "total_size_gb": 15.52
+}

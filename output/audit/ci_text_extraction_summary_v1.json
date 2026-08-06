@@ -1,15 +1,15 @@
 {
   "policy_version": "ci-text-extraction-v2",
   "status": "extracted",
-  "run_at_utc": "2026-08-06T09:30:12+00:00",
-  "pdf_count": 983,
-  "text_count_before": 983,
-  "text_count_current": 983,
-  "text_count_after": 983,
-  "text_added": 0,
+  "run_at_utc": "2026-08-06T12:58:47+00:00",
+  "pdf_count": 975,
+  "text_count_before": 0,
+  "text_count_current": 975,
+  "text_count_after": 975,
+  "text_added": 975,
   "truncated_repaired": 0,
   "extractor_exit_code": 0,
-  "extractor_tail": "completed succeeded=0 skipped=983 failed=0",
+  "extractor_tail": "ges=39\nok 605162.SH/2025/annual_report.pdf pages=195\nok 920496.BJ/2025/annual_report.pdf pages=210\nok 000968.SZ/2025/annual_report.pdf pages=208\nok 603320.SH/2025/esg_report.pdf pages=18\nok 603320.SH/2025/annual_report.pdf pages=192\nok 601225.SH/2025/esg_report.pdf pages=48\nok 601225.SH/2025/annual_report.pdf pages=283\nok 600149.SH/2025/annual_report.pdf pages=169\nok 688408.SH/2025/annual_report.pdf pages=312\nok 00704.HK/2024/annual_report.pdf pages=186\ncompleted succeeded=975 skipped=0 failed=0",
   "scoring_authorized": false,
   "notice": "可与定时下载并行；已存在的 txt 会跳过；截断导出会强制复抽；失败项下次重试。"
 }

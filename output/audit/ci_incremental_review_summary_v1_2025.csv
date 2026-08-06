@@ -118,7 +118,7 @@
 000400.SZ,许继电气,2025,Q_S_BENEFIT_PER_EMPLOYEE,1,4.25559,160,4.25559,single_or_consistent
 000400.SZ,许继电气,2025,Q_S_DIVIDEND_PER_SHARE,2,0.221,48|189,0.221,single_or_consistent
 000400.SZ,许继电气,2025,Q_S_EDU_PER_EMPLOYEE,1,0.699942,160,0.699942,single_or_consistent
-000400.SZ,许继电气,2025,Q_S_ENV_INVEST_RATE,1,0.03,41,0.03,single_or_consistent
+000400.SZ,许继电气,2025,Q_S_ENV_INVEST_RATE,2,0.03,29|41,0.03,single_or_consistent
 000400.SZ,许继电气,2025,Q_S_PAY_PER_EMPLOYEE,1,19.511,160,19.511,single_or_consistent
 000400.SZ,许继电气,2025,Q_S_RD_RATE,2,5.71,10|25,5.71,single_or_consistent
 000407.SZ,胜利股份,2025,Q_G_ROE,1,5.14,6,5.14,single_or_consistent
@@ -141,6 +141,7 @@
 000531.SZ,穗恒运Ａ,2025,Q_E_PM_INTENSITY,1,175.686,30,175.686,single_or_consistent
 000531.SZ,穗恒运Ａ,2025,Q_E_SO2_INTENSITY,1,852.74,30,852.74,single_or_consistent
 000531.SZ,穗恒运Ａ,2025,Q_E_SOLID_WASTE_INTENSITY,2,1480,31|58,1480,single_or_consistent
+000531.SZ,穗恒运Ａ,2025,Q_E_WASTEWATER_INTENSITY,1,2100,30,2100,single_or_consistent
 000531.SZ,穗恒运Ａ,2025,Q_E_WATER_INTENSITY,1,1.43911e+06,35,1.43911e+06,single_or_consistent
 000531.SZ,穗恒运Ａ,2025,Q_G_AR_TURNOVER,1,22.0269,58,22.0269,single_or_consistent
 000531.SZ,穗恒运Ａ,2025,Q_G_ASSET_TURNOVER,1,0.312607,58,0.312607,single_or_consistent
@@ -197,6 +198,7 @@
 000539.SZ,粤电力Ａ,2025,Q_G_REVENUE_GROWTH,1,-9.82852,10,-9.82852,single_or_consistent
 000539.SZ,粤电力Ａ,2025,Q_G_ROE,1,2.59,10,2.59,single_or_consistent
 000539.SZ,粤电力Ａ,2025,Q_S_DIVIDEND_PER_SHARE,1,0.02,52,0.02,single_or_consistent
+000539.SZ,粤电力Ａ,2025,Q_S_PAY_PER_EMPLOYEE,3,4.95671e+06|9.01163e+06|1.16664e+08,182|183,,conflicting_candidates
 000539.SZ,粤电力Ａ,2025,Q_S_RD_RATE,1,1.1,25,1.1,single_or_consistent
 000543.SZ,皖能电力,2025,Q_E_ENERGY_INTENSITY,1,4033.47,23,4033.47,single_or_consistent
 000543.SZ,皖能电力,2025,Q_E_GHG_INTENSITY,1,14465.1,20,14465.1,single_or_consistent
@@ -544,13 +546,6 @@
 001283.SZ,豪鹏科技,2025,Q_S_EDU_PER_EMPLOYEE,1,0.00817006,170,0.00817006,single_or_consistent
 001283.SZ,豪鹏科技,2025,Q_S_PAY_PER_EMPLOYEE,1,12.5223,170,12.5223,single_or_consistent
 001283.SZ,豪鹏科技,2025,Q_S_RD_RATE,1,5.83,25,5.83,single_or_consistent
-001289.SZ,龙源电力,2025,Q_G_ASSET_TURNOVER,1,0.115705,95,0.115705,single_or_consistent
-001289.SZ,龙源电力,2025,Q_G_CAPITAL_ACCUMULATION,1,2.77947,95,2.77947,single_or_consistent
-001289.SZ,龙源电力,2025,Q_G_DEBT_ASSET_RATE,2,66.5494|66.55,89|95,,conflicting_candidates
-001289.SZ,龙源电力,2025,Q_G_REVENUE_GROWTH,1,-18.3895,9,-18.3895,single_or_consistent
-001289.SZ,龙源电力,2025,Q_G_ROE,2,6.08,10|300,6.08,single_or_consistent
-001289.SZ,龙源电力,2025,Q_S_DIVIDEND_PER_SHARE,2,0.1625,59|276,0.1625,single_or_consistent
-001289.SZ,龙源电力,2025,Q_S_RD_RATE,1,1.15,31,1.15,single_or_consistent
 001299.SZ,美能能源,2025,Q_G_AR_TURNOVER,1,61.6259,77,61.6259,single_or_consistent
 001299.SZ,美能能源,2025,Q_G_ASSET_TURNOVER,1,0.416004,78,0.416004,single_or_consistent
 001299.SZ,美能能源,2025,Q_G_CAPITAL_ACCUMULATION,1,-6.64902,79,-6.64902,single_or_consistent
@@ -779,6 +774,7 @@
 002125.SZ,湘潭电化,2025,Q_S_PAY_PER_EMPLOYEE,1,20.7836,142,20.7836,single_or_consistent
 002125.SZ,湘潭电化,2025,Q_S_SAFETY_INVEST_RATE,1,0.303425,46,0.303425,single_or_consistent
 002128.SZ,电投能源,2025,Q_E_ALTERNATIVE_WATER_RATE,1,84.52,23,84.52,single_or_consistent
+002128.SZ,电投能源,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,30,23,30,single_or_consistent
 002128.SZ,电投能源,2025,Q_E_ENERGY_INTENSITY,1,3202.23,40,3202.23,single_or_consistent
 002128.SZ,电投能源,2025,Q_E_NOX_INTENSITY,1,939.251,40,939.251,single_or_consistent
 002128.SZ,电投能源,2025,Q_E_PM_INTENSITY,1,135.869,40,135.869,single_or_consistent
@@ -1009,6 +1005,7 @@
 002339.SZ,积成电子,2025,Q_G_TWO_FUNDS_RATE,1,91.3112,61,91.3112,single_or_consistent
 002339.SZ,积成电子,2025,Q_S_DIVIDEND_PER_SHARE,2,0.02,37|162,0.02,single_or_consistent
 002339.SZ,积成电子,2025,Q_S_RD_RATE,1,7.07,18,7.07,single_or_consistent
+002340.SZ,格林美,2025,Q_E_CLEAN_ENERGY_INTENSITY,3,25.71|50,8|32|34,,conflicting_candidates
 002340.SZ,格林美,2025,Q_E_GHG_INTENSITY,1,297.418,34,297.418,single_or_consistent
 002340.SZ,格林美,2025,Q_G_AR_TURNOVER,1,25.5174,142,25.5174,single_or_consistent
 002340.SZ,格林美,2025,Q_G_ASSET_TURNOVER,1,0.526839,142,0.526839,single_or_consistent
@@ -1097,15 +1094,6 @@
 002452.SZ,长高电新,2025,Q_S_DIVIDEND_PER_SHARE,2,0.09,48|196,0.09,single_or_consistent
 002452.SZ,长高电新,2025,Q_S_RD_RATE,1,7.44,25,7.44,single_or_consistent
 002459.SZ,晶澳科技,2025,Q_E_ALTERNATIVE_WATER_RATE,1,38,155,38,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_E_SOLID_WASTE_INTENSITY,1,49.4916,92,49.4916,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_G_AR_TURNOVER,1,5.40504,137,5.40504,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_G_ASSET_TURNOVER,1,0.450788,139,0.450788,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_G_CAPITAL_ACCUMULATION,1,-21.2946,139,-21.2946,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_G_DEBT_ASSET_RATE,2,78.6173|78.62,132|139,,conflicting_candidates
-002459.SZ,晶澳科技,2025,Q_G_REVENUE_GROWTH,1,-29.9369,8,-29.9369,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_G_ROE,1,-18.32,296,-18.32,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_S_DONATION_RATE,1,0.0266715,229,0.0266715,single_or_consistent
-002459.SZ,晶澳科技,2025,Q_S_RD_RATE,1,6.02,25,6.02,single_or_consistent
 002471.SZ,中超控股,2025,Q_G_AR_TURNOVER,1,2.593,106,2.593,single_or_consistent
 002471.SZ,中超控股,2025,Q_G_ASSET_TURNOVER,1,0.950876,108,0.950876,single_or_consistent
 002471.SZ,中超控股,2025,Q_G_CAPITAL_ACCUMULATION,1,4.62439,108,4.62439,single_or_consistent
@@ -1149,6 +1137,7 @@
 002479.SZ,富春环保,2025,Q_S_DIVIDEND_PER_SHARE,2,0.1,51|185,0.1,single_or_consistent
 002479.SZ,富春环保,2025,Q_S_DONATION_RATE,1,0.0129243,167,0.0129243,single_or_consistent
 002479.SZ,富春环保,2025,Q_S_ENV_INVEST_RATE,1,1.26916,5,1.26916,single_or_consistent
+002479.SZ,富春环保,2025,Q_S_PAY_PER_EMPLOYEE,1,2.75563e+08,50,2.75563e+08,single_or_consistent
 002479.SZ,富春环保,2025,Q_S_RD_RATE,3,4.04,26|34|48,4.04,single_or_consistent
 002479.SZ,富春环保,2025,Q_S_SAFETY_INVEST_RATE,1,0.571561,5,0.571561,single_or_consistent
 002487.SZ,大金重工,2025,Q_E_GHG_INTENSITY,1,86.3216,10,86.3216,single_or_consistent
@@ -1184,10 +1173,9 @@
 002490.SZ,山东墨龙,2025,Q_G_ROE,2,1.04,7|172,1.04,single_or_consistent
 002490.SZ,山东墨龙,2025,Q_G_TWO_FUNDS_RATE,1,48.0548,63,48.0548,single_or_consistent
 002490.SZ,山东墨龙,2025,Q_S_DIVIDEND_PER_SHARE,1,0,161,0,single_or_consistent
+002490.SZ,山东墨龙,2025,Q_S_PAY_PER_EMPLOYEE,1,1.32678e+07,127,1.32678e+07,single_or_consistent
 002490.SZ,山东墨龙,2025,Q_S_RD_RATE,1,2.56,18,2.56,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_E_ALTERNATIVE_WATER_RATE,1,74,30,74,single_or_consistent
-002493.SZ,荣盛石化,2025,Q_E_GHG_REDUCTION_RATE,1,0.421819,36,0.421819,single_or_consistent
-002493.SZ,荣盛石化,2025,Q_E_PM_INTENSITY,1,6.77203,35,6.77203,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_G_AR_TURNOVER,1,61.7784,112,61.7784,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_G_ASSET_TURNOVER,1,0.807406,115,0.807406,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_G_CAPITAL_ACCUMULATION,1,2.28603,115,2.28603,single_or_consistent
@@ -1198,9 +1186,7 @@
 002493.SZ,荣盛石化,2025,Q_G_TWO_FUNDS_RATE,1,56.5718,112,56.5718,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_S_DIVIDEND_PER_SHARE,1,0.1,72,0.1,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_S_DONATION_RATE,1,0.00613484,182,0.00613484,single_or_consistent
-002493.SZ,荣盛石化,2025,Q_S_ENV_INVEST_RATE,1,0.0712521,21,0.0712521,single_or_consistent
 002493.SZ,荣盛石化,2025,Q_S_RD_RATE,1,1.62,44,1.62,single_or_consistent
-002493.SZ,荣盛石化,2025,Q_S_SAFETY_INVEST_RATE,1,0.185479,38,0.185479,single_or_consistent
 002498.SZ,汉缆股份,2025,Q_G_AR_TURNOVER,1,3.71422,81,3.71422,single_or_consistent
 002498.SZ,汉缆股份,2025,Q_G_ASSET_TURNOVER,1,3.02389,79,3.02389,single_or_consistent
 002498.SZ,汉缆股份,2025,Q_G_CAPITAL_ACCUMULATION,1,9.23594,81,9.23594,single_or_consistent
@@ -1351,6 +1337,7 @@
 002580.SZ,圣阳股份,2025,Q_G_TWO_FUNDS_RATE,1,59.1759,75,59.1759,single_or_consistent
 002580.SZ,圣阳股份,2025,Q_S_DIVIDEND_PER_SHARE,1,0.04,43,0.04,single_or_consistent
 002580.SZ,圣阳股份,2025,Q_S_DONATION_RATE,1,0.00731977,164,0.00731977,single_or_consistent
+002580.SZ,圣阳股份,2025,Q_S_PAY_PER_EMPLOYEE,1,100000,37,100000,single_or_consistent
 002580.SZ,圣阳股份,2025,Q_S_RD_RATE,1,3.26,22,3.26,single_or_consistent
 002606.SZ,大连电瓷,2025,Q_G_AR_TURNOVER,1,5.18242,101,5.18242,single_or_consistent
 002606.SZ,大连电瓷,2025,Q_G_ASSET_TURNOVER,1,1.02646,102,1.02646,single_or_consistent
@@ -1435,8 +1422,13 @@
 002700.SZ,万憬能源,2025,Q_G_REVENUE_GROWTH,1,-1.46881,8,-1.46881,single_or_consistent
 002700.SZ,万憬能源,2025,Q_G_ROE,2,5.96,8|157,5.96,single_or_consistent
 002700.SZ,万憬能源,2025,Q_S_DIVIDEND_PER_SHARE,2,0.025,47|149,0.025,single_or_consistent
-002706.SZ,良信股份,2025,Q_E_GHG_INTENSITY,2,51.1|51.2,43|63,,conflicting_candidates
+002706.SZ,良信股份,2025,Q_E_ENERGY_INTENSITY,2,11.8,46|63,11.8,single_or_consistent
+002706.SZ,良信股份,2025,Q_E_GHG_INTENSITY,2,51.1,43|63,51.1,single_or_consistent
 002706.SZ,良信股份,2025,Q_E_GHG_REDUCTION_RATE,1,-9.70116,63,-9.70116,single_or_consistent
+002706.SZ,良信股份,2025,Q_E_NOX_INTENSITY,1,0,63,0,single_or_consistent
+002706.SZ,良信股份,2025,Q_E_PM_INTENSITY,1,0.00445978,63,0.00445978,single_or_consistent
+002706.SZ,良信股份,2025,Q_E_SOLID_WASTE_INTENSITY,1,0.490576,51,0.490576,single_or_consistent
+002706.SZ,良信股份,2025,Q_E_WATER_INTENSITY,2,616.6,47|63,616.6,single_or_consistent
 002706.SZ,良信股份,2025,Q_G_AR_TURNOVER,1,6.15947,70,6.15947,single_or_consistent
 002706.SZ,良信股份,2025,Q_G_ASSET_TURNOVER,1,0.780192,70,0.780192,single_or_consistent
 002706.SZ,良信股份,2025,Q_G_CAPITAL_ACCUMULATION,1,8.89072,70,8.89072,single_or_consistent
@@ -1444,6 +1436,7 @@
 002706.SZ,良信股份,2025,Q_G_REVENUE_GROWTH,1,5.82029,8,5.82029,single_or_consistent
 002706.SZ,良信股份,2025,Q_G_ROE,2,5.45|6.29,8|205,,conflicting_candidates
 002706.SZ,良信股份,2025,Q_S_DIVIDEND_PER_SHARE,3,0.2|0.22,38|190,,conflicting_candidates
+002706.SZ,良信股份,2025,Q_S_ENV_INVEST_RATE,1,0.0156092,64,0.0156092,single_or_consistent
 002706.SZ,良信股份,2025,Q_S_RD_RATE,1,7.44,19,7.44,single_or_consistent
 002709.SZ,天赐材料,2025,Q_G_AR_TURNOVER,1,2.83401,79,2.83401,single_or_consistent
 002709.SZ,天赐材料,2025,Q_G_ASSET_TURNOVER,1,0.654475,80,0.654475,single_or_consistent
@@ -1525,25 +1518,7 @@
 002823.SZ,凯中精密,2025,Q_G_ROE,2,11.61,7|153,11.61,single_or_consistent
 002823.SZ,凯中精密,2025,Q_S_DIVIDEND_PER_SHARE,2,0.244276,37|146,0.244276,single_or_consistent
 002823.SZ,凯中精密,2025,Q_S_RD_RATE,1,2.81,19,2.81,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_AR_TURNOVER,1,9.66156,67,9.66156,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_ASSET_TURNOVER,1,0.586019,66,0.586019,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_CAPITAL_ACCUMULATION,1,1.30022,67,1.30022,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_CASH_CURRENT_LIABILITY,1,18.2673,73,18.2673,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_CASH_REALIZATION,1,108.371,73,108.371,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_COST_REVENUE_RATE,1,94.5861,70,94.5861,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_CURRENT_ASSET_TURNOVER,1,1.88575,66,1.88575,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_DEBT_ASSET_RATE,1,55.019,67,55.019,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_EBITDA_INTEREST,1,3.62921,70,3.62921,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_EBITDA_MARGIN,1,13.5604,70,13.5604,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_OPERATING_MARGIN,1,4.52199,70,4.52199,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_OPERATING_PROFIT_GROWTH,1,424.535,70,424.535,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_QUICK_RATIO,1,62.087,68,62.087,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_REVENUE_GROWTH,1,2.80109,7,2.80109,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_ROA,1,3.47236,70,3.47236,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_ROE,1,3.25,7,3.25,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_G_TWO_FUNDS_RATE,1,6.04541,68,6.04541,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_S_DONATION_RATE,1,0.0719777,140,0.0719777,single_or_consistent
-002828.SZ,贝肯能源,2025,Q_S_RD_RATE,1,2.97,26,2.97,single_or_consistent
+002828.SZ,贝肯能源,2025,Q_G_DEBT_ASSET_RATE,3,55.02|68.16,11|82|98,,conflicting_candidates
 002850.SZ,科达利,2025,Q_G_ASSET_TURNOVER,1,0.723078,83,0.723078,single_or_consistent
 002850.SZ,科达利,2025,Q_G_CAPITAL_ACCUMULATION,1,14.7991,83,14.7991,single_or_consistent
 002850.SZ,科达利,2025,Q_G_DEBT_ASSET_RATE,2,41.7498|41.75,77|83,,conflicting_candidates
@@ -1569,7 +1544,7 @@
 002857.SZ,三晖电气,2025,Q_G_ROE,2,-8.3,8|196,-8.3,single_or_consistent
 002857.SZ,三晖电气,2025,Q_S_DONATION_RATE,1,0.0174416,162,0.0174416,single_or_consistent
 002857.SZ,三晖电气,2025,Q_S_RD_RATE,1,7.6,21,7.6,single_or_consistent
-002865.SZ,钧达股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,7.76677,60,7.76677,single_or_consistent
+002865.SZ,钧达股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,28.79,20,28.79,single_or_consistent
 002865.SZ,钧达股份,2025,Q_E_ENERGY_INTENSITY,1,215.077,60,215.077,single_or_consistent
 002865.SZ,钧达股份,2025,Q_E_PM_INTENSITY,1,3.10722,59,3.10722,single_or_consistent
 002865.SZ,钧达股份,2025,Q_E_SOLID_WASTE_INTENSITY,1,30.8789,60,30.8789,single_or_consistent
@@ -2275,9 +2250,7 @@
 09689.HK,JTF INTL,2025,Q_G_EBITDA_INTEREST,1,-3.21668,90,-3.21668,single_or_consistent
 09689.HK,JTF INTL,2025,Q_G_REVENUE_GROWTH,1,6.41212,90,6.41212,single_or_consistent
 09689.HK,JTF INTL,2025,Q_G_ROA,1,-1.64557,91,-1.64557,single_or_consistent
-300001.SZ,特锐德,2025,Q_E_GHG_INTENSITY,2,23,7|31,23,single_or_consistent
-300001.SZ,特锐德,2025,Q_E_NOX_INTENSITY,1,1.29226,64,1.29226,single_or_consistent
-300001.SZ,特锐德,2025,Q_E_SO2_INTENSITY,1,0.126692,64,0.126692,single_or_consistent
+300001.SZ,特锐德,2025,Q_E_GHG_INTENSITY,1,23,31,23,single_or_consistent
 300001.SZ,特锐德,2025,Q_E_WATER_INTENSITY,1,160,33,160,single_or_consistent
 300001.SZ,特锐德,2025,Q_G_AR_TURNOVER,1,2.82175,100,2.82175,single_or_consistent
 300001.SZ,特锐德,2025,Q_G_ASSET_TURNOVER,1,0.622069,100,0.622069,single_or_consistent
@@ -2293,7 +2266,6 @@
 300001.SZ,特锐德,2025,Q_G_ROE,2,15.68,7|296,15.68,single_or_consistent
 300001.SZ,特锐德,2025,Q_S_DIVIDEND_PER_SHARE,2,0.2,62|280,0.2,single_or_consistent
 300001.SZ,特锐德,2025,Q_S_DONATION_RATE,1,0.0160957,222,0.0160957,single_or_consistent
-300001.SZ,特锐德,2025,Q_S_ENV_INVEST_RATE,1,0.0639237,64,0.0639237,single_or_consistent
 300001.SZ,特锐德,2025,Q_S_RD_RATE,1,3.51,40,3.51,single_or_consistent
 300014.SZ,亿纬锂能,2025,Q_G_AR_TURNOVER,1,4.39715,85,4.39715,single_or_consistent
 300014.SZ,亿纬锂能,2025,Q_G_ASSET_TURNOVER,1,0.542939,86,0.542939,single_or_consistent
@@ -2378,6 +2350,7 @@
 300051.SZ,琏升科技,2025,Q_G_OPERATING_PROFIT_GROWTH,1,4.47164,125,4.47164,single_or_consistent
 300051.SZ,琏升科技,2025,Q_G_REVENUE_GROWTH,1,-22.4212,9,-22.4212,single_or_consistent
 300051.SZ,琏升科技,2025,Q_G_ROE,1,-73.17,9,-73.17,single_or_consistent
+300051.SZ,琏升科技,2025,Q_S_PAY_PER_EMPLOYEE,1,9.65099e+07,57,9.65099e+07,single_or_consistent
 300051.SZ,琏升科技,2025,Q_S_RD_RATE,1,4.21,27,4.21,single_or_consistent
 300062.SZ,中能电气,2025,Q_G_AR_TURNOVER,1,1.32105,76,1.32105,single_or_consistent
 300062.SZ,中能电气,2025,Q_G_ASSET_TURNOVER,1,0.394548,78,0.394548,single_or_consistent
@@ -2404,6 +2377,7 @@
 300069.SZ,金利华电,2025,Q_G_ROE,2,-1.74,8|171,-1.74,single_or_consistent
 300069.SZ,金利华电,2025,Q_S_RD_RATE,1,3.61,22,3.61,single_or_consistent
 300073.SZ,当升科技,2025,Q_E_ALTERNATIVE_WATER_RATE,1,34.38,48,34.38,single_or_consistent
+300073.SZ,当升科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,2,10.74,7|48,10.74,single_or_consistent
 300073.SZ,当升科技,2025,Q_E_GHG_INTENSITY,1,441.1,47,441.1,single_or_consistent
 300073.SZ,当升科技,2025,Q_G_AR_TURNOVER,1,4.1161,96,4.1161,single_or_consistent
 300073.SZ,当升科技,2025,Q_G_ASSET_TURNOVER,1,0.524908,97,0.524908,single_or_consistent
@@ -2491,6 +2465,7 @@
 300129.SZ,泰胜风能,2025,Q_G_ROE,2,4.76,7|198,4.76,single_or_consistent
 300129.SZ,泰胜风能,2025,Q_S_DIVIDEND_PER_SHARE,1,0.06,44,0.06,single_or_consistent
 300129.SZ,泰胜风能,2025,Q_S_DONATION_RATE,1,0.00699016,158,0.00699016,single_or_consistent
+300129.SZ,泰胜风能,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,28,32,28,single_or_consistent
 300129.SZ,泰胜风能,2025,Q_S_PAY_PER_EMPLOYEE,1,17.2676,147,17.2676,single_or_consistent
 300129.SZ,泰胜风能,2025,Q_S_RD_RATE,1,2.26,20,2.26,single_or_consistent
 300140.SZ,节能环境,2025,Q_G_ASSET_TURNOVER,1,0.197997,104,0.197997,single_or_consistent
@@ -2597,6 +2572,7 @@
 300274.SZ,阳光电源,2025,Q_G_TWO_FUNDS_RATE,1,53.1864,105,53.1864,single_or_consistent
 300274.SZ,阳光电源,2025,Q_S_DIVIDEND_PER_SHARE,2,0.69,56|222,0.69,single_or_consistent
 300274.SZ,阳光电源,2025,Q_S_ENV_INVEST_RATE,1,0.0166617,86,0.0166617,single_or_consistent
+300274.SZ,阳光电源,2025,Q_S_FEMALE_EMPLOYEE_RATE,2,22,17|145,22,single_or_consistent
 300274.SZ,阳光电源,2025,Q_S_RD_RATE,1,4.68,38,4.68,single_or_consistent
 300283.SZ,温州宏丰,2025,Q_G_AR_TURNOVER,1,6.56958,80,6.56958,single_or_consistent
 300283.SZ,温州宏丰,2025,Q_G_ASSET_TURNOVER,1,1.08246,80,1.08246,single_or_consistent
@@ -2615,6 +2591,7 @@
 300286.SZ,安科瑞,2025,Q_G_ROE,3,10.25,7|151|152,10.25,single_or_consistent
 300286.SZ,安科瑞,2025,Q_S_DIVIDEND_PER_SHARE,1,0.35,39,0.35,single_or_consistent
 300286.SZ,安科瑞,2025,Q_S_DONATION_RATE,1,0.00091405,129,0.00091405,single_or_consistent
+300286.SZ,安科瑞,2025,Q_S_PAY_PER_EMPLOYEE,1,1.87514e+08,38,1.87514e+08,single_or_consistent
 300286.SZ,安科瑞,2025,Q_S_RD_RATE,1,11.02,22,11.02,single_or_consistent
 300316.SZ,晶盛机电,2025,Q_G_AR_TURNOVER,1,3.90138,68,3.90138,single_or_consistent
 300316.SZ,晶盛机电,2025,Q_G_ASSET_TURNOVER,1,0.38301,69,0.38301,single_or_consistent
@@ -2925,10 +2902,11 @@
 300491.SZ,通合科技,2025,Q_G_REVENUE_GROWTH,1,28.7824,8,28.7824,single_or_consistent
 300491.SZ,通合科技,2025,Q_G_ROE,2,3.42,8|175,3.42,single_or_consistent
 300491.SZ,通合科技,2025,Q_G_TWO_FUNDS_RATE,1,69.2084,81,69.2084,single_or_consistent
-300491.SZ,通合科技,2025,Q_S_BENEFIT_PER_EMPLOYEE,1,1.32275,143,1.32275,single_or_consistent
+300491.SZ,通合科技,2025,Q_S_BENEFIT_PER_EMPLOYEE,2,1.32275|9.23e+06,7|143,,conflicting_candidates
 300491.SZ,通合科技,2025,Q_S_DIVIDEND_PER_SHARE,2,0.08,48|167,0.08,single_or_consistent
 300491.SZ,通合科技,2025,Q_S_DONATION_RATE,1,0.00321098,150,0.00321098,single_or_consistent
-300491.SZ,通合科技,2025,Q_S_EDU_PER_EMPLOYEE,1,0.263909,143,0.263909,single_or_consistent
+300491.SZ,通合科技,2025,Q_S_EDU_PER_EMPLOYEE,2,0.263909|344100,7|143,,conflicting_candidates
+300491.SZ,通合科技,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,25.12,73,25.12,single_or_consistent
 300491.SZ,通合科技,2025,Q_S_PAY_PER_EMPLOYEE,1,12.2663,143,12.2663,single_or_consistent
 300491.SZ,通合科技,2025,Q_S_RD_RATE,1,8.89,30,8.89,single_or_consistent
 300510.SZ,金冠股份,2025,Q_E_ENERGY_INTENSITY,1,7.9,25,7.9,single_or_consistent
@@ -2938,6 +2916,7 @@
 300510.SZ,金冠股份,2025,Q_G_QUICK_RATIO,1,163.276,87,163.276,single_or_consistent
 300510.SZ,金冠股份,2025,Q_G_TWO_FUNDS_RATE,1,52.8988,86,52.8988,single_or_consistent
 300510.SZ,金冠股份,2025,Q_S_DIVIDEND_PER_SHARE,1,0,54,0,single_or_consistent
+300510.SZ,金冠股份,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,29.78,8,29.78,single_or_consistent
 300510.SZ,金冠股份,2025,Q_S_RD_RATE,2,5.86,30|33,5.86,single_or_consistent
 300510.SZ,金冠股份,2025,Q_S_SAFETY_INVEST_RATE,1,0.28,49,0.28,single_or_consistent
 300514.SZ,友讯达,2025,Q_G_AR_TURNOVER,1,4.67385,85,4.67385,single_or_consistent
@@ -2999,6 +2978,7 @@
 300593.SZ,新雷能,2025,Q_S_DIVIDEND_PER_SHARE,1,0,56,0,single_or_consistent
 300593.SZ,新雷能,2025,Q_S_DONATION_RATE,1,0.00168322,231,0.00168322,single_or_consistent
 300593.SZ,新雷能,2025,Q_S_RD_RATE,1,34.35,33,34.35,single_or_consistent
+300617.SZ,安靠智电,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,65,20,65,single_or_consistent
 300617.SZ,安靠智电,2025,Q_G_AR_TURNOVER,1,1.04772,89,1.04772,single_or_consistent
 300617.SZ,安靠智电,2025,Q_G_ASSET_TURNOVER,1,0.215975,91,0.215975,single_or_consistent
 300617.SZ,安靠智电,2025,Q_G_CAPITAL_ACCUMULATION,1,3.13483,91,3.13483,single_or_consistent
@@ -3151,10 +3131,12 @@
 300724.SZ,捷佳伟创,2025,Q_S_DIVIDEND_PER_SHARE,2,1.2,43|236,1.2,single_or_consistent
 300724.SZ,捷佳伟创,2025,Q_S_PAY_PER_EMPLOYEE,1,18.7688,187,18.7688,single_or_consistent
 300724.SZ,捷佳伟创,2025,Q_S_RD_RATE,1,3.93,25,3.93,single_or_consistent
+300750.SZ,宁德时代,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,42.5,19,42.5,single_or_consistent
 300750.SZ,宁德时代,2025,Q_G_DEBT_ASSET_RATE,2,61.94,106|212,61.94,single_or_consistent
 300750.SZ,宁德时代,2025,Q_G_REVENUE_GROWTH,1,17.0406,11,17.0406,single_or_consistent
 300750.SZ,宁德时代,2025,Q_G_ROE,1,24.91,11,24.91,single_or_consistent
 300750.SZ,宁德时代,2025,Q_S_DIVIDEND_PER_SHARE,2,6.957,58|221,6.957,single_or_consistent
+300750.SZ,宁德时代,2025,Q_S_PAY_PER_EMPLOYEE,1,3.75553e+10,57,3.75553e+10,single_or_consistent
 300750.SZ,宁德时代,2025,Q_S_RD_RATE,1,5.23,30,5.23,single_or_consistent
 300751.SZ,迈为股份,2025,Q_G_AR_TURNOVER,1,3.97876,120,3.97876,single_or_consistent
 300751.SZ,迈为股份,2025,Q_G_ASSET_TURNOVER,1,0.74561,121,0.74561,single_or_consistent
@@ -3184,6 +3166,7 @@
 300763.SZ,锦浪科技,2025,Q_S_DIVIDEND_PER_SHARE,2,0.2,47|211,0.2,single_or_consistent
 300763.SZ,锦浪科技,2025,Q_S_DONATION_RATE,1,0.102914,189,0.102914,single_or_consistent
 300763.SZ,锦浪科技,2025,Q_S_RD_RATE,1,7.3,29,7.3,single_or_consistent
+300769.SZ,德方纳米,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,80,39,80,single_or_consistent
 300769.SZ,德方纳米,2025,Q_E_ENERGY_INTENSITY,1,250.94,10,250.94,single_or_consistent
 300769.SZ,德方纳米,2025,Q_E_WATER_INTENSITY,1,3280,40,3280,single_or_consistent
 300769.SZ,德方纳米,2025,Q_G_AR_TURNOVER,1,4.47705,101,4.47705,single_or_consistent
@@ -3207,6 +3190,7 @@
 300769.SZ,德方纳米,2025,Q_S_DIVIDEND_PER_SHARE,1,0,228,0,single_or_consistent
 300769.SZ,德方纳米,2025,Q_S_EDU_PER_EMPLOYEE,1,0.0546571,196,0.0546571,single_or_consistent
 300769.SZ,德方纳米,2025,Q_S_ENV_INVEST_RATE,1,0.594334,10,0.594334,single_or_consistent
+300769.SZ,德方纳米,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,23,51,23,single_or_consistent
 300769.SZ,德方纳米,2025,Q_S_PAY_PER_EMPLOYEE,1,13.4317,196,13.4317,single_or_consistent
 300769.SZ,德方纳米,2025,Q_S_RD_RATE,2,2.03,25|61,2.03,single_or_consistent
 300769.SZ,德方纳米,2025,Q_S_SAFETY_INVEST_RATE,1,0.205577,56,0.205577,single_or_consistent
@@ -3341,9 +3325,6 @@
 300870.SZ,欧陆通,2025,Q_S_EDU_PER_EMPLOYEE,1,0.0242587,188,0.0242587,single_or_consistent
 300870.SZ,欧陆通,2025,Q_S_PAY_PER_EMPLOYEE,1,12.9616,188,12.9616,single_or_consistent
 300870.SZ,欧陆通,2025,Q_S_RD_RATE,1,6.7,28,6.7,single_or_consistent
-300880.SZ,迦南智能,2025,Q_E_GHG_INTENSITY,2,12|38,39,,conflicting_candidates
-300880.SZ,迦南智能,2025,Q_E_HAZ_WASTE_INTENSITY,1,0.028,40,0.028,single_or_consistent
-300880.SZ,迦南智能,2025,Q_E_SOLID_WASTE_INTENSITY,1,1.2,40,1.2,single_or_consistent
 300880.SZ,迦南智能,2025,Q_G_AR_TURNOVER,1,2.36634,76,2.36634,single_or_consistent
 300880.SZ,迦南智能,2025,Q_G_ASSET_TURNOVER,1,0.401544,77,0.401544,single_or_consistent
 300880.SZ,迦南智能,2025,Q_G_CAPITAL_ACCUMULATION,1,0.98016,78,0.98016,single_or_consistent
@@ -3409,6 +3390,7 @@
 300907.SZ,康平科技,2025,Q_S_DONATION_RATE,1,0.00742434,168,0.00742434,single_or_consistent
 300907.SZ,康平科技,2025,Q_S_RD_RATE,1,3.79,19,3.79,single_or_consistent
 300919.SZ,中伟新材,2025,Q_E_ALTERNATIVE_WATER_RATE,5,59.05|59.23|70,13|83|97|98|99,,conflicting_candidates
+300919.SZ,中伟新材,2025,Q_E_CLEAN_ENERGY_INTENSITY,2,62|80,61|79,,conflicting_candidates
 300919.SZ,中伟新材,2025,Q_G_AR_TURNOVER,1,27.6939,138,27.6939,single_or_consistent
 300919.SZ,中伟新材,2025,Q_G_ASSET_TURNOVER,1,0.622644,138,0.622644,single_or_consistent
 300919.SZ,中伟新材,2025,Q_G_CAPITAL_ACCUMULATION,1,14.0177,138,14.0177,single_or_consistent
@@ -3424,7 +3406,9 @@
 300919.SZ,中伟新材,2025,Q_S_DIVIDEND_PER_SHARE,1,0.38,63,0.38,single_or_consistent
 300919.SZ,中伟新材,2025,Q_S_DONATION_RATE,1,0.0222513,233,0.0222513,single_or_consistent
 300919.SZ,中伟新材,2025,Q_S_ENV_INVEST_RATE,1,0.0475358,87,0.0475358,single_or_consistent
+300919.SZ,中伟新材,2025,Q_S_PAY_PER_EMPLOYEE,3,3|154281|157128,109|122,,conflicting_candidates
 300919.SZ,中伟新材,2025,Q_S_RD_RATE,1,2.43,32,2.43,single_or_consistent
+300932.SZ,三友联众,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,30,21,30,single_or_consistent
 300932.SZ,三友联众,2025,Q_E_GHG_INTENSITY,1,0.719267,17,0.719267,single_or_consistent
 300932.SZ,三友联众,2025,Q_E_NOX_INTENSITY,1,0.0918582,25,0.0918582,single_or_consistent
 300932.SZ,三友联众,2025,Q_E_PM_INTENSITY,1,1.93682,25,1.93682,single_or_consistent
@@ -3454,6 +3438,7 @@
 300933.SZ,中辰股份,2025,Q_S_DONATION_RATE,1,0.00351269,178,0.00351269,single_or_consistent
 300933.SZ,中辰股份,2025,Q_S_PAY_PER_EMPLOYEE,1,10.1084,166,10.1084,single_or_consistent
 300933.SZ,中辰股份,2025,Q_S_RD_RATE,1,3.52,24,3.52,single_or_consistent
+300953.SZ,震裕科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,30,21,30,single_or_consistent
 300953.SZ,震裕科技,2025,Q_G_AR_TURNOVER,1,8.10575,106,8.10575,single_or_consistent
 300953.SZ,震裕科技,2025,Q_G_ASSET_TURNOVER,1,0.795821,106,0.795821,single_or_consistent
 300953.SZ,震裕科技,2025,Q_G_CAPITAL_ACCUMULATION,1,48.6124,106,48.6124,single_or_consistent
@@ -3883,7 +3868,7 @@
 301361.SZ,众智科技,2025,Q_S_DIVIDEND_PER_SHARE,2,0.11,47|153,0.11,single_or_consistent
 301361.SZ,众智科技,2025,Q_S_DONATION_RATE,1,0.0172449,142,0.0172449,single_or_consistent
 301361.SZ,众智科技,2025,Q_S_RD_RATE,1,9.75,28,9.75,single_or_consistent
-301386.SZ,未来电器,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,12.5181,36,12.5181,single_or_consistent
+301386.SZ,未来电器,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,100,35,100,single_or_consistent
 301386.SZ,未来电器,2025,Q_E_ENERGY_INTENSITY,2,13.3,36|105,13.3,single_or_consistent
 301386.SZ,未来电器,2025,Q_E_GHG_INTENSITY,1,45.9,22,45.9,single_or_consistent
 301386.SZ,未来电器,2025,Q_E_SOLID_WASTE_INTENSITY,1,5.42471,32,5.42471,single_or_consistent
@@ -3934,7 +3919,7 @@
 301439.SZ,泓淋电力,2025,Q_G_TWO_FUNDS_RATE,1,61.1921,93,61.1921,single_or_consistent
 301439.SZ,泓淋电力,2025,Q_S_DIVIDEND_PER_SHARE,3,0|0.2,52|209,,conflicting_candidates
 301439.SZ,泓淋电力,2025,Q_S_DONATION_RATE,1,1.644e-05,185,1.644e-05,single_or_consistent
-301439.SZ,泓淋电力,2025,Q_S_PAY_PER_EMPLOYEE,1,9.41777,176,9.41777,single_or_consistent
+301439.SZ,泓淋电力,2025,Q_S_PAY_PER_EMPLOYEE,2,9.41777|235740,176,,conflicting_candidates
 301439.SZ,泓淋电力,2025,Q_S_RD_RATE,1,3.65,24,3.65,single_or_consistent
 301456.SZ,盘古智能,2025,Q_G_AR_TURNOVER,1,1.45214,90,1.45214,single_or_consistent
 301456.SZ,盘古智能,2025,Q_G_ASSET_TURNOVER,1,0.260225,92,0.260225,single_or_consistent
@@ -3982,6 +3967,7 @@
 301502.SZ,华阳智能,2025,Q_S_DIVIDEND_PER_SHARE,2,0.26,45|221,0.26,single_or_consistent
 301502.SZ,华阳智能,2025,Q_S_DONATION_RATE,1,0.0124382,193,0.0124382,single_or_consistent
 301502.SZ,华阳智能,2025,Q_S_RD_RATE,1,4.08,24,4.08,single_or_consistent
+301511.SZ,德福科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,20.84,16,20.84,single_or_consistent
 301511.SZ,德福科技,2025,Q_G_AR_TURNOVER,1,4.48126,94,4.48126,single_or_consistent
 301511.SZ,德福科技,2025,Q_G_ASSET_TURNOVER,1,0.722545,94,0.722545,single_or_consistent
 301511.SZ,德福科技,2025,Q_G_CAPITAL_ACCUMULATION,1,16.3805,94,16.3805,single_or_consistent
@@ -4059,6 +4045,7 @@
 600023.SH,浙能电力,2025,Q_G_TWO_FUNDS_RATE,1,47.8986,64,47.8986,single_or_consistent
 600023.SH,浙能电力,2025,Q_S_DIVIDEND_PER_SHARE,1,0.33,35,0.33,single_or_consistent
 600023.SH,浙能电力,2025,Q_S_DONATION_RATE,1,0.0098642,168,0.0098642,single_or_consistent
+600023.SH,浙能电力,2025,Q_S_PAY_PER_EMPLOYEE,1,5.21143e+07,150,5.21143e+07,single_or_consistent
 600023.SH,浙能电力,2025,Q_S_RD_RATE,2,0.5,14|27,0.5,single_or_consistent
 600025.SH,华能水电,2025,Q_G_AR_TURNOVER,1,11.7085,97,11.7085,single_or_consistent
 600025.SH,华能水电,2025,Q_G_ASSET_TURNOVER,1,0.120525,98,0.120525,single_or_consistent
@@ -4093,6 +4080,7 @@
 600028.SH,中国石化,2025,Q_G_REVENUE_GROWTH,1,-9.46408,5,-9.46408,single_or_consistent
 600028.SH,中国石化,2025,Q_G_ROE,1,3.86,6,3.86,single_or_consistent
 600028.SH,中国石化,2025,Q_S_ENV_INVEST_RATE,1,0.780289,45,0.780289,single_or_consistent
+600028.SH,中国石化,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,29.8,35,29.8,single_or_consistent
 600032.SH,浙江新能,2025,Q_E_GHG_INTENSITY,1,1.09992,18,1.09992,single_or_consistent
 600032.SH,浙江新能,2025,Q_E_WATER_INTENSITY,2,11.991,19|34,11.991,single_or_consistent
 600032.SH,浙江新能,2025,Q_G_AR_TURNOVER,1,0.58119,111,0.58119,single_or_consistent
@@ -4315,6 +4303,7 @@
 600167.SH,联美控股,2025,Q_G_ROE,1,6.39,7,6.39,single_or_consistent
 600167.SH,联美控股,2025,Q_G_TWO_FUNDS_RATE,1,14.5277,71,14.5277,single_or_consistent
 600167.SH,联美控股,2025,Q_S_DIVIDEND_PER_SHARE,1,0.15,38,0.15,single_or_consistent
+600167.SH,联美控股,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,11.85,27,11.85,single_or_consistent
 600167.SH,联美控股,2025,Q_S_RD_RATE,1,1.4,18,1.4,single_or_consistent
 600188.SH,兖矿能源,2025,Q_G_DEBT_ASSET_RATE,1,62.2,13,62.2,single_or_consistent
 600188.SH,兖矿能源,2025,Q_G_REVENUE_GROWTH,2,-7.4929|3.01011,9|11,,conflicting_candidates
@@ -4447,6 +4436,7 @@
 600268.SH,国电南自,2025,Q_S_DIVIDEND_PER_SHARE,1,0.2,60,0.2,single_or_consistent
 600268.SH,国电南自,2025,Q_S_DONATION_RATE,1,0.0207375,213,0.0207375,single_or_consistent
 600268.SH,国电南自,2025,Q_S_RD_RATE,1,7.24,24,7.24,single_or_consistent
+600310.SH,广西能源,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,70,14,70,single_or_consistent
 600310.SH,广西能源,2025,Q_G_AR_TURNOVER,1,7.19215,86,7.19215,single_or_consistent
 600310.SH,广西能源,2025,Q_G_ASSET_TURNOVER,1,0.28242,87,0.28242,single_or_consistent
 600310.SH,广西能源,2025,Q_G_CASH_CURRENT_LIABILITY,1,21.3979,95,21.3979,single_or_consistent
@@ -4574,7 +4564,7 @@
 600395.SH,盘江股份,2025,Q_G_TWO_FUNDS_RATE,1,27.6719,82,27.6719,single_or_consistent
 600395.SH,盘江股份,2025,Q_S_DIVIDEND_PER_SHARE,1,0.06,49,0.06,single_or_consistent
 600395.SH,盘江股份,2025,Q_S_EDU_PER_EMPLOYEE,1,0.349329,174,0.349329,single_or_consistent
-600395.SH,盘江股份,2025,Q_S_PAY_PER_EMPLOYEE,1,9.79453,174,9.79453,single_or_consistent
+600395.SH,盘江股份,2025,Q_S_PAY_PER_EMPLOYEE,5,9.79453|893100|1.21304e+08|2.12555e+08|4.04154e+08,14|18|174,,conflicting_candidates
 600395.SH,盘江股份,2025,Q_S_RD_RATE,1,3.05,20,3.05,single_or_consistent
 600396.SH,华电辽能,2025,Q_G_AR_TURNOVER,1,3.46263,80,3.46263,single_or_consistent
 600396.SH,华电辽能,2025,Q_G_ASSET_TURNOVER,1,0.473818,81,0.473818,single_or_consistent
@@ -4796,6 +4786,7 @@
 600482.SH,中国动力,2025,Q_S_DIVIDEND_PER_SHARE,1,0.28442,51,0.28442,single_or_consistent
 600482.SH,中国动力,2025,Q_S_DONATION_RATE,1,0.0004673,41,0.0004673,single_or_consistent
 600482.SH,中国动力,2025,Q_S_ENV_INVEST_RATE,1,0.145834,26,0.145834,single_or_consistent
+600482.SH,中国动力,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,18.96,34,18.96,single_or_consistent
 600482.SH,中国动力,2025,Q_S_RD_RATE,1,5.35,29,5.35,single_or_consistent
 600482.SH,中国动力,2025,Q_S_SAFETY_INVEST_RATE,1,0.217816,43,0.217816,single_or_consistent
 600483.SH,福能股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,1.37302,27,1.37302,single_or_consistent
@@ -4818,6 +4809,7 @@
 600483.SH,福能股份,2025,Q_S_DIVIDEND_PER_SHARE,1,0.426,40,0.426,single_or_consistent
 600483.SH,福能股份,2025,Q_S_DONATION_RATE,1,0.00344394,161,0.00344394,single_or_consistent
 600483.SH,福能股份,2025,Q_S_ENV_INVEST_RATE,1,1.80456,20,1.80456,single_or_consistent
+600483.SH,福能股份,2025,Q_S_PAY_PER_EMPLOYEE,1,6.59975e+08,38,6.59975e+08,single_or_consistent
 600483.SH,福能股份,2025,Q_S_RD_RATE,1,0.88,18,0.88,single_or_consistent
 600483.SH,福能股份,2025,Q_S_SAFETY_INVEST_RATE,1,0.953272,7,0.953272,single_or_consistent
 600505.SH,西昌电力,2025,Q_G_AR_TURNOVER,1,7.44939,67,7.44939,single_or_consistent
@@ -5212,6 +5204,7 @@
 600780.SH,通宝能源,2025,Q_G_TWO_FUNDS_RATE,1,25.4848,63,25.4848,single_or_consistent
 600780.SH,通宝能源,2025,Q_S_DIVIDEND_PER_SHARE,1,0.18,41,0.18,single_or_consistent
 600780.SH,通宝能源,2025,Q_S_ENV_INVEST_RATE,1,0.229326,8,0.229326,single_or_consistent
+600780.SH,通宝能源,2025,Q_S_PAY_PER_EMPLOYEE,2,405907|850818,140,,conflicting_candidates
 600780.SH,通宝能源,2025,Q_S_RD_RATE,1,0.02,16,0.02,single_or_consistent
 600780.SH,通宝能源,2025,Q_S_SAFETY_INVEST_RATE,1,0.53638,8,0.53638,single_or_consistent
 600795.SH,国电电力,2025,Q_E_GHG_INTENSITY,1,13238.8,48,13238.8,single_or_consistent
@@ -5244,6 +5237,7 @@
 600803.SH,新奥股份,2025,Q_S_DIVIDEND_PER_SHARE,1,1.14,68,1.14,single_or_consistent
 600803.SH,新奥股份,2025,Q_S_DONATION_RATE,1,0.0163019,242,0.0163019,single_or_consistent
 600803.SH,新奥股份,2025,Q_S_ENV_INVEST_RATE,1,0.00723432,50,0.00723432,single_or_consistent
+600803.SH,新奥股份,2025,Q_S_FEMALE_EMPLOYEE_RATE,5,17.7|20.2|25.4|25.6|28.1,25,,conflicting_candidates
 600803.SH,新奥股份,2025,Q_S_RD_RATE,1,0.74,34,0.74,single_or_consistent
 600821.SH,金开新能,2025,Q_E_GHG_INTENSITY,1,10.1491,19,10.1491,single_or_consistent
 600821.SH,金开新能,2025,Q_E_GHG_REDUCTION_RATE,1,12.1408,19,12.1408,single_or_consistent
@@ -5336,6 +5330,7 @@
 600871.SH,石化油服,2025,Q_G_REVENUE_GROWTH,2,-7.03175|-0.473512,9|11,,conflicting_candidates
 600871.SH,石化油服,2025,Q_G_ROE,1,7.35,10,7.35,single_or_consistent
 600871.SH,石化油服,2025,Q_S_DIVIDEND_PER_SHARE,1,0,48,0,single_or_consistent
+600871.SH,石化油服,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,12.6,55,12.6,single_or_consistent
 600871.SH,石化油服,2025,Q_S_RD_RATE,1,2.8,26,2.8,single_or_consistent
 600875.SH,东方电气,2025,Q_G_REVENUE_GROWTH,2,-23.6338|13.1062,5|6,,conflicting_candidates
 600875.SH,东方电气,2025,Q_G_ROE,1,9,6,9,single_or_consistent
@@ -5443,6 +5438,7 @@
 600903.SH,贵州燃气,2025,Q_G_TWO_FUNDS_RATE,1,59.9501,101,59.9501,single_or_consistent
 600903.SH,贵州燃气,2025,Q_S_DIVIDEND_PER_SHARE,1,0.014,52,0.014,single_or_consistent
 600903.SH,贵州燃气,2025,Q_S_DONATION_RATE,1,0.037145,197,0.037145,single_or_consistent
+600903.SH,贵州燃气,2025,Q_S_FEMALE_EMPLOYEE_RATE,3,23|25|30,9|26,,conflicting_candidates
 600903.SH,贵州燃气,2025,Q_S_RD_RATE,1,0.23,17,0.23,single_or_consistent
 600903.SH,贵州燃气,2025,Q_S_SAFETY_INVEST_RATE,1,1.50623,23,1.50623,single_or_consistent
 600905.SH,三峡能源,2025,Q_E_ALTERNATIVE_WATER_RATE,2,6.81,37|63,6.81,single_or_consistent
@@ -5495,6 +5491,7 @@
 600917.SH,重庆燃气,2025,Q_S_ENV_INVEST_RATE,1,0.0109168,31,0.0109168,single_or_consistent
 600917.SH,重庆燃气,2025,Q_S_RD_RATE,1,0.040966,61,0.040966,single_or_consistent
 600917.SH,重庆燃气,2025,Q_S_SAFETY_INVEST_RATE,1,1.30032,20,1.30032,single_or_consistent
+600925.SH,苏能股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,12.11,26,12.11,single_or_consistent
 600925.SH,苏能股份,2025,Q_G_AR_TURNOVER,1,15.5547,95,15.5547,single_or_consistent
 600925.SH,苏能股份,2025,Q_G_ASSET_TURNOVER,1,0.316409,96,0.316409,single_or_consistent
 600925.SH,苏能股份,2025,Q_G_CASH_CURRENT_LIABILITY,1,15.9741,104,15.9741,single_or_consistent
@@ -5557,6 +5554,7 @@
 600968.SH,海油发展,2025,Q_S_DIVIDEND_PER_SHARE,1,0.147,41,0.147,single_or_consistent
 600968.SH,海油发展,2025,Q_S_DONATION_RATE,1,0.00198558,11,0.00198558,single_or_consistent
 600968.SH,海油发展,2025,Q_S_EDU_PER_EMPLOYEE,1,1.22928,171,1.22928,single_or_consistent
+600968.SH,海油发展,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,21,11,21,single_or_consistent
 600968.SH,海油发展,2025,Q_S_PAY_PER_EMPLOYEE,1,33.5317,171,33.5317,single_or_consistent
 600968.SH,海油发展,2025,Q_S_RD_RATE,2,2.49|3.33,19|23,,conflicting_candidates
 600969.SH,郴电国际,2025,Q_G_AR_TURNOVER,1,9.58463,60,9.58463,single_or_consistent
@@ -5703,6 +5701,7 @@
 601012.SH,隆基绿能,2025,Q_G_TWO_FUNDS_RATE,1,28.6551,119,28.6551,single_or_consistent
 601012.SH,隆基绿能,2025,Q_S_DIVIDEND_PER_SHARE,1,0,60,0,single_or_consistent
 601012.SH,隆基绿能,2025,Q_S_DONATION_RATE,1,0.132672,250,0.132672,single_or_consistent
+601012.SH,隆基绿能,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,25,103,25,single_or_consistent
 601012.SH,隆基绿能,2025,Q_S_RD_RATE,1,6.11,29,6.11,single_or_consistent
 601016.SH,节能风电,2025,Q_G_AR_TURNOVER,1,1.16341,126,1.16341,single_or_consistent
 601016.SH,节能风电,2025,Q_G_ASSET_TURNOVER,1,0.101639,127,0.101639,single_or_consistent
@@ -5916,6 +5915,7 @@
 601611.SH,中国核建,2025,Q_G_TWO_FUNDS_RATE,1,33.3334,99,33.3334,single_or_consistent
 601611.SH,中国核建,2025,Q_S_DIVIDEND_PER_SHARE,1,0.06,40,0.06,single_or_consistent
 601611.SH,中国核建,2025,Q_S_RD_RATE,1,2.84,18,2.84,single_or_consistent
+601615.SH,明阳智能,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,19.95,27,19.95,single_or_consistent
 601615.SH,明阳智能,2025,Q_G_AR_TURNOVER,1,2.48875,97,2.48875,single_or_consistent
 601615.SH,明阳智能,2025,Q_G_ASSET_TURNOVER,1,0.414869,98,0.414869,single_or_consistent
 601615.SH,明阳智能,2025,Q_G_CASH_CURRENT_LIABILITY,1,-10.9492,105,-10.9492,single_or_consistent
@@ -5932,6 +5932,7 @@
 601615.SH,明阳智能,2025,Q_G_ROE,1,2.49,8,2.49,single_or_consistent
 601615.SH,明阳智能,2025,Q_G_TWO_FUNDS_RATE,1,60.0947,97,60.0947,single_or_consistent
 601615.SH,明阳智能,2025,Q_S_DIVIDEND_PER_SHARE,1,0.185,57,0.185,single_or_consistent
+601615.SH,明阳智能,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,13.13,60,13.13,single_or_consistent
 601615.SH,明阳智能,2025,Q_S_RD_RATE,1,2.91,28,2.91,single_or_consistent
 601616.SH,广电电气,2025,Q_G_AR_TURNOVER,1,1.92531,52,1.92531,single_or_consistent
 601616.SH,广电电气,2025,Q_G_ASSET_TURNOVER,1,0.48743,53,0.48743,single_or_consistent
@@ -6061,6 +6062,7 @@
 601778.SH,晶科科技,2025,Q_S_DIVIDEND_PER_SHARE,1,0.0283,52,0.0283,single_or_consistent
 601778.SH,晶科科技,2025,Q_S_DONATION_RATE,1,0.0516514,227,0.0516514,single_or_consistent
 601778.SH,晶科科技,2025,Q_S_RD_RATE,1,0.07,20,0.07,single_or_consistent
+601808.SH,中海油服,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,8.2,33,8.2,single_or_consistent
 601857.SH,中国石油,2025,Q_E_GHG_INTENSITY,1,574.696,18,574.696,single_or_consistent
 601857.SH,中国石油,2025,Q_G_REVENUE_GROWTH,2,-2.50213,7|8,-2.50213,single_or_consistent
 601857.SH,中国石油,2025,Q_G_ROE,1,10.1,8,10.1,single_or_consistent
@@ -6088,7 +6090,7 @@
 601868.SH,中国能建,2025,Q_S_DIVIDEND_PER_SHARE,1,0.0312,75,0.0312,single_or_consistent
 601868.SH,中国能建,2025,Q_S_DONATION_RATE,1,0.00450688,262,0.00450688,single_or_consistent
 601868.SH,中国能建,2025,Q_S_RD_RATE,1,3.28,31,3.28,single_or_consistent
-601877.SH,正泰电器,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,1.57732,128,1.57732,single_or_consistent
+601877.SH,正泰电器,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,85,48,85,single_or_consistent
 601877.SH,正泰电器,2025,Q_E_ENERGY_INTENSITY,1,2.22265,120,2.22265,single_or_consistent
 601877.SH,正泰电器,2025,Q_E_WASTEWATER_INTENSITY,1,5.90229,58,5.90229,single_or_consistent
 601877.SH,正泰电器,2025,Q_G_AR_TURNOVER,1,4.39948,101,4.39948,single_or_consistent
@@ -6111,6 +6113,7 @@
 601877.SH,正泰电器,2025,Q_S_DIVIDEND_PER_SHARE,1,0.6,65,0.6,single_or_consistent
 601877.SH,正泰电器,2025,Q_S_DONATION_RATE,1,0.00200814,217,0.00200814,single_or_consistent
 601877.SH,正泰电器,2025,Q_S_EDU_PER_EMPLOYEE,1,0.296467,200,0.296467,single_or_consistent
+601877.SH,正泰电器,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,15,16,15,single_or_consistent
 601877.SH,正泰电器,2025,Q_S_PAY_PER_EMPLOYEE,1,16.0625,200,16.0625,single_or_consistent
 601877.SH,正泰电器,2025,Q_S_RD_RATE,1,2.24,31,2.24,single_or_consistent
 601898.SH,中煤能源,2025,Q_G_DEBT_ASSET_RATE,1,45.8,12,45.8,single_or_consistent
@@ -6135,6 +6138,7 @@
 601908.SH,京运通,2025,Q_G_TWO_FUNDS_RATE,1,80.3348,70,80.3348,single_or_consistent
 601908.SH,京运通,2025,Q_S_DONATION_RATE,1,0.00771051,167,0.00771051,single_or_consistent
 601908.SH,京运通,2025,Q_S_RD_RATE,1,1.22,18,1.22,single_or_consistent
+601918.SH,新集能源,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,52.7,9,52.7,single_or_consistent
 601918.SH,新集能源,2025,Q_G_AR_TURNOVER,1,12.614,54,12.614,single_or_consistent
 601918.SH,新集能源,2025,Q_G_ASSET_TURNOVER,1,0.251385,55,0.251385,single_or_consistent
 601918.SH,新集能源,2025,Q_G_CASH_REALIZATION,1,120.464,62,120.464,single_or_consistent
@@ -6172,6 +6176,7 @@
 601985.SH,中国核电,2025,Q_G_ROE,1,8.21,8,8.21,single_or_consistent
 601985.SH,中国核电,2025,Q_G_TWO_FUNDS_RATE,1,71.6737,123,71.6737,single_or_consistent
 601985.SH,中国核电,2025,Q_S_DIVIDEND_PER_SHARE,1,0.16,65,0.16,single_or_consistent
+601985.SH,中国核电,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,15.1,45,15.1,single_or_consistent
 601985.SH,中国核电,2025,Q_S_RD_RATE,2,2.84,24|57,2.84,single_or_consistent
 601991.SH,大唐发电,2025,Q_E_GHG_REDUCTION_RATE,1,6.63,22,6.63,single_or_consistent
 601991.SH,大唐发电,2025,Q_E_PM_INTENSITY,1,247.412,24,247.412,single_or_consistent
@@ -6182,6 +6187,7 @@
 601991.SH,大唐发电,2025,Q_G_ROE,1,18.15,7,18.15,single_or_consistent
 601991.SH,大唐发电,2025,Q_S_DIVIDEND_PER_SHARE,1,0.148,45,0.148,single_or_consistent
 601991.SH,大唐发电,2025,Q_S_ENV_INVEST_RATE,1,2.32732,4,2.32732,single_or_consistent
+601991.SH,大唐发电,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,16.7,28,16.7,single_or_consistent
 601991.SH,大唐发电,2025,Q_S_RD_RATE,2,2.02,15|38,2.02,single_or_consistent
 601991.SH,大唐发电,2025,Q_S_SAFETY_INVEST_RATE,1,2.88317,18,2.88317,single_or_consistent
 603016.SH,新宏泰,2025,Q_G_AR_TURNOVER,1,4.00514,58,4.00514,single_or_consistent
@@ -6221,7 +6227,7 @@
 603026.SH,石大胜华,2025,Q_G_TWO_FUNDS_RATE,1,52.4653,90,52.4653,single_or_consistent
 603026.SH,石大胜华,2025,Q_S_DONATION_RATE,1,0.00117502,199,0.00117502,single_or_consistent
 603026.SH,石大胜华,2025,Q_S_RD_RATE,1,3.98,21,3.98,single_or_consistent
-603031.SH,安孚科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,0.342099,31,0.342099,single_or_consistent
+603031.SH,安孚科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,100,21,100,single_or_consistent
 603031.SH,安孚科技,2025,Q_E_ENERGY_INTENSITY,1,11.6,31,11.6,single_or_consistent
 603031.SH,安孚科技,2025,Q_E_GHG_INTENSITY,1,48,21,48,single_or_consistent
 603031.SH,安孚科技,2025,Q_E_PM_INTENSITY,1,8.14931,25,8.14931,single_or_consistent
@@ -6247,6 +6253,7 @@
 603031.SH,安孚科技,2025,Q_G_TWO_FUNDS_RATE,1,28.5046,93,28.5046,single_or_consistent
 603031.SH,安孚科技,2025,Q_S_DIVIDEND_PER_SHARE,1,0.12,60,0.12,single_or_consistent
 603031.SH,安孚科技,2025,Q_S_DONATION_RATE,1,0.00088605,185,0.00088605,single_or_consistent
+603031.SH,安孚科技,2025,Q_S_ENV_INVEST_RATE,1,0.09,25,0.09,single_or_consistent
 603031.SH,安孚科技,2025,Q_S_RD_RATE,1,2.55,34,2.55,single_or_consistent
 603031.SH,安孚科技,2025,Q_S_SAFETY_INVEST_RATE,1,0.06,60,0.06,single_or_consistent
 603032.SH,德新科技,2025,Q_G_AR_TURNOVER,1,2.38221,99,2.38221,single_or_consistent
@@ -6432,6 +6439,7 @@
 603191.SH,望变电气,2025,Q_G_ROE,1,2.83,9,2.83,single_or_consistent
 603191.SH,望变电气,2025,Q_G_TWO_FUNDS_RATE,1,59.9825,97,59.9825,single_or_consistent
 603191.SH,望变电气,2025,Q_S_DIVIDEND_PER_SHARE,1,0.05,61,0.05,single_or_consistent
+603191.SH,望变电气,2025,Q_S_PAY_PER_EMPLOYEE,1,1.50384e+07,33,1.50384e+07,single_or_consistent
 603191.SH,望变电气,2025,Q_S_RD_RATE,1,7.82,31,7.82,single_or_consistent
 603212.SH,赛伍技术,2025,Q_G_AR_TURNOVER,1,1.95907,105,1.95907,single_or_consistent
 603212.SH,赛伍技术,2025,Q_G_ASSET_TURNOVER,1,0.629063,106,0.629063,single_or_consistent
@@ -6573,7 +6581,7 @@
 603393.SH,新天然气,2025,Q_G_ROA,1,6.53318,72,6.53318,single_or_consistent
 603393.SH,新天然气,2025,Q_G_ROE,1,9.43,7,9.43,single_or_consistent
 603393.SH,新天然气,2025,Q_G_TWO_FUNDS_RATE,1,14.4552,67,14.4552,single_or_consistent
-603396.SH,金辰股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,0.556935,47,0.556935,single_or_consistent
+603396.SH,金辰股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,16.45,7,16.45,single_or_consistent
 603396.SH,金辰股份,2025,Q_E_ENERGY_INTENSITY,1,3.1,47,3.1,single_or_consistent
 603396.SH,金辰股份,2025,Q_E_GHG_INTENSITY,1,24.2495,25,24.2495,single_or_consistent
 603396.SH,金辰股份,2025,Q_E_GHG_REDUCTION_RATE,1,42.0448,47,42.0448,single_or_consistent
@@ -6743,6 +6751,7 @@
 603619.SH,中曼石油,2025,Q_G_TWO_FUNDS_RATE,1,35.865,96,35.865,single_or_consistent
 603619.SH,中曼石油,2025,Q_S_DIVIDEND_PER_SHARE,1,0.34,63,0.34,single_or_consistent
 603619.SH,中曼石油,2025,Q_S_DONATION_RATE,1,0.00918323,207,0.00918323,single_or_consistent
+603619.SH,中曼石油,2025,Q_S_PAY_PER_EMPLOYEE,1,1.97299e+08,32,1.97299e+08,single_or_consistent
 603619.SH,中曼石油,2025,Q_S_RD_RATE,1,3.5,32,3.5,single_or_consistent
 603628.SH,清源股份,2025,Q_G_AR_TURNOVER,1,2.18856,86,2.18856,single_or_consistent
 603628.SH,清源股份,2025,Q_G_ASSET_TURNOVER,1,1.22743,87,1.22743,single_or_consistent
@@ -6781,6 +6790,7 @@
 603659.SH,璞泰来,2025,Q_G_TWO_FUNDS_RATE,1,51.5447,77,51.5447,single_or_consistent
 603659.SH,璞泰来,2025,Q_S_DIVIDEND_PER_SHARE,1,0.23,47,0.23,single_or_consistent
 603659.SH,璞泰来,2025,Q_S_RD_RATE,1,5.65,22,5.65,single_or_consistent
+603689.SH,皖天然气,2025,Q_E_CLEAN_ENERGY_INTENSITY,2,18.92,7|30,18.92,single_or_consistent
 603689.SH,皖天然气,2025,Q_E_ENERGY_INTENSITY,1,3,30,3,single_or_consistent
 603689.SH,皖天然气,2025,Q_E_WATER_INTENSITY,1,22.1362,7,22.1362,single_or_consistent
 603689.SH,皖天然气,2025,Q_G_AR_TURNOVER,1,56.1119,83,56.1119,single_or_consistent
@@ -6803,6 +6813,7 @@
 603689.SH,皖天然气,2025,Q_S_DIVIDEND_PER_SHARE,1,0.35,41,0.35,single_or_consistent
 603689.SH,皖天然气,2025,Q_S_DONATION_RATE,1,0.0011255,188,0.0011255,single_or_consistent
 603689.SH,皖天然气,2025,Q_S_ENV_INVEST_RATE,1,0.029361,7,0.029361,single_or_consistent
+603689.SH,皖天然气,2025,Q_S_PAY_PER_EMPLOYEE,1,1.8365e+08,45,1.8365e+08,single_or_consistent
 603689.SH,皖天然气,2025,Q_S_RD_RATE,2,0.13,7|20,0.13,single_or_consistent
 603689.SH,皖天然气,2025,Q_S_SAFETY_INVEST_RATE,1,0.806517,7,0.806517,single_or_consistent
 603693.SH,江苏新能,2025,Q_G_AR_TURNOVER,1,0.637257,77,0.637257,single_or_consistent
@@ -6912,6 +6923,7 @@
 603806.SH,福斯特,2025,Q_G_TWO_FUNDS_RATE,1,38.9033,101,38.9033,single_or_consistent
 603806.SH,福斯特,2025,Q_S_DIVIDEND_PER_SHARE,1,0.15,57,0.15,single_or_consistent
 603806.SH,福斯特,2025,Q_S_DONATION_RATE,1,0.002616,187,0.002616,single_or_consistent
+603806.SH,福斯特,2025,Q_S_PAY_PER_EMPLOYEE,1,4.7128e+07,25,4.7128e+07,single_or_consistent
 603806.SH,福斯特,2025,Q_S_RD_RATE,1,3.02,31,3.02,single_or_consistent
 603819.SH,神力股份,2025,Q_G_AR_TURNOVER,1,2.7989,73,2.7989,single_or_consistent
 603819.SH,神力股份,2025,Q_G_ASSET_TURNOVER,1,0.994396,74,0.994396,single_or_consistent
@@ -7258,24 +7270,6 @@
 605580.SH,恒盛能源,2025,Q_S_DIVIDEND_PER_SHARE,1,0.3,51,0.3,single_or_consistent
 605580.SH,恒盛能源,2025,Q_S_DONATION_RATE,1,0.0011755,170,0.0011755,single_or_consistent
 605580.SH,恒盛能源,2025,Q_S_RD_RATE,1,2.4,25,2.4,single_or_consistent
-688005.SH,容百科技,2025,Q_G_AR_TURNOVER,1,3.12402,120,3.12402,single_or_consistent
-688005.SH,容百科技,2025,Q_G_ASSET_TURNOVER,1,0.515537,120,0.515537,single_or_consistent
-688005.SH,容百科技,2025,Q_G_CASH_CURRENT_LIABILITY,1,11.102,128,11.102,single_or_consistent
-688005.SH,容百科技,2025,Q_G_CASH_REALIZATION,1,190.362,127,190.362,single_or_consistent
-688005.SH,容百科技,2025,Q_G_COST_REVENUE_RATE,1,101.642,124,101.642,single_or_consistent
-688005.SH,容百科技,2025,Q_G_CURRENT_ASSET_TURNOVER,1,0.928768,120,0.928768,single_or_consistent
-688005.SH,容百科技,2025,Q_G_DEBT_ASSET_RATE,1,64.4541,121,64.4541,single_or_consistent
-688005.SH,容百科技,2025,Q_G_EBITDA_INTEREST,1,0.318604,125,0.318604,single_or_consistent
-688005.SH,容百科技,2025,Q_G_EBITDA_MARGIN,1,6.83296,125,6.83296,single_or_consistent
-688005.SH,容百科技,2025,Q_G_OPERATING_MARGIN,1,-0.952175,125,-0.952175,single_or_consistent
-688005.SH,容百科技,2025,Q_G_OPERATING_PROFIT_GROWTH,1,-127.187,125,-127.187,single_or_consistent
-688005.SH,容百科技,2025,Q_G_QUICK_RATIO,1,97.686,121,97.686,single_or_consistent
-688005.SH,容百科技,2025,Q_G_REVENUE_GROWTH,2,-18.6917|22.4199,8|9,,conflicting_candidates
-688005.SH,容百科技,2025,Q_G_ROA,1,0.239189,125,0.239189,single_or_consistent
-688005.SH,容百科技,2025,Q_G_ROE,1,-2.29,9,-2.29,single_or_consistent
-688005.SH,容百科技,2025,Q_G_TWO_FUNDS_RATE,1,44.6079,120,44.6079,single_or_consistent
-688005.SH,容百科技,2025,Q_S_DONATION_RATE,1,0.00203792,222,0.00203792,single_or_consistent
-688005.SH,容百科技,2025,Q_S_RD_RATE,1,3.44,9,3.44,single_or_consistent
 688006.SH,杭可科技,2025,Q_G_AR_TURNOVER,1,1.82737,87,1.82737,single_or_consistent
 688006.SH,杭可科技,2025,Q_G_ASSET_TURNOVER,1,0.289745,88,0.289745,single_or_consistent
 688006.SH,杭可科技,2025,Q_G_CASH_CURRENT_LIABILITY,1,21.872,95,21.872,single_or_consistent
@@ -7295,7 +7289,7 @@
 688006.SH,杭可科技,2025,Q_S_DIVIDEND_PER_SHARE,1,0.166,52,0.166,single_or_consistent
 688006.SH,杭可科技,2025,Q_S_DONATION_RATE,1,0.0166846,172,0.0166846,single_or_consistent
 688006.SH,杭可科技,2025,Q_S_RD_RATE,2,9.06,7|23,9.06,single_or_consistent
-688032.SH,禾迈股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,1.44867,52,1.44867,single_or_consistent
+688032.SH,禾迈股份,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,85.6,23,85.6,single_or_consistent
 688032.SH,禾迈股份,2025,Q_E_ENERGY_INTENSITY,1,6.5,52,6.5,single_or_consistent
 688032.SH,禾迈股份,2025,Q_E_GHG_INTENSITY,1,22.2,42,22.2,single_or_consistent
 688032.SH,禾迈股份,2025,Q_E_PM_INTENSITY,1,0.465827,46,0.465827,single_or_consistent
@@ -7474,6 +7468,7 @@
 688275.SH,万润新能,2025,Q_S_PAY_PER_EMPLOYEE,1,10.8571,227,10.8571,single_or_consistent
 688275.SH,万润新能,2025,Q_S_RD_RATE,2,2.19,11|38,2.19,single_or_consistent
 688303.SH,大全能源,2025,Q_E_ALTERNATIVE_WATER_RATE,2,99.34,6|26,99.34,single_or_consistent
+688303.SH,大全能源,2025,Q_E_CLEAN_ENERGY_INTENSITY,3,47|80,8|20,,conflicting_candidates
 688303.SH,大全能源,2025,Q_E_ENERGY_INTENSITY,1,1997.8,6,1997.8,single_or_consistent
 688303.SH,大全能源,2025,Q_E_NOX_INTENSITY,1,5.72488,50,5.72488,single_or_consistent
 688303.SH,大全能源,2025,Q_E_PM_INTENSITY,1,15.6039,50,15.6039,single_or_consistent
@@ -7587,6 +7582,7 @@
 688353.SH,华盛锂电,2025,Q_G_TWO_FUNDS_RATE,1,34.6185,150,34.6185,single_or_consistent
 688353.SH,华盛锂电,2025,Q_S_DONATION_RATE,1,0.034503,259,0.034503,single_or_consistent
 688353.SH,华盛锂电,2025,Q_S_RD_RATE,2,5.96,10|36,5.96,single_or_consistent
+688388.SH,嘉元科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,2,27.7,6|97,27.7,single_or_consistent
 688388.SH,嘉元科技,2025,Q_E_GHG_INTENSITY,1,0.00311095,22,0.00311095,single_or_consistent
 688388.SH,嘉元科技,2025,Q_G_AR_TURNOVER,1,5.86387,151,5.86387,single_or_consistent
 688388.SH,嘉元科技,2025,Q_G_ASSET_TURNOVER,1,1.20997,152,1.20997,single_or_consistent
@@ -7692,6 +7688,7 @@
 688472.SH,阿特斯,2025,Q_G_TWO_FUNDS_RATE,1,35.5691,181,35.5691,single_or_consistent
 688472.SH,阿特斯,2025,Q_S_DIVIDEND_PER_SHARE,1,0,104,0,single_or_consistent
 688472.SH,阿特斯,2025,Q_S_DONATION_RATE,1,0.00067148,276,0.00067148,single_or_consistent
+688472.SH,阿特斯,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,35,70,35,single_or_consistent
 688472.SH,阿特斯,2025,Q_S_RD_RATE,2,1.62,9|43,1.62,single_or_consistent
 688499.SH,利元亨,2025,Q_G_AR_TURNOVER,1,3.00699,155,3.00699,single_or_consistent
 688499.SH,利元亨,2025,Q_G_ASSET_TURNOVER,1,0.356819,155,0.356819,single_or_consistent
@@ -7793,6 +7790,7 @@
 688551.SH,科威尔,2025,Q_G_TWO_FUNDS_RATE,1,33.0912,105,33.0912,single_or_consistent
 688551.SH,科威尔,2025,Q_S_DIVIDEND_PER_SHARE,1,0.3,65,0.3,single_or_consistent
 688551.SH,科威尔,2025,Q_S_DONATION_RATE,1,0.054623,212,0.054623,single_or_consistent
+688551.SH,科威尔,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,22.7,7,22.7,single_or_consistent
 688551.SH,科威尔,2025,Q_S_RD_RATE,3,14.98,7|8|28,14.98,single_or_consistent
 688551.SH,科威尔,2025,Q_S_SAFETY_INVEST_RATE,1,0.09,38,0.09,single_or_consistent
 688556.SH,高测股份,2025,Q_G_AR_TURNOVER,1,1.6125,114,1.6125,single_or_consistent
@@ -7949,6 +7947,7 @@
 688616.SH,西力科技,2025,Q_G_ROE,1,12.16,7,12.16,single_or_consistent
 688616.SH,西力科技,2025,Q_G_TWO_FUNDS_RATE,1,35.3024,92,35.3024,single_or_consistent
 688616.SH,西力科技,2025,Q_S_DIVIDEND_PER_SHARE,1,0.3,50,0.3,single_or_consistent
+688616.SH,西力科技,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,45.99,58,45.99,single_or_consistent
 688616.SH,西力科技,2025,Q_S_RD_RATE,2,5.48,7|14,5.48,single_or_consistent
 688638.SH,誉辰智能,2025,Q_G_AR_TURNOVER,1,2.30636,163,2.30636,single_or_consistent
 688638.SH,誉辰智能,2025,Q_G_ASSET_TURNOVER,1,0.30011,164,0.30011,single_or_consistent
@@ -8010,10 +8009,12 @@
 688663.SH,新风光,2025,Q_S_DIVIDEND_PER_SHARE,1,0.22,66,0.22,single_or_consistent
 688663.SH,新风光,2025,Q_S_DONATION_RATE,1,0.024894,209,0.024894,single_or_consistent
 688663.SH,新风光,2025,Q_S_RD_RATE,1,4.99,7,4.99,single_or_consistent
+688676.SH,金盘科技,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,89.17,49,89.17,single_or_consistent
 688676.SH,金盘科技,2025,Q_E_ENERGY_INTENSITY,1,8.4,8,8.4,single_or_consistent
 688676.SH,金盘科技,2025,Q_E_GHG_INTENSITY,1,2.6,8,2.6,single_or_consistent
 688676.SH,金盘科技,2025,Q_E_HAZ_WASTE_INTENSITY,2,0.146,53|96,0.146,single_or_consistent
 688676.SH,金盘科技,2025,Q_E_PM_INTENSITY,1,6.1275,51,6.1275,single_or_consistent
+688676.SH,金盘科技,2025,Q_E_WASTEWATER_INTENSITY,1,30,50,30,single_or_consistent
 688676.SH,金盘科技,2025,Q_G_AR_TURNOVER,1,2.8926,171,2.8926,single_or_consistent
 688676.SH,金盘科技,2025,Q_G_ASSET_TURNOVER,1,0.662983,172,0.662983,single_or_consistent
 688676.SH,金盘科技,2025,Q_G_CASH_CURRENT_LIABILITY,1,13.3018,180,13.3018,single_or_consistent
@@ -8033,6 +8034,8 @@
 688676.SH,金盘科技,2025,Q_S_DIVIDEND_PER_SHARE,1,0.68,105,0.68,single_or_consistent
 688676.SH,金盘科技,2025,Q_S_DONATION_RATE,1,0.00504308,277,0.00504308,single_or_consistent
 688676.SH,金盘科技,2025,Q_S_ENV_INVEST_RATE,1,0.0308417,8,0.0308417,single_or_consistent
+688676.SH,金盘科技,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,23,119,23,single_or_consistent
+688676.SH,金盘科技,2025,Q_S_PAY_PER_EMPLOYEE,1,2.54366e+07,68,2.54366e+07,single_or_consistent
 688676.SH,金盘科技,2025,Q_S_RD_RATE,2,4.9,11|50,4.9,single_or_consistent
 688680.SH,海优新材,2025,Q_G_AR_TURNOVER,1,1.78525,115,1.78525,single_or_consistent
 688680.SH,海优新材,2025,Q_G_ASSET_TURNOVER,1,0.40195,116,0.40195,single_or_consistent
@@ -8161,6 +8164,7 @@
 688772.SH,珠海冠宇,2025,Q_S_DIVIDEND_PER_SHARE,1,0.3,58,0.3,single_or_consistent
 688772.SH,珠海冠宇,2025,Q_S_DONATION_RATE,1,0.0309192,216,0.0309192,single_or_consistent
 688772.SH,珠海冠宇,2025,Q_S_RD_RATE,1,12.89,9,12.89,single_or_consistent
+688778.SH,厦钨新能,2025,Q_E_CLEAN_ENERGY_INTENSITY,1,80,26,80,single_or_consistent
 688778.SH,厦钨新能,2025,Q_E_WATER_INTENSITY,1,890,6,890,single_or_consistent
 688778.SH,厦钨新能,2025,Q_G_AR_TURNOVER,1,6.21887,131,6.21887,single_or_consistent
 688778.SH,厦钨新能,2025,Q_G_ASSET_TURNOVER,1,1.07628,132,1.07628,single_or_consistent
@@ -8225,6 +8229,7 @@
 688819.SH,天能股份,2025,Q_S_DONATION_RATE,1,0.00124038,247,0.00124038,single_or_consistent
 688819.SH,天能股份,2025,Q_S_EDU_PER_EMPLOYEE,1,0.0507117,233,0.0507117,single_or_consistent
 688819.SH,天能股份,2025,Q_S_ENV_INVEST_RATE,1,0.101322,56,0.101322,single_or_consistent
+688819.SH,天能股份,2025,Q_S_FEMALE_EMPLOYEE_RATE,1,1.47,36,1.47,single_or_consistent
 688819.SH,天能股份,2025,Q_S_RD_RATE,3,4.05,11|34|57,4.05,single_or_consistent
 688819.SH,天能股份,2025,Q_S_SAFETY_INVEST_RATE,1,0.326516,40,0.326516,single_or_consistent
 920010.BJ,凯添燃气,2025,Q_G_CAPITAL_ACCUMULATION,1,3.26798,66,3.26798,single_or_consistent
@@ -8246,6 +8251,7 @@
 920110.BJ,雷特科技,2025,Q_S_PAY_PER_EMPLOYEE,1,12.8705,145,12.8705,single_or_consistent
 920152.BJ,昆工科技,2025,Q_G_DEBT_ASSET_RATE,1,68.47,60,68.47,single_or_consistent
 920152.BJ,昆工科技,2025,Q_G_ROE,1,-70.58,8,-70.58,single_or_consistent
+920152.BJ,昆工科技,2025,Q_S_PAY_PER_EMPLOYEE,1,2.74673e+06,25,2.74673e+06,single_or_consistent
 920167.BJ,同享科技,2025,Q_G_CAPITAL_ACCUMULATION,1,2.57236,72,2.57236,single_or_consistent
 920167.BJ,同享科技,2025,Q_G_ROE,1,3.5,8,3.5,single_or_consistent
 920167.BJ,同享科技,2025,Q_S_BENEFIT_PER_EMPLOYEE,1,1.30623,145,1.30623,single_or_consistent
@@ -8282,6 +8288,7 @@
 920496.BJ,许昌智能,2025,Q_G_ROE,2,1.91|9,8|208,,conflicting_candidates
 920522.BJ,纳科诺尔,2025,Q_G_CAPITAL_ACCUMULATION,1,3.04065,62,3.04065,single_or_consistent
 920522.BJ,纳科诺尔,2025,Q_G_ROE,1,6.23,8,6.23,single_or_consistent
+920522.BJ,纳科诺尔,2025,Q_S_PAY_PER_EMPLOYEE,1,1.59766e+07,16,1.59766e+07,single_or_consistent
 920523.BJ,德瑞锂电,2025,Q_G_DEBT_ASSET_RATE,1,30.55,12,30.55,single_or_consistent
 920523.BJ,德瑞锂电,2025,Q_G_ROE,1,22.35,8,22.35,single_or_consistent
 920556.BJ,雅达股份,2025,Q_G_CAPITAL_ACCUMULATION,1,1.60603,74,1.60603,single_or_consistent
@@ -8315,4 +8322,3 @@
 920914.BJ,远航精密,2025,Q_G_QUICK_RATIO,1,197.265,94,197.265,single_or_consistent
 920914.BJ,远航精密,2025,Q_G_ROE,1,5.69,8,5.69,single_or_consistent
 920914.BJ,远航精密,2025,Q_G_TWO_FUNDS_RATE,1,51.3585,93,51.3585,single_or_consistent
-920985.BJ,海泰新能,2025,Q_G_DEBT_ASSET_RATE,2,86.89|129.996,42|87,,conflicting_candidates
