@@ -1,0 +1,13 @@
+ESG提取进度快照
+时间: 2026-08-06 23:38:50
+
+进程状态:
+wangfeng         67250   0.0  0.1 435269872  20032   ??  SN   11:25PM   0:00.12 /opt/homebrew/Cellar/python@3.14/3.14.5/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python scripts/run_incremental_indicator_extraction.py
+
+输出文件:
+-rw-r--r--@ 1 wangfeng  staff    13M Aug  6 23:28 output/audit/ci_incremental_candidates_v1_2025.csv
+
+规则统计:
+DirectRule: 73条
+_rule: 45条
+总计: 118条
