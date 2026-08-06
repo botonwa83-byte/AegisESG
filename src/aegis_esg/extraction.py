@@ -72,11 +72,12 @@ def _rule(code: str, label: str, units: str, factors: dict[str, float], confiden
 
 
 RULES = (
-    # Day 2 优化: 放宽环境指标规则，支持更多变体
+    # Day 2 优化: 放宽环境指标规则，支持更多变体（包括百万元）
     _rule("Q_E_GHG_INTENSITY", r"(?:温室气体|GHG|碳|CO2)(?:排放)?强度",
-          r"(?:千克|kg|吨|t|公斤)(?:二氧化碳当量|CO2e?|CO₂)?[/／](?:万|百万)?元(?:营收|营业收入|收入|产值)?",
+          r"(?:千克|kg|吨|t|公斤)(?:二氧化碳当量|CO2e?|CO₂)?[/／](?:万|百万|10万)?元(?:营收|营业收入|收入|产值)?",
           {"千克/万元": 1, "kg/万元": 1, "吨/万元": 1000, "t/万元": 1000, "公斤/万元": 1,
-           "千克/百万元": 0.01, "吨/百万元": 10, "千克CO2e/万元": 1, "kg CO2/万元": 1}, .83),
+           "千克/百万元": 0.01, "吨/百万元": 10, "千克CO2e/万元": 1, "kg CO2/万元": 1,
+           "吨/百万元营收": 10, "吨二氧化碳当量/百万元": 10}, .83),
     _rule("Q_E_ENERGY_INTENSITY", r"(?:综合|总)?能源(?:消耗|消费|使用)强度",
           r"(?:千克|kg|吨|t|公斤)(?:标准煤|标煤|tce)?[/／](?:万|百万)?元(?:营收|营业收入|收入|产值)?",
           {"千克标准煤/万元": 1, "kg标煤/万元": 1, "吨标准煤/万元": 1000, "t标煤/万元": 1000,
@@ -131,6 +132,152 @@ RULES = (
 
 
 DIRECT_RULES = (
+    # 表格格式专用规则 - 修复年份选择问题（匹配行尾最后一个数值）
+    DirectRule(
+        "Q_E_GHG_INTENSITY",
+        re.compile(
+            r"(?:温室气体|GHG|碳|CO2)(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +  # 允许单位和其他内容
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +  # 跳过前面的数值
+            NUMBER + r"\s*$",  # 匹配行尾数值
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_ENERGY_INTENSITY",
+        re.compile(
+            r"(?:综合|总)?能源(?:消耗|消费)强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_WATER_INTENSITY",
+        re.compile(
+            r"水资源?(?:使用|消耗|消费)强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_NOX_INTENSITY",
+        re.compile(
+            r"(?:氮氧化物|NOx)(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_SO2_INTENSITY",
+        re.compile(
+            r"(?:二氧化硫|SO2)(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_PM_INTENSITY",
+        re.compile(
+            r"(?:颗粒物|PM|粉尘)(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_SOLID_WASTE_INTENSITY",
+        re.compile(
+            r"(?:一般)?固(?:体)?废(?:物)?(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_HAZ_WASTE_INTENSITY",
+        re.compile(
+            r"危险(?:固体)?废物(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_E_WASTEWATER_INTENSITY",
+        re.compile(
+            r"(?:废|污)水(?:排放)?强度\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_S_PAY_PER_EMPLOYEE",
+        re.compile(
+            r"(?:员工|职工)(?:平均)?(?:薪酬|工资|报酬|年薪)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.82,
+    ),
+    DirectRule(
+        "Q_S_ENV_INVEST_RATE",
+        re.compile(
+            r"环(?:境)?(?:保护|保)(?:投入|支出|费用)(?:占比|比例)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*%?\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"(?:安全生产|生产安全)(?:投入|费用|支出)(?:占比|比例)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*%?\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    # 保留原有的DirectRules
     DirectRule(
         "Q_G_DEBT_ASSET_RATE",
         re.compile(
