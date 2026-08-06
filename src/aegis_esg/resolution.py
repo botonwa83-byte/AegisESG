@@ -26,7 +26,10 @@ STRICT_EVIDENCE_PREFIXES = {
         "Alternative-water explicit-year vertical table:",
     ),
     "Q_S_RD_RATE": ("中文研发占收比显式年份表: ",),
-    "Q_E_CLEAN_ENERGY_INTENSITY": ("English same-table renewable energy intensity derived:",),
+    "Q_E_CLEAN_ENERGY_INTENSITY": (
+        "English same-table renewable energy intensity derived:",
+        "中文跨表派生: ", "English cross-document derived: ",
+    ),
     "Q_E_GHG_INTENSITY": (
         "English current-first direct intensity row:", "English current-first Million Yuan row:",
         "中文跨表派生: ", "English cross-document derived: ",

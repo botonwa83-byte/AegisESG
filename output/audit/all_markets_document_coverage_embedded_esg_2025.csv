@@ -1,30 +1,46 @@
 ﻿stock_code,company_name,document_count,annual_report_count,esg_report_count,report_years,document_types,annual_status,esg_status,next_action
-00702.HK,SINO OIL & GAS,0,0,0,,,missing,missing,discover_annual_report
-01101.HK,HUARONG ENERGY,0,0,0,,,missing,missing,discover_annual_report
+000009.SZ,中国宝安,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00002.HK,CLP HOLDINGS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000027.SZ,深圳能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00003.HK,HK & CHINA GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000037.SZ,深南电A,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000049.SZ,德赛电池,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00006.HK,POWER ASSETS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000096.SZ,广聚能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000155.SZ,川能动力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000400.SZ,许继电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000407.SZ,胜利股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00042.HK,NE ELECTRIC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000421.SZ,南京公用,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000531.SZ,穗恒运Ａ,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000533.SZ,顺钠股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000537.SZ,绿发电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000539.SZ,粤电力Ａ,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000543.SZ,皖能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000554.SZ,泰山石油,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000591.SZ,太阳能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000593.SZ,德龙汇能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000600.SZ,建投能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000601.SZ,韶能股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00061.HK,GREEN LEADER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000637.SZ,茂化实华,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00065.HK,GRAND OCEAN AR,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000682.SZ,东方电子,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000690.SZ,宝新能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 000692.SZ,惠天热电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000703.SZ,恒逸石化,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000720.SZ,新能泰山,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000722.SZ,湖南发展,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-000862.SZ,银星能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000723.SZ,美锦能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000767.SZ,晋控电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000791.SZ,甘肃能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000819.SZ,岳阳兴长,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000862.SZ,银星能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 000875.SZ,电投绿能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000883.SZ,湖北能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-000899.SZ,赣能股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-000937.SZ,冀中能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+000899.SZ,赣能股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+000922.SZ,佳电股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+000937.SZ,冀中能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 000966.SZ,长源电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000968.SZ,蓝焰控股,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 000993.SZ,闽东电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -33,60 +49,68 @@
 001269.SZ,欧晶科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 001283.SZ,豪鹏科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 001289.SZ,龙源电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-001299.SZ,美能能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-001301.SZ,尚太科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+001299.SZ,美能能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+001301.SZ,尚太科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 001331.SZ,胜通能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00135.HK,KUNLUN ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 001376.SZ,百通能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00182.HK,CONCORD NE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 001896.SZ,豫能控股,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002015.SZ,协鑫能科,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00196.HK,HONGHUA GROUP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+002015.SZ,协鑫能科,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002028.SZ,思源电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 002039.SZ,黔源电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002056.SZ,横店东磁,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00206.HK,CM-ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002060.SZ,广东建工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002074.SZ,国轩高科,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002090.SZ,金智科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002074.SZ,国轩高科,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002090.SZ,金智科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002112.SZ,三变科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002121.SZ,科陆电子,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002125.SZ,湘潭电化,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002128.SZ,电投能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002129.SZ,TCL中环,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002128.SZ,电投能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002129.SZ,TCL中环,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002169.SZ,智光电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002196.SZ,方正电机,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002202.SZ,金风科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002202.SZ,金风科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002218.SZ,拓日新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002221.SZ,东华能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002245.SZ,蔚蓝锂芯,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002245.SZ,蔚蓝锂芯,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002249.SZ,大洋电机,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002255.SZ,海陆重工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002259.SZ,升达林业,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002267.SZ,陕天然气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002267.SZ,陕天然气,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002270.SZ,华明装备,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002276.SZ,万马股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002300.SZ,太阳电缆,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00228.HK,CHINA ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+002300.SZ,太阳电缆,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002309.SZ,中利集团,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002335.SZ,科华数据,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002339.SZ,积成电子,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002340.SZ,格林美,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002340.SZ,格林美,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002346.SZ,柘中股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002350.SZ,北京科锐,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002350.SZ,北京科锐,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002358.SZ,森源电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002364.SZ,中恒电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002366.SZ,融发核电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002441.SZ,众业达,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002451.SZ,摩恩电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002452.SZ,长高电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002452.SZ,长高电新,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002459.SZ,晶澳科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 002471.SZ,中超控股,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002479.SZ,富春环保,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002487.SZ,大金重工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002479.SZ,富春环保,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002487.SZ,大金重工,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002490.SZ,山东墨龙,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002493.SZ,荣盛石化,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002493.SZ,荣盛石化,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002498.SZ,汉缆股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002506.SZ,协鑫集成,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 002518.SZ,科士达,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002527.SZ,新时达,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002527.SZ,新时达,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002531.SZ,天顺风能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 002533.SZ,金杯电工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002534.SZ,西子洁能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002546.SZ,新联电子,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002560.SZ,通达股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002560.SZ,通达股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002576.SZ,通达动力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002580.SZ,圣阳股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002606.SZ,大连电瓷,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -95,11 +119,12 @@
 002623.SZ,亚玛顿,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002629.SZ,仁智股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002692.SZ,远程股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002700.SZ,万憬能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002709.SZ,天赐材料,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002700.SZ,万憬能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002706.SZ,良信股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+002709.SZ,天赐材料,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002733.SZ,雄韬股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-00276.HK,MONGOLIA ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002801.SZ,微光股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00276.HK,MONGOLIA ENERGY,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+002801.SZ,微光股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002805.SZ,丰元股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002812.SZ,恩捷股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002823.SZ,凯中精密,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -107,71 +132,123 @@
 002850.SZ,科达利,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002851.SZ,麦格米特,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002857.SZ,三晖电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002865.SZ,钧达股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002865.SZ,钧达股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 002879.SZ,长缆科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002882.SZ,金龙羽,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002892.SZ,科力尔,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002893.SZ,京能热力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002911.SZ,佛燃能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002927.SZ,泰永长征,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002927.SZ,泰永长征,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 00295.HK,KONG SUN HOLD,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002953.SZ,日丰股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 002980.SZ,华盛昌,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-002986.SZ,宇新股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+002986.SZ,宇新股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 003021.SZ,兆威机电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 003022.SZ,联泓新科,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-003035.SZ,南网能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+003035.SZ,南网能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+00332.HK,YUANHENGGAS-NEW,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00346.HK,YANCHANG PETRO,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00353.HK,ENERGY INTINV,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 003816.SZ,中国广核,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00384.HK,CHINA GAS HOLD,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00392.HK,BEIJING ENT,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00451.HK,GCL NEWENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00467.HK,UNITEDENERGY GP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00554.HK,HANS GP HLDGS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00579.HK,JNCEC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00600.HK,AXERA,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00607.HK,FULLSHARE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00632.HK,CHK OIL,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00639.HK,SHOUGANG RES,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00645.HK,ARES ASIA,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00650.HK,PRODUCTIVE TECH,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00666.HK,REPT BATTERO,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00686.HK,BJ ENERGY INTL,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00689.HK,EPI (HOLDINGS),1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00702.HK,SINO OIL & GAS,0,0,0,,,missing,missing,discover_annual_report
 00704.HK,HUSCOKE HLDGS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00819.HK,TIANNENG POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00836.HK,CHINA RES POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00866.HK,CHINA QINFA,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 00931.HK,CHINA HK POWER,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+00934.HK,SINOPEC KANTONS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00951.HK,CHAOWEI POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+00968.HK,XINYI SOLAR,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 00975.HK,MONGOL MINING,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 01080.HK,SHENGLI PIPE,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01083.HK,TG SMART ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01101.HK,HUARONG ENERGY,0,0,0,,,missing,missing,discover_annual_report
+01193.HK,CHINA RES GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01205.HK,CITIC RESOURCES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01229.HK,NAN NAN RES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01250.HK,SDHS NEW ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01251.HK,SPT ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 01277.HK,KINETIC DEV,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01303.HK,HUILI RES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01393.HK,HIDILI INDUSTRY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01407.HK,JY GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01555.HK,MIE HOLDINGS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01600.HK,TIAN LUN GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01608.HK,VPOWER GROUP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01621.HK,VICO INTL HLDGS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01623.HK,HILONG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01713.HK,SICHUAN EN INV,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01733.HK,E-COMMODITIES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01738.HK,FS ANTHRACITE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01798.HK,DATANG RENEW,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01799.HK,XINTE ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+01811.HK,CGN NEW ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 01878.HK,SOUTHGOBI,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 01921.HK,DALIPAL HLDG,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 01938.HK,CHU KONG PIPE,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+01940.HK,CGII HLDGS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02012.HK,SUNSHINE OIL,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 02178.HK,PETRO-KING,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+02236.HK,WISON ENGRG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02380.HK,CHINA POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02386.HK,SINOPEC SEG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02688.HK,ENN ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+02728.HK,JINTAI ENERGY H,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 02798.HK,PER ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+03303.HK,JUTAL OIL SER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03337.HK,ANTON OILFIELD,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 03395.HK,JX ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+03633.HK,ZHONGYU ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03668.HK,YANCOAL AUS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03800.HK,GCL TECH,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03868.HK,XINYI ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+03899.HK,CIMC ENRIC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+06828.HK,BG BLUE SKY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 06885.HK,JINMA ENERGY,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 08132.HK,CENTURY EN INTL,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+08270.HK,CHINA CBM,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 08347.HK,F8 ENT,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 08536.HK,TL NATURAL GAS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-08631.HK,SUN KONG HLDGS,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+08631.HK,YUFENGCHANG HLD,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 09689.HK,JTF INTL,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300001.SZ,特锐德,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 300014.SZ,亿纬锂能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300018.SZ,中元股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300035.SZ,中科电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300037.SZ,新宙邦,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300040.SZ,九洲集团,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300051.SZ,琏升科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300062.SZ,中能电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300062.SZ,中能电气,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300069.SZ,金利华电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300073.SZ,当升科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300073.SZ,当升科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300080.SZ,易成新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300105.SZ,龙源技术,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300118.SZ,东方日升,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300129.SZ,泰胜风能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300129.SZ,泰胜风能,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300140.SZ,节能环境,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300141.SZ,和顺电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300153.SZ,科泰电源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300185.SZ,通裕重工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300191.SZ,潜能恒信,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300207.SZ,欣旺达,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 300222.SZ,科大智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300265.SZ,通光线缆,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300274.SZ,阳光电源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 300283.SZ,温州宏丰,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300286.SZ,安科瑞,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300316.SZ,晶盛机电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -179,7 +256,7 @@
 300332.SZ,天壕能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300340.SZ,科恒股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300360.SZ,炬华科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300376.SZ,易事特,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300376.SZ,易事特,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300390.SZ,天华新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300393.SZ,中来股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300407.SZ,凯发电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -188,45 +265,49 @@
 300423.SZ,昇辉科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300427.SZ,红相股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300432.SZ,富临精工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300438.SZ,鹏辉能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300438.SZ,鹏辉能源,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300443.SZ,金雷股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300444.SZ,双杰电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300450.SZ,先导智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300457.SZ,赢合科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300483.SZ,首华燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300490.SZ,华自科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300491.SZ,通合科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300510.SZ,金冠股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300491.SZ,通合科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+300510.SZ,金冠股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300514.SZ,友讯达,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300568.SZ,星源材质,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300569.SZ,天能重工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300593.SZ,新雷能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300617.SZ,安靠智电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300619.SZ,金银河,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300626.SZ,华瑞股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300626.SZ,华瑞股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300648.SZ,星云股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300660.SZ,江苏雷利,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300670.SZ,大烨智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300690.SZ,双一科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300690.SZ,双一科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300693.SZ,盛弘股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300713.SZ,英可瑞,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300724.SZ,捷佳伟创,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300750.SZ,宁德时代,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300751.SZ,迈为股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300763.SZ,锦浪科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300769.SZ,德方纳米,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300772.SZ,运达股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300820.SZ,英杰电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300769.SZ,德方纳米,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+300772.SZ,运达股份,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+300776.SZ,帝尔激光,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+300820.SZ,英杰电气,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300827.SZ,上能电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300842.SZ,帝科股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300850.SZ,新强联,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 300853.SZ,申昊科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300870.SZ,欧陆通,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+300880.SZ,迦南智能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 300882.SZ,万胜智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300904.SZ,威力传动,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 300907.SZ,康平科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300919.SZ,中伟新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300932.SZ,三友联众,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300919.SZ,中伟新材,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
+300932.SZ,三友联众,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 300933.SZ,中辰股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-300953.SZ,震裕科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+300953.SZ,震裕科技,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 301002.SZ,崧盛股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301012.SZ,扬电科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301023.SZ,奕帆传动,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -253,12 +334,14 @@
 301291.SZ,明阳电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301292.SZ,海科新源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301295.SZ,美硕科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+301325.SZ,曼恩斯特,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 301327.SZ,华宝新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301349.SZ,信德新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-301358.SZ,湖南裕能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+301358.SZ,湖南裕能,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 301361.SZ,众智科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+301386.SZ,未来电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 301388.SZ,欣灵电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-301439.SZ,泓淋电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+301439.SZ,泓淋电力,1,1,0,2025,annual_report,collected,collected,scan_annual_for_esg
 301456.SZ,盘古智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301487.SZ,盟固利,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 301502.SZ,华阳智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -267,74 +350,137 @@
 301587.SZ,中瑞股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600011.SH,华能国际,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600021.SH,上海电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600023.SH,浙能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600025.SH,华能水电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600027.SH,华电国际,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600028.SH,中国石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600032.SH,浙江新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600089.SH,特变电工,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600098.SH,广州发展,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600101.SH,明星电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600110.SH,诺德股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600116.SH,三峡水利,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600149.SH,廊坊发展,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600151.SH,航天机电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600152.SH,维科技术,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600157.SH,永泰能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600163.SH,中闽能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600167.SH,联美控股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600188.SH,兖矿能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600192.SH,长城电工,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600207.SH,安彩高科,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600212.SH,绿能慧充,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600236.SH,桂冠电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600241.SH,时代万恒,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600256.SH,广汇能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600268.SH,国电南自,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600310.SH,广西能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600312.SH,平高电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600333.SH,长春燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600339.SH,中油工程,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600346.SH,恒力石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600379.SH,宝光股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600395.SH,盘江股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600396.SH,华电辽能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600397.SH,江钨装备,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600405.SH,动力源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600406.SH,国电南瑞,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600416.SH,湘电股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600438.SH,通威股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600452.SH,涪陵电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600458.SH,时代新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600468.SH,百利电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600475.SH,华光环能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600478.SH,科力远,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600481.SH,双良节能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600482.SH,中国动力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600483.SH,福能股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600505.SH,西昌电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600508.SH,上海能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600509.SH,天富能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600550.SH,保变电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600577.SH,精达股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600578.SH,京能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600580.SH,卧龙电驱,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600617.SH,国新能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600635.SH,大众公用,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600642.SH,申能股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600644.SH,乐山电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600674.SH,川投能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600681.SH,百川能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600688.SH,上海石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600719.SH,大连热电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600725.SH,云维股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600726.SH,华电能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600732.SH,爱旭股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600744.SH,华银电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600758.SH,辽宁能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600777.SH,*ST新潮,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600780.SH,通宝能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600795.SH,国电电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600803.SH,新奥股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600821.SH,金开新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600847.SH,万里股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600863.SH,华能蒙电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600868.SH,梅雁吉祥,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600869.SH,远东股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600871.SH,石化油服,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600875.SH,东方电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600884.SH,杉杉股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600885.SH,宏发股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600886.SH,国投电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600900.SH,长江电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600903.SH,贵州燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600905.SH,三峡能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600917.SH,重庆燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600925.SH,苏能股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600938.SH,中国海油,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600956.SH,新天绿能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600968.SH,海油发展,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+600969.SH,郴电国际,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 600973.SH,宝胜股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600979.SH,广安爱众,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 600982.SH,宁波能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+600995.SH,南网储能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601001.SH,晋控煤业,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601012.SH,隆基绿能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601016.SH,节能风电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601088.SH,中国神华,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601126.SH,四方股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601139.SH,深圳燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601179.SH,中国西电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 601218.SH,吉鑫科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 601222.SH,林洋能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601225.SH,陕西煤业,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601233.SH,桐昆股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601311.SH,骆驼股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601567.SH,三星电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601611.SH,中国核建,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601615.SH,明阳智能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601616.SH,广电电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601619.SH,嘉泽新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601666.SH,平煤股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601669.SH,中国电建,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 601700.SH,风范股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601727.SH,上海电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601778.SH,晶科科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601808.SH,中海油服,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601857.SH,中国石油,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601865.SH,福莱特,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 601868.SH,中国能建,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601877.SH,正泰电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 601898.SH,中煤能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 601908.SH,京运通,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+601918.SH,新集能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601985.SH,中国核电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+601991.SH,大唐发电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603016.SH,新宏泰,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603026.SH,石大胜华,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603031.SH,安孚科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+603032.SH,德新科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603050.SH,科林电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603053.SH,成都燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+603063.SH,禾望电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603070.SH,万控智造,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603080.SH,新疆火炬,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603097.SH,江苏华辰,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -345,61 +491,92 @@
 603218.SH,日月股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603312.SH,西典新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603318.SH,水发燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-603333.SH,福华尚纬,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603320.SH,迪贝电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+603333.SH,尚纬股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603344.SH,星德胜,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603353.SH,和顺石油,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603393.SH,新天然气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603396.SH,金辰股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603489.SH,八方股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603507.SH,振江股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603530.SH,神马电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603556.SH,海兴电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603577.SH,汇金通,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603606.SH,东方电缆,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603618.SH,杭电股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603619.SH,中曼石油,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603628.SH,清源股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603659.SH,璞泰来,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603689.SH,皖天然气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+603693.SH,江苏新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+603706.SH,东方环宇,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603727.SH,博迈科,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603728.SH,鸣志电器,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603798.SH,康普顿,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603806.SH,福斯特,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603819.SH,神力股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603829.SH,洛凯股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603861.SH,白云电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603897.SH,长城科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 603906.SH,龙蟠科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+603985.SH,恒润股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 603988.SH,中电电机,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+605011.SH,杭州热电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+605028.SH,世茂能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 605066.SH,天正电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 605090.SH,九丰能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+605117.SH,德业股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+605162.SH,新中港,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 605169.SH,洪通燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+605196.SH,华通线缆,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 605222.SH,起帆电缆,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 605368.SH,蓝天燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 605378.SH,野马电池,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+605580.SH,恒盛能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688005.SH,容百科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688006.SH,杭可科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688032.SH,禾迈股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688063.SH,派能科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688116.SH,天奈科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688147.SH,微导纳米,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688148.SH,芳源股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688155.SH,先惠技术,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688191.SH,智洋创新,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688223.SH,晶科能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688226.SH,威腾电气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688248.SH,南网科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688275.SH,万润新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688303.SH,大全能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688330.SH,宏力达,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688339.SH,亿华通,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688345.SH,博力威,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688348.SH,昱能科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688349.SH,三一重能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688353.SH,华盛锂电,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688388.SH,嘉元科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688390.SH,固德威,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688392.SH,骄成超声,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688408.SH,中信博,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688429.SH,时创能源,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688472.SH,阿特斯,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688499.SH,利元亨,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688503.SH,聚和材料,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688516.SH,奥特维,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688517.SH,金冠电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688551.SH,科威尔,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688556.SH,高测股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688560.SH,明冠新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688567.SH,孚能科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688573.SH,信宇人,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688597.SH,煜邦电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688598.SH,金博股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688599.SH,天合光能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688611.SH,杭州柯林,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688616.SH,西力科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688638.SH,誉辰智能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-688663.SH,DR新风光,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688660.SH,电气风电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
+688663.SH,新风光,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688676.SH,金盘科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688680.SH,海优新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688681.SH,科汇股份,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688707.SH,振华新材,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -407,7 +584,9 @@
 688719.SH,爱科赛博,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688733.SH,壹石通,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 688772.SH,珠海冠宇,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688778.SH,厦钨新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 688779.SH,五矿新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
+688819.SH,天能股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
 920010.BJ,凯添燃气,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 920046.BJ,亿能电力,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 920062.BJ,科润智控,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
@@ -434,182 +613,3 @@
 920809.BJ,安达科技,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 920914.BJ,远航精密,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
 920985.BJ,海泰新能,1,1,0,2025,annual_report,collected,embedded_in_annual,scan_annual_for_esg
-000009.SZ,中国宝安,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000027.SZ,深圳能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00003.HK,HK & CHINA GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00006.HK,POWER ASSETS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000400.SZ,许继电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00042.HK,NE ELECTRIC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000531.SZ,穗恒运Ａ,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000533.SZ,顺钠股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000543.SZ,皖能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000554.SZ,泰山石油,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000600.SZ,建投能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00061.HK,GREEN LEAD-NEW,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000690.SZ,宝新能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000723.SZ,美锦能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000767.SZ,晋控电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000791.SZ,甘肃能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000819.SZ,岳阳兴长,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-000922.SZ,佳电股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00135.HK,KUNLUN ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00182.HK,CONCORD NE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00196.HK,HONGHUA GROUP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-002028.SZ,思源电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00228.HK,CHINA ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-002459.SZ,晶澳科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-002506.SZ,协鑫集成,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-002531.SZ,天顺风能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-002706.SZ,良信股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00332.HK,YUANHENGGAS-NEW,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00346.HK,YANCHANG PETRO,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00384.HK,CHINA GAS HOLD,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00392.HK,BEIJING ENT,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00451.HK,DYNASTY DIGITAL,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00467.HK,UNITEDENERGY GP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00554.HK,HANS GP HLDGS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00579.HK,JNCEC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00607.HK,FULLSHARE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00666.HK,REPT BATTERO,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00686.HK,BJ ENERGY INTL,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00819.HK,TIANNENG POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00836.HK,CHINA RES POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00934.HK,SINOPEC KANTONS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00951.HK,CHAOWEI POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-00968.HK,XINYI SOLAR,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01083.HK,TG SMART ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01193.HK,CHINA RES GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01205.HK,CITIC RESOURCES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01229.HK,NAN NAN RES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01250.HK,SDHS NEW ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01303.HK,HUILI RES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01407.HK,JY GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01600.HK,TIAN LUN GAS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01608.HK,VPOWER GROUP,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01623.HK,HILONG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01713.HK,SICHUAN EN INV,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01733.HK,E-COMMODITIES,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01738.HK,FS ANTHRACITE,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01799.HK,XINTE ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01811.HK,CGN NEW ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-01940.HK,CGII HLDGS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02012.HK,SUNSHINE OIL,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02236.HK,WISON ENGRG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02380.HK,CHINA POWER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02386.HK,SINOPEC SEG,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02688.HK,ENN ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-02728.HK,JINTAI ENERGY H,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03303.HK,JUTAL OIL SER,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03337.HK,ANTON OILFIELD,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03633.HK,ZHONGYU ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03668.HK,YANCOAL AUS,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03800.HK,GCL TECH,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03868.HK,XINYI ENERGY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-03899.HK,CIMC ENRIC,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-06828.HK,BG BLUE SKY,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-08270.HK,CHINA CBM,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300001.SZ,特锐德,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300207.SZ,欣旺达,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300274.SZ,阳光电源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300776.SZ,帝尔激光,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300850.SZ,新强联,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300870.SZ,欧陆通,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-300880.SZ,迦南智能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-301325.SZ,曼恩斯特,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-301386.SZ,未来电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600023.SH,浙能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600028.SH,中国石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600032.SH,浙江新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600089.SH,特变电工,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600098.SH,广州发展,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600101.SH,明星电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600163.SH,中闽能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600167.SH,联美控股,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600207.SH,安彩高科,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600236.SH,桂冠电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600256.SH,广汇能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600346.SH,恒力石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600395.SH,盘江股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600438.SH,通威股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600481.SH,双良节能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600482.SH,中国动力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600483.SH,福能股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600508.SH,上海能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600578.SH,京能电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600635.SH,大众公用,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600674.SH,川投能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600688.SH,上海石化,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600725.SH,云维股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600732.SH,爱旭股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600744.SH,华银电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600777.SH,新潮能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600780.SH,XD通宝能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600795.SH,国电电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600803.SH,新奥股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600821.SH,金开新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600847.SH,万里股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600871.SH,石化油服,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600885.SH,宏发股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600900.SH,长江电力,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600903.SH,贵州燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600905.SH,三峡能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600917.SH,重庆燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600956.SH,新天绿能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600968.SH,海油发展,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600969.SH,郴电国际,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-600995.SH,南网储能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601001.SH,晋控煤业,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601012.SH,隆基绿能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601088.SH,中国神华,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601126.SH,四方股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601139.SH,深圳燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601225.SH,陕西煤业,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601233.SH,桐昆股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601567.SH,三星电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601615.SH,明阳智能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601619.SH,嘉泽新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601666.SH,平煤股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601727.SH,上海电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601778.SH,晶科科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601857.SH,中国石油,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601877.SH,正泰电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601918.SH,新集能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601985.SH,中国核电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-601991.SH,大唐发电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603031.SH,安孚科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603032.SH,德新科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603053.SH,成都燃气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603063.SH,禾望电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603320.SH,迪贝电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603396.SH,金辰股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603507.SH,振江股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603618.SH,杭电股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603689.SH,皖天然气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603693.SH,江苏新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603706.SH,东方环宇,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603861.SH,白云电器,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-603985.SH,恒润股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605011.SH,杭州热电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605028.SH,世茂能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605117.SH,德业股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605162.SH,新中港,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605196.SH,华通线缆,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-605580.SH,恒盛能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688005.SH,容百科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688006.SH,杭可科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688032.SH,禾迈股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688063.SH,派能科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688116.SH,天奈科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688248.SH,南网科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688303.SH,大全能源,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688339.SH,亿华通,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688388.SH,嘉元科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688390.SH,固德威,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688472.SH,阿特斯,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688517.SH,金冠电气,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688551.SH,科威尔,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688599.SH,天合光能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688660.SH,电气风电,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688676.SH,金盘科技,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688778.SH,厦钨新能,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction
-688819.SH,天能股份,2,1,1,2025,annual_report|esg_report,collected,collected,ready_for_extraction

@@ -1,9 +1,90 @@
 {
   "policy_version": "official-website-source-validation-v1",
-  "row_count": 802,
+  "row_count": 985,
   "ready_for_download": 0,
-  "invalid_rows": 0,
-  "invalid_examples": [],
+  "invalid_rows": 975,
+  "invalid_examples": [
+    {
+      "company_code": "000009.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000009.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00002.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00002.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000027.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000027.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00003.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00003.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00003.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000037.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000049.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00006.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00006.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00006.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "00006.HK",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000096.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000155.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000400.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000400.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    },
+    {
+      "company_code": "000407.SZ",
+      "error": "candidate_url_must_be_https_and_non_exchange"
+    }
+  ],
   "download_authorized": false,
   "scoring_authorized": false,
   "decision": "await_official_domain_registration"

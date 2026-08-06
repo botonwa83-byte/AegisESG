@@ -1,0 +1,20 @@
+{
+  "downloaded_records": 2,
+  "failure_count": 0,
+  "records": [
+    {
+      "company_code": "00704.HK",
+      "document_type": "annual_report",
+      "local_path": "data/raw/issuer_official_website_collection/00704.HK/2025/annual_report.pdf",
+      "source_url": "https://huscoke.com/attachment/document/1753865585TubYZ.pdf"
+    },
+    {
+      "company_code": "300933.SZ",
+      "document_type": "annual_report",
+      "local_path": "data/raw/issuer_official_website_collection/300933.SZ/2025/annual_report.pdf",
+      "source_url": "https://zcdl.com/bocupload/2025/10/09/17599897087712z1k4y.pdf"
+    }
+  ],
+  "failures": [],
+  "scoring_authorized": false
+}

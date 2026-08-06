@@ -1,0 +1,36 @@
+{
+  "policy_version": "hkex-fy2025-gap-monitor-v2",
+  "as_of": "2026-08-06",
+  "source": "HKEXnews title search live check, window 2026-01-01..2026-08-06",
+  "rows": [
+    {
+      "stock_code": "00702.HK",
+      "company_name": "SINO OIL & GAS",
+      "stock_id": "1641",
+      "disclosures_2026_count": 5,
+      "classified_report_disclosures_2026": 0,
+      "latest_annual_year": 2023,
+      "has_fy2025_annual": false,
+      "trading_status_evidence": "QUARTERLY UPDATE ON STATUS OF RESUMPTION AND CONTINUED SUSPENSION OF TRADING (2026-07-08, 2026-04-02); SUPPLEMENTAL ANNOUNCEMENT TO THE QUARTERLY UPDATE ON STATUS OF RESUMPTION (2026-04-29)",
+      "trading_status": "suspended_pending_resumption",
+      "blocker": "no_fy2025_annual_on_hkexnews",
+      "note": "持续停牌且复牌条件未满足；FY2024/FY2025年报均未刊发。停牌/未披露可能导致目标年年报缺失；不可用旧年报顶替2025评价年"
+    },
+    {
+      "stock_code": "01101.HK",
+      "company_name": "HUARONG ENERGY",
+      "stock_id": "55321",
+      "disclosures_2026_count": 19,
+      "classified_report_disclosures_2026": 0,
+      "latest_annual_year": 2023,
+      "has_fy2025_annual": false,
+      "trading_status_evidence": "(1) QUARTERLY UPDATE ON RESUMPTION PROGRESS AND (2) CONTINUED SUSPENSION OF TRADING (2026-07-06); ADDITIONAL RESUMPTION GUIDANCE AND CONTINUED SUSPENSION OF TRADING (2026-07-02, 2026-05-26); VOLUNTARY ANNOUNCEMENT - STATUTORY DEMAND BY CREDITOR (2026-05-28)",
+      "trading_status": "suspended_pending_resumption",
+      "blocker": "no_fy2025_annual_on_hkexnews",
+      "note": "持续停牌且存在债权人法定要求偿债书；FY2024/FY2025年报均未刊发。停牌/未披露可能导致目标年年报缺失；不可用旧年报顶替2025评价年"
+    }
+  ],
+  "conclusion": "两家港股2026年内无任何年报/ESG分类披露；缺失终态为持续停牌导致的不刊发，属真实缺失而非采集缺口。文档门禁需真实签署确认该处置，不得跨年度改标。",
+  "scoring_authorized": false,
+  "formal_publishable": false
+}

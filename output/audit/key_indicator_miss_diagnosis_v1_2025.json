@@ -1,0 +1,11 @@
+{
+  "sample_companies": 25,
+  "rows": 175,
+  "reason_counts": {
+    "ok_confirmed": 18,
+    "text_signal_but_rules_miss": 66,
+    "no_text_signal": 91
+  },
+  "text_signal_but_rules_miss": 66,
+  "notice": "优先修 text_signal_but_rules_miss：文本有信号但抽取/派生未命中"
+}

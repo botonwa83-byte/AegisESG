@@ -1,0 +1,16 @@
+{
+  "policy_version": "ci-reindex-from-disk-v1",
+  "run_at_utc": "2026-08-05T00:24:01+00:00",
+  "pdf_scanned": 968,
+  "indexed_rows": 961,
+  "skipped_invalid_year": 7,
+  "by_document_type": {
+    "annual_report": 687,
+    "esg_report": 274
+  },
+  "missing_source_url": 0,
+  "index": "output/sync/official_document_index.csv",
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "仅从本地PDF重建索引；不下载、不评分。非法年份目录已跳过。"
+}

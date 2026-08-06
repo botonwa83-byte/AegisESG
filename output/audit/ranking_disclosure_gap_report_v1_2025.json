@@ -1,0 +1,179 @@
+{
+  "policy_version": "ranking-disclosure-gap-report-v1",
+  "run_at_utc": "2026-08-06T00:59:14+00:00",
+  "observations": "output/research/2025/full_auto_observations_v34_enriched.csv",
+  "universe_companies": 614,
+  "observed_companies_with_any_obs": 612,
+  "document_coverage": {
+    "annual_collected": 612,
+    "independent_esg_collected": 179,
+    "embedded_esg": 433,
+    "annual_missing_codes": [
+      "00702.HK",
+      "01101.HK"
+    ]
+  },
+  "quantitative_indicator_count": 37,
+  "qualitative_indicator_count": 43,
+  "lowest_disclosure_quantitative": [
+    {
+      "indicator_code": "Q_E_ALTERNATIVE_WATER_RATE",
+      "name": "再生水或其他替代水源占比",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 20,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 3.26,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_CLEAN_ENERGY_INTENSITY",
+      "name": "绿色/可再生/清洁能源生产/使用强度",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 23,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 3.75,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "name": "二氧化硫排放强度",
+      "dimension": "E",
+      "key_indicator": "True",
+      "disclosed_companies": 23,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 3.75,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_HAZ_WASTE_INTENSITY",
+      "name": "危险固体废物排放强度",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 26,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 4.23,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_PM_INTENSITY",
+      "name": "颗粒物排放强度",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 32,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 5.21,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_SOLID_WASTE_INTENSITY",
+      "name": "一般固体废物排放强度",
+      "dimension": "E",
+      "key_indicator": "True",
+      "disclosed_companies": 33,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 5.37,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_GHG_REDUCTION_RATE",
+      "name": "温室气体减排率",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 35,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 5.7,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "name": "氮氧化物排放强度",
+      "dimension": "E",
+      "key_indicator": "True",
+      "disclosed_companies": 35,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 5.7,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_WASTEWATER_INTENSITY",
+      "name": "废水/污水排放强度",
+      "dimension": "E",
+      "key_indicator": "False",
+      "disclosed_companies": 36,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 5.86,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_S_SAFETY_INVEST_RATE",
+      "name": "安全生产投入占比",
+      "dimension": "S",
+      "key_indicator": "True",
+      "disclosed_companies": 42,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 6.84,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "name": "综合能源消耗强度",
+      "dimension": "E",
+      "key_indicator": "True",
+      "disclosed_companies": 52,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 8.47,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    },
+    {
+      "indicator_code": "Q_S_ENV_INVEST_RATE",
+      "name": "环保投入占比",
+      "dimension": "S",
+      "key_indicator": "False",
+      "disclosed_companies": 53,
+      "universe_companies": 614,
+      "disclosure_rate_pct": 8.63,
+      "gap_reason": "above_minimum_population_but_still_sparse_disclosure",
+      "next_action": "issuer_website_and_rule_recall_for_high_impact_gaps",
+      "download_blocker": "false"
+    }
+  ],
+  "reason_counts": {
+    "above_minimum_population_but_still_sparse_disclosure": 17,
+    "coverage_acceptable_for_research": 20
+  },
+  "issuer_website_gap_queue_rows": 15065,
+  "channels": {
+    "exchange_filings": "primary_complete_for_identity_coverage",
+    "cninfo_fallback": "enabled_for_szse_antibot",
+    "issuer_official_website": "research_harvest_available_unverified_document_declared_domains",
+    "commercial_databases": "not_used"
+  },
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "排名缺数主因是公司未按方法论口径披露（尤其环境强度收入分母），不是交易所PDF没下完。官网通道可补独立ESG，但不得伪造域名核验。",
+  "output_csv": "output/audit/ranking_disclosure_gap_report_v1_2025.csv"
+}

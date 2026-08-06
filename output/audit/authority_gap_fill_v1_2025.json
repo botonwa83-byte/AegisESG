@@ -1,0 +1,35 @@
+{
+  "policy_version": "source-authority-v1-exchange-gt-issuer-gt-other",
+  "run_at_utc": "2026-08-05T02:20:12+00:00",
+  "authority_order": [
+    "EXCHANGE",
+    "ISSUER_WEBSITE",
+    "OTHER"
+  ],
+  "base_observations": "output/research/2025/full_auto_observations_v21_exchange_zero.csv",
+  "output_observations": "output/research/2025/full_auto_observations_v23_authority_fill.csv",
+  "priority_companies": 612,
+  "priority_missing_quant_pairs_before": 14538,
+  "removed_false_qualitative_zeros": 15293,
+  "reextracted_candidate_rows": 493,
+  "filled_missing": 9,
+  "replaced_by_higher_authority": 8,
+  "skipped_weaker_or_equal": 443,
+  "still_missing_after_exchange_pass": 14529,
+  "issuer_website_queue": "output/audit/issuer_website_gap_queue_v1_2025.csv",
+  "fill_audit_csv": "output/audit/authority_gap_fill_v1_2025.csv",
+  "changjiang_fills": [
+    {
+      "company_code": "600900.SH",
+      "indicator_code": "Q_G_DEBT_ASSET_RATE",
+      "action": "replaced_higher_authority",
+      "value": 58.27,
+      "prior_value": 58.2694597691,
+      "tier": "EXCHANGE",
+      "source_url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-30/600900_20260430_0VWG.pdf",
+      "source_file": "data/raw/600900.SH/2025/esg_report.pdf"
+    }
+  ],
+  "scoring_authorized_formal": false,
+  "notice": "未披露项先从交易所已下载披露补齐；冲突按交易所>官网>其他。仍缺项进入官网域名核验/发现队列，不再用“无证据假0”占位。"
+}

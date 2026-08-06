@@ -1,0 +1,13 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+000791.SZ,Q_E_NOX_INTENSITY,filled_missing,2988.0880265619107,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/003b10b9-e971-4620-a1de-7a6c8394afc1.PDF,data/raw/000791.SZ/2025/esg_report.pdf
+000791.SZ,Q_E_SO2_INTENSITY,filled_missing,1682.364532139591,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-28/003b10b9-e971-4620-a1de-7a6c8394afc1.PDF,data/raw/000791.SZ/2025/esg_report.pdf
+300001.SZ,Q_E_NOX_INTENSITY,filled_missing,1.292257844912162,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-09/d4d8b614-35bc-4f5a-ad6d-38fee5fd4ba8.PDF,data/raw/300001.SZ/2025/esg_report.pdf
+300001.SZ,Q_E_SO2_INTENSITY,filled_missing,0.12669194557962374,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-09/d4d8b614-35bc-4f5a-ad6d-38fee5fd4ba8.PDF,data/raw/300001.SZ/2025/esg_report.pdf
+600346.SH,Q_E_PM_INTENSITY,filled_missing,17.412154985265133,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-15/600346_20260415_0WCZ.pdf,data/raw/600346.SH/2025/esg_report.pdf
+600481.SH,Q_E_NOX_INTENSITY,filled_missing,18.88957545543348,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-28/600481_20260428_Z2CC.pdf,data/raw/600481.SH/2025/esg_report.pdf
+600885.SH,Q_E_NOX_INTENSITY,filled_missing,0.10056689099011287,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-05-30/600885_20260530_FZ6U.pdf,data/raw/600885.SH/2025/esg_report.pdf
+600885.SH,Q_E_SO2_INTENSITY,filled_missing,0.018601968275627816,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-05-30/600885_20260530_FZ6U.pdf,data/raw/600885.SH/2025/esg_report.pdf
+603031.SH,Q_E_PM_INTENSITY,filled_missing,8.149308781703,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-03-10/603031_20260310_BJMG.pdf,data/raw/603031.SH/2025/esg_report.pdf
+603031.SH,Q_E_SO2_INTENSITY,filled_missing,0.031415993761383966,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-03-10/603031_20260310_BJMG.pdf,data/raw/603031.SH/2025/esg_report.pdf
+605011.SH,Q_E_NOX_INTENSITY,filled_missing,605.3084249733463,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-18/605011_20260418_K6N4.pdf,data/raw/605011.SH/2025/esg_report.pdf
+605011.SH,Q_E_SO2_INTENSITY,filled_missing,156.90376843327866,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-18/605011_20260418_K6N4.pdf,data/raw/605011.SH/2025/esg_report.pdf

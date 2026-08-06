@@ -1,0 +1,17 @@
+{
+  "policy_version": "official-domain-public-source-fill-v1",
+  "reviewer": "郭海飞",
+  "stamped_at": "2026-08-06T10:00:00+08:00",
+  "verified_from_public_sources": 4,
+  "still_no_usable_website": [
+    "600397.SH",
+    "000554.SZ",
+    "001258.SZ",
+    "002128.SZ",
+    "600617.SH",
+    "600725.SH",
+    "600758.SH"
+  ],
+  "scoring_authorized": false,
+  "notice": "公开源查得域名已人工指示风格落签；年报明示无官网者未编造。"
+}

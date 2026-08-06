@@ -1,0 +1,28 @@
+{
+  "policy_version": "official-domain-gap-discovery-v1",
+  "run_at_utc": "2026-08-06T01:51:57+00:00",
+  "missing_companies": 244,
+  "document_hit_companies": 231,
+  "eastmoney_hit_companies": 2,
+  "selected_candidate_companies": 233,
+  "still_missing_companies": 11,
+  "still_missing_sample": [
+    "000554.SZ",
+    "001258.SZ",
+    "002128.SZ",
+    "00931.HK",
+    "00975.HK",
+    "600396.SH",
+    "600397.SH",
+    "600617.SH",
+    "600725.SH",
+    "600758.SH",
+    "605580.SH"
+  ],
+  "candidates_csv": "output/audit/official_domain_gap_candidates_v1_2025.csv",
+  "intake_csv": "data/review/official_domain_decision_intake_gap_v1_2025.csv",
+  "domain_verification": "not_verified",
+  "download_authorized": false,
+  "scoring_authorized": false,
+  "notice": "缺口域名仅为研究候选，须人工核验后才能登记 verified；不得自动代签。"
+}

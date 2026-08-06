@@ -253,6 +253,16 @@ class MethodologyTests(unittest.TestCase):
             item for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"
         ])
 
+    def test_alternative_water_rate_reads_reclaimed_water_reuse_rate(self):
+        pages = [
+            PageText(8, "报告期内，公司中水回用率为 61.87%。"),
+            PageText(9, "中水使用占比达 40%。"),
+            PageText(10, "中水使用占比超 95%。"),
+        ]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "url", "esg_report.pdf")
+        values = [item.value for item in items if item.indicator_code == "Q_E_ALTERNATIVE_WATER_RATE"]
+        self.assertEqual([61.87, 40.0], values)
+
     def test_split_chinese_so2_intensity_table_converts_tonnes_per_rmb_million(self):
         pages = [PageText(129, """废气污染物减排情况
 指标 单位 2025年
@@ -994,6 +1004,80 @@ class MethodologyTests(unittest.TestCase):
             review_rows[0]["verification_decision"] = "auto-approve"
             bad = evaluate_official_domain_review(review_rows)
             self.assertEqual("reject_template", bad["status"])
+
+    def test_official_domain_review_allow_partial_apply(self):
+        from aegis_esg.domain_verification import (
+            apply_official_domain_review,
+            evaluate_official_domain_review,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            review = root / "review.csv"
+            queue = root / "queue.csv"
+            review.write_text(
+                "priority,company_code,company_name,official_domain,candidate_url,https_ready,"
+                "evidence_count,evidence_file,missing_independent_esg,alt_domain_count,"
+                "verification_decision,reviewer,reviewed_at,review_note\n"
+                "1,000001.SZ,测试A,example-a.com,https://www.example-a.com/,true,2,a.txt,true,0,"
+                "verify,alice,2026-08-06T09:00:00+08:00,与年报封面官网一致\n"
+                "2,000002.SZ,测试B,example-b.com,https://www.example-b.com/,true,2,b.txt,true,0,"
+                ",,,\n",
+                encoding="utf-8",
+            )
+            queue.write_text(
+                "company_code,company_name,report_year,document_type,source_channel,official_domain,"
+                "candidate_url,domain_verification,download_status,next_action,scoring_authorized\n"
+                "000001.SZ,测试A,2025,annual_report,issuer_official_website,,,not_submitted,"
+                "pending_official_url,登记,False\n"
+                "000002.SZ,测试B,2025,annual_report,issuer_official_website,,,not_submitted,"
+                "pending_official_url,登记,False\n",
+                encoding="utf-8",
+            )
+            blocked = evaluate_official_domain_review(list(csv.DictReader(review.open(encoding="utf-8-sig"))))
+            self.assertEqual("blocked_external_review", blocked["status"])
+            partial = evaluate_official_domain_review(
+                list(csv.DictReader(review.open(encoding="utf-8-sig"))),
+                allow_partial=True,
+            )
+            self.assertEqual("ready_to_register_verified_domains", partial["status"])
+            self.assertEqual(1, partial["verified_rows"])
+            self.assertEqual(1, partial["unsigned_rows"])
+            applied = apply_official_domain_review(
+                review, queue, output_queue_path=root / "queue_out.csv",
+                application_path=root / "app.json", allow_partial=True,
+            )
+            self.assertTrue(applied["queue_updated"])
+            with (root / "queue_out.csv").open(encoding="utf-8-sig", newline="") as stream:
+                updated = {row["company_code"]: row for row in csv.DictReader(stream)}
+            self.assertEqual("verified", updated["000001.SZ"]["domain_verification"])
+            self.assertEqual("not_submitted", updated["000002.SZ"]["domain_verification"])
+
+    def test_document_declared_domain_research_discovery_is_unverified(self):
+        from aegis_esg.official_report_discovery import discover_document_declared_domain_reports
+        html = '<a href="https://issuer.example.com/esg/2025-sustainability-report.pdf">2025可持续发展报告</a>'
+
+        def fake_fetch(url: str) -> str:
+            self.assertTrue(url.startswith("https://issuer.example.com"))
+            return html
+
+        rows = discover_document_declared_domain_reports(
+            [{
+                "company_code": "A",
+                "company_name": "甲",
+                "official_domain": "issuer.example.com",
+                "evidence_count": "3",
+            }],
+            fetcher=fake_fetch,
+            report_year=2025,
+            seed_paths=("/esg/",),
+        )
+        hits = [row for row in rows if row.get("source_url")]
+        self.assertEqual(1, len(hits))
+        self.assertEqual("research_candidate_unverified", hits[0]["discovery_status"])
+        self.assertEqual(
+            "https://issuer.example.com/esg/2025-sustainability-report.pdf",
+            hits[0]["source_url"],
+        )
 
     def test_same_domain_report_discovery_requires_verified_https(self):
         from aegis_esg.official_report_discovery import (
@@ -5403,6 +5487,16 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         self.assertAlmostEqual(9.5879448, values["Q_E_ENERGY_INTENSITY"])
         self.assertEqual(3.5, values["Q_E_WATER_INTENSITY"])
 
+        # 单位营收排放量（吨/万元）+ PDF 千分位换行（真实样例：002506.SZ）
+        wrapped_unit_revenue = (
+            "指标 单位 2023年 2024年 2025年\n"
+            "单位营收温室气体排放量（基于位置） 吨二氧化碳当量 / 万元 0.16 0.29 0.30\n"
+            "范围一及范围二温室气体排放总量（基于位置） 吨二氧化碳当量 252,302.35 477\n"
+            "044.50 465,524.43\n"
+        )
+        rows = _extract_chinese_env_table_rows(wrapped_unit_revenue, 2025)
+        self.assertEqual([("Q_E_GHG_INTENSITY", 300.0)], [(code, value) for code, value, _ in rows])
+
     def test_chinese_env_table_rows_reject_ambiguous_or_wrong_denominator(self):
         no_header = "温室气体排放强度 吨二氧化碳当量 / 万元 1.94\n"
         self.assertFalse(_extract_chinese_env_table_rows(no_header, 2025))
@@ -5444,6 +5538,29 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         self.assertTrue(items[0].evidence_text.startswith("中文跨表派生: "))
         self.assertIn("annual_report.pdf 第8页", items[0].evidence_text)
 
+    def test_env_intensity_sums_split_scope1_scope2_rows(self):
+        esg = self._esg_doc("范围一排放 0.19 万吨\n范围二排放 5.50 万吨\n")
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(["Q_E_GHG_INTENSITY"], [item.indicator_code for item in items])
+        self.assertAlmostEqual(5.69e7 * 1e4 / 1.705e10, items[0].value)
+        self.assertIn("scope1+scope2", items[0].evidence_text)
+
+    def test_env_intensity_prefers_annotated_total_when_conflicts(self):
+        esg = self._esg_doc(
+            "指标 单位 2024 年 2025 年\n"
+            "温室气体排放总量（范围 1 和范围 2） 吨二氧化碳当量 18520.94 22740.25\n"
+            "温室气体排放总量 吨二氧化碳当量 14719.00 16000.00\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(22740.25 * 1e3 * 1e4 / 1.705e10, items[0].value)
+
+    def test_rejects_output_value_ghg_intensity(self):
+        from aegis_esg.extraction import extract_indicator_candidates, PageText
+        pages = [PageText(1, "温室气体排放强度 万元产值二氧化碳排放 0.00668 吨/万元\n")]
+        items = extract_indicator_candidates(pages, "A", "甲", 2025, "u", "f")
+        self.assertFalse([item for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"])
+
     def test_env_intensity_derives_from_freeform_highlight_total(self):
         esg = self._esg_doc("实际行动。\n温室气体排放总量\n2.95万吨二氧化碳当量\n员工总数\n5,987人\n")
         items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
@@ -5460,6 +5577,49 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         values = {item.indicator_code: item.value for item in items}
         self.assertAlmostEqual(6216.97 * 1e3 * 1e4 / 1.705e10, values["Q_E_ENERGY_INTENSITY"])
         self.assertAlmostEqual(596001.30 * 1e3 * 1e4 / 1.705e10, values["Q_E_WATER_INTENSITY"])
+
+    def test_env_intensity_derives_clean_energy_tce_totals(self):
+        esg = self._esg_doc(
+            "议题 指标 单位 2024 年 2025 年\n"
+            "其中：清洁能源使用量 吨标准煤 / 4,989.23\n"
+            "清洁能源消耗总量 吨标煤 227.39 157.65\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        values = {
+            item.indicator_code: item.value
+            for item in items if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"
+        }
+        # 两处总量不一致时放弃，不静默选值
+        self.assertEqual({}, values)
+        consistent = self._esg_doc(
+            "关键指标 单位 2025 年\n"
+            "可再生能源消耗量 吨标准煤 3,732.21\n"
+        )
+        items = derive_env_intensity_candidates(
+            "A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), consistent],
+        )
+        clean = [item for item in items if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"]
+        self.assertEqual(1, len(clean))
+        self.assertAlmostEqual(3732.21 * 1e3 * 1e4 / 1.705e10, clean[0].value)
+        self.assertTrue(clean[0].evidence_text.startswith("中文跨表派生: "))
+        # 发电节约/替代标煤不得冒充消耗总量
+        savings = self._esg_doc("2025 年公司风电发电量可替代标准煤 12.5 万吨。\n清洁能源发电节约标准煤 8 万吨。\n")
+        self.assertFalse([
+            item for item in derive_env_intensity_candidates(
+                "A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), savings],
+            ) if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"
+        ])
+        # 上一节“目标”标题不得跨行误杀合法总量行；清洁/可再生数值冲突则放弃
+        sectioned = self._esg_doc(
+            "2025年目标\n发电企业重复用水率达到 95% 以上\n"
+            "清洁能源消耗量 28.42 万吨标准煤\n"
+            "可再生能源消耗量 294.96 吨标准煤\n"
+        )
+        self.assertFalse([
+            item for item in derive_env_intensity_candidates(
+                "A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), sectioned],
+            ) if item.indicator_code == "Q_E_CLEAN_ENERGY_INTENSITY"
+        ])
 
     def test_env_intensity_derives_bare_pollutants_only_in_explicit_year_matrix(self):
         esg = self._esg_doc(
@@ -5671,6 +5831,58 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
                 derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg]),
                 text[:30],
             )
+
+    def test_env_intensity_wrapped_thousand_separator_year_table(self):
+        # PDF 把千分位数字拆行时仍取2025列总量（真实样例：002506.SZ 477,044.50）
+        esg = self._esg_doc(
+            "指标 单位 2023年 2024年 2025年\n"
+            "范围一及范围二温室气体排放总量（基于位置） 吨二氧化碳当量 252,302.35 477\n"
+            "044.50 465,524.43\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        self.assertEqual(1, len(items))
+        self.assertAlmostEqual(465524.43 * 1e3 * 1e4 / 17.05e9, items[0].value)
+
+    def test_env_intensity_so2_header_unit_and_chemical_formula_tables(self):
+        # 表头单位行（300932.SZ）与废气化学式年表（600968.SH）
+        header = self._esg_doc(
+            "▎废气排放数据\n污染物种类 2025 年排放量（吨）\n"
+            "废气污染物排放总量 1.0341\n烟尘 / 颗粒物排放总量 0.4470\n"
+            "二氧化硫排放总量 0.0212\n氮氧化物排放总量 0.0212\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), header])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(0.0212e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+        formula = self._esg_doc(
+            "废气污染物排放 单位 2023 2024 2025\n"
+            "SO2 吨 1.27 0.81 1.27\n"
+            "NOX 吨 21.29 21.29 19.41\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), formula])
+        so2 = [item for item in items if item.indicator_code == "Q_E_SO2_INTENSITY"]
+        self.assertEqual(1, len(so2))
+        self.assertAlmostEqual(1.27e6 * 1e4 / 17.05e9, so2[0].value)
+
+    def test_env_intensity_short_label_so2_year_and_total_columns(self):
+        # 短标签两列表（000791.SZ）与分单位+2025总计列（605011.SH）
+        two_year = self._esg_doc(
+            "废气污染物种类 单位 2024 年数值 2025 年数值\n"
+            "氮氧化物 吨 2,645.91 2,708.82\n"
+            "二氧化硫 吨 1,647.42 1,525.13\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), two_year])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(1525.13e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(2708.82e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
+        multi = self._esg_doc(
+            "指标 单位 上海金联 临江环保 丽水杭丽 安吉天子湖\n2025总计\n"
+            "二氧化硫\n吨\n1.61\n16.95\n16.16\n15.01\n49.73\n"
+            "氮氧化物\n吨\n37.08\n39.85\n76.62\n38.30\n191.85\n"
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), multi])
+        by_code = {item.indicator_code: item.value for item in items}
+        self.assertAlmostEqual(49.73e6 * 1e4 / 17.05e9, by_code["Q_E_SO2_INTENSITY"])
+        self.assertAlmostEqual(191.85e6 * 1e4 / 17.05e9, by_code["Q_E_NOX_INTENSITY"])
 
     def test_env_intensity_production_value_disclosure_not_suppressing(self):
         # 产值口径强度披露不抑制派生（真实样例：000600.SZ 千克/万元产值）

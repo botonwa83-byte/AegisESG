@@ -1,0 +1,20 @@
+{
+  "packet_version": "governance-benchmark-packet-v1",
+  "standard_ref": "DL/T 2971—2025",
+  "methodology_version": "ENERGY-ESG-2025-COMPAT-v1",
+  "target_methodology_version": "DLT2971-2025-v1",
+  "row_count": 17,
+  "filled_count": 0,
+  "missing_count": 17,
+  "direct_copy_count": 13,
+  "mapping_risk_count": 4,
+  "mapping_risk_codes": [
+    "Q_G_CASH_REALIZATION",
+    "Q_G_COST_REVENUE_RATE",
+    "Q_G_EBITDA_MARGIN",
+    "Q_G_TWO_FUNDS_RATE"
+  ],
+  "csv_path": "data/methodologies/governance_benchmarks_template_2025.csv",
+  "html_path": "output/audit/governance_benchmark_packet_v1_2025.html",
+  "notice": "本工作包只辅助人工抄录；不授权冻结正式方法论。"
+}

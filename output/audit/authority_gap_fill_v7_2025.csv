@@ -1,0 +1,4 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+02380.HK,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,26.63,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042400700.pdf,data/raw/ci_collection/02380.HK/2025/esg_report.pdf
+300073.SZ,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,34.38,,EXCHANGE,https://static.cninfo.com.cn/finalpage/2026-03-31/1225057154.PDF,data/raw/ci_collection/300073.SZ/2025/esg_report.pdf
+601088.SH,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,20.51,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-03-31/601088_20260331_K3HI.pdf,data/raw/ci_collection/601088.SH/2025/esg_report.pdf

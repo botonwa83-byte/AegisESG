@@ -280,6 +280,11 @@ def main() -> None:
     domain_apply.add_argument("queue_csv")
     domain_apply.add_argument("--output-queue")
     domain_apply.add_argument("--application", required=True)
+    domain_apply.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="仅应用已完整签名的行；未签行忽略（协作签署会话用）",
+    )
     domain_audit = sub.add_parser(
         "audit-official-domain-review",
         help="审计官网域名核验模板是否完整签名（不写入队列）",
@@ -306,6 +311,11 @@ def main() -> None:
     report_apply.add_argument("queue_csv")
     report_apply.add_argument("--output-queue")
     report_apply.add_argument("--application", required=True)
+    report_apply.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="仅应用已完整签名的URL行；未签行忽略（协作签署会话用）",
+    )
     report_audit = sub.add_parser(
         "audit-official-report-discovery",
         help="审计同域报告发现模板是否完整签名（不写入队列）",
@@ -1295,6 +1305,7 @@ def main() -> None:
             args.queue_csv,
             output_queue_path=args.output_queue,
             application_path=args.application,
+            allow_partial=bool(getattr(args, "allow_partial", False)),
         )
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
@@ -1323,6 +1334,7 @@ def main() -> None:
             args.queue_csv,
             output_queue_path=args.output_queue,
             application_path=args.application,
+            allow_partial=bool(getattr(args, "allow_partial", False)),
         )
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return

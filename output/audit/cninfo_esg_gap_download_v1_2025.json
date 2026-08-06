@@ -1,0 +1,91 @@
+{
+  "policy_version": "cninfo-esg-gap-download-v1",
+  "run_at_utc": "2026-08-06T02:25:41+00:00",
+  "targets": 60,
+  "downloaded": 4,
+  "failures": 56,
+  "failure_sample": [
+    {
+      "company_code": "000037.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000049.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000096.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000155.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000421.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000537.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000539.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000591.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000593.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000601.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000637.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000682.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000692.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000703.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000720.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000722.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000875.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000883.SZ",
+      "error": "not_found"
+    },
+    {
+      "company_code": "000966.SZ",
+      "error": "<urlopen error _ssl.c:1112: The handshake operation timed out>"
+    },
+    {
+      "company_code": "000968.SZ",
+      "error": "not_found"
+    }
+  ],
+  "scoring_authorized": false,
+  "formal_publishable": false
+}

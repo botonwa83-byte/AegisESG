@@ -1,0 +1,30 @@
+{
+  "policy_version": "ci-incremental-coverage-packet-v1",
+  "candidate_rows": 9082,
+  "company_count": 603,
+  "indicator_with_candidates": 37,
+  "methodology_indicator_count": 80,
+  "thin_population_count": 0,
+  "no_ci_candidates_count": 43,
+  "thin_examples": [],
+  "missing_examples": [
+    "X_E_BIODIVERSITY",
+    "X_E_CLEAN_PRODUCTION",
+    "X_E_CLIMATE_ACTION",
+    "X_E_CLIMATE_RISK",
+    "X_E_COMPLIANCE",
+    "X_E_EMERGENCY",
+    "X_E_ENERGY_MANAGEMENT",
+    "X_E_ENV_SYSTEM",
+    "X_E_GREEN_FINANCE",
+    "X_E_GREEN_OFFICE",
+    "X_E_GREEN_SUPPLY_CHAIN",
+    "X_E_GREEN_TRANSITION"
+  ],
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "review_required": true,
+  "output_csv": "output/audit/ci_incremental_coverage_packet_v1_2025.csv",
+  "output_html": "output/audit/ci_incremental_coverage_packet_v1_2025.html",
+  "notice": "CI增量候选覆盖包仅用于研究观测；全部pending，不进入正式评分。"
+}

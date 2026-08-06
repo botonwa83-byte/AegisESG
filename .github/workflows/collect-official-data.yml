@@ -15,7 +15,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -42,11 +42,19 @@ jobs:
       - name: Collect documents
         env:
           PYTHONPATH: src
+          AEGIS_COLLECTION_TIME_BUDGET_MIN: "80"
+          AEGIS_COLLECTION_DOC_PRIORITY: "esg"
+          AEGIS_SZSE_CURL_MAX_TIME: "1200"
+          AEGIS_HTTP_CURL_MAX_TIME: "300"
+          AEGIS_HTTP_URLOPEN_TIMEOUT: "90"
         run: python scripts/run_scheduled_collection.py
-      - name: Build coverage report
+      - name: Build coverage and retry manifests
         env:
           PYTHONPATH: src
-        run: python scripts/build_collection_coverage_report.py
+        run: |
+          python scripts/classify_collection_failures.py
+          python scripts/build_collection_coverage_report.py
+          python scripts/build_collection_retry_manifest.py
       - name: Upload data artifact
         uses: actions/upload-artifact@v4
         with:
@@ -57,6 +65,10 @@ jobs:
             output/audit/scheduled_collection_manifest_v1_2025_summary.json
             output/audit/official_download_manifest_v1_2025.csv
             output/audit/official_download_manifest_v1_2025_summary.json
+            output/audit/scheduled_collection_retry_v1_2025.csv
+            output/audit/scheduled_collection_retry_v1_2025_summary.json
+            output/audit/collection_failure_classification_v1_2025.csv
+            output/audit/collection_failure_classification_v1_2025.json
             output/sync
             output/audit/scheduled_collection_coverage_v1_2025.json
           retention-days: 30

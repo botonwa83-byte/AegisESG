@@ -1,0 +1,15 @@
+{
+  "policy_version": "scheduled-collection-retry-v2",
+  "retry_rows": 0,
+  "by_document_type": {},
+  "by_failure_class": {},
+  "previous_failure_rows": 0,
+  "skipped_redundant_url_gaps": 84,
+  "skipped_invalid_year": 0,
+  "timeout_partial_resume": 0,
+  "download_authorized": true,
+  "scoring_authorized": false,
+  "output": "output/audit/scheduled_collection_retry_v1_2025.csv",
+  "usage": "AEGIS_COLLECTION_MANIFEST=output/audit/scheduled_collection_retry_v1_2025.csv python scripts/run_scheduled_collection.py",
+  "notice": "仅真实身份缺口；已收集文档的备用URL与非法年份不进入重试。"
+}

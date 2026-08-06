@@ -1,0 +1,942 @@
+{
+  "audit_version": "client-yoy-soft-check-v1",
+  "run_at_utc": "2026-08-05T03:56:09+00:00",
+  "client_evaluation_year": 2025,
+  "client_report_year": 2024,
+  "our_evaluation_year": 2026,
+  "our_report_year": 2025,
+  "our_ranking": "output/research/2025/full_auto_v22_sasac/ranking.json",
+  "client_unique_codes": 227,
+  "our_company_count": 612,
+  "top200_overlap_count": 106,
+  "top200_overlap_rate": 0.53,
+  "client_codes_in_our_universe": 207,
+  "mean_our_rank_of_client_top200": 223.73,
+  "median_our_rank_of_client_top200": 190,
+  "client_top200_in_our_top50": 36,
+  "client_top200_in_our_top200": 106,
+  "anomalous_count": 74,
+  "anomaly_categories": {
+    "client_top200_to_our_bottom_half": 25,
+    "client_top50_to_outside_our_top200": 18,
+    "missing_from_our_universe": 20,
+    "our_top50_but_client_lower": 11
+  },
+  "notice": "相邻年度软对照：年差正常，不要求严格对齐。异常跳变用于检查算法偏离与披露缺口，禁止为提高重合率改分。",
+  "top35_score_compare": [
+    {
+      "company_code": "600900.SH",
+      "client_score": 71.41,
+      "our_rank": 10,
+      "our_score": 45.35,
+      "score_delta": -26.06
+    },
+    {
+      "company_code": "600995.SH",
+      "client_score": 66.62,
+      "our_rank": 20,
+      "our_score": 41.84,
+      "score_delta": -24.78
+    },
+    {
+      "company_code": "02688.HK",
+      "client_score": 66.33,
+      "our_rank": 62,
+      "our_score": 35.0,
+      "score_delta": -31.33
+    },
+    {
+      "company_code": "300274.SZ",
+      "client_score": 65.39,
+      "our_rank": 79,
+      "our_score": 33.07,
+      "score_delta": -32.32
+    },
+    {
+      "company_code": "601567.SH",
+      "client_score": 65.12,
+      "our_rank": 55,
+      "our_score": 36.07,
+      "score_delta": -29.05
+    },
+    {
+      "company_code": "00135.HK",
+      "client_score": 64.46,
+      "our_rank": 162,
+      "our_score": 28.09,
+      "score_delta": -36.37
+    },
+    {
+      "company_code": "002911.SZ",
+      "client_score": 63.23,
+      "our_rank": 216,
+      "our_score": 25.57,
+      "score_delta": -37.66
+    },
+    {
+      "company_code": "00686.HK",
+      "client_score": 63.15,
+      "our_rank": 316,
+      "our_score": 20.59,
+      "score_delta": -42.56
+    },
+    {
+      "company_code": "688676.SH",
+      "client_score": 63.03,
+      "our_rank": 3,
+      "our_score": 50.76,
+      "score_delta": -12.27
+    },
+    {
+      "company_code": "600339.SH",
+      "client_score": 62.63,
+      "our_rank": 176,
+      "our_score": 27.56,
+      "score_delta": -35.07
+    },
+    {
+      "company_code": "688408.SH",
+      "client_score": 62.57,
+      "our_rank": 265,
+      "our_score": 23.45,
+      "score_delta": -39.12
+    },
+    {
+      "company_code": "600406.SH",
+      "client_score": 62.38,
+      "our_rank": 103,
+      "our_score": 31.31,
+      "score_delta": -31.07
+    },
+    {
+      "company_code": "000400.SZ",
+      "client_score": 62.31,
+      "our_rank": 42,
+      "our_score": 37.78,
+      "score_delta": -24.53
+    },
+    {
+      "company_code": "688248.SH",
+      "client_score": 61.86,
+      "our_rank": 27,
+      "our_score": 40.49,
+      "score_delta": -21.37
+    },
+    {
+      "company_code": "600968.SH",
+      "client_score": 61.72,
+      "our_rank": 36,
+      "our_score": 38.49,
+      "score_delta": -23.23
+    },
+    {
+      "company_code": "603031.SH",
+      "client_score": 61.34,
+      "our_rank": 16,
+      "our_score": 43.63,
+      "score_delta": -17.71
+    },
+    {
+      "company_code": "603606.SH",
+      "client_score": 61.29,
+      "our_rank": 69,
+      "our_score": 34.01,
+      "score_delta": -27.28
+    },
+    {
+      "company_code": "01193.HK",
+      "client_score": 61.18,
+      "our_rank": 324,
+      "our_score": 19.98,
+      "score_delta": -41.2
+    },
+    {
+      "company_code": "301327.SZ",
+      "client_score": 61.17,
+      "our_rank": 471,
+      "our_score": 12.24,
+      "score_delta": -48.93
+    },
+    {
+      "company_code": "601877.SH",
+      "client_score": 61.17,
+      "our_rank": 8,
+      "our_score": 45.5,
+      "score_delta": -15.67
+    },
+    {
+      "company_code": "002706.SZ",
+      "client_score": 61.0,
+      "our_rank": 95,
+      "our_score": 31.8,
+      "score_delta": -29.2
+    },
+    {
+      "company_code": "601126.SH",
+      "client_score": 60.99,
+      "our_rank": 45,
+      "our_score": 37.28,
+      "score_delta": -23.71
+    },
+    {
+      "company_code": "600885.SH",
+      "client_score": 60.83,
+      "our_rank": 19,
+      "our_score": 42.04,
+      "score_delta": -18.79
+    },
+    {
+      "company_code": "600956.SH",
+      "client_score": 60.5,
+      "our_rank": 34,
+      "our_score": 38.73,
+      "score_delta": -21.77
+    },
+    {
+      "company_code": "601179.SH",
+      "client_score": 60.37,
+      "our_rank": 425,
+      "our_score": 15.3,
+      "score_delta": -45.07
+    },
+    {
+      "company_code": "603050.SH",
+      "client_score": 60.19,
+      "our_rank": 150,
+      "our_score": 28.69,
+      "score_delta": -31.5
+    },
+    {
+      "company_code": "01083.HK",
+      "client_score": 60.19,
+      "our_rank": 457,
+      "our_score": 13.41,
+      "score_delta": -46.78
+    },
+    {
+      "company_code": "600821.SH",
+      "client_score": 60.1,
+      "our_rank": 32,
+      "our_score": 39.0,
+      "score_delta": -21.1
+    },
+    {
+      "company_code": "600875.SH",
+      "client_score": 60.09,
+      "our_rank": 503,
+      "our_score": 9.9,
+      "score_delta": -50.19
+    },
+    {
+      "company_code": "01713.HK",
+      "client_score": 59.7,
+      "our_rank": 221,
+      "our_score": 25.39,
+      "score_delta": -34.31
+    },
+    {
+      "company_code": "605117.SH",
+      "client_score": 59.69,
+      "our_rank": 17,
+      "our_score": 43.62,
+      "score_delta": -16.07
+    },
+    {
+      "company_code": "601666.SH",
+      "client_score": 59.5,
+      "our_rank": 49,
+      "our_score": 36.86,
+      "score_delta": -22.64
+    },
+    {
+      "company_code": "001208.SZ",
+      "client_score": 59.4,
+      "our_rank": 367,
+      "our_score": 17.58,
+      "score_delta": -41.82
+    },
+    {
+      "company_code": "688155.SH",
+      "client_score": 59.28,
+      "our_rank": 127,
+      "our_score": 30.12,
+      "score_delta": -29.16
+    },
+    {
+      "company_code": "600803.SH",
+      "client_score": 59.27,
+      "our_rank": 289,
+      "our_score": 22.33,
+      "score_delta": -36.94
+    },
+    {
+      "company_code": "601616.SH",
+      "client_score": 59.14,
+      "our_rank": 237,
+      "our_score": 24.77,
+      "score_delta": -34.37
+    },
+    {
+      "company_code": "600236.SH",
+      "client_score": 59.08,
+      "our_rank": 1,
+      "our_score": 52.6,
+      "score_delta": -6.48
+    },
+    {
+      "company_code": "002534.SZ",
+      "client_score": 59.08,
+      "our_rank": 231,
+      "our_score": 25.17,
+      "score_delta": -33.91
+    }
+  ],
+  "anomalies": [
+    {
+      "client_rank_approx": 7,
+      "company_code": "002911.SZ",
+      "company_name": "佛燃能源",
+      "our_rank": 216,
+      "our_score": 25.57,
+      "disclosure_rate": 72.5,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 8,
+      "company_code": "00686.HK",
+      "company_name": "BJ ENERGY INTL",
+      "our_rank": 316,
+      "our_score": 20.59,
+      "disclosure_rate": 63.75,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 11,
+      "company_code": "688408.SH",
+      "company_name": "中信博",
+      "our_rank": 265,
+      "our_score": 23.45,
+      "disclosure_rate": 73.75,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 18,
+      "company_code": "01193.HK",
+      "company_name": "CHINA RES GAS",
+      "our_rank": 324,
+      "our_score": 19.98,
+      "disclosure_rate": 61.25,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 19,
+      "company_code": "301327.SZ",
+      "company_name": "华宝新能",
+      "our_rank": 471,
+      "our_score": 12.24,
+      "disclosure_rate": 65.0,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 25,
+      "company_code": "00956.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 26,
+      "company_code": "601179.SH",
+      "company_name": "中国西电",
+      "our_rank": 425,
+      "our_score": 15.3,
+      "disclosure_rate": 65.0,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 28,
+      "company_code": "01083.HK",
+      "company_name": "TG SMART ENERGY",
+      "our_rank": 457,
+      "our_score": 13.41,
+      "disclosure_rate": 57.5,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 30,
+      "company_code": "600875.SH",
+      "company_name": "东方电气",
+      "our_rank": 503,
+      "our_score": 9.9,
+      "disclosure_rate": 57.5,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 31,
+      "company_code": "01072.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 32,
+      "company_code": "01713.HK",
+      "company_name": "SICHUAN EN INV",
+      "our_rank": 221,
+      "our_score": 25.39,
+      "disclosure_rate": 66.25,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 35,
+      "company_code": "001208.SZ",
+      "company_name": "华菱线缆",
+      "our_rank": 367,
+      "our_score": 17.58,
+      "disclosure_rate": 66.25,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 37,
+      "company_code": "600803.SH",
+      "company_name": "新奥股份",
+      "our_rank": 289,
+      "our_score": 22.33,
+      "disclosure_rate": 62.5,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 38,
+      "company_code": "601616.SH",
+      "company_name": "广电电气",
+      "our_rank": 237,
+      "our_score": 24.77,
+      "disclosure_rate": 77.5,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 40,
+      "company_code": "002534.SZ",
+      "company_name": "西子洁能",
+      "our_rank": 231,
+      "our_score": 25.17,
+      "disclosure_rate": 73.75,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 42,
+      "company_code": "601727.SH",
+      "company_name": "上海电气",
+      "our_rank": 286,
+      "our_score": 22.5,
+      "disclosure_rate": 65.0,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 43,
+      "company_code": "02727.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 45,
+      "company_code": "00384.HK",
+      "company_name": "CHINA GAS HOLD",
+      "our_rank": 393,
+      "our_score": 16.53,
+      "disclosure_rate": 58.75,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 46,
+      "company_code": "300693.SZ",
+      "company_name": "盛弘股份",
+      "our_rank": 315,
+      "our_score": 20.81,
+      "disclosure_rate": 68.75,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 47,
+      "company_code": "002202.SZ",
+      "company_name": "金风科技",
+      "our_rank": 376,
+      "our_score": 17.21,
+      "disclosure_rate": 66.25,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 48,
+      "company_code": "02208.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 49,
+      "company_code": "600938.SH",
+      "company_name": "中国海油",
+      "our_rank": 528,
+      "our_score": 7.94,
+      "disclosure_rate": 56.25,
+      "category": "client_top50_to_outside_our_top200"
+    },
+    {
+      "client_rank_approx": 50,
+      "company_code": "00883.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 53,
+      "company_code": "01088.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 56,
+      "company_code": "688349.SH",
+      "company_name": "三一重能",
+      "our_rank": 456,
+      "our_score": 13.46,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 65,
+      "company_code": "601898.SH",
+      "company_name": "中煤能源",
+      "our_rank": 489,
+      "our_score": 10.87,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 66,
+      "company_code": "01898.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 79,
+      "company_code": "601857.SH",
+      "company_name": "中国石油",
+      "our_rank": 435,
+      "our_score": 14.75,
+      "disclosure_rate": 55.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 80,
+      "company_code": "00857.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 83,
+      "company_code": "00346.HK",
+      "company_name": "YANCHANG PETRO",
+      "our_rank": 484,
+      "our_score": 11.34,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 85,
+      "company_code": "002056.SZ",
+      "company_name": "横店东磁",
+      "our_rank": 430,
+      "our_score": 15.25,
+      "disclosure_rate": 62.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 86,
+      "company_code": "920167.BJ",
+      "company_name": "同享科技",
+      "our_rank": 529,
+      "our_score": 7.88,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 88,
+      "company_code": "01621.HK",
+      "company_name": "VICO INTL HLDGS",
+      "our_rank": 517,
+      "our_score": 8.91,
+      "disclosure_rate": 57.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 89,
+      "company_code": "002851.SZ",
+      "company_name": "麦格米特",
+      "our_rank": 405,
+      "our_score": 16.06,
+      "disclosure_rate": 65.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 92,
+      "company_code": "300750.SZ",
+      "company_name": "宁德时代",
+      "our_rank": 461,
+      "our_score": 13.06,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 93,
+      "company_code": "03750.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 97,
+      "company_code": "00386.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 110,
+      "company_code": "001289.SZ",
+      "company_name": "龙源电力",
+      "our_rank": 495,
+      "our_score": 10.43,
+      "disclosure_rate": 62.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 111,
+      "company_code": "00916.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 116,
+      "company_code": "600188.SH",
+      "company_name": "兖矿能源",
+      "our_rank": 479,
+      "our_score": 11.83,
+      "disclosure_rate": 61.25,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 117,
+      "company_code": "01171.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 120,
+      "company_code": "601808.SH",
+      "company_name": "中海油服",
+      "our_rank": 531,
+      "our_score": 7.56,
+      "disclosure_rate": 57.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 121,
+      "company_code": "02883.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 122,
+      "company_code": "002121.SZ",
+      "company_name": "科陆电子",
+      "our_rank": 428,
+      "our_score": 15.27,
+      "disclosure_rate": 67.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 133,
+      "company_code": "920185.BJ",
+      "company_name": "贝特瑞",
+      "our_rank": 498,
+      "our_score": 10.28,
+      "disclosure_rate": 61.25,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 134,
+      "company_code": "600452.SH",
+      "company_name": "涪陵电力",
+      "our_rank": 524,
+      "our_score": 8.3,
+      "disclosure_rate": 58.75,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 142,
+      "company_code": "300457.SZ",
+      "company_name": "赢合科技",
+      "our_rank": 448,
+      "our_score": 13.95,
+      "disclosure_rate": 63.75,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 153,
+      "company_code": "688147.SH",
+      "company_name": "微导纳米",
+      "our_rank": 475,
+      "our_score": 12.0,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 155,
+      "company_code": "00467.HK",
+      "company_name": "UNITEDENERGY GP",
+      "our_rank": 410,
+      "our_score": 15.92,
+      "disclosure_rate": 60.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 162,
+      "company_code": "600346.SH",
+      "company_name": "恒力石化",
+      "our_rank": 47,
+      "our_score": 37.06,
+      "disclosure_rate": 82.5,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 163,
+      "company_code": "000883.SZ",
+      "company_name": "湖北能源",
+      "our_rank": 404,
+      "our_score": 16.08,
+      "disclosure_rate": 66.25,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 165,
+      "company_code": "01635.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 166,
+      "company_code": "605162.SH",
+      "company_name": "新中港",
+      "our_rank": 50,
+      "our_score": 36.8,
+      "disclosure_rate": 80.0,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 169,
+      "company_code": "002245.SZ",
+      "company_name": "蔚蓝锂芯",
+      "our_rank": 429,
+      "our_score": 15.26,
+      "disclosure_rate": 63.75,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 173,
+      "company_code": "00934.HK",
+      "company_name": "SINOPEC KANTONS",
+      "our_rank": 462,
+      "our_score": 12.9,
+      "disclosure_rate": 65.0,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 174,
+      "company_code": "000682.SZ",
+      "company_name": "东方电子",
+      "our_rank": 427,
+      "our_score": 15.28,
+      "disclosure_rate": 63.75,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 177,
+      "company_code": "600903.SH",
+      "company_name": "贵州燃气",
+      "our_rank": 44,
+      "our_score": 37.52,
+      "disclosure_rate": 78.75,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 180,
+      "company_code": "01033.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 183,
+      "company_code": "600089.SH",
+      "company_name": "特变电工",
+      "our_rank": 31,
+      "our_score": 39.38,
+      "disclosure_rate": 75.0,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 187,
+      "company_code": "603689.SH",
+      "company_name": "皖天然气",
+      "our_rank": 14,
+      "our_score": 43.93,
+      "disclosure_rate": 82.5,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 192,
+      "company_code": "605011.SH",
+      "company_name": "杭州热电",
+      "our_rank": 23,
+      "our_score": 41.17,
+      "disclosure_rate": 81.25,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 193,
+      "company_code": "600688.SH",
+      "company_name": "上海石化",
+      "our_rank": 520,
+      "our_score": 8.75,
+      "disclosure_rate": 57.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 194,
+      "company_code": "00338.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 196,
+      "company_code": "300510.SZ",
+      "company_name": "金冠股份",
+      "our_rank": 512,
+      "our_score": 9.09,
+      "disclosure_rate": 61.25,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 197,
+      "company_code": "603396.SH",
+      "company_name": "金辰股份",
+      "our_rank": 6,
+      "our_score": 46.73,
+      "disclosure_rate": 81.25,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 199,
+      "company_code": "00991.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 200,
+      "company_code": "000554.SZ",
+      "company_name": "泰山石油",
+      "our_rank": 421,
+      "our_score": 15.53,
+      "disclosure_rate": 62.5,
+      "category": "client_top200_to_our_bottom_half"
+    },
+    {
+      "client_rank_approx": 204,
+      "company_code": "600483.SH",
+      "company_name": "福能股份",
+      "our_rank": 41,
+      "our_score": 37.95,
+      "disclosure_rate": 80.0,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 209,
+      "company_code": "03996.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 213,
+      "company_code": "600098.SH",
+      "company_name": "广州发展",
+      "our_rank": 18,
+      "our_score": 42.77,
+      "disclosure_rate": 81.25,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 214,
+      "company_code": "601001.SH",
+      "company_name": "晋控煤业",
+      "our_rank": 15,
+      "our_score": 43.73,
+      "disclosure_rate": 81.25,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 215,
+      "company_code": "002479.SZ",
+      "company_name": "富春环保",
+      "our_rank": 29,
+      "our_score": 39.86,
+      "disclosure_rate": 90.0,
+      "category": "our_top50_but_client_lower"
+    },
+    {
+      "client_rank_approx": 220,
+      "company_code": "01071.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    },
+    {
+      "client_rank_approx": 224,
+      "company_code": "00902.HK",
+      "our_rank": null,
+      "our_score": null,
+      "disclosure_rate": null,
+      "category": "missing_from_our_universe"
+    }
+  ]
+}

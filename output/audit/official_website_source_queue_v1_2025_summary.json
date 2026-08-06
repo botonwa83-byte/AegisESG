@@ -1,9 +1,11 @@
 {
   "policy_version": "official-website-source-queue-v1",
-  "company_document_tasks": 802,
+  "company_document_tasks": 985,
   "company_count": 614,
-  "pending_official_url": 802,
+  "pending_official_url": 10,
+  "verified_domain_tasks": 975,
+  "verified_with_candidate_url": 0,
   "downloaded": 0,
   "scoring_authorized": false,
-  "rule": "只有经验证的公司官网域名及HTTPS报告链接可进入下载；搜索引擎结果、交易所链接和第三方镜像不计为官网来源"
+  "rule": "只有经验证的公司官网域名及HTTPS报告链接可进入下载；搜索引擎结果、交易所链接和第三方镜像不计为官网来源；重建队列时保留已核验域名与候选URL"
 }

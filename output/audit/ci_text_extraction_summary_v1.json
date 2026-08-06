@@ -1,0 +1,15 @@
+{
+  "policy_version": "ci-text-extraction-v2",
+  "status": "extracted",
+  "run_at_utc": "2026-08-06T02:26:00+00:00",
+  "pdf_count": 983,
+  "text_count_before": 983,
+  "text_count_current": 983,
+  "text_count_after": 983,
+  "text_added": 0,
+  "truncated_repaired": 0,
+  "extractor_exit_code": 0,
+  "extractor_tail": "completed succeeded=0 skipped=983 failed=0",
+  "scoring_authorized": false,
+  "notice": "可与定时下载并行；已存在的 txt 会跳过；截断导出会强制复抽；失败项下次重试。"
+}

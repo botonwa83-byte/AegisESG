@@ -1,0 +1,9 @@
+{
+  "policy_version": "remaining-identity-gaps-v1",
+  "gap_count": 0,
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "output": "output/audit/remaining_identity_gaps_v1_2025.csv",
+  "notice": "身份口径剩余缺口；深交所反爬时可改走巨潮法定披露或官网同域通道。",
+  "rows": []
+}

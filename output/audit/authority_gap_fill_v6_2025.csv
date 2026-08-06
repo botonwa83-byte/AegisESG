@@ -1,0 +1,4 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+002015.SZ,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,93.42,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-28/9e947d1c-716e-4a41-bc89-b7a09589c7e3.PDF,data/raw/ci_collection/002015.SZ/2025/esg_report.pdf
+300919.SZ,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,59.05,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/cbead068-3f36-46f9-b5ea-5948e20468e7.PDF,data/raw/ci_collection/300919.SZ/2025/esg_report.pdf
+688517.SH,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,27.88,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-24/688517_20260424_F8SI.pdf,data/raw/ci_collection/688517.SH/2025/esg_report.pdf

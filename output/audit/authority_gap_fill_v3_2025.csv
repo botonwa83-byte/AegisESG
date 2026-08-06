@@ -1,0 +1,6 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+002506.SZ,Q_E_GHG_INTENSITY,replaced_higher_authority,300.0,160.0,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-29/881073a1-8458-4341-a391-666f5895afb5.PDF,/Users/fengwang/Documents/trae_projects/aegisESP/data/raw/ci_collection/002506.SZ/2025/esg_report.pdf
+301040.SZ,Q_G_REVENUE_GROWTH,filled_missing,-97.76512624369657,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-23/0eb1dc88-08c9-4444-97c0-fd3c64c30a01.PDF,data/raw/ci_collection/301040.SZ/2025/annual_report.pdf
+600635.SH,Q_E_WASTEWATER_INTENSITY,filled_missing,247755.35289786378,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-03-31/600635_20260331_Q6AE.pdf,data/raw/600635.SH/2025/esg_report.pdf
+600744.SH,Q_E_WASTEWATER_INTENSITY,filled_missing,856.0517496606413,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-23/600744_20260423_ZMP3.pdf,data/raw/600744.SH/2025/esg_report.pdf
+600900.SH,Q_E_ENERGY_INTENSITY,replaced_higher_authority,2.0,1.93526606162,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-30/600900_20260430_0VWG.pdf,data/raw/ci_collection/600900.SH/2025/esg_report.pdf

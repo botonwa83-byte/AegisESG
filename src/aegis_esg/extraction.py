@@ -214,9 +214,10 @@ DIRECT_RULES = (
 
 
 _REVENUE_DENOMINATOR = (
-    r"(?:/|per)\s*(?:RMB|CNY)\s*"
-    r"(?P<scale>thousand|million|billion|100\s+million|10[,.]?000|1[,.]?000|10k|’000|'000)"
-    r"(?:\s+(?:(?:of|in)\s+)?revenue)?\s*\)?"
+        r"(?:/|per)\s*"
+        r"(?:(?P<scale1>thousand|million|billion|100\s+million|10[,.]?000|1[,.]?000|10k|’000|'000)\s*(?:RMB|CNY|HKD|HK\$)"
+        r"|(?:RMB|CNY|HKD|HK\$)\s*(?P<scale2>thousand|million|billion|100\s+million|10[,.]?000|1[,.]?000|10k|’000|'000))"
+        r"(?:\s+(?:(?:of|in)\s+)?revenue)?\s*\)?"
 )
 _GHG_LABEL = (
     r"(?:total\s+)?(?:GHG|greenhouse\s+gas)\s+emissions?\s+(?:intensity|density)"
@@ -945,9 +946,24 @@ def _extract_alternative_water_rate(text: str, report_year: int) -> tuple[float,
         r"(?:整体)?替代水源(?:使用|用水量)?占比(?:达到|达|为)\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
         rf"(?:{report_year}\s*年[^。；;\n]{{0,40}})?(?:公司[^。；;\n]{{0,20}})?"
         r"循环水用量占比(?:达到|达|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        # 中水回用/使用占比；排除“中水电”装机占比碰撞
+        r"水循环利用率\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"中水(?!电)回用率(?:达到|达|为)?\s*(?:\d{1,2}\s+)?(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"中水(?!电)使用占比(?:达到|达|为)\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"再生水(?:使用|用水量)?占比(?:达到|达|为)\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"再生水利用率(?:达到|达|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"回用水占比(?:达到|达|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"水资源循环利用率(?:达到|达|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"非常规水源占\s*总取水量比例\s*%\s*[\s\S]{0,200}?(?P<value>[\d,]+(?:\.\d+)?)(?=\s*\n)",
+        r"循环用水量(?:为|达到|：|:)?\s*[\d,]+(?:\.\d+)?\s*万?吨[^。；;\n]{0,20}?占总取水量\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"回用水量(?:为|达到|：|:)?\s*[\d,]+(?:\.\d+)?\s*万?吨[^。；;\n]{0,20}?占总取水量\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"水资源(?:循环|回用)利用(?:率|量)[^。；;\n]{0,30}?占总取水量\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"替代性水源占总耗水量(?:的|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
+        r"替代水源占总耗水量(?:的|为)?\s*(?P<value>[\d,]+(?:\.\d+)?)\s*%",
         r"(?:the\s+)?(?:Group|Company)['’]s?[^.\n]{0,80}?(?:recycled|reused|alternative)\s+water"
         r"[^.\n]{0,120}?account(?:ed|ing)\s+for\s+(?P<value>[\d,]+(?:\.\d+)?)\s*%\s+of\s+"
         r"total\s+water\s+(?:withdrawal|consumption|use)",
+        r"alternative\s+water\s+sources\s+accounted\s+for\s+(?P<value>[\d,]+(?:\.\d+)?)\s*%\s+of\s+total\s+water\s+(?:withdrawal|consumption|use)",
     )
     for pattern in narrative_patterns:
         match = re.search(pattern, text, re.I)
@@ -967,7 +983,7 @@ def _extract_alternative_water_rate(text: str, report_year: int) -> tuple[float,
         elif re.search(rf"{header}\s*(?:20\d{{2}}{year_cell}\s*){{1,2}}{report_year}{year_cell}", text):
             mode = "current-last"
     if mode in {"current-first", "current-last"}:
-        label = r"(?:替代水源(?:使用|用水量)?占比|循环水用量占比)\d*"
+        label = r"(?:替代水源(?:使用|用水量)?占比|循环水用量占比|中水回用利用率|水资源循环利用率)\d*"
         match = re.search(rf"(?m)^\s*(?:{label})\s*%\s*(?P<body>[-—/\d,.\s]+)$", text)
         if match:
             values = re.findall(r"[+-]?[\d,]+(?:\.\d+)?", match.group("body"))
@@ -990,6 +1006,25 @@ def _extract_alternative_water_rate(text: str, report_year: int) -> tuple[float,
             if 0 <= value <= 100:
                 evidence = re.sub(r"\s+", " ", match.group(0)).strip()
                 return value, "Alternative-water explicit-year vertical table: " + evidence[:260]
+    # 年序两值行：同文档出现“上年→本年”锚点后按最后一值取本年（真实样例：300919.SZ）
+    for label in (r"中水回用利用率", r"水资源循环利用率"):
+        anchor = re.search(
+            rf"(?m)^\s*(?:{label})\d*\s*%\s*(?:[-—]\s+)?[\d,]+(?:\.\d+)?\s+[\d,]+(?:\.\d+)?\s*$",
+            text,
+        )
+        if not anchor:
+            continue
+        match = re.search(
+            rf"(?m)^\s*(?:{label})\d*\s*%\s*(?:[-—]\s+)?[\d,]+(?:\.\d+)?\s+"
+            rf"(?P<current>[\d,]+(?:\.\d+)?)\s*$",
+            text,
+        )
+        if not match:
+            continue
+        value = float(match.group("current").replace(",", ""))
+        if 0 <= value <= 100:
+            evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+            return value, "Alternative-water two-value year-sequence row: " + evidence[:260]
     return None
 
 
@@ -1009,12 +1044,22 @@ def _extract_english_revenue_intensities(text: str) -> list[tuple[str, float, st
         for match in rule.pattern.finditer(text):
             numerator = match.group("numerator").lower()
             compact_numerator = re.sub(r"\s+", "", numerator)
-            scale = re.sub(r"\s+", " ", match.group("scale").lower())
+            scale = match.groupdict().get("scale1") or match.groupdict().get("scale2") or match.groupdict().get("scale3") or match.groupdict().get("scale") or ""
+            scale = re.sub(r"\s+", " ", scale.lower())
             amount = scale_amounts.get(scale)
             if amount is None:
                 continue
             mass_kg = 1 if compact_numerator in {"kg", "kilogram", "kilograms", "kgco2e", "kgco2-e"} else 1_000
-            raw_value = float(match.group("value").replace(",", ""))
+            raw_group = match.groupdict().get("value")
+            if raw_group is None:
+                continue
+            raw_value = float(raw_group.replace(",", ""))
+            if raw_value <= 0:
+                continue
+            # Reject target/goal statements like "Not exceeding X"
+            full_match = match.group(0)
+            if re.search(r"(?:not\s+exceeding|target|goal|aim\s+to|strive\s+to)", full_match, re.I):
+                continue
             value = raw_value * mass_kg * 10_000 / amount
             if rule.indicator_code in {"Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY", "Q_E_PM_INTENSITY"}:
                 value *= 1_000
@@ -1454,6 +1499,17 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
         ("千克二氧化碳当量/万元", 1.0), ("tCO2e/百万元", 10.0),
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
     )),
+    # 绩效表常见“每百万营收温室气体排放总量 + 吨二氧化碳当量”隐含强度（吨/百万元→千克/万元×10）
+    ("Q_E_GHG_INTENSITY", r"每百万营收温室气体排放总量(?:\s*[（(]\s*范围\s*[一1]\s*[、和+及]\s*范围\s*[二2]\s*[）)])?", (
+        ("吨二氧化碳当量", 10.0), ("吨", 10.0), ("tCO2e", 10.0),
+    )),
+    # “单位营收温室气体排放量（基于位置） 吨二氧化碳当量/万元”
+    ("Q_E_GHG_INTENSITY",
+     r"单位营收温室气体排放(?:量|总量)(?:\s*[（(]\s*基于(?:位置|市场)\s*[）)])?", (
+        ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
+        ("吨二氧化碳当量/万元营业收入", 1000.0), ("吨/万元", 1000.0),
+        ("千克二氧化碳当量/万元", 1.0), ("千克/万元", 1.0),
+    )),
     ("Q_E_ENERGY_INTENSITY", r"(?:单位营收)?(?:综合)?能源(?:消耗|消费)(?:强度|密度)|综合能耗强度", (
         ("万吨标准煤/百万元营业收入", 100000.0), ("万吨标准煤/百万元营收", 100000.0),
         ("吨标准煤/百万元营业收入", 1000.0), ("吨标准煤/百万元营收", 1000.0),
@@ -1522,6 +1578,20 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
         rf"指标名称\s*指标单位\s*{previous_year}\s*年数值\s*{report_year}\s*年数值", text,
     ):
         return "current-last"
+    # 废气污染物种类表常见“单位 + 上年数值 + 本年数值”（真实样例：000791.SZ）
+    pollutant_header = r"(?:废气)?污染物种类\s*单位"
+    if re.search(
+        rf"{pollutant_header}\s*{previous_year}\s*年?(?:数据|数值|值)?\s*{report_year}\s*年?(?:数据|数值|值)?",
+        text,
+    ):
+        return "current-last"
+    if re.search(
+        rf"{pollutant_header}\s*{report_year}\s*年?(?:数据|数值|值)?\s*{previous_year}\s*年?(?:数据|数值|值)?",
+        text,
+    ):
+        return "current-first"
+    if re.search(rf"{pollutant_header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
+        return "single-year"
     header = r"(?:指标|项目|披露项|披露指标)(?:名称)?\s*单位"
     if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
         return "current-first"
@@ -1541,7 +1611,7 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
 
 def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[str, float, str]]:
     """Read methodology-compatible rows from Chinese KPI tables with explicit year headers."""
-    text = _normalize_kangxi(text)
+    text = _repair_wrapped_numbers(_normalize_kangxi(text))
     mode = _chinese_year_table_mode(text, report_year)
     results: list[tuple[str, float, str]] = []
     for code, label, units in _CN_TABLE_RULES:
@@ -1590,6 +1660,11 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                 unit_key = re.sub(r"\s+", "", match.group("unit")).strip("（）()")
                 factor = factors.get(unit_key)
                 if factor is None:
+                    continue
+                nearby = text[max(0, match.start() - 24):min(len(text), match.end() + 24)]
+                if code in {"Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY"} and re.search(
+                    r"产值|产量|发电量|单位产品|万元产值", nearby,
+                ):
                     continue
                 value = float(match.group("current").replace(",", "")) * factor
                 if not _plausible_value(code, value):
@@ -1743,6 +1818,10 @@ def _is_contextual_false_positive(code: str, text: str, match: re.Match[str]) ->
         # the actual current/prior-year values (e.g. "排放强度3 吨/万元 0.02 0.03").
         if re.match(r"\s*\d", text[match.end():match.end() + 12]):
             return True
+        # Methodology denominator is consolidated operating revenue, not output/production value.
+        nearby = text[max(0, match.start() - 24):min(len(text), match.end() + 24)]
+        if re.search(r"产值|产量|发电量|单位产品|万元产值", nearby):
+            return True
     if code == "Q_G_DEBT_ASSET_RATE":
         if any(token in matched for token in ("超过", "低于", "不低于", "不超过", "＝", "=")):
             return True
@@ -1825,7 +1904,20 @@ def _extract_summary_revenue(raw_text: str, in_summary_section: bool = False) ->
 
 
 def _repair_wrapped_numbers(raw_text: str) -> str:
+    """Join PDF line-breaks that split thousand-separated numbers.
+
+    Examples:
+    - ``477,\\n044.50`` → ``477,044.50``
+    - ``252,302.35 477\\n044.50`` → ``252,302.35 477,044.50``
+    """
     repaired = re.sub(r"(?<=[\d,])\s*\n\s*(?=[.,])", "", raw_text)
+    # Incomplete integer group + newline + exactly-3-digit continuation (with optional decimals).
+    # Do not treat the fractional part of a decimal (e.g. 38.30\n191.85) as a thousand group.
+    repaired = re.sub(
+        r"(?<![,\d.])(\d{1,3})\s*\n\s*(\d{3}(?:\.\d+)?)\b",
+        r"\1,\2",
+        repaired,
+    )
     return re.sub(
         r"(?m)(^|[ \t])([0-9,]+)\s*\n\s*(?=\d+\.\d+)",
         lambda match: match.group(1) + match.group(2),

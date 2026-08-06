@@ -1,0 +1,98 @@
+{
+  "policy_version": "live-collection-status-v1",
+  "run_at_utc": "2026-08-06T02:29:12+00:00",
+  "collection_lock_held": false,
+  "text_lock_held": false,
+  "pdf_count": 983,
+  "text_count": 983,
+  "text_pending_estimate": 0,
+  "steps": [
+    {
+      "script": "reclaim_stale_locks.py",
+      "ok": true
+    },
+    {
+      "script": "audit_workspace_permissions.py",
+      "ok": true
+    },
+    {
+      "script": "classify_collection_failures.py",
+      "ok": true
+    },
+    {
+      "script": "build_collection_retry_manifest.py",
+      "ok": true
+    },
+    {
+      "script": "build_collection_coverage_report.py",
+      "ok": true
+    },
+    {
+      "script": "build_ci_research_merge_preview.py",
+      "ok": true
+    },
+    {
+      "script": "build_ci_incremental_coverage_packet.py",
+      "ok": true
+    },
+    {
+      "script": "build_ci_thin_text_packet.py",
+      "ok": true
+    },
+    {
+      "script": "build_scan_esg_annual_fallback_packet.py",
+      "ok": true
+    },
+    {
+      "script": "build_remaining_identity_gaps.py",
+      "ok": true
+    }
+  ],
+  "coverage": {
+    "policy_version": "scheduled-collection-coverage-v2",
+    "manifest_rows": 1033,
+    "manifest_identities": 976,
+    "manifest_valid_identities": 976,
+    "downloaded_rows": 976,
+    "downloaded_identities": 976,
+    "missing_rows": 84,
+    "missing_identities": 0,
+    "redundant_url_gaps": 84,
+    "invalid_year_identities": 0,
+    "identity_coverage_rate": 1.0,
+    "failure_rows": 1,
+    "downloaded_by_host": {
+      "disc.static.szse.cn": 303,
+      "www1.hkexnews.hk": 285,
+      "static.cninfo.com.cn": 27,
+      "www.sse.com.cn": 335,
+      "www.bse.cn": 26
+    },
+    "missing_by_document_type": {
+      "esg_report": 47,
+      "annual_report": 37
+    },
+    "missing_identities_by_document_type": {},
+    "retry_manifest": "output/audit/scheduled_collection_retry_v1_2025.csv",
+    "scoring_authorized": false,
+    "formal_publishable": false,
+    "notice": "identity口径才是真实缺口；URL缺口含同文档备用链接。"
+  },
+  "merge_preview": {
+    "policy_version": "ci-research-merge-preview-v1",
+    "preview_rows": 23,
+    "would_add": 0,
+    "would_add_by_type": {},
+    "conflict_or_different_hash": 23,
+    "research_index_mutated": false,
+    "scoring_authorized": false,
+    "formal_publishable": false,
+    "research_index": "data/raw/all_markets_document_index.csv",
+    "ci_index": "output/sync/official_document_index.csv",
+    "output": "output/audit/ci_research_merge_preview_v1_2025.csv",
+    "notice": "仅预览CI相对研究索引的增量；不合并、不覆盖、不授权评分。"
+  },
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "长下载占锁时仍可刷新覆盖/重试/合并预览；不启动下载、不授权评分。"
+}

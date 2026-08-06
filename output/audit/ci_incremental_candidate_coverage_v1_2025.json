@@ -1,0 +1,150 @@
+{
+  "Q_E_ALTERNATIVE_WATER_RATE": {
+    "candidate_count": 28,
+    "company_count": 20
+  },
+  "Q_E_CLEAN_ENERGY_INTENSITY": {
+    "candidate_count": 18,
+    "company_count": 18
+  },
+  "Q_E_ENERGY_INTENSITY": {
+    "candidate_count": 50,
+    "company_count": 47
+  },
+  "Q_E_GHG_INTENSITY": {
+    "candidate_count": 68,
+    "company_count": 60
+  },
+  "Q_E_GHG_REDUCTION_RATE": {
+    "candidate_count": 34,
+    "company_count": 32
+  },
+  "Q_E_HAZ_WASTE_INTENSITY": {
+    "candidate_count": 30,
+    "company_count": 24
+  },
+  "Q_E_NOX_INTENSITY": {
+    "candidate_count": 30,
+    "company_count": 30
+  },
+  "Q_E_PM_INTENSITY": {
+    "candidate_count": 27,
+    "company_count": 27
+  },
+  "Q_E_SO2_INTENSITY": {
+    "candidate_count": 19,
+    "company_count": 19
+  },
+  "Q_E_SOLID_WASTE_INTENSITY": {
+    "candidate_count": 30,
+    "company_count": 29
+  },
+  "Q_E_WASTEWATER_INTENSITY": {
+    "candidate_count": 28,
+    "company_count": 27
+  },
+  "Q_E_WATER_INTENSITY": {
+    "candidate_count": 50,
+    "company_count": 45
+  },
+  "Q_G_AR_TURNOVER": {
+    "candidate_count": 445,
+    "company_count": 445
+  },
+  "Q_G_ASSET_TURNOVER": {
+    "candidate_count": 468,
+    "company_count": 468
+  },
+  "Q_G_CAPITAL_ACCUMULATION": {
+    "candidate_count": 384,
+    "company_count": 384
+  },
+  "Q_G_CASH_CURRENT_LIABILITY": {
+    "candidate_count": 246,
+    "company_count": 246
+  },
+  "Q_G_CASH_REALIZATION": {
+    "candidate_count": 286,
+    "company_count": 286
+  },
+  "Q_G_COST_REVENUE_RATE": {
+    "candidate_count": 305,
+    "company_count": 305
+  },
+  "Q_G_CURRENT_ASSET_TURNOVER": {
+    "candidate_count": 384,
+    "company_count": 384
+  },
+  "Q_G_DEBT_ASSET_RATE": {
+    "candidate_count": 797,
+    "company_count": 524
+  },
+  "Q_G_EBITDA_INTEREST": {
+    "candidate_count": 348,
+    "company_count": 348
+  },
+  "Q_G_EBITDA_MARGIN": {
+    "candidate_count": 247,
+    "company_count": 247
+  },
+  "Q_G_OPERATING_MARGIN": {
+    "candidate_count": 312,
+    "company_count": 312
+  },
+  "Q_G_OPERATING_PROFIT_GROWTH": {
+    "candidate_count": 236,
+    "company_count": 236
+  },
+  "Q_G_QUICK_RATIO": {
+    "candidate_count": 353,
+    "company_count": 353
+  },
+  "Q_G_REVENUE_GROWTH": {
+    "candidate_count": 635,
+    "company_count": 546
+  },
+  "Q_G_ROA": {
+    "candidate_count": 271,
+    "company_count": 271
+  },
+  "Q_G_ROE": {
+    "candidate_count": 833,
+    "company_count": 568
+  },
+  "Q_G_TWO_FUNDS_RATE": {
+    "candidate_count": 383,
+    "company_count": 383
+  },
+  "Q_S_BENEFIT_PER_EMPLOYEE": {
+    "candidate_count": 83,
+    "company_count": 83
+  },
+  "Q_S_DIVIDEND_PER_SHARE": {
+    "candidate_count": 535,
+    "company_count": 375
+  },
+  "Q_S_DONATION_RATE": {
+    "candidate_count": 270,
+    "company_count": 270
+  },
+  "Q_S_EDU_PER_EMPLOYEE": {
+    "candidate_count": 94,
+    "company_count": 94
+  },
+  "Q_S_ENV_INVEST_RATE": {
+    "candidate_count": 46,
+    "company_count": 46
+  },
+  "Q_S_PAY_PER_EMPLOYEE": {
+    "candidate_count": 125,
+    "company_count": 125
+  },
+  "Q_S_RD_RATE": {
+    "candidate_count": 547,
+    "company_count": 472
+  },
+  "Q_S_SAFETY_INVEST_RATE": {
+    "candidate_count": 37,
+    "company_count": 37
+  }
+}

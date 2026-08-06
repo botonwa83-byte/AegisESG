@@ -7,17 +7,33 @@ guard CommandLine.arguments.count == 3 || (CommandLine.arguments.count == 4 && C
 }
 
 let manager = FileManager.default
-let inputRoot = URL(fileURLWithPath: CommandLine.arguments[1]).standardizedFileURL
-let outputRoot = URL(fileURLWithPath: CommandLine.arguments[2]).standardizedFileURL
+let inputRoot = URL(fileURLWithPath: CommandLine.arguments[1]).resolvingSymlinksInPath().standardizedFileURL
+let outputRoot = URL(fileURLWithPath: CommandLine.arguments[2]).resolvingSymlinksInPath().standardizedFileURL
 try manager.createDirectory(at: outputRoot, withIntermediateDirectories: true)
-guard let enumerator = manager.enumerator(at: inputRoot, includingPropertiesForKeys: nil) else { exit(1) }
+guard let enumerator = manager.enumerator(
+    at: inputRoot,
+    includingPropertiesForKeys: [.isRegularFileKey],
+    options: [.skipsHiddenFiles]
+) else { exit(1) }
+
+func relativePath(of input: URL, to root: URL) -> String? {
+    let inputPath = input.resolvingSymlinksInPath().standardizedFileURL.path
+    let rootPath = root.path
+    let prefix = rootPath.hasSuffix("/") ? rootPath : rootPath + "/"
+    guard inputPath.hasPrefix(prefix) else { return nil }
+    return String(inputPath.dropFirst(prefix.count))
+}
 
 var succeeded = 0
 var failed = 0
 var skipped = 0
 let force = CommandLine.arguments.count == 4
 for case let input as URL in enumerator where input.pathExtension.lowercased() == "pdf" {
-    let relative = String(input.path.dropFirst(inputRoot.path.count + 1))
+    guard let relative = relativePath(of: input, to: inputRoot), !relative.isEmpty else {
+        failed += 1
+        print("failed \(input.path): not under input root \(inputRoot.path)")
+        continue
+    }
     let output = outputRoot.appendingPathComponent(relative).deletingPathExtension().appendingPathExtension("txt")
     if !force && manager.fileExists(atPath: output.path) {
         skipped += 1

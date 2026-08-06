@@ -1,0 +1,9 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+002074.SZ,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,61.87,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-29/80ba71d6-58ca-40b2-9904-72257b290b41.PDF,data/raw/ci_collection/002074.SZ/2025/esg_report.pdf
+300438.SZ,Q_E_SO2_INTENSITY,filled_missing,0.19926392812305502,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-29/bb9e5b18-c373-4dbe-992d-8129c98762ac.PDF,data/raw/ci_collection/300438.SZ/2025/esg_report.pdf
+300932.SZ,Q_E_NOX_INTENSITY,filled_missing,0.09185818613805363,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/71100e6f-3a2f-4df2-8bd6-54ce14fc7f31.PDF,data/raw/ci_collection/300932.SZ/2025/esg_report.pdf
+300932.SZ,Q_E_PM_INTENSITY,filled_missing,1.9368211888542441,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/71100e6f-3a2f-4df2-8bd6-54ce14fc7f31.PDF,data/raw/ci_collection/300932.SZ/2025/esg_report.pdf
+300932.SZ,Q_E_SO2_INTENSITY,filled_missing,0.09185818613805363,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-03-31/71100e6f-3a2f-4df2-8bd6-54ce14fc7f31.PDF,data/raw/ci_collection/300932.SZ/2025/esg_report.pdf
+301358.SZ,Q_E_SO2_INTENSITY,filled_missing,88.6712070065354,,EXCHANGE,https://disc.static.szse.cn/disc/disk03/finalpage/2026-04-23/47d22341-a180-480b-8c97-3b1b534ec8d3.PDF,data/raw/ci_collection/301358.SZ/2025/esg_report.pdf
+600089.SH,Q_E_ALTERNATIVE_WATER_RATE,filled_missing,40.0,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-16/600089_20260416_4PXZ.pdf,data/raw/ci_collection/600089.SH/2025/esg_report.pdf
+600968.SH,Q_E_SO2_INTENSITY,filled_missing,0.2521689456545607,,EXCHANGE,https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-03-25/600968_20260325_5QKP.pdf,data/raw/600968.SH/2025/esg_report.pdf

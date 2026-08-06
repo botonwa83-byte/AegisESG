@@ -233,8 +233,19 @@ def prepare_official_domain_review_packet(
     return summary
 
 
-def evaluate_official_domain_review(rows: list[dict[str, str]]) -> dict[str, Any]:
+def evaluate_official_domain_review(
+    rows: list[dict[str, str]],
+    *,
+    allow_partial: bool = False,
+) -> dict[str, Any]:
+    """Validate human domain-review signatures.
+
+    When ``allow_partial`` is True, unsigned rows are ignored so a session can
+    apply only the decisions already signed. Signed rows still require full
+    reviewer / timestamp / note fields; nothing is auto-approved.
+    """
     incomplete: list[dict[str, str]] = []
+    unsigned: list[str] = []
     invalid: list[dict[str, str]] = []
     verified: list[str] = []
     rejected: list[str] = []
@@ -243,7 +254,9 @@ def evaluate_official_domain_review(rows: list[dict[str, str]]) -> dict[str, Any
         code = row.get("company_code", "")
         decision = (row.get("verification_decision") or "").strip().lower()
         if not decision:
-            incomplete.append({"company_code": code, "fields": list(REQUIRED_ON_DECIDE)})
+            unsigned.append(code)
+            if not allow_partial:
+                incomplete.append({"company_code": code, "fields": list(REQUIRED_ON_DECIDE)})
             continue
         if decision not in DECISIONS:
             invalid.append({"company_code": code, "decision": decision})
@@ -267,10 +280,13 @@ def evaluate_official_domain_review(rows: list[dict[str, str]]) -> dict[str, Any
         else:
             deferred.append(code)
 
-    ready = bool(rows) and not incomplete and not invalid and bool(verified)
+    signed_count = len(verified) + len(rejected) + len(deferred)
+    ready = bool(verified) and not invalid and not incomplete and (allow_partial or not unsigned)
     if invalid:
         status = "reject_template"
-    elif incomplete or not rows:
+    elif incomplete:
+        status = "blocked_external_review"
+    elif not rows or (not signed_count and (unsigned or not allow_partial)):
         status = "blocked_external_review"
     elif verified:
         status = "ready_to_register_verified_domains"
@@ -280,6 +296,8 @@ def evaluate_official_domain_review(rows: list[dict[str, str]]) -> dict[str, Any
         "policy_version": APPLICATION_VERSION,
         "row_count": len(rows),
         "incomplete_rows": len(incomplete),
+        "unsigned_rows": len(unsigned),
+        "signed_rows": signed_count,
         "invalid_rows": len(invalid),
         "verified_rows": len(verified),
         "rejected_rows": len(rejected),
@@ -287,6 +305,7 @@ def evaluate_official_domain_review(rows: list[dict[str, str]]) -> dict[str, Any
         "incomplete_examples": incomplete[:20],
         "invalid_examples": invalid[:20],
         "verified_company_codes": verified,
+        "allow_partial": allow_partial,
         "status": status,
         "queue_updated": False,
         "download_authorized": False,
@@ -305,10 +324,11 @@ def apply_official_domain_review(
     *,
     output_queue_path: str | Path | None = None,
     application_path: str | Path | None = None,
+    allow_partial: bool = False,
 ) -> dict[str, Any]:
     """Register verified domains onto the official website queue without authorizing downloads."""
     rows = _read_csv(review_csv_path)
-    report = evaluate_official_domain_review(rows)
+    report = evaluate_official_domain_review(rows, allow_partial=allow_partial)
     if report["status"] != "ready_to_register_verified_domains":
         if application_path:
             Path(application_path).parent.mkdir(parents=True, exist_ok=True)
@@ -319,6 +339,9 @@ def apply_official_domain_review(
         (row.get("company_code") or "").strip(): normalize_host(row.get("official_domain") or "")
         for row in rows
         if (row.get("verification_decision") or "").strip().lower() in VERIFY
+        and (row.get("reviewer") or "").strip()
+        and (row.get("reviewed_at") or "").strip()
+        and len((row.get("review_note") or "").strip()) >= 8
         and is_plausible_issuer_domain(row.get("official_domain") or "")
     }
     queue = _read_csv(queue_path)

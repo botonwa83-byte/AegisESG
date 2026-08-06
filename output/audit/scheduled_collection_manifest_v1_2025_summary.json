@@ -4,13 +4,13 @@
     "sse_all_2025.csv": 335,
     "szse_candidates_2025.csv": 330,
     "bse_candidates_2025.csv": 26,
-    "hkex_reports_all_2026-07-29.csv": 313,
+    "hkex_reports_all_2026-07-29.csv": 302,
     "rediscovery_2025.csv": 40
   },
-  "deduplicated_rows": 1044,
+  "deduplicated_rows": 1033,
   "company_count": 612,
   "download_authorized": true,
   "scoring_authorized": false,
   "official_website_rows": 0,
-  "note": "交易所公开清单合并去重；官网来源在域名验证后另行并入"
+  "note": "交易所公开清单合并去重；已排除非法报告年份；官网来源在域名验证后另行并入"
 }

@@ -1,0 +1,13 @@
+{
+  "discovery_version": "official-same-domain-report-discovery-v1",
+  "queue_rows": 985,
+  "verified_company_count": 588,
+  "candidate_rows": 0,
+  "fetch_failed_rows": 0,
+  "download_authorized": false,
+  "scoring_authorized": false,
+  "status": "await_fetcher_or_live_scan",
+  "csv_path": "output/audit/official_report_discovery_candidates_v1_2025.csv",
+  "html_path": "output/audit/official_report_discovery_packet_v1_2025.html",
+  "notice": "无已核验域名时只生成空工作包；有核验域名后传入fetcher扫描同域HTTPS PDF。"
+}

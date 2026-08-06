@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>治理优秀值录入工作包</title>
+<style>
+body{font:14px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f7f9fc;color:#24324a;margin:0}
+main{max-width:1280px;margin:auto;padding:28px 22px}
+.note{background:#fff4d8;border:1px solid #efd28d;border-radius:10px;padding:14px;margin:16px 0}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #e2e8f1}
+th,td{padding:10px;border-bottom:1px solid #edf0f5;text-align:left;vertical-align:top;white-space:normal;word-break:break-word}
+th{background:#eef3fa;white-space:nowrap}
+td.note-cell{min-width:220px;color:#53657b}
+code{color:#4e79ff;white-space:nowrap}
+</style>
+<main>
+<h1>DL/T 2971 治理优秀值录入工作包</h1>
+<p>标准：DL/T 2971—2025　目标版本：DLT2971-2025-v1</p>
+<div class="note"><b>使用规则：</b>只从当年《企业绩效评价标准值》抄录工业领域“优秀值”。有映射风险的指标不得擅自用近似项顶替；
+填齐 17 项并经方法论负责人确认后，再执行 <code>apply-governance-benchmarks</code>。禁止把网络 OCR 未核验数值冻结为正式方法论。</div>
+<p>已填 0 / 17；直接映射可抄录 13 项；需口径确认 4 项。</p>
+<table><thead><tr><th>编码</th><th>行标名称</th><th>国资委表头别名</th><th>方向</th><th>单位</th><th>权重</th><th>优秀值</th><th>映射说明</th></tr></thead>
+<tbody><tr><td><code>Q_G_ROE</code></td><td>净资产收益率</td><td>净资产收益率</td><td>positive</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>主表盈利回报指标；抄录“优秀值”列</td></tr><tr><td><code>Q_G_ROA</code></td><td>总资产报酬率</td><td>总资产报酬率</td><td>positive</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>主表盈利回报指标；抄录“优秀值”列</td></tr><tr><td><code>Q_G_OPERATING_MARGIN</code></td><td>营业利润率</td><td>销售（营业）利润率</td><td>positive</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>行标称营业利润率；与国资委销售（营业）利润率口径对齐需方法论确认</td></tr><tr><td><code>Q_G_EBITDA_MARGIN</code></td><td>EBITDA利润率</td><td>（补充/映射）EBITDA利润率</td><td>positive</td><td>%</td><td>1.40</td><td>待填</td><td class='note-cell'>国资委主表通常无同名项；需方法论负责人确认是否用近似项或保留空并改指标</td></tr><tr><td><code>Q_G_CASH_REALIZATION</code></td><td>营业收现率</td><td>盈余现金保障倍数/营业收现相关</td><td>positive</td><td>%</td><td>1.40</td><td>待填</td><td class='note-cell'>行标为营业收现率；与国资委盈余现金保障倍数不同，禁止擅自替换数值</td></tr><tr><td><code>Q_G_COST_REVENUE_RATE</code></td><td>成本费用占营业收入比例</td><td>成本费用利润率（需换算）或成本费用占收比</td><td>negative</td><td>%</td><td>1.40</td><td>待填</td><td class='note-cell'>行标为成本费用/营业收入（负向）；不可直接抄成本费用利润率而不换算</td></tr><tr><td><code>Q_G_ASSET_TURNOVER</code></td><td>总资产周转率</td><td>总资产周转率</td><td>positive</td><td>次</td><td>2.10</td><td>待填</td><td class='note-cell'>主表资产运营指标；单位为次</td></tr><tr><td><code>Q_G_AR_TURNOVER</code></td><td>应收账款周转率</td><td>应收账款周转率</td><td>positive</td><td>次</td><td>2.10</td><td>待填</td><td class='note-cell'>主表资产运营指标；单位为次</td></tr><tr><td><code>Q_G_CURRENT_ASSET_TURNOVER</code></td><td>流动资产周转率</td><td>流动资产周转率</td><td>positive</td><td>次</td><td>2.10</td><td>待填</td><td class='note-cell'>主表资产运营指标；单位为次</td></tr><tr><td><code>Q_G_TWO_FUNDS_RATE</code></td><td>两金占流动资产比例</td><td>（行标特有）两金占流动资产比例</td><td>negative</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>国资委主表通常无两金占比；需方法论确认数据来源或保留行业样本中性</td></tr><tr><td><code>Q_G_DEBT_ASSET_RATE</code></td><td>资产负债率</td><td>资产负债率</td><td>bidirectional</td><td>%</td><td>2.80</td><td>待填</td><td class='note-cell'>双向指标；抄录优秀值，打分以优秀值为峰向两侧衰减</td></tr><tr><td><code>Q_G_EBITDA_INTEREST</code></td><td>EBITDA利息倍数</td><td>已获利息倍数</td><td>bidirectional</td><td>倍</td><td>2.80</td><td>待填</td><td class='note-cell'>行标称EBITDA利息倍数/已获利息倍数；双向指标</td></tr><tr><td><code>Q_G_QUICK_RATIO</code></td><td>速动比率</td><td>速动比率</td><td>bidirectional</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>双向指标；注意国资委表中单位是否已是百分比</td></tr><tr><td><code>Q_G_CASH_CURRENT_LIABILITY</code></td><td>现金流动负债比率</td><td>现金流动负债比率</td><td>bidirectional</td><td>%</td><td>2.80</td><td>待填</td><td class='note-cell'>双向指标；抄录优秀值列</td></tr><tr><td><code>Q_G_REVENUE_GROWTH</code></td><td>营业增长率</td><td>营业增长率 / 销售（营业）增长率</td><td>positive</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>主表经营增长指标</td></tr><tr><td><code>Q_G_OPERATING_PROFIT_GROWTH</code></td><td>营业利润增长率</td><td>营业利润增长率</td><td>positive</td><td>%</td><td>2.10</td><td>待填</td><td class='note-cell'>若表中仅有利润总额增长率，不得直接替代</td></tr><tr><td><code>Q_G_CAPITAL_ACCUMULATION</code></td><td>资本积累率</td><td>资本积累率</td><td>positive</td><td>%</td><td>1.40</td><td>待填</td><td class='note-cell'>主表经营增长指标</td></tr></tbody></table>
+</main></html>

@@ -1,0 +1,4 @@
+﻿stock_code,company_name,exchange,annual_status,esg_status,priority,next_action
+01101.HK,HUARONG ENERGY,HKEX,missing,missing,P0_annual,retry_exchange_annual_download
+00702.HK,SINO OIL & GAS,HKEX,missing,missing,P0_annual,retry_exchange_annual_download
+,SUBJECT_SHORTFALL_614_OF_632,ALL,n/a,n/a,P0_external_universe,provide_signed_632_name_list_or_inclusion_evidence

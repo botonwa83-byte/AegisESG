@@ -47,16 +47,17 @@ from aegis_esg.source_authority import (  # noqa: E402
 )
 
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v21_exchange_zero.csv"
-DOCUMENT_INDEX = ROOT / "data/raw/document_index.csv"
+BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v33_enriched.csv"
+DOCUMENT_INDEX = ROOT / "data/raw/all_markets_document_index.csv"
+CI_INDEX = ROOT / "output/sync/official_document_index.csv"
 TEXT_ROOT = ROOT / "data/text"
 CLIENT_TOP200 = ROOT / "data/reference/2025_top200_securities_ocr.csv"
 DOMAIN_REVIEW = ROOT / "data/review/official_domain_review_batch01_2025.csv"
-OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v23_authority_fill.csv"
-AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v1_2025.json"
-AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v1_2025.csv"
-ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v1_2025.csv"
-TAG = "[research-only:authority-gap-fill-v1;not-formal]"
+OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v34_enriched.csv"
+AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v11_2025.json"
+AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v11_2025.csv"
+ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v11_2025.csv"
+TAG = "[research-only:authority-gap-fill-v11;not-formal]"
 FALSE_ZERO_MARKER = "No qualifying public evidence in current collection"
 
 
@@ -97,18 +98,52 @@ def _strip_false_qualitative_zeros(rows: list[Observation]) -> tuple[list[Observ
     return kept, removed
 
 
+def _strip_non_revenue_intensities(rows: list[Observation]) -> tuple[list[Observation], int]:
+    """Drop intensity rows whose evidence is output/production-value denominators."""
+    kept: list[Observation] = []
+    removed = 0
+    bad = ("产值", "产量", "发电量", "单位产品", "万元产值")
+    intensity = {
+        "Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY",
+        "Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY", "Q_E_SOLID_WASTE_INTENSITY",
+    }
+    for item in rows:
+        evidence = item.evidence_text or ""
+        if item.indicator_code in intensity and any(token in evidence for token in bad):
+            removed += 1
+            continue
+        kept.append(item)
+    return kept, removed
+
+
+def _iter_index_rows(company_codes: set[str], report_year: int) -> list[dict]:
+    rows: list[dict] = []
+    seen_paths: set[str] = set()
+    for path in (DOCUMENT_INDEX, CI_INDEX):
+        if not path.is_file():
+            continue
+        with path.open(encoding="utf-8-sig", newline="") as stream:
+            for row in csv.DictReader(stream):
+                if row.get("company_code") not in company_codes:
+                    continue
+                if int(row.get("report_year") or 0) != report_year:
+                    continue
+                local = (row.get("local_path") or row.get("source_file") or "").strip()
+                key = f"{row.get('company_code')}|{row.get('document_type')}|{local}"
+                if key in seen_paths:
+                    continue
+                seen_paths.add(key)
+                rows.append(row)
+    return rows
+
+
 def _extract_for_companies(
     company_codes: set[str],
     report_year: int,
 ) -> list[Observation]:
-    if not DOCUMENT_INDEX.is_file():
+    index_rows = _iter_index_rows(company_codes, report_year)
+    if not index_rows:
         return []
-    with DOCUMENT_INDEX.open(encoding="utf-8-sig", newline="") as stream:
-        index_rows = [
-            row for row in csv.DictReader(stream)
-            if row.get("company_code") in company_codes
-            and int(row.get("report_year") or 0) == report_year
-        ]
     by_company: dict[str, list[tuple[dict, list]]] = defaultdict(list)
     for row in index_rows:
         text_path = resolve_text_export_path(TEXT_ROOT, row)
@@ -194,6 +229,7 @@ def main() -> None:
     methodology = load_methodology(METHODOLOGY if METHODOLOGY.is_file() else ROOT / "data/methodologies/energy_esg_2025.json")
     base = read_observations(BASE_OBS, methodology)
     base, removed_false_zeros = _strip_false_qualitative_zeros(base)
+    base, removed_non_revenue = _strip_non_revenue_intensities(base)
     priority = _load_priority_companies()
     report_year = 2025
 
@@ -212,8 +248,9 @@ def main() -> None:
             if (code, indicator) not in present:
                 missing_pairs.append((code, indicator))
 
-    # Re-extract from local exchange texts for priority companies with gaps.
-    extract_codes = {code for code, _ in missing_pairs}
+    # Re-extract all priority companies so wrong-year English intensities can be
+    # upgraded by Chinese year-column / unit-revenue table rows, not only gaps.
+    extract_codes = set(priority)
     raw_candidates = _extract_for_companies(extract_codes, report_year)
 
     # Keep only candidates that fill a current gap or beat existing on authority.
@@ -277,6 +314,46 @@ def main() -> None:
                 "source_file": best.source_file,
             })
 
+    # Prefer revenue-denominator derived intensities over bare “*/万元” extracts that
+    # often come from output-value tables without an explicit 营收 anchor.
+    for key, items in grouped.items():
+        code, year, indicator = key
+        if indicator not in {
+            "Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY",
+            "Q_E_NOX_INTENSITY", "Q_E_SO2_INTENSITY", "Q_E_SOLID_WASTE_INTENSITY",
+        }:
+            continue
+        existing = by_key.get(key)
+        if existing is None or existing.value is None:
+            continue
+        derived = [
+            item for item in items
+            if "跨表派生" in (item.evidence_text or "")
+            or "cross-document derived" in (item.evidence_text or "")
+        ]
+        if not derived:
+            continue
+        existing_ev = existing.evidence_text or ""
+        if "营业收入" in existing_ev or "营收" in existing_ev or "Revenue" in existing_ev:
+            continue
+        if "跨表派生" in existing_ev or "cross-document derived" in existing_ev:
+            continue
+        best = _tag(_best_candidate(derived))
+        if best.value == existing.value:
+            continue
+        by_key[key] = best
+        replaced += 1
+        fills.append({
+            "company_code": code,
+            "indicator_code": indicator,
+            "action": "replaced_derived_over_bare_intensity",
+            "value": best.value,
+            "prior_value": existing.value,
+            "tier": source_tier(best).name,
+            "source_url": best.source_url,
+            "source_file": best.source_file,
+        })
+
     rows = [by_key[k] for k in sorted(by_key)]
     OUT_OBS.parent.mkdir(parents=True, exist_ok=True)
     write_observations(OUT_OBS, rows)
@@ -317,6 +394,7 @@ def main() -> None:
         "priority_companies": len(priority),
         "priority_missing_quant_pairs_before": len(missing_pairs),
         "removed_false_qualitative_zeros": removed_false_zeros,
+        "removed_non_revenue_intensities": removed_non_revenue,
         "reextracted_candidate_rows": len(raw_candidates),
         "filled_missing": added,
         "replaced_by_higher_authority": replaced,

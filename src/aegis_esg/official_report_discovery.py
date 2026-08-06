@@ -12,12 +12,22 @@ import json
 import re
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 from .domain_hygiene import is_plausible_issuer_domain, normalize_host, same_registered_domain
 
 DISCOVERY_VERSION = "official-same-domain-report-discovery-v1"
+RESEARCH_DISCOVERY_VERSION = "issuer-website-research-discovery-v1"
 HrefFetcher = Callable[[str], str]
+
+# Extra investor-relations / ESG path seeds used by research harvest (still same-domain only).
+RESEARCH_SEED_PATHS = (
+    "/", "/investor/", "/investor/reports/", "/investor/periodic/",
+    "/tzzgx/", "/tzzgx/dqbg/", "/tzzgx/periodical/", "/tzzgx/social/",
+    "/responsibility/", "/esg/", "/sustainability/", "/social/",
+    "/about/social/", "/csr/", "/cn/investor/", "/zh/investor/",
+    "/sytzzl/", "/listcom/periodical/", "/ir/", "/disclosure/", "/reports/",
+)
 
 ANNUAL_TERMS = ("年度报告", "年报", "annual report", "annualreport")
 ESG_TERMS = (
@@ -48,6 +58,9 @@ def _write_csv(path: str | Path, rows: list[dict[str, str]], fields: tuple[str, 
 def classify_report_link(url: str, anchor_text: str, report_year: int) -> str | None:
     blob = f"{url} {anchor_text}".lower()
     year = str(report_year)
+    # Drop interim / half-year packages from annual/ESG harvest.
+    if any(token in blob for token in ("半年度", "半年报", "interim report", "中期报告")):
+        return None
     if year not in blob and str(report_year - 1) not in blob:
         # Accept links that only say annual/ESG without year when path ends with .pdf.
         if not url.lower().endswith(".pdf"):
@@ -102,6 +115,107 @@ def extract_same_domain_pdf_candidates(
     return found
 
 
+def _seed_page_urls(domain: str, seed_paths: tuple[str, ...], extra_urls: tuple[str, ...] = ()) -> list[str]:
+    """Build crawl seeds; prefer apex host, add www homepage once as fallback entry."""
+    pages: list[str] = []
+    seen: set[str] = set()
+    for path in seed_paths:
+        url = f"https://{domain}{path}"
+        if url not in seen:
+            seen.add(url)
+            pages.append(url)
+    # One www. homepage probe is enough; doubling every IR path is too slow.
+    if not domain.startswith("www."):
+        www_home = f"https://www.{domain}/"
+        if www_home not in seen:
+            seen.add(www_home)
+            pages.append(www_home)
+    for raw in extra_urls:
+        url = (raw or "").strip()
+        if not url:
+            continue
+        parsed = urlparse(url if "://" in url else "https://" + url)
+        if parsed.scheme != "https":
+            continue
+        host = normalize_host(parsed.hostname or "")
+        if not same_registered_domain(host, domain):
+            continue
+        # Prefer directory page over direct PDF as a crawl seed.
+        if parsed.path.lower().endswith(".pdf"):
+            parent = parsed._replace(path=parsed.path.rsplit("/", 1)[0] + "/", params="", query="", fragment="")
+            url = urlunparse(parent)
+        else:
+            url = urlunparse(parsed._replace(params="", query="", fragment=""))
+        if url not in seen:
+            seen.add(url)
+            pages.append(url)
+    return pages
+
+
+def _scan_company_domain(
+    company: dict[str, str],
+    *,
+    fetcher: HrefFetcher,
+    seed_paths: tuple[str, ...],
+    discovery_status: str,
+) -> list[dict[str, str]]:
+    domain = company["official_domain"]
+    year = int(company["report_year"] or 0)
+    discoveries: list[dict[str, str]] = []
+    seen_urls: set[str] = set()
+    extra = tuple(
+        item for item in (
+            company.get("candidate_url") or "",
+            company.get("evidence_url") or "",
+        ) if item
+    )
+    for page_url in _seed_page_urls(domain, seed_paths, extra):
+        try:
+            page_html = fetcher(page_url)
+        except Exception as error:  # noqa: BLE001 - keep discovery resilient
+            discoveries.append({
+                "company_code": company["company_code"],
+                "company_name": company["company_name"],
+                "report_year": company["report_year"],
+                "document_type": "",
+                "official_domain": domain,
+                "source_url": "",
+                "page_url": page_url,
+                "anchor_text": "",
+                "discovery_status": "fetch_failed",
+                "error": str(error)[:200],
+                "review_decision": "",
+                "reviewer": "",
+                "reviewed_at": "",
+                "review_note": "",
+            })
+            continue
+        hits = extract_same_domain_pdf_candidates(
+            page_url, page_html, official_domain=domain, report_year=year,
+        )
+        for hit in hits:
+            if hit["source_url"] in seen_urls:
+                continue
+            seen_urls.add(hit["source_url"])
+            discoveries.append({
+                "company_code": company["company_code"],
+                "company_name": company["company_name"],
+                "report_year": company["report_year"],
+                "document_type": hit["document_type"],
+                "official_domain": domain,
+                "source_url": hit["source_url"],
+                "page_url": hit["page_url"],
+                "anchor_text": hit["anchor_text"],
+                "discovery_status": discovery_status,
+                "error": "",
+                "review_decision": "",
+                "reviewer": "",
+                "reviewed_at": "",
+                "review_note": "",
+            })
+    return discoveries
+
+
 def discover_verified_domain_reports(
     queue_rows: list[dict[str, str]],
     *,
@@ -126,54 +240,58 @@ def discover_verified_domain_reports(
 
     discoveries: list[dict[str, str]] = []
     for company in by_company.values():
-        domain = company["official_domain"]
-        year = int(company["report_year"] or 0)
-        seen_urls: set[str] = set()
-        for path in seed_paths:
-            page_url = f"https://{domain}{path}"
-            try:
-                page_html = fetcher(page_url)
-            except Exception as error:  # noqa: BLE001 - keep discovery resilient
-                discoveries.append({
-                    "company_code": company["company_code"],
-                    "company_name": company["company_name"],
-                    "report_year": company["report_year"],
-                    "document_type": "",
-                    "official_domain": domain,
-                    "source_url": "",
-                    "page_url": page_url,
-                    "anchor_text": "",
-                    "discovery_status": "fetch_failed",
-                    "error": str(error)[:200],
-                    "review_decision": "",
-                    "reviewer": "",
-                    "reviewed_at": "",
-                    "review_note": "",
-                })
-                continue
-            hits = extract_same_domain_pdf_candidates(
-                page_url, page_html, official_domain=domain, report_year=year,
-            )
-            for hit in hits:
-                if hit["source_url"] in seen_urls:
-                    continue
-                seen_urls.add(hit["source_url"])
-                discoveries.append({
-                    "company_code": company["company_code"],
-                    "company_name": company["company_name"],
-                    "report_year": company["report_year"],
-                    "document_type": hit["document_type"],
-                    "official_domain": domain,
-                    "source_url": hit["source_url"],
-                    "page_url": hit["page_url"],
-                    "anchor_text": hit["anchor_text"],
-                    "discovery_status": "candidate_pending_review",
-                    "error": "",
-                    "review_decision": "",
-                    "reviewer": "",
-                    "reviewed_at": "",
-                    "review_note": "",
-                })
+        discoveries.extend(_scan_company_domain(
+            company, fetcher=fetcher, seed_paths=seed_paths,
+            discovery_status="candidate_pending_review",
+        ))
+    return discoveries
+
+
+def discover_document_declared_domain_reports(
+    candidate_rows: list[dict[str, str]],
+    *,
+    fetcher: HrefFetcher,
+    report_year: int = 2025,
+    seed_paths: tuple[str, ...] = RESEARCH_SEED_PATHS,
+) -> list[dict[str, str]]:
+    """Research-only scan of document-declared issuer domains (NOT domain verification).
+
+    Candidates remain unverified. Never sets domain_verification=verified and never
+    authorizes formal scoring. Used to harvest additional ESG/annual PDFs from
+    company websites after exchange/cninfo coverage is exhausted.
+    """
+    by_company: dict[str, dict[str, str]] = {}
+    for row in candidate_rows:
+        code = (row.get("company_code") or "").strip()
+        domain = normalize_host(row.get("official_domain") or "")
+        if not code or not is_plausible_issuer_domain(domain):
+            continue
+        # Prefer higher evidence_count when multiple domains exist.
+        prior = by_company.get(code)
+        evidence = int(row.get("evidence_count") or 0)
+        if prior and int(prior.get("evidence_count") or 0) >= evidence:
+            continue
+        by_company[code] = {
+            "company_code": code,
+            "company_name": row.get("company_name", ""),
+            "report_year": str(report_year),
+            "official_domain": domain,
+            "evidence_count": str(evidence),
+            "candidate_url": (row.get("candidate_url") or "").strip(),
+        }
+
+    discoveries: list[dict[str, str]] = []
+    companies = list(by_company.values())
+    for index, company in enumerate(companies, 1):
+        print(
+            f"[discover] {index}/{len(companies)} {company.get('company_code')} "
+            f"{company.get('official_domain')}",
+            flush=True,
+        )
+        discoveries.extend(_scan_company_domain(
+            company, fetcher=fetcher, seed_paths=seed_paths,
+            discovery_status="research_candidate_unverified",
+        ))
     return discoveries
 
 
@@ -268,8 +386,10 @@ DECISIONS = ACCEPT | REJECT | DEFER
 REQUIRED_ON_DECIDE = ("review_decision", "reviewer", "reviewed_at", "review_note")
 
 
-def default_https_fetcher(url: str, *, timeout: float = 20.0) -> str:
+def default_https_fetcher(url: str, *, timeout: float = 6.0) -> str:
     """Minimal HTTPS GET for issuer pages; discovery only, never downloads PDFs."""
+    import socket
+    import urllib.error
     import urllib.request
 
     parsed = urlparse(url)
@@ -277,27 +397,52 @@ def default_https_fetcher(url: str, *, timeout: float = 20.0) -> str:
         raise ValueError("only HTTPS page fetches are allowed")
     request = urllib.request.Request(
         url,
-        headers={"User-Agent": "AegisESG/0.2 official-domain-discovery"},
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+            ),
+            "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        },
         method="GET",
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:  # noqa: S310 - HTTPS only
-        charset = response.headers.get_content_charset() or "utf-8"
-        return response.read().decode(charset, errors="ignore")
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:  # noqa: S310 - HTTPS only
+            charset = response.headers.get_content_charset() or "utf-8"
+            # Cap page size to keep discovery responsive behind slow proxies.
+            return response.read(1_500_000).decode(charset, errors="ignore")
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, socket.timeout) as error:
+        raise error
 
 
-def evaluate_official_report_discovery(rows: list[dict[str, str]]) -> dict[str, Any]:
+def evaluate_official_report_discovery(
+    rows: list[dict[str, str]],
+    *,
+    allow_partial: bool = False,
+) -> dict[str, Any]:
+    """Validate human discovery acceptances.
+
+    ``allow_partial`` ignores unsigned URL rows so a cooperative session can
+    apply only signed accepts; signed rows still need full review fields.
+    """
     incomplete: list[dict[str, str]] = []
+    unsigned = 0
     invalid: list[dict[str, str]] = []
     accepted: list[dict[str, str]] = []
     rejected = 0
     deferred = 0
+    url_rows = 0
     for row in rows:
         if not (row.get("source_url") or "").strip():
             continue
+        url_rows += 1
         code = row.get("company_code", "")
         decision = (row.get("review_decision") or "").strip().lower()
         if not decision:
-            incomplete.append({"company_code": code, "fields": list(REQUIRED_ON_DECIDE)})
+            unsigned += 1
+            if not allow_partial:
+                incomplete.append({"company_code": code, "fields": list(REQUIRED_ON_DECIDE)})
             continue
         if decision not in DECISIONS:
             invalid.append({"company_code": code, "decision": decision})
@@ -326,9 +471,12 @@ def evaluate_official_report_discovery(rows: list[dict[str, str]]) -> dict[str, 
         else:
             deferred += 1
 
+    signed_count = len(accepted) + rejected + deferred
     if invalid:
         status = "reject_template"
-    elif incomplete or not any((row.get("source_url") or "").strip() for row in rows):
+    elif incomplete:
+        status = "blocked_external_review"
+    elif url_rows == 0 or (not signed_count and (unsigned or not allow_partial)):
         status = "blocked_external_review"
     elif accepted:
         status = "ready_to_register_report_urls"
@@ -337,13 +485,17 @@ def evaluate_official_report_discovery(rows: list[dict[str, str]]) -> dict[str, 
     return {
         "policy_version": APPLICATION_VERSION,
         "row_count": len(rows),
+        "url_rows": url_rows,
         "incomplete_rows": len(incomplete),
+        "unsigned_rows": unsigned,
+        "signed_rows": signed_count,
         "invalid_rows": len(invalid),
         "accepted_rows": len(accepted),
         "rejected_rows": rejected,
         "deferred_rows": deferred,
         "incomplete_examples": incomplete[:20],
         "invalid_examples": invalid[:20],
+        "allow_partial": allow_partial,
         "status": status,
         "queue_updated": False,
         "download_authorized": False,
@@ -362,10 +514,11 @@ def apply_official_report_discovery(
     *,
     output_queue_path: str | Path | None = None,
     application_path: str | Path | None = None,
+    allow_partial: bool = False,
 ) -> dict[str, Any]:
     """Write accepted same-domain HTTPS report URLs into the queue without downloading."""
     rows = _read_csv(discovery_csv_path)
-    report = evaluate_official_report_discovery(rows)
+    report = evaluate_official_report_discovery(rows, allow_partial=allow_partial)
     if report["status"] != "ready_to_register_report_urls":
         if application_path:
             Path(application_path).parent.mkdir(parents=True, exist_ok=True)
@@ -381,6 +534,9 @@ def apply_official_report_discovery(
         for row in rows
         if (row.get("review_decision") or "").strip().lower() in ACCEPT
         and (row.get("source_url") or "").strip()
+        and (row.get("reviewer") or "").strip()
+        and (row.get("reviewed_at") or "").strip()
+        and len((row.get("review_note") or "").strip()) >= 8
     }
     queue = _read_csv(queue_path)
     if not queue:

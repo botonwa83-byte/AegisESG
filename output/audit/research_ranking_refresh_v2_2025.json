@@ -1,0 +1,39 @@
+{
+  "policy_version": "research-ranking-refresh-v3-exchange-zero",
+  "run_at_utc": "2026-08-05T01:46:21+00:00",
+  "ranking_dir": "output/research/2025/full_auto_v21_exchange_zero",
+  "ranking_html": "output/research/2025/full_auto_v21_exchange_zero/ranking.html",
+  "observations": "output/research/2025/full_auto_observations_v21_exchange_zero.csv",
+  "missing_strategy": "legacy_zero_v1",
+  "overlay": {
+    "policy_version": "research-exchange-zero-v1",
+    "run_at_utc": "2026-08-05T01:46:19+00:00",
+    "conflict_policy": "prefer_exchange_chinese_direct_then_ci_harvest",
+    "key_indicator_policy": "exchange_disclosure_accept_without_raw_confirm",
+    "missing_strategy": "legacy_zero_v1",
+    "base_observations": 34304,
+    "ci_confirmed_input": 7972,
+    "added": 84,
+    "same_value": 7877,
+    "conflicts_total": 11,
+    "conflicts_replaced_with_ci": 0,
+    "conflicts_kept_base": 11,
+    "exchange_key_accept": {
+      "accepted": 34,
+      "replaced": 0,
+      "candidate_pairs": 1591,
+      "skipped_non_exchange": 0,
+      "audit": "output/audit/research_exchange_key_accept_v1_2025.csv"
+    },
+    "merged_observations": 34422,
+    "company_count": 612,
+    "conflict_audit": "output/audit/research_ci_conflict_resolution_v2_2025.csv",
+    "output": "output/research/2025/full_auto_observations_v21_exchange_zero.csv",
+    "scoring_authorized_formal": false,
+    "research_ranking_authorized": true,
+    "notice": "关键指标以交易所披露直接采信（不另确认原始值）；未披露计0分；冲突以交易所中文官方披露优先。非正式榜单。"
+  },
+  "official_release": false,
+  "scoring_authorized_formal": false,
+  "notice": "研究预排名：关键指标以交易所披露为准且不另确认原始值；未披露计0；不得作为正式榜单。"
+}

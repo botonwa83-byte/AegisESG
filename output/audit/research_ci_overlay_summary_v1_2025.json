@@ -1,0 +1,19 @@
+{
+  "policy_version": "research-ci-overlay-v2-exchange-priority",
+  "run_at_utc": "2026-08-05T01:33:47+00:00",
+  "conflict_policy": "prefer_exchange_chinese_direct_then_ci_harvest",
+  "base_observations": 34304,
+  "ci_confirmed_input": 7972,
+  "added": 84,
+  "same_value": 7877,
+  "conflicts_total": 11,
+  "conflicts_replaced_with_ci": 0,
+  "conflicts_kept_base": 11,
+  "merged_observations": 34388,
+  "company_count": 612,
+  "conflict_audit": "output/audit/research_ci_conflict_resolution_v1_2025.csv",
+  "output": "output/research/2025/full_auto_observations_v20_ci.csv",
+  "scoring_authorized_formal": false,
+  "research_ranking_authorized": true,
+  "notice": "冲突以交易所中文官方披露优先，其次直接披露，再次CI采集件；非正式榜单。"
+}

@@ -1,0 +1,11 @@
+{
+  "policy_version": "ci-truncated-text-repair-v1",
+  "run_at_utc": "2026-08-06T02:26:00+00:00",
+  "candidate_truncated_rows": 0,
+  "repaired_count": 0,
+  "rows": [],
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "ocr_authorized": false,
+  "notice": "仅修复页标记过少的截断文本导出；扫描件仍保持薄文本并由分诊包观测。"
+}

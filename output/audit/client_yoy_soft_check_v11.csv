@@ -1,0 +1,228 @@
+﻿client_rank_approx,company_code,company_name,our_rank,our_score,disclosure_rate,category
+1,600900.SH,长江电力,12,45.27,66.25,stable_like
+2,600995.SH,南网储能,18,43.97,65.0,stable_like
+3,02688.HK,ENN ENERGY,80,34.06,61.25,stable_like
+4,300274.SZ,阳光电源,28,41.88,65.0,stable_like
+5,601567.SH,三星电气,63,36.05,61.25,stable_like
+6,00135.HK,KUNLUN ENERGY,172,28.12,63.75,stable_like
+7,002911.SZ,佛燃能源,226,25.56,35.0,client_top50_to_outside_our_top200
+8,00686.HK,BJ ENERGY INTL,315,20.58,58.75,client_top50_to_outside_our_top200
+9,688676.SH,金盘科技,3,52.21,71.25,stable_like
+10,600339.SH,中油工程,186,27.55,37.5,stable_like
+11,688408.SH,中信博,258,23.86,40.0,client_top50_to_outside_our_top200
+12,600406.SH,国电南瑞,109,31.31,40.0,stable_like
+13,000400.SZ,许继电气,53,37.89,62.5,stable_like
+14,688248.SH,南网科技,33,40.49,65.0,stable_like
+15,600968.SH,海油发展,30,41.11,60.0,stable_like
+16,603031.SH,安孚科技,8,48.0,71.25,stable_like
+17,603606.SH,东方电缆,67,35.69,51.25,stable_like
+18,01193.HK,CHINA RES GAS,323,19.96,51.25,client_top50_to_outside_our_top200
+19,301327.SZ,华宝新能,471,12.24,25.0,client_top50_to_outside_our_top200
+20,601877.SH,正泰电器,10,45.82,72.5,stable_like
+21,002706.SZ,良信股份,86,33.29,61.25,stable_like
+22,601126.SH,四方股份,57,37.28,62.5,stable_like
+23,600885.SH,宏发股份,13,44.95,68.75,stable_like
+24,600956.SH,新天绿能,46,38.67,70.0,stable_like
+25,00956.HK,,,,,missing_from_our_universe
+26,601179.SH,中国西电,425,15.29,22.5,client_top50_to_outside_our_top200
+27,603050.SH,科林电气,167,28.33,32.5,stable_like
+28,01083.HK,TG SMART ENERGY,455,13.41,42.5,client_top50_to_outside_our_top200
+29,600821.SH,金开新能,42,39.05,65.0,stable_like
+30,600875.SH,东方电气,479,11.51,23.75,client_top50_to_outside_our_top200
+31,01072.HK,,,,,missing_from_our_universe
+32,01713.HK,SICHUAN EN INV,229,25.44,52.5,client_top50_to_outside_our_top200
+33,605117.SH,德业股份,21,43.46,63.75,stable_like
+34,601666.SH,平煤股份,56,37.38,63.75,stable_like
+35,001208.SZ,华菱线缆,367,17.57,25.0,client_top50_to_outside_our_top200
+36,688155.SH,先惠技术,133,30.12,42.5,stable_like
+37,600803.SH,新奥股份,246,24.71,53.75,client_top50_to_outside_our_top200
+38,601616.SH,广电电气,245,24.74,37.5,client_top50_to_outside_our_top200
+39,600236.SH,桂冠电力,1,56.18,72.5,stable_like
+40,002534.SZ,西子洁能,238,25.15,36.25,client_top50_to_outside_our_top200
+41,003035.SZ,南网能源,26,42.21,51.25,stable_like
+42,601727.SH,上海电气,291,22.2,53.75,client_top50_to_outside_our_top200
+43,02727.HK,,,,,missing_from_our_universe
+44,300316.SZ,晶盛机电,113,31.15,38.75,stable_like
+45,00384.HK,CHINA GAS HOLD,387,16.5,55.0,client_top50_to_outside_our_top200
+46,300693.SZ,盛弘股份,313,20.81,28.75,client_top50_to_outside_our_top200
+47,002202.SZ,金风科技,345,18.54,35.0,client_top50_to_outside_our_top200
+48,02208.HK,,,,,missing_from_our_universe
+49,600938.SH,中国海油,525,7.94,21.25,client_top50_to_outside_our_top200
+50,00883.HK,,,,,missing_from_our_universe
+51,003816.SZ,中国广核,372,17.24,28.75,stable_like
+52,601088.SH,中国神华,368,17.5,47.5,stable_like
+53,01088.HK,,,,,missing_from_our_universe
+54,00182.HK,CONCORD NE,330,19.75,53.75,stable_like
+55,03899.HK,CIMC ENRIC,91,32.87,63.75,stable_like
+56,688349.SH,三一重能,454,13.46,27.5,client_top200_to_our_bottom_half
+57,300763.SZ,锦浪科技,268,23.25,32.5,stable_like
+58,603063.SH,禾望电气,14,44.62,70.0,stable_like
+59,000819.SZ,岳阳兴长,76,34.46,56.25,stable_like
+60,300820.SZ,英杰电气,39,39.74,46.25,stable_like
+61,600482.SH,中国动力,7,48.07,72.5,stable_like
+62,600032.SH,浙江新能,60,36.93,61.25,stable_like
+63,002518.SZ,科士达,81,33.93,41.25,stable_like
+64,300001.SZ,特锐德,51,38.27,61.25,stable_like
+65,601898.SH,中煤能源,488,10.84,18.75,client_top200_to_our_bottom_half
+66,01898.HK,,,,,missing_from_our_universe
+67,301291.SZ,明阳电气,303,21.41,30.0,stable_like
+68,300037.SZ,新宙邦,340,18.96,32.5,stable_like
+69,600905.SH,三峡能源,34,40.44,68.75,stable_like
+70,688516.SH,奥特维,173,28.07,38.75,stable_like
+71,600580.SH,卧龙电驱,118,30.8,41.25,stable_like
+72,688717.SH,艾罗能源,189,27.37,36.25,stable_like
+73,002128.SZ,电投能源,301,21.47,35.0,stable_like
+74,601615.SH,明阳智能,89,33.03,62.5,stable_like
+75,01798.HK,DATANG RENEW,74,34.54,65.0,stable_like
+76,300390.SZ,天华新能,331,19.74,32.5,stable_like
+77,300207.SZ,欣旺达,73,34.62,62.5,stable_like
+78,603097.SH,江苏华辰,150,29.27,41.25,stable_like
+79,601857.SH,中国石油,433,14.75,45.0,client_top200_to_our_bottom_half
+80,00857.HK,,,,,missing_from_our_universe
+81,600025.SH,华能水电,104,31.78,37.5,stable_like
+82,300870.SZ,欧陆通,69,34.79,65.0,stable_like
+83,00346.HK,YANCHANG PETRO,482,11.32,40.0,client_top200_to_our_bottom_half
+84,603659.SH,璞泰来,124,30.5,36.25,stable_like
+85,002056.SZ,横店东磁,428,15.25,22.5,client_top200_to_our_bottom_half
+86,920167.BJ,同享科技,526,7.87,21.25,client_top200_to_our_bottom_half
+87,600163.SH,中闽能源,77,34.45,53.75,stable_like
+88,01621.HK,VICO INTL HLDGS,516,8.88,32.5,client_top200_to_our_bottom_half
+89,002851.SZ,麦格米特,400,16.02,22.5,stable_like
+90,002487.SZ,大金重工,215,26.09,32.5,stable_like
+91,002267.SZ,陕天然气,188,27.39,28.75,stable_like
+92,300750.SZ,宁德时代,461,13.06,21.25,client_top200_to_our_bottom_half
+93,03750.HK,,,,,missing_from_our_universe
+94,603556.SH,海兴电力,132,30.18,38.75,stable_like
+95,01600.HK,TIAN LUN GAS,103,31.8,60.0,stable_like
+96,600028.SH,中国石化,175,27.98,56.25,stable_like
+97,00386.HK,,,,,missing_from_our_universe
+98,01733.HK,E-COMMODITIES,292,22.08,55.0,stable_like
+99,03337.HK,ANTON OILFIELD,338,19.14,51.25,stable_like
+100,601225.SH,陕西煤业,6,49.02,70.0,stable_like
+101,00228.HK,CHINA ENERGY,376,17.01,47.5,stable_like
+102,002560.SZ,通达股份,62,36.28,41.25,stable_like
+103,688348.SH,昱能科技,385,16.61,32.5,stable_like
+104,688472.SH,阿特斯,50,38.31,67.5,stable_like
+105,000922.SZ,佳电股份,25,42.32,61.25,stable_like
+106,300514.SZ,友讯达,170,28.16,33.75,stable_like
+107,01407.HK,JY GAS,172,28.12,46.25,stable_like
+108,688681.SH,科汇股份,93,32.67,41.25,stable_like
+109,300772.SZ,运达股份,366,17.64,33.75,stable_like
+110,001289.SZ,龙源电力,493,10.4,23.75,client_top200_to_our_bottom_half
+111,00916.HK,,,,,missing_from_our_universe
+112,300014.SZ,亿纬锂能,72,34.65,48.75,stable_like
+113,000533.SZ,顺钠股份,90,33.01,62.5,stable_like
+114,300073.SZ,当升科技,31,40.9,53.75,stable_like
+115,002692.SZ,远程股份,122,30.62,43.75,stable_like
+116,600188.SH,兖矿能源,465,12.78,25.0,client_top200_to_our_bottom_half
+117,01171.HK,,,,,missing_from_our_universe
+118,603053.SH,成都燃气,92,32.7,52.5,stable_like
+119,603628.SH,清源股份,200,26.76,35.0,stable_like
+120,601808.SH,中海油服,515,8.93,17.5,client_top200_to_our_bottom_half
+121,02883.HK,,,,,missing_from_our_universe
+122,002121.SZ,科陆电子,426,15.27,27.5,client_top200_to_our_bottom_half
+123,600101.SH,明星电力,43,39.03,65.0,stable_like
+124,603806.SH,福斯特,284,22.52,32.5,stable_like
+125,02386.HK,SINOPEC SEG,183,27.75,53.75,stable_like
+126,300105.SZ,龙源技术,192,27.24,38.75,stable_like
+127,688778.SH,厦钨新能,66,35.92,60.0,stable_like
+128,601222.SH,林洋能源,225,25.63,40.0,stable_like
+129,000155.SZ,川能动力,253,24.31,38.75,stable_like
+130,002074.SZ,国轩高科,101,32.01,48.75,stable_like
+131,688517.SH,金冠电气,48,38.49,65.0,stable_like
+132,605222.SH,起帆电缆,196,26.89,36.25,stable_like
+133,920185.BJ,贝特瑞,496,10.28,28.75,client_top200_to_our_bottom_half
+134,600452.SH,涪陵电力,521,8.28,16.25,client_top200_to_our_bottom_half
+135,002506.SZ,协鑫集成,128,30.33,61.25,stable_like
+136,601985.SH,中国核电,65,35.96,61.25,stable_like
+137,688005.SH,容百科技,83,33.64,63.75,stable_like
+138,002358.SZ,森源电气,370,17.4,32.5,stable_like
+139,301266.SZ,宇邦新材,344,18.62,27.5,stable_like
+140,301386.SZ,未来电器,208,26.32,57.5,stable_like
+141,600475.SH,华光环能,176,27.97,42.5,stable_like
+142,300457.SZ,赢合科技,446,13.94,20.0,client_top200_to_our_bottom_half
+143,603318.SH,水发燃气,204,26.49,37.5,stable_like
+144,600379.SH,宝光股份,179,27.93,40.0,stable_like
+145,603393.SH,新天然气,248,24.68,28.75,stable_like
+146,601012.SH,隆基绿能,35,40.28,68.75,stable_like
+147,002580.SZ,圣阳股份,336,19.49,31.25,stable_like
+148,002364.SZ,中恒电气,391,16.3,23.75,stable_like
+149,01250.HK,SDHS NEW ENERGY,244,24.76,62.5,stable_like
+150,300450.SZ,先导智能,111,31.21,42.5,stable_like
+151,688567.SH,孚能科技,161,28.64,45.0,stable_like
+152,00003.HK,HK & CHINA GAS,384,16.64,46.25,stable_like
+153,688147.SH,微导纳米,459,13.13,26.25,client_top200_to_our_bottom_half
+154,002709.SZ,天赐材料,84,33.63,43.75,stable_like
+155,00467.HK,UNITEDENERGY GP,405,15.92,45.0,client_top200_to_our_bottom_half
+156,002823.SZ,凯中精密,254,24.24,33.75,stable_like
+157,300491.SZ,通合科技,296,21.88,31.25,stable_like
+158,002340.SZ,格林美,298,21.67,32.5,stable_like
+159,300129.SZ,泰胜风能,339,19.02,30.0,stable_like
+160,688772.SH,珠海冠宇,85,33.32,43.75,stable_like
+161,603507.SH,振江股份,100,32.04,57.5,stable_like
+162,600346.SH,恒力石化,38,39.79,71.25,our_top50_but_client_lower
+163,000883.SZ,湖北能源,398,16.05,27.5,stable_like
+164,600635.SH,大众公用,139,29.82,57.5,stable_like
+165,01635.HK,,,,,missing_from_our_universe
+166,605162.SH,新中港,52,37.99,63.75,stable_like
+167,002533.SZ,金杯电工,236,25.23,38.75,stable_like
+168,600268.SH,国电南自,156,28.96,37.5,stable_like
+169,002245.SZ,蔚蓝锂芯,368,17.5,20.0,stable_like
+170,600886.SH,国投电力,162,28.62,33.75,stable_like
+171,688660.SH,电气风电,79,34.09,66.25,stable_like
+172,03303.HK,JUTAL OIL SER,312,20.82,47.5,stable_like
+173,00934.HK,SINOPEC KANTONS,462,12.88,48.75,client_top200_to_our_bottom_half
+174,000682.SZ,东方电子,426,15.27,21.25,client_top200_to_our_bottom_half
+175,300724.SZ,捷佳伟创,147,29.35,36.25,stable_like
+176,688390.SH,固德威,129,30.23,61.25,stable_like
+177,600903.SH,贵州燃气,47,38.54,68.75,our_top50_but_client_lower
+178,03868.HK,XINYI ENERGY,355,18.06,48.75,stable_like
+179,600871.SH,石化油服,311,20.83,45.0,stable_like
+180,01033.HK,,,,,missing_from_our_universe
+181,600116.SH,三峡水利,157,28.87,41.25,stable_like
+182,600151.SH,航天机电,274,23.04,32.5,stable_like
+183,600089.SH,特变电工,37,39.82,66.25,our_top50_but_client_lower
+184,600925.SH,苏能股份,146,29.41,40.0,stable_like
+185,00836.HK,CHINA RES POWER,357,17.98,48.75,stable_like
+186,688733.SH,壹石通,220,25.93,41.25,stable_like
+187,603689.SH,皖天然气,19,43.82,62.5,our_top50_but_client_lower
+188,000937.SZ,冀中能源,358,17.95,33.75,stable_like
+189,002493.SZ,荣盛石化,154,28.99,41.25,stable_like
+190,601311.SH,骆驼股份,110,31.28,35.0,stable_like
+191,001283.SZ,豪鹏科技,352,18.09,26.25,stable_like
+192,605011.SH,杭州热电,22,43.2,68.75,our_top50_but_client_lower
+193,600688.SH,上海石化,518,8.72,23.75,client_top200_to_our_bottom_half
+194,00338.HK,,,,,missing_from_our_universe
+195,688303.SH,大全能源,41,39.61,73.75,our_top50_but_client_lower
+196,300510.SZ,金冠股份,510,9.09,22.5,client_top200_to_our_bottom_half
+197,603396.SH,金辰股份,4,51.14,71.25,our_top50_but_client_lower
+198,601991.SH,大唐发电,256,24.0,51.25,stable_like
+199,00991.HK,,,,,missing_from_our_universe
+200,000554.SZ,泰山石油,420,15.54,42.5,client_top200_to_our_bottom_half
+201,02728.HK,JINTAI ENERGY H,415,15.72,40.0,stable_like
+202,01623.HK,HILONG,487,10.88,38.75,stable_like
+203,300751.SZ,迈为股份,289,22.24,32.5,stable_like
+204,600483.SH,福能股份,45,38.69,70.0,our_top50_but_client_lower
+205,603218.SH,日月股份,514,8.96,20.0,stable_like
+206,600795.SH,国电电力,75,34.49,62.5,stable_like
+207,601918.SH,新集能源,175,27.98,35.0,stable_like
+208,601868.SH,中国能建,484,11.22,28.75,stable_like
+209,03996.HK,,,,,missing_from_our_universe
+210,01303.HK,HUILI RES,341,18.88,42.5,stable_like
+211,600642.SH,申能股份,152,29.17,35.0,stable_like
+212,002608.SZ,江苏国信,464,12.8,23.75,stable_like
+213,600098.SH,广州发展,23,42.86,66.25,our_top50_but_client_lower
+214,601001.SH,晋控煤业,15,44.36,62.5,our_top50_but_client_lower
+215,002479.SZ,富春环保,40,39.72,52.5,our_top50_but_client_lower
+216,300569.SZ,天能重工,434,14.71,27.5,stable_like
+217,002459.SZ,晶澳科技,277,22.83,56.25,stable_like
+218,688032.SH,禾迈股份,59,37.08,72.5,stable_like
+219,600027.SH,华电国际,527,7.85,17.5,stable_like
+220,01071.HK,,,,,missing_from_our_universe
+221,000862.SZ,银星能源,261,23.58,25.0,stable_like
+222,000543.SZ,皖能电力,324,19.92,47.5,stable_like
+223,600011.SH,华能国际,475,11.88,22.5,stable_like
+224,00902.HK,,,,,missing_from_our_universe
+225,688779.SH,五矿新能,149,29.3,43.75,stable_like
+226,00975.HK,MONGOL MINING,365,17.73,38.75,stable_like
+227,920985.BJ,海泰新能,549,2.42,11.25,stable_like

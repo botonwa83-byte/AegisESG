@@ -22,9 +22,9 @@ from aegis_esg.universe import audit_universe, read_universe  # noqa: E402
 
 UNIVERSE = ROOT / "data/universe/energy_historical_candidates_2026.csv"
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-OBS = ROOT / "output/research/2025/full_auto_observations_v23_authority_fill.csv"
+OBS = ROOT / "output/research/2025/full_auto_observations_v34_enriched.csv"
 COVERAGE = ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv"
-RANK_DIR = ROOT / "output/research/2025/full_auto_v24_universe_baseline"
+RANK_DIR = ROOT / "output/research/2025/full_auto_v34_enriched"
 SUMMARY = ROOT / "output/audit/universe_baseline_ranking_v1_2025.json"
 GAP_CSV = ROOT / "output/audit/universe_collection_gaps_v1_2025.csv"
 EXPECTED = 632
@@ -126,7 +126,7 @@ def main() -> None:
                 })
 
     # Reuse latest authority-filled observations; optional re-fill via --refill.
-    obs_path = ROOT / "output/research/2025/full_auto_observations_v23_authority_fill.csv"
+    obs_path = OBS
     if "--refill" in sys.argv:
         fill = ROOT / "scripts/fill_missing_from_authoritative_sources.py"
         if fill.is_file():
@@ -141,7 +141,7 @@ def main() -> None:
         "--expected-companies", str(EXPECTED),
         "--minimum-population", "20",
         "--output-dir", str(RANK_DIR),
-        "--title", "能源ESG研究预排名v24-宇宙披露基准",
+        "--title", "能源ESG研究预排名v34-清洁能源强度补数宇宙基准",
         "--limit", "0",
     ])
 

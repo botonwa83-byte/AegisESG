@@ -1,0 +1,128 @@
+{
+  "policy_version": "identity-gap-alternate-fill-v2",
+  "run_at_utc": "2026-08-05T00:40:38+00:00",
+  "gap_input": 8,
+  "filled_count": 6,
+  "still_missing": 0,
+  "actions": [
+    {
+      "company_code": "002531.SZ",
+      "document_type": "esg_report",
+      "action": "already_indexed"
+    },
+    {
+      "company_code": "002700.SZ",
+      "document_type": "annual_report",
+      "action": "already_indexed"
+    },
+    {
+      "company_code": "002709.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "tinci.com"
+      ]
+    },
+    {
+      "company_code": "002927.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "tyt.net"
+      ]
+    },
+    {
+      "company_code": "300073.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "easpring.com"
+      ]
+    },
+    {
+      "company_code": "300129.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "shtsp.com"
+      ]
+    },
+    {
+      "company_code": "300690.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "shuangyitec.com.cn",
+        "shuangyitec.com"
+      ]
+    },
+    {
+      "company_code": "300953.SZ",
+      "document_type": "esg_report",
+      "action": "website_no_pdf_found",
+      "domains": [
+        "zhenyumould.com"
+      ]
+    },
+    {
+      "company_code": "002709.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "天赐材料2025年社会责任报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-03-10/1225002136.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-03-10/1225002136.PDF",
+      "bytes": 41157622
+    },
+    {
+      "company_code": "002927.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "2025年可持续发展报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225244560.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225244560.PDF",
+      "bytes": 28399603
+    },
+    {
+      "company_code": "300073.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "2025年度可持续发展报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-03-31/1225057154.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-03-31/1225057154.PDF",
+      "bytes": 58588697
+    },
+    {
+      "company_code": "300129.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "2025年度可持续发展报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-18/1225115613.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-04-18/1225115613.PDF",
+      "bytes": 74963587
+    },
+    {
+      "company_code": "300690.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "2025年度可持续发展报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-30/1225254216.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-04-30/1225254216.PDF",
+      "bytes": 46771541
+    },
+    {
+      "company_code": "300953.SZ",
+      "document_type": "esg_report",
+      "action": "downloaded_from_cninfo",
+      "title": "2025年度可持续发展报告",
+      "source_url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225224038.PDF",
+      "retrieval_url": "https://static.cninfo.com.cn/finalpage/2026-04-29/1225224038.PDF",
+      "bytes": 58624681
+    }
+  ],
+  "discovery_rows": 68,
+  "discovery_csv": "output/audit/identity_gap_website_discovery_v1_2025.csv",
+  "domain_verification_claimed": false,
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "研究底座导入、年报自披露域名同域下载，或巨潮法定披露备用渠道；不宣称域名已核验，不授权评分。"
+}

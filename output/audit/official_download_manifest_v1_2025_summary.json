@@ -1,6 +1,6 @@
 {
   "policy_version": "official-download-manifest-v1",
-  "input_rows": 802,
+  "input_rows": 985,
   "ready_rows": 0,
   "download_started": false,
   "download_authorized": false,

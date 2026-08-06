@@ -1,0 +1,14 @@
+{
+  "policy_version": "ci-research-merge-apply-v1",
+  "run_at_utc": "2026-08-06T02:04:11+00:00",
+  "added_rows": 183,
+  "added_by_type": {
+    "annual_report": 83,
+    "esg_report": 100
+  },
+  "research_index_rows": 992,
+  "copy_files": false,
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "仅并入CI相对研究索引缺失的身份行；冲突行未覆盖；不授权正式评分。"
+}

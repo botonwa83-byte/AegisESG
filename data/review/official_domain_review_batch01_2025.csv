@@ -1,0 +1,607 @@
+﻿priority,company_code,company_name,official_domain,candidate_url,https_ready,evidence_count,evidence_file,missing_independent_esg,alt_domain_count,verification_decision,reviewer,reviewed_at,review_note
+1,000009.SZ,中国宝安,chinabaoan.com,http://www.chinabaoan.com/,false,1,data/text/000009.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+2,00002.HK,CLP HOLDINGS,clpgroup.com,https://clpgroup.com/,true,3,data/text/hkex_reports/00002.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+3,000027.SZ,深圳能源,sec.com.cn,https://www.sec.com.cn,true,1,data/text/000027.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+4,00003.HK,HK & CHINA GAS,towngas.com,https://towngas.com/,true,4,data/text/00003.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+5,000037.SZ,深南电A,stcn.com,http://www.stcn.com/,false,1,data/text/000037.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+6,000049.SZ,德赛电池,desaybattery.com.cn,https://desaybattery.com.cn/,true,2,data/text/ci_collection/000049.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+7,00006.HK,POWER ASSETS,powerassets.com,https://powerassets.com/,true,6,data/text/hkex_reports/00006.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+8,000096.SZ,广聚能源,gj000096.com,https://gj000096.com/,true,2,data/text/ci_collection/000096.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+9,000155.SZ,川能动力,cndl155.com,http://www.cndl155.com/,false,1,data/text/000155.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+10,000400.SZ,许继电气,xjec.com,http://www.xjec.com/,false,2,data/text/000400.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+11,000407.SZ,胜利股份,vicome.com,http://www.vicome.com,false,1,data/text/000407.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+12,00042.HK,NE ELECTRIC,nee.com.cn,https://nee.com.cn/,true,3,data/text/hkex_reports/00042.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+13,000421.SZ,南京公用,njpud.com,https://www.njpud.com/,true,1,data/text/000421.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+14,000531.SZ,穗恒运Ａ,hengyun.com.cn,http://www.hengyun.com.cn,false,2,data/text/000531.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+15,000533.SZ,顺钠股份,shunna.com.cn,http://www.shunna.com.cn,false,1,data/text/000533.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+16,000537.SZ,绿发电力,cge.cn,https://cge.cn/,true,2,data/text/ci_collection/000537.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+17,000539.SZ,粤电力Ａ,ged.com.cn,http://www.ged.com.cn,false,1,data/text/000539.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+18,000543.SZ,皖能电力,stcn.com,https://www.stcn.com/,true,1,data/text/000543.SZ/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+19,000591.SZ,太阳能,cecsec.cn,http://www.cecsec.cn/,false,1,data/text/000591.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+20,000593.SZ,德龙汇能,dlceg.com,http://www.dlceg.com,false,1,data/text/000593.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+21,000600.SZ,建投能源,jei.com.cn,https://jei.com.cn/,true,2,data/text/ci_collection/000600.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+22,000601.SZ,韶能股份,shaoneng.com.cn,http://www.shaoneng.com.cn,false,1,data/text/000601.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+23,00061.HK,GREEN LEADER,irasia.com,http://www.irasia.com/listco/hk/greenleader,false,2,data/text/hkex_reports/00061.HK/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+24,000637.SZ,茂化实华,mhshgf.cn,http://www.mhshgf.cn/,false,1,data/text/000637.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+25,00065.HK,GRAND OCEAN AR,grandocean65.com,https://grandocean65.com/,true,3,data/text/hkex_reports/00065.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+26,000682.SZ,东方电子,dongfangelec.com,https://dongfangelec.com/,true,2,data/text/ci_collection/000682.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+27,000690.SZ,宝新能源,baolihua.com.cn,http://www.baolihua.com.cn,false,1,data/text/000690.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+28,000692.SZ,惠天热电,htrd.cn,http://www.htrd.cn,false,1,data/text/000692.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+29,000703.SZ,恒逸石化,hengyishihua.com,http://www.hengyishihua.com,false,1,data/text/000703.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+30,000720.SZ,新能泰山,xntsgs.com,http://www.xntsgs.com,false,1,data/text/000720.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+31,000722.SZ,湖南发展,hnfzgf.com,https://hnfzgf.com/,true,2,data/text/ci_collection/000722.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+32,000723.SZ,美锦能源,mjenergy.cn,http://www.mjenergy.cn/,false,1,data/text/000723.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+33,000767.SZ,晋控电力,jksxpower.jnkgjtnews.com,https://jksxpower.jnkgjtnews.com,true,1,data/text/000767.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+34,000791.SZ,甘肃能源,nyfz.gepic.cn,https://nyfz.gepic.cn/,true,1,data/text/000791.SZ/2025/annual_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+35,000819.SZ,岳阳兴长,yyxc0819.com,https://www.yyxc0819.com/,true,2,data/text/000819.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+36,000862.SZ,银星能源,yxny.chinalco.com.cn,https://yxny.chinalco.com.cn/,true,1,data/text/000862.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+37,000875.SZ,电投绿能,spicjl.com,https://spicjl.com/,true,2,data/text/ci_collection/000875.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+38,000883.SZ,湖北能源,hbny.com.cn,http://www.hbny.com.cn/,false,1,data/text/000883.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+39,000899.SZ,赣能股份,000899.com,https://000899.com/,true,2,data/text/ci_collection/000899.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+40,000922.SZ,佳电股份,jemlc.com,https://www.jemlc.com/,true,1,data/text/000922.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+41,000937.SZ,冀中能源,jznygf.com,http://www.jznygf.com,false,1,data/text/000937.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+42,000966.SZ,长源电力,cydl.com.cn,https://cydl.com.cn/,true,2,data/text/ci_collection/000966.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+43,000968.SZ,蓝焰控股,sxlykg.huaxingas.com,http://sxlykg.huaxingas.com/,false,1,data/text/000968.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+44,000993.SZ,闽东电力,mdep.com.cn,https://mdep.com.cn/,true,2,data/text/ci_collection/000993.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+45,001208.SZ,华菱线缆,hlxl.com,https://hlxl.com/,true,2,data/text/ci_collection/001208.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+46,001269.SZ,欧晶科技,ojingquartz.com,https://ojingquartz.com/,true,1,https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/CompanySurveyAjax?code=SZ001269,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+47,001283.SZ,豪鹏科技,highpowertech.com,https://www.highpowertech.com,true,2,data/text/001283.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+48,001289.SZ,龙源电力,clypg.com.cn,http://www.clypg.com.cn/,false,1,data/text/001289.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+49,001299.SZ,美能能源,meinenggas.com,http://www.meinenggas.com/,false,1,data/text/ci_collection/001299.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+50,001301.SZ,尚太科技,shangtaitech.com,https://shangtaitech.com/,true,2,data/text/ci_collection/001301.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+51,001331.SZ,胜通能源,senton.cn,https://senton.cn/,true,2,data/text/ci_collection/001331.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+52,00135.HK,KUNLUN ENERGY,kunlun.com.hk,http://www.kunlun.com.hk,false,21,data/text/hkex_reports/00135.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+53,001376.SZ,百通能源,jjckb.cn,http://www.jjckb.cn,false,1,data/text/001376.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+54,00182.HK,CONCORD NE,cnegroup.com,https://www.cnegroup.com/,true,2,data/text/ci_collection/00182.HK/2024/esg_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+55,001896.SZ,豫能控股,yuneng.com.cn,http://www.yuneng.com.cn,false,1,data/text/001896.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+56,00196.HK,HONGHUA GROUP,hh-gltd.com,http://www.hh-gltd.com,false,8,data/text/hkex_reports/00196.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+57,002015.SZ,协鑫能科,gcl-et.com,http://www.gcl-et.com,false,2,data/text/002015.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+58,002028.SZ,思源电气,rs.stcn.com,http://rs.stcn.com,false,2,data/text/002028.SZ/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+59,002039.SZ,黔源电力,gzqydl.cn,http://www.gzqydl.cn/,false,1,data/text/002039.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+60,002056.SZ,横店东磁,dmegc.com.cn,https://dmegc.com.cn/,true,2,data/text/ci_collection/002056.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+61,00206.HK,CM-ENERGY,cm-energy.com,http://www.cm-energy.com,false,9,data/text/hkex_reports/00206.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+62,002060.SZ,广东建工,gdcegs.com,https://gdcegs.com/,true,2,data/text/ci_collection/002060.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+63,002074.SZ,国轩高科,gotion.com.cn,https://www.gotion.com.cn,true,1,data/text/ci_collection/002074.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+64,002090.SZ,金智科技,wiscom.com.cn,http://www.wiscom.com.cn,false,1,data/text/002090.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+65,002112.SZ,三变科技,sanbian.cn,https://sanbian.cn/,true,2,data/text/ci_collection/002112.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+66,002121.SZ,科陆电子,szclou.com,http://www.szclou.com,false,1,data/text/002121.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+67,002125.SZ,湘潭电化,chinaemd.com,http://www.chinaemd.com,false,1,data/text/002125.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+68,002129.SZ,TCL中环,tzeco.com,https://www.tzeco.com/,true,2,data/text/002129.SZ/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+69,002169.SZ,智光电气,gzzg.com.cn,http://www.gzzg.com.cn/,false,1,data/text/002169.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+70,002196.SZ,方正电机,fdm.com.cn,https://fdm.com.cn/,true,2,data/text/ci_collection/002196.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+71,002202.SZ,金风科技,plcsj.cn,http://www.plcsj.cn/public/SignIn.php,false,6,data/text/002202.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+72,002218.SZ,拓日新能,topraysolar.com,https://www.topraysolar.com,true,1,data/text/002218.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+73,002221.SZ,东华能源,chinadhe.com,https://chinadhe.com/,true,2,data/text/ci_collection/002221.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+74,002245.SZ,蔚蓝锂芯,azurecorp.com,https://www.azurecorp.com,true,2,data/text/002245.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+75,002249.SZ,大洋电机,broad-ocean.com,http://www.broad-ocean.com,false,1,data/text/002249.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+76,002255.SZ,海陆重工,hailu-boiler.cn,http://www.hailu-boiler.cn,false,1,data/text/002255.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+77,002259.SZ,升达林业,shengdawood.com,https://shengdawood.com/,true,2,data/text/ci_collection/002259.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+78,002267.SZ,陕天然气,shaanxigas.com,https://shaanxigas.com/,true,3,data/text/ci_collection/002267.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+79,002270.SZ,华明装备,huaming.com,http://www.huaming.com/article/18_944.html,false,1,data/text/002270.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+80,002276.SZ,万马股份,wanmaco.com,http://www.wanmaco.com,false,1,data/text/002276.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+81,00228.HK,CHINA ENERGY,hkicpa.org.hk,https://www.hkicpa.org.hk/en/Standards-setting/Standards/,true,2,data/text/ci_collection/00228.HK/2024/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+82,002300.SZ,太阳电缆,npcable.com,https://www.npcable.com,true,1,data/text/002300.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+83,002309.SZ,中利集团,zhongli.com,http://www.zhongli.com,false,1,data/text/002309.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+84,002335.SZ,科华数据,kehua.com.cn,https://kehua.com.cn/,true,2,data/text/ci_collection/002335.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+85,002339.SZ,积成电子,ieslab.com.cn,https://ieslab.com.cn/,true,2,data/text/ci_collection/002339.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+86,002340.SZ,格林美,gem.com.cn,http://www.gem.com.cn,false,1,data/text/002340.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+87,002346.SZ,柘中股份,zhezhong.com,https://zhezhong.com/,true,2,data/text/ci_collection/002346.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+88,002350.SZ,北京科锐,creat-gr.com,https://www.creat-gr.com,true,1,data/text/002350.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+89,002358.SZ,森源电气,hnsyec.com,http://www.hnsyec.com,false,1,data/text/002358.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+90,002364.SZ,中恒电气,hzzh.com,https://hzzh.com/,true,2,data/text/ci_collection/002364.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+91,002366.SZ,融发核电,ytthm.com,https://ytthm.com/,true,2,data/text/ci_collection/002366.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+92,002441.SZ,众业达,zqrb.cn,http://www.zqrb.cn,false,2,data/text/002441.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+93,002451.SZ,摩恩电气,mornelectric.com,http://www.mornelectric.com/,false,1,data/text/002451.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+94,002452.SZ,长高电新,changgaogroup.com,https://changgaogroup.com/,true,2,data/text/ci_collection/002452.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+95,002459.SZ,晶澳科技,bia.hinature.cn,https://bia.hinature.cn,true,1,data/text/002459.SZ/2025/esg_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+96,002471.SZ,中超控股,zcdlgf.com,https://zcdlgf.com/,true,2,data/text/ci_collection/002471.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+97,002479.SZ,富春环保,zhefuet.com,https://zhefuet.com/,true,2,data/text/ci_collection/002479.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+98,002487.SZ,大金重工,dajin.cn,https://www.dajin.cn/,true,2,data/text/002487.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+99,002490.SZ,山东墨龙,molonggroup.com,https://www.molonggroup.com,true,1,data/text/002490.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+100,002493.SZ,荣盛石化,cnrspc.com,http://www.cnrspc.com,false,3,data/text/002493.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+101,002498.SZ,汉缆股份,hanhe-cable.com,https://hanhe-cable.com/,true,2,data/text/ci_collection/002498.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+102,002506.SZ,协鑫集成,gclsi.com,http://www.gclsi.com,false,2,data/text/002506.SZ/2025/annual_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+103,002518.SZ,科士达,kstar.com.cn,https://kstar.com.cn/,true,2,data/text/ci_collection/002518.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+104,002527.SZ,新时达,zqrb.cn,http://www.zqrb.cn,false,1,data/text/002527.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+105,002531.SZ,天顺风能,titanwind.com.cn,https://www.titanwind.com.cn/,true,1,data/text/002531.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+106,002533.SZ,金杯电工,gold-cup.cn,https://gold-cup.cn/,true,2,data/text/ci_collection/002533.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+107,002534.SZ,西子洁能,xizice.com,https://xizice.com/,true,2,data/text/ci_collection/002534.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+108,002546.SZ,新联电子,xldz.com,http://www.xldz.com,false,1,data/text/002546.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+109,002560.SZ,通达股份,hntddl.com,http://www.hntddl.com/,false,1,data/text/ci_collection/002560.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+110,002576.SZ,通达动力,tdchina.com,https://tdchina.com/,true,2,data/text/ci_collection/002576.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+111,002580.SZ,圣阳股份,sacredsun.cn,https://sacredsun.cn/,true,2,data/text/ci_collection/002580.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+112,002606.SZ,大连电瓷,insulators.cn,http://www.insulators.cn,false,1,data/text/002606.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+113,002608.SZ,江苏国信,jsgxgf.com,http://www.jsgxgf.com/,false,1,data/text/002608.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+114,002616.SZ,长青集团,sgnec.sgcc.com.cn,https://sgnec.sgcc.com.cn/atlas/projectListQuery,true,2,data/text/002616.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+115,002623.SZ,亚玛顿,czamd.com,http://www.czamd.com,false,1,data/text/002623.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+116,002629.SZ,仁智股份,chinarenzhi.com,https://www.chinarenzhi.com/,true,2,data/text/002629.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+117,002692.SZ,远程股份,yccable.cn,http://www.yccable.cn,false,1,data/text/002692.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+118,002700.SZ,万憬能源,002700.cn,https://002700.cn/,true,2,data/text/ci_collection/002700.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+119,002706.SZ,良信股份,recognition.ecovadis.com,https://recognition.ecovadis.com/TdAj4kqJsEWaLTQihPsEdQ,true,2,data/text/002706.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+120,002709.SZ,天赐材料,tinci.com,http://www.tinci.com,false,1,data/text/002709.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+121,002733.SZ,雄韬股份,hjtj.cnemc.cn,https://hjtj.cnemc.cn/htqy/#/logi,true,1,data/text/002733.SZ/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+122,00276.HK,MONGOLIA ENERGY,statista.com,https://www.statista.com/statistics/268753/co2-emissions-per-capita-worldwide-since-1990/#:~:text=Global%20per%20,true,1,data/text/hkex_reports/00276.HK/2026/esg_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+123,002801.SZ,微光股份,wgmotor.com,https://wgmotor.com/,true,3,data/text/ci_collection/002801.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+124,002805.SZ,丰元股份,fengyuanhuaxue.com,http://www.fengyuanhuaxue.com,false,1,data/text/002805.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+125,002812.SZ,恩捷股份,semcorp.com,https://semcorp.com/,true,2,data/text/002812.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+126,002823.SZ,凯中精密,kaizhong.com,http://www.kaizhong.com,false,1,data/text/002823.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+127,002828.SZ,贝肯能源,beiken.com,http://www.beiken.com,false,1,data/text/002828.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+128,002850.SZ,科达利,kedali.com.cn,http://www.kedali.com.cn/,false,1,data/text/002850.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+129,002851.SZ,麦格米特,megmeet.com,https://megmeet.com/,true,2,data/text/ci_collection/002851.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+130,002857.SZ,三晖电气,cnsms.com,http://www.cnsms.com/,false,1,data/text/002857.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+131,002865.SZ,钧达股份,jietaisolar.com,http://www.jietaisolar.com,false,2,data/text/ci_collection/002865.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+132,002879.SZ,长缆科技,csdlfj.com,http://www.csdlfj.com,false,1,data/text/002879.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+133,002882.SZ,金龙羽,csg.cn,http://www.csg.cn/,false,1,data/text/002882.SZ/2025/annual_report.txt,true,3,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+134,002892.SZ,科力尔,kelimotor.com,https://kelimotor.com/,true,2,data/text/ci_collection/002892.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+135,002893.SZ,京能热力,bevoice.com.cn,https://www.bevoice.com.cn,true,2,data/text/002893.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+136,002911.SZ,佛燃能源,fsgas.com,https://www.fsgas.com/,true,1,data/text/002911.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+137,002927.SZ,泰永长征,tyt.net,https://tyt.net/,true,3,data/text/ci_collection/002927.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+138,00295.HK,KONG SUN HOLD,kongsun.com,https://kongsun.com/,true,3,data/text/hkex_reports/00295.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+139,002953.SZ,日丰股份,rfcable.com.cn,http://www.rfcable.com.cn/,false,1,data/text/002953.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+140,002980.SZ,华盛昌,cem-instruments.com,http://www.cem-instruments.com,false,1,data/text/002980.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+141,002986.SZ,宇新股份,yussen.com.cn,http://www.yussen.com.cn/,false,1,data/text/002986.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+142,003021.SZ,兆威机电,szzhaowei.net,https://szzhaowei.net/,true,2,data/text/ci_collection/003021.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+143,003022.SZ,联泓新科,levima.cn,http://www.levima.cn,false,1,data/text/003022.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+144,003035.SZ,南网能源,csg.cn,https://csg.cn/,true,2,data/text/ci_collection/003035.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+145,00332.HK,YUANHENG GAS,yuanhenggas.com,http://www.yuanhenggas.com,false,4,data/text/00332.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+146,00346.HK,YANCHANG PETRO,yanchanginternational.com,https://yanchanginternational.com/,true,6,data/text/hkex_reports/00346.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+147,00353.HK,ENERGY INTINV,website.energyintinv.wisdomir.com,http://website.energyintinv.wisdomir.com,false,4,data/text/00353.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+148,003816.SZ,中国广核,cgnp.com.cn,https://cgnp.com.cn/,true,2,data/text/003816.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+149,00384.HK,CHINA GAS HOLD,chinagasholdings.com.hk,http://www.chinagasholdings.com.hk,false,1,data/text/hkex_reports/00384.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+150,00392.HK,BEIJING ENT,behl.com.hk,http://www.behl.com.hk,false,2,data/text/hkex_reports/00392.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+151,00451.HK,GCL NEWENERGY,gclnewenergy.com,http://www.gclnewenergy.com,false,2,data/text/hkex_reports/00451.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+152,00467.HK,UNITEDENERGY GP,uegl.com.hk,https://www.uegl.com.hk/en/,true,1,data/text/ci_collection/00467.HK/2024/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+153,00554.HK,HANS GP HLDGS,msci.com,https://www.msci.com/our-solutions/esg-investing/esg-industry-materiality-map,true,1,data/text/ci_collection/00554.HK/2024/esg_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+154,00579.HK,JNCEC,jncec.com,https://www.jncec.com/,true,1,data/text/hkex_reports/00579.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+155,00600.HK,AXERA,axera-tech.com,https://axera-tech.com/,true,3,data/text/hkex_reports/00600.HK/0/listing_document.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+156,00607.HK,FULLSHARE,fullshare.com,https://fullshare.com/,true,3,data/text/hkex_reports/00607.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+157,00632.HK,CHK OIL,chkoilltd.com,https://www.chkoilltd.com/,true,2,data/text/hkex_reports/00632.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+158,00639.HK,SHOUGANG RES,shougang-resources.com.hk,https://www.shougang-resources.com.hk/s/ir_reports.php,true,4,data/text/hkex_reports/00639.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+159,00645.HK,ARES ASIA,aresasialtd.com,https://aresasialtd.com/,true,3,data/text/hkex_reports/00645.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+160,00650.HK,PRODUCTIVE TECH,pdt-techs.com,https://pdt-techs.com/,true,2,data/text/00650.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+161,00666.HK,REPT BATTERO,reptbattero.com,https://reptbattero.com/,true,3,data/text/hkex_reports/00666.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+162,00686.HK,BJ ENERGY INTL,bjei.com,http://www.bjei.com,false,8,data/text/hkex_reports/00686.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+163,00689.HK,EPI (HOLDINGS),epiholdings.com,https://www.epiholdings.com,true,2,data/text/hkex_reports/00689.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+164,00702.HK,SINO OIL & GAS,sino-oilgas.hk,https://sino-oilgas.hk/,true,1,data/text/00702.HK/2023/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+165,00704.HK,HUSCOKE HLDGS,huscoke.com,https://huscoke.com/en/,true,4,data/text/00704.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+166,00819.HK,TIANNENG POWER,tianneng.com.hk,http://www.tianneng.com.hk,false,5,data/text/hkex_reports/00819.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+167,00836.HK,CHINA RES POWER,cr-power.com,https://www.cr-power.com/power_,true,2,data/text/hkex_reports/00836.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+168,00866.HK,CHINA QINFA,qinfagroup.com,http://www.qinfagroup.com,false,4,data/text/hkex_reports/00866.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+169,00931.HK,CHINA HK POWER,chkpower.com,https://www.chkpower.com/,true,1,web_search_company_site,,0,verify,郭海飞,2026-08-06T10:00:00+08:00,esp评级，确认发行人官网域名
+170,00934.HK,SINOPEC KANTONS,sinopec.com.hk,http://www.sinopec.com.hk,false,2,data/text/hkex_reports/00934.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+171,00951.HK,CHAOWEI POWER,chaowei.com.hk,https://chaowei.com.hk/,true,6,data/text/hkex_reports/00951.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+172,00968.HK,XINYI SOLAR,issgovernance.com,https://www.issgovernance.com/esg/ratings/corporate-rating/,true,2,data/text/hkex_reports/00968.HK/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+173,00975.HK,MONGOL MINING,mmc.mn,https://www.mmc.mn/,true,1,web_search_company_site,,0,verify,郭海飞,2026-08-06T10:00:00+08:00,esp评级，确认发行人官网域名
+174,01080.HK,SHENGLI PIPE,forvismazars.com,https://forvismazars.com/,true,3,data/text/hkex_reports/01080.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+175,01083.HK,TG SMART ENERGY,towngassmartenergy.com,https://towngassmartenergy.com/,true,6,data/text/hkex_reports/01083.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+176,01101.HK,HUARONG ENERGY,huarongenergy.com.hk,http://www.huarongenergy.com.hk,false,4,data/text/01101.HK/2023/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+177,01193.HK,CHINA RES GAS,crcgas.com,https://crcgas.com/,true,6,data/text/hkex_reports/01193.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+178,01205.HK,CITIC RESOURCES,alcoa.com,https://www.alcoa.com,true,2,data/text/hkex_reports/01205.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+179,01229.HK,NAN NAN RES,nannanlisted.com,https://www.nannanlisted.com,true,4,data/text/01229.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+180,01250.HK,SDHS NEW ENERGY,bjx.com.cn,https://www.bjx.com.cn/,true,1,data/text/hkex_reports/01250.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+181,01251.HK,SPT ENERGY,sptenergygroup.com,https://sptenergygroup.com/,true,3,data/text/hkex_reports/01251.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+182,01277.HK,KINETIC DEV,kineticme.com,https://kineticme.com/,true,3,data/text/hkex_reports/01277.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+183,01303.HK,HUILI RES,hkicpa.org.hk,http://www.hkicpa.org.hk/en/Standards-setting/Standards/Our-views/auditre/,false,2,data/text/hkex_reports/01303.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+184,01393.HK,HIDILI INDUSTRY,hidili.com.cn,http://www.hidili.com.cn,false,2,data/text/hkex_reports/01393.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+185,01407.HK,JY GAS,gmjytrq.com,http://www.gmjytrq.com/,false,2,data/text/hkex_reports/01407.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+186,01555.HK,MIE HOLDINGS,mienergy.com.cn,http://www.mienergy.com.cn,false,4,data/text/hkex_reports/01555.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+187,01600.HK,TIAN LUN GAS,tianlungas.com,https://tianlungas.com/,true,6,data/text/hkex_reports/01600.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+188,01608.HK,VPOWER GROUP,vpower.com,https://vpower.com/,true,6,data/text/hkex_reports/01608.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+189,01621.HK,VICO INTL HLDGS,vicointernational.hk,https://vicointernational.hk/,true,3,data/text/hkex_reports/01621.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+190,01623.HK,HILONG,hilonggroup.com,https://hilonggroup.com/,true,6,data/text/hkex_reports/01623.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+191,01713.HK,SICHUAN EN INV,scntgf.com,http://www.scntgf.com,false,8,data/text/hkex_reports/01713.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+192,01733.HK,E-COMMODITIES,e-comm.com,https://www.e-comm.com/sc/home.aspx,true,1,data/text/ci_collection/01733.HK/2024/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+193,01738.HK,FS ANTHRACITE,fsanthracite.com,http://www.fsanthracite.com,false,2,data/text/hkex_reports/01738.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+194,01798.HK,DATANG RENEW,cdt-re.com,http://www.cdt-re.com,false,2,data/text/hkex_reports/01798.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+195,01799.HK,XINTE ENERGY,xinteenergy.com,https://xinteenergy.com/,true,6,data/text/hkex_reports/01799.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+196,01811.HK,CGN NEW ENERGY,cgnne.com,https://cgnne.com/,true,6,data/text/hkex_reports/01811.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+197,01878.HK,SOUTHGOBI,southgobi.com,https://www.southgobi.com/html/ir_reports.php,true,2,data/text/hkex_reports/01878.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+198,01921.HK,DALIPAL HLDG,dalipal.com,http://www.dalipal.com,false,8,data/text/hkex_reports/01921.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+199,01938.HK,CHU KONG PIPE,pck.com.cn,http://www.pck.com.cn,false,4,data/text/hkex_reports/01938.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+200,01940.HK,CGII HLDGS,cgiihldgs.com,https://cgiihldgs.com/,true,3,data/text/hkex_reports/01940.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+201,02012.HK,SUNSHINE OIL,sedar.com,https://sedar.com/,true,3,data/text/hkex_reports/02012.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+202,02178.HK,PETRO-KING,petro-king.cn,http://www.petro-king.cn,false,4,data/text/hkex_reports/02178.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+203,02236.HK,WISON ENGRG,wison-engineering.com,https://wison-engineering.com/,true,6,data/text/hkex_reports/02236.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+204,02380.HK,CHINA POWER,chinapower.hk,http://www.chinapower.hk,false,2,data/text/hkex_reports/02380.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+205,02386.HK,SINOPEC SEG,segroup.cn,http://www.segroup.cn,false,3,data/text/hkex_reports/02386.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+206,02688.HK,ENN ENERGY,ir.ennenergy.com,http://ir.ennenergy.com,false,4,data/text/hkex_reports/02688.HK/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+207,02728.HK,JINTAI ENERGY H,jintaienergy.com,https://jintaienergy.com/,true,6,data/text/hkex_reports/02728.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+208,02798.HK,PER ENERGY,perennialenergy.hk,https://perennialenergy.hk/,true,3,data/text/hkex_reports/02798.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+209,03303.HK,JUTAL OIL SER,jutal.com,http://www.jutal.com,false,2,data/text/hkex_reports/03303.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+210,03337.HK,ANTON OILFIELD,antonoil.com,https://antonoil.com/,true,6,data/text/hkex_reports/03337.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+211,03395.HK,JX ENERGY,moore.hk,https://moore.hk/,true,3,data/text/hkex_reports/03395.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+212,03633.HK,ZHONGYU ENERGY,zhongyuenergy.com,https://zhongyuenergy.com/,true,6,data/text/hkex_reports/03633.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+213,03668.HK,YANCOAL AUS,yancoal.com,https://yancoal.com/,true,3,data/text/hkex_reports/03668.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+214,03800.HK,GCL TECH,iea.org,https://www.iea.org/reports/global-energy-and-climate-model/net-zero-emissions-by-2050-scenario-nze,true,2,data/text/ci_collection/03800.HK/2024/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+215,03868.HK,XINYI ENERGY,xinyienergy.com,https://www.xinyienergy.com,true,2,data/text/hkex_reports/03868.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+216,03899.HK,CIMC ENRIC,doc.irasia.com,https://doc.irasia.com/listco/hk/enric/boarddiversitypolicyc.pdf,true,10,data/text/hkex_reports/03899.HK/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+217,06828.HK,BG BLUE SKY,bgbluesky.com,http://www.bgbluesky.com,false,4,data/text/hkex_reports/06828.HK/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+218,06885.HK,JINMA ENERGY,hnjmny.com,https://www.hnjmny.com/,true,2,data/text/hkex_reports/06885.HK/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+219,08132.HK,CENTURY EN INTL,8132century.com,https://8132century.com/,true,2,data/text/hkex_reports/08132.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+220,08270.HK,CHINA CBM,hkirplatform.com,https://hkirplatform.com/8270/en/index.php,true,4,data/text/hkex_reports/08270.HK/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+221,08347.HK,F8 ENT,f8.com.hk,https://f8.com.hk/,true,4,data/text/08347.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+222,08536.HK,TL NATURAL GAS,tl-cng.com,https://tl-cng.com/,true,3,data/text/hkex_reports/08536.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+223,08631.HK,YUFENGCHANG HLD,skhl.com.hk,https://skhl.com.hk/,true,1,data/text/hkex_reports/08631.HK/0/name_change_announcement.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+224,09689.HK,JTF INTL,jtfoil.com,https://jtfoil.com/,true,3,data/text/hkex_reports/09689.HK/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+225,300001.SZ,特锐德,qdtgood.com,https://www.qdtgood.com/about/monitor.html?lang=cn,true,2,data/text/300001.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+226,300014.SZ,亿纬锂能,evebattery.com,https://evebattery.com/,true,2,data/text/ci_collection/300014.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+227,300018.SZ,中元股份,zyhd.com.cn,http://www.zyhd.com.cn,false,1,data/text/300018.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+228,300035.SZ,中科电气,cseco.cn,http://www.cseco.cn,false,1,data/text/300035.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+229,300037.SZ,新宙邦,js-eia.cn,https://www.js-eia.cn,true,1,data/text/300037.SZ/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+230,300040.SZ,九洲集团,jiuzhougroup.com,https://jiuzhougroup.com/,true,2,data/text/ci_collection/300040.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+231,300051.SZ,琏升科技,leasdgrp.cn,https://www.leasdgrp.cn,true,1,data/text/300051.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+232,300062.SZ,中能电气,ceepower.com,https://ceepower.com/,true,2,data/text/ci_collection/300062.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+233,300069.SZ,金利华电,jlhdq.com,http://www.jlhdq.com,false,1,data/text/300069.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+234,300073.SZ,当升科技,easpring.com.cn,http://www.easpring.com.cn,false,2,data/text/ci_collection/300073.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+235,300080.SZ,易成新能,sthj.deing.cn,https://sthj.deing.cn,true,1,data/text/300080.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+236,300105.SZ,龙源技术,lyjs.chnenergy.com.cn,http://lyjs.chnenergy.com.cn/,false,1,data/text/300105.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+237,300118.SZ,东方日升,risen.com,http://www.risen.com,false,1,data/text/300118.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+238,300129.SZ,泰胜风能,shtsp.com,http://www.shtsp.com,false,2,data/text/300129.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+239,300140.SZ,节能环境,zjnhj.cecep.cn,http://www.zjnhj.cecep.cn/,false,1,data/text/300140.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+240,300141.SZ,和顺电气,cnheshun.com,http://www.cnheshun.com,false,1,data/text/300141.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+241,300153.SZ,科泰电源,cooltechsh.com,https://cooltechsh.com/,true,2,data/text/ci_collection/300153.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+242,300185.SZ,通裕重工,tongyuheavy.com,https://tongyuheavy.com/,true,2,data/text/ci_collection/300185.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+243,300191.SZ,潜能恒信,sinogeo.com,https://sinogeo.com/,true,2,data/text/ci_collection/300191.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+244,300207.SZ,欣旺达,sunwoda.com,https://www.sunwoda.com/,true,1,data/text/300207.SZ/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+245,300222.SZ,科大智能,csg.com.cn,https://csg.com.cn/,true,2,data/text/ci_collection/300222.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+246,300265.SZ,通光线缆,tgjt.cn,https://tgjt.cn/,true,2,data/text/ci_collection/300265.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+247,300274.SZ,阳光电源,en.sungrowpower.com,https://en.sungrowpower.com/security-,true,1,data/text/300274.SZ/2025/esg_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+248,300283.SZ,温州宏丰,wzhf.com,http://www.wzhf.com,false,1,data/text/300283.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+249,300286.SZ,安科瑞,acrel.cn,https://acrel.cn/,true,2,data/text/ci_collection/300286.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+250,300316.SZ,晶盛机电,jsjd.cc,http://www.jsjd.cc/,false,1,data/text/300316.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+251,300317.SZ,珈伟新能,jiawei.com,https://jiawei.com/,true,2,data/text/ci_collection/300317.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+252,300332.SZ,天壕能源,thny.cc,https://thny.cc/,true,1,https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/CompanySurveyAjax?code=SZ300332,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+253,300340.SZ,科恒股份,keheng.com.cn,http://www.keheng.com.cn,false,1,data/text/300340.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+254,300360.SZ,炬华科技,sunrisemeter.com,https://sunrisemeter.com/,true,2,data/text/ci_collection/300360.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+255,300376.SZ,易事特,eastups.com,https://eastups.com/,true,3,data/text/ci_collection/300376.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+256,300390.SZ,天华新能,canmax.com.cn,https://canmax.com.cn/,true,2,data/text/ci_collection/300390.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+257,300393.SZ,中来股份,jolywood.cn,https://jolywood.cn/,true,2,data/text/ci_collection/300393.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+258,300407.SZ,凯发电气,keyvia.cn,https://keyvia.cn/,true,2,data/text/ci_collection/300407.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+259,300409.SZ,道氏技术,dowstone.com.cn,https://dowstone.com.cn/,true,2,data/text/ci_collection/300409.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+260,300410.SZ,正业科技,zhengyee.com,http://www.zhengyee.com,false,1,data/text/300410.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+261,300423.SZ,昇辉科技,sunflytech.com,https://sunflytech.com/,true,2,data/text/ci_collection/300423.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+262,300427.SZ,红相股份,redphase.com.cn,https://www.redphase.com.cn,true,1,data/text/300427.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+263,300432.SZ,富临精工,fulinpm.com,http://www.fulinpm.com,false,1,data/text/300432.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+264,300438.SZ,鹏辉能源,greatpower.net,https://greatpower.net/,true,3,data/text/ci_collection/300438.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+265,300443.SZ,金雷股份,jinleiwind.com,http://www.jinleiwind.com,false,1,data/text/300443.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+266,300444.SZ,双杰电气,sojoline.com,https://sojoline.com/,true,2,data/text/ci_collection/300444.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+267,300450.SZ,先导智能,leadintelligent.com,https://leadintelligent.com/,true,2,data/text/ci_collection/300450.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+268,300457.SZ,赢合科技,yhwins.com,https://yhwins.com/,true,2,data/text/ci_collection/300457.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+269,300483.SZ,首华燃气,primagas.com.cn,http://www.primagas.com.cn/,false,1,data/text/300483.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+270,300490.SZ,华自科技,cshnac.com,https://cshnac.com/,true,2,data/text/ci_collection/300490.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+271,300491.SZ,通合科技,sjzthdz.com,http://www.sjzthdz.com,false,2,data/text/300491.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+272,300510.SZ,金冠股份,jinguan-electric.com,https://www.jinguan-electric.com/,true,2,data/text/300510.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+273,300514.SZ,友讯达,friendcom.com,https://friendcom.com/,true,2,data/text/ci_collection/300514.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+274,300568.SZ,星源材质,senior798.com,https://senior798.com/,true,2,data/text/ci_collection/300568.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+275,300569.SZ,天能重工,qdtnp.com,http://www.qdtnp.com,false,1,data/text/300569.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+276,300593.SZ,新雷能,xinleineng.com,https://xinleineng.com/,true,2,data/text/ci_collection/300593.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+277,300617.SZ,安靠智电,jjckb.cn,http://www.jjckb.cn,false,1,data/text/300617.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+278,300619.SZ,金银河,goldenyh.com,https://goldenyh.com/,true,2,data/text/ci_collection/300619.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+279,300626.SZ,华瑞股份,hrdq.cn,https://www.hrdq.cn,true,1,data/text/ci_collection/300626.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+280,300648.SZ,星云股份,irm.cn,http://irm.cn,false,1,data/text/300648.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+281,300660.SZ,江苏雷利,czleili.com,https://czleili.com/,true,2,data/text/ci_collection/300660.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+282,300670.SZ,大烨智能,jjckb.cn,http://www.jjckb.cn,false,1,data/text/300670.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+283,300690.SZ,双一科技,shuangyitec.com.cn,https://shuangyitec.com.cn/,true,3,data/text/ci_collection/300690.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+284,300693.SZ,盛弘股份,sinexcel.com,https://sinexcel.com/,true,2,data/text/ci_collection/300693.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+285,300713.SZ,英可瑞,szincrease.com,https://www.szincrease.com/,true,1,data/text/300713.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+286,300724.SZ,捷佳伟创,chinasc.com.cn,http://www.chinasc.com.cn,false,1,data/text/300724.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+287,300750.SZ,宁德时代,catl.com,https://catl.com/,true,2,data/text/ci_collection/300750.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+288,300751.SZ,迈为股份,maxwell-gp.com,https://www.maxwell-gp.com/,true,1,data/text/300751.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+289,300763.SZ,锦浪科技,ginlong.com,https://ginlong.com/,true,2,data/text/ci_collection/300763.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+290,300769.SZ,德方纳米,dynanonic.com,https://www.dynanonic.com,true,2,data/text/300769.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+291,300772.SZ,运达股份,windeyenergy.com,https://www.windeyenergy.com,true,1,data/text/ci_collection/300772.SZ/2025/esg_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+292,300776.SZ,帝尔激光,drlaser.com.cn,https://drlaser.com.cn/,true,2,data/text/ci_collection/300776.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+293,300820.SZ,英杰电气,injet.cn,https://injet.cn/,true,3,data/text/ci_collection/300820.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+294,300827.SZ,上能电气,si-neng.com,https://si-neng.com/,true,2,data/text/ci_collection/300827.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+295,300842.SZ,帝科股份,dkem.cn,http://www.dkem.cn/,false,1,data/text/300842.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+296,300850.SZ,新强联,lyxqlbearing.com.cn,https://www.lyxqlbearing.com.cn/,true,3,data/text/300850.SZ/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+297,300853.SZ,申昊科技,shenhaoinfo.com,https://shenhaoinfo.com/,true,2,data/text/ci_collection/300853.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+298,300870.SZ,欧陆通,en.honoto.com,https://en.honoto.com/,true,1,data/text/ci_collection/300870.SZ/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+299,300880.SZ,迦南智能,nbjianan.com,https://nbjianan.com/,true,3,data/text/ci_collection/300880.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+300,300882.SZ,万胜智能,wellsun.com,https://wellsun.com/,true,2,data/text/ci_collection/300882.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+301,300904.SZ,威力传动,weili.com,https://weili.com/,true,2,data/text/ci_collection/300904.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+302,300907.SZ,康平科技,chinakangping.com,https://chinakangping.com/,true,2,data/text/ci_collection/300907.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+303,300919.SZ,中伟新材,cngrgf.com.cn,http://www.cngrgf.com.cn,false,3,data/text/300919.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+304,300932.SZ,三友联众,sanyourelay.com,http://www.sanyourelay.com,false,2,data/text/300932.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+305,300933.SZ,中辰股份,zcdl.com,https://www.zcdl.com,true,1,data/text/300933.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+306,300953.SZ,震裕科技,zhenyumould.com,http://www.zhenyumould.com,false,2,data/text/300953.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+307,301002.SZ,崧盛股份,cn.sosen.com,https://cn.sosen.com,true,1,data/text/301002.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+308,301012.SZ,扬电科技,jsyddq.cn,http://www.jsyddq.cn/,false,1,data/text/301012.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+309,301023.SZ,奕帆传动,yifanmotor.com,http://www.yifanmotor.com/,false,1,data/text/301023.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+310,301040.SZ,中环海陆,hlduanjian.com,https://hlduanjian.com/,true,2,data/text/ci_collection/301040.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+311,301063.SZ,海锅股份,zjghgxny.com,https://zjghgxny.com/,true,2,data/text/ci_collection/301063.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+312,301082.SZ,久盛电气,teccable.com,https://teccable.com/,true,2,data/text/ci_collection/301082.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+313,301120.SZ,新特电气,xinhuadu.com.cn,http://www.xinhuadu.com.cn,false,1,data/text/301120.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+314,301121.SZ,紫建电子,gdvdl.com,http://www.gdvdl.com,false,1,data/text/301121.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+315,301150.SZ,中一科技,c1cf.com,https://c1cf.com/,true,2,data/text/ci_collection/301150.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+316,301152.SZ,天力锂能,xxtlln.com,https://www.xxtlln.com/,true,1,data/text/301152.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+317,301155.SZ,海力风电,jshlfd.com,https://jshlfd.com/,true,2,data/text/ci_collection/301155.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+318,301157.SZ,华塑科技,huasucn.com,https://huasucn.com/,true,1,data/text/301157.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+319,301163.SZ,宏德股份,hongdegf.cn,https://www.hongdegf.cn/,true,1,data/text/301163.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+320,301168.SZ,通灵股份,jstongling.com,https://jstongling.com/,true,2,data/text/ci_collection/301168.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+321,301179.SZ,泽宇智能,zeyu99.com,https://zeyu99.com/,true,2,data/text/ci_collection/301179.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+322,301210.SZ,金杨精密,wx-jy.com,https://wx-jy.com/,true,2,data/text/ci_collection/301210.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+323,301217.SZ,铜冠铜箔,ahtgtb.com,https://ahtgtb.com/,true,2,data/text/ci_collection/301217.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+324,301222.SZ,浙江恒威,hwbattery.com,http://www.hwbattery.com,false,1,data/text/301222.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+325,301226.SZ,祥明智能,163.com,https://www.163.com/dy/article/IO6BUBNS0538NSS8.html,true,1,data/text/301226.SZ/2025/annual_report.txt,true,4,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+326,301232.SZ,飞沃科技,shfinework.cn,http://www.shfinework.cn/,false,1,data/text/301232.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+327,301238.SZ,瑞泰新材,rtxc.com,https://rtxc.com/,true,2,data/text/ci_collection/301238.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+328,301266.SZ,宇邦新材,yourbest.com.cn,http://www.yourbest.com.cn/,false,1,data/text/301266.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+329,301278.SZ,快可电子,qc-solar.com,http://www.qc-solar.com,false,1,data/text/301278.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+330,301291.SZ,明阳电气,mingyang.com.cn,http://www.mingyang.com.cn,false,1,data/text/301291.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+331,301292.SZ,海科新源,hi-techspring.com,https://hi-techspring.com/,true,2,data/text/ci_collection/301292.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+332,301295.SZ,美硕科技,msrelay.cn,https://www.msrelay.cn/,true,1,data/text/301295.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+333,301325.SZ,曼恩斯特,manst.com,https://manst.com/,true,4,data/text/ci_collection/301325.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+334,301327.SZ,华宝新能,s.comein.cn,https://s.comein.cn,true,1,data/text/301327.SZ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+335,301349.SZ,信德新材,lnxdhg.com,https://lnxdhg.com/,true,2,data/text/ci_collection/301349.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+336,301358.SZ,湖南裕能,hunanyuneng.com,http://www.hunanyuneng.com,false,2,data/text/301358.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+337,301361.SZ,众智科技,smartgen.com.cn,https://smartgen.com.cn/,true,2,data/text/ci_collection/301361.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+338,301386.SZ,未来电器,szfuture.com,http://www.szfuture.com/,false,1,data/text/301386.SZ/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+339,301388.SZ,欣灵电气,c-lin.cn,https://www.c-lin.cn/,true,1,data/text/301388.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+340,301439.SZ,泓淋电力,honglinpowertech.com,https://honglinpowertech.com/,true,3,data/text/ci_collection/301439.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+341,301456.SZ,盘古智能,paguld.com,http://www.paguld.com,false,1,data/text/301456.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+342,301487.SZ,盟固利,htmgl.com.cn,http://www.htmgl.com.cn/,false,1,data/text/301487.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+343,301502.SZ,华阳智能,cn-huayang.com,https://cn-huayang.com/,true,2,data/text/ci_collection/301502.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+344,301511.SZ,德福科技,jjdefu.com,http://www.jjdefu.com,false,1,data/text/301511.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+345,301516.SZ,中远通,vapel.com,https://vapel.com/,true,2,data/text/ci_collection/301516.SZ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+346,301587.SZ,中瑞股份,zrelectron.com,http://www.zrelectron.com,false,1,data/text/301587.SZ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+347,600011.SH,华能国际,cas.org.cn,http://www.cas.org.cn/,false,1,data/text/600011.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+348,600021.SH,上海电力,shanghaipower.com,https://shanghaipower.com/,true,2,data/text/ci_collection/600021.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+349,600023.SH,浙能电力,zzepc.com.cn,http://www.zzepc.com.cn/,false,2,data/text/600023.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+350,600025.SH,华能水电,hnlcj.cn,http://www.hnlcj.cn/,false,1,data/text/600025.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+351,600027.SH,华电国际,hdpi.com.cn,https://hdpi.com.cn/,true,2,data/text/ci_collection/600027.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+352,600028.SH,中国石化,sinopec.com,http://www.sinopec.com,false,10,data/text/600028.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+353,600032.SH,浙江新能,stcn.com,https://stcn.com/,true,2,data/text/600032.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+354,600089.SH,特变电工,tbea.com,https://www.tbea.com,true,2,data/text/600089.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+355,600101.SH,明星电力,sse.com,https://www.sse.com,true,1,data/text/600101.SH/2025/esg_report.txt,false,3,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+356,600110.SH,诺德股份,ndgf.net,https://ndgf.net/,true,2,data/text/ci_collection/600110.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+357,600116.SH,三峡水利,stcn.com,https://www.stcn.com,true,1,data/text/600116.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+358,600149.SH,廊坊发展,zqrb.com,https://zqrb.com/,true,2,data/text/600149.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+359,600151.SH,航天机电,ht-saae.com,http://www.ht-saae.com,false,1,data/text/600151.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+360,600152.SH,维科技术,veken-tech.com,http://www.veken-tech.com/,false,1,data/text/600152.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+361,600157.SH,永泰能源,wtecl.com,https://wtecl.com/,true,2,data/text/ci_collection/600157.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+362,600163.SH,中闽能源,zhongminenergy.com,https://zhongminenergy.com/,true,4,data/text/ci_collection/600163.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+363,600167.SH,联美控股,sthj.deing.cn,https://sthj.deing.cn,true,7,data/text/600167.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+364,600188.SH,兖矿能源,ykenergy.com,http://www.ykenergy.com,false,1,data/text/600188.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+365,600192.SH,长城电工,chinagwe.com,https://chinagwe.com/,true,2,data/text/ci_collection/600192.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+366,600207.SH,安彩高科,acht.com.cn,http://www.acht.com.cn,false,2,data/text/600207.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+367,600212.SH,绿能慧充,gresgying.com,http://www.gresgying.com/,false,1,data/text/600212.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+368,600236.SH,桂冠电力,ggep.china-cdt.com,https://ggep.china-cdt.com/,true,2,data/text/600236.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+369,600241.SH,时代万恒,shidaiwanheng.com,https://shidaiwanheng.com/,true,2,data/text/ci_collection/600241.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+370,600256.SH,广汇能源,xjguanghui.com,http://www.xjguanghui.com,false,1,data/text/600256.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+371,600268.SH,国电南自,sac-china.com,http://www.sac-china.com,false,1,data/text/600268.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+372,600310.SH,广西能源,gdep.com.cn,http://www.gdep.com.cn,false,2,data/text/600310.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+373,600312.SH,平高电气,pinggao.com,http://www.pinggao.com,false,1,data/text/600312.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+374,600333.SH,长春燃气,ccrq.com.cn,http://www.ccrq.com.cn,false,1,data/text/600333.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+375,600339.SH,中油工程,cpec.com.cn,https://cpec.com.cn/,true,2,data/text/ci_collection/600339.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+376,600346.SH,恒力石化,hengli.com,https://www.hengli.com/invest/hlsh,true,5,data/text/600346.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+377,600379.SH,宝光股份,kaisaier.cn,https://www.kaisaier.cn/,true,2,data/text/600379.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+378,600395.SH,盘江股份,zqrb.cn,http://www.zqrb.cn,false,1,data/text/600395.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+379,600396.SH,华电辽能,chd.com.cn,https://www.chd.com.cn/,true,1,sina_cfi_company_website_field,,0,verify,郭海飞,2026-08-06T10:00:00+08:00,esp评级，确认发行人官网域名
+380,600405.SH,动力源,dpc.com.cn,http://www.dpc.com.cn,false,1,data/text/600405.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+381,600406.SH,国电南瑞,naritech.cn,https://naritech.cn/,true,2,data/text/ci_collection/600406.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+382,600416.SH,湘电股份,xemc.com.cn,http://www.xemc.com.cn,false,1,data/text/600416.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+383,600438.SH,通威股份,miotech.com,https://www.miotech.com/zh-CN,true,2,data/text/600438.SH/2025/esg_report.txt,false,3,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+384,600452.SH,涪陵电力,sse.com,http://www.sse.com,false,2,data/text/600452.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+385,600458.SH,时代新材,crrcgc.cc,https://www.crrcgc.cc/sdxc,true,1,data/text/600458.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+386,600468.SH,百利电气,benefo.tj.cn,https://benefo.tj.cn/,true,2,data/text/ci_collection/600468.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+387,600475.SH,华光环能,hghngroup.com,http://www.hghngroup.com,false,1,data/text/600475.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+388,600478.SH,科力远,corun.com,http://www.corun.com,false,1,data/text/600478.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+389,600481.SH,双良节能,shuangliang.com,https://www.shuangliang.com,true,1,data/text/600481.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+390,600482.SH,中国动力,china-csicpower.com.cn,http://www.china-csicpower.com.cn/,false,2,data/text/600482.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+391,600483.SH,福能股份,fjec.com.cn,http://www.fjec.com.cn,false,1,data/text/600483.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+392,600505.SH,西昌电力,scxcdlgfyxgs.cn,https://scxcdlgfyxgs.cn/,true,2,data/text/ci_collection/600505.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+393,600508.SH,上海能源,sdtny.com,http://www.sdtny.com,false,1,data/text/600508.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+394,600509.SH,天富能源,tfny.com,http://www.tfny.com,false,1,data/text/600509.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+395,600550.SH,保变电气,twbb.com.cn,http://www.twbb.com.cn,false,1,data/text/600550.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+396,600577.SH,精达股份,jingda.cn,https://jingda.cn/,true,2,data/text/ci_collection/600577.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+397,600578.SH,京能电力,jingnengpower.com,https://jingnengpower.com/,true,1,data/text/600578.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+398,600580.SH,卧龙电驱,wolong.com.cn,https://wolong.com.cn/,true,2,data/text/ci_collection/600580.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+399,600635.SH,大众公用,dzug.cn,https://dzug.cn/,true,2,data/text/ci_collection/600635.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+400,600642.SH,申能股份,shenergy.net.cn,https://www.shenergy.net.cn,true,1,data/text/600642.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+401,600644.SH,乐山电力,stcn.com,https://www.stcn.com,true,1,data/text/600644.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+402,600674.SH,川投能源,ctny.com.cn,https://ctny.com.cn/,true,2,data/text/ci_collection/600674.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+403,600681.SH,百川能源,bestsungas.com,https://bestsungas.com/,true,2,data/text/ci_collection/600681.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+404,600688.SH,上海石化,spc.sinopec.com,http://spc.sinopec.com/,false,1,data/text/600688.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+405,600719.SH,大连热电,dlrd.com,https://dlrd.com/,true,2,data/text/ci_collection/600719.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+406,600726.SH,华电能源,hdenergy.com,https://hdenergy.com/,true,2,data/text/ci_collection/600726.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+407,600732.SH,爱旭股份,aikosolar.com,http://www.aikosolar.com,false,2,data/text/600732.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+408,600744.SH,华银电力,hypower.com.cn,http://www.hypower.com.cn,false,1,data/text/600744.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+409,600777.SH,*ST新潮,xinchaoenergy.com,https://xinchaoenergy.com/,true,2,data/text/ci_collection/600777.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+410,600780.SH,通宝能源,600780.com.cn,https://600780.com.cn/,true,4,data/text/ci_collection/600780.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+411,600795.SH,国电电力,600795.com.cn,https://600795.com.cn/,true,4,data/text/ci_collection/600795.SH/2025/esg_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+412,600803.SH,新奥股份,stcn.com,https://www.stcn.com/,true,1,data/text/600803.SH/2025/annual_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+413,600821.SH,金开新能,nyocor.com,https://www.nyocor.com/,true,1,data/text/600821.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+414,600847.SH,万里股份,cqwanli.com,https://cqwanli.com/,true,2,data/text/ci_collection/600847.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+415,600863.SH,华能蒙电,nmhdwz.com,https://nmhdwz.com/,true,2,data/text/ci_collection/600863.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+416,600868.SH,梅雁吉祥,chinameiyan.com,http://www.chinameiyan.com,false,1,data/text/600868.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+417,600869.SH,远东股份,600869.com,https://600869.com/,true,2,data/text/ci_collection/600869.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+418,600871.SH,石化油服,ssc.sinopec.com,http://ssc.sinopec.com,false,2,data/text/600871.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+419,600875.SH,东方电气,dec-ltd.cn,https://dec-ltd.cn/,true,2,data/text/ci_collection/600875.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+420,600884.SH,杉杉股份,ssgf.net,https://ssgf.net/,true,2,data/text/ci_collection/600884.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+421,600885.SH,宏发股份,hongfa.cn,https://www.hongfa.cn,true,2,data/text/600885.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+422,600886.SH,国投电力,sdicpower.com,https://sdicpower.com/,true,2,data/text/ci_collection/600886.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+423,600900.SH,长江电力,cypc.com.cn,https://www.cypc.com.cn,true,2,data/text/600900.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+424,600903.SH,贵州燃气,guizhougas.com,https://guizhougas.com/,true,4,data/text/ci_collection/600903.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+425,600905.SH,三峡能源,ctgne.com,https://ctgne.com/,true,4,data/text/ci_collection/600905.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+426,600917.SH,重庆燃气,cqgas.cn,http://www.cqgas.cn,false,2,data/text/600917.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+427,600925.SH,苏能股份,stcn.com,https://www.stcn.com,true,1,data/text/600925.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+428,600938.SH,中国海油,cnoocltd.com,https://cnoocltd.com/,true,2,data/text/ci_collection/600938.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+429,600956.SH,新天绿能,suntien.com,https://suntien.com/,true,4,data/text/ci_collection/600956.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+430,600968.SH,海油发展,cenertech.cnooc.com.cn,http://cenertech.cnooc.com.cn,false,2,data/text/600968.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+431,600969.SH,郴电国际,chendianguoji.cn,https://chendianguoji.cn/,true,2,data/text/ci_collection/600969.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+432,600973.SH,宝胜股份,baoshengcable.com,https://baoshengcable.com/,true,2,data/text/ci_collection/600973.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+433,600979.SH,广安爱众,stcn.com,https://www.stcn.com,true,1,data/text/600979.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+434,600982.SH,宁波能源,nbtp.com.cn,http://www.nbtp.com.cn,false,1,data/text/600982.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+435,600995.SH,南网储能,csg.cn,https://csg.cn/,false,1,data/text/600995.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+436,601001.SH,晋控煤业,dtmy.jnkgjtnews.com,https://dtmy.jnkgjtnews.com,true,1,data/text/601001.SH/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+437,601012.SH,隆基绿能,ember-energy.org,https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/,true,1,data/text/601012.SH/2025/esg_report.txt,false,3,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+438,601016.SH,节能风电,cecwpc.cn,https://cecwpc.cn/,true,2,data/text/ci_collection/601016.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+439,601088.SH,中国神华,tanjiaoyi.com,http://www.tanjiaoyi.com/article-4820-1.html,false,1,data/text/601088.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+440,601126.SH,四方股份,sf-auto.com,https://sf-auto.com/,true,2,data/text/ci_collection/601126.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+441,601139.SH,深圳燃气,szgas.com.cn,https://szgas.com.cn/,true,2,data/text/ci_collection/601139.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+442,601179.SH,中国西电,xdect.com.cn,https://xdect.com.cn/,true,2,data/text/ci_collection/601179.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+443,601218.SH,吉鑫科技,sinojit.com,http://www.sinojit.com,false,1,data/text/601218.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+444,601222.SH,林洋能源,linyang.com,https://linyang.com/,true,2,data/text/ci_collection/601222.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+445,601225.SH,陕西煤业,sthjzh.com,http://www.sthjzh.com,false,1,data/text/601225.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+446,601233.SH,桐昆股份,zjtkgf.com,https://www.zjtkgf.com,true,1,data/text/601233.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+447,601311.SH,骆驼股份,chinacamel.com,https://chinacamel.com/,true,2,data/text/ci_collection/601311.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+448,601567.SH,三星电气,sanxing.com,http://www.sanxing.com,false,2,data/text/601567.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+449,601611.SH,中国核建,cnecc.com,https://www.cnecc.com,true,1,data/text/601611.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+450,601615.SH,明阳智能,myse.com.cn,https://www.myse.com.cn/,true,1,data/text/601615.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+451,601616.SH,广电电气,sse.com,http://www.sse.com,false,1,data/text/601616.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+452,601619.SH,嘉泽新能,jzne.net.cn,https://jzne.net.cn/,true,2,data/text/601619.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+453,601666.SH,平煤股份,pmta.com.cn,http://www.pmta.com.cn,false,2,data/text/601666.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+454,601669.SH,中国电建,powerchina.cn,https://powerchina.cn/,true,2,data/text/ci_collection/601669.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+455,601700.SH,风范股份,zqrb.cn,https://www.zqrb.cn/,true,1,data/text/601700.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+456,601727.SH,上海电气,shanghai-electric.com,http://www.shanghai-electric.com,false,2,data/text/601727.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+457,601778.SH,晶科科技,jinkopower.com,https://jinkopower.com/,true,4,data/text/ci_collection/601778.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+458,601808.SH,中海油服,cosl.com.cn,https://cosl.com.cn/,true,2,data/text/601808.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+459,601857.SH,中国石油,petrochina.com.cn,http://www.petrochina.com.cn,false,1,data/text/601857.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+460,601865.SH,福莱特,flatgroup.com.cn,http://www.flatgroup.com.cn,false,1,data/text/601865.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+461,601868.SH,中国能建,ceec.net.cn,https://ceec.net.cn/,true,2,data/text/ci_collection/601868.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+462,601877.SH,正泰电器,leveragelimited.com.cn,https://www.leveragelimited.com.cn,true,4,data/text/601877.SH/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+463,601898.SH,中煤能源,sthjzh.com,http://www.sthjzh.com,false,2,data/text/601898.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+464,601908.SH,京运通,jingyuntong.com,https://www.jingyuntong.com,true,1,data/text/601908.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+465,601918.SH,新集能源,xinji.chinacoal.com,https://xinji.chinacoal.com/,true,1,data/text/601918.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+466,601985.SH,中国核电,cnnp.com.cn,http://www.cnnp.com.cn,false,1,data/text/601985.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+467,601991.SH,大唐发电,dtpower.com,http://www.dtpower.com/,false,1,data/text/601991.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+468,603016.SH,新宏泰,newhongtai.com,https://newhongtai.com/,true,2,data/text/ci_collection/603016.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+469,603026.SH,石大胜华,sinodmc.com,http://www.sinodmc.com,false,1,data/text/603026.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+470,603031.SH,安孚科技,hjtj.cnemc.cn,https://hjtj.cnemc.cn/htqy/#/login,true,1,data/text/603031.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+471,603032.SH,德新科技,dxtl.com.cn,https://dxtl.com.cn/,true,2,data/text/ci_collection/603032.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+472,603050.SH,科林电气,kechina.com,http://www.kechina.com,false,1,data/text/603050.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+473,603053.SH,成都燃气,cdgas.com,https://www.cdgas.com/,true,1,data/text/603053.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+474,603063.SH,禾望电气,hopewind.com,https://hopewind.com/,true,4,data/text/ci_collection/603063.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+475,603070.SH,万控智造,wecome.com.cn,https://wecome.com.cn/,true,2,data/text/ci_collection/603070.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+476,603080.SH,新疆火炬,xjhjrq.com,https://xjhjrq.com/,true,2,data/text/ci_collection/603080.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+477,603097.SH,江苏华辰,hcbyq.com,https://www.hcbyq.com/,true,1,data/text/603097.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+478,603105.SH,芯能科技,sunorensolar.com,https://sunorensolar.com/,true,2,data/text/ci_collection/603105.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+479,603185.SH,弘元绿能,hysolar.com,https://hysolar.com/,true,1,data/text/603185.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+480,603191.SH,望变电气,byzf.cqree.cn,https://byzf.cqree.cn/,true,1,data/text/603191.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+481,603212.SH,赛伍技术,cybrid.com.cn,https://cybrid.com.cn/,true,2,data/text/ci_collection/603212.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+482,603218.SH,日月股份,riyuehi.com,http://www.riyuehi.com,false,1,data/text/603218.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+483,603312.SH,西典新能,wdint.cn,http://www.wdint.cn,false,1,data/text/603312.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+484,603318.SH,水发燃气,sdsf.com.cn,https://sdsf.com.cn/,true,2,data/text/ci_collection/603318.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+485,603320.SH,迪贝电气,stcn.com,https://www.stcn.com,true,1,data/text/603320.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+486,603333.SH,尚纬股份,sunwayint.com,https://sunwayint.com/,true,2,data/text/ci_collection/603333.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+487,603344.SH,星德胜,cds.cn,http://www.cds.cn,false,1,data/text/603344.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+488,603353.SH,和顺石油,hnhsjt.com,http://www.hnhsjt.com,false,1,data/text/603353.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+489,603393.SH,新天然气,xintaienergy.com,http://www.xintaienergy.com,false,1,data/text/603393.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+490,603396.SH,金辰股份,jinchensolar.com,http://www.jinchensolar.com/,false,3,data/text/603396.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+491,603489.SH,八方股份,bafang-e.com.cn,https://www.bafang-e.com.cn/,true,1,data/text/603489.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+492,603507.SH,振江股份,zjavim.com,http://www.zjavim.com/,false,2,data/text/603507.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+493,603530.SH,神马电力,shemar.com.cn,https://shemar.com.cn/,true,2,data/text/ci_collection/603530.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+494,603556.SH,海兴电力,hxgroup.com,https://hxgroup.com/,true,2,data/text/ci_collection/603556.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+495,603577.SH,汇金通,hjttower.com,http://www.hjttower.com,false,1,data/text/603577.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+496,603606.SH,东方电缆,orientcable.com,http://www.orientcable.com/,false,1,data/text/603606.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+497,603618.SH,杭电股份,hzcables.com,http://www.hzcables.com,false,1,data/text/603618.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+498,603619.SH,中曼石油,zpec.com,https://zpec.com/,true,2,data/text/ci_collection/603619.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+499,603628.SH,清源股份,stcn.com,https://www.stcn.com/,true,1,data/text/603628.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+500,603659.SH,璞泰来,evtank.cn,http://www.evtank.cn/NewsDetail.aspx?ID=665,false,5,data/text/603659.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+501,603689.SH,皖天然气,ahtrq.com,https://www.ahtrq.com,true,1,data/text/603689.SH/2025/annual_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+502,603693.SH,江苏新能,jsne.com.cn,http://www.jsne.com.cn/,false,1,data/text/603693.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+503,603706.SH,东方环宇,stcn.com,http://www.stcn.com/,false,1,data/text/603706.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+504,603727.SH,博迈科,bomesc.com,https://bomesc.com/,true,2,data/text/ci_collection/603727.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+505,603728.SH,鸣志电器,moons.com.cn,https://moons.com.cn/,true,2,data/text/ci_collection/603728.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+506,603798.SH,康普顿,copton.com.cn,https://copton.com.cn/,true,2,data/text/ci_collection/603798.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+507,603806.SH,福斯特,firstpvm.com,https://firstpvm.com/,true,2,data/text/ci_collection/603806.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+508,603819.SH,神力股份,czshenli.com,https://czshenli.com/,true,2,data/text/ci_collection/603819.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+509,603829.SH,洛凯股份,lk-jd.com,http://www.lk-jd.com,false,1,data/text/603829.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+510,603861.SH,白云电器,bydq.com,http://www.bydq.com,false,1,data/text/603861.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+511,603897.SH,长城科技,grandwall.com.cn,https://grandwall.com.cn/,true,2,data/text/ci_collection/603897.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+512,603906.SH,龙蟠科技,lopal.cn,https://www.lopal.cn,true,1,data/text/603906.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+513,603985.SH,恒润股份,hrflanges.com,https://hrflanges.com/,true,4,data/text/ci_collection/603985.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+514,603988.SH,中电电机,sec-motor.com,http://www.sec-motor.com,false,1,data/text/603988.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+515,605011.SH,杭州热电,hzrdjt.com,https://www.hzrdjt.com,true,3,data/text/605011.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+516,605028.SH,世茂能源,shimaoenergy.com,http://www.shimaoenergy.com,false,1,data/text/605028.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+517,605066.SH,天正电气,tengen.com,https://tengen.com/,true,2,data/text/ci_collection/605066.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+518,605090.SH,九丰能源,jovo.com.cn,https://jovo.com.cn/,true,2,data/text/ci_collection/605090.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+519,605117.SH,德业股份,deye.com.cn,https://www.deye.com.cn/,true,2,data/text/605117.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+520,605162.SH,新中港,zjxzgrd.com,http://www.zjxzgrd.com,false,1,data/text/605162.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+521,605169.SH,洪通燃气,xjhtrq.com,http://www.xjhtrq.com,false,1,data/text/605169.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+522,605196.SH,华通线缆,ht-hvaton.cn,https://www.ht-hvaton.cn/,true,1,data/text/605196.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+523,605222.SH,起帆电缆,qifancable.com,http://www.qifancable.com,false,1,data/text/605222.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+524,605368.SH,蓝天燃气,hnltrq.com.cn,http://www.hnltrq.com.cn/,false,2,data/text/605368.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+525,605378.SH,野马电池,mustangbattery.com,http://www.mustangbattery.com,false,1,data/text/605378.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+526,605580.SH,恒盛能源,hs-energy.com.cn,https://www.hs-energy.com.cn/,true,1,email_domain_and_live_site,,0,verify,郭海飞,2026-08-06T10:00:00+08:00,esp评级，确认发行人官网域名
+527,688005.SH,容百科技,ronbaymat.com,https://ronbaymat.com/,true,2,data/text/ci_collection/688005.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+528,688006.SH,杭可科技,chr-group.net,http://www.chr-group.net,false,4,data/text/688006.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+529,688032.SH,禾迈股份,stcn.com,https://www.stcn.com/,true,1,data/text/688032.SH/2025/annual_report.txt,false,3,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+530,688063.SH,派能科技,pylontech.com.cn,https://www.pylontech.com.cn,true,1,data/text/688063.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+531,688116.SH,天奈科技,cnanotechnology.com,https://www.cnanotechnology.com/,true,1,data/text/688116.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+532,688147.SH,微导纳米,leadmicro.com,https://www.leadmicro.com/,true,1,data/text/688147.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+533,688148.SH,芳源股份,fangyuan-group.com,https://fangyuan-group.com/,true,2,data/text/ci_collection/688148.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+534,688155.SH,先惠技术,sk1.net.cn,http://sk1.net.cn,false,1,data/text/688155.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+535,688191.SH,智洋创新,zhiyang.com.cn,http://www.zhiyang.com.cn/,false,1,data/text/688191.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+536,688223.SH,晶科能源,jinkosolar.com,https://www.jinkosolar.com/site/investment0,true,1,data/text/688223.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+537,688226.SH,威腾电气,wetown.com.cn,http://www.wetown.com.cn,false,2,data/text/688226.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+538,688248.SH,南网科技,csg.cn,https://csg.cn/,true,3,data/text/688248.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+539,688275.SH,万润新能,hbwanrun.com,http://www.hbwanrun.com,false,1,data/text/688275.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+540,688303.SH,大全能源,xjdqsolar.com,http://www.xjdqsolar.com/investor,false,1,data/text/688303.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+541,688330.SH,宏力达,holystar.com.cn,http://www.holystar.com.cn/,false,1,data/text/688330.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+542,688339.SH,亿华通,stcn.com,https://www.stcn.com/,true,1,data/text/688339.SH/2025/annual_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+543,688345.SH,博力威,greenway-battery.cn,http://www.greenway-battery.cn,false,2,data/text/688345.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+544,688348.SH,昱能科技,china.apsystems.com,http://china.apsystems.com/,false,1,data/text/688348.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+545,688349.SH,三一重能,sanyre.com.cn,https://www.sanyre.com.cn,true,2,data/text/688349.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+546,688353.SH,华盛锂电,sinohsc.com,http://www.sinohsc.com,false,2,data/text/688353.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+547,688388.SH,嘉元科技,gdjygf.com,https://www.gdjygf.com/,true,1,data/text/688388.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+548,688390.SH,固德威,sustainability.goodwe.com,https://sustainability.goodwe.com/,true,2,data/text/688390.SH/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+549,688392.SH,骄成超声,sbt-sh.com,https://sbt-sh.com/,true,2,data/text/ci_collection/688392.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+550,688408.SH,中信博,arctechsolar.cn,http://www.arctechsolar.cn/,false,1,data/text/688408.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+551,688429.SH,时创能源,zqrb.cn,http://www.zqrb.cn/,false,1,data/text/688429.SH/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+552,688472.SH,阿特斯,cn.csisolar.com,https://cn.csisolar.com/,true,1,data/text/688472.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+553,688499.SH,利元亨,lyric-robot.com,https://lyric-robot.com/,true,2,data/text/ci_collection/688499.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+554,688503.SH,聚和材料,fusion-materials.com,https://fusion-materials.com/,true,2,data/text/ci_collection/688503.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+555,688516.SH,奥特维,wxautowell.com,http://www.wxautowell.com/,false,2,data/text/688516.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+556,688517.SH,金冠电气,nyjinguan.com,http://www.nyjinguan.com/Home/menu,false,2,data/text/688517.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+557,688551.SH,科威尔,kewell.com.cn,https://kewell.com.cn/,true,4,data/text/ci_collection/688551.SH/2025/esg_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+558,688556.SH,高测股份,sse.com,https://sse.com/,true,2,data/text/688556.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+559,688560.SH,明冠新材,mg-crown.com,http://www.mg-crown.com/,false,2,data/text/688560.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+560,688567.SH,孚能科技,farasis.com,https://www.farasis.com/index/investor/index.html,true,1,data/text/688567.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+561,688573.SH,信宇人,xinyuren.com,https://www.xinyuren.com/,true,2,data/text/688573.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+562,688597.SH,煜邦电力,yupont.com,https://yupont.com/,true,2,data/text/ci_collection/688597.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+563,688598.SH,金博股份,kbcarbon.com,http://www.kbcarbon.com,false,1,data/text/688598.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+564,688599.SH,天合光能,audit.trinasolar.com,https://audit.trinasolar.com/#/,true,2,data/text/688599.SH/2025/esg_report.txt,false,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+565,688611.SH,杭州柯林,kelinpower.com,http://www.kelinpower.com,false,1,data/text/688611.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+566,688616.SH,西力科技,cnxili.com,http://www.cnxili.com/,false,1,data/text/688616.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+567,688638.SH,誉辰智能,utimes.cn,http://www.utimes.cn/,false,2,data/text/688638.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+568,688660.SH,电气风电,sewpg.com,https://www.sewpg.com,true,2,data/text/688660.SH/2025/annual_report.txt,false,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+569,688663.SH,新风光,fengguang.com,http://www.fengguang.com,false,2,data/text/688663.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+570,688676.SH,金盘科技,jst.com.cn,https://www.jst.com.cn/,true,2,data/text/688676.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+571,688680.SH,海优新材,hiuv.com,https://hiuv.com/,true,2,data/text/ci_collection/688680.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+572,688681.SH,科汇股份,kehui.cn,https://kehui.cn/,true,2,data/text/ci_collection/688681.SH/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+573,688707.SH,振华新材,zh-echem.com,https://www.zh-echem.com,true,1,data/text/688707.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+574,688717.SH,艾罗能源,zqrb.cn,http://www.zqrb.cn,false,1,data/text/688717.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+575,688719.SH,爱科赛博,cnaction.com,http://www.cnaction.com/,false,2,data/text/688719.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+576,688733.SH,壹石通,estonegroup.com,http://www.estonegroup.com/,false,2,data/text/688733.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+577,688772.SH,珠海冠宇,cosmx.com,http://www.cosmx.com,false,2,data/text/688772.SH/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+578,688778.SH,厦钨新能,xtc-xny.com,http://www.xtc-xny.com/,false,1,data/text/688778.SH/2025/annual_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+579,688779.SH,五矿新能,stcn.com,http://www.stcn.com,false,1,data/text/688779.SH/2025/annual_report.txt,true,2,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+580,688819.SH,天能股份,cn-tn.com,http://www.cn-tn.com/,false,2,data/text/688819.SH/2025/esg_report.txt,false,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+581,920010.BJ,凯添燃气,stcn.com,http://www.stcn.com/,false,1,data/text/920010.BJ/2025/annual_report.txt,true,1,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+582,920046.BJ,亿能电力,yinow.cn,https://yinow.cn/,true,2,data/text/ci_collection/920046.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+583,920062.BJ,科润智控,krgroup.cn,https://krgroup.cn/,true,2,data/text/ci_collection/920062.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+584,920110.BJ,雷特科技,ltech.cn,https://www.ltech.cn/,true,1,data/text/920110.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+585,920152.BJ,昆工科技,hendera.com,https://hendera.com/,true,2,data/text/ci_collection/920152.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+586,920167.BJ,同享科技,tonyshare.com,https://tonyshare.com/,true,2,data/text/ci_collection/920167.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+587,920185.BJ,贝特瑞,btrchina.com,https://btrchina.com/,true,2,data/text/ci_collection/920185.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+588,920237.BJ,力佳科技,szlijia.com,https://szlijia.com/,true,2,data/text/ci_collection/920237.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+589,920239.BJ,长虹能源,changhongnewenergy.com,http://www.changhongnewenergy.com,false,1,data/text/920239.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+590,920252.BJ,天宏锂电,cnthpower.com,https://cnthpower.com/,true,2,data/text/ci_collection/920252.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+591,920299.BJ,灿能电力,shining-electric.com,http://www.shining-electric.com,false,1,data/text/920299.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+592,920368.BJ,连城数控,stcn.com,https://stcn.com/,true,2,data/text/920368.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+593,920375.BJ,派诺科技,pmac.com.cn,https://pmac.com.cn/,true,2,data/text/ci_collection/920375.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+594,920414.BJ,欧普泰,optjt.cn,http://www.optjt.cn/,false,1,data/text/920414.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+595,920496.BJ,许昌智能,xjpmf.com,https://xjpmf.com/,true,2,data/text/ci_collection/920496.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+596,920522.BJ,纳科诺尔,naknor.com,https://naknor.com/,true,2,data/text/ci_collection/920522.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+597,920523.BJ,德瑞锂电,huiderui.com,https://www.huiderui.com/,true,1,data/text/920523.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:22:24+08:00,esp评级，确认发行人官网域名
+598,920556.BJ,雅达股份,yada.com.cn,https://yada.com.cn/,true,2,data/text/ci_collection/920556.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+599,920627.BJ,力王股份,liwangbattery.com,http://www.liwangbattery.com,false,1,data/text/920627.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+600,920639.BJ,晨光电缆,cgcable.com,https://cgcable.com/,true,2,data/text/ci_collection/920639.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+601,920682.BJ,球冠电缆,qrunning.com,https://qrunning.com/,true,2,data/text/ci_collection/920682.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+602,920770.BJ,艾能聚,stcn.com,http://stcn.com/sanbanxp/,false,1,data/text/920770.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+603,920779.BJ,武汉蓝电,whland.com,http://www.whland.com,false,1,data/text/920779.BJ/2025/annual_report.txt,true,0,verify,郭海飞,2026-08-06T09:45:06+08:00,esp评级，确认发行人官网域名
+604,920809.BJ,安达科技,adkjny.com,https://adkjny.com/,true,2,data/text/ci_collection/920809.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+605,920914.BJ,远航精密,sinonic.com,https://sinonic.com/,true,2,data/text/ci_collection/920914.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名
+606,920985.BJ,海泰新能,haitai-solar.cn,https://haitai-solar.cn/,true,2,data/text/ci_collection/920985.BJ/2025/annual_report.txt,,0,verify,郭海飞,2026-08-06T09:54:24+08:00,esp评级，确认发行人官网域名

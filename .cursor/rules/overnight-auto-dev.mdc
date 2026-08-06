@@ -1,0 +1,27 @@
+---
+description: Overnight auto-dev model quota fallback and hard safety constraints
+alwaysApply: true
+---
+
+# Overnight auto-dev constraints
+
+When advancing AegisESP from MEMORY.md without the user present:
+
+## Hard bans
+
+- Do not forge domain verification, SASAC benchmarks, quantitative/qualitative review, or release signatures.
+- Do not git commit or push unless the user explicitly asks.
+- Do not promote research rankings to formal publishable status.
+
+## Model quota fallback (user authorized)
+
+If the current model hits quota/rate-limit errors, continue with the next available model rather than stopping overnight work:
+
+1. Keep the current chat model if it still works.
+2. Prefer Cursor Auto with Optimize for **Cost** (not Balance).
+3. Prefer plain Composer 2.5 with Fast **off**.
+4. For Task/subagents, if a requested model is unavailable, use an allowed available slug such as `composer-2.5-fast` or `cursor-grok-4.5-high-fast`.
+
+Do not rely on the error-banner "Switch to auto" button if it sets an invalid lowercase `auto` model id; pick Auto/Composer from the model picker instead.
+
+If no model remains usable, refresh live collection status only, record the blocker in MEMORY.md, and wait for the next loop tick.

@@ -1,0 +1,69 @@
+﻿company_code,company_name,report_year,document_type,official_domain,source_url,page_url,status,error
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/investor/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/investor/reports/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/responsibility/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/esg/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/about/social/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/sustainability/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/ir/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/tzzgx/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002709.SZ,天赐材料,2025,esg_report,tinci.com,,https://tinci.com/shzr/,fetch_failed,"<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'tinci.com'. (_ssl.c:1129)>"
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/investor/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/investor/reports/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/responsibility/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/esg/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/about/social/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/sustainability/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/ir/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/tzzgx/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+002927.SZ,泰永长征,2025,esg_report,tyt.net,,https://tyt.net/shzr/,fetch_failed,<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/investor/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/investor/reports/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/responsibility/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/esg/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/about/social/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/sustainability/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/ir/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/tzzgx/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300073.SZ,当升科技,2025,esg_report,easpring.com,,https://easpring.com/shzr/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/investor/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/investor/reports/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/responsibility/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/esg/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/about/social/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/sustainability/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/ir/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/tzzgx/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300129.SZ,泰胜风能,2025,esg_report,shtsp.com,,https://shtsp.com/shzr/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/investor/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/investor/reports/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/responsibility/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/esg/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/about/social/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/sustainability/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/ir/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/tzzgx/,fetch_failed,HTTP Error 403: Forbidden
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com.cn,,https://shuangyitec.com.cn/shzr/,fetch_failed,HTTP Error 403: Forbidden
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/investor/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/investor/reports/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/responsibility/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/esg/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/about/social/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/sustainability/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/ir/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/tzzgx/,fetch_failed,HTTP Error 404: Not Found
+300690.SZ,双一科技,2025,esg_report,shuangyitec.com,,https://shuangyitec.com/shzr/,fetch_failed,HTTP Error 404: Not Found
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/investor/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/investor/reports/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/responsibility/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/esg/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/about/social/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/sustainability/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/ir/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/tzzgx/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>
+300953.SZ,震裕科技,2025,esg_report,zhenyumould.com,,https://zhenyumould.com/shzr/,fetch_failed,<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>

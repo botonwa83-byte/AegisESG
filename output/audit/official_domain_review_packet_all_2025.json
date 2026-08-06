@@ -1,0 +1,17 @@
+{
+  "packet_version": "official-domain-review-packet-v1",
+  "candidate_rows": 480,
+  "candidate_companies": 370,
+  "plausible_candidate_companies": 370,
+  "row_count": 370,
+  "missing_esg_priority_count": 237,
+  "https_ready_count": 133,
+  "signed_count": 0,
+  "download_authorized": false,
+  "scoring_authorized": false,
+  "status": "blocked_external_review",
+  "csv_path": "data/review/official_domain_review_batch_all_2025.csv",
+  "html_path": "output/audit/official_domain_review_packet_all_2025.html",
+  "candidates_sha256": "d1101ed1e5616dd13c03accdbb5db75d6efc61744958c4c5450a0522c7d24542",
+  "notice": "本工作包只辅助人工核验域名归属；已过滤巨潮/路演/截断域名；不授权官网下载或评分。"
+}

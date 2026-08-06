@@ -1,0 +1,48 @@
+{
+  "reviewer": "郭海飞",
+  "stamped_at": "2026-08-06T09:33:27+08:00",
+  "decisions_applied": [
+    {
+      "company_code": "00704.HK",
+      "document_type": "annual_report",
+      "source_url": "https://huscoke.com/attachment/document/1753865585TubYZ.pdf",
+      "decision": "accept"
+    },
+    {
+      "company_code": "300933.SZ",
+      "document_type": "annual_report",
+      "source_url": "https://zcdl.com/bocupload/2026/05/22/17794385674017bjymb.pdf",
+      "decision": "accept"
+    },
+    {
+      "company_code": "300933.SZ",
+      "document_type": "annual_report",
+      "source_url": "https://zcdl.com/bocupload/2025/10/09/17599897087712z1k4y.pdf",
+      "decision": "accept"
+    }
+  ],
+  "apply_report": {
+    "policy_version": "official-report-discovery-application-v1",
+    "row_count": 197,
+    "url_rows": 3,
+    "incomplete_rows": 0,
+    "unsigned_rows": 0,
+    "signed_rows": 3,
+    "invalid_rows": 0,
+    "accepted_rows": 3,
+    "rejected_rows": 0,
+    "deferred_rows": 0,
+    "incomplete_examples": [],
+    "invalid_examples": [],
+    "allow_partial": true,
+    "status": "ready_to_register_report_urls",
+    "queue_updated": true,
+    "download_authorized": false,
+    "scoring_authorized": false,
+    "decision": "apply_accepted_urls_to_source_queue",
+    "queue_rows_updated": 2,
+    "output_queue_path": "/Users/fengwang/Documents/trae_projects/aegisESP/output/audit/official_website_source_queue_v1_2025.csv",
+    "notice": "已写入候选报告URL；需 prepare_official_download_manifest 后才进入下载器，评分仍未授权。"
+  },
+  "download_manifest_prepared": true
+}

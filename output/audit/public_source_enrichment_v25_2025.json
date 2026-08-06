@@ -1,0 +1,27 @@
+{
+  "policy_version": "public-source-enrichment-v25",
+  "report_year": 2025,
+  "no_choice_qinglv": true,
+  "observations": "output/research/2025/full_auto_observations_v25_enriched.csv",
+  "ranking": "output/research/2025/full_auto_v25_enriched/",
+  "key_disclosed": {
+    "GHG": 65,
+    "ENERGY": 44,
+    "NOX": 29,
+    "SO2": 14,
+    "WATER": 51,
+    "SOLID": 30,
+    "SAFETY": 42
+  },
+  "key_disclosed_v23": {
+    "GHG": 56,
+    "ENERGY": 42,
+    "NOX": 29,
+    "SO2": 14,
+    "WATER": 29,
+    "SOLID": 30,
+    "SAFETY": 41
+  },
+  "client_yoy_top200_overlap": 0.54,
+  "notice": "无青绿/Choice；继续2025报告期。披露仍远低于PDF的2024口径，后续需继续表版式规则与定性抬升。"
+}

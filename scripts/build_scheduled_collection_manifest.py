@@ -35,6 +35,12 @@ def main() -> None:
                 year = (raw.get("report_year") or "").strip()
                 if kind not in {"annual_report", "esg_report"} or not code or not year or not url:
                     continue
+                try:
+                    year_n = int(year)
+                except ValueError:
+                    continue
+                if year_n < 1990 or year_n > 2100:
+                    continue
                 key = (code, year, kind, url)
                 if key in seen:
                     continue
@@ -49,7 +55,7 @@ def main() -> None:
     summary = {"policy_version": "scheduled-collection-manifest-v1", "source_counts": source_counts,
                "deduplicated_rows": len(rows), "company_count": len({row["company_code"] for row in rows}),
                "download_authorized": True, "scoring_authorized": False, "official_website_rows": 0,
-               "note": "交易所公开清单合并去重；官网来源在域名验证后另行并入"}
+               "note": "交易所公开清单合并去重；已排除非法报告年份；官网来源在域名验证后另行并入"}
     SUMMARY.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False))
 

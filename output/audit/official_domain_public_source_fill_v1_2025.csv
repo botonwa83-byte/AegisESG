@@ -1,0 +1,12 @@
+﻿company_code,company_name,official_domain,candidate_url,source_channel,evidence,decision,confidence
+00931.HK,CHINA HK POWER,chkpower.com,https://www.chkpower.com/,web_search_company_site,官网自称港交所00931中国港能；HTTPS可访问,verify,high
+00975.HK,MONGOL MINING,mmc.mn,https://www.mmc.mn/,web_search_company_site,港交所年报披露公司网址www.mmc.mn；官网可访问,verify,high
+600396.SH,华电辽能,chd.com.cn,https://www.chd.com.cn/,sina_cfi_company_website_field,新浪/中财等登记公司网址www.chd.com.cn（华电集团官网，子公司共用）,verify,medium_parent_group_site
+605580.SH,恒盛能源,hs-energy.com.cn,https://www.hs-energy.com.cn/,email_domain_and_live_site,年报邮箱hsny@hs-energy.com.cn；站点版权署恒盛能源股份有限公司,verify,medium
+600397.SH,江钨装备,,,rejected_stale_or_group_mismatch,搜狐等旧录www.jxcgc.com实为江西煤业集团站；同花顺现列公司网址--；未采用,defer,low
+000554.SZ,泰山石油,,,eastmoney_sina_annual_empty,年报/东方财富/搜狐均披露公司网址无或--,defer,none
+001258.SZ,立新能源,,,eastmoney_annual_empty,年报公司网址无；公开F10无官网,defer,none
+002128.SZ,电投能源,,,annual_not_applicable,年报公司网址不适用；同花顺/搜狐为--；旧zdhm.com.cn不可用,defer,none
+600617.SH,国新能源,,,annual_empty,年报/前瞻眼公司网址空；第三方600617.net不可用,defer,none
+600725.SH,云维股份,,,annual_empty_parent_only,2025年报公司网址无；cnyeig/cnyig为云南能源/云投集团站，非发行人独立官网,defer,none
+600758.SH,辽宁能源,,,annual_empty,2025年报公司网址无；第三方jdjs.net已变为无关站点,defer,none

@@ -1,0 +1,17 @@
+{
+  "policy_version": "verified-domain-download-campaign-v1",
+  "started_at": "2026-08-06T10:17:20+08:00",
+  "finished_at": "2026-08-06T10:17:20+08:00",
+  "reviewer": "郭海飞",
+  "selected_companies": 40,
+  "missing_esg_priority": 40,
+  "pdf_hits": 0,
+  "accepted_rows": 0,
+  "apply_status": "skipped_no_accepts",
+  "queue_rows_updated": null,
+  "downloaded_records": 0,
+  "failure_count": 0,
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "output_root": "data/raw/issuer_official_website_collection"
+}

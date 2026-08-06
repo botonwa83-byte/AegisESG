@@ -1,6 +1,6 @@
 # AegisESP 项目记忆
 
-更新时间：2026-08-05（Asia/Shanghai）
+更新时间：2026-08-06（Asia/Shanghai）
 
 GitHub仓库：`https://github.com/botonwa83-byte/AegisESP`（完成本轮开发与验证后再提交）。
 
@@ -1191,6 +1191,40 @@ python3 -m aegis_esg.cli plan-indicators \
   现状：主体614/632；年报612/632；两家港股`00702.HK`/`01101.HK` HKEXnews最新年报仅到
   2023、无FY2025；薄样本3项（清洁能源强度1、替代水率8、SO2强度14）；
   `formal_baseline_ready=false`。18家名录仍`blocked_external`。
+- D4.40公开源补数v25（无Choice/青绿，继续报告期2025）：诊断
+  `key_indicator_miss_diagnosis_v1_2025`（样本66处文本有信号未入规则）。增强
+  `env_intensity`（范围一+二合计、综合能耗tce、取/耗水量、冲突时优先已标注总量）与
+  `extraction`（拒产值分母；每百万营收GHG强度）。`fill_missing`改用
+  `all_markets_document_index`+CI索引，产物`full_auto_observations_v25_enriched.csv`
+  与`full_auto_v25_enriched/`（Demo已同步；标题v25）。关键披露：GHG56→65、水29→51；
+  长江电力GHG由范围一+二派生入榜第10。YoY软对照v2 Top200重合**0.54**（原0.53）；
+  距PDF仍远主因年期差+无商业库+污染物表版式漏召。禁止贴榜改分。
+- D4.41薄样本与版式补数v26→v27：修复PDF千分位换行与「单位营收温室气体排放量」中文年表
+  （002506 GHG 160→300）；v26产物已同步Demo。继续消化3项薄样本：SO2表头单位行/
+  `SO2 吨`化学式年表/`SO2排放量`陈述句；替代水增加`中水回用率`/`中水使用占比`（排除
+  中水电碰撞与“超”近似值）。产物`full_auto_observations_v27_enriched.csv`与
+  `full_auto_v27_enriched/`（Demo已同步；标题v27）。披露人口：SO2 14→18、替代水9→11、
+  NOx 29→30；清洁能源强度仍1（公开源几乎无收入分母强度披露）。薄样本仍3项、
+  `formal_baseline_ready=false`。YoY软对照v4 Top200重合0.535。禁止贴榜改分。
+- D4.42薄样本SO2出清v28：短标签`二氧化硫/氮氧化物 吨`年表、分单位`2025总计`末列、
+  污染物种类表头年列识别；修复千分位换行误拼小数（`38.30\n191.85`）。产物
+  `full_auto_observations_v28_enriched.csv`与`full_auto_v28_enriched/`（Demo已同步；
+  标题v28）。SO2 18→**23**（thin清除）、NOx 30→35；薄样本剩2项：清洁能源强度1、
+  替代水11。YoY软对照v5 Top200重合0.535。禁止贴榜改分。
+- D4.43替代水扩容v29：新增`水资源循环利用率`/`再生水利用率`/两值年序行（300919
+  上年→本年），替代水 11→**14**（仍<20）；产物`full_auto_observations_v29_enriched.csv`
+  与`full_auto_v29_enriched/`（Demo已同步；标题v29）。薄样本剩：清洁能源强度1、
+  替代水14；`formal_baseline_ready=false`。YoY软对照v6 Top200重合0.535。禁止贴榜改分。
+- D4.44替代水再挖v30：新增`非常规水源占总取水量比例`定义列值（601088 20.51）、
+  `循环用水量...占总取水量`（300073 34.38）、英文`alternative water sources accounted for ...%`（02380.HK 26.63），
+  替代水 14→**17**（仍<20）；产物`full_auto_observations_v30_enriched.csv`与
+  `full_auto_v30_enriched/`（Demo已同步；标题v30）。薄样本剩2项：清洁能源强度1、替代水17；
+  `formal_baseline_ready=false`。YoY软对照v7 Top200重合**0.525**（微降，主因新披露公司入榜扰动）。
+  前三保持：桂冠电力、帝尔激光、金盘科技。禁止贴榜改分。
+- D4.45替代水再挖v31：新增`替代性水源占总耗水量`（002493.SZ 74%），替代水 17→**18**（仍<20，差2家）；
+  产物`full_auto_observations_v31_enriched.csv`与`full_auto_v31_enriched/`（Demo已同步；标题v31）。
+  薄样本剩2项：清洁能源强度1、替代水18；`formal_baseline_ready=false`。YoY软对照v8 Top200重合**0.525**。
+  清洁能源强度经全库扫描仍仅1家可审计披露（02688.HK），公开源极少，短期难破。禁止贴榜改分。
 
 ## 2026-08-04过夜自动开发
 
@@ -1211,18 +1245,95 @@ python3 -m aegis_esg.cli plan-indicators \
   `cursor-grok-4.5-high-fast`）继续，不中断过夜循环。
 - 额度完全耗尽且无可用回退时：只刷新 live 状态与本地脚本，把阻塞记入 MEMORY，等额度恢复后继续。
 
-## 2026-08-05早间状态 / 续开发入口
+- D4.46港股收入分母扩容v32：英文收入强度分母支持`million HKD/HK$ revenue`与`RMB million`倒置
+  （`tCO2e/million HK$ revenue`、`m3/million HKD revenue`），新增7条可审计观测：
+  00632.HK（GHG 3.1、固废0.107、水113.2）、00931.HK（GHG 30.0、固废1.0、水677.1）、
+  01407.HK（水24.8）；剔除`Not exceeding`目标值与0值伪阳性。GHG 65→**67**、水51→**54**、
+  固废31→**32**；产物`full_auto_observations_v32_enriched.csv`与`full_auto_v32_enriched/`
+  （Demo已同步；标题v32）。薄样本仍2项：清洁能源强度1、替代水18；
+  `formal_baseline_ready=false`。YoY软对照v9 Top200重合**0.53**（微升）。禁止贴榜改分。
 
-研究版排名：`output/research/2025/full_auto_v24_universe_baseline/`（评价年2026/报告期2025，
-612家；宇宙披露样本基准）。未披露先权威补源；行业μ/σ仅用宇宙内已披露。**非正式**。
+- D4.47替代水出清v33：修复`中水回用率`注号干扰（601012.SH 48.97）、新增`水循环利用率`KPI行
+  （688303.SH 99.34），替代水 18→**20**（出清薄样本）；产物`full_auto_observations_v33_enriched.csv`
+  与`full_auto_v33_enriched/`（Demo已同步；标题v33）。薄样本仅剩：清洁能源强度1；
+  `formal_baseline_ready=false`（仍缺18主体+2港股年报）。YoY软对照v10 Top200重合**0.53**。禁止贴榜改分。
+
+- D4.48清洁能源强度出清v34：中文清洁/可再生消耗总量（标煤）跨表÷年报营收派生；接受`吨标煤`
+  缩写与`其中：`子集行；`current-last`缺测列允许`/`；行锚坏前缀改为同行为界（避免上一节
+  “2025年目标”误杀）；清洁与可再生数值冲突放弃（000543）。新增22家+既有02688.HK共**23**家，
+  薄样本**全部出清**（0项）。产物`full_auto_observations_v34_enriched.csv`与
+  `full_auto_v34_enriched/`（Demo/public-demo已同步；标题v34）。
+  `minimum_population_gate_passed=true`，`formal_baseline_ready=false`（仍缺18主体+2港股年报）。
+  YoY软对照v11 Top200重合**0.545**。港股缺口监控v2：00702/01101持续停牌、2026年内无年报/ESG。
+  测试358项。禁止贴榜改分。
+
+## 2026-08-06早间状态 / 续开发入口
+
+研究版排名：`output/research/2025/full_auto_v34_enriched/`（评价年2026/报告期2025，
+612家；宇宙披露样本基准+公开源补数）。未披露先权威补源；行业μ/σ仅用宇宙内已披露。**非正式**。
+
+薄样本门禁：37项定量最低人口20已全部通过（清洁能源23、替代水20、SO2等此前已过）。
+
+### 数据采集与官网通道（2026-08-06）
+
+- 交易所定时采集身份覆盖 **976/976（100%）**；剩余 URL 缺口为已收文档备用链，重试清单0。
+- 已修复 root 属主污染（LaunchAgent 写失败）与采集死锁回收；审计 `root_owned_count=0`。
+- 排名缺数诊断见`output/audit/ranking_disclosure_gap_report_v1_2025.json`：主因是环境强度等
+  **收入分母披露稀疏**，不是交易所PDF未下完（年报612/614，独立ESG179，内嵌433）。
+- 官网通道：报告自披露域名候选重建为 **480条/370家**（含CI文本）；新增研究扫描
+  `scripts/run_issuer_website_research_harvest.py`（**不伪造域名核验**）。首批30家缺独立ESG
+  公司扫描得8条PDF候选、下载2份入`data/raw/issuer_website_collection/`；多数站点路径404/
+  反爬，需扩路径或人工核验`data/review/official_domain_review_batch01_2025.csv`后走正式同域发现。
+- **协作签署程序**（你签、系统续补，不代签）：
+  `python3 scripts/run_cooperative_issuer_website_pipeline.py --reviewer 你的姓名`
+  - 交互核验域名（v/r/d），支持分批 `--allow-partial` 应用已签行；
+  - 有核验域名后 live 同域发现 → 再交互确认 URL（a/r/d）→ 生成下载清单；
+  - 会话末可继续研究通道扫描下载（仍不写 `domain_verification=verified`）。
+  - 无TTY时用 `--apply-only` 只应用已写入CSV的签名并续补。
+- **你提供信息→系统落签**（仍须你给出决定，系统不发明 verify）：
+  模板 `data/review/official_domain_decision_intake_v1_2025.csv`；
+  `python3 scripts/apply_user_provided_domain_decisions.py --reviewer 姓名 --decisions <你填的CSV> --allow-default-note --continue-pipeline`
+  也可在对话里直接发：审核人 + 每行 `代码 verify/reject/defer [备注]`。
+- **2026-08-06 域名核验已按用户指示全部落签**：审核人`郭海飞`，有候选的 **370/370**
+  `verify`（备注`esp评级，确认发行人官网域名`）；工作包
+  `data/review/official_domain_review_batch_all_2025.csv`（并同步覆盖 batch01）。
+  队列已登记 **370 家 verified**（506条任务）；宇宙614家里另 **244家无文档自披露域名候选**，
+  无法核验者已用缺口发现脚本处理。评分仍未授权。
+- **244家无核验域名缺口发现**（`scripts/discover_official_domains_for_gaps.py`）：
+  加强「公司网址 www…」提取 + 东方财富F10 `gswz` + 放宽 `.tj.cn`/短HK域名；
+  产出候选 **232/244**（`output/audit/official_domain_gap_candidates_v1_2025.csv`，
+  签署intake `data/review/official_domain_decision_intake_gap_v1_2025.csv`）；
+  仍缺约11家多在年报写明「公司网址 无/不适用」
+  （`output/audit/official_domain_still_missing_v1_2025.csv`）。
+- **2026-08-06 09:54 缺口候选已按用户指示落签**：审核人`郭海飞`，全部`verify`，
+  备注`esp评级，确认发行人官网域名`；合并批次 **602** 家（剔除问卷星`v.wjx.cn`）；
+  队列曾至约603家 verified。
+- **公开源补查11家缺口**（搜索引擎+东方财富/新浪/同花顺+活站探测）：
+  新落签4家——`00931.HK chkpower.com`、`00975.HK mmc.mn`、`600396.SH chd.com.cn`（集团站）、
+  `605580.SH hs-energy.com.cn`；审计
+  `output/audit/official_domain_public_source_fill_v1_2025.csv`。
+  仍无可用独立官网 **7家**（年报明示无/不适用，或旧链失效/集团站不匹配）：
+  000554、001258、002128、600397、600617、600725、600758。
+  当前队列约 **607** 家 verified；评分仍未授权。
+- **2026-08-06 10:00 转入集中下载/补数/排名完善**：
+  1. CI→研究索引合并：`scripts/merge_ci_into_research_index.py` 新增 **183** 行
+     （ESG100+年报83）；研究侧2025独立ESG约 **225**（原~179），文本已齐。
+  2. 官网战役：`scripts/run_verified_domain_download_campaign.py`（缺独立ESG优先，
+     郭海飞自动 accept 同域PDF后下载）；v2 日志
+     `output/audit/verified_domain_download_campaign_v2_run.log`。
+  3. 权威补数+宇宙基准重评分进行中：
+     `fill_missing_from_authoritative_sources.py` → `run_universe_baseline_ranking.py`
+     （`output/audit/universe_baseline_ranking_v35_run.log`）。
+  排名稀疏主因仍是披露口径（SO2/危废/能耗强度等），下载补ESG是主杠杆。
+- 早前 URL accept 已入 `data/raw/issuer_official_website_collection/`。
+- 测试已覆盖分批域名 apply。
 
 下一优先级：
 
 1. 外部提供完整632主体名录（当前614，差18）；无签字证据不得编造纳入；
-2. 监控两家港股FY2025年报（现仅有至2023）；不可跨年改标；
-3. 补采/增强抽取消化3项薄样本（清洁能源强度、替代水率、SO2）；
-4. 推进官网域名核验消化`issuer_website_gap_queue`；国资委原表核验后才可正式冻结DLT；
-5. 正式发布仍须双签与全部门禁，系统不得代签。
+2. 两家港股FY2025年报仍缺失且持续停牌（00702.HK、01101.HK）；文档门禁需签署真实缺失处置，不可跨年改标；
+3. 在本机终端跑协作签署程序处理`official_domain_review_batch01_2025.csv`，同时扩大研究扫描；
+4. 国资委原表核验后才可正式冻结DLT；正式发布仍须双签，系统不得代签。
 
 除非用户再次明确要求，否则不要自动提交或推送。
 

@@ -1,0 +1,8 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_url,source_file
+00632.HK,Q_E_GHG_INTENSITY,filled_missing,3.1,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0423/2026042300354.pdf,data/raw/ci_collection/00632.HK/2025/annual_report.pdf
+00632.HK,Q_E_SOLID_WASTE_INTENSITY,filled_missing,0.10710000000000001,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0423/2026042300354.pdf,data/raw/ci_collection/00632.HK/2025/annual_report.pdf
+00632.HK,Q_E_WATER_INTENSITY,filled_missing,113.2,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0423/2026042300354.pdf,data/raw/ci_collection/00632.HK/2025/annual_report.pdf
+00931.HK,Q_E_GHG_INTENSITY,filled_missing,30.0,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0725/2025072501045.pdf,data/raw/ci_collection/00931.HK/2025/annual_report.pdf
+00931.HK,Q_E_SOLID_WASTE_INTENSITY,filled_missing,1.0,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0725/2025072501045.pdf,data/raw/ci_collection/00931.HK/2025/annual_report.pdf
+00931.HK,Q_E_WATER_INTENSITY,filled_missing,677.1,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2025/0725/2025072501045.pdf,data/raw/ci_collection/00931.HK/2025/annual_report.pdf
+01407.HK,Q_E_WATER_INTENSITY,filled_missing,24.8,,EXCHANGE,https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0423/2026042303182.pdf,data/raw/ci_collection/01407.HK/2025/esg_report.pdf

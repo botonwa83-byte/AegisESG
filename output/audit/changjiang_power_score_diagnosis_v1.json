@@ -1,0 +1,81 @@
+{
+  "audit_version": "changjiang-power-score-diagnosis-v1",
+  "company_code": "600900.SH",
+  "company_name": "长江电力",
+  "our_rank": 10,
+  "our_total_score": 45.35,
+  "client_prior_rank": 1,
+  "client_prior_score": 71.41,
+  "our_evaluation_year": 2026,
+  "our_report_year": 2025,
+  "client_evaluation_year": 2025,
+  "client_report_year": 2024,
+  "documents": {
+    "annual_report": "collected",
+    "esg_report": "collected",
+    "august_incomplete_filing": false,
+    "note": "2025年报/ESG已于2026年春季披露并入库，不是8月尚未披露。"
+  },
+  "verdict": {
+    "download_error": false,
+    "core_algo_formula_error": false,
+    "primary_causes": [
+      "year_mismatch_vs_client_paper_rank",
+      "missing_quantitative_scored_zero_weight_41.67",
+      "auto_qualitative_false_zeros_weight_28.35",
+      "extraction_gaps_despite_report_keywords"
+    ]
+  },
+  "evidence": {
+    "disclosure_rate_pct": 81.25,
+    "confirmed_indicators": 65,
+    "missing_indicators": 15,
+    "ghg_intensity": {
+      "value_kg_per_10k_cny": 6.68,
+      "population_rank_lower_better": "3/56",
+      "source": "esg_report.pdf p56"
+    },
+    "energy_intensity": {
+      "value_kgce_per_10k_cny": 2.0,
+      "population_rank_lower_better": "3/42",
+      "source": "esg_report.pdf p67"
+    },
+    "missing_high_weight_quant": [
+      "Q_E_GHG_REDUCTION_RATE",
+      "Q_E_SOLID_WASTE_INTENSITY",
+      "Q_E_HAZ_WASTE_INTENSITY",
+      "Q_E_CLEAN_ENERGY_INTENSITY",
+      "Q_S_SAFETY_INVEST_RATE",
+      "Q_E_NOX_INTENSITY",
+      "Q_E_SO2_INTENSITY"
+    ],
+    "qualitative_auto_zero_examples": [
+      "X_G_INTEGRITY",
+      "X_G_ESG_MANAGEMENT",
+      "X_E_GREEN_FINANCE",
+      "X_E_GREEN_SUPPLY_CHAIN"
+    ],
+    "text_has_keywords_but_score_zero": [
+      "诚信",
+      "供应链",
+      "绿色金融",
+      "生物多样性",
+      "非化石能源使用比例94.13%"
+    ],
+    "counterfactual": {
+      "if_missing_quant_at_neutral_50": 62.02,
+      "if_qual_zeros_to_80": 49.89,
+      "if_both": 66.55,
+      "client_score": 71.41
+    }
+  },
+  "why_not_first_vs_600236": {
+    "leader": "600236.SH 桂冠电力 52.60",
+    "note": "桂冠电力披露了温室气体减排率等高分项；长江电力多项环境强度/投入缺失按0计，且多条定性被机器判0。"
+  },
+  "recommended_next": [
+    "对600900补抽清洁能源强度、安投占比、固废/危废；NOx/SO2若仅为‘替代减排’不得误当排放强度",
+    "定性auto-qualitative对‘无命中→0’过严，应改为missing或PDF低档20并重扫ESG全文",
+    "不作贴客户第1名的调分"
+  ]
+}

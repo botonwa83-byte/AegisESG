@@ -83,47 +83,68 @@ def find_disclosure_pdf(
     if not org_id:
         return None
     numeric = stock_code.split(".")[0]
+    market = stock_code.split(".")[-1].upper() if "." in stock_code else ""
+    # cninfo column is soft-scoped; szse/sse both often work, but prefer market match.
+    if market == "SH":
+        columns = ("sse", "szse")
+    elif market == "BJ":
+        columns = ("bjse", "szse", "sse")
+    else:
+        columns = ("szse", "sse")
     publish_year = int(year) + 1
-    se_date = f"{publish_year}-01-01~{publish_year}-07-31"
+    # Full publish calendar year: many ESG filings land after July.
+    se_date = f"{publish_year}-01-01~{publish_year}-12-31"
     stock = f"{numeric},{org_id}"
     seen: set[str] = set()
-    for keyword in keywords:
-        payload = _post(
-            CNINFO_QUERY,
-            {
-                "pageNum": "1",
-                "pageSize": "50",
-                "column": "szse",
-                "tabName": "fulltext",
-                "plate": "",
-                "stock": stock,
-                "searchkey": keyword,
-                "secid": "",
-                "category": "",
-                "trade": "",
-                "seDate": se_date,
-                "sortName": "",
-                "sortType": "",
-                "isHLtitle": "true",
-            },
-            fetcher=fetcher,
-        )
-        announcements = payload.get("announcements") or [] if isinstance(payload, dict) else []
-        for item in announcements:
-            title = re.sub(r"</?em>", "", str(item.get("announcementTitle") or ""))
-            adjunct = str(item.get("adjunctUrl") or "").lstrip("/")
-            if not adjunct:
+    for column_index, column in enumerate(columns):
+        column_hits = 0
+        for keyword in keywords:
+            try:
+                payload = _post(
+                    CNINFO_QUERY,
+                    {
+                        "pageNum": "1",
+                        "pageSize": "50",
+                        "column": column,
+                        "tabName": "fulltext",
+                        "plate": "",
+                        "stock": stock,
+                        "searchkey": keyword,
+                        "secid": "",
+                        "category": "",
+                        "trade": "",
+                        "seDate": se_date,
+                        "sortName": "",
+                        "sortType": "",
+                        "isHLtitle": "true",
+                    },
+                    fetcher=fetcher,
+                )
+            except Exception:
+                # bjse occasionally 500s; try next column/keyword.
                 continue
-            classified = classify_report_title(normalize_title(title), year, _ESG_TERMS)
-            if classified != kind:
-                continue
-            url = urllib.parse.urljoin(CNINFO_STATIC, adjunct)
-            if url in seen:
-                continue
-            seen.add(url)
-            return title, url
-        if pause_seconds:
-            time.sleep(pause_seconds)
+            announcements = payload.get("announcements") or [] if isinstance(payload, dict) else []
+            column_hits += len(announcements)
+            for item in announcements:
+                title = re.sub(r"</?em>", "", str(item.get("announcementTitle") or ""))
+                adjunct = str(item.get("adjunctUrl") or "").lstrip("/")
+                if not adjunct:
+                    continue
+                classified = classify_report_title(normalize_title(title), year, _ESG_TERMS)
+                if classified != kind:
+                    continue
+                url = urllib.parse.urljoin(CNINFO_STATIC, adjunct)
+                if url in seen:
+                    continue
+                seen.add(url)
+                return title, url
+            if pause_seconds:
+                time.sleep(pause_seconds)
+        # Prefer market column; only fall through when it returned nothing usable.
+        if column_index == 0 and column_hits == 0:
+            continue
+        if column_index == 0:
+            break
     return None
 
 

@@ -1,0 +1,115 @@
+{
+  "policy_version": "ci-thin-text-exports-v2",
+  "run_at_utc": "2026-08-06T02:29:12+00:00",
+  "report_year": 2025,
+  "flagged_rows": 8,
+  "critical_thin_count": 8,
+  "thin_count": 0,
+  "missing_text_count": 0,
+  "truncated_export_count": 0,
+  "large_pdf_low_text_count": 0,
+  "scan_esg_with_annual_fallback": 8,
+  "by_class": {
+    "critical_thin": 8
+  },
+  "by_next_action": {
+    "prefer_annual_embedded_evidence": 8
+  },
+  "by_document_type": {
+    "esg_report": 8
+  },
+  "thresholds_non_ws_chars": {
+    "critical_thin": 500,
+    "thin": 2000,
+    "large_pdf_low_text": 5000,
+    "annual_usable": 20000
+  },
+  "examples": [
+    {
+      "company_code": "000009.SZ",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 216108,
+      "ci_candidate_count": 10,
+      "pdf_bytes": 32548625
+    },
+    {
+      "company_code": "000723.SZ",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 232472,
+      "ci_candidate_count": 19,
+      "pdf_bytes": 98315262
+    },
+    {
+      "company_code": "000767.SZ",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 229676,
+      "ci_candidate_count": 9,
+      "pdf_bytes": 47543156
+    },
+    {
+      "company_code": "600256.SH",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 262419,
+      "ci_candidate_count": 18,
+      "pdf_bytes": 25721700
+    },
+    {
+      "company_code": "601918.SH",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 175589,
+      "ci_candidate_count": 21,
+      "pdf_bytes": 26971415
+    },
+    {
+      "company_code": "603032.SH",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 0,
+      "annual_text_non_ws": 186335,
+      "ci_candidate_count": 22,
+      "pdf_bytes": 88842036
+    },
+    {
+      "company_code": "002709.SZ",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 64,
+      "annual_text_non_ws": 213385,
+      "ci_candidate_count": 26,
+      "pdf_bytes": 41157622
+    },
+    {
+      "company_code": "000899.SZ",
+      "document_type": "esg_report",
+      "class": "critical_thin",
+      "next_action": "prefer_annual_embedded_evidence",
+      "non_ws_chars": 262,
+      "annual_text_non_ws": 144096,
+      "ci_candidate_count": 22,
+      "pdf_bytes": 33521176
+    }
+  ],
+  "output_csv": "output/audit/ci_thin_text_exports_v1_2025.csv",
+  "output_html": "output/audit/ci_thin_text_exports_v1_2025.html",
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "ocr_authorized": false,
+  "notice": "薄文本分诊：扫描件ESG可优先看年报嵌入证据；OCR仅规划未授权；不放宽抽取、不授权评分。"
+}
