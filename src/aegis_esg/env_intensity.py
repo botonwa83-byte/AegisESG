@@ -66,8 +66,15 @@ _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
         r"(?<!范围一)(?<!范围二)(?<!范围三)(?<!范围1)(?<!范围2)(?<!范围3)(?<!范畴一)(?<!范畴二)(?<!范畴三)"
         r"(?<!范畴1)(?<!范畴2)(?<!范畴3)温室气体总排放量|"
         # 神华等绩效表用“碳排放总量”并同页给出范围一/二拆分
-        r"(?<!减少的)(?<!直接)(?<!间接)碳排放总量",
-        (("百万吨二氧化碳当量", 1_000_000_000.0), ("万吨二氧化碳当量", 10_000_000.0), ("吨二氧化碳当量", 1_000.0), ("万吨", 10_000_000.0), ("吨", 1_000.0)),
+        r"(?<!减少的)(?<!直接)(?<!间接)碳排放总量|"
+        # 三峡能源等：仅接受地理位置法总量，拒绝基于市场（绿电抵扣后）口径
+        r"(?<!减少)(?<!直接)(?<!间接)二氧化碳排放总量(?!\s*[（(]\s*基于市场)"
+        r"(?:\s*[（(]\s*基于地理位置\s*[）)])?",
+        (
+            ("百万吨二氧化碳当量", 1_000_000_000.0), ("万吨二氧化碳当量", 10_000_000.0),
+            ("吨二氧化碳当量", 1_000.0), ("万吨", 10_000_000.0), ("吨", 1_000.0),
+            ("tCO2e", 1_000.0), ("tCO₂e", 1_000.0),
+        ),
         (0.001, 200_000.0),
     ),
     (
@@ -88,7 +95,7 @@ _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
     ),
     (
         "Q_E_WATER_INTENSITY",
-        r"(?<!循环)(?<!回用)(?<!重复利用)用水总量|(?<!循环)总用水量|总取水量|总耗水量|耗水总量|耗水量|新鲜水用水总量|新鲜水总量",
+        r"(?<!循环)(?<!回用)(?<!重复利用)用水总量|(?<!循环)总用水量|总取水量|取水总量|总耗水量|耗水总量|耗水量|新鲜水用水总量|新鲜水总量",
         (
             ("百万吨", 1_000_000_000.0), ("万立方米", 10_000_000.0), ("立方米", 1_000.0),
             ("m³", 1_000.0), ("m3", 1_000.0), ("万吨", 10_000_000.0), ("吨", 1_000.0),
@@ -125,7 +132,8 @@ _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
     ),
     (
         "Q_E_SOLID_WASTE_INTENSITY",
-        r"一般(?:工业)?固体废物(?:产生|排放)?总?量|一般固废(?:产生|排放)?总?量|无害废弃物(?:产生|排放)?总?量",
+        r"一般(?:工业)?固体废物(?:产生|排放)?总?量|一般固废(?:产生|排放)?总?量|"
+        r"无害废弃物(?:产生|排放)?总?量|一般废弃物(?:产生|排放)?总?量",
         (("万吨", 10_000_000.0), ("吨", 1_000.0), ("千克", 1.0)),
         (0.001, 5_000_000.0),
     ),
@@ -265,6 +273,20 @@ def _select_consistent_total(items: list[_EnvTotal]) -> _EnvTotal | None:
     annotated = [item for item in items if _GHG_TOTAL_ANNOTATED.search(item.evidence) or "scope1+scope2" in item.evidence]
     if annotated and not _distinct([item.total_kg for item in annotated]):
         return annotated[0]
+    # 中文绩效表多为升序年份；跨页 current-first/current-last 冲突时优先 current-last
+    lasts = [item for item in items if "current-last" in item.evidence]
+    if lasts and not _distinct([item.total_kg for item in lasts]):
+        return lasts[0]
+    # 同页两列/三列同时命中时，仅当存在真·三值行时优先完整 current-last（帝尔激光等）
+    if lasts:
+        def _year_arity(item: _EnvTotal) -> int:
+            return len(re.findall(r"[\d,]+(?:\.\d+)?", item.evidence))
+
+        best = max(_year_arity(item) for item in lasts)
+        if best >= 3:
+            rich = [item for item in lasts if _year_arity(item) == best]
+            if rich and not _distinct([item.total_kg for item in rich]):
+                return rich[0]
     return None
 
 
@@ -292,7 +314,11 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
     Supported forms: explicit-year-header table rows (label unit values) and
     single-value free-form rows (label unit value or label value unit).
     """
-    text = _repair_wrapped_numbers(_normalize_kangxi(text))
+    from aegis_esg.extraction import _expand_scientific_notation, _repair_wrapped_cn_env_labels
+
+    text = _expand_scientific_notation(
+        _repair_wrapped_cn_env_labels(_repair_wrapped_numbers(_normalize_kangxi(text)))
+    )
     # PDF常把“百万/万吨”与单位后缀拆行：164.62百万\n吨二氧化碳当量
     text = re.sub(
         r"(百万|万)\s*\n\s*(吨(?:二氧化碳当量|标准煤|标煤)?)",
@@ -300,6 +326,16 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
         text,
     )
     mode = _chinese_year_table_mode(text, report_year)
+    # 连续三年表头，或页内同时出现报告年/上年/前年标签（含断行拼版）
+    three_year_header = bool(re.search(
+        rf"(?:20\d{{2}}\s*年?\s*){{2}}{report_year}\s*年?",
+        text,
+    )) or (
+        bool(re.search(rf"{report_year - 2}\s*年", text))
+        and bool(re.search(rf"{report_year - 1}\s*年", text))
+        and bool(re.search(rf"{report_year}\s*年", text))
+        and bool(re.search(r"指标\s*单位|单位\s*(?:指标|数值)|绩效指标", text))
+    )
     results: list[_EnvTotal] = []
     forms: list[str] = []
     for code, label, units, _bounds in _CN_TOTAL_RULES:
@@ -336,22 +372,23 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                 rf"(?:{_CN_NUMBER}|/)\s+(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})"
                 rf"(?:\s+(?:注\s*)?\d{{1,2}})?\s*$",
             ))
-            # 两列（上年 本年）：缺测上年允许“/”
-            row_patterns.append((
-                "current-last",
-                rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?P<unit>{unit_pattern})\s*"
-                rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*$",
-            ))
-            row_patterns.append((
-                "current-last",
-                rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*"
-                rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
-            ))
-            row_patterns.append((
-                "current-last",
-                rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*[（(]\s*(?P<unit>{unit_pattern})\s*[）)]\s*"
-                rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*$",
-            ))
+            # 两列仅在非三年表头时启用，避免把“/ 上年 本年”截成上年
+            if not three_year_header:
+                row_patterns.append((
+                    "current-last",
+                    rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?P<unit>{unit_pattern})\s*"
+                    rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*$",
+                ))
+                row_patterns.append((
+                    "current-last",
+                    rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*"
+                    rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
+                ))
+                row_patterns.append((
+                    "current-last",
+                    rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*[（(]\s*(?P<unit>{unit_pattern})\s*[）)]\s*"
+                    rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*$",
+                ))
         # 单值行：单年表头或无表头的KPI段落均只接受恰好一个数值，避免猜列
         row_patterns.append((
             "single-value",
@@ -682,6 +719,20 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                 for value in anchored
             ):
                 keep[index] = False
+        # 同页两列/三列 current-last 冲突时，仅当存在真·三值行时才剔除截断两列
+        last_idxs = [
+            index for index, (item, form) in enumerate(zip(results, forms))
+            if item.indicator_code == code and form == "current-last" and keep[index]
+        ]
+        if len(last_idxs) >= 2 and _distinct([results[i].total_kg for i in last_idxs]):
+            def _year_arity(index: int) -> int:
+                return len(re.findall(_CN_NUMBER, results[index].evidence))
+
+            best = max(_year_arity(i) for i in last_idxs)
+            if best >= 3:
+                for index in last_idxs:
+                    if _year_arity(index) < best:
+                        keep[index] = False
     filtered = [item for item, retained in zip(results, keep) if retained]
     if not any(item.indicator_code == "Q_E_GHG_INTENSITY" for item in filtered):
         filtered.extend(_cn_scope12_sum_totals(text, source_file, page))
@@ -696,7 +747,9 @@ _EN_BAD_CONTEXT = re.compile(
 _EN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[float, float]], ...] = (
     (
         "Q_E_GHG_INTENSITY",
-        r"Total\s+(?:GHG|greenhouse\s+gas)\s+emissions?\s*(?:\(?\s*Scope\s*1\s*(?:\+|and|&)\s*Scope\s*2\s*\)?)?(?!\s*[:：]?\s*Scope)(?!\s*[:-]?\s*(?:Direct|Indirect))",
+        r"(?:Total\s+)?(?:GHG|greenhouse\s+gas)\s+emissions?\s*"
+        r"(?:\(?\s*Scope\s*1\s*(?:\+|and|&)\s*Scope\s*2\s*\)?)?"
+        r"(?!\s*[:：]?\s*Scope)(?!\s*[:-]?\s*(?:Direct|Indirect))(?!\s+intensity)(?!\s+density)",
         (("kilotonnes", 1_000_000.0), ("kt", 1_000_000.0), ("tCO2e", 1_000.0), ("tCO₂e", 1_000.0),
          ("tonnes of carbon dioxide equivalent", 1_000.0), ("tonnes CO2e", 1_000.0), ("tonnes CO₂e", 1_000.0),
          ("tonnes", 1_000.0)),
@@ -773,25 +826,46 @@ _EN_YEAR_HEADER = re.compile(
 # 公司已按收入口径披露强度（即使版式未被直接规则解析）时抑制派生，不制造口径冲突；
 # 产值/产量口径不抑制——方法论只认营业收入分母
 _SUPPRESS_RULES = {
+    # 仅抑制“同行/近邻”已披露的收入强度数值行；禁止跨指标块误匹配（如发电碳强度→营收碳强度）。
     "Q_E_GHG_INTENSITY": re.compile(
-        r"(?:温室气体|碳|GHG|greenhouse\s+gas)[\s\S]{0,60}?(?:排放)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
-        r"|(?:单位营收|每百万营收)\s*(?:温室气体|碳|GHG)[^。\n]{0,12}(?:排放量|总量)", re.I,
+        (
+            r"(?:温室气体排放(?:强度|密度)|碳排放强度|营收碳强度|"
+            r"(?:GHG|greenhouse\s+gas)[^\n]{0,60}?intensity)"
+            r"[^\n]{0,80}(?:\n[^\n]{0,80})?"
+            r"(?:营业收入|(?<!每)百万?营收|revenue|yuan|RMB|人民币|"
+            r"万元(?:人民币)?(?:营业收入|营收|收入)(?!产值))"
+            r"[^\n]{0,40}" + _CN_NUMBER
+            + r"|(?:单位营收|每百万营收)\s*(?:温室气体|碳|GHG)[^。\n]{0,12}(?:排放量|总量)[^\n]{0,20}"
+            + _CN_NUMBER
+        ),
+        re.I,
     ),
     "Q_E_ENERGY_INTENSITY": re.compile(
-        r"(?:能源|能耗|energy)[\s\S]{0,60}?(?:消耗|消费|consumption)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
-        r"|(?:单位营收|每百万营收)\s*(?:综合)?能源(?:消耗|消费)[^。\n]{0,12}(?:量|总量)", re.I,
+        (
+            r"(?:(?:综合)?能源(?:消耗|消费)(?:强度|密度)|综合能耗强度|energy\s+intensity)"
+            r"[^\n]{0,100}?(?:营业收入|营收|revenue|yuan|RMB|人民币|万元(?:收入|营收)?)"
+            r"[^\n]{0,40}" + _CN_NUMBER
+            + r"|(?:单位营收|每百万营收)\s*(?:综合)?能源(?:消耗|消费)[^。\n]{0,12}(?:量|总量)[^\n]{0,20}"
+            + _CN_NUMBER
+        ),
+        re.I,
     ),
     "Q_E_CLEAN_ENERGY_INTENSITY": re.compile(
-        r"(?:清洁能源|可再生能源|renewable\s+energy|clean\s+energy)[\s\S]{0,60}?"
-        r"(?:消耗|使用|消费|consumption|use)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)", re.I,
+        (
+            r"(?:清洁能源|可再生能源|renewable\s+energy|clean\s+energy)[^\n]{0,60}?"
+            r"(?:消耗|使用|消费|consumption|use)?(?:强度|密度|intensity|density)"
+            r"[^\n]{0,100}?(?:营业收入|营收|revenue|yuan|RMB|人民币)[^\n]{0,40}" + _CN_NUMBER
+        ),
+        re.I,
     ),
     "Q_E_WATER_INTENSITY": re.compile(
-        r"(?:水|water)[\s\S]{0,60}?(?:使用|消耗|consumption)?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|营收|revenue|yuan|RMB|人民币)"
-        r"|(?:单位营收|每百万营收)\s*用水[^。\n]{0,8}量", re.I,
+        (
+            r"(?:水资源(?:使用|消耗)强度|(?:用水|耗水|取水)(?:强度|密度)|water\s+intensity)"
+            r"[^\n]{0,100}?(?:营业收入|营收|revenue|yuan|RMB|人民币|万元(?:收入|营收)?)"
+            r"[^\n]{0,40}" + _CN_NUMBER
+            + r"|(?:单位营收|每百万营收)\s*用水[^。\n]{0,8}量[^\n]{0,20}" + _CN_NUMBER
+        ),
+        re.I,
     ),
     "Q_E_SO2_INTENSITY": re.compile(
         r"(?:二氧化硫|SO2|sulphur\s+dioxide|sulfur\s+dioxide)[^\n]{0,60}?(?:强度|密度|intensity|density)"
@@ -810,14 +884,57 @@ _SUPPRESS_RULES = {
         r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_SOLID_WASTE_INTENSITY": re.compile(
-        r"(?:一般(?:工业)?固体废物|一般固废|无害废弃物|non-hazardous\s+waste)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
-        r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
+        r"(?:一般(?:工业)?固体废物|一般固废|无害废弃物|一般废弃物|non-hazardous\s+waste)"
+        r"[^\n]{0,60}?(?:强度|密度|intensity|density)"
+        r"[^\n]{0,80}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
     "Q_E_HAZ_WASTE_INTENSITY": re.compile(
         r"(?:危险废物|危废|hazardous\s+waste)[\s\S]{0,60}?(?:强度|密度|intensity|density)"
         r"[\s\S]{0,60}?(?:营业收入|(?<!每)百万营收|(?<!百万)营收|万元(?!产值)|revenue|yuan|RMB|人民币)", re.I,
     ),
 }
+
+
+def _en_scope12_year_header_total_kg(
+    text: str, values: list[str], factor: float,
+) -> tuple[str, float | None]:
+    """Resolve GHG year-header totals against same-page Scope-1/2 rows.
+
+    Returns:
+      ("unique", kg) — exactly one year column closes with Scope1+Scope2
+      ("ambiguous", None) — multiple columns close (often reversed year headers); skip row
+      ("unavailable", None) — no usable Scope rows; keep year-header pick
+    """
+    scope1 = re.search(
+        rf"(?mi)^\s*Direct\s+greenhouse\s+gas\s+emissions\s*\(Scope\s*1\)\s*"
+        rf"(?:tCO2e|tCO₂e|tonnes)?\s*(?P<values>{_EN_NUMBER}(?:\s+{_EN_NUMBER}){{0,3}})\s*$",
+        text,
+    )
+    scope2 = re.search(
+        rf"(?mi)^\s*Indirect\s+greenhouse\s+gas\s+emissions\s*\(Scope\s*2\)\s*"
+        rf"(?:tCO2e|tCO₂e|tonnes)?\s*(?P<values>{_EN_NUMBER}(?:\s+{_EN_NUMBER}){{0,3}})\s*$",
+        text,
+    )
+    if not scope1 or not scope2:
+        return "unavailable", None
+    s1_vals = scope1.group("values").split()
+    s2_vals = scope2.group("values").split()
+    if not (len(s1_vals) == len(s2_vals) == len(values)):
+        return "unavailable", None
+    closing: list[float] = []
+    for index, raw in enumerate(values):
+        total = float(raw.replace(",", "")) * factor
+        pair = (
+            float(s1_vals[index].replace(",", "")) * factor
+            + float(s2_vals[index].replace(",", "")) * factor
+        )
+        if abs(total - pair) <= max(total, 1.0) * 0.01:
+            closing.append(total)
+    if len(closing) == 1:
+        return "unique", closing[0]
+    if len(closing) > 1:
+        return "ambiguous", None
+    return "unavailable", None
 
 
 def _en_total_rows(text: str, report_year: int, source_file: str, page: int) -> list[_EnvTotal]:
@@ -851,7 +968,15 @@ def _en_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
             factor = factors.get(match.group("unit").lower())
             if factor is None:
                 continue
-            current = float(values[year_columns.index(report_year)].replace(",", "")) * factor
+            year_index = year_columns.index(report_year)
+            current = float(values[year_index].replace(",", "")) * factor
+            # 港股绩效表偶发表头年份顺序与数值列相反；用同页范围一/二加总消歧。
+            if code == "Q_E_GHG_INTENSITY":
+                status, aligned = _en_scope12_year_header_total_kg(text, values, factor)
+                if status == "ambiguous":
+                    continue
+                if status == "unique" and aligned is not None:
+                    current = aligned
             if current <= 0:
                 continue
             evidence = re.sub(r"\s+", " ", match.group(0)).strip()
@@ -890,6 +1015,30 @@ def _en_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                 code, current, source_file, page,
                 f"English group-scope environmental total: {evidence[:220]}",
             ))
+        # 竖排两年值：Greenhouse gas emissions (Scope 1 and Scope 2)\ntCO2e\n50,302,013\n44,420,360
+        # 页内同时出现报告年与上年时，取第一列为报告年（港股常见 current-first）。
+        if code == "Q_E_GHG_INTENSITY" and str(report_year) in text and str(report_year - 1) in text:
+            vertical = re.compile(
+                rf"(?mi)^\s*(?:{label})\s*\n\s*(?P<unit>{unit_pattern})\s*\n\s*"
+                rf"(?P<current>{_EN_NUMBER})\s*\n\s*(?P<previous>{_EN_NUMBER})\s*$",
+            )
+            for match in vertical.finditer(text):
+                context = text[max(0, match.start() - 80):match.end() + 40]
+                if _EN_BAD_CONTEXT.search(context):
+                    continue
+                factor = factors.get(match.group("unit").lower())
+                if factor is None:
+                    continue
+                current = float(match.group("current").replace(",", "")) * factor
+                if current <= 0:
+                    continue
+                evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+                if not _ghg_total_acceptable(evidence, text, None, units, current, english=True):
+                    continue
+                results.append(_EnvTotal(
+                    code, current, source_file, page,
+                    f"English vertical two-year GHG total: {evidence[:220]}",
+                ))
     # ESG绩效矩阵可在“Emissions + Air Pollutant”分区使用裸污染物名。仅NOx具有与方法论相同的
     # 明确物质口径；Sulphur oxides不等同SO2，PM2.5/PM10也不猜测是否应相加。
     if (
@@ -1063,8 +1212,15 @@ def derive_env_intensity_candidates(
         if total is None:
             continue
         suppress = _SUPPRESS_RULES.get(code)
-        if suppress and suppress.search(full_text):
-            continue
+        suppress_hit = suppress.search(full_text) if suppress else None
+        if suppress_hit:
+            # 双口径（地理位置/市场）强度行常无法稳定取列；允许总量派生兜底。
+            window = full_text[suppress_hit.start(): min(len(full_text), suppress_hit.end() + 120)]
+            if not (
+                code == "Q_E_GHG_INTENSITY"
+                and re.search(r"基于地理位置|基于市场|location-based|market-based", window, re.I)
+            ):
+                continue
         bounds = next(rule[3] for rule in _CN_TOTAL_RULES + _EN_TOTAL_RULES if rule[0] == code)
         # SO2/NOx/PM方法论口径为克/万元，其余指标为千克/万元
         canonical_per_kg = 1_000.0 if code in _GRAM_CANONICAL_INDICATORS else 1.0

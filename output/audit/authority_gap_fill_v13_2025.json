@@ -1,0 +1,25 @@
+{
+  "policy_version": "source-authority-v1-exchange-gt-issuer-gt-other",
+  "run_at_utc": "2026-08-06T06:39:39+00:00",
+  "authority_order": [
+    "EXCHANGE",
+    "ISSUER_WEBSITE",
+    "OTHER"
+  ],
+  "base_observations": "output/research/2025/full_auto_observations_v35_enriched.csv",
+  "output_observations": "output/research/2025/full_auto_observations_v36_enriched.csv",
+  "priority_companies": 632,
+  "priority_missing_quant_pairs_before": 14973,
+  "removed_false_qualitative_zeros": 0,
+  "removed_non_revenue_intensities": 0,
+  "reextracted_candidate_rows": 17914,
+  "filled_missing": 40,
+  "replaced_by_higher_authority": 3,
+  "skipped_weaker_or_equal": 8383,
+  "still_missing_after_exchange_pass": 14933,
+  "issuer_website_queue": "output/audit/issuer_website_gap_queue_v13_2025.csv",
+  "fill_audit_csv": "output/audit/authority_gap_fill_v13_2025.csv",
+  "changjiang_fills": [],
+  "scoring_authorized_formal": false,
+  "notice": "未披露项先从交易所已下载披露补齐；冲突按交易所>官网>其他。仍缺项进入官网域名核验/发现队列，不再用“无证据假0”占位。"
+}

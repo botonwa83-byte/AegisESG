@@ -13,8 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-OBS = ROOT / "output/research/2025/full_auto_observations_v34_enriched.csv"
-RANKING = ROOT / "output/research/2025/full_auto_v34_enriched/ranking.csv"
+OBS = ROOT / "output/research/2025/full_auto_observations_v39_enriched.csv"
+RANKING = ROOT / "output/research/2025/full_auto_v39_enriched/ranking.csv"
 COVERAGE = ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv"
 OUT_CSV = ROOT / "output/audit/ranked_company_key_data_gap_queue_v1_2025.csv"
 OUT_JSON = ROOT / "output/audit/ranked_company_key_data_gap_queue_v1_2025.json"
@@ -41,7 +41,16 @@ def main() -> None:
     ranks: dict[str, dict[str, str]] = {}
     if RANKING.is_file():
         for row in csv.DictReader(RANKING.open(encoding="utf-8-sig")):
-            code = row.get("company_code") or row.get("stock_code") or ""
+            # Client export has value+score twin rows; keep the numeric-value row.
+            category = (row.get("数值类别") or row.get("value_kind") or "").strip()
+            if category and category != "指标数值":
+                continue
+            code = (
+                row.get("company_code")
+                or row.get("stock_code")
+                or row.get("证券代码")
+                or ""
+            ).strip()
             if code:
                 ranks[code] = row
 
@@ -65,7 +74,12 @@ def main() -> None:
     for code in pool:
         cov = coverage.get(code, {})
         rank_row = ranks.get(code, {})
-        rank = rank_row.get("rank") or rank_row.get("ranking") or ""
+        rank = (
+            rank_row.get("rank")
+            or rank_row.get("ranking")
+            or rank_row.get("序号")
+            or ""
+        )
         missing = [ind for ind in KEY_CODES if (code, ind) not in present]
         if not missing:
             continue
@@ -85,7 +99,12 @@ def main() -> None:
             action = "rule_recall_on_existing_text"
         rows.append({
             "company_code": code,
-            "company_name": company_names.get(code) or rank_row.get("company_name") or "",
+            "company_name": (
+                company_names.get(code)
+                or rank_row.get("company_name")
+                or rank_row.get("公司简称")
+                or ""
+            ),
             "rank": rank,
             "top200": top200,
             "annual_status": annual_status,

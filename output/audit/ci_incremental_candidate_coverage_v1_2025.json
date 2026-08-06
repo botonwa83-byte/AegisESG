@@ -1,51 +1,51 @@
 {
   "Q_E_ALTERNATIVE_WATER_RATE": {
-    "candidate_count": 28,
+    "candidate_count": 29,
     "company_count": 20
   },
   "Q_E_CLEAN_ENERGY_INTENSITY": {
-    "candidate_count": 18,
-    "company_count": 18
-  },
-  "Q_E_ENERGY_INTENSITY": {
-    "candidate_count": 50,
-    "company_count": 47
-  },
-  "Q_E_GHG_INTENSITY": {
-    "candidate_count": 68,
-    "company_count": 60
-  },
-  "Q_E_GHG_REDUCTION_RATE": {
-    "candidate_count": 34,
-    "company_count": 32
-  },
-  "Q_E_HAZ_WASTE_INTENSITY": {
-    "candidate_count": 30,
+    "candidate_count": 24,
     "company_count": 24
   },
+  "Q_E_ENERGY_INTENSITY": {
+    "candidate_count": 72,
+    "company_count": 64
+  },
+  "Q_E_GHG_INTENSITY": {
+    "candidate_count": 100,
+    "company_count": 86
+  },
+  "Q_E_GHG_REDUCTION_RATE": {
+    "candidate_count": 39,
+    "company_count": 37
+  },
+  "Q_E_HAZ_WASTE_INTENSITY": {
+    "candidate_count": 34,
+    "company_count": 27
+  },
   "Q_E_NOX_INTENSITY": {
-    "candidate_count": 30,
-    "company_count": 30
+    "candidate_count": 36,
+    "company_count": 36
   },
   "Q_E_PM_INTENSITY": {
-    "candidate_count": 27,
-    "company_count": 27
+    "candidate_count": 32,
+    "company_count": 32
   },
   "Q_E_SO2_INTENSITY": {
-    "candidate_count": 19,
-    "company_count": 19
+    "candidate_count": 24,
+    "company_count": 24
   },
   "Q_E_SOLID_WASTE_INTENSITY": {
-    "candidate_count": 30,
-    "company_count": 29
+    "candidate_count": 50,
+    "company_count": 48
   },
   "Q_E_WASTEWATER_INTENSITY": {
-    "candidate_count": 28,
-    "company_count": 27
+    "candidate_count": 34,
+    "company_count": 33
   },
   "Q_E_WATER_INTENSITY": {
-    "candidate_count": 50,
-    "company_count": 45
+    "candidate_count": 76,
+    "company_count": 68
   },
   "Q_G_AR_TURNOVER": {
     "candidate_count": 445,
@@ -100,8 +100,8 @@
     "company_count": 353
   },
   "Q_G_REVENUE_GROWTH": {
-    "candidate_count": 635,
-    "company_count": 546
+    "candidate_count": 638,
+    "company_count": 548
   },
   "Q_G_ROA": {
     "candidate_count": 271,
@@ -132,19 +132,19 @@
     "company_count": 94
   },
   "Q_S_ENV_INVEST_RATE": {
-    "candidate_count": 46,
-    "company_count": 46
+    "candidate_count": 49,
+    "company_count": 49
   },
   "Q_S_PAY_PER_EMPLOYEE": {
     "candidate_count": 125,
     "company_count": 125
   },
   "Q_S_RD_RATE": {
-    "candidate_count": 547,
-    "company_count": 472
+    "candidate_count": 549,
+    "company_count": 473
   },
   "Q_S_SAFETY_INVEST_RATE": {
-    "candidate_count": 37,
-    "company_count": 37
+    "candidate_count": 41,
+    "company_count": 41
   }
 }

@@ -5709,6 +5709,94 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         so2 = next(item for item in items if item.indicator_code == "Q_E_SO2_INTENSITY")
         self.assertAlmostEqual(1.99e7 * 1e3 * 1e4 / 1.705e10, so2.value)
 
+    def test_env_intensity_en_skips_ambiguous_reversed_year_header(self):
+        # 中国电力样例：表头写 2024 2025，但数值列为 current-first；两端均可与范围一/二闭合。
+        # 应跳过歧义 year-header，保留竖排 Scope1+2 总量。
+        esg = CompanyDocument(
+            "esg_report",
+            [
+                PageText(
+                    33,
+                    "Indicator 2025\nUnit\n2024\n"
+                    "Greenhouse gas emissions (Scope 1 and Scope 2)\n"
+                    "tCO2e\n"
+                    "50,302,013\n"
+                    "44,420,360\n",
+                ),
+                PageText(
+                    40,
+                    "Indicator Unit 2024 2025\n"
+                    "Greenhouse gas emissions (Scope 1 and Scope 2) tCO2e 50,302,013 44,420,360\n"
+                    "Direct greenhouse gas emissions (Scope 1) tCO2e 49,876,065 42,996,840\n"
+                    "Indirect greenhouse gas emissions (Scope 2) tCO2e 425,948 1,423,520\n",
+                ),
+            ],
+            "https://e",
+            "data/raw/A/2025/esg_report.pdf",
+        )
+        items = derive_env_intensity_candidates("A", "甲", 2025, [self._annual_doc(self._CN_REVENUE), esg])
+        ghg = [item for item in items if item.indicator_code == "Q_E_GHG_INTENSITY"]
+        self.assertEqual(1, len(ghg))
+        self.assertAlmostEqual(50_302_013 * 1e3 * 1e4 / 1.705e10, ghg[0].value)
+
+    def test_chinese_ghg_density_and_tco2e_per_wanyuan(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+
+        # 中国动力：排放密度 + 吨/百万元营收 → 千克/万元×10
+        density = _extract_chinese_env_table_rows(
+            "指标 单位 2024 年 2025 年\n"
+            "温室气体排放密度 吨二氧化碳当量 / 百万元营收 12.65 12.10\n",
+            2025,
+        )
+        self.assertEqual([("Q_E_GHG_INTENSITY", 121.0)], [(c, v) for c, v, _ in density])
+
+        # 宏发：括号单位 tCO2e/万元
+        hongfa = _extract_chinese_env_table_rows(
+            "统计项目 2023年 2024年 2025年\n"
+            "碳排放强度（tCO2e/万元） 0.15 0.10 0.10\n",
+            2025,
+        )
+        self.assertEqual([("Q_E_GHG_INTENSITY", 100.0)], [(c, v) for c, v, _ in hongfa])
+
+        # 禾望：竖排三年 + 百万营收单位换行
+        hewang = _extract_chinese_env_table_rows(
+            "单位\n2023年\n67.71\n2024年\n74.04\n2025年\n84.70\n"
+            "温室气体\n排放强度\n吨二氧化碳\n当量/百万营收\n1.62\n1.91\n1.87\n",
+            2025,
+        )
+        values = [v for c, v, _ in hewang if c == "Q_E_GHG_INTENSITY"]
+        self.assertTrue(values)
+        self.assertTrue(all(abs(v - 18.7) < 1e-6 for v in values))
+
+    def test_chinese_water_density_and_solid_scientific_notation(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+
+        # 中国动力：取水密度
+        water = _extract_chinese_env_table_rows(
+            "议题 指标 单位 2024 年 2025 年\n"
+            "取水密度 吨 / 万元营收 1.22 0.81\n",
+            2025,
+        )
+        self.assertEqual([("Q_E_WATER_INTENSITY", 810.0)], [(c, v) for c, v, _ in water])
+
+        # 宏发：一般固体废物排放密度 + 科学计数法
+        solid = _extract_chinese_env_table_rows(
+            "指标 单位 2023年 2024年 2025年\n"
+            "一般固体废物排放\n密度\n吨/ 万元\n（年营业收入） 8.366× 10-3 9.088× 10-3 5.294× 10-3\n",
+            2025,
+        )
+        values = [v for c, v, _ in solid if c == "Q_E_SOLID_WASTE_INTENSITY"]
+        self.assertTrue(values)
+        self.assertAlmostEqual(5.294, values[0], places=3)
+
+        # 桂冠：每百万营收无害废弃物
+        guiguan = _extract_chinese_env_table_rows(
+            "指标名称 单位 2025 年 2024 年\n"
+            "每百万营收产生的无害废弃物总量 吨 / 百万元 186.26 396.42\n",
+            2025,
+        )
+        self.assertEqual([("Q_E_SOLID_WASTE_INTENSITY", 1862.6)], [(c, v) for c, v, _ in guiguan])
+
     def test_summary_revenue_cnpc_style_million_yuan(self):
         from aegis_esg.extraction import _extract_summary_revenue
 
@@ -5780,6 +5868,114 @@ Total GHG Emissions (Scope 1 & 2) Equivalent of carbon dioxide in tonnes 2,058.0
         code, value, _ = rows[0]
         self.assertEqual("Q_E_GHG_INTENSITY", code)
         self.assertAlmostEqual(230.0, value)
+
+    def test_chinese_spaced_unit_and_vertical_three_year_env_rows(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        text = (
+            "指标 单 位\n2023年 2024年 2025年\n"
+            "温室气体排放强度\n吨二氧化碳当量/百万元\n1,754.86\n1,724.65\n1,672.05\n"
+            "用水强度\n吨/百万元\n2,068\n1,889\n2,143\n"
+            "能源消耗强度\n吨 标 准 煤 / 百 万 元\n687.28\n693.54\n710.76\n"
+            "每百万营收产生的\n有害废弃物总量\n吨/百万元\n0.56\n0.20\n0.13\n"
+            "无害废弃物总量\n吨/百万元\n387.12\n365.34\n340.96\n"
+        )
+        rows = _extract_chinese_env_table_rows(text, 2025)
+        by = {code: value for code, value, _ in rows}
+        self.assertAlmostEqual(16720.5, by["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(21430.0, by["Q_E_WATER_INTENSITY"])
+        self.assertAlmostEqual(7107.6, by["Q_E_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(1.3, by["Q_E_HAZ_WASTE_INTENSITY"])
+        self.assertAlmostEqual(3409.6, by["Q_E_SOLID_WASTE_INTENSITY"])
+
+    def test_chinese_highlight_value_before_label_intensities(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "0.68 吨标煤/百万元\n单位营收综合能源消耗量\n"
+            "1.68 吨二氧化碳当量/百万元\n单位营收温室气体排放量\n"
+            "13.31 立方米/百万元\n单位营收耗水量\n",
+            2025,
+        )
+        by = {code: value for code, value, _ in rows}
+        self.assertAlmostEqual(6.8, by["Q_E_ENERGY_INTENSITY"])
+        self.assertAlmostEqual(16.8, by["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(133.1, by["Q_E_WATER_INTENSITY"])
+
+    def test_chinese_dual_column_ghg_energy_highlight(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "吨 二 氧 化 碳 当 量 /\n"
+            "13.68 2.78\n"
+            "百万元营业收入\n"
+            "温室气体排放强度 能源使用强度\n"
+            "吨标准煤 / 百万\n"
+            "元营业收入\n",
+            2025,
+        )
+        by = {code: value for code, value, _ in rows}
+        self.assertAlmostEqual(136.8, by["Q_E_GHG_INTENSITY"])
+        self.assertAlmostEqual(27.8, by["Q_E_ENERGY_INTENSITY"])
+
+    def test_chinese_solid_waste_value_before_label_highlight(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "0.40\n吨 / 百万元\n营业收入\n无害废弃物产生强度\n"
+            "0.01\n吨 / 百万元\n营业收入\n危险废弃物产生强度\n"
+            "0.62%\n环境保护总投入占营业收入比例\n"
+            "100%\n无害废弃物回收利用率\n",
+            2025,
+        )
+        by = {code: value for code, value, _ in rows}
+        self.assertAlmostEqual(4.0, by["Q_E_SOLID_WASTE_INTENSITY"])
+        self.assertAlmostEqual(0.1, by["Q_E_HAZ_WASTE_INTENSITY"])
+        self.assertAlmostEqual(0.62, by["Q_S_ENV_INVEST_RATE"])
+        self.assertNotIn(100.0, [value for code, value, _ in rows if code == "Q_S_ENV_INVEST_RATE"])
+
+    def test_chinese_energy_intensity_kg_per_wanyuan_revenue_unit(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "能源消耗强度 千克标准煤 / 万元营收 109.51\n", 2025,
+        )
+        self.assertEqual(1, len(rows))
+        self.assertEqual("Q_E_ENERGY_INTENSITY", rows[0][0])
+        self.assertAlmostEqual(109.51, rows[0][1])
+
+    def test_chinese_energy_intensity_vertical_value_unit_same_line(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "综合能源消耗强度\n0.95吨标准煤/百万元营收\n", 2025,
+        )
+        self.assertEqual(1, len(rows))
+        self.assertAlmostEqual(9.5, rows[0][1])
+
+    def test_chinese_energy_intensity_interleaved_vertical_three_year(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "每百万营收综合能耗强度\n"
+            "反商业贿赂及反贪污培训覆盖的管理层人员百分比\n%\n100\n100\n100\n"
+            "吨标煤/百万元\n0.40\n0.31\n0.31\n"
+            "直接能源消耗量\n吨标煤\n147.79\n102.6\n62.59\n",
+            2025,
+        )
+        energy = [row for row in rows if row[0] == "Q_E_ENERGY_INTENSITY"]
+        self.assertEqual(1, len(energy))
+        self.assertAlmostEqual(3.1, energy[0][1])
+
+    def test_chinese_nox_intensity_per_million_revenue_tonne(self):
+        from aegis_esg.extraction import _extract_chinese_env_table_rows
+        rows = _extract_chinese_env_table_rows(
+            "每百万营收氮氧化物排放量 吨 0.001\n", 2025,
+        )
+        self.assertEqual(1, len(rows))
+        self.assertEqual("Q_E_NOX_INTENSITY", rows[0][0])
+        self.assertAlmostEqual(10.0, rows[0][1])
+
+    def test_chinese_safety_invest_rate_newline_percent(self):
+        items = extract_indicator_candidates(
+            [PageText(1, "安全生产投入占营业收入比例\n0.09%\n")],
+            "A", "甲", 2025, "url", "esg.pdf",
+        )
+        rates = [item.value for item in items if item.indicator_code == "Q_S_SAFETY_INVEST_RATE"]
+        self.assertEqual([0.09], rates)
 
     def test_chinese_hazardous_waste_density_postfix_billion_revenue_unit(self):
         from aegis_esg.extraction import _extract_chinese_env_table_rows

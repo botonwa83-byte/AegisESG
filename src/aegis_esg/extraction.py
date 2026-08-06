@@ -65,7 +65,7 @@ NUMBER = r"([+-]?[\d,]+(?:\.\d+)?)"
 def _rule(code: str, label: str, units: str, factors: dict[str, float], confidence: float = .82) -> ExtractionRule:
     return ExtractionRule(
         code,
-        re.compile(label + r"[^\d%]{0,35}" + NUMBER + r"\s*(" + units + r")", re.I),
+        re.compile(r"(?:" + label + r")" + r"[^\d%]{0,35}" + NUMBER + r"\s*(" + units + r")", re.I),
         factors,
         confidence,
     )
@@ -73,12 +73,12 @@ def _rule(code: str, label: str, units: str, factors: dict[str, float], confiden
 
 RULES = (
     _rule("Q_E_GHG_INTENSITY", r"(?:温室气体|碳)排放强度", r"千克(?:二氧化碳当量|CO2e)?/万元|吨(?:二氧化碳当量|CO2e)?/万元", {"千克/万元": 1, "吨/万元": 1000}),
-    _rule("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度", r"千克标准煤/万元|吨标准煤/万元", {"千克标准煤/万元": 1, "吨标准煤/万元": 1000}),
+    _rule("Q_E_ENERGY_INTENSITY", r"(?:综合)?能源(?:消耗|消费)强度", r"千克标准煤\s*/\s*万元(?:营收|营业收入)?|吨标准煤\s*/\s*万元(?:营收|营业收入)?", {"千克标准煤/万元": 1, "千克标准煤/万元营收": 1, "千克标准煤/万元营业收入": 1, "吨标准煤/万元": 1000, "吨标准煤/万元营收": 1000, "吨标准煤/万元营业收入": 1000}),
     _rule("Q_E_NOX_INTENSITY", r"(?:氮氧化物|NOx)排放强度", r"克/万元|千克/万元", {"克/万元": 1, "千克/万元": 1000}),
     _rule("Q_E_SO2_INTENSITY", r"(?:二氧化硫|SO2)排放强度", r"克/万元|千克/万元", {"克/万元": 1, "千克/万元": 1000}),
     _rule("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度", r"千克/万元|吨/万元|立方米/万元", {"千克/万元": 1, "吨/万元": 1000, "立方米/万元": 1000}),
     _rule("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物排放强度", r"千克/万元|吨/万元", {"千克/万元": 1, "吨/万元": 1000}),
-    _rule("Q_S_SAFETY_INVEST_RATE", r"安全生产投入(?:占比|比例)", r"%|％", {"%": 1, "％": 1}),
+    _rule("Q_S_SAFETY_INVEST_RATE", r"安全生产投入占营业收入(?:的)?比例|安全生产投入(?:占比|比例)", r"%|％", {"%": 1, "％": 1}),
     _rule("Q_S_RD_RATE", r"(?:研发(?:费用|投入)(?:占比|比例)|研发投入强度)", r"%|％", {"%": 1, "％": 1}),
     _rule("Q_G_DEBT_ASSET_RATE", r"资产负债率", r"%|％", {"%": 1, "％": 1}, .9),
 )
@@ -136,6 +136,22 @@ DIRECT_RULES = (
         re.compile(
             r"Proportion\s+of\s+(?:(?:work|production)\s+safety|safety\s+production)\s+investment"
             r"\s*\d{0,2}\s*%\s*(?:/|–|—|-)?\s*" + NUMBER, re.I,
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"安全生产投入占营业收入(?:的)?比例\s*[：:]?\s*" + NUMBER + r"\s*[%％]",
+        ),
+        1.0,
+        .94,
+    ),
+    DirectRule(
+        "Q_S_SAFETY_INVEST_RATE",
+        re.compile(
+            r"安全生产投入占营业收入(?:的)?比例\s*\n\s*" + NUMBER + r"\s*[%％]",
         ),
         1.0,
         .94,
@@ -1029,7 +1045,9 @@ def _extract_alternative_water_rate(text: str, report_year: int) -> tuple[float,
 
 
 def _canonical_unit(unit: str) -> str:
-    compact = unit.replace("二氧化碳当量", "").replace("CO2e", "")
+    if not unit:
+        return ""
+    compact = re.sub(r"\s+", "", unit.replace("二氧化碳当量", "").replace("CO2e", ""))
     return compact
 
 
@@ -1490,21 +1508,31 @@ def _extract_english_yuan_current_first_rows(
 _CN_NUMBER = r"[\d,]+(?:\.\d+)?"
 
 _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
-    ("Q_E_GHG_INTENSITY", r"(?:单位营收)?温室气体排放强度(?:\s*[（(]范围\s*[一1]\s*[、和+]\s*(?:范围\s*)?[二2]\s*[）)])?", (
+    ("Q_E_GHG_INTENSITY", r"(?:单位营收)?温室气体排放(?:强度|密度)(?:\s*[（(]范围\s*[一1]\s*[、和+]\s*(?:范围\s*)?[二2]\s*[）)])?", (
         ("万吨二氧化碳当量/百万元营业收入", 100000.0), ("万吨二氧化碳当量/百万元营收", 100000.0),
-        ("吨二氧化碳当量/百万元营业收入", 1000.0), ("吨二氧化碳当量/百万元营收", 1000.0),
+        # 吨/百万元 → 千克/万元：×1000/100 = ×10（勿用×1000，否则放大百倍）
+        ("吨二氧化碳当量/百万元营业收入", 10.0), ("吨二氧化碳当量/百万元营收", 10.0),
+        ("吨二氧化碳当量/百万营收", 10.0), ("吨二氧化碳当量/百万元", 10.0),
         ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
         ("吨二氧化碳当量/万元营业收入", 1000.0),
-        ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/亿元", 0.1),
-        ("千克二氧化碳当量/万元", 1.0), ("tCO2e/百万元", 10.0),
+        ("吨二氧化碳当量/万元人民币营业收入", 1000.0),
+        ("吨二氧化碳当量/亿元", 0.1),
+        ("千克二氧化碳当量/万元", 1.0), ("tCO2e/百万元", 10.0), ("tCO2e/万元", 1000.0),
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元", 0.1),
     )),
-    # 神华等：碳排放强度（吨二氧化碳当量 ╱ 万元收入）
+    # 神华/宏发等：碳排放强度（吨二氧化碳当量 ╱ 万元收入）或（tCO2e/万元）
     ("Q_E_GHG_INTENSITY", r"碳排放强度", (
         ("吨二氧化碳当量/万元收入", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
-        ("吨二氧化碳当量/万元营业收入", 1000.0), ("吨二氧化碳当量/万元", 1000.0),
+        ("吨二氧化碳当量/万元营业收入", 1000.0), ("吨二氧化碳当量/万元人民币营业收入", 1000.0),
+        ("吨二氧化碳当量/万元", 1000.0),
         ("吨/万元收入", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元", 1000.0),
-        ("千克二氧化碳当量/万元", 1.0),
+        ("千克二氧化碳当量/万元", 1.0), ("tCO2e/万元", 1000.0), ("tCO₂e/万元", 1000.0),
+    )),
+    # 三峡能源等：营收碳强度 吨二氧化碳/万元人民币收入
+    ("Q_E_GHG_INTENSITY", r"营收碳强度", (
+        ("吨二氧化碳/万元人民币收入", 1000.0), ("吨二氧化碳当量/万元人民币收入", 1000.0),
+        ("吨二氧化碳/万元收入", 1000.0), ("吨二氧化碳/万元营收", 1000.0),
+        ("吨二氧化碳/万元", 1000.0), ("吨/万元人民币收入", 1000.0), ("吨/万元", 1000.0),
     )),
     # 绩效表常见“每百万营收温室气体排放总量 + 吨二氧化碳当量”隐含强度（吨/百万元→千克/万元×10）
     ("Q_E_GHG_INTENSITY", r"每百万营收温室气体排放总量(?:\s*[（(]\s*范围\s*[一1]\s*[、和+及]\s*范围\s*[二2]\s*[）)])?", (
@@ -1513,19 +1541,31 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
     # “单位营收温室气体排放量（基于位置） 吨二氧化碳当量/万元”
     ("Q_E_GHG_INTENSITY",
      r"单位营收温室气体排放(?:量|总量)(?:\s*[（(]\s*基于(?:位置|市场)\s*[）)])?", (
+        ("吨二氧化碳当量/百万元", 10.0), ("吨二氧化碳当量/百万元营收", 10.0),
+        ("吨二氧化碳当量/百万元营业收入", 10.0), ("吨/百万元", 10.0),
         ("吨二氧化碳当量/万元", 1000.0), ("吨二氧化碳当量/万元营收", 1000.0),
         ("吨二氧化碳当量/万元营业收入", 1000.0), ("吨/万元", 1000.0),
         ("千克二氧化碳当量/万元", 1.0), ("千克/万元", 1.0),
     )),
-    ("Q_E_ENERGY_INTENSITY", r"(?:单位营收)?(?:综合)?能源(?:消耗|消费)(?:强度|密度)|综合能耗强度", (
+    ("Q_E_ENERGY_INTENSITY", r"(?:单位营收)?(?:综合)?能源(?:消耗|消费|使用)(?:强度|密度|量)|综合能耗强度|每百万营收综合能耗强度|能源使用强度", (
         ("万吨标准煤/百万元营业收入", 100000.0), ("万吨标准煤/百万元营收", 100000.0),
-        ("吨标准煤/百万元营业收入", 1000.0), ("吨标准煤/百万元营收", 1000.0),
+        ("吨标准煤/百万元营业收入", 10.0), ("吨标准煤/百万元营收", 10.0),
         ("吨标准煤/万元", 1000.0), ("吨标准煤/万元营收", 1000.0), ("吨标准煤/万元营业收入", 1000.0),
-        ("吨标准煤/百万元", 10.0), ("吨标准煤/亿元", 0.1),
-        ("千克标准煤/万元", 1.0), ("吉焦/百万元", 0.341208),
+        ("吨标准煤/万元人民币营业收入", 1000.0), ("吨标煤/万元人民币营业收入", 1000.0),
+        ("吨标煤/万元", 1000.0), ("吨标煤/万元营收", 1000.0), ("吨标煤/万元营业收入", 1000.0),
+        ("吨标准煤/百万元", 10.0), ("吨标煤/百万元", 10.0), ("吨标煤/百万元营收", 10.0),
+        ("吨标准煤/亿元", 0.1),
+        ("千克标准煤/万元", 1.0), ("千克标准煤/万元营收", 1.0), ("千克标准煤/万元营业收入", 1.0),
+        ("吉焦/百万元", 0.341208),
     )),
-    ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|(?:单位营收)?(?:用水|耗水|取水)强度", (
+    # 绩效表：每百万营收综合能耗强度 + 吨标煤（隐含 /百万元）
+    ("Q_E_ENERGY_INTENSITY", r"每百万营收综合能耗(?:强度|总量)|每百万营收能源消耗(?:强度|总量)|单位营收综合能源消耗量", (
+        ("吨标准煤", 10.0), ("吨标煤", 10.0), ("千克标准煤", 0.01),
+        ("吨标煤/百万元", 10.0), ("吨标准煤/百万元", 10.0),
+    )),
+    ("Q_E_WATER_INTENSITY", r"水资源(?:使用|消耗)强度|(?:单位营收)?(?:用水|耗水|取水)(?:强度|密度|量)", (
         ("吨/万元", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元营业收入", 1000.0),
+        ("吨/万元人民币营业收入", 1000.0),
         ("吨/百万元", 10.0), ("立方米/万元", 1000.0), ("立方米/万元营收", 1000.0),
         ("立方米/百万元", 10.0), ("千克/万元", 1.0),
     )),
@@ -1534,8 +1574,9 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
         ("吨/百万元营收", 10_000.0), ("吨/百万元营业收入", 10_000.0),
         ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
     )),
-    ("Q_E_NOX_INTENSITY", r"氮氧化物排放强度", (
+    ("Q_E_NOX_INTENSITY", r"氮氧化物排放强度|每百万营收氮氧化物排放量", (
         ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
+        ("吨/万元", 1_000_000.0), ("吨/百万元", 10_000.0), ("吨", 10_000.0),
     )),
     ("Q_E_PM_INTENSITY", r"颗粒物排放强度", (
         ("千克/万元", 1000.0), ("千克/百万元", 10.0), ("克/万元", 1.0), ("克/百万元", 0.01),
@@ -1543,17 +1584,29 @@ _CN_TABLE_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...]], ...] = (
     ("Q_E_WASTEWATER_INTENSITY", r"废水排放强度", (
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
     )),
-    ("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物排放强度|一般固废排放强度", (
-        ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("千克/万元", 1.0),
+    # 无害废弃物产生强度仅走亮点卡 value-before-label，避免把下一指标的前置数值误挂到本标签后
+    ("Q_E_SOLID_WASTE_INTENSITY", r"一般固体废物(?:排放|产生)?(?:强度|密度)|一般固废(?:排放|产生)?(?:强度|密度)|一般废弃物产生强度|单位营收(?:一般|无害)废弃物(?:产生|处置)?量", (
+        ("吨/万元", 1000.0), ("吨/万元营收", 1000.0), ("吨/万元营业收入", 1000.0),
+        ("吨/营收万元", 1000.0), ("吨/万元（年营业收入）", 1000.0), ("吨/百万元", 10.0),
+        ("吨/百万元营收", 10.0), ("吨/百万元营业收入", 10.0), ("千克/万元", 1.0),
     )),
-    ("Q_E_HAZ_WASTE_INTENSITY", r"危险废物排放强度|危险废物产生强度|危废排放强度|(?:单位营收)?危险废物密度|危险废弃物(?:排放|产生)?(?:强度|密度)", (
+    # 桂冠电力等：每百万营收产生的无害废弃物总量 吨/百万元
+    ("Q_E_SOLID_WASTE_INTENSITY", r"每百万营收产生的无害废弃物总量|每百万营收无害废弃物(?:产生)?总量", (
+        ("吨/百万元", 10.0), ("吨/百万元营收", 10.0), ("吨", 10.0),
+    )),
+    # 华银电力等竖排：无害废弃物总量 + 吨/百万元（拒绝对质量单位“吨”以免误吃产生量）
+    ("Q_E_SOLID_WASTE_INTENSITY", r"无害废弃物总量", (
+        ("吨/百万元", 10.0), ("吨/百万元营收", 10.0), ("吨/百万元营业收入", 10.0),
+    )),
+    ("Q_E_HAZ_WASTE_INTENSITY", r"危险废物排放强度|危险废物产生强度|危废排放强度|(?:单位营收)?危险废物密度|危险废弃物(?:排放|产生)?(?:强度|密度)|每百万营收产生的有害废弃物总量|单位营收危险废物产生量", (
         ("吨/万元", 1000.0), ("吨/百万元", 10.0), ("吨/亿元人民币营业收入", 0.1),
         ("吨/万元收入", 1000.0), ("吨/万元营收", 1000.0), ("吨/营收万元", 1000.0),
-        ("吨/万元人民币营业收入", 1000.0), ("吨/百万元营收", 10.0),
+        ("吨/万元人民币营业收入", 1000.0), ("吨/万元（年营业收入）", 1000.0),
+        ("吨/百万元营收", 10.0),
         ("吨/百万元营业收入", 10.0), ("吨/百万营收", 10.0),
         ("吨/亿元营业收入", 0.1), ("吨/亿元", 0.1), ("千克/万元", 1.0),
     )),
-    ("Q_S_ENV_INVEST_RATE", r"环保(?:总)?投入占营业收入(?:的)?比例", (("%", 1.0),)),
+    ("Q_S_ENV_INVEST_RATE", r"环保(?:总)?投入占营业收入(?:的)?比例|环境保护总投入占营业收入(?:的)?比例", (("%", 1.0),)),
     ("Q_S_SAFETY_INVEST_RATE", r"安全生产投入占营业收入(?:的)?比例", (("%", 1.0),)),
     ("Q_S_RD_RATE", r"研发投入占营业收入(?:的)?比例", (("%", 1.0),)),
     ("Q_S_DONATION_RATE", r"(?:对外)?捐赠(?:总额)?占营业收入(?:的)?比例", (("%", 1.0),)),
@@ -1599,7 +1652,7 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
         return "current-first"
     if re.search(rf"{pollutant_header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
         return "single-year"
-    header = r"(?:指标|项目|披露项|披露指标)(?:名称)?\s*单位"
+    header = r"(?:指标|项目|披露项|披露指标)(?:名称)?\s*单\s*位"
     if re.search(rf"{header}\s*{report_year}\s*年?\s*{previous_year}\s*年?", text):
         return "current-first"
     if re.search(rf"{header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?", text):
@@ -1607,16 +1660,34 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
     if re.search(rf"{header}\s*{report_year}\s*年?(?:数据|数值|值)?", text):
         return "single-year"
     postfix_header = r"(?:指标|项目|类别|披露项|披露指标)(?:名称)?"
-    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*{previous_year}\s*年?\s*单位", text):
+    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*{previous_year}\s*年?\s*单\s*位", text):
         return "current-first"
-    if re.search(rf"{postfix_header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?\s*单位", text):
+    if re.search(rf"{postfix_header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?\s*单\s*位", text):
         return "current-last"
-    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*单位", text):
+    if re.search(rf"{postfix_header}\s*{report_year}\s*年?\s*单\s*位", text):
         return "single-year"
+    # 禾迈等竖排KPI卡：关键绩效 单位 2025年
+    if re.search(rf"(?:关键绩效|环境绩效|责任绩效|环保绩效)\s*单\s*位\s*{report_year}\s*年?", text):
+        return "single-year"
+    # 三峡能源等：环保绩效 单位 2023 年 2024 年 2025 年
+    if re.search(
+        rf"(?:关键绩效|环境绩效|责任绩效|环保绩效)\s*单\s*位\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?",
+        text,
+    ):
+        return "current-last"
+    # 裸表头：单位 2023 2024 2025（同页气候指标卡）
+    if re.search(rf"(?m)^\s*单\s*位\s*(?:20\d{{2}}\s*){{1,2}}{report_year}\s*$", text):
+        return "current-last"
     # 神华等附录绩效表：一级指标 二级指标 2023年 2024年 2025年
-    appendix_header = r"(?:一级指标\s*二级指标|指标\s*单位|二级指标)"
+    appendix_header = r"(?:一级指标\s*二级指标|指标\s*单\s*位|二级指标)"
     if re.search(
         rf"{appendix_header}\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?",
+        text,
+    ):
+        return "current-last"
+    # 华银电力等：指标 单位\n2023年 2024年 2025年（单位与年份可换行）
+    if re.search(
+        rf"指标\s*单\s*位\s*\n\s*(?:20\d{{2}}\s*年\s*){{1,2}}{report_year}\s*年",
         text,
     ):
         return "current-last"
@@ -1625,17 +1696,100 @@ def _chinese_year_table_mode(text: str, report_year: int) -> str | None:
         text,
     ) and re.search(r"(?:碳排放总量|二氧化硫排放总量|氮氧化物排放总量|能源消费总量|总耗水量)", text):
         return "current-last"
+    # 宏发等：统计项目 2023年 2024年 2025年
+    if re.search(
+        rf"(?:统计项目|指标项目|关键指标)\s*(?:20\d{{2}}\s*年?\s*){{1,2}}{report_year}\s*年?",
+        text,
+    ):
+        return "current-last"
+    # 竖排年份卡：单位\n2023年\n...\n2025年（禾望电气等）
+    if re.search(
+        rf"(?m)^\s*单位\s*\n(?:.*\n){{0,3}}^\s*{report_year - 2}\s*年\s*\n[\s\S]{{0,80}}^\s*{previous_year}\s*年\s*\n[\s\S]{{0,80}}^\s*{report_year}\s*年\s*$",
+        text,
+    ) and re.search(r"(?:温室气体|碳排放|能源|取水|用水)", text):
+        return "current-last"
     return None
+
+
+def _expand_scientific_notation(text: str) -> str:
+    """Expand PDF scientific notation such as ``5.294× 10-3`` into decimals."""
+
+    def _repl(match: re.Match[str]) -> str:
+        base = float(match.group(1))
+        exp = int(match.group(2))
+        # 报表几乎总是写 10-n 表示 10^(-n)
+        value = base * (10 ** (-exp))
+        return f"{value:.12g}"
+
+    return re.sub(
+        r"(\d+(?:\.\d+)?)\s*[×xX]\s*10\s*[−\-﹣]?\s*(\d+)",
+        _repl,
+        text,
+    )
+
+
+def _collapse_spaced_cn_units(text: str) -> str:
+    """Collapse PDF letter-spacing inside common Chinese intensity units/headers."""
+    patterns = (
+        r"吨\s*标\s*准\s*煤\s*/\s*百\s*万\s*元(?:\s*营\s*业\s*收\s*入|\s*营\s*收)?",
+        r"吨\s*标\s*煤\s*/\s*百\s*万\s*元(?:\s*营\s*业\s*收\s*入|\s*营\s*收)?",
+        r"吨\s*二\s*氧\s*化\s*碳\s*当\s*量\s*/\s*(?:万\s*元|百\s*万\s*元)(?:\s*营\s*业\s*收\s*入|\s*营\s*收)?",
+        r"千克\s*标\s*准\s*煤\s*/\s*万\s*元(?:\s*营\s*业\s*收\s*入|\s*营\s*收)?",
+        r"立\s*方\s*米\s*/\s*百\s*万\s*元(?:\s*营\s*业\s*收\s*入|\s*营\s*收)?",
+    )
+    repaired = text
+    for pattern in patterns:
+        repaired = re.sub(pattern, lambda m: re.sub(r"\s+", "", m.group(0)), repaired)
+    # 表头“指标 单 位 / 环 境 绩 效”
+    repaired = re.sub(r"指\s*标\s+单\s*位", "指标 单位", repaired)
+    repaired = re.sub(r"单\s+位", "单位", repaired)
+    repaired = re.sub(r"环\s*境\s*绩\s*效", "环境绩效", repaired)
+    return repaired
+
+
+def _repair_wrapped_cn_env_labels(text: str) -> str:
+    """Join common PDF wraps in Chinese environmental KPI labels/units."""
+    repairs = (
+        (r"温室气体\s*\n\s*排放总量", "温室气体排放总量"),
+        (r"温室气体\s*\n\s*排放强度", "温室气体排放强度"),
+        (r"温室气体\s*\n\s*排放密度", "温室气体排放密度"),
+        (r"吨二氧\s*\n\s*化碳当量", "吨二氧化碳当量"),
+        (r"吨二氧化碳\s*\n\s*当量", "吨二氧化碳当量"),
+        (r"吨二氧化碳当量\s*\n\s*/\s*\n\s*百万营收", "吨二氧化碳当量/百万营收"),
+        (r"吨二氧化碳当量\s*/\s*\n\s*百万营收", "吨二氧化碳当量/百万营收"),
+        (r"吨二氧化碳当量\s*\n\s*/\s*百万营收", "吨二氧化碳当量/百万营收"),
+        (r"营收碳强度\s*吨二氧化碳\s*/\s*\n\s*万元人民币收入", "营收碳强度 吨二氧化碳/万元人民币收入"),
+        (r"吨二氧化碳\s*/\s*\n\s*万元人民币收入", "吨二氧化碳/万元人民币收入"),
+        (r"一般固体废物产生\s*\n\s*总量", "一般固体废物产生总量"),
+        (r"一般固体废物排放\s*\n\s*密度", "一般固体废物排放密度"),
+        (r"危险废物排放\s*\n\s*密度", "危险废物排放密度"),
+        (r"每百万营收产生的\s*\n\s*有害废弃物总量", "每百万营收产生的有害废弃物总量"),
+        (r"每百万营收产生的\s*\n\s*无害废弃物总量", "每百万营收产生的无害废弃物总量"),
+        (r"吨/\s*\n\s*[（(]\s*年营业收入\s*[）)]", "吨/万元（年营业收入）"),
+        (r"吨/\s*万元\s*\n\s*[（(]\s*年营业收入\s*[）)]", "吨/万元（年营业收入）"),
+    )
+    repaired = text
+    for pattern, repl in repairs:
+        repaired = re.sub(pattern, repl, repaired)
+    return repaired
 
 
 def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[str, float, str]]:
     """Read methodology-compatible rows from Chinese KPI tables with explicit year headers."""
-    text = _repair_wrapped_numbers(_normalize_kangxi(text))
+    text = _collapse_spaced_cn_units(
+        _expand_scientific_notation(
+            _repair_wrapped_cn_env_labels(_repair_wrapped_numbers(_normalize_kangxi(text)))
+        )
+    )
     mode = _chinese_year_table_mode(text, report_year)
     results: list[tuple[str, float, str]] = []
     for code, label, units in _CN_TABLE_RULES:
         factors = dict(units)
-        unit_pattern = "(?:" + "|".join(f"(?:{_cn_unit_fragment(unit)})" for unit, _ in units) + ")"
+        # 较长单位优先，避免“吨/万元”抢先匹配“吨/万元（年营业收入）”
+        unit_pattern = "(?:" + "|".join(
+            f"(?:{_cn_unit_fragment(unit)})"
+            for unit, _ in sorted(units, key=lambda item: len(item[0]), reverse=True)
+        ) + ")"
         label_group = rf"(?:{label})(?:\s*注\s*\d+)?"
         patterns: list[tuple[str, str]] = []
         if mode == "current-first":
@@ -1662,16 +1816,92 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                 rf"^\s*{label_group}\s*[（(]\s*(?P<unit>{unit_pattern})\s*[）)]\s*"
                 rf"{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
             ))
+            # 标签与单位分行：一般固体废物排放密度\n吨/万元（年营业收入） v1 v2 v3
+            patterns.append((
+                "current-last-label-newline-unit",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<unit>{unit_pattern})\s*"
+                rf"{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
+            ))
+            # 竖排三年值：标签\n(范围)\n单位\nv1\nv2\nv3（禾望电气等）
+            patterns.append((
+                "current-last-vertical-three",
+                rf"(?m)^\s*{label_group}\s*(?:\n\s*[（(][^）\n]{{0,40}}[）)])?\s*\n\s*"
+                rf"(?P<unit>{unit_pattern})\s*\n\s*"
+                rf"{_CN_NUMBER}\s*\n\s*{_CN_NUMBER}\s*\n\s*(?P<current>{_CN_NUMBER})\s*$",
+            ))
         elif mode == "single-year":
             patterns.append((
                 "single-year",
                 rf"^\s*{label_group}\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s*$",
             ))
+            # 竖排KPI卡：标签\n单位\n数值（禾迈等）
+            patterns.append((
+                "single-year-vertical",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<unit>{unit_pattern})\s*\n\s*(?P<current>{_CN_NUMBER})\s*$",
+            ))
         patterns.append((
             "row-year-suffix",
             rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*{report_year}\s*年\s*$",
         ))
-        if code == "Q_E_HAZ_WASTE_INTENSITY" and mode is None:
+        # 无表头但仍是显式收入强度：标签\n单位 数值 或 标签\n数值\n单位
+        if code in {
+            "Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_WATER_INTENSITY",
+            "Q_E_SO2_INTENSITY", "Q_E_NOX_INTENSITY", "Q_E_HAZ_WASTE_INTENSITY",
+            "Q_E_SOLID_WASTE_INTENSITY", "Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE",
+            # Q_S_ENV_INVEST_RATE 常为亮点卡数值在前，避免标签后误吃下一指标百分比
+        }:
+            # 单值竖排：数值后不得再跟同年序列，避免把三年卡的首年误当本期
+            patterns.append((
+                "vertical-unit-value",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<unit>{unit_pattern})\s+(?P<current>{_CN_NUMBER})\s*"
+                rf"(?!\n\s*{_CN_NUMBER})\s*$",
+            ))
+            patterns.append((
+                "vertical-value-unit",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<current>{_CN_NUMBER})\s*\n\s*(?P<unit>{unit_pattern})\s*$",
+            ))
+            # 标签换行后数值与单位同行：综合能源消耗强度\n0.95吨标准煤/百万元营收
+            patterns.append((
+                "vertical-value-unit-same-line",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
+            ))
+            patterns.append((
+                "vertical-unit-then-value",
+                rf"(?m)^\s*{label_group}\s*\n\s*(?P<unit>{unit_pattern})\s*\n\s*(?P<current>{_CN_NUMBER})\s*"
+                rf"(?!\n\s*{_CN_NUMBER})\s*$",
+            ))
+            # 安全/研发占比：标签\n0.06%
+            if code in {"Q_S_SAFETY_INVEST_RATE", "Q_S_RD_RATE"}:
+                patterns.append((
+                    "vertical-percent",
+                    rf"(?m)^\s*{label_group}\s*\n\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>[%％])\s*$",
+                ))
+            # 无表头时的竖排三年收入强度：取末列本期值
+            if code in {
+                "Q_E_GHG_INTENSITY", "Q_E_ENERGY_INTENSITY", "Q_E_NOX_INTENSITY",
+                "Q_E_WATER_INTENSITY", "Q_E_SOLID_WASTE_INTENSITY", "Q_E_HAZ_WASTE_INTENSITY",
+            } and mode is None:
+                patterns.append((
+                    "vertical-three-year-intensity",
+                    rf"(?m)^\s*{label_group}\s*(?:\n\s*[（(][^）\n]{{0,40}}[）)])?\s*\n\s*"
+                    rf"(?P<unit>{unit_pattern})\s*\n\s*"
+                    rf"{_CN_NUMBER}\s*\n\s*{_CN_NUMBER}\s*\n\s*(?P<current>{_CN_NUMBER})\s*$",
+                ))
+            # 双栏拼版：标签后插入其他议题，再出现单位与三年值（帝尔激光）
+            if code == "Q_E_ENERGY_INTENSITY":
+                revenue_unit = (
+                    r"(?:吨标准煤|吨标煤)\s*/\s*百万元(?:营收|营业收入)?"
+                    r"|(?:千克标准煤)\s*/\s*万元(?:营收|营业收入)?"
+                )
+                patterns.append((
+                    "interleaved-vertical-three",
+                    rf"每百万营收综合能耗强度[\s\S]{{0,160}}?(?P<unit>{revenue_unit})\s*\n\s*"
+                    rf"{_CN_NUMBER}\s*\n\s*{_CN_NUMBER}\s*\n\s*(?P<current>{_CN_NUMBER})\b",
+                ))
+        if code in {
+            "Q_E_HAZ_WASTE_INTENSITY", "Q_E_NOX_INTENSITY", "Q_E_ENERGY_INTENSITY",
+            "Q_E_SOLID_WASTE_INTENSITY", "Q_E_WATER_INTENSITY",
+        } and mode is None:
             patterns.append((
                 "single-value-revenue-unit",
                 rf"^\s*{label_group}\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})\s*$",
@@ -1682,8 +1912,14 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
             ))
         for pattern_mode, row in patterns:
             for match in re.finditer(row, text, re.M):
-                unit_key = re.sub(r"\s+", "", match.group("unit")).strip("（）()")
+                unit_key = re.sub(r"\s+", "", match.group("unit"))
                 unit_key = unit_key.replace("／", "/").replace("╱", "/")
+                # 仅当整段被括号包裹时去壳；勿用 strip('（）')，否则会剥掉“吨/万元（年营业收入）”的右括号
+                if (
+                    (unit_key.startswith("（") and unit_key.endswith("）"))
+                    or (unit_key.startswith("(") and unit_key.endswith(")"))
+                ):
+                    unit_key = unit_key[1:-1]
                 factor = factors.get(unit_key)
                 if factor is None:
                     continue
@@ -1699,6 +1935,16 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                     code, value,
                     f"Chinese {pattern_mode} environmental table row: " + re.sub(r"\s+", " ", match.group(0)).strip(),
                 ))
+    # 去重：同一指标同一数值可能被横排与竖排模式各命中一次
+    deduped: list[tuple[str, float, str]] = []
+    seen: set[tuple[str, float]] = set()
+    for code, value, evidence in results:
+        key = (code, round(value, 6))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append((code, value, evidence))
+    results = deduped
     # Some ESG KPI tables split one pollutant into label / total / unit / value / intensity /
     # unit / value bands. Accept only an explicit report-year emissions-performance table and
     # the exact SO2 substance label; SOx and permit/target tables cannot enter this branch.
@@ -1717,6 +1963,85 @@ def _extract_chinese_env_table_rows(text: str, report_year: int) -> list[tuple[s
                     "Q_E_SO2_INTENSITY", value,
                     "Chinese explicit-year split pollutant intensity row: " + evidence[:260],
                 ))
+    results.extend(_extract_chinese_highlight_intensities(text))
+    # 再次去重（亮点卡可能与表行重叠）
+    deduped = []
+    seen = set()
+    for code, value, evidence in results:
+        key = (code, round(value, 6))
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append((code, value, evidence))
+    return deduped
+
+
+def _extract_chinese_highlight_intensities(text: str) -> list[tuple[str, float, str]]:
+    """亮点卡常见“数值 + 单位 + 换行标签”或双栏强度拼版。"""
+    results: list[tuple[str, float, str]] = []
+
+    def _add(code: str, raw: str, factor: float, evidence: str) -> None:
+        value = float(raw.replace(",", "")) * factor
+        if _plausible_value(code, value):
+            results.append((
+                code, value,
+                "Chinese highlight intensity: " + re.sub(r"\s+", " ", evidence).strip()[:260],
+            ))
+
+    # 顺钠股份等：0.68 吨标煤/百万元\n单位营收综合能源消耗量
+    highlight_rows = (
+        (
+            "Q_E_ENERGY_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*(?:吨标准煤|吨标煤)\s*/\s*百万元(?:营收|营业收入)?\s*\n\s*"
+            rf"单位营收(?:综合)?能源(?:消耗|消费)?(?:量|强度)?",
+        ),
+        (
+            "Q_E_GHG_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*(?:吨二氧化碳当量|吨CO2e|tCO2e)\s*/\s*百万元(?:营收|营业收入)?\s*\n\s*"
+            rf"单位营收(?:温室气体|碳排放)(?:排放)?(?:量|强度)?",
+        ),
+        (
+            "Q_E_WATER_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*(?:立方米|吨|m³)\s*/\s*百万元(?:营收|营业收入)?\s*\n\s*"
+            rf"单位营收(?:耗水|用水|取水)(?:量|强度)?",
+        ),
+        # 金冠电气等：数值在前的无害废弃物强度
+        (
+            "Q_E_SOLID_WASTE_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*\n\s*吨\s*/\s*百万元\s*\n\s*营业收入\s*\n\s*"
+            rf"(?:无害|一般)废弃物产生强度",
+        ),
+        (
+            "Q_E_HAZ_WASTE_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*\n\s*吨\s*/\s*百万元\s*\n\s*营业收入\s*\n\s*"
+            rf"危险废弃物产生强度",
+        ),
+        # 水资源使用强度：总量行后的强度值在前
+        (
+            "Q_E_WATER_INTENSITY", 10.0,
+            rf"(?P<current>{_CN_NUMBER})\s*\n\s*水资源使用强度\s*\n\s*吨\s*/\s*百万元",
+        ),
+        (
+            "Q_S_ENV_INVEST_RATE", 1.0,
+            rf"(?P<current>{_CN_NUMBER})\s*[%％]\s*\n\s*"
+            rf"(?:环境保护总投入|环保(?:总)?投入)占营业收入(?:的)?比例",
+        ),
+    )
+    for code, factor, pattern in highlight_rows:
+        for match in re.finditer(pattern, text, re.M | re.I):
+            _add(code, match.group("current"), factor, match.group(0))
+
+    # 双栏亮点：GHG/能耗强度同组两值 + 分列单位标签（金冠电气）
+    dual = re.search(
+        rf"吨\s*二\s*氧\s*化\s*碳\s*当\s*量\s*/\s*\n\s*"
+        rf"(?P<ghg>{_CN_NUMBER})\s+(?P<energy>{_CN_NUMBER})\s*\n\s*"
+        rf"百万元营业收入\s*\n\s*温室气体排放强度\s+能源使用强度\s*\n\s*"
+        rf"吨标准煤\s*/\s*(?:百万\s*\n\s*元营业收入|百万元(?:营业收入)?)",
+        text,
+    )
+    if dual:
+        _add("Q_E_GHG_INTENSITY", dual.group("ghg"), 10.0, dual.group(0))
+        _add("Q_E_ENERGY_INTENSITY", dual.group("energy"), 10.0, dual.group(0))
     return results
 
 

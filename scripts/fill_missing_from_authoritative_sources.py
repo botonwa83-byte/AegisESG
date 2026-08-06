@@ -47,17 +47,17 @@ from aegis_esg.source_authority import (  # noqa: E402
 )
 
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v33_enriched.csv"
+BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v38_enriched.csv"
 DOCUMENT_INDEX = ROOT / "data/raw/all_markets_document_index.csv"
 CI_INDEX = ROOT / "output/sync/official_document_index.csv"
 TEXT_ROOT = ROOT / "data/text"
 CLIENT_TOP200 = ROOT / "data/reference/2025_top200_securities_ocr.csv"
 DOMAIN_REVIEW = ROOT / "data/review/official_domain_review_batch01_2025.csv"
-OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v34_enriched.csv"
-AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v11_2025.json"
-AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v11_2025.csv"
-ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v11_2025.csv"
-TAG = "[research-only:authority-gap-fill-v11;not-formal]"
+OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v39_enriched.csv"
+AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v16_2025.json"
+AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v16_2025.csv"
+ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v16_2025.csv"
+TAG = "[research-only:authority-gap-fill-v16;not-formal]"
 FALSE_ZERO_MARKER = "No qualifying public evidence in current collection"
 
 
@@ -185,8 +185,14 @@ def _extract_for_companies(
 
 
 def _best_candidate(items: list[Observation]) -> Observation:
-    winner = items[0]
-    for item in items[1:]:
+    # Prefer highlight-card parses when they coexist with mis-anchored vertical rows.
+    highlights = [
+        item for item in items
+        if "Chinese highlight intensity" in (item.evidence_text or "")
+    ]
+    pool = highlights or items
+    winner = pool[0]
+    for item in pool[1:]:
         winner = prefer(winner, item)
     return winner
 
@@ -275,6 +281,34 @@ def main() -> None:
                     "company_code": code,
                     "indicator_code": indicator,
                     "action": "replaced_higher_authority",
+                    "value": best.value,
+                    "prior_value": existing.value,
+                    "tier": source_tier(best).name,
+                    "source_url": best.source_url,
+                    "source_file": best.source_file,
+                })
+            elif (
+                best.value != existing.value
+                and disclosure_authority(best) == disclosure_authority(existing)
+                and "Chinese " in (best.evidence_text or "")
+                and any(
+                    token in (best.evidence_text or "")
+                    for token in (
+                        "environmental table row",
+                        "vertical-",
+                        "interleaved-",
+                        "single-value-revenue",
+                        "single-unit-value-revenue",
+                    )
+                )
+            ):
+                # Same-tier re-extract after unit/year-column fixes (e.g. 百万元×10).
+                by_key[key] = best
+                replaced += 1
+                fills.append({
+                    "company_code": code,
+                    "indicator_code": indicator,
+                    "action": "replaced_reextract_correction",
                     "value": best.value,
                     "prior_value": existing.value,
                     "tier": source_tier(best).name,

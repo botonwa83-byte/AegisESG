@@ -9287,7 +9287,6 @@
 301361.SZ,众智科技,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301386.SZ,未来电器,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301386.SZ,未来电器,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-301386.SZ,未来电器,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301386.SZ,未来电器,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301386.SZ,未来电器,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 301386.SZ,未来电器,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -10430,7 +10429,6 @@
 600505.SH,西昌电力,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600508.SH,上海能源,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600508.SH,上海能源,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600508.SH,上海能源,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600508.SH,上海能源,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600508.SH,上海能源,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600508.SH,上海能源,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11066,7 +11064,6 @@
 600885.SH,宏发股份,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600885.SH,宏发股份,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600885.SH,宏发股份,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600885.SH,宏发股份,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600885.SH,宏发股份,Q_G_CAPITAL_ACCUMULATION,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600885.SH,宏发股份,Q_G_EBITDA_MARGIN,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600885.SH,宏发股份,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11132,11 +11129,8 @@
 600905.SH,三峡能源,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600905.SH,三峡能源,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600905.SH,三峡能源,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_S_EDU_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600905.SH,三峡能源,Q_S_ENV_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_S_PAY_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600905.SH,三峡能源,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600917.SH,重庆燃气,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11196,7 +11190,6 @@
 600938.SH,中国海油,Q_G_OPERATING_MARGIN,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600938.SH,中国海油,Q_G_OPERATING_PROFIT_GROWTH,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600938.SH,中国海油,Q_G_QUICK_RATIO,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-600938.SH,中国海油,Q_G_REVENUE_GROWTH,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600938.SH,中国海油,Q_G_ROA,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600938.SH,中国海油,Q_G_TWO_FUNDS_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 600938.SH,中国海油,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11381,16 +11374,9 @@
 601016.SH,节能风电,Q_S_PAY_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601016.SH,节能风电,Q_S_SAFETY_INVEST_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_E_WASTEWATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601088.SH,中国神华,Q_E_WATER_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_G_AR_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_G_ASSET_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601088.SH,中国神华,Q_G_CAPITAL_ACCUMULATION,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11792,7 +11778,6 @@
 601857.SH,中国石油,Q_E_ALTERNATIVE_WATER_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_E_CLEAN_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_E_ENERGY_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601857.SH,中国石油,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_E_GHG_REDUCTION_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11814,7 +11799,6 @@
 601857.SH,中国石油,Q_G_OPERATING_MARGIN,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_G_OPERATING_PROFIT_GROWTH,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_G_QUICK_RATIO,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601857.SH,中国石油,Q_G_REVENUE_GROWTH,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_G_ROA,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_G_TWO_FUNDS_RATE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601857.SH,中国石油,Q_S_BENEFIT_PER_EMPLOYEE,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
@@ -11981,7 +11965,6 @@
 601991.SH,大唐发电,Q_E_GHG_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601991.SH,大唐发电,Q_E_HAZ_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601991.SH,大唐发电,Q_E_NOX_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
-601991.SH,大唐发电,Q_E_PM_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601991.SH,大唐发电,Q_E_SO2_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601991.SH,大唐发电,Q_E_SOLID_WASTE_INTENSITY,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other
 601991.SH,大唐发电,Q_G_AR_TURNOVER,,pending_verification,verify_issuer_domain_then_discover_reports,source-authority-v1-exchange-gt-issuer-gt-other

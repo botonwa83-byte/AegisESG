@@ -1,6 +1,6 @@
 {
   "policy_version": "universe-baseline-ranking-v1",
-  "run_at_utc": "2026-08-06T04:01:44+00:00",
+  "run_at_utc": "2026-08-06T09:00:52+00:00",
   "expected_companies": 632,
   "universe": "data/universe/energy_historical_candidates_2026.csv",
   "universe_audit": {
@@ -31,13 +31,13 @@
   "annual_gap_retry_manifest": "output/audit/universe_annual_gap_retry_manifest_v1_2025.csv",
   "annual_gap_count": 2,
   "subject_shortfall": 18,
-  "ranking_dir": "output/research/2025/full_auto_v34_enriched",
+  "ranking_dir": "output/research/2025/full_auto_v39_enriched",
   "population_baseline": {
     "thin_population_indicator_count": 0,
     "minimum_population_gate_passed": true,
     "formal_baseline_ready": false
   },
-  "score_cli": "scored 612 companies in research mode; files written to /Users/fengwang/Documents/trae_projects/aegisESP/output/research/2025/full_auto_v34_enriched",
+  "score_cli": "scored 612 companies in research mode; files written to /Users/fengwang/Documents/trae_projects/aegisESP/output/research/2025/full_auto_v39_enriched",
   "official_release": false,
   "notice": "已按宇宙内披露样本测算行业基准；主体未达632或薄样本未清零前不得正式发布。缺18家名录需外部输入；2家港股年报继续交易所重试。"
 }
