@@ -102,17 +102,22 @@ _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
         ),
         (0.001, 5_000_000.0),
     ),
-    # 污染物/废弃物：SO2/NOx/PM方法论口径为克/万元，其余为千克/万元
+    # 污染物/废弃物：SO2/NOx/PM方法论口径为克/万元，其余为千克/万元。
+    # 允许“工业生产”前缀与化学式括注；硫氧化物/SOx 仍不得映射为 SO2。
     (
         "Q_E_SO2_INTENSITY",
-        r"(?<!去除)(?<!削减)(?<!减少)二氧化硫(?:排放)?总量|二氧化硫排放量|外排废气中二氧化硫量|"
+        r"(?<!去除)(?<!削减)(?<!减少)(?:工业生产)?二氧化硫(?:\s*[（(]\s*SO[₂2]\s*[）)]|\s+SO[₂2])?\s*(?:排放)?总量|"
+        r"二氧化硫(?:\s*[（(]\s*SO[₂2]\s*[）)]|\s+SO[₂2])?\s*排放量|外排废气中二氧化硫量|"
         r"(?<!去除)(?<!削减)(?<!减少)SO2(?:排放)?总量|SO2排放量",
         (("万吨", 10_000_000.0), ("吨", 1_000.0), ("千克", 1.0)),
         (0.001, 100_000.0),
     ),
     (
         "Q_E_NOX_INTENSITY",
-        r"(?<!去除)(?<!削减)(?<!减少)氮氧化物(?:排放)?总量|氮氧化物排放量|外排废气中氮氧化物量",
+        r"(?<!去除)(?<!削减)(?<!减少)(?:工业生产)?氮氧化物(?:\s*[（(]\s*NO[xXₓ]\s*[）)]|\s+NO[xXₓ])?\s*(?:排放)?总量|"
+        r"氮氧化物(?:\s*[（(]\s*NO[xXₓ]\s*[）)]|\s+NO[xXₓ])?\s*(?:排放)?(?:总)?量(?:\s*[（(]\s*NO[xXₓ]\s*[）)])?|"
+        r"废气中氮氧化物(?:\s*[（(]\s*NO[xXₓ]\s*[）)])?(?:排放)?(?:总)?量|"
+        r"外排废气中氮氧化物量",
         (("万吨", 10_000_000.0), ("吨", 1_000.0), ("千克", 1.0)),
         (0.001, 100_000.0),
     ),
@@ -147,12 +152,15 @@ _CN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
 
 # 标签与数值之间/标签之前出现这些措辞时，该数值不是报告期实际总量
 _CN_BAD_BETWEEN = re.compile(r"约|大约|增加|减少|降至|降低|下降|增长|同比|目标|计划|规划|控制在|以内|超|超过|近")
-_CN_BAD_PREFIX = re.compile(r"目标|计划|规划|核定|许可|限值|上限|减少|降低|增加|减排(?!(?:标准|任务|改造|要求|措施|工作|项目|工程|责任))|预计|预测")
+_CN_BAD_PREFIX = re.compile(
+    r"目标|计划|规划|核定|许可(?:限值|总量|上限)|排污许可量|限值|上限|减少|降低|增加|"
+    r"减排(?!(?:标准|任务|改造|要求|措施|工作|项目|工程|责任))|预计|预测"
+)
 # 叙述式/陈述式句型前缀出现部分主体时，该总量不是集团合并口径。
-# “所属生产经营类企业”是央企ESG全口径惯用语，不视为子公司局部口径。
+# “所属生产经营类企业/所属火电企业”是集团全口径惯用语，不视为子公司局部口径。
 _CN_PARTIAL_SCOPE = re.compile(
     r"\d+\s*家[^。；\n]{0,8}(?:企业|电厂|子公司|公司|项目|基地|工厂)|"
-    r"所属(?!生产经营类企业)[^。；\n]{0,10}(?:企业|电厂|子公司|项目|基地|工厂)|"
+    r"所属(?!生产经营类企业|火电企业|发电企业|电厂)[^。；\n]{0,10}(?:企业|电厂|子公司|项目|基地|工厂)|"
     r"子公司|分公司|项目公司|生产基地"
 )
 
@@ -372,8 +380,13 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                 rf"(?:{_CN_NUMBER}|/)\s+(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})"
                 rf"(?:\s+(?:注\s*)?\d{{1,2}})?\s*$",
             ))
-            # 两列仅在非三年表头时启用，避免把“/ 上年 本年”截成上年
-            if not three_year_header:
+            # 两列仅在非三年表头时启用，避免把“/ 上年 本年”截成上年；
+            # 但页内若同时有明确“单位 上年 本年”两年表头，仍启用（605162.SH）。
+            two_year_header = bool(re.search(
+                rf"(?:指标|项目)?\s*单\s*位\s*{report_year - 1}\s*年?\s*{report_year}\s*年?",
+                text,
+            ))
+            if (not three_year_header) or two_year_header:
                 row_patterns.append((
                     "current-last",
                     rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?P<unit>{unit_pattern})\s*"
@@ -389,14 +402,18 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                     rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*[（(]\s*(?P<unit>{unit_pattern})\s*[）)]\s*"
                     rf"(?:{_CN_NUMBER}|/)\s+(?P<current>{_CN_NUMBER})\s*$",
                 ))
-        # 单值行：单年表头或无表头的KPI段落均只接受恰好一个数值，避免猜列
+        # 单值行：单年表头或无表头的KPI段落均只接受恰好一个数值，避免猜列。
+        # 允许行尾占位列（0 / —），常见于“本期值 + 上年空列”拼版（如工业生产二氧化硫… 9 吨 0）。
+        _trailing_placeholder = r"(?:\s+(?:0|/|-|—|–))?"
         row_patterns.append((
             "single-value",
-            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s*$",
+            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})"
+            rf"{_trailing_placeholder}\s*$",
         ))
         row_patterns.append((
             "value-first",
-            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?:为|达到|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})(?![ \t]*(?:{_CN_NUMBER}|%))\s*[。；;，,、]?\s*$",
+            rf"(?m)^\s*(?:{label})(?:\s*注\s*\d+)?\s*(?:为|达到|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})"
+            rf"{_trailing_placeholder}(?![ \t]*(?:{_CN_NUMBER}|%))\s*[。；;，,、]?\s*$",
         ))
         # 叙述式：报告主体锚定的句中总量（如“2025年，公司温室气体排放总量5532.27吨”）。
         # 锚词与前后措辞防护保证这是报告期实际总量而非目标/宏观叙述
@@ -524,23 +541,24 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
     if short_mode in {"current-first", "current-last", "single-year"}:
         existing_codes = {item.indicator_code for item in results}
         short_rows = (
-            ("Q_E_SO2_INTENSITY", r"(?:二氧化硫|SO2)"),
-            ("Q_E_NOX_INTENSITY", r"氮氧化物(?:\s*[（(]NOX?[）)])?"),
+            ("Q_E_SO2_INTENSITY", r"(?:二氧化硫(?:\s*[（(]\s*SO[₂2]\s*[）)])?|SO2)"),
+            ("Q_E_NOX_INTENSITY", r"(?:氮氧化物(?:\s*[（(]\s*NO[xXₓ]\s*[）)])?|NOx)"),
+            ("Q_E_PM_INTENSITY", r"(?:颗粒物(?:\s*[（(]PM[）)])?|烟尘)"),
         )
         for code, label in short_rows:
             if code in existing_codes:
                 continue
             if short_mode == "current-first":
-                # 两列：本年 上年；三列：本年 上年 前年
+                # 两列：本年 上年；三列：本年 上年 前年；允许末列 “-” 占位
                 pat = (
                     rf"(?m)^\s*{label}\s*(?P<unit>吨|千克)\s*(?P<current>{_CN_NUMBER})"
-                    rf"(?:\s+(?:{_CN_NUMBER}|/)){{1,2}}\s*$"
+                    rf"(?:\s+(?:{_CN_NUMBER}|/|-|—)){{1,2}}\s*$"
                 )
             elif short_mode == "current-last":
                 # 两列：上年 本年；三列：前年 上年 本年
                 pat = (
                     rf"(?m)^\s*{label}\s*(?P<unit>吨|千克)\s*"
-                    rf"(?:{_CN_NUMBER}\s+)?(?:{_CN_NUMBER}\s+)?(?P<current>{_CN_NUMBER})\s*$"
+                    rf"(?:(?:{_CN_NUMBER}|/|-|—)\s+)?(?:(?:{_CN_NUMBER}|/|-|—)\s+)?(?P<current>{_CN_NUMBER})\s*$"
                 )
             else:
                 pat = rf"(?m)^\s*{label}\s*(?P<unit>吨|千克)\s*(?P<current>{_CN_NUMBER})\s*$"
@@ -701,6 +719,63 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
                     f"Chinese per-value-year-anchored pollutant row: {evidence}",
                 ))
                 forms.append("per-value-year-anchored-pollutant")
+    # 年报环境章节三联叙述：二氧化硫、氮氧化物、烟尘年排放量分别为 X 吨、Y 吨、Z 吨
+    # （真实样例：000966.SZ）；要求“年排放量”锚点，避免“东港热电…排放量分别为”等子公司句。
+    # 仍拒绝“N家火电企业”等局部口径前缀。
+    joint = re.search(
+        rf"二氧化硫[、,]\s*氮氧化物[、,]\s*(?:烟尘|颗粒物)年排放量分别为\s*"
+        rf"(?P<so2>{_CN_NUMBER})\s*吨[、,]\s*(?P<nox>{_CN_NUMBER})\s*吨[、,]\s*(?P<pm>{_CN_NUMBER})\s*吨",
+        text,
+    )
+    if joint:
+        sentence_start = max(text.rfind(mark, 0, joint.start()) for mark in ("。", "；", ";")) + 1
+        window = text[max(sentence_start, joint.start() - 120):joint.start()]
+        if not (_CN_BAD_PREFIX.search(window) or _CN_PARTIAL_SCOPE.search(window)):
+            existing_codes = {item.indicator_code for item in results}
+            for code, key in (
+                ("Q_E_SO2_INTENSITY", "so2"),
+                ("Q_E_NOX_INTENSITY", "nox"),
+                ("Q_E_PM_INTENSITY", "pm"),
+            ):
+                if code in existing_codes:
+                    continue
+                total_kg = float(joint.group(key).replace(",", "")) * 1_000.0
+                if total_kg <= 0:
+                    continue
+                evidence = re.sub(r"\s+", " ", joint.group(0)).strip()
+                results.append(_EnvTotal(
+                    code, total_kg, source_file, page,
+                    f"Chinese joint air-pollutant narrative total: {evidence[:220]}",
+                ))
+                forms.append("joint-air-pollutant-narrative")
+                existing_codes.add(code)
+    # 约束目标达成表：二氧化硫 年度排放量不超过3.00吨 排放2.90吨，达成目标
+    # （真实样例：300073.SZ）；取实际“排放X吨”，拒绝“不超过”目标值。
+    existing_codes = {item.indicator_code for item in results}
+    for code, label in (
+        ("Q_E_SO2_INTENSITY", r"二氧化硫"),
+        ("Q_E_NOX_INTENSITY", r"氮氧化物"),
+        ("Q_E_PM_INTENSITY", r"(?:颗粒物|烟尘)"),
+    ):
+        if code in existing_codes:
+            continue
+        match = re.search(
+            rf"(?m)^\s*{label}\s+年度排放量不超过{_CN_NUMBER}\s*吨\s+"
+            rf"排放(?P<current>{_CN_NUMBER})\s*吨",
+            text,
+        )
+        if not match:
+            continue
+        total_kg = float(match.group("current").replace(",", "")) * 1_000.0
+        if total_kg <= 0:
+            continue
+        evidence = re.sub(r"\s+", " ", match.group(0)).strip()
+        results.append(_EnvTotal(
+            code, total_kg, source_file, page,
+            f"Chinese target-achievement actual emission row: {evidence[:220]}",
+        ))
+        forms.append("target-achievement-actual-emission")
+        existing_codes.add(code)
     # 年列表行有列定位锚点；同页单值/叙述/陈述行与年列值不一致时多为上年列或拼版
     # 残片（如“废水排放量 万立方米 36.28”为首年列断行），按年列值剔除，不制造假冲突
     keep = [True] * len(results)
@@ -739,9 +814,14 @@ def _cn_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
     return filtered
 
 
+# Do not include bare "intensity": neighboring intensity rows (e.g. NOx per barrel)
+# must not suppress absolute SO2/NOx tonne totals on the same page.
 _EN_BAD_CONTEXT = re.compile(
-    r"equity\s+(?:basis|share)|per\s+(?:employee|unit|tonne|production|kwh|mwh)|"
-    r"intensity|target|baseline|produced", re.I,
+    r"equity\s+(?:basis|share)|per\s+(?:employee|unit|tonne|production|kwh|mwh|barrel)|"
+    r"target|baseline|produced|"
+    r"equivalent\s+emission\s+reduction|avoided\s+emissions?|"
+    r"helping.{0,80}reduce",
+    re.I,
 )
 
 _EN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[float, float]], ...] = (
@@ -778,20 +858,36 @@ _EN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
     ),
     (
         "Q_E_SO2_INTENSITY",
-        r"(?:Total\s+)?(?:SO2|sulphur\s+dioxide|sulfur\s+dioxide)\s+emissions?(?!\s+intensity)(?!\s+density)",
-        (("tonnes", 1_000.0), ("kg", 1.0)),
+        r"(?:Total\s+)?(?:SO2|sul(?:ph|f)ur\s+dioxide(?:\s*\(\s*SO2\s*\))?)"
+        r"(?:\s+emissions?)?(?!\s+intensity)(?!\s+density)",
+        (
+            ("tonnes", 1_000.0), ("tonne", 1_000.0), ("tons", 1_000.0), ("ton", 1_000.0),
+            ("(tonnes)", 1_000.0), ("(tonne)", 1_000.0), ("(tons)", 1_000.0), ("(ton)", 1_000.0),
+            ("kg", 1.0),
+        ),
         (0.001, 100_000.0),
     ),
     (
         "Q_E_NOX_INTENSITY",
-        r"(?:Total\s+)?(?:NOx|nitrogen\s+oxides?)\s+emissions?(?!\s+intensity)(?!\s+density)",
-        (("tonnes", 1_000.0), ("kg", 1.0)),
+        r"(?:Total\s+)?(?:NOx|nitrogen\s+oxides?(?:\s*\(\s*NOx\s*\))?)"
+        r"(?:\s+emissions?)?(?!\s+intensity)(?!\s+density)",
+        (
+            ("tonnes", 1_000.0), ("tonne", 1_000.0), ("tons", 1_000.0), ("ton", 1_000.0),
+            ("(tonnes)", 1_000.0), ("(tonne)", 1_000.0), ("(tons)", 1_000.0), ("(ton)", 1_000.0),
+            ("kg", 1.0),
+        ),
         (0.001, 100_000.0),
     ),
     (
         "Q_E_PM_INTENSITY",
-        r"(?:Total\s+)?particulate\s+matter\s+emissions?(?!\s+intensity)(?!\s+density)",
-        (("tonnes", 1_000.0), ("kg", 1.0)),
+        r"(?:Total\s+)?(?:particulate\s+matter(?:\s*\(\s*PM\s*\))?|"
+        r"particulates?(?:\s*\(\s*smoke\s+and\s+dust\s*\))?)"
+        r"(?:\s+emissions?)?(?!\s+intensity)(?!\s+density)",
+        (
+            ("tonnes", 1_000.0), ("tonne", 1_000.0), ("tons", 1_000.0), ("ton", 1_000.0),
+            ("(tonnes)", 1_000.0), ("(tonne)", 1_000.0), ("(tons)", 1_000.0), ("(ton)", 1_000.0),
+            ("kg", 1.0),
+        ),
         (0.0001, 20_000.0),
     ),
     (
@@ -815,12 +911,16 @@ _EN_TOTAL_RULES: tuple[tuple[str, str, tuple[tuple[str, float], ...], tuple[floa
 )
 
 _EN_NUMBER = r"[\d,]+(?:\.\d+)?"
-# 年份表头必须是独立行（可带Unit/Year/Indicator等词），避免把正文叙述年份当表头
+# 年份表头必须是独立行（可带Unit/Year/Indicator/Business等词），避免把正文叙述年份当表头。
+# 港股常见 FY2025/26 财年表头：取起始公历年作为列锚点。
+# 亦覆盖 “Environmental Performance … Business 2025 2024 2023” 绩效表题行。
 _EN_YEAR_HEADER = re.compile(
-    r"(?mi)^\s*(?:[^\n]{0,40}?\b(?:Unit|Year|Indicator|指标|單位|单位)\b[^\n]{0,20}?)?"
-    r"(20\d{2})\s*(?:年)?\s+(?:Year\s+)?(20\d{2})"
-    r"(?:\s*(?:年)?\s+(?:Year\s+)?(20\d{2}))?"
-    r"(?:\s*(?:年)?\s+(?:Year\s+)?(20\d{2}))?(?:\s+Unit)?\s*$"
+    r"(?mi)^\s*(?:[^\n]{0,100}?\b(?:Unit|Year|Indicator|指标|單位|单位|Emissions|"
+    r"Business|Performance|KPI\d*)\b[^\n]{0,40}?)?"
+    r"(?:FY)?(20\d{2})(?:/\d{2})?\s*(?:年|Emissions\d*)?\s+"
+    r"(?:Year\s+|FY)?(20\d{2})(?:/\d{2})?"
+    r"(?:\s*(?:年|Emissions\d*)?\s+(?:Year\s+|FY)?(20\d{2})(?:/\d{2})?)?"
+    r"(?:\s*(?:年|Emissions\d*)?\s+(?:Year\s+|FY)?(20\d{2})(?:/\d{2})?)?(?:\s+Unit)?\s*$"
 )
 
 # 公司已按收入口径披露强度（即使版式未被直接规则解析）时抑制派生，不制造口径冲突；
@@ -951,10 +1051,17 @@ def _en_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
     for code, label, units, _bounds in _EN_TOTAL_RULES:
         factors = {unit.lower(): factor for unit, factor in units}
         unit_pattern = "(?:" + "|".join(re.escape(unit) for unit, _ in units) + ")"
-        # 表格行：label unit values（需页内明确年份表头定位本期列）
+        # 表格行：label unit values（需页内明确年份表头定位本期列）。
+        # 数值分隔只用同行空白，避免把下一行脚注号（10/11/…）吞进 values。
         rows = (
-            re.compile(rf"(?mi)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?P<values>{_EN_NUMBER}(?:\s+{_EN_NUMBER}){{0,3}})\s*$"),
-            re.compile(rf"(?mi)^\s*(?:{label})\s*(?P<values>{_EN_NUMBER}(?:\s+{_EN_NUMBER}){{0,3}})\s*(?P<unit>{unit_pattern})\s*$"),
+            re.compile(
+                rf"(?mi)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*"
+                rf"(?P<values>{_EN_NUMBER}(?:[ \t]+{_EN_NUMBER}){{0,3}})[ \t]*$"
+            ),
+            re.compile(
+                rf"(?mi)^\s*(?:{label})\s*(?P<values>{_EN_NUMBER}(?:[ \t]+{_EN_NUMBER}){{0,3}})\s*"
+                rf"(?P<unit>{unit_pattern})[ \t]*$"
+            ),
         )
         for match in (item for row in rows for item in row.finditer(text)):
             if not year_columns or report_year not in year_columns:
@@ -962,7 +1069,10 @@ def _en_total_rows(text: str, report_year: int, source_file: str, page: int) -> 
             values = match.group("values").split()
             if len(values) != len(year_columns):
                 continue
-            context = text[max(0, match.start() - 80):match.end() + 40]
+            # Same-line / match-span only: prior-row intensity (e.g. per barrel) must not
+            # suppress absolute tonne totals on the next row.
+            line_start = text.rfind("\n", 0, match.start()) + 1
+            context = text[line_start:match.end() + 40]
             if _EN_BAD_CONTEXT.search(context):
                 continue
             factor = factors.get(match.group("unit").lower())

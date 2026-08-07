@@ -13,8 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-OBS = ROOT / "output/research/2025/full_auto_observations_v39_enriched.csv"
-RANKING = ROOT / "output/research/2025/full_auto_v39_enriched/ranking.csv"
+OBS = ROOT / "output/research/2025/full_auto_observations_v45_enriched.csv"
+RANKING = ROOT / "output/research/2025/full_auto_v45_enriched/ranking.csv"
 COVERAGE = ROOT / "output/audit/all_markets_document_coverage_embedded_esg_2025.csv"
 OUT_CSV = ROOT / "output/audit/ranked_company_key_data_gap_queue_v1_2025.csv"
 OUT_JSON = ROOT / "output/audit/ranked_company_key_data_gap_queue_v1_2025.json"

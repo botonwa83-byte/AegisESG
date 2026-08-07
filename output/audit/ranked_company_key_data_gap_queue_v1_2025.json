@@ -1,22 +1,22 @@
 {
   "policy_version": "ranked-company-key-data-gap-queue-v1",
-  "run_at_utc": "2026-08-06T09:00:52+00:00",
+  "run_at_utc": "2026-08-07T08:47:33+00:00",
   "ranked_companies": 612,
-  "companies_with_key_gaps": 611,
-  "top200_with_key_gaps": 214,
+  "companies_with_key_gaps": 610,
+  "top200_with_key_gaps": 216,
   "action_counts": {
-    "rule_recall_on_existing_text": 611
+    "rule_recall_on_existing_text": 610
   },
   "indicator_miss_counts": {
-    "Q_E_SO2_INTENSITY": 585,
-    "Q_E_NOX_INTENSITY": 572,
-    "Q_S_SAFETY_INVEST_RATE": 564,
-    "Q_E_SOLID_WASTE_INTENSITY": 553,
-    "Q_E_ENERGY_INTENSITY": 533,
-    "Q_E_WATER_INTENSITY": 527,
-    "Q_E_GHG_INTENSITY": 514,
+    "Q_E_SO2_INTENSITY": 571,
+    "Q_S_SAFETY_INVEST_RATE": 553,
+    "Q_E_SOLID_WASTE_INTENSITY": 548,
+    "Q_E_NOX_INTENSITY": 544,
+    "Q_E_ENERGY_INTENSITY": 509,
+    "Q_E_WATER_INTENSITY": 507,
+    "Q_E_GHG_INTENSITY": 491,
     "Q_S_DIVIDEND_PER_SHARE": 233,
-    "Q_S_RD_RATE": 133,
+    "Q_S_RD_RATE": 94,
     "Q_G_DEBT_ASSET_RATE": 86
   },
   "queue_csv": "output/audit/ranked_company_key_data_gap_queue_v1_2025.csv",

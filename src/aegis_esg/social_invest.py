@@ -24,6 +24,8 @@ from .models import Observation, ValueStatus
 _CN_NUMBER = r"[\d,]+(?:\.\d+)?"
 # 元口径统一为人民币元
 _MONEY_UNITS: tuple[tuple[str, float], ...] = (
+    ("亿元人民币", 100_000_000.0), ("百万元人民币", 1_000_000.0),
+    ("万元人民币", 10_000.0), ("千元人民币", 1_000.0),
     ("亿元", 100_000_000.0), ("百万元", 1_000_000.0), ("万元", 10_000.0), ("千元", 1_000.0), ("元", 1.0),
 )
 
@@ -36,7 +38,7 @@ _CN_INVEST_RULES: tuple[tuple[str, str, tuple[float, float]], ...] = (
     ),
     (
         "Q_S_SAFETY_INVEST_RATE",
-        r"(?<!累计)(?<!历年)安全生产投入(?:金额)?(?!\s*强度)(?!密度)",
+        r"(?<!累计)(?<!历年)(?:职业健康(?:与)?)?安全生产(?:总)?投入(?:金额)?(?!\s*强度)(?!密度)",
         (0.0001, 30.0),
     ),
     (
@@ -106,7 +108,8 @@ def _cn_invest_rows(text: str, report_year: int, source_file: str, page: int) ->
         elif mode == "current-last":
             row_patterns.append((
                 "current-last",
-                rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*{_CN_NUMBER}(?:\s+{_CN_NUMBER})?\s+(?P<current>{_CN_NUMBER})\s*$",
+                rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*"
+                rf"(?:{_CN_NUMBER}|/|-|—)(?:\s+(?:{_CN_NUMBER}|/|-|—))?\s+(?P<current>{_CN_NUMBER})\s*$",
             ))
         if note_mode:
             # 附注行：对外捐赠 224,016.92 97,606.72 224,016.92（本期发生额为首列，单位在表头）
@@ -118,9 +121,25 @@ def _cn_invest_rows(text: str, report_year: int, source_file: str, page: int) ->
             "single-value",
             rf"(?m)^\s*(?:{label})\s*(?P<unit>{unit_pattern})\s*(?P<current>{_CN_NUMBER})\s*$",
         ))
+        # 竖排KPI：安全生产投入\n万元\n41.36 或 万元\n/\n/\n41.36
+        row_patterns.append((
+            "vertical-unit-value",
+            rf"(?m)^\s*(?:{label})\s*\n\s*(?P<unit>{unit_pattern})\s*\n\s*"
+            rf"(?:(?:{_CN_NUMBER}|/|-|—)\s*\n\s*){{0,2}}(?P<current>{_CN_NUMBER})\s*$",
+        ))
+        # 叙述：全年安全生产投入金额达 1,103.05 万元
+        row_patterns.append((
+            "year-narrative",
+            rf"(?:全年|报告期(?:内)?|本年度)(?:{label})\s*(?:金额)?(?:达|为|共计|共|：|:)?\s*"
+            rf"(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})",
+        ))
         row_patterns.append((
             "value-first",
-            rf"(?m)^\s*(?:{label})\s*(?:为|达到|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})(?![ \t]*(?:{_CN_NUMBER}|%))\s*[。；;，,、]?\s*$",
+            # 允许行尾同比/增减叙述（如“安全生产投入金额 7,377.09 万元 同比增长 41.32%”）
+            rf"(?m)^\s*(?:{label})\s*(?:为|达到|：|:)?\s*(?P<current>{_CN_NUMBER})\s*(?P<unit>{unit_pattern})"
+            rf"(?![ \t]*(?:{_CN_NUMBER}|%))"
+            rf"(?:\s+(?:同比|较|比上年|增长|下降|减少|增加)[^\n]*)?"
+            rf"\s*[。；;，,、]?\s*$",
         ))
         row_patterns.append((
             "narrative",
@@ -144,7 +163,7 @@ def _cn_invest_rows(text: str, report_year: int, source_file: str, page: int) ->
             if form == "note-current-first" and not note_mode:
                 continue
             for match in re.finditer(row, text):
-                if form in {"narrative", "statement"}:
+                if form in {"narrative", "statement", "year-narrative"}:
                     sentence_start = max(text.rfind(mark, 0, match.start()) for mark in ("。", "；", ";")) + 1
                     window = text[max(sentence_start, match.start() - 120):match.start()]
                     if _CN_BAD_PREFIX.search(window) or _CN_PARTIAL_SCOPE.search(window):

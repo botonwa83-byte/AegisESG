@@ -1,0 +1,13 @@
+{
+  "policy_version": "authority-gap-fill-v21-targeted-so2-nox-safety",
+  "run_at_utc": "2026-08-07T08:27:37+00:00",
+  "gap_companies": 602,
+  "clue_or_force_companies": 68,
+  "filled_missing": 4,
+  "replaced": 0,
+  "fills": 4,
+  "output_observations": "output/research/2025/full_auto_observations_v44_enriched.csv",
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "英文SO2/NOx Ton/(tonnes)多行总量派生；邻行per-barrel强度不抑制；不把硫氧化物等同SO2；不换算港币营收；非正式。"
+}

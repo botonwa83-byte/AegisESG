@@ -1,0 +1,5 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_file,evidence
+001289.SZ,Q_E_WATER_INTENSITY,replaced_reextract_correction,113.69999999999999,90.0,EXCHANGE,data/raw/cninfo_esg_gap_collection/001289.SZ/2025/esg_report.pdf,Chinese current-last environmental table row: 用水强度 吨 / 百万营收 248.9 180.03 11.37 [research-only:authority-gap-fill-v18;not-formal]
+001289.SZ,Q_E_SOLID_WASTE_INTENSITY,filled_missing,1.0,,EXCHANGE,data/raw/cninfo_esg_gap_collection/001289.SZ/2025/esg_report.pdf,Chinese current-last environmental table row: 一般废弃物产生强度 吨 / 百万营收 38.81 31.34 0.10 [research-only:authority-gap-fill-v18;not-formal]
+00951.HK,Q_E_SOLID_WASTE_INTENSITY,filled_missing,0.31,,EXCHANGE,data/raw/ci_collection/00951.HK/2025/esg_report.pdf,"English revenue intensity: Non-hazardous waste emission 無害廢棄物排放密度 tonnes/RMB10,000 噸╱萬元營收 0.00031 [research-only:authority-gap-fill-v18;not-formal]"
+00951.HK,Q_E_WATER_INTENSITY,filled_missing,940.0,,EXCHANGE,data/raw/ci_collection/00951.HK/2025/esg_report.pdf,"English revenue intensity: Water consumption intensity 耗水密度 tonnes/RMB10,000 噸╱萬元營收 0.94 [research-only:authority-gap-fill-v18;not-formal]"

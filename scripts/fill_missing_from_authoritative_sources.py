@@ -47,17 +47,17 @@ from aegis_esg.source_authority import (  # noqa: E402
 )
 
 METHODOLOGY = ROOT / "data/methodologies/energy_esg_2025_research_sasac.json"
-BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v38_enriched.csv"
+BASE_OBS = ROOT / "output/research/2025/full_auto_observations_v45_enriched.csv"
 DOCUMENT_INDEX = ROOT / "data/raw/all_markets_document_index.csv"
 CI_INDEX = ROOT / "output/sync/official_document_index.csv"
 TEXT_ROOT = ROOT / "data/text"
 CLIENT_TOP200 = ROOT / "data/reference/2025_top200_securities_ocr.csv"
 DOMAIN_REVIEW = ROOT / "data/review/official_domain_review_batch01_2025.csv"
-OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v39_enriched.csv"
-AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v16_2025.json"
-AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v16_2025.csv"
-ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v16_2025.csv"
-TAG = "[research-only:authority-gap-fill-v16;not-formal]"
+OUT_OBS = ROOT / "output/research/2025/full_auto_observations_v46_enriched.csv"
+AUDIT_JSON = ROOT / "output/audit/authority_gap_fill_v23_2025.json"
+AUDIT_CSV = ROOT / "output/audit/authority_gap_fill_v23_2025.csv"
+ISSUER_QUEUE = ROOT / "output/audit/issuer_website_gap_queue_v17_2025.csv"
+TAG = "[research-only:authority-gap-fill-v17;not-formal]"
 FALSE_ZERO_MARKER = "No qualifying public evidence in current collection"
 
 

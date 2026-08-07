@@ -1,0 +1,2 @@
+﻿company_code,indicator_code,action,value,prior_value,tier,source_file,evidence
+601567.SH,Q_E_NOX_INTENSITY,replaced_reextract_correction,0.016,0.185,EXCHANGE,data/raw/ci_collection/601567.SH/2025/esg_report.pdf,Chinese vertical-two-year-intensity environmental table row: 氮氧化物排放强度 千克/万元 0.000185 0.000016 [research-only:authority-gap-fill-v20;not-formal]

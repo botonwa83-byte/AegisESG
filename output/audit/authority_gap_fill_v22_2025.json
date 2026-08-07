@@ -1,0 +1,13 @@
+{
+  "policy_version": "authority-gap-fill-v22-targeted-so2-nox-safety",
+  "run_at_utc": "2026-08-07T08:47:21+00:00",
+  "gap_companies": 602,
+  "clue_or_force_companies": 78,
+  "filled_missing": 9,
+  "replaced": 0,
+  "fills": 9,
+  "output_observations": "output/research/2025/full_auto_observations_v45_enriched.csv",
+  "scoring_authorized": false,
+  "formal_publishable": false,
+  "notice": "中文SO2/NOx三联叙述/繁体表头/短标签括注/目标达成实际排放；不把硫氧化物等同SO2；N家火电仍拒绝；非正式。"
+}
