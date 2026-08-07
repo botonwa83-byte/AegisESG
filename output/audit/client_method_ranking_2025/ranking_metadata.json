@@ -1,0 +1,30 @@
+{
+  "ranking_mode": "research",
+  "algorithm_version": "auto_prerank_universe_baseline_v1",
+  "missing_strategy_version": "legacy_zero_v1",
+  "company_count": 612,
+  "exported_company_count": 612,
+  "export_limit": null,
+  "input_path": "output/research/2025/full_auto_observations_v39_enriched.csv",
+  "input_sha256": "245692432cab5baad5aa1e636022a065cd7c39617627969e2eaf50822e546d2d",
+  "methodology_path": "data/methodologies/energy_esg_2025.json",
+  "methodology_sha256": "0fd51b848faf9c34b7dab8ca30138f9b45c18ac163985872bca29fe3b461316e",
+  "official_release": false,
+  "notice": "自动研究结果，不得作为正式榜单",
+  "score_formula": "总分=定量分×quantitative_ratio+定性分×qualitative_ratio；行业基准=评价宇宙内同指标已披露样本的μ/σ（未披露不进基准）；研究模式默认legacy_zero_v1：未披露计0；薄样本(n<minimum_population)仍计分但标记thin_population",
+  "evaluation_year": 2026,
+  "report_year": 2025,
+  "year_rule": "evaluation_year = report_year + 1",
+  "target_universe_companies": 632,
+  "universe_path": null,
+  "universe_company_count": null,
+  "minimum_population": 20,
+  "population_baseline": {
+    "thin_population_indicator_count": 0,
+    "minimum_population_gate_passed": true,
+    "formal_baseline_ready": false
+  },
+  "universe_audit": null,
+  "release_authorization": null,
+  "grade_audit": null
+}
