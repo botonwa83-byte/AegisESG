@@ -444,6 +444,182 @@ DIRECT_RULES = (
         1.0,
         0.85,
     ),
+    # === 新增：营业收入和绝对排放量提取规则 ===
+    # 营业收入（元）- 用于计算强度指标
+    DirectRule(
+        "Q_G_REVENUE",
+        re.compile(
+            r"营业收入\s*[（(]?\s*元\s*[)）]?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.90,
+    ),
+    # 治理指标 - 会议频次
+    DirectRule(
+        "Q_G_SHAREHOLDER_MEETING_FREQ",
+        re.compile(
+            r"股东大会(?:召开)?(?:次数|频次)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    # 财务基础指标 - 用于计算比率
+    DirectRule(
+        "Q_G_TOTAL_ASSETS",
+        re.compile(
+            r"(?:资产)?总额?\s*[（(]?\s*元\s*[)）]?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    DirectRule(
+        "Q_G_NET_ASSETS",
+        re.compile(
+            r"(?:归属于.*?)?净资产\s*[（(]?\s*元\s*[)）]?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    DirectRule(
+        "Q_G_NET_PROFIT",
+        re.compile(
+            r"(?:归属于.*?)?净利润\s*[（(]?\s*元\s*[)）]?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    DirectRule(
+        "Q_G_OPERATING_PROFIT",
+        re.compile(
+            r"营业利润\s*[（(]?\s*元\s*[)）]?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.85,
+    ),
+    # 员工基础数据
+    DirectRule(
+        "Q_S_EMPLOYEE_COUNT",
+        re.compile(
+            r"(?:员工|职工)总(?:人)?数\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    DirectRule(
+        "Q_S_FEMALE_EMPLOYEE_COUNT",
+        re.compile(
+            r"女性(?:员工|职工)(?:数量|人数)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    DirectRule(
+        "Q_S_MALE_EMPLOYEE_COUNT",
+        re.compile(
+            r"男性(?:员工|职工)(?:数量|人数)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    DirectRule(
+        "Q_G_BOARD_MEETING_FREQ",
+        re.compile(
+            r"董事会(?:召开)?(?:次数|频次)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    DirectRule(
+        "Q_G_SUPERVISOR_MEETING_FREQ",
+        re.compile(
+            r"监事会(?:召开)?(?:次数|频次)\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    # SO2绝对排放量（吨）
+    DirectRule(
+        "Q_E_SO2_EMISSION",
+        re.compile(
+            r"(?:二氧化硫|SO2|SO₂)(?:排放)?(?:量|总量)?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    # NOx绝对排放量（吨）
+    DirectRule(
+        "Q_E_NOX_EMISSION",
+        re.compile(
+            r"(?:氮氧化物|NOx|NOₓ)(?:排放)?(?:量|总量)?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
+    # 固废绝对产生量（吨）
+    DirectRule(
+        "Q_E_SOLID_WASTE_GENERATION",
+        re.compile(
+            r"(?:一般)?(?:固(?:体)?废(?:物)?|固废|固体废弃物|一般废物)(?:产生|排放)?(?:量|总量)?\s+" +
+            r"(?:[^\n]*?)" +
+            r"(?:[\d,]+(?:\.\d+)?\s+)*" +
+            NUMBER + r"\s*$",
+            re.I | re.MULTILINE
+        ),
+        1.0,
+        0.88,
+    ),
     DirectRule(
         "Q_S_SAFETY_INVEST_RATE",
         re.compile(
