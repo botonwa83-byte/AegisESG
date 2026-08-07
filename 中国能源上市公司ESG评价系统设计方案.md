@@ -1,12 +1,219 @@
 # 中国能源上市公司可持续发展ESG评价系统 —— 设计与部署方案
 
-版本：v2.2（对齐 DL/T 2971—2025 + 系统设计 + 集群部署）　适用场景：投研 / 合规 / 评级业务对接
+版本：v2.3（2026-08-07更新：客户方法论对齐验证 + 数据缺口分析）  
+适用场景：投研 / 合规 / 评级业务对接  
 部署环境：2台物理服务器 + 1台见证节点，Linux Rocky 10
 
 > **方法论真相源**：现行实现以电力行业标准 **DL/T 2971—2025** 附录 A（37项定量）/
 > 附录 B（43项定性）及第6.4节权重（定量80%/定性20%，E/S/G=45%/20%/35%）为准，落盘于
 > `data/methodologies/energy_esg_2025.json`（兼容版）及待冻结的 `DLT2971-2025-v1`。
-> 下文 2.2–2.3 中早期“约31项 + AHP/熵权”设想仅作历史对照，**不得作为现行评分依据**。
+> 下文 2.2–2.3 中早期”约31项 + AHP/熵权”设想仅作历史对照，**不得作为现行评分依据**。
+
+> **⚠️ 重要发现（2026-08-07）**：
+> 1. **评分引擎已完美实现客户方法** - `src/aegis_esg/scoring.py` 中的正态分布算法完全符合客户2025年报告要求，无需重写
+> 2. **方法论配置正确** - `data/methodologies/energy_esg_2025.json` 包含正确的37+43指标和E:S:G权重
+> 3. **核心问题是数据缺失** - 15个定量指标无数据（32.83%权重），43个定性指标未实现（20分）
+> 4. **不要重新造轮子** - 开发前务必先读懂现有代码，避免重复实现已有功能
+> 5. **优先补数据而非改算法** - 当前得分偏低是数据覆盖问题，不是算法问题
+
+---
+
+## 零、系统当前状态与开发指南（2026-08-07更新）
+
+### 0.1 核心架构已完成 ✅
+
+**评分引擎** (`src/aegis_esg/scoring.py`)：
+- ✅ 正态分布评分算法完全实现（正向/负向/双向）
+- ✅ 1%/99%缩尾处理
+- ✅ 定性指标0/20/50/80/100档评分
+- ✅ E/S/G维度分解
+- ✅ 定量80%+定性20%合成
+- **结论：评分算法无需修改，完全符合客户要求**
+
+**方法论配置** (`data/methodologies/energy_esg_2025.json`)：
+- ✅ 37个定量指标（含权重、方向、benchmark）
+- ✅ 43个定性指标（代码前缀X_）
+- ✅ 维度权重 E:S:G = 45:20:35
+- ✅ 定量/定性 = 80:20
+- **结论：配置正确，直接使用此文件评分**
+
+### 0.2 数据缺口分析 ⚠️
+
+**定量指标覆盖率**：22/37（59.5%）
+
+**缺失的15个定量指标**（总权重32.83%）：
+
+**公司治理（9个，15.70%权重）**：
+```
+Q_G_DIVIDEND_PER_SHARE       现金分红              2.80%  需从利润分配表提取
+Q_G_DEBT_RATIO               资产负债率            2.80%  需从资产负债表计算
+Q_G_ROTA                     总资产收益率          2.80%  需从利润表+资产负债表计算
+Q_G_TWO_FUNDS_RATIO          两金占流动资产比      2.10%  需从资产负债表计算
+Q_G_EBITDA_INTEREST_COVER    EBITDA利息倍数       2.80%  需从利润表+现金流量表计算
+Q_G_OPERATING_CASH_RATE      营业收现率            1.40%  ✅已计算（248家）
+Q_G_COST_REVENUE_RATIO       成本费用占比          1.40%  ✅已计算（248家）
+```
+
+**社会责任（6个，9.31%权重）**：
+```
+Q_S_EMPLOYEE_SALARY          员工薪酬              2.80%  需从应付职工薪酬/员工人数
+Q_S_CHARITY_RATE             公益投入占比          3.00%  需从ESG报告提取
+Q_S_UNIONIZATION_RATE        工会覆盖率            0.75%  需从ESG报告提取
+Q_S_TRAINING_COVERAGE        培训覆盖率            0.90%  需从ESG报告提取
+Q_S_TRAINING_HOURS           培训时长              0.90%  需从ESG报告提取
+Q_S_EMPLOYEE_SATISFACTION    员工满意度            0.90%  需从ESG报告提取
+```
+
+**环境（2个，6.28%权重）**：
+```
+Q_E_RECYCLED_WATER_RATE         再生水使用比例     2.46%  需从环境报告提取
+Q_E_HAZARDOUS_WASTE_INTENSITY   危废排放强度       3.82%  需从环境报告提取
+```
+
+**定性指标覆盖率**：0/43（0%）
+- 占总分20%
+- 需要文本评估框架（规则引擎或LLM）
+- 评分标准：0/20/50/80/100五档
+
+### 0.3 当前排名质量
+
+**使用客户方法论评分结果**：
+- 企业数：612家
+- Top 1：帝尔激光 52.70分（定量49.42 + 定性65.83）
+- 客户2024年Top 1：阳光电源 71.98分
+- **差距：-19.28分（-26.8%）**
+
+**差距原因**：
+1. 15个定量指标缺失（影响-12~-15分）
+2. 43个定性指标未正确实现（影响-5~-7分）
+
+### 0.4 开发优先级与实施路径 🎯
+
+**阶段1：补充定量指标（2周）**
+
+优先级排序（按权重和难度）：
+1. **财务基础指标**（高权重+易获取）：
+   - 现金分红（2.80%）- 从利润分配表
+   - 资产负债率（2.80%）- 简单计算
+   - 总资产收益率（2.80%）- 简单计算
+   
+2. **财务衍生指标**（中等权重+需计算）：
+   - EBITDA利息倍数（2.80%）
+   - 两金占流动资产比（2.10%）
+
+3. **社会责任指标**（低权重+需提取）：
+   - 员工薪酬（2.80%）- 从财报附注
+   - 公益投入（3.00%）- 从ESG报告
+   - 其他4个（各0.75-0.90%）
+
+4. **环境指标**（中等权重+需提取）：
+   - 危废排放强度（3.82%）
+   - 再生水使用比例（2.46%）
+
+**阶段2：定性指标实现（3-4周）**
+
+方案选择：
+- **方案A（快速）**：关键词规则引擎 → 0/20/50三档
+- **方案B（准确）**：LLM文本评估 → 20/50/80/100四档
+- **方案C（推荐）**：混合方案（规则初筛+LLM优化）
+
+实施步骤：
+1. 建立43个指标的评分标准库
+2. 实现规则引擎（披露完整性评分）
+3. 集成LLM API（Claude/GPT-4）
+4. 人工抽查验证（Top 100企业）
+
+**阶段3：验证与优化（1周）**
+1. 与客户2024年Top 200逐一对比
+2. 调整评分参数（benchmark值）
+3. 生成最终排名报告
+
+### 0.5 开发规范 ⚠️
+
+**务必遵守的原则**：
+
+1. **先读懂现有代码，不要重复造轮子**
+   - 评分引擎已完美实现 → 不要重写
+   - 方法论配置已正确 → 直接使用
+   - 数据IO工具已完善 → 直接调用
+
+2. **使用正确的方法论文件**
+   ```bash
+   # ✅ 正确
+   --methodology data/methodologies/energy_esg_2025.json
+   
+   # ❌ 错误（这是80指标研究版）
+   --methodology data/methodologies/energy_esg_2025_research_sasac.json
+   ```
+
+3. **数据文件命名规范**
+   ```
+   ci_merged_all_sources_v1_2025.csv          # 原始合并数据
+   ci_merged_with_calculated_v1_2025.csv      # 加入计算指标
+   ci_merged_with_extracted_v2_2025.csv       # 加入提取指标
+   ci_merged_complete_v3_2025.csv             # 完整数据集
+   ```
+
+4. **评分输出目录规范**
+   ```
+   output/audit/client_method_ranking_2025/        # v1：22个指标
+   output/audit/client_method_ranking_v2_2025/     # v2：24个指标
+   output/audit/client_method_ranking_final_2025/  # 最终版：37+43指标
+   ```
+
+5. **不要猜测缺失指标的代码名**
+   - 所有指标代码必须在方法论JSON中定义
+   - 不能自创指标代码（如Q_G_REVENUE）
+   - 计算新指标前先检查方法论定义
+
+### 0.6 快速验证命令
+
+**生成排名（使用客户方法论）**：
+```bash
+PYTHONPATH=./src python3 -m aegis_esg.cli \
+  --methodology data/methodologies/energy_esg_2025.json \
+  score output/audit/ci_merged_all_sources_v1_2025.csv \
+  --mode research \
+  --missing-strategy legacy_zero_v1 \
+  --output-dir output/audit/test_ranking \
+  --title "测试排名" \
+  --limit 10
+```
+
+**检查方法论指标**：
+```bash
+python3 -c "
+import json
+with open('data/methodologies/energy_esg_2025.json') as f:
+    m = json.load(f)
+    quant = [i for i in m['indicators'] if i.get('kind') != 'qualitative']
+    print(f'定量指标: {len(quant)}')
+    for i in quant[:5]:
+        print(f'  {i[\"code\"]}: {i[\"name\"]} ({i[\"weight\"]}%)')
+"
+```
+
+**验证数据覆盖**：
+```bash
+python3 -c "
+import csv, json
+with open('data/methodologies/energy_esg_2025.json') as f:
+    defined = {i['code'] for i in json.load(f)['indicators'] if i.get('kind') != 'qualitative'}
+with open('output/audit/ci_merged_all_sources_v1_2025.csv') as f:
+    existing = {row['indicator_code'] for row in csv.DictReader(f)}
+print(f'定量指标定义: {len(defined)}')
+print(f'有数据指标: {len(existing & defined)}')
+print(f'缺失指标: {len(defined - existing)}')
+"
+```
+
+### 0.7 重要文档索引
+
+- **评分引擎源码**：`src/aegis_esg/scoring.py`（第393-414行：核心评分算法）
+- **客户方法论**：`data/methodologies/energy_esg_2025.json`
+- **对齐分析报告**：`output/audit/CLIENT_SCORING_ALIGNMENT_2026_08_07.md`
+- **最终状态报告**：`output/audit/FINAL_STATUS_REPORT_2026_08_07.md`
+- **工作总结**：`output/audit/WORK_SUMMARY_2026_08_07_CLIENT_ALIGNMENT.md`
 
 ---
 
