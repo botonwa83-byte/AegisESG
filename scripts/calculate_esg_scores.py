@@ -164,6 +164,44 @@ for company_code, indicators in company_data.items():
     # 定性指标得分（暂时设为0，因为未提取定性数据）
     qualitative_normalized = 0
 
+    # 计算分维度得分（E/S/G）
+    dimension_scores = {}
+    dimension_weights = {}
+
+    for dimension in ['E', 'S', 'G']:
+        dim_score = 0
+        dim_weight_sum = 0
+
+        for ind_code, ind_meta in indicator_map.items():
+            if ind_meta['kind'] != 'quantitative':
+                continue
+            if ind_meta.get('dimension') != dimension:
+                continue
+
+            weight = ind_meta['weight']
+
+            if ind_code in indicators:
+                value = indicators[ind_code]['value']
+                stats = indicator_stats.get(ind_code)
+
+                if stats:
+                    score = score_indicator(value, ind_meta, stats)
+                    confidence = indicators[ind_code]['confidence']
+                    dim_score += score * weight * confidence
+                    dim_weight_sum += weight * confidence
+            else:
+                # 缺失值按0分处理
+                if methodology['missing_policy'] == 'zero':
+                    dim_weight_sum += weight
+
+        # 归一化维度得分
+        if dim_weight_sum > 0:
+            dimension_scores[dimension] = dim_score / dim_weight_sum
+            dimension_weights[dimension] = dim_weight_sum
+        else:
+            dimension_scores[dimension] = 0
+            dimension_weights[dimension] = 0
+
     # 综合得分
     esg_score = (quantitative_normalized * methodology['quantitative_ratio'] +
                  qualitative_normalized * methodology['qualitative_ratio'])
@@ -174,9 +212,9 @@ for company_code, indicators in company_data.items():
         'esg_score': esg_score,
         'quantitative_score': quantitative_normalized,
         'qualitative_score': qualitative_normalized,
-        'e_score': 0,  # 稍后计算维度得分
-        's_score': 0,
-        'g_score': 0,
+        'e_score': dimension_scores.get('E', 0),
+        's_score': dimension_scores.get('S', 0),
+        'g_score': dimension_scores.get('G', 0),
         'indicator_count': len(indicators),
         'extracted_count': sum(1 for i in indicators.values() if i['source'] == 'extracted'),
         'calculated_count': sum(1 for i in indicators.values() if i['source'] == 'calculated'),
@@ -216,9 +254,23 @@ print(f"  最高分: {max(scores):.2f}")
 print(f"  最低分: {min(scores):.2f}")
 print(f"  中位数: {sorted(scores)[len(scores) // 2]:.2f}")
 
+# 维度得分统计
+e_scores = [c['e_score'] for c in company_scores if c['e_score'] > 0]
+s_scores = [c['s_score'] for c in company_scores if c['s_score'] > 0]
+g_scores = [c['g_score'] for c in company_scores if c['g_score'] > 0]
+
+print(f"\n分维度得分统计:")
+if e_scores:
+    print(f"  E(环境)维度: 平均{sum(e_scores)/len(e_scores):.2f} 最高{max(e_scores):.2f} 最低{min(e_scores):.2f}")
+if s_scores:
+    print(f"  S(社会)维度: 平均{sum(s_scores)/len(s_scores):.2f} 最高{max(s_scores):.2f} 最低{min(s_scores):.2f}")
+if g_scores:
+    print(f"  G(治理)维度: 平均{sum(g_scores)/len(g_scores):.2f} 最高{max(g_scores):.2f} 最低{min(g_scores):.2f}")
+
 print(f"\nTop 10企业:")
 for company in company_scores[:10]:
     print(f"  {company['rank']:>3}. {company['company_name'][:20]:<20} {company['esg_score']:.2f}分 " +
+          f"[E:{company['e_score']:.1f} S:{company['s_score']:.1f} G:{company['g_score']:.1f}] " +
           f"(提取{company['extracted_count']} 计算{company['calculated_count']} 填充{company['filled_count']})")
 
 print("\n" + "=" * 70)
