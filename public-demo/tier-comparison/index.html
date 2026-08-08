@@ -74,11 +74,28 @@ h1{font-size:38px;margin:8px 0 10px;letter-spacing:-0.5px}
   padding:28px;
   box-shadow:0 10px 30px rgba(83,104,135,0.08);
   position:relative;
-  transition:transform 0.2s,box-shadow 0.2s;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  opacity:0;
+  animation:slideInUp 0.6s ease-out forwards;
 }
+.tier-card:nth-child(1){animation-delay:0.1s}
+.tier-card:nth-child(2){animation-delay:0.2s}
+.tier-card:nth-child(3){animation-delay:0.3s}
+
+@keyframes slideInUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 .tier-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(83,104,135,0.15);
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(83,104,135,0.2);
 }
 .tier-card.premium{
   border-color:var(--blue);
@@ -130,6 +147,8 @@ h1{font-size:38px;margin:8px 0 10px;letter-spacing:-0.5px}
   color:#fff;
   font-weight:700;
   font-size:14px;
+  width:0;
+  transition:width 1.2s cubic-bezier(0.4,0,0.2,1);
 }
 .premium .coverage-fill{
   background:linear-gradient(90deg,var(--blue),#6366f1);
@@ -280,6 +299,66 @@ h1{font-size:38px;margin:8px 0 10px;letter-spacing:-0.5px}
   color:#78350f;
   margin:0;
 }
+
+/* 移动端响应式 */
+@media (max-width: 768px){
+  main{padding:0 16px 40px}
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .nav a{margin-left:0}
+
+  h1{font-size:28px}
+  .lead{font-size:16px}
+
+  .tier-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .comparison{
+    padding:20px;
+    overflow-x:auto;
+  }
+
+  .comparison table{
+    min-width:600px;
+  }
+
+  .comparison th,
+  .comparison td{
+    padding:10px 12px;
+    font-size:13px;
+  }
+}
+
+@media (max-width: 480px){
+  h1{font-size:24px}
+  .badge-new{font-size:10px;padding:3px 8px}
+
+  .tier-card h2{font-size:22px}
+  .tier-price strong{font-size:32px}
+
+  .stat-card strong{font-size:22px}
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -477,5 +556,18 @@ h1{font-size:38px;margin:8px 0 10px;letter-spacing:-0.5px}
   </div>
 
 </main>
+
+<script>
+// 页面加载后触发进度条动画
+window.addEventListener('load', function() {
+  setTimeout(() => {
+    const fills = document.querySelectorAll('.coverage-fill');
+    fills.forEach(fill => {
+      const targetWidth = fill.textContent.trim();
+      fill.style.width = targetWidth;
+    });
+  }, 300);
+});
+</script>
 </body>
 </html>

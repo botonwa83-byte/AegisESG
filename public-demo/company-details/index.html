@@ -82,13 +82,32 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
   border-radius:16px;
   padding:24px;
   cursor:pointer;
-  transition:all 0.2s;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
   box-shadow:0 4px 12px rgba(83,104,135,0.06);
+  animation:fadeInUp 0.5s ease-out;
+  animation-fill-mode:both;
 }
 .company-card:hover{
   transform:translateY(-4px);
   box-shadow:0 12px 28px rgba(83,104,135,0.15);
   border-color:var(--blue);
+}
+.company-card:nth-child(1){animation-delay:0.1s}
+.company-card:nth-child(2){animation-delay:0.2s}
+.company-card:nth-child(3){animation-delay:0.3s}
+.company-card:nth-child(4){animation-delay:0.4s}
+.company-card:nth-child(5){animation-delay:0.5s}
+.company-card:nth-child(6){animation-delay:0.6s}
+
+@keyframes fadeInUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .company-name{
@@ -226,6 +245,10 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
   font-size:32px;
   color:var(--blue);
   margin-bottom:4px;
+  font-variant-numeric:tabular-nums;
+}
+.stat-card strong.counter{
+  animation:countUp 1.5s ease-out;
 }
 .stat-card small{
   color:var(--muted);
@@ -335,6 +358,63 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
 }
 
 .hidden{display:none!important}
+
+/* 移动端响应式 */
+@media (max-width: 768px){
+  main{padding:0 16px 40px}
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .nav a{margin-left:0}
+
+  h1{font-size:26px}
+  .lead{font-size:15px}
+
+  .company-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .overview-stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .indicator-row{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .indicator-row > *{
+    justify-self:start;
+  }
+
+  .modal-content{
+    width:95%;
+    max-height:90vh;
+    padding:20px;
+  }
+
+  .company-meta{
+    flex-direction:column;
+    gap:12px;
+  }
+}
+
+@media (max-width: 480px){
+  .stat-card strong{font-size:24px}
+  .company-header h2{font-size:22px}
+  .search-panel{padding:20px}
+}
+
 </style>
 </head>
 <body>
@@ -560,21 +640,21 @@ function showCompanyDetail(code) {
 
     <div class="overview-stats">
       <div class="stat-card">
-        <strong>${comp.coverageRate.toFixed(1)}%</strong>
+        <strong class="counter" data-target="${comp.coverageRate.toFixed(1)}">${comp.coverageRate.toFixed(1)}</strong>
         <small>数据覆盖率</small>
       </div>
       <div class="stat-card">
-        <strong>${comp.premiumRank}</strong>
+        <strong class="counter" data-target="${comp.premiumRank}">${comp.premiumRank}</strong>
         <small>高级排名</small>
         <div class="delta up">↑${rankChange}名</div>
       </div>
       <div class="stat-card">
-        <strong>${comp.premiumScore.toFixed(2)}</strong>
+        <strong class="counter" data-target="${comp.premiumScore.toFixed(2)}">${comp.premiumScore.toFixed(2)}</strong>
         <small>高级得分</small>
         <div class="delta up">+${scoreChange.toFixed(2)}</div>
       </div>
       <div class="stat-card">
-        <strong>${comp.confirmedCount + comp.imputedCount}</strong>
+        <strong class="counter" data-target="${comp.confirmedCount + comp.imputedCount}">${comp.confirmedCount + comp.imputedCount}</strong>
         <small>总指标数</small>
         <div style="font-size:12px;color:var(--muted);margin-top:4px">${comp.confirmedCount}披露 + ${comp.imputedCount}填充</div>
       </div>
@@ -625,6 +705,44 @@ function showCompanyDetail(code) {
 
   document.getElementById('modalContent').innerHTML = html;
   document.getElementById('detailModal').classList.add('active');
+
+  // 启动数值计数器动画
+  animateCounters();
+}
+
+function animateCounters() {
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach(counter => {
+    const target = parseFloat(counter.getAttribute('data-target'));
+    const duration = 1500;
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // 使用easeOutQuad缓动函数
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const current = start + (target - start) * easeProgress;
+
+      // 根据目标值格式化显示
+      if (target % 1 === 0) {
+        counter.textContent = Math.round(current);
+      } else {
+        counter.textContent = current.toFixed(target < 10 ? 2 : 1);
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = counter.getAttribute('data-target');
+      }
+    }
+
+    requestAnimationFrame(update);
+  });
 }
 
 function closeModal() {

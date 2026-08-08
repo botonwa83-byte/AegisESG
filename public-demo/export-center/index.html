@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>万绿信评 · 报告导出中心</title>
+<style>
+:root{
+  --bg:#f8f9fd;
+  --panel:#fff;
+  --ink:#24324a;
+  --muted:#78869a;
+  --blue:#4e79ff;
+  --green:#20a486;
+  --amber:#f59e0b;
+  --pink:#ef6e9b;
+  --purple:#a855f7;
+  --line:#e8edf5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+main{max-width:1200px;margin:auto;padding:0 28px 80px}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:36px;
+}
+.brand{font-weight:800;color:var(--pink);font-size:14px;letter-spacing:.5px}
+.nav a{
+  margin-left:20px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+}
+.nav a:hover{color:var(--blue)}
+
+h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
+.lead{font-size:16px;color:#596b82;margin:0 0 32px}
+
+.export-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:24px;
+  margin-bottom:32px;
+}
+
+.export-card{
+  background:var(--panel);
+  border:2px solid var(--line);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(83,104,135,0.08);
+  transition:all 0.2s;
+}
+.export-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(83,104,135,0.15);
+  border-color:var(--blue);
+}
+
+.card-icon{
+  width:56px;
+  height:56px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+  font-size:28px;
+}
+.icon-pdf{background:linear-gradient(135deg,#ef4444,#dc2626)}
+.icon-excel{background:linear-gradient(135deg,#10b981,#059669)}
+.icon-json{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+.icon-csv{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+
+.card-title{
+  font-size:22px;
+  font-weight:700;
+  margin:0 0 8px;
+}
+.card-desc{
+  color:var(--muted);
+  font-size:14px;
+  margin:0 0 20px;
+}
+
+.card-features{
+  list-style:none;
+  padding:0;
+  margin:0 0 24px;
+}
+.card-features li{
+  padding:8px 0;
+  font-size:14px;
+  color:#596b82;
+}
+.card-features li::before{
+  content:"✓";
+  color:var(--green);
+  font-weight:700;
+  margin-right:8px;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  transition:all 0.2s;
+  text-decoration:none;
+  text-align:center;
+}
+.btn:hover{
+  background:#3d5cff;
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(78,121,255,0.3);
+}
+.btn:disabled{
+  background:var(--muted);
+  cursor:not-allowed;
+  transform:none;
+}
+
+.notice{
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  border:1px solid #fcd34d;
+  border-radius:16px;
+  padding:20px 24px;
+  margin:32px 0;
+}
+.notice strong{
+  color:#92400e;
+  display:block;
+  margin-bottom:8px;
+}
+.notice p{
+  color:#78350f;
+  margin:0;
+  font-size:14px;
+}
+
+.sample-section{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:32px;
+  margin-top:32px;
+  box-shadow:0 10px 30px rgba(83,104,135,0.08);
+}
+.sample-section h2{
+  font-size:24px;
+  margin:0 0 20px;
+}
+
+.sample-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+.sample-card{
+  background:#f7f8fc;
+  border-radius:12px;
+  padding:20px;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.sample-card:hover{
+  background:#eef0f7;
+  transform:translateY(-2px);
+}
+.sample-card h3{
+  font-size:16px;
+  margin:0 0 8px;
+}
+.sample-card p{
+  font-size:13px;
+  color:var(--muted);
+  margin:0;
+}
+
+.progress-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(0,0,0,0.7);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+}
+.progress-modal.active{
+  display:flex;
+}
+.progress-content{
+  background:var(--panel);
+  border-radius:20px;
+  padding:40px;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.progress-spinner{
+  width:60px;
+  height:60px;
+  border:4px solid #e8edf5;
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin:0 auto 20px;
+}
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+.progress-text{
+  font-size:18px;
+  font-weight:700;
+  margin:0 0 8px;
+}
+.progress-desc{
+  font-size:14px;
+  color:var(--muted);
+  margin:0;
+}
+
+/* 移动端响应式 */
+@media (max-width: 768px){
+  main{padding:0 16px 40px}
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .nav a{margin-left:0}
+
+  h1{font-size:26px}
+  .lead{font-size:15px}
+
+  .export-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .sample-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sample-section{
+    padding:20px;
+  }
+
+  .notice{
+    padding:16px 20px;
+  }
+}
+
+@media (max-width: 480px){
+  .card-icon{
+    width:48px;
+    height:48px;
+    font-size:24px;
+  }
+
+  .card-title{font-size:18px}
+
+  .export-card{
+    padding:20px;
+  }
+}
+
+
+.badge{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:600;
+  margin-left:8px;
+}
+.badge-premium{background:#dbeafe;color:var(--blue)}
+.badge-free{background:#d1fae5;color:var(--green)}
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <div class="brand">万绿信评 · ESG科学决策系统</div>
+    <div class="nav">
+      <a href="../">系统总览</a>
+      <a href="../data-visualization/">数据可视化</a>
+      <a href="index.html">报告导出</a>
+    </div>
+  </div>
+
+  <h1>报告导出中心</h1>
+  <p class="lead">下载完整的ESG排名报告、数据分析和审计文档</p>
+
+  <div class="export-grid">
+    <!-- PDF报告 -->
+    <div class="export-card">
+      <div class="card-icon icon-pdf">📄</div>
+      <h3 class="card-title">PDF综合报告<span class="badge badge-premium">高级会员</span></h3>
+      <p class="card-desc">完整的ESG排名报告，包含所有图表和分析</p>
+      <ul class="card-features">
+        <li>612家企业排名详情</li>
+        <li>E/S/G维度分析图表</li>
+        <li>数据来源透明标注</li>
+        <li>质量审计报告</li>
+        <li>适合打印和存档</li>
+      </ul>
+      <button class="btn" onclick="exportPDF()">生成PDF报告</button>
+    </div>
+
+    <!-- Excel数据 -->
+    <div class="export-card">
+      <div class="card-icon icon-excel">📊</div>
+      <h3 class="card-title">Excel数据表<span class="badge badge-free">免费</span></h3>
+      <p class="card-desc">可编辑的排名数据表格，支持二次分析</p>
+      <ul class="card-features">
+        <li>完整排名数据（基础/高级）</li>
+        <li>80个ESG指标明细</li>
+        <li>企业基本信息</li>
+        <li>支持筛选和排序</li>
+        <li>兼容Excel/WPS</li>
+      </ul>
+      <button class="btn" onclick="exportExcel()">下载Excel文件</button>
+    </div>
+
+    <!-- JSON数据 -->
+    <div class="export-card">
+      <div class="card-icon icon-json">🔧</div>
+      <h3 class="card-title">JSON原始数据<span class="badge badge-premium">高级会员</span></h3>
+      <p class="card-desc">结构化数据，适合API集成和程序化分析</p>
+      <ul class="card-features">
+        <li>完整观测数据（14,190条）</li>
+        <li>置信度和来源标注</li>
+        <li>行业基准数据</li>
+        <li>审计追踪记录</li>
+        <li>API友好格式</li>
+      </ul>
+      <button class="btn" onclick="exportJSON()">下载JSON文件</button>
+    </div>
+
+    <!-- CSV数据 -->
+    <div class="export-card">
+      <div class="card-icon icon-csv">📋</div>
+      <h3 class="card-title">CSV数据表<span class="badge badge-free">免费</span></h3>
+      <p class="card-desc">轻量级数据格式，通用性强</p>
+      <ul class="card-features">
+        <li>排名和得分数据</li>
+        <li>企业基本信息</li>
+        <li>主要指标值</li>
+        <li>兼容所有数据工具</li>
+        <li>文件体积小</li>
+      </ul>
+      <button class="btn" onclick="exportCSV()">下载CSV文件</button>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>💡 使用提示</strong>
+    <p>所有导出的报告均包含数据生成时间戳和版本信息。高级会员报告包含完整的数据来源标注和置信度评分，满足机构审计要求。</p>
+  </div>
+
+  <!-- 示例报告 -->
+  <div class="sample-section">
+    <h2>示例报告预览</h2>
+    <div class="sample-grid">
+      <div class="sample-card" onclick="previewSample('basic')">
+        <h3>基础排名报告</h3>
+        <p>查看免费版排名报告示例</p>
+      </div>
+      <div class="sample-card" onclick="previewSample('premium')">
+        <h3>高级排名报告</h3>
+        <p>查看会员版增强报告示例</p>
+      </div>
+      <div class="sample-card" onclick="previewSample('audit')">
+        <h3>质量审计报告</h3>
+        <p>查看数据质量审计示例</p>
+      </div>
+      <div class="sample-card" onclick="previewSample('company')">
+        <h3>企业详情报告</h3>
+        <p>查看单个企业分析示例</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 进度提示 -->
+  <div class="progress-modal" id="progressModal">
+    <div class="progress-content">
+      <div class="progress-spinner"></div>
+      <p class="progress-text">正在生成报告...</p>
+      <p class="progress-desc" id="progressDesc">准备数据中</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function showProgress(message) {
+  document.getElementById('progressModal').classList.add('active');
+  document.getElementById('progressDesc').textContent = message;
+}
+
+function hideProgress() {
+  document.getElementById('progressModal').classList.remove('active');
+}
+
+function exportPDF() {
+  showProgress('正在生成PDF报告，包含612家企业数据...');
+
+  setTimeout(() => {
+    // 模拟生成报告
+    const content = generatePDFContent();
+    downloadFile('ESG排名综合报告_2025.pdf', content, 'application/pdf');
+    hideProgress();
+  }, 2000);
+}
+
+function exportExcel() {
+  showProgress('正在生成Excel文件...');
+
+  setTimeout(() => {
+    const content = generateExcelContent();
+    downloadFile('ESG排名数据_2025.xlsx', content, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    hideProgress();
+  }, 1500);
+}
+
+function exportJSON() {
+  showProgress('正在导出JSON数据...');
+
+  setTimeout(() => {
+    const data = {
+      metadata: {
+        title: "万绿信评ESG数据导出",
+        version: "v1.0",
+        generated_at: new Date().toISOString(),
+        total_companies: 612,
+        total_observations: 14190,
+      },
+      summary: {
+        coverage_rate: 0.85,
+        average_confidence: 0.602,
+        source_distribution: {
+          confirmed: 7988,
+          imputed: 6202,
+        },
+      },
+      rankings: {
+        basic: {
+          note: "仅包含企业披露数据，覆盖率40%",
+          top_10: [
+            {rank: 1, code: "600236.SH", name: "桂冠电力", score: 60.32},
+            {rank: 2, code: "002259.SZ", name: "升达林业", score: 58.35},
+            // ... 更多数据
+          ],
+        },
+        premium: {
+          note: "包含增强数据，覆盖率85%",
+          top_10: [
+            {rank: 1, code: "600236.SH", name: "桂冠电力", score: 60.32},
+            // ... 更多数据
+          ],
+        },
+      },
+    };
+
+    const content = JSON.stringify(data, null, 2);
+    downloadFile('esg_data_export_2025.json', content, 'application/json');
+    hideProgress();
+  }, 1000);
+}
+
+function exportCSV() {
+  showProgress('正在生成CSV文件...');
+
+  setTimeout(() => {
+    const csv = generateCSVContent();
+    downloadFile('esg_ranking_2025.csv', csv, 'text/csv');
+    hideProgress();
+  }, 1000);
+}
+
+function generatePDFContent() {
+  // 实际应用中这里会调用PDF生成库
+  return new Blob(['PDF报告内容（示例）'], {type: 'application/pdf'});
+}
+
+function generateExcelContent() {
+  // 实际应用中这里会调用Excel生成库
+  return new Blob(['Excel内容（示例）'], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+
+function generateCSVContent() {
+  const headers = 'rank,company_code,company_name,total_score,e_score,s_score,g_score,coverage_rate\n';
+  const rows = [
+    '1,600236.SH,桂冠电力,60.32,18.5,20.1,21.72,30.0',
+    '2,002259.SZ,升达林业,58.35,17.8,19.5,21.05,25.0',
+    '3,601225.SH,陕西煤业,58.23,17.2,20.3,20.73,28.75',
+    // ... 更多数据
+  ].join('\n');
+
+  return headers + rows;
+}
+
+function downloadFile(filename, content, type) {
+  const blob = typeof content === 'string' ? new Blob([content], {type}) : content;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  // 显示成功提示
+  alert(`✓ ${filename} 下载成功！\n\n文件已保存到您的下载文件夹。`);
+}
+
+function previewSample(type) {
+  const messages = {
+    basic: '基础排名报告包含612家企业的基本排名信息，基于已披露数据计算。',
+    premium: '高级排名报告包含完整的数据增强分析，覆盖率提升至85%。',
+    audit: '质量审计报告详细展示数据来源、置信度评分和质量统计。',
+    company: '企业详情报告深入分析单个企业的ESG表现和指标明细。',
+  };
+
+  alert(`${messages[type]}\n\n完整报告请使用上方导出功能下载。`);
+}
+</script>
+</body>
+</html>

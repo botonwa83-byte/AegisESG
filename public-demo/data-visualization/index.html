@@ -92,6 +92,22 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
   border-radius:16px;
   padding:24px;
   box-shadow:0 8px 20px rgba(83,104,135,0.06);
+  opacity:0;
+  animation:fadeIn 0.6s ease-out forwards;
+}
+.chart-card:nth-child(1){animation-delay:0.1s}
+.chart-card:nth-child(2){animation-delay:0.2s}
+.chart-card:nth-child(3){animation-delay:0.3s}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 .chart-card h3{
   font-size:18px;
@@ -162,7 +178,8 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
   color:#fff;
   font-weight:700;
   font-size:13px;
-  transition:width 0.6s ease;
+  width:0;
+  transition:width 1s cubic-bezier(0.4,0,0.2,1);
 }
 
 .indicator-table{
@@ -287,6 +304,80 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
 }
 
 .hidden{display:none!important}
+
+/* 移动端响应式 */
+@media (max-width: 768px){
+  main{padding:0 16px 40px}
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+
+  .nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .nav a{margin-left:0}
+
+  h1{font-size:26px}
+  .lead{font-size:15px}
+
+  .tabs{
+    overflow-x:auto;
+    gap:4px;
+  }
+  .tab{
+    padding:10px 16px;
+    font-size:14px;
+    white-space:nowrap;
+  }
+
+  .chart-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .pie-chart{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .pie{
+    width:150px;
+    height:150px;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .panel{padding:20px}
+
+  .indicator-table{
+    font-size:13px;
+  }
+  .indicator-table th,
+  .indicator-table td{
+    padding:8px;
+  }
+
+  .modal-content{
+    padding:20px;
+    max-height:85vh;
+  }
+}
+
+@media (max-width: 480px){
+  .stat-box strong{font-size:22px}
+  .pie{
+    width:130px;
+    height:130px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -648,11 +739,36 @@ function closeModal() {
 
 // 初始化
 renderIndicatorTable();
+animateBarCharts();
 
 // 点击弹窗外部关闭
 document.getElementById('detailModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// 图表动画加载
+function animateBarCharts() {
+  setTimeout(() => {
+    const bars = document.querySelectorAll('.bar-fill');
+    bars.forEach((bar, index) => {
+      const targetWidth = bar.style.width;
+      bar.style.width = '0';
+
+      setTimeout(() => {
+        bar.style.width = targetWidth;
+      }, index * 100);
+    });
+  }, 300);
+}
+
+// 切换标签页时重新触发动画
+function showTab(tabName) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tabName).classList.remove('hidden');
+}
 </script>
 </body>
 </html>
