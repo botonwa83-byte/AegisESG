@@ -1,0 +1,1003 @@
+{
+  "summary": {
+    "total_anomalies": 50,
+    "by_type": {
+      "extreme_outlier": 13,
+      "small_base_effect": 11,
+      "energy_intensity_outlier": 1,
+      "known_extraction_issue": 13,
+      "unit_conversion_error": 1,
+      "significant_change": 11
+    },
+    "by_action": {
+      "urgent_review": 13,
+      "accept": 11,
+      "review": 2,
+      "reextract": 13,
+      "sample_check": 11
+    },
+    "urgent_count": 13,
+    "review_count": 15,
+    "acceptable_count": 11
+  },
+  "classifications": [
+    {
+      "company_code": "600438.SH",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "value_2024": 0.71,
+      "value_2025": 72.0,
+      "yoy_change": 10040.8,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率10040.8%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "600732.SH",
+      "indicator_code": "Q_E_GHG_INTENSITY",
+      "value_2024": 212.11,
+      "value_2025": 2313.294,
+      "yoy_change": 990.6,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率990.6%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 0.53,
+      "value_2025": 5.725,
+      "yoy_change": 980.2,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率980.2%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "000600.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.32,
+      "yoy_change": 966.7,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率966.7%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "600021.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.04,
+      "value_2025": 0.37,
+      "yoy_change": 825.0,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率825.0%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "002850.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.3,
+      "value_2025": 2.5,
+      "yoy_change": 733.3,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率733.3%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "603105.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.12,
+      "value_2025": 1.0,
+      "yoy_change": 733.3,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率733.3%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "002823.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.244,
+      "yoy_change": 714.3,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率714.3%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "000543.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.379,
+      "yoy_change": 658.0,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率658.0%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "603530.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.35,
+      "yoy_change": 600.0,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率600.0%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "000690.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.2,
+      "yoy_change": 566.7,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率566.7%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "06885.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "value_2024": 72.61,
+      "value_2025": 440.0,
+      "yoy_change": 506.0,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率506.0%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "603897.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.2,
+      "value_2025": 1.2,
+      "yoy_change": 500.0,
+      "anomaly_type": "extreme_outlier",
+      "confidence": "medium",
+      "recommendation": "极端异常，优先级最高，必须人工复核",
+      "details": {
+        "reason": "变化率500.0%超出正常范围",
+        "action": "urgent_review"
+      }
+    },
+    {
+      "company_code": "601225.SH",
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "value_2024": 32.4,
+      "value_2025": 1400.0,
+      "yoy_change": 4221.0,
+      "anomaly_type": "energy_intensity_outlier",
+      "confidence": "high",
+      "recommendation": "能源强度异常增长，需要复核采集方法",
+      "details": {
+        "reason": "能源强度增长43.20987654320988倍，不符合行业常识",
+        "action": "review",
+        "note": "检查是否混淆了绝对值和强度"
+      }
+    },
+    {
+      "company_code": "002335.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.5,
+      "yoy_change": 900.0,
+      "anomaly_type": "unit_conversion_error",
+      "confidence": "high",
+      "recommendation": "疑似单位换算错误，需要人工复核原始数据",
+      "details": {
+        "reason": "变化倍数为10.0倍，疑似单位问题",
+        "action": "review",
+        "suggested_fix": "检查002335.SZ的Q_S_DIVIDEND_PER_SHARE单位是否一致"
+      }
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.22,
+      "value_2025": 4.52,
+      "yoy_change": 1954.5,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "600900.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.17,
+      "value_2025": 2.85,
+      "yoy_change": 1576.5,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "002805.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.84,
+      "value_2025": 10.26,
+      "yoy_change": 1121.4,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "002531.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.54,
+      "value_2025": 5.47,
+      "yoy_change": 913.0,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "003035.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.17,
+      "value_2025": 1.71,
+      "yoy_change": 905.9,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "603191.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 1.1,
+      "value_2025": 7.82,
+      "yoy_change": 610.9,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "600886.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.08,
+      "value_2025": 0.56,
+      "yoy_change": 600.0,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "601898.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.35,
+      "value_2025": 2.42,
+      "yoy_change": 591.4,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "002221.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 0.41,
+      "yoy_change": 583.3,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "000966.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.11,
+      "value_2025": 0.74,
+      "yoy_change": 572.7,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "001258.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.1,
+      "value_2025": 0.66,
+      "yoy_change": 560.0,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "301155.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.82,
+      "value_2025": 5.27,
+      "yoy_change": 542.7,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "601012.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.99,
+      "value_2025": 6.11,
+      "yoy_change": 517.2,
+      "anomaly_type": "known_extraction_issue",
+      "confidence": "high",
+      "recommendation": "已知的R&D提取一致性问题，需要重新提取",
+      "details": {
+        "reason": "R&D费用在不同年份的提取规则不一致",
+        "action": "reextract",
+        "note": "参考同比趋势分析报告"
+      }
+    },
+    {
+      "company_code": "600744.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.34,
+      "value_2025": 2.01,
+      "yoy_change": 491.2,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "600732.SH",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 1.42,
+      "value_2025": 8.159,
+      "yoy_change": 474.6,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "600578.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.12,
+      "value_2025": 0.68,
+      "yoy_change": 466.7,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "600312.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.06,
+      "value_2025": 0.331,
+      "yoy_change": 451.7,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "value_2024": 367.79,
+      "value_2025": 1997.802,
+      "yoy_change": 443.2,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "300409.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.25,
+      "yoy_change": 400.0,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "601991.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.148,
+      "yoy_change": 393.3,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "001289.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.24,
+      "value_2025": 1.15,
+      "yoy_change": 379.2,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "300483.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.55,
+      "value_2025": 2.6,
+      "yoy_change": 372.7,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "000400.SZ",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 0.2,
+      "value_2025": 0.941,
+      "yoy_change": 370.3,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "000096.SZ",
+      "indicator_code": "Q_G_DEBT_ASSET_RATE",
+      "value_2024": 5.48,
+      "value_2025": 25.363,
+      "yoy_change": 362.8,
+      "anomaly_type": "significant_change",
+      "confidence": "low",
+      "recommendation": "大幅变化但在合理范围，建议抽查",
+      "details": {
+        "reason": "变化较大但可能是真实业务变化",
+        "action": "sample_check"
+      }
+    },
+    {
+      "company_code": "601991.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.02,
+      "value_2025": 2.02,
+      "yoy_change": 10000.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.02，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "00579.HK",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.05,
+      "value_2025": 3.67,
+      "yoy_change": 7240.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.05，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "600905.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 1.95,
+      "yoy_change": 3150.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.06，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "000767.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.05,
+      "value_2025": 1.51,
+      "yoy_change": 2920.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.05，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "002608.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.25,
+      "yoy_change": 2400.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.01，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "605011.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.04,
+      "value_2025": 0.94,
+      "yoy_change": 2250.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.04，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "600903.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.23,
+      "yoy_change": 2200.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.01，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "600863.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 1.28,
+      "yoy_change": 2033.3,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.06，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "600310.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.03,
+      "value_2025": 0.55,
+      "yoy_change": 1733.3,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.03，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "600509.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.18,
+      "yoy_change": 1700.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.01，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    },
+    {
+      "company_code": "603693.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.02,
+      "value_2025": 0.29,
+      "yoy_change": 1350.0,
+      "anomaly_type": "small_base_effect",
+      "confidence": "high",
+      "recommendation": "数据正常，小基数导致的高变化率，建议保留",
+      "details": {
+        "reason": "2024年基数仅0.02，微小变化产生极大变化率",
+        "action": "accept"
+      }
+    }
+  ],
+  "by_type": {
+    "extreme_outlier": [
+      {
+        "company_code": "600438.SH",
+        "indicator_code": "Q_E_SO2_INTENSITY",
+        "yoy_change": 10040.8
+      },
+      {
+        "company_code": "600732.SH",
+        "indicator_code": "Q_E_GHG_INTENSITY",
+        "yoy_change": 990.6
+      },
+      {
+        "company_code": "688303.SH",
+        "indicator_code": "Q_E_NOX_INTENSITY",
+        "yoy_change": 980.2
+      },
+      {
+        "company_code": "000600.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 966.7
+      },
+      {
+        "company_code": "600021.SH",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 825.0
+      },
+      {
+        "company_code": "002850.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 733.3
+      },
+      {
+        "company_code": "603105.SH",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 733.3
+      },
+      {
+        "company_code": "002823.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 714.3
+      },
+      {
+        "company_code": "000543.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 658.0
+      },
+      {
+        "company_code": "603530.SH",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 600.0
+      }
+    ],
+    "small_base_effect": [
+      {
+        "company_code": "601991.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 10000.0
+      },
+      {
+        "company_code": "00579.HK",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 7240.0
+      },
+      {
+        "company_code": "600905.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 3150.0
+      },
+      {
+        "company_code": "000767.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 2920.0
+      },
+      {
+        "company_code": "002608.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 2400.0
+      },
+      {
+        "company_code": "605011.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 2250.0
+      },
+      {
+        "company_code": "600903.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 2200.0
+      },
+      {
+        "company_code": "600863.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 2033.3
+      },
+      {
+        "company_code": "600310.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 1733.3
+      },
+      {
+        "company_code": "600509.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 1700.0
+      }
+    ],
+    "energy_intensity_outlier": [
+      {
+        "company_code": "601225.SH",
+        "indicator_code": "Q_E_ENERGY_INTENSITY",
+        "yoy_change": 4221.0
+      }
+    ],
+    "known_extraction_issue": [
+      {
+        "company_code": "688303.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 1954.5
+      },
+      {
+        "company_code": "600900.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 1576.5
+      },
+      {
+        "company_code": "002805.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 1121.4
+      },
+      {
+        "company_code": "002531.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 913.0
+      },
+      {
+        "company_code": "003035.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 905.9
+      },
+      {
+        "company_code": "603191.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 610.9
+      },
+      {
+        "company_code": "600886.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 600.0
+      },
+      {
+        "company_code": "601898.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 591.4
+      },
+      {
+        "company_code": "002221.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 583.3
+      },
+      {
+        "company_code": "000966.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 572.7
+      }
+    ],
+    "unit_conversion_error": [
+      {
+        "company_code": "002335.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 900.0
+      }
+    ],
+    "significant_change": [
+      {
+        "company_code": "600744.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 491.2
+      },
+      {
+        "company_code": "600732.SH",
+        "indicator_code": "Q_E_NOX_INTENSITY",
+        "yoy_change": 474.6
+      },
+      {
+        "company_code": "600578.SH",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 466.7
+      },
+      {
+        "company_code": "600312.SH",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 451.7
+      },
+      {
+        "company_code": "688303.SH",
+        "indicator_code": "Q_E_ENERGY_INTENSITY",
+        "yoy_change": 443.2
+      },
+      {
+        "company_code": "300409.SZ",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 400.0
+      },
+      {
+        "company_code": "601991.SH",
+        "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+        "yoy_change": 393.3
+      },
+      {
+        "company_code": "001289.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 379.2
+      },
+      {
+        "company_code": "300483.SZ",
+        "indicator_code": "Q_S_RD_RATE",
+        "yoy_change": 372.7
+      },
+      {
+        "company_code": "000400.SZ",
+        "indicator_code": "Q_E_NOX_INTENSITY",
+        "yoy_change": 370.3
+      }
+    ]
+  },
+  "recommendations": [
+    "发现13个极端异常案例，需要立即人工复核",
+    "发现2个疑似数据质量问题，建议检查提取方法",
+    "发现13个已知提取问题，建议统一提取规则后重新运行",
+    "11个异常为合理变化或小基数效应，建议保留"
+  ],
+  "action_plan": [
+    {
+      "priority": 1,
+      "action": "紧急复核",
+      "count": 13,
+      "description": "极端异常案例，需要人工复核原始PDF",
+      "estimated_time": "130分钟",
+      "cases": [
+        "600438.SH · Q_E_SO2_INTENSITY (+10041%)",
+        "600732.SH · Q_E_GHG_INTENSITY (+991%)",
+        "688303.SH · Q_E_NOX_INTENSITY (+980%)",
+        "000600.SZ · Q_S_DIVIDEND_PER_SHARE (+967%)",
+        "600021.SH · Q_S_DIVIDEND_PER_SHARE (+825%)"
+      ]
+    },
+    {
+      "priority": 2,
+      "action": "重新提取",
+      "count": 13,
+      "description": "已知提取规则不一致，需要统一后重新运行",
+      "estimated_time": "1-2天",
+      "indicators": [
+        "Q_S_RD_RATE"
+      ]
+    },
+    {
+      "priority": 3,
+      "action": "样本复核",
+      "count": 2,
+      "description": "疑似数据质量问题，抽查10%案例",
+      "estimated_time": "1分钟"
+    }
+  ]
+}
