@@ -21,6 +21,9 @@ class ValueStatus(str, Enum):
     PENDING = "pending"
     MISSING = "missing"
     NOT_APPLICABLE = "not_applicable"
+    DERIVED = "derived"  # 公式派生值
+    PREDICTED = "predicted"  # 时间序列预测值
+    IMPUTED = "imputed"  # 行业均值填充值
 
 
 @dataclass(frozen=True)
@@ -51,6 +54,11 @@ class Observation:
     source_page: int | None = None
     evidence_text: str = ""
     confidence: float = 1.0
+    source_type: str = ""  # 数据来源类型：pdf_extract, formula_derived, predicted等
+    note: str = ""  # 备注信息（如派生公式、预测方法等）
+    evidence_url: str | None = None  # 证据URL（兼容字段）
+    evidence_page: int | None = None  # 证据页码（兼容字段）
+    collected_at: str = ""  # 采集/生成时间
 
 
 @dataclass

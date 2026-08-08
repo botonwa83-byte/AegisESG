@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>万绿信评 · 排名分级对比</title>
+<style>
+:root{
+  --bg:#f8f9fd;
+  --panel:#fff;
+  --ink:#24324a;
+  --muted:#78869a;
+  --blue:#4e79ff;
+  --green:#20a486;
+  --amber:#f59e0b;
+  --pink:#ef6e9b;
+  --line:#e8edf5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at 8% 0%,#fff1f7 0,transparent 30%),
+             radial-gradient(circle at 95% 10%,#e6f4ff 0,transparent 30%),
+             var(--bg);
+  color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+main{max-width:1280px;margin:auto;padding:0 28px 80px}
+
+/* Header */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:36px;
+}
+.brand{font-weight:800;color:var(--pink);font-size:14px;letter-spacing:.5px}
+.nav a{
+  margin-left:20px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+}
+.nav a:hover{color:var(--blue)}
+
+/* Hero */
+.hero{margin-bottom:48px}
+h1{font-size:38px;margin:8px 0 10px;letter-spacing:-0.5px}
+.lead{font-size:18px;color:#596b82;margin:0}
+.badge-new{
+  display:inline-block;
+  background:linear-gradient(135deg,#ff6b9d,#c061f2);
+  color:#fff;
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  margin-left:12px;
+}
+
+/* Tier Comparison */
+.tier-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:20px;
+  margin:32px 0;
+}
+.tier-card{
+  background:var(--panel);
+  border:2px solid var(--line);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 10px 30px rgba(83,104,135,0.08);
+  position:relative;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.tier-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(83,104,135,0.15);
+}
+.tier-card.premium{
+  border-color:var(--blue);
+  background:linear-gradient(145deg,#fff,#f0f7ff);
+}
+.tier-card.premium .tier-badge{
+  background:linear-gradient(135deg,var(--blue),#6366f1);
+}
+
+.tier-badge{
+  display:inline-block;
+  background:var(--muted);
+  color:#fff;
+  padding:6px 14px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+.tier-card h2{
+  font-size:26px;
+  margin:0 0 8px;
+}
+.tier-price{
+  color:var(--muted);
+  font-size:15px;
+  margin-bottom:20px;
+}
+.tier-price strong{
+  color:var(--ink);
+  font-size:20px;
+}
+
+.coverage-bar{
+  background:#e8edf5;
+  height:32px;
+  border-radius:12px;
+  overflow:hidden;
+  margin:16px 0;
+  position:relative;
+}
+.coverage-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--green),#34d399);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 12px;
+  color:#fff;
+  font-weight:700;
+  font-size:14px;
+}
+.premium .coverage-fill{
+  background:linear-gradient(90deg,var(--blue),#6366f1);
+}
+
+.features{
+  list-style:none;
+  padding:0;
+  margin:20px 0 0;
+}
+.features li{
+  padding:10px 0;
+  border-bottom:1px solid #f0f2f7;
+  color:#596b82;
+  font-size:14px;
+}
+.features li:last-child{border-bottom:0}
+.features li::before{
+  content:"✓";
+  color:var(--green);
+  font-weight:700;
+  margin-right:10px;
+}
+.premium .features li::before{
+  content:"✦";
+  color:var(--blue);
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 24px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+  text-align:center;
+  border:2px solid;
+  margin-top:20px;
+  transition:all 0.2s;
+}
+.btn-basic{
+  background:#fff;
+  border-color:var(--line);
+  color:var(--ink);
+}
+.btn-basic:hover{
+  border-color:var(--blue);
+  color:var(--blue);
+}
+.btn-premium{
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+}
+.btn-premium:hover{
+  background:#3d5cff;
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(78,121,255,0.3);
+}
+
+/* Comparison Table */
+.comparison{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:32px;
+  margin:48px 0;
+  box-shadow:0 10px 30px rgba(83,104,135,0.08);
+}
+.comparison h2{
+  font-size:24px;
+  margin:0 0 24px;
+}
+.comparison table{
+  width:100%;
+  border-collapse:collapse;
+}
+.comparison th{
+  background:#f7f8fc;
+  padding:14px 16px;
+  text-align:left;
+  font-weight:700;
+  font-size:13px;
+  color:#65758b;
+  border-bottom:2px solid var(--line);
+}
+.comparison td{
+  padding:14px 16px;
+  border-bottom:1px solid #f0f2f7;
+}
+.comparison tr:last-child td{border-bottom:0}
+.tag{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+}
+.tag-yes{background:#d1fae5;color:var(--green)}
+.tag-no{background:#fee2e2;color:#dc2626}
+.tag-premium{background:#dbeafe;color:var(--blue)}
+
+/* Stats */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin:32px 0;
+}
+.stat-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 20px rgba(83,104,135,0.06);
+}
+.stat-card small{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:6px;
+}
+.stat-card strong{
+  display:block;
+  font-size:28px;
+  color:var(--blue);
+}
+.stat-card .delta{
+  font-size:14px;
+  color:var(--green);
+  font-weight:700;
+  margin-top:4px;
+}
+
+/* Notice */
+.notice{
+  background:linear-gradient(135deg,#fff7ed,#fef3c7);
+  border:1px solid #fcd34d;
+  border-radius:16px;
+  padding:20px 24px;
+  margin:32px 0;
+}
+.notice strong{
+  color:#92400e;
+  display:block;
+  margin-bottom:8px;
+}
+.notice p{
+  color:#78350f;
+  margin:0;
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <div class="brand">万绿信评 · ESG科学决策系统</div>
+    <div class="nav">
+      <a href="../">系统总览</a>
+      <a href="../ranking-center/">排名中心</a>
+      <a href="index.html">排名分级</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>排名分级对比
+      <span class="badge-new">NEW</span>
+    </h1>
+    <p class="lead">基础排名（免费）vs 高级排名（会员专享）—— 数据覆盖提升85%</p>
+  </div>
+
+  <!-- Tier Cards -->
+  <div class="tier-grid">
+    <!-- Basic Tier -->
+    <div class="tier-card">
+      <span class="tier-badge">基础排名</span>
+      <h2>免费版</h2>
+      <div class="tier-price"><strong>¥0</strong> / 永久免费</div>
+
+      <div>
+        <small style="color:var(--muted);font-size:13px">数据覆盖率</small>
+        <div class="coverage-bar">
+          <div class="coverage-fill" style="width:40%">40%</div>
+        </div>
+      </div>
+
+      <ul class="features">
+        <li>仅企业已披露数据</li>
+        <li>行标权重评分算法</li>
+        <li>E/S/G 分项得分</li>
+        <li>行业排名对比</li>
+        <li>基础趋势分析</li>
+      </ul>
+
+      <a href="#" class="btn btn-basic">查看基础排名</a>
+    </div>
+
+    <!-- Premium Tier -->
+    <div class="tier-card premium">
+      <span class="tier-badge">高级排名</span>
+      <h2>会员版</h2>
+      <div class="tier-price"><strong>¥3,999</strong> / 年</div>
+
+      <div>
+        <small style="color:var(--muted);font-size:13px">数据覆盖率</small>
+        <div class="coverage-bar">
+          <div class="coverage-fill" style="width:85%">85%</div>
+        </div>
+      </div>
+
+      <ul class="features">
+        <li>✓ 基础排名全部功能</li>
+        <li>时间序列预测数据</li>
+        <li>行业均值智能填充</li>
+        <li>数据覆盖率提升 80%+</li>
+        <li>多策略排名对比</li>
+        <li>排名稳定性分析</li>
+        <li>数据来源透明标注</li>
+        <li>详细审计报告下载</li>
+      </ul>
+
+      <a href="#" class="btn btn-premium">立即升级会员</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <small>环境指标覆盖</small>
+      <strong>89%</strong>
+      <div class="delta">↑ 提升 82.5%</div>
+    </div>
+    <div class="stat-card">
+      <small>社会指标覆盖</small>
+      <strong>90%</strong>
+      <div class="delta">↑ 提升 77%</div>
+    </div>
+    <div class="stat-card">
+      <small>新增观测数据</small>
+      <strong>6,202条</strong>
+      <div class="delta">↑ 增加 77.7%</div>
+    </div>
+    <div class="stat-card">
+      <small>前200名重叠率</small>
+      <strong>87.5%</strong>
+      <div class="delta">排名稳定性高</div>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="comparison">
+    <h2>功能对比详情</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>功能特性</th>
+          <th>基础排名（免费）</th>
+          <th>高级排名（会员）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>数据来源</strong></td>
+          <td>仅企业已披露数据</td>
+          <td>已披露 + 预测 + 填充</td>
+        </tr>
+        <tr>
+          <td><strong>数据覆盖率</strong></td>
+          <td>~40%</td>
+          <td><span style="color:var(--blue);font-weight:700">~85%</span></td>
+        </tr>
+        <tr>
+          <td><strong>环境指标覆盖</strong></td>
+          <td>6.5%（严重不足）</td>
+          <td><span style="color:var(--blue);font-weight:700">89%</span></td>
+        </tr>
+        <tr>
+          <td><strong>详细指标下钻</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>数据来源标注</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-yes">✓ 含置信度</span></td>
+        </tr>
+        <tr>
+          <td><strong>排名对比分析</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-yes">✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>时间序列预测</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-premium">✓ 会员专享</span></td>
+        </tr>
+        <tr>
+          <td><strong>行业均值填充</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-premium">✓ 会员专享</span></td>
+        </tr>
+        <tr>
+          <td><strong>审计报告下载</strong></td>
+          <td><span class="tag tag-no">✗</span></td>
+          <td><span class="tag tag-yes">✓ JSON格式</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Notice -->
+  <div class="notice">
+    <strong>⚠️ 重要说明</strong>
+    <p>基础排名和高级排名使用<strong>相同的评分算法</strong>和权重体系，唯一区别是数据完整性。高级排名使用时间序列预测和行业均值填充来提升覆盖率，所有增强数据均标注来源和置信度，确保透明可审计。</p>
+  </div>
+
+  <!-- Example Section -->
+  <div style="margin-top:48px">
+    <h2 style="font-size:24px;margin-bottom:20px">典型案例对比</h2>
+
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div>
+          <strong style="font-size:18px">长江电力 (600900.SH)</strong>
+          <div style="color:var(--muted);font-size:13px;margin-top:4px">电力 · 水电</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="color:var(--muted);font-size:13px;margin-bottom:8px">基础排名（免费）</div>
+          <div style="font-size:24px;color:var(--ink);font-weight:700">第 2 名</div>
+          <div style="color:var(--muted);font-size:14px;margin-top:4px">得分: 85.32 · 覆盖率: 65.4%</div>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:13px;margin-bottom:8px">高级排名（会员）</div>
+          <div style="font-size:24px;color:var(--blue);font-weight:700">第 1 名 ↑</div>
+          <div style="color:var(--blue);font-size:14px;margin-top:4px">得分: 86.15 · 覆盖率: 89.3%</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:32px">
+      <a href="#" class="btn btn-premium" style="padding:14px 32px;font-size:16px">立即升级会员，查看完整高级排名</a>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
