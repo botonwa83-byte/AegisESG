@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "generated_at": "2026-08-08T11:48:28.910405"
+  },
+  "stats": {
+    "overview": {
+      "total_observations": 14190,
+      "confirmed": 7988,
+      "imputed": 6202,
+      "confirmed_rate": 56.3,
+      "imputed_rate": 43.7
+    },
+    "by_dimension": [
+      {
+        "dimension": "E",
+        "name": "环境",
+        "confirmed": 259,
+        "imputed": 4678,
+        "total": 4937,
+        "confirmed_rate": 5.2
+      },
+      {
+        "dimension": "S",
+        "name": "社会",
+        "confirmed": 1479,
+        "imputed": 1164,
+        "total": 2643,
+        "confirmed_rate": 56.0
+      },
+      {
+        "dimension": "G",
+        "name": "治理",
+        "confirmed": 6250,
+        "imputed": 360,
+        "total": 6610,
+        "confirmed_rate": 94.6
+      }
+    ],
+    "by_indicator": [
+      {
+        "code": "Q_G_ASSET_TURNOVER",
+        "name": "总资产周转率",
+        "dimension": "G",
+        "companies": 610,
+        "confirmed": 470,
+        "imputed": 140,
+        "imputed_rate": 23.0,
+        "avg_confidence": 0.815
+      },
+      {
+        "code": "Q_G_CASH_REALIZATION",
+        "name": "营业收现率",
+        "dimension": "G",
+        "companies": 289,
+        "confirmed": 289,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_G_CURRENT_ASSET_TURNOVER",
+        "name": "流动资产周转率",
+        "dimension": "G",
+        "companies": 607,
+        "confirmed": 387,
+        "imputed": 220,
+        "imputed_rate": 36.2,
+        "avg_confidence": 0.713
+      },
+      {
+        "code": "Q_G_DEBT_ASSET_RATE",
+        "name": "资产负债率",
+        "dimension": "G",
+        "companies": 523,
+        "confirmed": 523,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.938
+      },
+      {
+        "code": "Q_G_REVENUE_GROWTH",
+        "name": "营业增长率",
+        "dimension": "G",
+        "companies": 465,
+        "confirmed": 465,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.913
+      },
+      {
+        "code": "Q_G_ROE",
+        "name": "净资产收益率",
+        "dimension": "G",
+        "companies": 565,
+        "confirmed": 565,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.93
+      },
+      {
+        "code": "Q_S_BENEFIT_PER_EMPLOYEE",
+        "name": "员工福利、社保和公积金费用",
+        "dimension": "S",
+        "companies": 83,
+        "confirmed": 83,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.95
+      },
+      {
+        "code": "Q_S_DIVIDEND_PER_SHARE",
+        "name": "现金分红",
+        "dimension": "S",
+        "companies": 362,
+        "confirmed": 362,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_S_PAY_PER_EMPLOYEE",
+        "name": "员工薪酬",
+        "dimension": "S",
+        "companies": 125,
+        "confirmed": 125,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.95
+      },
+      {
+        "code": "Q_S_RD_RATE",
+        "name": "研发费用占比",
+        "dimension": "S",
+        "companies": 611,
+        "confirmed": 475,
+        "imputed": 136,
+        "imputed_rate": 22.3,
+        "avg_confidence": 0.827
+      },
+      {
+        "code": "Q_E_GHG_REDUCTION_RATE",
+        "name": "温室气体减排率",
+        "dimension": "E",
+        "companies": 31,
+        "confirmed": 31,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.916
+      },
+      {
+        "code": "Q_G_CAPITAL_ACCUMULATION",
+        "name": "资本积累率",
+        "dimension": "G",
+        "companies": 388,
+        "confirmed": 388,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_G_EBITDA_INTEREST",
+        "name": "EBITDA利息倍数",
+        "dimension": "G",
+        "companies": 352,
+        "confirmed": 352,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_G_EBITDA_MARGIN",
+        "name": "EBITDA利润率",
+        "dimension": "G",
+        "companies": 249,
+        "confirmed": 249,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_G_QUICK_RATIO",
+        "name": "速动比率",
+        "dimension": "G",
+        "companies": 354,
+        "confirmed": 354,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_G_ROA",
+        "name": "总资产报酬率",
+        "dimension": "G",
+        "companies": 271,
+        "confirmed": 271,
+        "imputed": 0,
+        "imputed_rate": 0.0,
+        "avg_confidence": 0.94
+      },
+      {
+        "code": "Q_E_NOX_INTENSITY",
+        "name": "氮氧化物排放强度",
+        "dimension": "E",
+        "companies": 544,
+        "confirmed": 24,
+        "imputed": 520,
+        "imputed_rate": 95.6,
+        "avg_confidence": 0.167
+      },
+      {
+        "code": "Q_E_PM_INTENSITY",
+        "name": "颗粒物排放强度",
+        "dimension": "E",
+        "companies": 543,
+        "confirmed": 22,
+        "imputed": 521,
+        "imputed_rate": 95.9,
+        "avg_confidence": 0.157
+      },
+      {
+        "code": "Q_E_SO2_INTENSITY",
+        "name": "二氧化硫排放强度",
+        "dimension": "E",
+        "companies": 542,
+        "confirmed": 13,
+        "imputed": 529,
+        "imputed_rate": 97.6,
+        "avg_confidence": 0.15
+      },
+      {
+        "code": "Q_E_WASTEWATER_INTENSITY",
+        "name": "废水/污水排放强度",
+        "dimension": "E",
+        "companies": 543,
+        "confirmed": 21,
+        "imputed": 522,
+        "imputed_rate": 96.1,
+        "avg_confidence": 0.149
+      }
+    ]
+  }
+}

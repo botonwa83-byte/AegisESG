@@ -461,104 +461,45 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
 </main>
 
 <script>
-// 示例企业数据（实际应从API加载）
-const companies = [
-  {
-    code:"600900.SH",
-    name:"长江电力",
-    industry:"电力",
-    tier:"premium",
-    totalIndicators:80,
-    confirmedCount:22,
-    imputedCount:5,
-    coverageRate:33.75,
-    basicRank:64,
-    premiumRank:5,
-    basicScore:53.29,
-    premiumScore:57.75,
-    indicators:{
-      E:[
-        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:4.13,source:"confirmed",confidence:1.0},
-        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:0.98,source:"confirmed",confidence:1.0},
-        {code:"Q_E_WATER_INTENSITY",name:"水资源使用强度",value:null,source:"missing",confidence:0},
-        {code:"Q_E_SO2_INTENSITY",name:"二氧化硫排放强度",value:0.12,source:"imputed",confidence:0.15},
-        {code:"Q_E_NOX_INTENSITY",name:"氮氧化物排放强度",value:0.08,source:"imputed",confidence:0.17},
-      ],
-      S:[
-        {code:"Q_S_RD_RATE",name:"研发费用占比",value:0.17,source:"confirmed",confidence:1.0},
-        {code:"Q_S_SAFETY_INVEST_RATE",name:"安全生产投入占比",value:0.15,source:"confirmed",confidence:1.0},
-        {code:"Q_S_ENV_INVEST_RATE",name:"环保投入占比",value:0.18,source:"imputed",confidence:0.26},
-      ],
-      G:[
-        {code:"Q_G_ROE",name:"净资产收益率",value:12.5,source:"confirmed",confidence:1.0},
-        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:45.2,source:"confirmed",confidence:1.0},
-        {code:"Q_G_ASSET_TURNOVER",name:"总资产周转率",value:0.32,source:"confirmed",confidence:1.0},
-      ],
-    }
-  },
-  {
-    code:"600236.SH",
-    name:"桂冠电力",
-    industry:"电力",
-    tier:"premium",
-    totalIndicators:80,
-    confirmedCount:24,
-    imputedCount:6,
-    coverageRate:37.5,
-    basicRank:47,
-    premiumRank:1,
-    basicScore:54.54,
-    premiumScore:60.32,
-    indicators:{
-      E:[
-        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:3.2,source:"confirmed",confidence:1.0},
-        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:0.85,source:"confirmed",confidence:1.0},
-      ],
-      S:[
-        {code:"Q_S_RD_RATE",name:"研发费用占比",value:0.22,source:"confirmed",confidence:1.0},
-      ],
-      G:[
-        {code:"Q_G_ROE",name:"净资产收益率",value:15.3,source:"confirmed",confidence:1.0},
-        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:42.8,source:"confirmed",confidence:1.0},
-      ],
-    }
-  },
-  {
-    code:"601225.SH",
-    name:"陕西煤业",
-    industry:"煤炭",
-    tier:"premium",
-    totalIndicators:80,
-    confirmedCount:23,
-    imputedCount:5,
-    coverageRate:35.0,
-    basicRank:69,
-    premiumRank:3,
-    basicScore:52.82,
-    premiumScore:58.23,
-    indicators:{
-      E:[
-        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:850.0,source:"confirmed",confidence:1.0},
-        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:1400.0,source:"confirmed",confidence:1.0},
-        {code:"Q_E_SO2_INTENSITY",name:"二氧化硫排放强度",value:2.5,source:"imputed",confidence:0.15},
-      ],
-      S:[
-        {code:"Q_S_SAFETY_INVEST_RATE",name:"安全生产投入占比",value:1.8,source:"confirmed",confidence:1.0},
-      ],
-      G:[
-        {code:"Q_G_ROE",name:"净资产收益率",value:18.2,source:"confirmed",confidence:1.0},
-        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:38.5,source:"confirmed",confidence:1.0},
-      ],
-    }
-  },
-];
+// 动态加载企业数据
+let companies = [];
+let companyDetails = {};
+
+// 加载企业列表
+async function loadCompanies() {
+  try {
+    const response = await fetch('../data/companies.json');
+    const data = await response.json();
+    companies = data.companies;
+    console.log(`✓ 加载 ${companies.length} 家企业`);
+    renderCompanyGrid();
+  } catch (error) {
+    console.error('加载企业列表失败:', error);
+    document.getElementById('companyGrid').innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px">数据加载失败，请刷新页面重试</p>';
+  }
+}
+
+// 加载企业详细数据
+async function loadCompanyDetails() {
+  try {
+    const response = await fetch('../data/company-details.json');
+    const data = await response.json();
+    // 转换为字典格式方便查询
+    data.details.forEach(detail => {
+      companyDetails[detail.code] = detail;
+    });
+    console.log(`✓ 加载 ${data.details.length} 家企业详细数据`);
+  } catch (error) {
+    console.error('加载企业详情失败:', error);
+  }
+}
 
 function renderCompanyGrid() {
   const grid = document.getElementById('companyGrid');
   grid.innerHTML = companies.map(comp => {
-    const coveragePct = comp.coverageRate;
-    const rankChange = comp.basicRank - comp.premiumRank;
-    const scoreChange = comp.premiumScore - comp.basicScore;
+    const coveragePct = comp.coverage_rate;
+    const rankChange = comp.basic_rank && comp.premium_rank ? comp.basic_rank - comp.premium_rank : 0;
+    const scoreChange = comp.premium_score && comp.basic_score ? comp.premium_score - comp.basic_score : 0;
 
     return `
       <div class="company-card" onclick="showCompanyDetail('${comp.code}')">
@@ -577,15 +518,15 @@ function renderCompanyGrid() {
 
         <div class="stats-row">
           <div class="stat-mini">
-            <strong>${comp.confirmedCount}</strong>
+            <strong>${comp.confirmed_count}</strong>
             <small>已披露</small>
           </div>
           <div class="stat-mini">
-            <strong>${comp.imputedCount}</strong>
+            <strong>${comp.imputed_count}</strong>
             <small>行业填充</small>
           </div>
           <div class="stat-mini">
-            <strong class="${rankChange > 0 ? 'delta up' : 'delta down'}">${rankChange > 0 ? '↑' : '↓'}${Math.abs(rankChange)}</strong>
+            <strong class="${rankChange > 0 ? 'delta up' : rankChange < 0 ? 'delta down' : ''}">${rankChange > 0 ? '↑' + Math.abs(rankChange) : rankChange < 0 ? '↓' + Math.abs(rankChange) : '-'}</strong>
             <small>排名变化</small>
           </div>
         </div>
@@ -614,8 +555,15 @@ function showCompanyDetail(code) {
   const comp = companies.find(c => c.code === code);
   if (!comp) return;
 
-  const rankChange = comp.basicRank - comp.premiumRank;
-  const scoreChange = comp.premiumScore - comp.basicScore;
+  // 从详细数据获取指标信息
+  const detail = companyDetails[code];
+  if (!detail) {
+    alert('该企业详细数据尚未加载');
+    return;
+  }
+
+  const rankChange = comp.basic_rank && comp.premium_rank ? comp.basic_rank - comp.premium_rank : 0;
+  const scoreChange = comp.premium_score && comp.basic_score ? comp.premium_score - comp.basic_score : 0;
 
   let html = `
     <div class="company-header">
@@ -640,23 +588,23 @@ function showCompanyDetail(code) {
 
     <div class="overview-stats">
       <div class="stat-card">
-        <strong class="counter" data-target="${comp.coverageRate.toFixed(1)}">${comp.coverageRate.toFixed(1)}</strong>
-        <small>数据覆盖率</small>
+        <strong class="counter" data-target="${comp.coverage_rate.toFixed(1)}">${comp.coverage_rate.toFixed(1)}</strong>
+        <small>数据覆盖率(%)</small>
       </div>
       <div class="stat-card">
-        <strong class="counter" data-target="${comp.premiumRank}">${comp.premiumRank}</strong>
+        <strong class="counter" data-target="${comp.premium_rank || 0}">${comp.premium_rank || '-'}</strong>
         <small>高级排名</small>
-        <div class="delta up">↑${rankChange}名</div>
+        ${rankChange > 0 ? `<div class="delta up">↑${rankChange}名</div>` : ''}
       </div>
       <div class="stat-card">
-        <strong class="counter" data-target="${comp.premiumScore.toFixed(2)}">${comp.premiumScore.toFixed(2)}</strong>
+        <strong class="counter" data-target="${comp.premium_score ? comp.premium_score.toFixed(2) : 0}">${comp.premium_score ? comp.premium_score.toFixed(2) : '-'}</strong>
         <small>高级得分</small>
-        <div class="delta up">+${scoreChange.toFixed(2)}</div>
+        ${scoreChange > 0 ? `<div class="delta up">+${scoreChange.toFixed(2)}</div>` : ''}
       </div>
       <div class="stat-card">
-        <strong class="counter" data-target="${comp.confirmedCount + comp.imputedCount}">${comp.confirmedCount + comp.imputedCount}</strong>
+        <strong class="counter" data-target="${comp.confirmed_count + comp.imputed_count}">${comp.confirmed_count + comp.imputed_count}</strong>
         <small>总指标数</small>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px">${comp.confirmedCount}披露 + ${comp.imputedCount}填充</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">${comp.confirmed_count}披露 + ${comp.imputed_count}填充</div>
       </div>
     </div>
   `;
@@ -664,7 +612,7 @@ function showCompanyDetail(code) {
   // 各维度指标
   ['E','S','G'].forEach(dim => {
     const dimName = {E:'环境',S:'社会',G:'治理'}[dim];
-    const indicators = comp.indicators[dim] || [];
+    const indicators = detail.indicators[dim] || [];
 
     html += `
       <div class="dimension-section">
@@ -749,8 +697,9 @@ function closeModal() {
   document.getElementById('detailModal').classList.remove('active');
 }
 
-// 初始化
-renderCompanyGrid();
+// 初始化 - 加载数据
+loadCompanies();
+loadCompanyDetails();
 
 // 点击弹窗外部关闭
 document.getElementById('detailModal').addEventListener('click', function(e) {
