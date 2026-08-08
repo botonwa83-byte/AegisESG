@@ -1,0 +1,758 @@
+{
+  "summary": {
+    "matched_companies": 582,
+    "total_companies_2024": 636,
+    "total_companies_2025": 612,
+    "total_indicators_analyzed": 8,
+    "stable_indicators_count": 0,
+    "volatile_indicators_count": 2,
+    "anomalies_count": 151
+  },
+  "indicator_summary": [
+    {
+      "indicator_code": "Q_G_DEBT_ASSET_RATE",
+      "matched_pairs": 505,
+      "avg_yoy_change": 8.1,
+      "avg_abs_change": 23.56,
+      "stddev": 40.77,
+      "stable_rate": 42.0,
+      "moderate_rate": 32.5,
+      "high_volatility_rate": 25.5
+    },
+    {
+      "indicator_code": "Q_S_RD_RATE",
+      "matched_pairs": 406,
+      "avg_yoy_change": 146.7,
+      "avg_abs_change": 163.2,
+      "stddev": 709.28,
+      "stable_rate": 27.8,
+      "moderate_rate": 26.8,
+      "high_volatility_rate": 45.3
+    },
+    {
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "matched_pairs": 8,
+      "avg_yoy_change": 1358.93,
+      "avg_abs_change": 1383.29,
+      "stddev": 3286.64,
+      "stable_rate": 25.0,
+      "moderate_rate": 12.5,
+      "high_volatility_rate": 62.5
+    },
+    {
+      "indicator_code": "Q_E_GHG_INTENSITY",
+      "matched_pairs": 19,
+      "avg_yoy_change": 54.32,
+      "avg_abs_change": 98.22,
+      "stddev": 228.74,
+      "stable_rate": 21.1,
+      "moderate_rate": 15.8,
+      "high_volatility_rate": 63.2
+    },
+    {
+      "indicator_code": "Q_E_WATER_INTENSITY",
+      "matched_pairs": 14,
+      "avg_yoy_change": 41.22,
+      "avg_abs_change": 80.26,
+      "stddev": 107.59,
+      "stable_rate": 14.3,
+      "moderate_rate": 21.4,
+      "high_volatility_rate": 64.3
+    },
+    {
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "matched_pairs": 236,
+      "avg_yoy_change": 54.0,
+      "avg_abs_change": 95.44,
+      "stddev": 170.69,
+      "stable_rate": 11.9,
+      "moderate_rate": 16.9,
+      "high_volatility_rate": 71.2
+    },
+    {
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "matched_pairs": 14,
+      "avg_yoy_change": 148.71,
+      "avg_abs_change": 180.59,
+      "stddev": 279.66,
+      "stable_rate": 7.1,
+      "moderate_rate": 28.6,
+      "high_volatility_rate": 64.3
+    },
+    {
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "matched_pairs": 17,
+      "avg_yoy_change": 299.08,
+      "avg_abs_change": 339.17,
+      "stddev": 989.74,
+      "stable_rate": 5.9,
+      "moderate_rate": 23.5,
+      "high_volatility_rate": 70.6
+    }
+  ],
+  "stable_indicators": [],
+  "volatile_indicators": [
+    {
+      "indicator_code": "Q_S_RD_RATE",
+      "matched_pairs": 406,
+      "avg_yoy_change": 146.7,
+      "avg_abs_change": 163.2,
+      "stddev": 709.28,
+      "stable_rate": 27.8,
+      "moderate_rate": 26.8,
+      "high_volatility_rate": 45.3
+    },
+    {
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "matched_pairs": 236,
+      "avg_yoy_change": 54.0,
+      "avg_abs_change": 95.44,
+      "stddev": 170.69,
+      "stable_rate": 11.9,
+      "moderate_rate": 16.9,
+      "high_volatility_rate": 71.2
+    }
+  ],
+  "anomalies": [
+    {
+      "company_code": "600438.SH",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "value_2024": 0.71,
+      "value_2025": 72.0,
+      "yoy_change": 10040.8
+    },
+    {
+      "company_code": "601991.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.02,
+      "value_2025": 2.02,
+      "yoy_change": 10000.0
+    },
+    {
+      "company_code": "00579.HK",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.05,
+      "value_2025": 3.67,
+      "yoy_change": 7240.0
+    },
+    {
+      "company_code": "601225.SH",
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "value_2024": 32.4,
+      "value_2025": 1400.0,
+      "yoy_change": 4221.0
+    },
+    {
+      "company_code": "600905.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 1.95,
+      "yoy_change": 3150.0
+    },
+    {
+      "company_code": "000767.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.05,
+      "value_2025": 1.51,
+      "yoy_change": 2920.0
+    },
+    {
+      "company_code": "002608.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.25,
+      "yoy_change": 2400.0
+    },
+    {
+      "company_code": "605011.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.04,
+      "value_2025": 0.94,
+      "yoy_change": 2250.0
+    },
+    {
+      "company_code": "600903.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.23,
+      "yoy_change": 2200.0
+    },
+    {
+      "company_code": "600863.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 1.28,
+      "yoy_change": 2033.3
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.22,
+      "value_2025": 4.52,
+      "yoy_change": 1954.5
+    },
+    {
+      "company_code": "600310.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.03,
+      "value_2025": 0.55,
+      "yoy_change": 1733.3
+    },
+    {
+      "company_code": "600509.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.01,
+      "value_2025": 0.18,
+      "yoy_change": 1700.0
+    },
+    {
+      "company_code": "600900.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.17,
+      "value_2025": 2.85,
+      "yoy_change": 1576.5
+    },
+    {
+      "company_code": "603693.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.02,
+      "value_2025": 0.29,
+      "yoy_change": 1350.0
+    },
+    {
+      "company_code": "002805.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.84,
+      "value_2025": 10.26,
+      "yoy_change": 1121.4
+    },
+    {
+      "company_code": "600732.SH",
+      "indicator_code": "Q_E_GHG_INTENSITY",
+      "value_2024": 212.11,
+      "value_2025": 2313.294,
+      "yoy_change": 990.6
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 0.53,
+      "value_2025": 5.725,
+      "yoy_change": 980.2
+    },
+    {
+      "company_code": "000600.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.32,
+      "yoy_change": 966.7
+    },
+    {
+      "company_code": "002531.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.54,
+      "value_2025": 5.47,
+      "yoy_change": 913.0
+    },
+    {
+      "company_code": "003035.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.17,
+      "value_2025": 1.71,
+      "yoy_change": 905.9
+    },
+    {
+      "company_code": "002335.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.5,
+      "yoy_change": 900.0
+    },
+    {
+      "company_code": "600021.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.04,
+      "value_2025": 0.37,
+      "yoy_change": 825.0
+    },
+    {
+      "company_code": "002850.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.3,
+      "value_2025": 2.5,
+      "yoy_change": 733.3
+    },
+    {
+      "company_code": "603105.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.12,
+      "value_2025": 1.0,
+      "yoy_change": 733.3
+    },
+    {
+      "company_code": "002823.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.244,
+      "yoy_change": 714.3
+    },
+    {
+      "company_code": "000543.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.379,
+      "yoy_change": 658.0
+    },
+    {
+      "company_code": "603191.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 1.1,
+      "value_2025": 7.82,
+      "yoy_change": 610.9
+    },
+    {
+      "company_code": "600886.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.08,
+      "value_2025": 0.56,
+      "yoy_change": 600.0
+    },
+    {
+      "company_code": "603530.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.35,
+      "yoy_change": 600.0
+    },
+    {
+      "company_code": "601898.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.35,
+      "value_2025": 2.42,
+      "yoy_change": 591.4
+    },
+    {
+      "company_code": "002221.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.06,
+      "value_2025": 0.41,
+      "yoy_change": 583.3
+    },
+    {
+      "company_code": "000966.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.11,
+      "value_2025": 0.74,
+      "yoy_change": 572.7
+    },
+    {
+      "company_code": "000690.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.2,
+      "yoy_change": 566.7
+    },
+    {
+      "company_code": "001258.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.1,
+      "value_2025": 0.66,
+      "yoy_change": 560.0
+    },
+    {
+      "company_code": "301155.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.82,
+      "value_2025": 5.27,
+      "yoy_change": 542.7
+    },
+    {
+      "company_code": "601012.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.99,
+      "value_2025": 6.11,
+      "yoy_change": 517.2
+    },
+    {
+      "company_code": "06885.HK",
+      "indicator_code": "Q_E_SO2_INTENSITY",
+      "value_2024": 72.61,
+      "value_2025": 440.0,
+      "yoy_change": 506.0
+    },
+    {
+      "company_code": "603897.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.2,
+      "value_2025": 1.2,
+      "yoy_change": 500.0
+    },
+    {
+      "company_code": "600744.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.34,
+      "value_2025": 2.01,
+      "yoy_change": 491.2
+    },
+    {
+      "company_code": "600732.SH",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 1.42,
+      "value_2025": 8.159,
+      "yoy_change": 474.6
+    },
+    {
+      "company_code": "600578.SH",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.12,
+      "value_2025": 0.68,
+      "yoy_change": 466.7
+    },
+    {
+      "company_code": "600312.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.06,
+      "value_2025": 0.331,
+      "yoy_change": 451.7
+    },
+    {
+      "company_code": "688303.SH",
+      "indicator_code": "Q_E_ENERGY_INTENSITY",
+      "value_2024": 367.79,
+      "value_2025": 1997.802,
+      "yoy_change": 443.2
+    },
+    {
+      "company_code": "300409.SZ",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.05,
+      "value_2025": 0.25,
+      "yoy_change": 400.0
+    },
+    {
+      "company_code": "601991.SH",
+      "indicator_code": "Q_S_DIVIDEND_PER_SHARE",
+      "value_2024": 0.03,
+      "value_2025": 0.148,
+      "yoy_change": 393.3
+    },
+    {
+      "company_code": "001289.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.24,
+      "value_2025": 1.15,
+      "yoy_change": 379.2
+    },
+    {
+      "company_code": "300483.SZ",
+      "indicator_code": "Q_S_RD_RATE",
+      "value_2024": 0.55,
+      "value_2025": 2.6,
+      "yoy_change": 372.7
+    },
+    {
+      "company_code": "000400.SZ",
+      "indicator_code": "Q_E_NOX_INTENSITY",
+      "value_2024": 0.2,
+      "value_2025": 0.941,
+      "yoy_change": 370.3
+    },
+    {
+      "company_code": "000096.SZ",
+      "indicator_code": "Q_G_DEBT_ASSET_RATE",
+      "value_2024": 5.48,
+      "value_2025": 25.363,
+      "yoy_change": 362.8
+    }
+  ],
+  "most_stable_companies": [
+    {
+      "company_code": "03899.HK",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.09,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.1
+    },
+    {
+      "company_code": "603031.SH",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.09,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.1
+    },
+    {
+      "company_code": "300037.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 0.13,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 0.2
+    },
+    {
+      "company_code": "03868.HK",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.16,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.2
+    },
+    {
+      "company_code": "00002.HK",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.36,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.4
+    },
+    {
+      "company_code": "002060.SZ",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.43,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.4
+    },
+    {
+      "company_code": "601918.SH",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.55,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.5
+    },
+    {
+      "company_code": "688499.SH",
+      "matched_indicators": 2,
+      "avg_yoy_change": 0.86,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1.3
+    },
+    {
+      "company_code": "01799.HK",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.9,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.9
+    },
+    {
+      "company_code": "002527.SZ",
+      "matched_indicators": 1,
+      "avg_yoy_change": 0.94,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 0.9
+    },
+    {
+      "company_code": "002245.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 1.85,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2.7
+    },
+    {
+      "company_code": "600644.SH",
+      "matched_indicators": 1,
+      "avg_yoy_change": 1.95,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 1.9
+    },
+    {
+      "company_code": "300690.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 1.98,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2.8
+    },
+    {
+      "company_code": "00392.HK",
+      "matched_indicators": 1,
+      "avg_yoy_change": 2.26,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 2.3
+    },
+    {
+      "company_code": "301040.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 2.52,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 4.4
+    },
+    {
+      "company_code": "002560.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 2.88,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 4.0
+    },
+    {
+      "company_code": "600212.SH",
+      "matched_indicators": 1,
+      "avg_yoy_change": 2.98,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 3.0
+    },
+    {
+      "company_code": "000009.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 3.27,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 6.5
+    },
+    {
+      "company_code": "002358.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 3.28,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 4.2
+    },
+    {
+      "company_code": "300769.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 3.31,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 5.7
+    }
+  ],
+  "most_volatile_companies": [
+    {
+      "company_code": "000600.SZ",
+      "matched_indicators": 3,
+      "avg_yoy_change": 355.71,
+      "max_change_indicator": "Q_S_DIVIDEND_PER_SHARE",
+      "max_change_value": 966.7
+    },
+    {
+      "company_code": "600900.SH",
+      "matched_indicators": 5,
+      "avg_yoy_change": 360.18,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1576.5
+    },
+    {
+      "company_code": "000096.SZ",
+      "matched_indicators": 1,
+      "avg_yoy_change": 362.83,
+      "max_change_indicator": "Q_G_DEBT_ASSET_RATE",
+      "max_change_value": 362.8
+    },
+    {
+      "company_code": "600732.SH",
+      "matched_indicators": 4,
+      "avg_yoy_change": 383.56,
+      "max_change_indicator": "Q_E_GHG_INTENSITY",
+      "max_change_value": 990.6
+    },
+    {
+      "company_code": "603693.SH",
+      "matched_indicators": 3,
+      "avg_yoy_change": 451.49,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1350.0
+    },
+    {
+      "company_code": "002531.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 461.33,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 913.0
+    },
+    {
+      "company_code": "605011.SH",
+      "matched_indicators": 5,
+      "avg_yoy_change": 526.33,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2250.0
+    },
+    {
+      "company_code": "002805.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 600.61,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1121.4
+    },
+    {
+      "company_code": "600863.SH",
+      "matched_indicators": 3,
+      "avg_yoy_change": 693.03,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2033.3
+    },
+    {
+      "company_code": "688303.SH",
+      "matched_indicators": 5,
+      "avg_yoy_change": 696.62,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1954.5
+    },
+    {
+      "company_code": "002608.SZ",
+      "matched_indicators": 3,
+      "avg_yoy_change": 811.76,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2400.0
+    },
+    {
+      "company_code": "600905.SH",
+      "matched_indicators": 4,
+      "avg_yoy_change": 820.34,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 3150.0
+    },
+    {
+      "company_code": "600509.SH",
+      "matched_indicators": 2,
+      "avg_yoy_change": 854.53,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1700.0
+    },
+    {
+      "company_code": "600310.SH",
+      "matched_indicators": 2,
+      "avg_yoy_change": 867.36,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 1733.3
+    },
+    {
+      "company_code": "601225.SH",
+      "matched_indicators": 4,
+      "avg_yoy_change": 1078.49,
+      "max_change_indicator": "Q_E_ENERGY_INTENSITY",
+      "max_change_value": 4221.0
+    },
+    {
+      "company_code": "600903.SH",
+      "matched_indicators": 2,
+      "avg_yoy_change": 1101.0,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2200.0
+    },
+    {
+      "company_code": "000767.SZ",
+      "matched_indicators": 2,
+      "avg_yoy_change": 1460.95,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 2920.0
+    },
+    {
+      "company_code": "601991.SH",
+      "matched_indicators": 4,
+      "avg_yoy_change": 2600.86,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 10000.0
+    },
+    {
+      "company_code": "600438.SH",
+      "matched_indicators": 3,
+      "avg_yoy_change": 3413.91,
+      "max_change_indicator": "Q_E_SO2_INTENSITY",
+      "max_change_value": 10040.8
+    },
+    {
+      "company_code": "00579.HK",
+      "matched_indicators": 2,
+      "avg_yoy_change": 3620.74,
+      "max_change_indicator": "Q_S_RD_RATE",
+      "max_change_value": 7240.0
+    }
+  ],
+  "recommendations": [
+    "发现2个高波动指标（40%+样本变化>30%），预测时需要更宽的置信区间",
+    "稳定指标可使用线性趋势或移动平均预测",
+    "高波动指标建议使用行业均值填充而非预测",
+    "异常变化案例需要人工复核，可能是数据质量问题或重大事件"
+  ]
+}
