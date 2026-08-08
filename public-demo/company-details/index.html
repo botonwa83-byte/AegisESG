@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>万绿信评 · 企业数据明细</title>
+<style>
+:root{
+  --bg:#f8f9fd;
+  --panel:#fff;
+  --ink:#24324a;
+  --muted:#78869a;
+  --blue:#4e79ff;
+  --green:#20a486;
+  --amber:#f59e0b;
+  --pink:#ef6e9b;
+  --purple:#a855f7;
+  --line:#e8edf5;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+main{max-width:1400px;margin:auto;padding:0 28px 80px}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:36px;
+}
+.brand{font-weight:800;color:var(--pink);font-size:14px;letter-spacing:.5px}
+.nav a{
+  margin-left:20px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+}
+.nav a:hover{color:var(--blue)}
+
+.hero{margin-bottom:32px}
+h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
+.lead{font-size:16px;color:#596b82;margin:0}
+
+.search-panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:32px;
+  box-shadow:0 10px 30px rgba(83,104,135,0.08);
+  margin-bottom:32px;
+}
+
+.search-box{
+  width:100%;
+  padding:16px 20px;
+  border:2px solid var(--line);
+  border-radius:12px;
+  font-size:16px;
+  transition:border-color 0.2s;
+}
+.search-box:focus{
+  outline:none;
+  border-color:var(--blue);
+}
+
+.company-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:20px;
+  margin-top:24px;
+}
+
+.company-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px;
+  cursor:pointer;
+  transition:all 0.2s;
+  box-shadow:0 4px 12px rgba(83,104,135,0.06);
+}
+.company-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px rgba(83,104,135,0.15);
+  border-color:var(--blue);
+}
+
+.company-name{
+  font-size:18px;
+  font-weight:700;
+  margin:0 0 4px;
+  color:var(--ink);
+}
+.company-code{
+  font-size:13px;
+  color:var(--muted);
+  margin:0 0 16px;
+}
+
+.coverage-meter{
+  margin:12px 0;
+}
+.coverage-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin-bottom:6px;
+}
+.coverage-bar{
+  height:8px;
+  background:#e8edf5;
+  border-radius:4px;
+  overflow:hidden;
+}
+.coverage-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--green),#34d399);
+  transition:width 0.6s ease;
+}
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+.stat-mini{
+  text-align:center;
+  padding:8px;
+  background:#f7f8fc;
+  border-radius:8px;
+}
+.stat-mini strong{
+  display:block;
+  font-size:18px;
+  color:var(--blue);
+}
+.stat-mini small{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.detail-modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(0,0,0,0.5);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow-y:auto;
+}
+.detail-modal.active{
+  display:flex;
+}
+.modal-content{
+  background:var(--panel);
+  border-radius:20px;
+  max-width:1000px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:40px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.modal-close{
+  float:right;
+  background:none;
+  border:none;
+  font-size:32px;
+  color:var(--muted);
+  cursor:pointer;
+  line-height:1;
+  padding:0;
+  margin:-8px -8px 0 0;
+}
+.modal-close:hover{color:var(--ink)}
+
+.company-header{
+  margin-bottom:32px;
+  padding-bottom:24px;
+  border-bottom:2px solid var(--line);
+}
+.company-header h2{
+  font-size:28px;
+  margin:0 0 8px;
+}
+.company-meta{
+  display:flex;
+  gap:24px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+.meta-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.overview-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-bottom:32px;
+}
+.stat-card{
+  background:#f7f8fc;
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+}
+.stat-card strong{
+  display:block;
+  font-size:32px;
+  color:var(--blue);
+  margin-bottom:4px;
+}
+.stat-card small{
+  color:var(--muted);
+  font-size:13px;
+}
+.stat-card .delta{
+  font-size:14px;
+  font-weight:700;
+  margin-top:4px;
+}
+.delta.up{color:var(--green)}
+.delta.down{color:#dc2626}
+
+.dimension-section{
+  margin-bottom:32px;
+}
+.dimension-section h3{
+  font-size:20px;
+  margin:0 0 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.dim-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:16px;
+  color:#fff;
+}
+.dim-badge.E{background:linear-gradient(135deg,#10b981,#059669)}
+.dim-badge.S{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+.dim-badge.G{background:linear-gradient(135deg,#8b5cf6,#7c3aed)}
+
+.indicator-grid{
+  display:grid;
+  gap:12px;
+}
+.indicator-row{
+  display:grid;
+  grid-template-columns:2fr 120px 100px 80px;
+  gap:16px;
+  align-items:center;
+  padding:16px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  transition:background 0.2s;
+}
+.indicator-row:hover{
+  background:#f9fafb;
+}
+.indicator-name{
+  font-weight:600;
+}
+.indicator-code{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+.indicator-value{
+  font-family:'SF Mono',Monaco,monospace;
+  font-size:14px;
+  font-weight:600;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:600;
+  text-align:center;
+}
+.badge-confirmed{background:#d1fae5;color:var(--green)}
+.badge-imputed{background:#fed7aa;color:#d97706}
+.badge-high{background:#dbeafe;color:var(--blue)}
+.badge-medium{background:#fef3c7;color:#d97706}
+.badge-low{background:#fee2e2;color:#dc2626}
+
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+}
+.empty-state svg{
+  width:80px;
+  height:80px;
+  margin-bottom:16px;
+  opacity:0.3;
+}
+
+.tier-indicator{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 12px;
+  background:linear-gradient(135deg,var(--blue),#6366f1);
+  color:#fff;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <div class="brand">万绿信评 · ESG科学决策系统</div>
+    <div class="nav">
+      <a href="../">系统总览</a>
+      <a href="../data-visualization/">数据可视化</a>
+      <a href="index.html">企业明细</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>企业数据明细查询</h1>
+    <p class="lead">查看612家能源企业的ESG指标覆盖情况、数据来源和质量评估</p>
+  </div>
+
+  <div class="search-panel">
+    <input
+      type="text"
+      class="search-box"
+      id="companySearch"
+      placeholder="搜索企业名称或代码（如：长江电力、600900）..."
+      onkeyup="filterCompanies()"
+    >
+    <div class="company-grid" id="companyGrid">
+      <!-- 动态填充 -->
+    </div>
+    <div id="emptyState" class="empty-state hidden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>未找到匹配的企业</p>
+    </div>
+  </div>
+
+  <!-- 详情弹窗 -->
+  <div class="detail-modal" id="detailModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// 示例企业数据（实际应从API加载）
+const companies = [
+  {
+    code:"600900.SH",
+    name:"长江电力",
+    industry:"电力",
+    tier:"premium",
+    totalIndicators:80,
+    confirmedCount:22,
+    imputedCount:5,
+    coverageRate:33.75,
+    basicRank:64,
+    premiumRank:5,
+    basicScore:53.29,
+    premiumScore:57.75,
+    indicators:{
+      E:[
+        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:4.13,source:"confirmed",confidence:1.0},
+        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:0.98,source:"confirmed",confidence:1.0},
+        {code:"Q_E_WATER_INTENSITY",name:"水资源使用强度",value:null,source:"missing",confidence:0},
+        {code:"Q_E_SO2_INTENSITY",name:"二氧化硫排放强度",value:0.12,source:"imputed",confidence:0.15},
+        {code:"Q_E_NOX_INTENSITY",name:"氮氧化物排放强度",value:0.08,source:"imputed",confidence:0.17},
+      ],
+      S:[
+        {code:"Q_S_RD_RATE",name:"研发费用占比",value:0.17,source:"confirmed",confidence:1.0},
+        {code:"Q_S_SAFETY_INVEST_RATE",name:"安全生产投入占比",value:0.15,source:"confirmed",confidence:1.0},
+        {code:"Q_S_ENV_INVEST_RATE",name:"环保投入占比",value:0.18,source:"imputed",confidence:0.26},
+      ],
+      G:[
+        {code:"Q_G_ROE",name:"净资产收益率",value:12.5,source:"confirmed",confidence:1.0},
+        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:45.2,source:"confirmed",confidence:1.0},
+        {code:"Q_G_ASSET_TURNOVER",name:"总资产周转率",value:0.32,source:"confirmed",confidence:1.0},
+      ],
+    }
+  },
+  {
+    code:"600236.SH",
+    name:"桂冠电力",
+    industry:"电力",
+    tier:"premium",
+    totalIndicators:80,
+    confirmedCount:24,
+    imputedCount:6,
+    coverageRate:37.5,
+    basicRank:47,
+    premiumRank:1,
+    basicScore:54.54,
+    premiumScore:60.32,
+    indicators:{
+      E:[
+        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:3.2,source:"confirmed",confidence:1.0},
+        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:0.85,source:"confirmed",confidence:1.0},
+      ],
+      S:[
+        {code:"Q_S_RD_RATE",name:"研发费用占比",value:0.22,source:"confirmed",confidence:1.0},
+      ],
+      G:[
+        {code:"Q_G_ROE",name:"净资产收益率",value:15.3,source:"confirmed",confidence:1.0},
+        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:42.8,source:"confirmed",confidence:1.0},
+      ],
+    }
+  },
+  {
+    code:"601225.SH",
+    name:"陕西煤业",
+    industry:"煤炭",
+    tier:"premium",
+    totalIndicators:80,
+    confirmedCount:23,
+    imputedCount:5,
+    coverageRate:35.0,
+    basicRank:69,
+    premiumRank:3,
+    basicScore:52.82,
+    premiumScore:58.23,
+    indicators:{
+      E:[
+        {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",value:850.0,source:"confirmed",confidence:1.0},
+        {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",value:1400.0,source:"confirmed",confidence:1.0},
+        {code:"Q_E_SO2_INTENSITY",name:"二氧化硫排放强度",value:2.5,source:"imputed",confidence:0.15},
+      ],
+      S:[
+        {code:"Q_S_SAFETY_INVEST_RATE",name:"安全生产投入占比",value:1.8,source:"confirmed",confidence:1.0},
+      ],
+      G:[
+        {code:"Q_G_ROE",name:"净资产收益率",value:18.2,source:"confirmed",confidence:1.0},
+        {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",value:38.5,source:"confirmed",confidence:1.0},
+      ],
+    }
+  },
+];
+
+function renderCompanyGrid() {
+  const grid = document.getElementById('companyGrid');
+  grid.innerHTML = companies.map(comp => {
+    const coveragePct = comp.coverageRate;
+    const rankChange = comp.basicRank - comp.premiumRank;
+    const scoreChange = comp.premiumScore - comp.basicScore;
+
+    return `
+      <div class="company-card" onclick="showCompanyDetail('${comp.code}')">
+        <div class="company-name">${comp.name}</div>
+        <div class="company-code">${comp.code} · ${comp.industry}</div>
+
+        <div class="coverage-meter">
+          <div class="coverage-label">
+            <span style="font-size:12px;color:var(--muted)">数据覆盖率</span>
+            <strong style="color:var(--blue)">${coveragePct.toFixed(1)}%</strong>
+          </div>
+          <div class="coverage-bar">
+            <div class="coverage-fill" style="width:${coveragePct}%"></div>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-mini">
+            <strong>${comp.confirmedCount}</strong>
+            <small>已披露</small>
+          </div>
+          <div class="stat-mini">
+            <strong>${comp.imputedCount}</strong>
+            <small>行业填充</small>
+          </div>
+          <div class="stat-mini">
+            <strong class="${rankChange > 0 ? 'delta up' : 'delta down'}">${rankChange > 0 ? '↑' : '↓'}${Math.abs(rankChange)}</strong>
+            <small>排名变化</small>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterCompanies() {
+  const query = document.getElementById('companySearch').value.toLowerCase();
+  const cards = document.querySelectorAll('.company-card');
+  const empty = document.getElementById('emptyState');
+
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    const isVisible = text.includes(query);
+    card.style.display = isVisible ? '' : 'none';
+    if(isVisible) visibleCount++;
+  });
+
+  empty.classList.toggle('hidden', visibleCount > 0);
+}
+
+function showCompanyDetail(code) {
+  const comp = companies.find(c => c.code === code);
+  if (!comp) return;
+
+  const rankChange = comp.basicRank - comp.premiumRank;
+  const scoreChange = comp.premiumScore - comp.basicScore;
+
+  let html = `
+    <div class="company-header">
+      <h2>${comp.name}</h2>
+      <div class="company-meta">
+        <div class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18M3 15h18"/></svg>
+          ${comp.code}
+        </div>
+        <div class="meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 7h-9M14 17H5M16 3v18"/></svg>
+          ${comp.industry}
+        </div>
+        <div class="meta-item">
+          <span class="tier-indicator">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            高级排名
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overview-stats">
+      <div class="stat-card">
+        <strong>${comp.coverageRate.toFixed(1)}%</strong>
+        <small>数据覆盖率</small>
+      </div>
+      <div class="stat-card">
+        <strong>${comp.premiumRank}</strong>
+        <small>高级排名</small>
+        <div class="delta up">↑${rankChange}名</div>
+      </div>
+      <div class="stat-card">
+        <strong>${comp.premiumScore.toFixed(2)}</strong>
+        <small>高级得分</small>
+        <div class="delta up">+${scoreChange.toFixed(2)}</div>
+      </div>
+      <div class="stat-card">
+        <strong>${comp.confirmedCount + comp.imputedCount}</strong>
+        <small>总指标数</small>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">${comp.confirmedCount}披露 + ${comp.imputedCount}填充</div>
+      </div>
+    </div>
+  `;
+
+  // 各维度指标
+  ['E','S','G'].forEach(dim => {
+    const dimName = {E:'环境',S:'社会',G:'治理'}[dim];
+    const indicators = comp.indicators[dim] || [];
+
+    html += `
+      <div class="dimension-section">
+        <h3>
+          <span class="dim-badge ${dim}">${dim}</span>
+          ${dimName}维度（${indicators.length}个指标）
+        </h3>
+        <div class="indicator-grid">
+    `;
+
+    indicators.forEach(ind => {
+      const sourceLabel = {
+        confirmed:'已披露',
+        imputed:'行业填充',
+        missing:'缺失'
+      }[ind.source];
+
+      const confLabel = ind.confidence >= 0.8 ? 'high' : ind.confidence >= 0.6 ? 'medium' : 'low';
+
+      html += `
+        <div class="indicator-row">
+          <div>
+            <div class="indicator-name">${ind.name}</div>
+            <div class="indicator-code">${ind.code}</div>
+          </div>
+          <div class="indicator-value">${ind.value !== null ? ind.value : '-'}</div>
+          <span class="badge badge-${ind.source}">${sourceLabel}</span>
+          <span class="badge badge-${confLabel}">${ind.confidence.toFixed(2)}</span>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('detailModal').classList.remove('active');
+}
+
+// 初始化
+renderCompanyGrid();
+
+// 点击弹窗外部关闭
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
