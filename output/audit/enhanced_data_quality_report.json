@@ -1,0 +1,1169 @@
+{
+  "summary": {
+    "total_observations": 14190,
+    "total_companies": 612,
+    "source_distribution": {
+      "confirmed": 7988,
+      "imputed": 6202
+    },
+    "avg_confidence": 0.602,
+    "confidence_distribution": {
+      "high": 7988,
+      "medium": 0,
+      "low": 6202
+    }
+  },
+  "dimension_analysis": {
+    "E": {
+      "total_observations": 4937,
+      "confirmed": 259,
+      "imputed": 4678,
+      "derived": 0,
+      "predicted": 0,
+      "imputed_rate": 94.75
+    },
+    "S": {
+      "total_observations": 2643,
+      "confirmed": 1479,
+      "imputed": 1164,
+      "derived": 0,
+      "predicted": 0,
+      "imputed_rate": 44.04
+    },
+    "G": {
+      "total_observations": 6610,
+      "confirmed": 6250,
+      "imputed": 360,
+      "derived": 0,
+      "predicted": 0,
+      "imputed_rate": 5.45
+    }
+  },
+  "indicator_analysis": [
+    {
+      "code": "Q_E_SO2_INTENSITY",
+      "name": "二氧化硫排放强度",
+      "dimension": "E",
+      "total_observations": 542,
+      "company_count": 542,
+      "coverage_rate": 88.56209150326796,
+      "source_distribution": {
+        "confirmed": 13,
+        "imputed": 529,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 97.60147601476015,
+      "avg_confidence": 0.15,
+      "confidence_distribution": {
+        "high": 13,
+        "medium": 0,
+        "low": 529
+      }
+    },
+    {
+      "code": "Q_E_WASTEWATER_INTENSITY",
+      "name": "废水/污水排放强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 21,
+        "imputed": 522,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 96.13259668508287,
+      "avg_confidence": 0.149,
+      "confidence_distribution": {
+        "high": 21,
+        "medium": 0,
+        "low": 522
+      }
+    },
+    {
+      "code": "Q_E_WATER_INTENSITY",
+      "name": "水资源使用强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 21,
+        "imputed": 522,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 96.13259668508287,
+      "avg_confidence": 0.149,
+      "confidence_distribution": {
+        "high": 21,
+        "medium": 0,
+        "low": 522
+      }
+    },
+    {
+      "code": "Q_E_HAZ_WASTE_INTENSITY",
+      "name": "危险固体废物排放强度",
+      "dimension": "E",
+      "total_observations": 545,
+      "company_count": 545,
+      "coverage_rate": 89.05228758169935,
+      "source_distribution": {
+        "confirmed": 22,
+        "imputed": 523,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.96330275229357,
+      "avg_confidence": 0.144,
+      "confidence_distribution": {
+        "high": 22,
+        "medium": 0,
+        "low": 523
+      }
+    },
+    {
+      "code": "Q_E_PM_INTENSITY",
+      "name": "颗粒物排放强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 22,
+        "imputed": 521,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.94843462246777,
+      "avg_confidence": 0.157,
+      "confidence_distribution": {
+        "high": 22,
+        "medium": 0,
+        "low": 521
+      }
+    },
+    {
+      "code": "Q_E_NOX_INTENSITY",
+      "name": "氮氧化物排放强度",
+      "dimension": "E",
+      "total_observations": 544,
+      "company_count": 544,
+      "coverage_rate": 88.88888888888889,
+      "source_distribution": {
+        "confirmed": 24,
+        "imputed": 520,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.58823529411765,
+      "avg_confidence": 0.167,
+      "confidence_distribution": {
+        "high": 24,
+        "medium": 0,
+        "low": 520
+      }
+    },
+    {
+      "code": "Q_E_SOLID_WASTE_INTENSITY",
+      "name": "一般固体废物排放强度",
+      "dimension": "E",
+      "total_observations": 544,
+      "company_count": 544,
+      "coverage_rate": 88.88888888888889,
+      "source_distribution": {
+        "confirmed": 25,
+        "imputed": 519,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.40441176470588,
+      "avg_confidence": 0.175,
+      "confidence_distribution": {
+        "high": 25,
+        "medium": 0,
+        "low": 519
+      }
+    },
+    {
+      "code": "Q_S_SAFETY_INVEST_RATE",
+      "name": "安全生产投入占比",
+      "dimension": "S",
+      "total_observations": 545,
+      "company_count": 545,
+      "coverage_rate": 89.05228758169935,
+      "source_distribution": {
+        "confirmed": 26,
+        "imputed": 519,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.22935779816514,
+      "avg_confidence": 0.279,
+      "confidence_distribution": {
+        "high": 26,
+        "medium": 0,
+        "low": 519
+      }
+    },
+    {
+      "code": "Q_E_ENERGY_INTENSITY",
+      "name": "综合能源消耗强度",
+      "dimension": "E",
+      "total_observations": 547,
+      "company_count": 547,
+      "coverage_rate": 89.37908496732027,
+      "source_distribution": {
+        "confirmed": 32,
+        "imputed": 515,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 94.14990859232175,
+      "avg_confidence": 0.211,
+      "confidence_distribution": {
+        "high": 32,
+        "medium": 0,
+        "low": 515
+      }
+    },
+    {
+      "code": "Q_S_ENV_INVEST_RATE",
+      "name": "环保投入占比",
+      "dimension": "S",
+      "total_observations": 549,
+      "company_count": 549,
+      "coverage_rate": 89.70588235294117,
+      "source_distribution": {
+        "confirmed": 40,
+        "imputed": 509,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 92.71402550091075,
+      "avg_confidence": 0.26,
+      "confidence_distribution": {
+        "high": 40,
+        "medium": 0,
+        "low": 509
+      }
+    },
+    {
+      "code": "Q_E_GHG_INTENSITY",
+      "name": "温室气体排放强度",
+      "dimension": "E",
+      "total_observations": 548,
+      "company_count": 548,
+      "coverage_rate": 89.54248366013073,
+      "source_distribution": {
+        "confirmed": 41,
+        "imputed": 507,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 92.51824817518248,
+      "avg_confidence": 0.262,
+      "confidence_distribution": {
+        "high": 41,
+        "medium": 0,
+        "low": 507
+      }
+    },
+    {
+      "code": "Q_G_CURRENT_ASSET_TURNOVER",
+      "name": "流动资产周转率",
+      "dimension": "G",
+      "total_observations": 607,
+      "company_count": 607,
+      "coverage_rate": 99.18300653594771,
+      "source_distribution": {
+        "confirmed": 387,
+        "imputed": 220,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 36.24382207578254,
+      "avg_confidence": 0.713,
+      "confidence_distribution": {
+        "high": 387,
+        "medium": 0,
+        "low": 220
+      }
+    },
+    {
+      "code": "Q_G_ASSET_TURNOVER",
+      "name": "总资产周转率",
+      "dimension": "G",
+      "total_observations": 610,
+      "company_count": 610,
+      "coverage_rate": 99.67320261437908,
+      "source_distribution": {
+        "confirmed": 470,
+        "imputed": 140,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 22.950819672131146,
+      "avg_confidence": 0.815,
+      "confidence_distribution": {
+        "high": 470,
+        "medium": 0,
+        "low": 140
+      }
+    },
+    {
+      "code": "Q_S_RD_RATE",
+      "name": "研发费用占比",
+      "dimension": "S",
+      "total_observations": 611,
+      "company_count": 611,
+      "coverage_rate": 99.83660130718954,
+      "source_distribution": {
+        "confirmed": 475,
+        "imputed": 136,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 22.25859247135843,
+      "avg_confidence": 0.827,
+      "confidence_distribution": {
+        "high": 475,
+        "medium": 0,
+        "low": 136
+      }
+    },
+    {
+      "code": "Q_G_CASH_REALIZATION",
+      "name": "营业收现率",
+      "dimension": "G",
+      "total_observations": 289,
+      "company_count": 289,
+      "coverage_rate": 47.22222222222222,
+      "source_distribution": {
+        "confirmed": 289,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 289,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_DEBT_ASSET_RATE",
+      "name": "资产负债率",
+      "dimension": "G",
+      "total_observations": 523,
+      "company_count": 523,
+      "coverage_rate": 85.45751633986927,
+      "source_distribution": {
+        "confirmed": 523,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.938,
+      "confidence_distribution": {
+        "high": 523,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_REVENUE_GROWTH",
+      "name": "营业增长率",
+      "dimension": "G",
+      "total_observations": 465,
+      "company_count": 465,
+      "coverage_rate": 75.98039215686273,
+      "source_distribution": {
+        "confirmed": 465,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.913,
+      "confidence_distribution": {
+        "high": 465,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_ROE",
+      "name": "净资产收益率",
+      "dimension": "G",
+      "total_observations": 565,
+      "company_count": 565,
+      "coverage_rate": 92.3202614379085,
+      "source_distribution": {
+        "confirmed": 565,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.93,
+      "confidence_distribution": {
+        "high": 565,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_S_BENEFIT_PER_EMPLOYEE",
+      "name": "员工福利、社保和公积金费用",
+      "dimension": "S",
+      "total_observations": 83,
+      "company_count": 83,
+      "coverage_rate": 13.562091503267974,
+      "source_distribution": {
+        "confirmed": 83,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.95,
+      "confidence_distribution": {
+        "high": 83,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_S_DIVIDEND_PER_SHARE",
+      "name": "现金分红",
+      "dimension": "S",
+      "total_observations": 362,
+      "company_count": 362,
+      "coverage_rate": 59.150326797385624,
+      "source_distribution": {
+        "confirmed": 362,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 362,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_S_PAY_PER_EMPLOYEE",
+      "name": "员工薪酬",
+      "dimension": "S",
+      "total_observations": 125,
+      "company_count": 125,
+      "coverage_rate": 20.424836601307188,
+      "source_distribution": {
+        "confirmed": 125,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.95,
+      "confidence_distribution": {
+        "high": 125,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_E_GHG_REDUCTION_RATE",
+      "name": "温室气体减排率",
+      "dimension": "E",
+      "total_observations": 31,
+      "company_count": 31,
+      "coverage_rate": 5.065359477124183,
+      "source_distribution": {
+        "confirmed": 31,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.916,
+      "confidence_distribution": {
+        "high": 31,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_CAPITAL_ACCUMULATION",
+      "name": "资本积累率",
+      "dimension": "G",
+      "total_observations": 388,
+      "company_count": 388,
+      "coverage_rate": 63.39869281045751,
+      "source_distribution": {
+        "confirmed": 388,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 388,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_EBITDA_INTEREST",
+      "name": "EBITDA利息倍数",
+      "dimension": "G",
+      "total_observations": 352,
+      "company_count": 352,
+      "coverage_rate": 57.51633986928104,
+      "source_distribution": {
+        "confirmed": 352,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 352,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_EBITDA_MARGIN",
+      "name": "EBITDA利润率",
+      "dimension": "G",
+      "total_observations": 249,
+      "company_count": 249,
+      "coverage_rate": 40.68627450980392,
+      "source_distribution": {
+        "confirmed": 249,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 249,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_QUICK_RATIO",
+      "name": "速动比率",
+      "dimension": "G",
+      "total_observations": 354,
+      "company_count": 354,
+      "coverage_rate": 57.84313725490197,
+      "source_distribution": {
+        "confirmed": 354,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 354,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_ROA",
+      "name": "总资产报酬率",
+      "dimension": "G",
+      "total_observations": 271,
+      "company_count": 271,
+      "coverage_rate": 44.28104575163398,
+      "source_distribution": {
+        "confirmed": 271,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 271,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_AR_TURNOVER",
+      "name": "应收账款周转率",
+      "dimension": "G",
+      "total_observations": 448,
+      "company_count": 448,
+      "coverage_rate": 73.20261437908496,
+      "source_distribution": {
+        "confirmed": 448,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 448,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_CASH_CURRENT_LIABILITY",
+      "name": "现金流动负债比率",
+      "dimension": "G",
+      "total_observations": 247,
+      "company_count": 247,
+      "coverage_rate": 40.35947712418301,
+      "source_distribution": {
+        "confirmed": 247,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.939,
+      "confidence_distribution": {
+        "high": 247,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_OPERATING_MARGIN",
+      "name": "营业利润率",
+      "dimension": "G",
+      "total_observations": 313,
+      "company_count": 313,
+      "coverage_rate": 51.143790849673195,
+      "source_distribution": {
+        "confirmed": 313,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.939,
+      "confidence_distribution": {
+        "high": 313,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_OPERATING_PROFIT_GROWTH",
+      "name": "营业利润增长率",
+      "dimension": "G",
+      "total_observations": 237,
+      "company_count": 237,
+      "coverage_rate": 38.72549019607843,
+      "source_distribution": {
+        "confirmed": 237,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.939,
+      "confidence_distribution": {
+        "high": 237,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_TWO_FUNDS_RATE",
+      "name": "两金占流动资产比例",
+      "dimension": "G",
+      "total_observations": 385,
+      "company_count": 385,
+      "coverage_rate": 62.908496732026144,
+      "source_distribution": {
+        "confirmed": 385,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 385,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_S_EDU_PER_EMPLOYEE",
+      "name": "工会和职工教育经费",
+      "dimension": "S",
+      "total_observations": 94,
+      "company_count": 94,
+      "coverage_rate": 15.359477124183007,
+      "source_distribution": {
+        "confirmed": 94,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.95,
+      "confidence_distribution": {
+        "high": 94,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_COST_REVENUE_RATE",
+      "name": "成本费用占营业收入比例",
+      "dimension": "G",
+      "total_observations": 307,
+      "company_count": 307,
+      "coverage_rate": 50.16339869281046,
+      "source_distribution": {
+        "confirmed": 307,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.94,
+      "confidence_distribution": {
+        "high": 307,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_S_DONATION_RATE",
+      "name": "社会公益投入占比",
+      "dimension": "S",
+      "total_observations": 274,
+      "company_count": 274,
+      "coverage_rate": 44.771241830065364,
+      "source_distribution": {
+        "confirmed": 274,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.9,
+      "confidence_distribution": {
+        "high": 274,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_E_ALTERNATIVE_WATER_RATE",
+      "name": "再生水或其他替代水源占比",
+      "dimension": "E",
+      "total_observations": 6,
+      "company_count": 6,
+      "coverage_rate": 0.9803921568627451,
+      "source_distribution": {
+        "confirmed": 6,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.96,
+      "confidence_distribution": {
+        "high": 6,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_E_CLEAN_ENERGY_INTENSITY",
+      "name": "绿色/可再生/清洁能源生产/使用强度",
+      "dimension": "E",
+      "total_observations": 1,
+      "company_count": 1,
+      "coverage_rate": 0.16339869281045752,
+      "source_distribution": {
+        "confirmed": 1,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.95,
+      "confidence_distribution": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    }
+  ],
+  "weak_indicators": [
+    {
+      "code": "Q_E_SO2_INTENSITY",
+      "name": "二氧化硫排放强度",
+      "dimension": "E",
+      "total_observations": 542,
+      "company_count": 542,
+      "coverage_rate": 88.56209150326796,
+      "source_distribution": {
+        "confirmed": 13,
+        "imputed": 529,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 97.60147601476015,
+      "avg_confidence": 0.15,
+      "confidence_distribution": {
+        "high": 13,
+        "medium": 0,
+        "low": 529
+      }
+    },
+    {
+      "code": "Q_E_WASTEWATER_INTENSITY",
+      "name": "废水/污水排放强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 21,
+        "imputed": 522,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 96.13259668508287,
+      "avg_confidence": 0.149,
+      "confidence_distribution": {
+        "high": 21,
+        "medium": 0,
+        "low": 522
+      }
+    },
+    {
+      "code": "Q_E_WATER_INTENSITY",
+      "name": "水资源使用强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 21,
+        "imputed": 522,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 96.13259668508287,
+      "avg_confidence": 0.149,
+      "confidence_distribution": {
+        "high": 21,
+        "medium": 0,
+        "low": 522
+      }
+    },
+    {
+      "code": "Q_E_HAZ_WASTE_INTENSITY",
+      "name": "危险固体废物排放强度",
+      "dimension": "E",
+      "total_observations": 545,
+      "company_count": 545,
+      "coverage_rate": 89.05228758169935,
+      "source_distribution": {
+        "confirmed": 22,
+        "imputed": 523,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.96330275229357,
+      "avg_confidence": 0.144,
+      "confidence_distribution": {
+        "high": 22,
+        "medium": 0,
+        "low": 523
+      }
+    },
+    {
+      "code": "Q_E_PM_INTENSITY",
+      "name": "颗粒物排放强度",
+      "dimension": "E",
+      "total_observations": 543,
+      "company_count": 543,
+      "coverage_rate": 88.72549019607843,
+      "source_distribution": {
+        "confirmed": 22,
+        "imputed": 521,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.94843462246777,
+      "avg_confidence": 0.157,
+      "confidence_distribution": {
+        "high": 22,
+        "medium": 0,
+        "low": 521
+      }
+    },
+    {
+      "code": "Q_E_NOX_INTENSITY",
+      "name": "氮氧化物排放强度",
+      "dimension": "E",
+      "total_observations": 544,
+      "company_count": 544,
+      "coverage_rate": 88.88888888888889,
+      "source_distribution": {
+        "confirmed": 24,
+        "imputed": 520,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.58823529411765,
+      "avg_confidence": 0.167,
+      "confidence_distribution": {
+        "high": 24,
+        "medium": 0,
+        "low": 520
+      }
+    },
+    {
+      "code": "Q_E_SOLID_WASTE_INTENSITY",
+      "name": "一般固体废物排放强度",
+      "dimension": "E",
+      "total_observations": 544,
+      "company_count": 544,
+      "coverage_rate": 88.88888888888889,
+      "source_distribution": {
+        "confirmed": 25,
+        "imputed": 519,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.40441176470588,
+      "avg_confidence": 0.175,
+      "confidence_distribution": {
+        "high": 25,
+        "medium": 0,
+        "low": 519
+      }
+    },
+    {
+      "code": "Q_S_SAFETY_INVEST_RATE",
+      "name": "安全生产投入占比",
+      "dimension": "S",
+      "total_observations": 545,
+      "company_count": 545,
+      "coverage_rate": 89.05228758169935,
+      "source_distribution": {
+        "confirmed": 26,
+        "imputed": 519,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 95.22935779816514,
+      "avg_confidence": 0.279,
+      "confidence_distribution": {
+        "high": 26,
+        "medium": 0,
+        "low": 519
+      }
+    },
+    {
+      "code": "Q_E_ENERGY_INTENSITY",
+      "name": "综合能源消耗强度",
+      "dimension": "E",
+      "total_observations": 547,
+      "company_count": 547,
+      "coverage_rate": 89.37908496732027,
+      "source_distribution": {
+        "confirmed": 32,
+        "imputed": 515,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 94.14990859232175,
+      "avg_confidence": 0.211,
+      "confidence_distribution": {
+        "high": 32,
+        "medium": 0,
+        "low": 515
+      }
+    },
+    {
+      "code": "Q_S_ENV_INVEST_RATE",
+      "name": "环保投入占比",
+      "dimension": "S",
+      "total_observations": 549,
+      "company_count": 549,
+      "coverage_rate": 89.70588235294117,
+      "source_distribution": {
+        "confirmed": 40,
+        "imputed": 509,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 92.71402550091075,
+      "avg_confidence": 0.26,
+      "confidence_distribution": {
+        "high": 40,
+        "medium": 0,
+        "low": 509
+      }
+    },
+    {
+      "code": "Q_E_GHG_INTENSITY",
+      "name": "温室气体排放强度",
+      "dimension": "E",
+      "total_observations": 548,
+      "company_count": 548,
+      "coverage_rate": 89.54248366013073,
+      "source_distribution": {
+        "confirmed": 41,
+        "imputed": 507,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 92.51824817518248,
+      "avg_confidence": 0.262,
+      "confidence_distribution": {
+        "high": 41,
+        "medium": 0,
+        "low": 507
+      }
+    }
+  ],
+  "strong_indicators": [
+    {
+      "code": "Q_G_CURRENT_ASSET_TURNOVER",
+      "name": "流动资产周转率",
+      "dimension": "G",
+      "total_observations": 607,
+      "company_count": 607,
+      "coverage_rate": 99.18300653594771,
+      "source_distribution": {
+        "confirmed": 387,
+        "imputed": 220,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 36.24382207578254,
+      "avg_confidence": 0.713,
+      "confidence_distribution": {
+        "high": 387,
+        "medium": 0,
+        "low": 220
+      }
+    },
+    {
+      "code": "Q_G_ASSET_TURNOVER",
+      "name": "总资产周转率",
+      "dimension": "G",
+      "total_observations": 610,
+      "company_count": 610,
+      "coverage_rate": 99.67320261437908,
+      "source_distribution": {
+        "confirmed": 470,
+        "imputed": 140,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 22.950819672131146,
+      "avg_confidence": 0.815,
+      "confidence_distribution": {
+        "high": 470,
+        "medium": 0,
+        "low": 140
+      }
+    },
+    {
+      "code": "Q_S_RD_RATE",
+      "name": "研发费用占比",
+      "dimension": "S",
+      "total_observations": 611,
+      "company_count": 611,
+      "coverage_rate": 99.83660130718954,
+      "source_distribution": {
+        "confirmed": 475,
+        "imputed": 136,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 22.25859247135843,
+      "avg_confidence": 0.827,
+      "confidence_distribution": {
+        "high": 475,
+        "medium": 0,
+        "low": 136
+      }
+    },
+    {
+      "code": "Q_G_DEBT_ASSET_RATE",
+      "name": "资产负债率",
+      "dimension": "G",
+      "total_observations": 523,
+      "company_count": 523,
+      "coverage_rate": 85.45751633986927,
+      "source_distribution": {
+        "confirmed": 523,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.938,
+      "confidence_distribution": {
+        "high": 523,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "code": "Q_G_ROE",
+      "name": "净资产收益率",
+      "dimension": "G",
+      "total_observations": 565,
+      "company_count": 565,
+      "coverage_rate": 92.3202614379085,
+      "source_distribution": {
+        "confirmed": 565,
+        "imputed": 0,
+        "derived": 0,
+        "predicted": 0
+      },
+      "imputed_rate": 0.0,
+      "avg_confidence": 0.93,
+      "confidence_distribution": {
+        "high": 565,
+        "medium": 0,
+        "low": 0
+      }
+    }
+  ],
+  "recommendations": [
+    "发现11个薄弱指标（高填充率+低置信度），建议优先从外部数据源补充原始披露：二氧化硫排放强度, 废水/污水排放强度, 水资源使用强度, 危险固体废物排放强度, 颗粒物排放强度",
+    "E维度填充率94.8%较高，建议从行业协会或政府平台获取更多原始数据",
+    "已有5个优质指标（高覆盖+高原始数据），可作为质量基准",
+    "所有IMPUTED数据已标注来源和置信度，满足透明度要求",
+    "建议在高级排名产品中展示数据来源分布图表",
+    "定期（季度）刷新行业基准值，提升填充数据时效性"
+  ]
+}
