@@ -623,24 +623,76 @@ h1{font-size:34px;margin:8px 0 10px;letter-spacing:-0.5px}
 </main>
 
 <script>
-const indicatorData = [
-  {code:"Q_E_SO2_INTENSITY",name:"二氧化硫排放强度",dim:"E",companies:542,confirmed:13,imputed:529,imputedRate:97.6,confidence:0.15},
-  {code:"Q_E_WASTEWATER_INTENSITY",name:"废水/污水排放强度",dim:"E",companies:543,confirmed:21,imputed:522,imputedRate:96.1,confidence:0.149},
-  {code:"Q_E_WATER_INTENSITY",name:"水资源使用强度",dim:"E",companies:543,confirmed:21,imputed:522,imputedRate:96.1,confidence:0.149},
-  {code:"Q_E_HAZ_WASTE_INTENSITY",name:"危险固体废物排放强度",dim:"E",companies:545,confirmed:22,imputed:523,imputedRate:96.0,confidence:0.144},
-  {code:"Q_E_PM_INTENSITY",name:"颗粒物排放强度",dim:"E",companies:543,confirmed:22,imputed:521,imputedRate:95.9,confidence:0.157},
-  {code:"Q_E_NOX_INTENSITY",name:"氮氧化物排放强度",dim:"E",companies:544,confirmed:24,imputed:520,imputedRate:95.6,confidence:0.167},
-  {code:"Q_E_SOLID_WASTE_INTENSITY",name:"一般固体废物排放强度",dim:"E",companies:544,confirmed:25,imputed:519,imputedRate:95.4,confidence:0.175},
-  {code:"Q_S_SAFETY_INVEST_RATE",name:"安全生产投入占比",dim:"S",companies:545,confirmed:26,imputed:519,imputedRate:95.2,confidence:0.279},
-  {code:"Q_E_ENERGY_INTENSITY",name:"综合能源消耗强度",dim:"E",companies:547,confirmed:32,imputed:515,imputedRate:94.1,confidence:0.211},
-  {code:"Q_S_ENV_INVEST_RATE",name:"环保投入占比",dim:"S",companies:549,confirmed:40,imputed:509,imputedRate:92.7,confidence:0.26},
-  {code:"Q_E_GHG_INTENSITY",name:"温室气体排放强度",dim:"E",companies:553,confirmed:84,imputed:469,imputedRate:84.8,confidence:0.377},
-  {code:"Q_G_CURRENT_ASSET_TURNOVER",name:"流动资产周转率",dim:"G",companies:607,confirmed:387,imputed:220,imputedRate:36.2,confidence:0.682},
-  {code:"Q_G_ASSET_TURNOVER",name:"总资产周转率",dim:"G",companies:611,confirmed:471,imputed:140,imputedRate:22.9,confidence:0.791},
-  {code:"Q_S_RD_RATE",name:"研发费用占比",dim:"S",companies:611,confirmed:475,imputed:136,imputedRate:22.3,confidence:0.795},
-  {code:"Q_G_DEBT_ASSET_RATE",name:"资产负债率",dim:"G",companies:523,confirmed:523,imputed:0,imputedRate:0,confidence:1.0},
-  {code:"Q_G_ROE",name:"净资产收益率",dim:"G",companies:565,confirmed:565,imputed:0,imputedRate:0,confidence:1.0},
-];
+let indicatorData = [];
+let statisticsData = null;
+
+// 加载统计数据
+async function loadStatistics() {
+  try {
+    const response = await fetch('../data/statistics.json');
+    const data = await response.json();
+    statisticsData = data.stats;
+
+    // 使用真实数据
+    indicatorData = statisticsData.by_indicator.map(ind => ({
+      code: ind.code,
+      name: ind.name,
+      dim: ind.dimension,
+      companies: ind.companies,
+      confirmed: ind.confirmed,
+      imputed: ind.imputed,
+      imputedRate: ind.imputed_rate,
+      confidence: ind.avg_confidence
+    }));
+
+    console.log(`✓ 加载 ${indicatorData.length} 个指标统计数据`);
+
+    // 更新页面数据
+    updateOverviewStats();
+    updateDimensionStats();
+    renderIndicatorTable();
+
+  } catch (error) {
+    console.error('加载统计数据失败:', error);
+  }
+}
+
+// 更新总览统计
+function updateOverviewStats() {
+  if (!statisticsData) return;
+
+  const overview = statisticsData.overview;
+  document.querySelector('#tab-overview .stat-box:nth-child(1) strong').textContent = overview.total_observations.toLocaleString();
+  document.querySelector('#tab-overview .stat-box:nth-child(2) strong').textContent = overview.confirmed.toLocaleString();
+  document.querySelector('#tab-overview .stat-box:nth-child(3) strong').textContent = overview.imputed.toLocaleString();
+  document.querySelector('#tab-overview .stat-box:nth-child(4) strong').textContent = `${overview.confirmed_rate}%`;
+}
+
+// 更新维度统计
+function updateDimensionStats() {
+  if (!statisticsData) return;
+
+  statisticsData.by_dimension.forEach((dim, index) => {
+    const chartCard = document.querySelectorAll('.chart-card')[index];
+    if (!chartCard) return;
+
+    // 更新已披露数据
+    const confirmedBar = chartCard.querySelector('.bar-row:nth-child(1) .bar-fill');
+    const confirmedStrong = chartCard.querySelector('.bar-row:nth-child(1) strong');
+    const confirmedPct = (dim.confirmed / dim.total * 100).toFixed(1);
+    confirmedBar.style.width = `${confirmedPct}%`;
+    confirmedBar.textContent = `${confirmedPct}%`;
+    confirmedStrong.textContent = `${dim.confirmed}条`;
+
+    // 更新行业填充数据
+    const imputedBar = chartCard.querySelector('.bar-row:nth-child(2) .bar-fill');
+    const imputedStrong = chartCard.querySelector('.bar-row:nth-child(2) strong');
+    const imputedPct = (dim.imputed / dim.total * 100).toFixed(1);
+    imputedBar.style.width = `${imputedPct}%`;
+    imputedBar.textContent = `${imputedPct}%`;
+    imputedStrong.textContent = `${dim.imputed}条`;
+  });
+}
 
 function renderIndicatorTable() {
   const tbody = document.getElementById('indicatorTableBody');
@@ -737,8 +789,8 @@ function closeModal() {
   document.getElementById('detailModal').classList.remove('active');
 }
 
-// 初始化
-renderIndicatorTable();
+// 初始化 - 加载真实数据
+loadStatistics();
 animateBarCharts();
 
 // 点击弹窗外部关闭

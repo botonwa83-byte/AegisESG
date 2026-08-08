@@ -453,56 +453,54 @@ function exportExcel() {
 function exportJSON() {
   showProgress('正在导出JSON数据...');
 
-  setTimeout(() => {
-    const data = {
-      metadata: {
-        title: "万绿信评ESG数据导出",
-        version: "v1.0",
-        generated_at: new Date().toISOString(),
-        total_companies: 612,
-        total_observations: 14190,
-      },
-      summary: {
-        coverage_rate: 0.85,
-        average_confidence: 0.602,
-        source_distribution: {
-          confirmed: 7988,
-          imputed: 6202,
-        },
-      },
-      rankings: {
-        basic: {
-          note: "仅包含企业披露数据，覆盖率40%",
-          top_10: [
-            {rank: 1, code: "600236.SH", name: "桂冠电力", score: 60.32},
-            {rank: 2, code: "002259.SZ", name: "升达林业", score: 58.35},
-            // ... 更多数据
-          ],
-        },
-        premium: {
-          note: "包含增强数据，覆盖率85%",
-          top_10: [
-            {rank: 1, code: "600236.SH", name: "桂冠电力", score: 60.32},
-            // ... 更多数据
-          ],
-        },
-      },
-    };
-
-    const content = JSON.stringify(data, null, 2);
-    downloadFile('esg_data_export_2025.json', content, 'application/json');
-    hideProgress();
-  }, 1000);
+  // 直接下载真实的companies.json
+  fetch('../data/companies.json')
+    .then(r => r.json())
+    .then(data => {
+      const content = JSON.stringify(data, null, 2);
+      downloadFile('ESG企业数据_2025.json', content, 'application/json');
+      hideProgress();
+    })
+    .catch(e => {
+      alert('导出失败: ' + e.message);
+      hideProgress();
+    });
 }
 
 function exportCSV() {
   showProgress('正在生成CSV文件...');
 
-  setTimeout(() => {
-    const csv = generateCSVContent();
-    downloadFile('esg_ranking_2025.csv', csv, 'text/csv');
-    hideProgress();
-  }, 1000);
+  fetch('../data/companies.json')
+    .then(r => r.json())
+    .then(data => {
+      // 转换为CSV格式
+      const companies = data.companies;
+      const headers = ['代码', '名称', '行业', '覆盖率%', '已披露', '行业填充', '基础排名', '基础得分', '高级排名', '高级得分'];
+      const rows = companies.map(c => [
+        c.code,
+        c.name,
+        c.industry,
+        c.coverage_rate,
+        c.confirmed_count,
+        c.imputed_count,
+        c.basic_rank || '-',
+        c.basic_score || '-',
+        c.premium_rank || '-',
+        c.premium_score || '-'
+      ]);
+
+      let csv = headers.join(',') + '\n';
+      rows.forEach(row => {
+        csv += row.join(',') + '\n';
+      });
+
+      downloadFile('ESG企业数据_2025.csv', csv, 'text/csv;charset=utf-8;');
+      hideProgress();
+    })
+    .catch(e => {
+      alert('导出失败: ' + e.message);
+      hideProgress();
+    });
 }
 
 function generatePDFContent() {
@@ -513,18 +511,6 @@ function generatePDFContent() {
 function generateExcelContent() {
   // 实际应用中这里会调用Excel生成库
   return new Blob(['Excel内容（示例）'], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-}
-
-function generateCSVContent() {
-  const headers = 'rank,company_code,company_name,total_score,e_score,s_score,g_score,coverage_rate\n';
-  const rows = [
-    '1,600236.SH,桂冠电力,60.32,18.5,20.1,21.72,30.0',
-    '2,002259.SZ,升达林业,58.35,17.8,19.5,21.05,25.0',
-    '3,601225.SH,陕西煤业,58.23,17.2,20.3,20.73,28.75',
-    // ... 更多数据
-  ].join('\n');
-
-  return headers + rows;
 }
 
 function downloadFile(filename, content, type) {
